@@ -51,7 +51,11 @@ export default class User {
     }
 
     static getProfilePic(User){
-      return User.profilePic;
+
+      let sInitialPic = User.profilePic||'';
+      if (sInitialPic === '') sInitialPic = 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=wavatar&f=y';
+
+      return sInitialPic;
     }
 
 }

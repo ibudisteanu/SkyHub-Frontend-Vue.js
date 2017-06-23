@@ -5,8 +5,9 @@
 
     THIS IS BODY
 
-    <div id="page-wrapper" class="gray-bg" :style="{minHeight: 785}">
+    <div id="page-wrapper" class="gray-bg" :style="{minHeight: '785px', marginTop: '-20px'}">
 
+      <Header />
 
 
     </div>
