@@ -14,10 +14,10 @@ import { Provider as ReduxProvider } from 'react-redux';
 import {startLocalizationFetchingAsync} from './../my-redux/actions/Localization.actions';
 
 //Creating the Socket Service
-import SocketService from '../services/Communication/socket/Socket.service';
-import AuthService from './services/REST/authentication/Auth.service';
-import ForumsService from './services/REST/forums/forums/Forums.service';
-import ContentService from './services/REST/forums/content/Content.service';
+import SocketService from '../services/communication/client-socket/ClientSocket.service';
+import AuthService from '../services/REST/authentication/Auth.service';
+import ForumsService from '../services/REST/forums/forums/Forums.service';
+import ContentService from '../services/REST/forums/content/Content.service';
 
 
 import {connect} from 'react-redux';

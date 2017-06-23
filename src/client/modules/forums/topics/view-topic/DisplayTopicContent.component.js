@@ -6,8 +6,8 @@
 import React from 'react';
 import {connect} from "react-redux";
 
-import AuthService from '../../../../services/REST/authentication/Auth.service';
-import ContentService from '../../../../services/REST/forums/content/Content.service';
+import AuthService from '../../../../../services/REST/authentication/Auth.service';
+import ContentService from '../../../../../services/REST/forums/content/Content.service';
 
 import ContentButtons from '../../components/ContentButtons.component';
 

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 import {connect} from 'react-redux';
 
-import SocketService from '../../../../services/Communication/socket/Socket.service';
+import SocketService from '../../../../services/communication/client-socket/ClientSocket.service';
 
 class SearchAutoComplete extends React.Component {
 
@@ -63,7 +63,7 @@ class SearchAutoComplete extends React.Component {
 
     return new Promise((resolve)=>{
 
-      SocketService.sendRequestGetDataPromise("search/parents", {text: input}).then ((data)=>{
+      SocketService.sendRequestGetData("search/parents", {text: input}).then ((data)=>{
 
         if (data === null) { resolve ({options: []}); console.log("ERROR getting keywords "); }
         else {

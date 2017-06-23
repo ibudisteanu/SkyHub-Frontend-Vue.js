@@ -7,7 +7,7 @@
 import React from 'react';
 import Link from '../../../../../Link/Link';
 
-import AuthService from './../../../../../../services/REST/authentication/Auth.service';
+import AuthService from '../../../../../../../services/REST/authentication/Auth.service';
 import Notification from "../../../../../../../models/Notification/Notification.model";
 import NotificationMenu from "../../../../../../modules/notifications/NotificationsMenu.component";
 

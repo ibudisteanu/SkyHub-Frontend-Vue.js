@@ -17,8 +17,8 @@ import LoadingButton from '../../../../components/util-components/UI/buttons/Loa
 
 import OauthSocialNetworkComponent from '../oauth-social-networks-form/OAuth.social.networks.component';
 
-import SocketService from '../../../../../hackernews-api/Communication/socket/Socket.service';
-import AuthService from './../../../../services/REST/authentication/Auth.service';
+import SocketService from '../../../../../hackernews-api/communication/client-socket/Socket.service';
+import AuthService from '../../../../../services/REST/authentication/Auth.service';
 
 export class RegistrationForm extends React.Component {
 

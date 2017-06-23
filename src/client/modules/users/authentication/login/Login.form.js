@@ -6,7 +6,7 @@ import Link from '../../../../components/Link/Link';
 
 import OauthSocialNetworkComponent from '../oauth-social-networks-form/OAuth.social.networks.component';
 
-import AuthService from './../../../../services/REST/authentication/Auth.service';
+import AuthService from '../../../../../services/REST/authentication/Auth.service';
 
 export default class LoginForm extends React.Component {
 

@@ -7,10 +7,10 @@ import * as io from 'socket.io-client';
 
 import { Observable, Subscribable } from 'rxjs/Observable';
 
-import CookiesService from '../../../client/services/cookies/cookies.service';
+import CookiesService from '../../cookies/cookies.service';
 import * as SocketStatusActions from '../../../../my-redux/actions/SocketStatus.actions';
 
-class SocketServiceClass {
+class ClientSocketServiceClass {
 
     sServerSocketAddress = "myskyhub.ddns.net:4000";
     sServerSocketApi = "api/";
@@ -126,7 +126,7 @@ class SocketServiceClass {
     /*
      Sending the Request and Obtain the Promise to Wait Async
      */
-    sendRequestGetDataPromise(sRequestName, sRequestData) {
+    sendRequestGetData(sRequestName, sRequestData) {
         return new Promise((resolve) => {
 
             this.sendRequest(sRequestName, sRequestData);
@@ -141,10 +141,6 @@ class SocketServiceClass {
             });
 
         });
-    }
-
-    sendMessage(msg) {
-        return this.sendRequest("message", msg);
     }
 
     /*
@@ -175,15 +171,5 @@ class SocketServiceClass {
 
 }
 
-var SocketService = new SocketServiceClass();
-
-export default SocketService;
-
-// var SocketService = new SocketServiceClass();
-//
-// export default {
-//   SocketService: SocketService,
-//   createNewInstance: function (){
-//     SocketService = new SocketServiceClass();
-//   }
-// };
+var ClientSocketService = new ClientSocketServiceClass();
+export default ClientSocketService;

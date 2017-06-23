@@ -3,9 +3,9 @@
  * (C) BIT TECHNOLOGIES
  */
 
-import CookiesService from '../../Cookies/Cookies.service';
-import SocketService from '../../../../services/Communication/socket/Socket.service';
-import User from '../../../../models/User/User.model';
+import CookiesService from '../../cookies/cookies.service';
+import SocketService from '../../communication/client-socket/ClientSocket.service';
+import User from '../../../models/User/User.model';
 
 import * as UserAuthenticatedActions from '../../../../my-redux/actions/UserAuthenticated.actions';
 
@@ -62,7 +62,7 @@ export class AuthServiceClass {
             if (this.userAuthenticated.user.isLoggedIn() === true) { console.log("user already logged in"); resolve(true); return ;}; //already logged in
 
             //Using Promise
-            SocketService.sendRequestGetDataPromise("auth/login",{emailUsername:sEmailUserName, password:sPassword}).then( (resData) => {
+            SocketService.sendRequestGetData("auth/login",{emailUsername:sEmailUserName, password:sPassword}).then( (resData) => {
 
                 console.log('Answer from Server Auth Login');
                 console.log(resData);
@@ -94,7 +94,7 @@ export class AuthServiceClass {
             if (this.userAuthenticated.user.isLoggedIn() === true) { resolve(true); return ;}; //already logged in
 
             //SocketService.createClientSocket();
-            SocketService.sendRequestGetDataPromise("auth/login-session",{sessionId: sessionId}).then( (resData ) => {
+            SocketService.sendRequestGetData("auth/login-session",{sessionId: sessionId}).then( (resData ) => {
 
                 console.log('Answer from Login sessionId Async');
                 console.log(resData);
@@ -116,7 +116,7 @@ export class AuthServiceClass {
         return new Promise( (resolve)=> {
 
             //Using Promise
-            SocketService.sendRequestGetDataPromise("auth/register",{email:sEmailAddress, username: sUsername, password: sPassword,
+            SocketService.sendRequestGetData("auth/register",{email:sEmailAddress, username: sUsername, password: sPassword,
                 firstName: sFirstName, lastName: sLastName, country: sCountry, language : sLanguage, city : sCity, latitude: sLatitude, longitude : sLongitude, timeZone : iTimeZone })
 
                 .then( (resData ) => {
@@ -140,7 +140,7 @@ export class AuthServiceClass {
         return new Promise( (resolve)=> {
 
             //Using Promise
-            SocketService.sendRequestGetDataPromise("auth/register-oauth",{socialNetwork: sSocialNetworkName, socialNetworkId: sSocialNetworkId, accessToken : sAccessToken,
+            SocketService.sendRequestGetData("auth/register-oauth",{socialNetwork: sSocialNetworkName, socialNetworkId: sSocialNetworkId, accessToken : sAccessToken,
                 email:sEmail, firstName: sFirstName, lastName: sLastName, profilePic : sProfilePic, coverPic : sCoverImage, country: sCountryCode, language:sLanguage, city : sCity,
                 latitude: latitude, longitude : longitude,  shortBio: sShortBio, age : iAge, gender : sGender,   timeZone: iTimeZone, verified: bVerified,})
 
@@ -173,12 +173,3 @@ export class AuthServiceClass {
 
 var AuthService = new AuthServiceClass();
 export default AuthService;
-
-// export default {
-//   AuthService: AuthService,
-//
-//   createNewInstance: function () {
-//     AuthService = new AuthServiceClass();
-//   }
-//
-// }

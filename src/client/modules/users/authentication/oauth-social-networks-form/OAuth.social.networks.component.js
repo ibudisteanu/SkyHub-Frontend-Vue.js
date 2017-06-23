@@ -10,7 +10,7 @@ import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 
 
-import AuthService from './../../../../services/REST/authentication/Auth.service';
+import AuthService from '../../../../../services/REST/authentication/Auth.service';
 
 class OauthSocialNetworkComponent extends React.Component {
 

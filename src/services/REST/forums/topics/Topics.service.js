@@ -3,7 +3,7 @@
  * (C) BIT TECHNOLOGIES
  */
 
-import SocketService from '../../../../../services/Communication/socket/Socket.service';
+import SocketService from '../../../communication/client-socket/ClientSocket.service';
 
 class TopicsServiceClass {
 
@@ -22,7 +22,7 @@ class TopicsServiceClass {
     try {
 
       //Using Promise
-      let resData = await SocketService.sendRequestGetDataPromise("topics/add-topic",{parent : sParentId, title: sTitle, image:sImage, description: sDescription,
+      let resData = await SocketService.sendRequestGetData("topics/add-topic",{parent : sParentId, title: sTitle, image:sImage, description: sDescription,
                                                                                       attachments: arrAttachments, keywords : arrKeywords,
                                                                                       country: sCountryCode, language:sLanguage, city : sCity, latitude: latitude, longitude : longitude});
 
@@ -41,7 +41,7 @@ class TopicsServiceClass {
   async getTopic(sId){
 
     //Using Promise
-    return SocketService.sendRequestGetDataPromise("topics/get-topic",{id: sId});
+    return SocketService.sendRequestGetData("topics/get-topic",{id: sId});
 
   }
 

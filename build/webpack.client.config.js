@@ -15,7 +15,8 @@ const config = merge(base, {
   },
   resolve: {
     alias: {
-        createApi: path.resolve(__dirname + '/../src/services/hackernews-api/create-api-server.js')
+        createApi: path.resolve(__dirname + '/../src/services/hackernews-api/create-api-server.js'),
+        communicationService: path.resolve(__dirname + '/../src/services/communication/client-socket/ClientSocket.service.js'),
     }
   },
   plugins: [

@@ -4,10 +4,10 @@
 
 import {setContentState_NewRouterObject_Action, setContentState_AddContentObjects_Action, setContentState_AddForumsObjects_Action} from '../../../../../my-redux/actions/ContentState.actions';
 
-import Forum from '../../../../../models/Forum/Forum.model';
+import Forum from '../../../../models/Forum/Forum.model';
 import ContentObjectService from './ContentObject.service';
 
-import FetchDataService from '../../../../../services/Communication/FetchDataService';
+import FetchDataService from '../../../communication/FetchDataService';
 
 class ContentServiceClass {
 

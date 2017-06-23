@@ -14,7 +14,7 @@ export default context => {
 
 
     //processing the AUTHENTICATION
-    store.dispatch('AUTHENTICATE_USER', { sessionId: context.sessionId })
+    store.dispatch('AUTHENTICATE_USER_BY_SESSION', { sessionId: context.sessionId })
 
     const { url } = context
     const fullPath = router.resolve(url).route.fullPath

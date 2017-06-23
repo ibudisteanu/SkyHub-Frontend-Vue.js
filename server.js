@@ -68,6 +68,11 @@ app.use('/public', serve('./public', true))
 app.use('/manifest.json', serve('./manifest.json', true))
 app.use('/service-worker.js', serve('./dist/service-worker.js'))
 
+
+//starting the SocketWorkerService
+var SocketWorkerService = require('./src/services/communication/server-socket-worker/ServerSocketWorker.service.js');
+SocketWorkerService.startService();
+
 // 1-second microcache.
 // https://www.nginx.com/blog/benefits-of-microcaching-nginx/
 const microCache = LRU({
@@ -113,7 +118,7 @@ function render (req, res) {
 
     const path = require('path')
   for (let i=0; i<10; i++)
-    console.log(path.resolve(__dirname + '/src/services/hackernews-api/create-api-server.js'));
+    console.log(path.resolve(__dirname + '/../src/services'));
     console.log('coookies@@@@@@@@@@@@@',req.cookies);
 
   const context = {

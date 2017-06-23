@@ -3,7 +3,7 @@
  * (C) BIT TECHNOLOGIES
  */
 
-import SocketService from '../../../../../services/Communication/socket/Socket.service';
+import SocketService from '../../../communication/client-socket/ClientSocket.service';
 
 class ForumsServiceClass {
 
@@ -19,7 +19,7 @@ class ForumsServiceClass {
     async forumAdd(sParentId, sName, sTitle, sDescription,  arrKeywords, sCountryCode, sLanguage, sCity, latitude, longitude, iTimeZone) {
 
       try{
-         let resData = await SocketService.sendRequestGetDataPromise("forums/add-forum",{parent : sParentId, name:sName, title: sTitle, description: sDescription, keywords : arrKeywords,
+         let resData = await SocketService.sendRequestGetData("forums/add-forum",{parent : sParentId, name:sName, title: sTitle, description: sDescription, keywords : arrKeywords,
                                                                  country: sCountryCode, language:sLanguage, city : sCity, latitude: latitude, longitude : longitude,  timeZone: iTimeZone});
 
 
@@ -39,7 +39,7 @@ class ForumsServiceClass {
     getForumAsync(sId){
 
             //Using Promise
-        return SocketService.sendRequestGetDataPromise("forums/get-forum",{id: sId});
+        return SocketService.sendRequestGetData("forums/get-forum",{id: sId});
 
     }
 

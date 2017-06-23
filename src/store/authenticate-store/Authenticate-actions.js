@@ -11,7 +11,7 @@ import {
 
 export default {
     // ensure data for rendering given list type
-    AUTHENTICATE_USER: ({ commit, dispatch, state }, { sessionId }) => {
+    AUTHENTICATE_USER_BY_SESSION: ({ commit, dispatch, state }, { sessionId }) => {
 
         commit('SET_AUTHENTICATED_USER_SESSION', sessionId );
         // return fetchIdsByType(type)

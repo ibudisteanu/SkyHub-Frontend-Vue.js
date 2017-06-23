@@ -7,15 +7,11 @@ import Vue from 'vue'
 
 export default {
 
-    SET_SOCKET_STATUS: (state, { sessionId }) => {
-        state.connectionOffline: action.payload.connectionOffline;
-        state.message: action.payload.message;
-        state.icon: action.payload.icon;
-        state.showOnlineStatus: action.payload.showOnlineStatus;
-    },
-
-    SET_AUTHENTICATED_NEW_USER: (state, { newUserData }) => {
-        state.sessionId = sessionId
+    SET_SOCKET_STATUS: (state, { connectionOffline, message, icon, showOnlineStatus} ) => {
+        state.connectionOffline = connectionOffline;
+        state.message = message;
+        state.icon = icon;
+        state.showOnlineStatus = showOnlineStatus;
     },
 
 }

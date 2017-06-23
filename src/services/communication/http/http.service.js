@@ -3,7 +3,7 @@
  * (C) BIT TECHNOLOGIES
  */
 
-import CookiesService from '../../../client/services/cookies/cookies.service';
+import CookiesService from '../../cookies/cookies.service';
 import axios from 'axios';
 
 //import { Configuration } from '../app.constants';
@@ -19,7 +19,7 @@ class HTTPServiceClass {
 
     }
 
-    async getRequest(sRequest, requestData){
+    async sendRequestGetData(sRequest, requestData){
 
       if (!requestData.hasOwnProperty('sessionId')) {
         let sessionId = CookiesService.getSessionCookie();
@@ -36,7 +36,7 @@ class HTTPServiceClass {
       return answer.data;
     }
 
-    async getRequestURL(sRequest, req){
+    async sendRequestGetDataURL(sRequest, req){
       req = {data: req};
 
       let answer = await axios.get(sRequest, req);
@@ -74,7 +74,7 @@ class HTTPServiceClass {
 
       if ((sessionId !== '')&&(sessionId.length > 5)){
 
-        return await this.getRequest("auth/login-session", {sessionId: sessionId});
+        return await this.sendRequestGetData("auth/login-session", {sessionId: sessionId});
 
       } else {
         return {

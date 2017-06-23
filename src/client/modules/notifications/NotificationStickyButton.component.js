@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import NotificationService from './../../services/Notifications/Notification.service';
+import NotificationService from '../../../services/Notifications/Notification.service';
 
 class NotificationStickyButton extends React.Component {
   static propTypes = {
