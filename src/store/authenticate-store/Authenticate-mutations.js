@@ -9,10 +9,6 @@ export default {
 
     SET_AUTHENTICATED_USER_SESSION: (state, { sessionId }) => {
         state.sessionId = sessionId
-
-        for (let i=0; i<1000; i++)
-            console.log("AUTHENTICATE_USER",sessionId);
-
     },
 
     SET_AUTHENTICATED_NEW_USER: (state, { newUserData }) => {

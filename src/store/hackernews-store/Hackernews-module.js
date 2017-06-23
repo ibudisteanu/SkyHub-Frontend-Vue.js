@@ -5,9 +5,9 @@
 
 import Vuex from 'vuex'
 
-import actions from './hackernews-actions'
-import mutations from './hackernews-mutations'
-import getters from './hackernews-getters'
+import actions from './Hackernews-actions'
+import mutations from './Hackernews-mutations'
+import getters from './Hackernews-getters'
 
 export default {
     state:  {

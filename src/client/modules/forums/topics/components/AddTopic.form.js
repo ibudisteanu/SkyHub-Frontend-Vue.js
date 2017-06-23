@@ -21,7 +21,7 @@ import FileUploadDropzone from '../../../../../client/components/util-components
 import DraftWYSIWYG from '../../../../components/util-components/text-editor/wysiwyg/DraftWYSIWYG.component';
 import PreviewNewTopic from './PreviewNewTopic.component';
 
-import Topic from '../models/Topic.model';
+import Topic from '../../../../../models/Topic/Topic.model';
 import history from './../../../../../history.js';
 
 class AddTopicForm extends React.Component {

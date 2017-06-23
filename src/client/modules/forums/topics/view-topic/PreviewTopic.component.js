@@ -13,7 +13,7 @@ import ForumsService from '../../../../services/REST/forums/forums/Forums.servic
 
 import ShowDate from '../../../../components/util-components/UI/show-date/ShowDate.component';
 
-import Topic from '../models/Topic.model';
+import Topic from '../../../../../models/Topic/Topic.model';
 import Link from '../../../../components/Link/Link';
 
 /*

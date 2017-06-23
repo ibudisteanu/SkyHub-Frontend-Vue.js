@@ -8,7 +8,7 @@ import React from 'react';
 import PreviewTopic from '../view-topic/PreviewTopic.component';
 import PreviewAllTopics from '../view-topic/PreviewAllTopics.component';
 
-import Topic from '../models/Topic.model';
+import Topic from '../../../../../models/Topic/Topic.model';
 
 class PreviewNewTopic extends React.Component {
 

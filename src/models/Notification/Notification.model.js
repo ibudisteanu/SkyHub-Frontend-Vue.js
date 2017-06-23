@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 
-import * as UserProperties from '../../users/models/User.properties.js';
+import * as UserProperties from '../User/User.properties.js';
 //var UserProperties = require ('./User.properties.ts');
 
 export default class Notification {

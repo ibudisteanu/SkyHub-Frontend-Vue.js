@@ -8,7 +8,7 @@ import React from 'react';
 import Link from '../../../../../Link/Link';
 
 import AuthService from './../../../../../../services/REST/authentication/Auth.service';
-import Notification from "../../../../../../modules/notifications/models/Notification.model";
+import Notification from "../../../../../../../models/Notification/Notification.model";
 import NotificationMenu from "../../../../../../modules/notifications/NotificationsMenu.component";
 
 class AuthenticatedHeaderNavigationMenu extends React.Component {

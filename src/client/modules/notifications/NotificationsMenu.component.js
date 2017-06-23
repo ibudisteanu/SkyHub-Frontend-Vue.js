@@ -1,5 +1,5 @@
 import React from "react";
-import Notification from "./models/Notification.model";
+import Notification from "../../../models/Notification/Notification.model";
 
 function RenderNotifications (props){
 

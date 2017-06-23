@@ -5,13 +5,14 @@
 
 import Vuex from 'vuex'
 
-import actions from './authenticate-actions'
-import mutations from './authenticate-mutations'
-import getters from './authenticate-getters'
+import actions from './Authenticate-actions'
+import mutations from './Authenticate-mutations'
+import getters from './Authenticate-getters'
 
 export default {
     state:  {
         authenticatedUser: null,
+        sessionId: '',
     },
     actions,
     mutations,

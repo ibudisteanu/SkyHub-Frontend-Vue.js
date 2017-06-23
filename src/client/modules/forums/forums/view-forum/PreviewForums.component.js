@@ -10,7 +10,7 @@ import {newRouterObjectArgumentAction} from '../../../../../my-redux/actions/Rou
 import AuthService from '../../../../services/REST/authentication/Auth.service.js';
 import ForumsService from '../../../../services/REST/forums/forums/Forums.service';
 
-import Forum from '../models/Forum.model';
+import Forum from '../../../../../models/Forum/Forum.model';
 import Link from '../../../../components/Link/Link';
 
 /*

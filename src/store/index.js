@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import HackerNewsModule from './hackernews-store/hackernews-module';
-import AuthenticateModule from './authenticate-store/authenticate-module'
+import HackerNewsModule from './hackernews-store/Hackernews-module';
+import AuthenticateModule from './authenticate-store/Authenticate-module'
 
 Vue.use(Vuex)
 

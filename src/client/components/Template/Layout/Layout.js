@@ -20,7 +20,7 @@ import ViewReply from '../../../modules/forums/replies/view-reply/ViewReply.comp
 import {connect} from 'react-redux';
 
 import {startLocalizationFetchingAsync} from './../../../../my-redux/actions/Localization.actions';
-import User from "../../../modules/users/models/User.model";
+import User from "../../../../models/User/User.model";
 import Header from "../Template-components/Header/Header";
 
 class Layout extends React.Component {
