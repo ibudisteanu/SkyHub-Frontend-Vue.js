@@ -1,0 +1,65 @@
+/**
+ * Created by Alexandru Ionut Budisteanu - SkyHub on 6/10/2017.
+ * (C) BIT TECHNOLOGIES
+ */
+
+<template>
+  <ul class="nav navbar-top-links navbar-right">
+
+    <li>
+      <router-link to="/" class="item-footer-menu">
+        <i class="fa fa-home"></i>
+        <span class="m-r-sm text-muted welcome-message">Home</span>
+      </router-link>
+    </li>
+
+
+
+    <li>
+      <router-link to="/login" :class="this.handleSignIn">
+        <i class="fa fa-sign-in"></i>
+        <span class="m-r-sm text-muted welcome-message">Log in</span>
+      </router-link>
+    </li>
+
+    <li>
+      <router-link to="/register" :class="this.handleRegister">
+        <i class="fa fa-user-plus"></i>
+        <span class="m-r-sm text-muted welcome-message">Register</span>
+      </router-link>
+    </li>
+
+
+  </ul>
+</template>
+
+<script>
+  export default{
+
+      methods:{
+          handleSignIn(e){
+              e.preventDefault(); e.stopPropagation();
+              console.log("SIGN IN");
+
+
+              if ((this.props.routerState !== null)&&(this.props.routerState.refAuthenticationModal !== null))
+                  this.props.routerState.refAuthenticationModal.openLogin();
+
+              //using props & context
+              // if ((this.context.refAuthenticationModal !== null)&&(typeof this.context.refAuthenticationModal !== "undefined"))
+              //   this.context.refAuthenticationModal.openLogin();
+          },
+
+          handleRegister(e){
+              e.preventDefault(); e.stopPropagation();
+
+              if ((this.props.routerState !== null)&&(this.props.routerState.refAuthenticationModal !== null))
+                  this.props.routerState.refAuthenticationModal.openRegistration();
+
+              // if ((this.context.refAuthenticationModal !== null)&&(typeof this.context.refAuthenticationModal !== "undefined"))
+              //   this.context.refAuthenticationModal.openRegistration();
+          }
+      }
+  }
+</script>
+
