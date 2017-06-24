@@ -11,6 +11,9 @@ const UserView = () => import('../views/UserView.vue')
 const LayoutElement = id => () => import('../client/components/Template/Layout/LayoutElement').then(m => m.default(id))
 const Layout = () => import('client/components/Template/Layout/Layout.vue')
 
+const LoginPage = () => import('client/pages/Site/Login.page.vue');
+const AboutPage = () => import('client/pages/Site/About.page.vue');
+
 export function createRouter () {
   return new Router({
     mode: 'history',
@@ -25,7 +28,10 @@ export function createRouter () {
       { path: '/hn/user/:id', component: UserView },
       { path: '/hn/', redirect: '/hn/top' },
 
-      { path: '/', component: Layout }
+      { path: '/about', component: AboutPage },
+      { path: '/login', component: LoginPage },
+      { path: '/register', component: Layout },
+      { path: '/', component: Layout },
       //{ path: '/', component: LayoutElement('test') }
     ]
   })

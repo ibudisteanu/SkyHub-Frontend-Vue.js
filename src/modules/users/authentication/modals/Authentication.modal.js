@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LoginForm from '../login/Login.form';
+import LoginForm from '../login/Login.form.vue';
 import RegistrationForm from '../registration/Registration.form';
 
 import ModalComponent from '../../../../../client/components/util-components/modals/Modal.component';

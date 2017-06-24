@@ -5,6 +5,7 @@
             <LayoutBody>
 
                 <div slot="content">
+                    <slot> </slot>
                     <b>TEST LAYOUT</b>
                 </div>
 
@@ -32,7 +33,7 @@
     import User from 'models/User/User.model';
 
     export default {
-        name: 'layout-view',
+        name: 'Layout',
         components: { LayoutBody , LayoutFooter, StickyButtons, RightSidebar},
 
         data: () => ({

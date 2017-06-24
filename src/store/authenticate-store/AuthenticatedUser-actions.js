@@ -14,7 +14,7 @@ export default {
 
     AUTHENTICATE_USER_BY_LOGIN: async ({ commit, dispatch, state }, { sEmailUserName, sPassword }) => {
 
-        await dispatch('AUTHENTICATE_LOGOUT_USER');
+        await dispatch('AUTHENTICATE_LOGOUT_USER', {});
 
         if (User.isLoggedIn(state.user) === true) { console.log("user already logged in"); return {result:true, user:state.user} }; //already logged in
 
@@ -99,7 +99,7 @@ export default {
 
     },
 
-    AUTHENTICATE_REGISTER: async ({ commit, dispatch, state }, { userJSON, sessionId }) => {
+    AUTHENTICATE_REGISTER_OAUTH: async ({ commit, dispatch, state }, { userJSON, sessionId }) => {
 
         let resData = await FetchService.sendRequestGetData("auth/register-oauth", {
             socialNetwork: sSocialNetworkName,
