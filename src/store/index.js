@@ -8,7 +8,8 @@ import Vuex from 'vuex'
 import HackerNewsModule from './hackernews-store/Hackernews-module';
 import AuthenticateModule from './authenticate-store/AuthenticatedUser-module'
 import SocketStatusModule from './socket-status-store/SocketStatus-module'
-import SystemNotifications from './system-notifications-store/SystemNotifications-module'
+import SystemNotificationsModule from './system-notifications-store/SystemNotifications-module'
+import LocalizationModule from './localization-store/Localization-module'
 
 Vue.use(Vuex)
 
@@ -18,7 +19,8 @@ export function createStore () {
             hackernews: HackerNewsModule,
             authenticatedUser: AuthenticateModule,
             socketStatus: SocketStatusModule,
-            systemNotifications: SystemNotifications,
+            systemNotifications: SystemNotificationsModule,
+            localization: LocalizationModule,
         }
     });
 }

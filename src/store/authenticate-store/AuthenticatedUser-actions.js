@@ -20,8 +20,7 @@ export default {
 
         let resData = await FetchService.sendRequestGetData("auth/login",{emailUsername:sEmailUserName, password:sPassword});
 
-        console.log('Answer from Server Auth Login');
-        console.log(resData);
+        console.log('Answer from Server Auth Login', resData);
 
         if(resData.result === true) {
             resData.user.loggedIn = true;
@@ -72,7 +71,7 @@ export default {
     },
 
 
-    AUTHENTICATE_REGISTER: async ({ commit, dispatch, state }, { userJSON, sessionId }) => {
+    AUTHENTICATE_REGISTER: async ({ commit, dispatch, state }, { sUsername, sEmailAddress, sPassword, sFirstName, sLastName, sCountry, sLanguage, sCity, sLatitude, sLongitude, iTimeZone }) => {
 
         //Using Promise
         let resData = await FetchService.sendRequestGetData("auth/register", {
@@ -99,7 +98,7 @@ export default {
 
     },
 
-    AUTHENTICATE_REGISTER_OAUTH: async ({ commit, dispatch, state }, { userJSON, sessionId }) => {
+    AUTHENTICATE_REGISTER_OAUTH: async ({ commit, dispatch, state }, { sSocialNetworkName,sSocialNetworkId, sAccessToken, sEmail, sFirstName, sLastName,sProfilePic, sCoverImage, sCountryCode, sLanguage, sCity, latitude, longitude, sShortBio, iAge, sGender, iTimeZone, bVerified }) => {
 
         let resData = await FetchService.sendRequestGetData("auth/register-oauth", {
             socialNetwork: sSocialNetworkName,

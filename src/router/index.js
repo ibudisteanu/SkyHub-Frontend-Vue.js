@@ -12,6 +12,7 @@ const LayoutElement = id => () => import('../client/components/Template/Layout/L
 const Layout = () => import('client/components/Template/Layout/Layout.vue')
 
 const LoginPage = () => import('client/pages/Site/Login.page.vue');
+const RegistrationPage = () => import('client/pages/Site/Registration.page.vue');
 const AboutPage = () => import('client/pages/Site/About.page.vue');
 
 export function createRouter () {
@@ -31,7 +32,11 @@ export function createRouter () {
         { path: '/', component: Layout },
       { path: '/about', component: AboutPage },
       { path: '/login', component: LoginPage },
-      { path: '/register', component: Layout },
+      { path: '/signin', component: LoginPage },
+
+      { path: '/register', component: RegistrationPage },
+      { path: '/signup', component: RegistrationPage },
+      { path: '/registration', component: RegistrationPage },
 
       //{ path: '/', component: LayoutElement('test') }
     ]

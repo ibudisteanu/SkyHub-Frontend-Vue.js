@@ -36,15 +36,16 @@
                         <div class="col-xs-6" style="padding-top: 10px">
 
                             <div>
-                                <router-link to="/register" class="item-footer-menu" click.native.prevent="handleSwitchForm">
+                                <router-link to="/register" class="item-footer-menu" @click.native.prevent="handleSwitchForm">
                                 <strong> Register </strong></router-link>to SkyHub
                             </div>
 
                         </div>
                         <div class="col-xs-6 text-right">
-                            <button type='button' class='btn btn-success ' @click="handleCheckLogin">
-                                <i class="fa fa-sign-in"></i> Login
-                            </button>
+
+                            <LoadingButton className="btn-success" icon="fa fa-sign-in" text="Login" :click="handleCheckLogin" ref="refLoadingButtonLogin"/>
+
+
                         </div>
                     </div>
                 </div>
@@ -62,11 +63,16 @@
 <script>
 
     import {showInputStatus, showInputFeedback, convertValidationErrorToString} from 'client/components/util-components/form-validation/formValidation';
+    import LoadingButton from 'client/components/util-components/UI/buttons/LoadingButton.vue';
 
     export default {
 
 
         name: 'LoginForm',
+
+        components: {
+            'LoadingButton':LoadingButton,
+        },
 
         data: function () {
             return {
@@ -75,6 +81,7 @@
 
                 userEmailValidationStatus : [null, ''],
                 passwordValidationStatus : [null, ''],
+                refLoadingButton: null,
             }
         },
 
@@ -90,13 +97,16 @@
             showInputFeedback(status) {return showInputFeedback(status)},
             convertValidationErrorToString(error) {return convertValidationErrorToString(error)},
 
-            async handleCheckLogin(e){
+            handleCheckLogin(e){
 
                 e.preventDefault(); e.stopPropagation();
+                this.error = '';
 
                 console.log(this.userEmail, this.password);
 
-                this.$store.dispatch('AUTHENTICATE_USER_BY_LOGIN',{sEmailUserName: this.userEmail, sPassword: this.password }).then( (res) =>{
+
+                this.$store.dispatch('AUTHENTICATE_USER_BY_LOGIN',{sEmailUserName: this.userEmail, sPassword: this.password }).then((res)=>{
+                    this.$refs['refLoadingButtonLogin'].enableButton();
 
                     this.userEmailValidationStatus = [null, '']; this.passwordValidationStatus = [null,''];
 
@@ -118,17 +128,25 @@
 
                         this.loginFailure(res);
                     }
+                })
+                    .catch((Exception)=>{
+                        this.$refs['refLoadingButtonLogin'].enableButton();
+                        this.error = "There was a internal problem REGISTERING... Try again"+Exception.toString();
+                    });
 
-                });
+
+
 
             },
 
             handleUserEmailChange(e){
+                this.error = '';
                 this.userEmail = e.target.value;
                 this.userEmailValidationStatus  = [null, ''];
             },
 
             handlePasswordChange(e){
+                this.error = '';
                 this.password = e.target.value;
                 this.passwordValidationStatus  = [null, ''];
             },
