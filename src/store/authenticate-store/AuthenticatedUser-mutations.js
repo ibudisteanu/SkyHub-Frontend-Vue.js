@@ -26,6 +26,7 @@ export default {
 
 
     SET_USER_LOGOUT: (state, {  }) => {
+        console.log('==== SET_USER_LOGOUT');
         state.sessionId = '';
         state.user =  new User({});
         state.error = ''

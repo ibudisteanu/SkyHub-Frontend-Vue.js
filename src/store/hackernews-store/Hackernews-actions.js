@@ -14,13 +14,15 @@ export default {
   },
 
   // ensure all active items are fetched
-  ENSURE_ACTIVE_ITEMS: ({ dispatch, getters }) => {
+  ENSURE_ACTIVE_ITEMS: ({ dispatch,  commit, getters }) => {
+    commit('SET_USER_LOGOUT',{});
     return dispatch('FETCH_ITEMS', {
       ids: getters.activeIds
     })
   },
 
   FETCH_ITEMS: ({ commit, state }, { ids }) => {
+    commit('SET_USER_LOGOUT',{});
     // on the client, the store itself serves as a cache.
     // only fetch items that we do not already have, or has expired (3 minutes)
     const now = Date.now()

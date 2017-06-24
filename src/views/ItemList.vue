@@ -45,7 +45,7 @@ export default {
   computed: {
     authenticatedUser(){
         console.log('authenticatedUser',this.$store.state)
-        return this.$store.state.Authenticate.user.id||'none';
+        return this.$store.state.authenticatedUser.user.id||'none';
     },
     page () {
       return Number(this.$store.state.route.params.page) || 1

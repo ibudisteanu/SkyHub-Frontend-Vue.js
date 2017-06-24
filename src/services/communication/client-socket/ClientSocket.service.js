@@ -21,25 +21,15 @@ class ClientSocketServiceClass {
 
     }
 
-    startService(dispatch){
+    startService(dispatch, socketStatus){
       this.dispatch = dispatch;
-      this.createClientSocketDocumentReady();
+      this.socketStatus = socketStatus;
+
+      this.createClientSocket
     }
 
-
-    createClientSocketDocumentReady (){
-        //this.createClientSocketInterval = setInterval(::this.createClientSocket,500);
-        this.createClientSocket();
-    }
 
     createClientSocket() {
-
-      // console.log("Trying to create Client...");
-      //
-      //   if ((typeof window === "undefined") || (typeof window.document === "undefined")) return; //in case it is not executed on the Client Browser
-      //
-      //   console.log('createClientSocket ');
-      //   clearInterval(this.createClientSocketInterval);
 
         this.socket = io.connect(this.sServerSocketAddress, {
             //query: "token=aaa" //JWT Token
@@ -49,7 +39,7 @@ class ClientSocketServiceClass {
         this.setSocketReadObservable("connect").subscribe(response => {
 
             console.log('Client has connected to the server!');
-            this.dispatch(SocketStatusActions.socketConnectionSuccessfully());
+            this.dispatch('SOCKET_CONNECTION_SUCCESSFULLY',{});
         });
 
         this.socket.on("connect_failed",function () {
@@ -58,7 +48,7 @@ class ClientSocketServiceClass {
 
         this.setSocketReadObservable("connect_error").subscribe(response => {
             console.log('Connecting Error', response);
-            this.dispatch(SocketStatusActions.socketConnectingError());
+            this.dispatch('SOCKET_CONNECTING_ERROR',{error: response});
         });
 
         this.socket.on("error",function () {
@@ -95,7 +85,7 @@ class ClientSocketServiceClass {
         this.setSocketReadObservable("disconnect").subscribe(response => {
 
             console.log('The client has disconnected!');
-            this.dispatch(SocketStatusActions.socketDisconnected());
+            this.dispatch('SOCKET_DISCONNECTED', {});
         });
     }
 

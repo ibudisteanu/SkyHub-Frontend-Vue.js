@@ -11,22 +11,19 @@ import CommunicationService from 'communicationService';
 class FetchServiceClass {
 
   constructor(){
-    CommunicationService.startService();
+    //CommunicationService.startService();
   }
 
   //it is async
-  sendRequestGetData(sRequestName, data, type){
+  sendRequestGetData(sRequestName, data){
 
     return CommunicationService.sendRequestGetData(sRequestName, data);
 
-    // if (typeof type === "undefined")
-    //   if (typeof window === "undefined") protocol = "server";
-    //   else protocol = "client";
-    //
-    // if ((typeof protocol !== "string")&&(protocol === 'http')) return HTTPService.sendRequestGetData(sRequestName, data);
-    // else  return SocketService.sendRequestGetData(sRequestName,data);
   }
 
+  startService(dispatcher, data){
+    CommunicationService.startService(dispatcher,data);
+  }
 
 
 }

@@ -8,7 +8,8 @@ const createListView = id => () => import('../views/CreateListView').then(m => m
 const ItemView = () => import('../views/ItemView.vue')
 const UserView = () => import('../views/UserView.vue')
 
-const Layout = () => import('../client/components/Template/Layout/Layout.vue')
+const LayoutElement = id => () => import('../client/components/Template/Layout/LayoutElement').then(m => m.default(id))
+const Layout = () => import('client/components/Template/Layout/Layout.vue')
 
 export function createRouter () {
   return new Router({
@@ -25,6 +26,7 @@ export function createRouter () {
       { path: '/hn/', redirect: '/hn/top' },
 
       { path: '/', component: Layout }
+      //{ path: '/', component: LayoutElement('test') }
     ]
   })
 }

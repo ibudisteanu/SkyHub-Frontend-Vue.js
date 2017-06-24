@@ -4,7 +4,6 @@
 
 import Vue from 'vue'
 import Vuex from 'vuex'
-import VuexSaga from 'vuex-saga';
 
 import HackerNewsModule from './hackernews-store/Hackernews-module';
 import AuthenticateModule from './authenticate-store/AuthenticatedUser-module'

@@ -11,11 +11,12 @@
 
 <script>
     import TopNavbar from './Top-navbar/TopNavbar.vue';
+    import SocketStatusBar from './Socket-status-bar/HeaderBarSocketStatus.vue';
 
     export default{
         name: 'Layout-Header-view',
 
-        components: {TopNavbar}
+        components: {TopNavbar, SocketStatusBar}
 
     }
 </script>

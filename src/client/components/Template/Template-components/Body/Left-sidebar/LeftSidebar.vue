@@ -5,7 +5,7 @@
         <li class="nav-header" :style="{paddingTop: 15}">
           <div class="dropdown profile-element">
 
-            <span >
+            <span v-if="isLoggedIn">
                 <img alt="image" class="img-circle" :src="getProfilePic" :style="{maxWidth:145, maxHeight: 145, paddingBottom: 15, marginLeft: 'auto', marginRight: 'auto', display: 'block'}" />
             </span>
 
@@ -22,15 +22,15 @@
                 </span>
 
               </span>
+
             </a>
 
 
           </div>
           <div class="logo-element">
-            <router-link to="/" class="item-footer-menu">Home</router-link>
-            <Link to="/">
-
-            </Link>
+            <router-link to="/" >
+              <img src="/public/SkyHub-logo.png"  alt="SkyHub Social Network" width="45px" />
+            </router-link>
           </div>
         </li>
         <li class="active">
@@ -259,6 +259,10 @@
 //              console.log('xxxxxxxxxxxxxxxxxxxx',this.$store.state.authenticatedUser.user);
 //              console.log(User.getName(this.$store.state.authenticatedUser.user));
               return this.$store.state.authenticatedUser;
+          },
+
+          isLoggedIn(){
+              return User.isLoggedIn(this.authenticatedUser.user);
           },
 
           getProfilePic(){

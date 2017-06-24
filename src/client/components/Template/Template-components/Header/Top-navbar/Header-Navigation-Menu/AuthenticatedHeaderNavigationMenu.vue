@@ -8,17 +8,17 @@
 
 
     <li>
-      <Link to="/">
-      <i class="fa fa-home"></i>
-      <span class="m-r-sm text-muted welcome-message">Home</span>
-      </Link>
+      <router-link to="/" >
+        <i class="fa fa-home"></i>
+        <span class="m-r-sm text-muted welcome-message">Home</span>
+      </router-link>
     </li>
 
     <li>
-      <Link to="/">
-      <i class="fa fa-home"></i>
-      <span class="m-r-sm text-muted welcome-message">Profile</span>
-      </Link>
+      <router-link to="/" >
+        <i class="fa fa-home"></i>
+        <span class="m-r-sm text-muted welcome-message">Profile</span>
+      </router-link >
     </li>
 
 
@@ -70,9 +70,9 @@
 
 
     <li>
-      <Link to="/logout" onClick={::this.handleLogout}>
-      <i class="fa fa-sign-out"></i> Log out
-      </Link>
+      <router-link to="/logout"  :event="''" @click.native.prevent="handleLogout" >
+        <i class="fa fa-sign-out"></i> Log out
+      </router-link>
     </li>
 
     <li>
@@ -88,7 +88,19 @@
   export default {
       name: 'Header-Navigation-Menu-Authenticated',
       computed:{
-          
+          authenticatedUser(){
+              console.log('authenticatedUser',this.$store.state)
+              return this.$store.state.authenticatedUser.user.id||'none';
+          },
+      },
+
+      methods:{
+          handleLogout(e){
+              e.preventDefault(); e.stopPropagation();
+
+              this.$store.dispatch('AUTHENTICATE_LOGOUT_USER',{});
+          }
       }
+
   }
 </script>

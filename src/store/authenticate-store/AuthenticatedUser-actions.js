@@ -3,6 +3,8 @@
  * (C) BIT TECHNOLOGIES
  */
 
+require ('services/hackernews-api/index');
+
 import FetchService from 'services/communication/FetchService'
 import CookiesService from 'services/cookies/cookies.service';
 
@@ -12,7 +14,7 @@ export default {
     // ensure data for rendering given list type
 
 
-    AUTHENTICATE_USER_BY_LOGIN: async({ commit, dispatch, state }, { sEmailUserName, sPassword }) => {
+    AUTHENTICATE_USER_BY_LOGIN: async ({ commit, dispatch, state }, { sEmailUserName, sPassword }) => {
 
         await dispatch('AUTHENTICATE_LOGOUT_USER');
 
@@ -23,20 +25,14 @@ export default {
         console.log('Answer from Server Auth Login');
         console.log(resData);
 
-        if(resData.result === true)
-            await dispatch('AUTHENTICATE_USER_BY_PROVIDING_USER', {userJSON: resData.user, sessionId: resData.sessionId});
+        if(resData.result === true) {
+            resData.user.loggedIn = true;
+            await dispatch('AUTHENTICATE_USER_BY_PROVIDING_USER', { userJSON: resData.user,  sessionId: resData.sessionId });
+        }
 
         return(resData);
 
     },
-
-    // AUTHENTICATE_USER_BY_COOKIES: async ({ commit, dispatch, state }, { cookies }) => {
-    //     let sessionId = CookiesService.extractAuthCookie(cookies); //extract only the sessionId
-    //
-    //     console.log("AUTHENTICATE_USER_BY_COOKIES cooooookies", cookies);
-    //     if (sessionId !== null)
-    //         return dispatch.commit('AUTHENTICATE_USER_BY_COOKIES', {sessionId: sessionId});
-    // },
 
     AUTHENTICATE_USER_BY_SESSION: async ({ commit, dispatch, state }, { sessionId }) => {
 
@@ -49,10 +45,8 @@ export default {
         console.log('Answer from Login sessionId Async', resData, state);
 
         if (resData.result === true) {
-           await commit('SET_AUTHENTICATED_NEW_USER_JSON', {
-                newUserData: resData.user,
-                sessionId: sessionId
-            });
+            resData.user.loggedIn = true;
+           await commit('SET_AUTHENTICATED_NEW_USER_JSON', { newUserData: resData.user,  sessionId: sessionId });
         }
 
         return resData;
@@ -68,15 +62,15 @@ export default {
     },
 
 
-    AUTHENTICATE_LOGOUT_USER: async({ commit, dispatch, state }, { }) => {
+    AUTHENTICATE_LOGOUT_USER: async ({ commit, dispatch, state }, { }) => {
 
-        console.log("LOGOUT");
+        console.log("LOGOUT ACTION");
 
-        FetchService.sendRequestGetData("auth/logout",{});
+        // FetchService.sendRequestGetData("auth/logout",{});
+        //
+        // CookiesService.deleteCookie("sessionId");
 
-        CookiesService.deleteCookie("sessionId");
-        return commit('SET_USER_LOGOUT');
-
+        return commit('SET_USER_LOGOUT', {});
     },
 
 
@@ -133,6 +127,7 @@ export default {
         console.log('Answer from Oauth', resData);
 
         if (resData.result === true) {
+            resData.user.loggedIn = true;
             await dispatch('AUTHENTICATE_USER_BY_PROVIDING_USER',{userJSON: resData.user, sessionId: resData.sessionId});
         }
 

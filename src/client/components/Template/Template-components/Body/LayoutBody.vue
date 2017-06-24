@@ -1,13 +1,19 @@
 <template>
   <div >
 
-    <LeftSidebar />
+    <div v-if="isLoggedIn">
+      <LeftSidebar  />
+    </div>
 
-    THIS IS BODY
 
-    <div id="page-wrapper" class="gray-bg" :style="{minHeight: '785px', marginTop: '-20px'}">
+    <div id="page-wrapper" class="gray-bg" :style="{minHeight: '785px'}">
 
-      <Header />
+      <LayoutHeader />
+
+
+      "HELLO WORLD!!!"
+
+      <slot name="content" />
 
 
     </div>
@@ -21,18 +27,22 @@
 <script>
 
     import LeftSidebar from './Left-sidebar/LeftSidebar.vue';
-    import Header from '../Header/Header.vue';
+    import LayoutHeader from '../Header/LayoutHeader.vue';
+
+    import User from 'models/User/User.model';
 
     export default {
         name: 'layout-body-view',
-        components: { LeftSidebar, Header },
+        components: { LeftSidebar, LayoutHeader },
 
         data: () => ({
             loading: true
         }),
 
         computed: {
-
+            isLoggedIn(){
+                return User.isLoggedIn(this.$store.state.authenticatedUser.user);
+            }
         },
 
         // We only fetch the item itself before entering the view, because
