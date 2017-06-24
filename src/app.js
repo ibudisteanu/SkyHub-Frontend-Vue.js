@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VuexSaga from 'vuex-saga';
 import App from './App.vue'
 import { createStore } from './store'
 import { createRouter } from './router'
@@ -24,6 +25,9 @@ export function createApp () {
   // sync the router with the vuex store.
   // this registers `store.state.route`
   sync(store, router)
+
+  // Install it by pass your store to be an option argument (Since v0.1.0)
+  Vue.use(VuexSaga, { store: store })
 
   // create the app instance.
   // here we inject the router, store and ssr context to all child components,
