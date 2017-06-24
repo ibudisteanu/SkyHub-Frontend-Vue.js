@@ -3,14 +3,17 @@
  * (C) BIT TECHNOLOGIES
  */
 
-var io = require ('socket.io-client');
-var rxjsObservable = require ('rxjs/Observable');
-//import { Observable, Subscribable } from 'rxjs/Observable';
+// var io = require ('socket.io-client');
+// var rxjsObservable = require ('rxjs/Observable');
+
+import { Observable, Subscribable } from 'rxjs/Observable';
+import * as io from 'socket.io-client';
 
 class ServerSocketWorkerServiceClass {
 
     constructor() {
         this.socket = null;
+        this.bStarted = false;
 
         this.sServerSocketAddress = "myskyhub.ddns.net:4000/";
         this.sServerSocketApi = "api/";
@@ -21,6 +24,8 @@ class ServerSocketWorkerServiceClass {
     }
 
     startService() {
+        if (this.bStarted === true) return;
+
         this.createClientWorkerSocket();
     }
 
@@ -137,4 +142,5 @@ class ServerSocketWorkerServiceClass {
 }
 
 var ServerSocketWorkerService = new ServerSocketWorkerServiceClass();
-module.export = ServerSocketWorkerService;
+export default ServerSocketWorkerService;
+//module.exports = ServerSocketWorkerService;

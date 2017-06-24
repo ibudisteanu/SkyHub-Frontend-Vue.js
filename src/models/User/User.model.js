@@ -1,41 +1,13 @@
 /* eslint-disable import/prefer-default-export */
 
-import * as UserProperties from './User.properties.js';
-//var UserProperties = require ('./User.properties.ts');
+//import UserProperties from './User.properties.js';
+//var UserProperties = require ('./User.properties.js');
 
 export default class User {
 
-    id;
+    constructor( data) {
 
-    loggedIn;
-
-    firstName;
-    lastName;
-    email;
-    username;
-    gender;
-
-    profilePic;
-    coverPic;
-
-    preferredLang;
-    connected ;
-    timeZone;
-    shortBio;
-
-    longitude;
-    latitude;
-
-    role;
-
-    country;
-    city;
-
-    dtCreation;
-    dtLastActivity;
-
-
-    constructor( data: Object = {}) {
+        if (typeof data === "undefined") data = {};
 
         this.id = data.id||'';
 
@@ -60,7 +32,7 @@ export default class User {
 
         this.gender = data.gender || '';
 
-        this.role = data.role || UserProperties.UserRolesEnum.NOT_REGISTERED;
+        //this.role = data.role || UserProperties.UserRolesEnum.NOT_REGISTERED;
 
         this.timeZone = data.timeZone || 0;
         this.shortBio = data.shortBio || '';

@@ -9,7 +9,7 @@ const UserGenderEnum = {
     MALE: 0,
     FEMALE: 1,
     NOT_SPECIFIED: 2,
-}
+};
 
 const UserRolesEnum = {
     NOT_REGISTERED: 0,
@@ -17,7 +17,7 @@ const UserRolesEnum = {
     MODERATOR: 5,
     ADMIN: 8,
     SYS_ADMIN: 666,
-}
+};
 
 module.exports = {
 

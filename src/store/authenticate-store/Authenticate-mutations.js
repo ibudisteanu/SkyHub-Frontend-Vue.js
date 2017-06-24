@@ -5,14 +5,31 @@
 
 import Vue from 'vue'
 
+import User from 'models/User/User.model';
+
 export default {
 
     SET_AUTHENTICATED_USER_SESSION: (state, { sessionId }) => {
-        state.sessionId = sessionId
+        state.sessionId = sessionId;
     },
 
-    SET_AUTHENTICATED_NEW_USER: (state, { newUserData }) => {
-        state.sessionId = sessionId
+    SET_AUTHENTICATED_NEW_USER_JSON: (state, { newUserData, sessionId }) => {
+        let userLogged = new User( newUserData);
+        state.user = userLogged;
+        state.sessionId = sessionId;
     },
+
+    SET_AUTHENTICATED_NEW_USER: (state, { newUser, sessionId }) => {
+        state.user = newUser;
+        state.sessionId = sessionId;
+    },
+
+
+    SET_USER_LOGOUT: (state, {  }) => {
+        state.sessionId = '';
+        state.user =  new User({});
+        state.error = ''
+    },
+
 
 }

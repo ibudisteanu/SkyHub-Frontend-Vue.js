@@ -7,7 +7,7 @@ import {setContentState_NewRouterObject_Action, setContentState_AddContentObject
 import Forum from '../../../../models/Forum/Forum.model';
 import ContentObjectService from './ContentObject.service';
 
-import FetchDataService from '../../../communication/FetchDataService';
+import FetchDataService from '../../../communication/FetchService';
 
 class ContentServiceClass {
 

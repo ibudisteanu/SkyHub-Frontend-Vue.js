@@ -6,18 +6,16 @@
 import * as io from 'socket.io-client';
 
 import { Observable, Subscribable } from 'rxjs/Observable';
-
 import CookiesService from '../../cookies/cookies.service';
-import * as SocketStatusActions from '../../../../my-redux/actions/SocketStatus.actions';
 
 class ClientSocketServiceClass {
 
-    sServerSocketAddress = "myskyhub.ddns.net:4000";
-    sServerSocketApi = "api/";
-
-    sServerSocketVersion = "";
-
     constructor() {
+
+        this.sServerSocketAddress = "myskyhub.ddns.net:4000";
+        this.sServerSocketApi = "api/";
+
+        this.sServerSocketVersion = "";
 
         console.log('               @@@@@@ Socket Client constructor', this);
 

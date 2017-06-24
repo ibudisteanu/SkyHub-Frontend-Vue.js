@@ -70,8 +70,8 @@ app.use('/service-worker.js', serve('./dist/service-worker.js'))
 
 
 //starting the SocketWorkerService
-var SocketWorkerService = require('./src/services/communication/server-socket-worker/ServerSocketWorker.service.js');
-SocketWorkerService.startService();
+// var ServerSocketWorkerService = require('./src/services/communication/server-socket-worker/ServerSocketWorker.service.js');
+// console.log(ServerSocketWorkerService);
 
 // 1-second microcache.
 // https://www.nginx.com/blog/benefits-of-microcaching-nginx/

@@ -3,11 +3,16 @@
  * (C) BIT TECHNOLOGIES
  */
 
+//loading the communication protocol
 import CommunicationService from 'communicationService';
 
 //import { Configuration } from '../app.constants';
 
-class FetchDataServiceClass {
+class FetchServiceClass {
+
+  constructor(){
+    CommunicationService.startService();
+  }
 
   //it is async
   sendRequestGetData(sRequestName, data, type){
@@ -20,11 +25,14 @@ class FetchDataServiceClass {
     //
     // if ((typeof protocol !== "string")&&(protocol === 'http')) return HTTPService.sendRequestGetData(sRequestName, data);
     // else  return SocketService.sendRequestGetData(sRequestName,data);
+  }
 
+
+  sendRequestGetData(sRequestName, data){
+    return CommunicationService.sendRequestGetData()
   }
 
 }
 
-var FetchDataServiceInstance = new FetchDataServiceClass();
-
-export default FetchDataServiceInstance;
+var FetchServiceInstance = new FetchServiceClass();
+export default FetchServiceInstance;

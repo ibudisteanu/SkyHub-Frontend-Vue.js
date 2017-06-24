@@ -18,11 +18,11 @@ module.exports = {
   resolve: {
     alias: {
       'public': path.resolve(__dirname, '../public'),
-      'src': path.resolve(__dirname + '../src'),
-      'models': path.resolve(__dirname + '../src/models'),
-      'client': path.resolve(__dirname + '../src/client'),
-      'store': path.resolve(__dirname + '../src/store'),
-      '~services': path.resolve(__dirname + '/../src/services'),
+      'src': path.resolve(__dirname + '/../src'),
+      'models': path.resolve(__dirname + '/../src/models'),
+      'client': path.resolve(__dirname + '/../src/client'),
+      'store': path.resolve(__dirname + '/../src/store'),
+      'services': path.resolve(__dirname + '/../src/services'),
     }
   },
   module: {
