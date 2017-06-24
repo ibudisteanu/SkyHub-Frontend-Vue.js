@@ -26,12 +26,13 @@
 
     import LayoutBody from '../Template-components/Body/LayoutBody.vue'
     import LayoutFooter from '../Template-components/Footer/LayoutFooter.vue';
+    import StickyButtons from '../Template-components/Body/Sticky-buttons/StickyButtons.vue';
 
     import User from 'models/User/User.model';
 
     export default {
         name: 'layout-view',
-        components: { LayoutBody , LayoutFooter},
+        components: { LayoutBody , LayoutFooter, StickyButtons},
 
         data: () => ({
             loading: true

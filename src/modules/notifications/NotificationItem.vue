@@ -6,7 +6,7 @@
 
 <template>
  <div>
-  <li key={notification.id}>
+  <li>
    <div class="dropdown-messages-box">
     <a href="profile.html" class="pull-left">
      <img alt="image" class="img-circle" src="http://webapplayers.com/inspinia_admin-v2.7.1/img/a7.jpg" />
@@ -14,9 +14,9 @@
     <div>
 
      <small class="pull-right">46h ago</small>
-     <strong>dddd
-     </strong> started following <strong>{notification.destinationId}</strong>. <br/>
-     <small class="text-muted">{notification.dtCreation}</small>
+     <strong>dddd</strong>
+     started following <strong>{{notification.destinationId}}</strong>. <br/>
+     <small class="text-muted">{{notification.dtCreation}}</small>
     </div>
    </div>
   </li>
@@ -28,7 +28,7 @@
  export default{
      name: 'NotificationItem',
 
-     props: ['notification'],
+     props: ['notification','val'],
 
  }
 </script>

@@ -2,13 +2,14 @@
   <li key="notificationMenu" class="dropdown">
 
     <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-      <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
+      <i class="fa fa-envelope"></i>  <span class="label label-warning">{{notifications.length}}</span>
     </a>
     <ul class="dropdown-menu dropdown-messages">
 
-      <div is="NotificationItem"
-           v-for="notification in notifications"
-           v-bind:notification="notification"
+      <NotificationItem
+           v-for="(notification, index) in notifications"
+           :notification="notification"
+           :key="notification.id"
       />
 
     </ul>
@@ -25,9 +26,9 @@
 
       components: {NotificationItem},
 
-      data: () => ({
+      data: function (){
 
-          notification1: new Notification({
+          let notification1 = new Notification({
               body: '3323',
               destinationId: '2145',
               senderId: '4151251',
@@ -36,8 +37,8 @@
               dtCreation: '23/jan/1987',
               template: '',
               title: 'so such a lovly twist'
-          }),
-          notification2: new Notification({
+          });
+          let notification2 =  new Notification({
               body: '3323',
               destinationId: '2145',
               senderId: '4151251',
@@ -46,10 +47,10 @@
               dtCreation: '23/jan/1987',
               template: '',
               title: 'so such a lovly twist'
-          }),
+          });
 
-          notifications: [this.notification1,this.notification2],
-      }),
+          return {notifications: [notification1,notification2]}
+      },
 
   }
 </script>
