@@ -1,0 +1,74 @@
+/**
+ * Created by Alexandru Ionut Budisteanu - SkyHub on 6/24/2017.
+ * (C) BIT TECHNOLOGIES
+ */
+
+/*
+  TUTORIAL BASED ON http://monterail.github.io/vue-multiselect/#sub-custom-option-template
+
+*/
+
+<template>
+
+ <div style="display: table-row">
+     <span class="input-group-addon"><img :class="selectedCountryCSS||'flag'" style="display: inline-block; position: relative; vertical-align: middle; padding-top:11px !important;"></span>
+
+     <multiselect @input="onChangeSelect" v-model="value" label="label" track-by="label" :options="options" :option-height="16" :custom-label="customLabel" :show-labels="false" :close-on-select="true">
+
+      <template slot="option" scope="props">
+       <img :class="props.option.css" style="display: inline-block; position: relative; verticalAlign: middle; padding-top:11px !important;" />
+       <div class="option__desc">
+        <span class="option__title">{{ props.option.label }}</span>
+       </div>
+      </template>
+
+     </multiselect>
+ </div>
+
+</template>
+
+<script>
+    import Multiselect from 'vue-multiselect'
+    import {getFlags} from './flags/flags';
+
+    const FLAGS_SIZE = 18;
+
+    export default {
+
+        components: { Multiselect },
+
+        data () {
+            return {
+                selectedCountry: '',
+                selectedCountryCode: '',
+                selectedCountryCSS: '',
+
+                value: { value:'am',   css:"flag am", label:"Armenia"},
+                options: getFlags(),
+            }
+        },
+
+        props: ['defaultCountry','onSelect'],
+
+        methods: {
+
+            customLabel ({label, css, value}) {
+                return `${label}`
+            },
+
+            onChangeSelect(value, id){
+               this.selectedCountryCSS = value.css;
+               this.selectedCountry = value.label;
+               this.selectedCountryCode = value.value;
+
+
+               let onSelect = this.onSelect||function(){};
+               onSelect(this.selectedCountry, this.selectedCountryCode, this.selectedCountryCSS);
+
+               return value;
+            }
+        }
+    }
+</script>
+
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

@@ -100,9 +100,9 @@
                     <div class="col-sm-6">
                         <div :class="'input-group ' + this.showInputStatus(countryValidationStatus)"  >
 
-                            <span class="input-group-addon"><i class="fa fa-flag"></i></span>
 
-                            <MyCountrySelect :initialCountry="localization.countryCode||''" :onSelect="handleCountrySelect"/>
+
+                            <CountrySelect :defaultCountry="localization.countryCode||''" :onSelect="handleCountrySelect"/>
 
                             <span :class="this.showInputFeedback(countryValidationStatus)"></span>
                         </div>
@@ -136,7 +136,7 @@
 
                         </div>
                         <div class="col-xs-6 text-right" >
-                            <LoadingButton className="btn-success" icon="fa fa-sign-up" text="Login" :click="handleCheckRegister" ref="refLoadingButtonRegistration"/>
+                            <LoadingButton className="btn-success" icon="fa fa-sign-in" text="Register" :click="handleCheckRegister" ref="refLoadingButtonRegistration"/>
                         </div>
                     </div>
                 </div>
@@ -163,12 +163,14 @@
 
     import {showInputStatus, showInputFeedback, convertValidationErrorToString} from 'client/components/util-components/form-validation/formValidation';
     import LoadingButton from 'client/components/util-components/UI/buttons/LoadingButton.vue';
+    import CountrySelect from 'client/components/util-components/select/Country.select.vue';
 
     export default{
         name: 'RegistrationForm',
 
         components: {
             'LoadingButton':LoadingButton,
+            'CountrySelect':CountrySelect,
         },
 
         data: function () {
@@ -271,8 +273,7 @@
                         })
                             .catch((Exception)=>{
                                 this.$refs['refLoadingButtonRegistration'].enableButton();
-                                this.refSubmitButton.enableButton();
-                                this.setState({error: "There was a internal problem REGISTERING... Try again"+Exception.toString()});
+                                this.error = "There was a internal problem REGISTERING... Try again"+Exception.toString();
                             });
 
 
@@ -316,15 +317,11 @@
                 this.error = '';
             },
 
-            handleCountrySelect(val){
-                this.setState({
-                    country : val.label,
-                    countryCode : val.value,
-
-                    countryValidationStatus  : [null, '']
-                });
-
-                console.log("values selected are:", val);
+            handleCountrySelect(selectedCountry, selectedCountryCode, selectedCountryCSS){
+                this.country = selectedCountry
+                this.countryCode  = selectedCountryCode;
+                this.countryValidationStatus  = [null, ''];
+                this.error = '';
             },
 
             handleCityChange(e){
