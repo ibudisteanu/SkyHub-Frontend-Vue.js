@@ -18,14 +18,14 @@
     <li>
       <router-link to="/login" :class="this.handleSignIn">
         <i class="fa fa-sign-in"></i>
-        <span class="m-r-sm text-muted welcome-message">Log in</span>
+        <span class="m-r-sm text-muted ">Log in</span>
       </router-link>
     </li>
 
     <li>
       <router-link to="/register" :class="this.handleRegister">
         <i class="fa fa-user-plus"></i>
-        <span class="m-r-sm text-muted welcome-message">Register</span>
+        <span class="m-r-sm text-muted">Register</span>
       </router-link>
     </li>
 
