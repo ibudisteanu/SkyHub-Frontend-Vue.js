@@ -64,9 +64,9 @@ export default {
 
         console.log("LOGOUT ACTION");
 
-        // FetchService.sendRequestGetData("auth/logout",{});
-        //
-        // CookiesService.deleteCookie("sessionId");
+        FetchService.sendRequestGetData("auth/logout",{});
+
+        CookiesService.deleteCookie("sessionId");
 
         return commit('SET_USER_LOGOUT', {});
     },

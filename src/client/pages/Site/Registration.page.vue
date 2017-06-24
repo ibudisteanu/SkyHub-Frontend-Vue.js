@@ -1,7 +1,7 @@
 /**
- * Created by Alexandru Ionut Budisteanu - SkyHub on 6/24/2017.
- * (C) BIT TECHNOLOGIES
- */
+* Created by Alexandru Ionut Budisteanu - SkyHub on 6/24/2017.
+* (C) BIT TECHNOLOGIES
+*/
 
 <template>
 
@@ -11,7 +11,7 @@
             <div slot="layout-content">
                 <h1> Login to SkyHub now</h1>
 
-                <LoginForm :onSuccess="redirectSuccess" />
+                <RegistrationForm :onSuccess="redirectSuccess" />
             </div>
 
         </Layout>
@@ -23,7 +23,7 @@
 <script>
 
     import Layout from 'client/components/Template/Layout/Layout.vue';
-    import LoginForm from 'modules/users/authentication/login/Login.form.vue';
+    import RegistrationForm from 'modules/users/authentication/registration/Registration.form.vue';
 
     export default {
 
@@ -31,7 +31,7 @@
 
         components: {
             'Layout':Layout,
-            'LoginForm':LoginForm,
+            'RegistrationForm':RegistrationForm,
         },
 
         methods: {
@@ -39,8 +39,6 @@
 
                 console.log("LOGIN PAGE REDIRECT");
 
-                //window.location.href = "/";
-                //this.$router.back();
                 this.$router.push('/')
             }
         }

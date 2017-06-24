@@ -28,10 +28,11 @@ export function createRouter () {
       { path: '/hn/user/:id', component: UserView },
       { path: '/hn/', redirect: '/hn/top' },
 
+        { path: '/', component: Layout },
       { path: '/about', component: AboutPage },
       { path: '/login', component: LoginPage },
       { path: '/register', component: Layout },
-      { path: '/', component: Layout },
+
       //{ path: '/', component: LayoutElement('test') }
     ]
   })

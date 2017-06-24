@@ -36,7 +36,7 @@
                         <div class="col-xs-6" style="padding-top: 10px">
 
                             <div>
-                                <router-link to="/register" class="item-footer-menu" :event="''" @click.native.prevent="handleSwitchForm">
+                                <router-link to="/register" class="item-footer-menu" click.native.prevent="handleSwitchForm">
                                 <strong> Register </strong></router-link>to SkyHub
                             </div>
 
@@ -78,19 +78,17 @@
             }
         },
 
-        props : ['onSuccess','onError', 'onSwitch'],
+        props : {
+            onSuccess: { type: Function },
+            onError: { type: Function },
+            onSwitch: { type: Function },
+        },
 
         methods:{
 
             showInputStatus(status) {return showInputStatus(status)},
             showInputFeedback(status) {return showInputFeedback(status)},
             convertValidationErrorToString(error) {return convertValidationErrorToString(error)},
-
-            back(e) {
-                e.preventDefault(); e.stopPropagation();
-
-                //this.props.router.goBack();
-            },
 
             async handleCheckLogin(e){
 
@@ -137,6 +135,7 @@
 
             loginSuccessfully(res){
                 let onSuccess = this.onSuccess || function (){};
+
                 onSuccess(res);
             },
 

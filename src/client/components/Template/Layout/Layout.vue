@@ -5,7 +5,7 @@
             <LayoutBody>
 
                 <div slot="content">
-                    <slot> </slot>
+                    <slot name="layout-content" />
                     <b>TEST LAYOUT</b>
                 </div>
 
