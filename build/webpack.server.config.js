@@ -19,8 +19,8 @@ module.exports = merge(base, {
   resolve: {
     alias: {
       createApi: path.resolve(__dirname + '/../src/services/hackernews-api/create-api-server.js'),
-      //communicationService: path.resolve(__dirname + '/../src/services/communication/http/http.service.js'),
-      communicationService: path.resolve(__dirname + '/../src/services/communication/server-socket-worker/ServerSocketWorker.service.js'),
+      communicationService: path.resolve(__dirname + '/../src/services/communication/http/http.service.js'),
+      //communicationService: path.resolve(__dirname + '/../src/services/communication/server-socket-worker/ServerSocketWorker.service.js'),
     }
   },
   // https://webpack.js.org/configuration/externals/#externals

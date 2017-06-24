@@ -9,13 +9,6 @@ import CookiesService from 'services/cookies/cookies.service';
 export default {
     // ensure data for rendering given list type
 
-    AUTHENTICATE_222: async ({ commit, dispatch, state }, { sEmailUserName, sPassword }) => {
-
-        return (async () => {
-
-        });
-
-    },
 
     AUTHENTICATE_USER_BY_LOGIN: async({ commit, dispatch, state }, { sEmailUserName, sPassword }) => {
 

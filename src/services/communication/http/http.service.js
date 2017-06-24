@@ -19,50 +19,48 @@ class HTTPServiceClass {
 
     }
 
-    sendRequestGetData(sRequest, requestData){
-
-        return (async () => {
-            if (!requestData.hasOwnProperty('sessionId')) {
-                let sessionId = CookiesService.getSessionCookie();
-
-                if ((sessionId !== "") && (!requestData.hasOwnProperty('sessionId')) && (typeof requestData !== "string"))
-                    requestData.sessionId = sessionId;
-            }
-
-            console.log(""); console.log(""); console.log(""); console.log(this.addTrailingSlash(this.serverHTTPApi)+sRequest);  console.log(requestData);
-
-            requestData = {data: requestData};
-
-            let answer = await axios.get(this.addTrailingSlash(this.serverHTTPApi)+sRequest, requestData);
-            return answer.data;
-        });
-    }
-
-    sendRequestGetDataURL(sRequest, req){
-
-        return (async () => {
-            req = {data: req};
-
-            let answer = await axios.get(sRequest, req);
-            return answer.data;
-        });
+    startService(){
 
     }
 
+    async sendRequestGetData(sRequest, requestData){
 
-    postRequest(sRequest, requestData){
+        if (!requestData.hasOwnProperty('sessionId')) {
+            let sessionId = CookiesService.getSessionCookie();
 
-        return (async () => {
-            if (!requestData.hasOwnProperty('sessionId')) {
-                let sessionId = CookiesService.getSessionCookie();
+            if ((sessionId !== "") && (!requestData.hasOwnProperty('sessionId')) && (typeof requestData !== "string"))
+                requestData.sessionId = sessionId;
+        }
 
-                if ((sessionId !== "") && (!requestData.hasOwnProperty('sessionId')) && (typeof requestData !== "string"))
-                    requestData.sessionId = sessionId;
-            }
+        console.log(""); console.log(""); console.log(""); console.log(this.addTrailingSlash(this.serverHTTPApi)+sRequest);  console.log(requestData);
 
-            let answer = await axios.post(this.addTrailingSlash(this.serverHTTPApi)+sRequest, requestData);
-            return answer.data;
-        });
+        requestData = {data: requestData};
+
+        let answer = await axios.get(this.addTrailingSlash(this.serverHTTPApi)+sRequest, requestData);
+        return answer.data;
+    }
+
+    async sendRequestGetDataURL(sRequest, req){
+
+        req = {data: req};
+
+        let answer = await axios.get(sRequest, req);
+        return answer.data;
+
+    }
+
+
+    async postRequest(sRequest, requestData){
+
+        if (!requestData.hasOwnProperty('sessionId')) {
+            let sessionId = CookiesService.getSessionCookie();
+
+            if ((sessionId !== "") && (!requestData.hasOwnProperty('sessionId')) && (typeof requestData !== "string"))
+                requestData.sessionId = sessionId;
+        }
+
+        let answer = await axios.post(this.addTrailingSlash(this.serverHTTPApi)+sRequest, requestData);
+        return answer.data;
     }
 
     // async checkAuthCookie(cookie){

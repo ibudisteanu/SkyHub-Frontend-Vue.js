@@ -7,6 +7,8 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
+  entry: ['babel-regenerator-runtime'],
+
   devtool: isProd
     ? false
     : '#cheap-module-source-map',
