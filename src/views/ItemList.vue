@@ -51,7 +51,7 @@ export default {
       return Number(this.$store.state.route.params.page) || 1
     },
     maxPage () {
-      const { itemsPerPage, lists } = this.$store.state.Hackernews
+      const { itemsPerPage, lists } = this.$store.state.hackernews
       return Math.ceil(lists[this.type].length / itemsPerPage)
     },
     hasMore () {

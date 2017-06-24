@@ -40,20 +40,18 @@ export default class User {
         this.latitude = data.latitude || -666;
 
         console.log('User assigned ', data, data.firstName, data.userName);
-
-
     }
 
-    getName() {
-        return this.firstName + ' ' + this.lastName;
+    static getName(User) {
+        return User.firstName + ' ' + User.lastName;
     }
 
-    isLoggedIn(){
-        return this.loggedIn || false;
+    static isLoggedIn(User){
+        return User.loggedIn || false;
     }
 
-    getProfilePic(){
-      return this.profilePic;
+    static getProfilePic(User){
+      return User.profilePic;
     }
 
 }

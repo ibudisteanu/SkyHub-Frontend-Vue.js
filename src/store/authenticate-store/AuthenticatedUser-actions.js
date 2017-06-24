@@ -6,6 +6,8 @@
 import FetchService from 'services/communication/FetchService'
 import CookiesService from 'services/cookies/cookies.service';
 
+import User from 'models/User/User.model';
+
 export default {
     // ensure data for rendering given list type
 
@@ -14,7 +16,7 @@ export default {
 
         await dispatch('AUTHENTICATE_LOGOUT_USER');
 
-        if (state.user.isLoggedIn() === true) { console.log("user already logged in"); return {result:true, user:state.user} }; //already logged in
+        if (User.isLoggedIn(state.user) === true) { console.log("user already logged in"); return {result:true, user:state.user} }; //already logged in
 
         let resData = await FetchService.sendRequestGetData("auth/login",{emailUsername:sEmailUserName, password:sPassword});
 
@@ -38,7 +40,7 @@ export default {
 
     AUTHENTICATE_USER_BY_SESSION: async ({ commit, dispatch, state }, { sessionId }) => {
 
-        if (state.user.isLoggedIn() === true) {     //already logged in
+        if (User.isLoggedIn(state.user) === true) {     //already logged in
             return ( {result: true, user: state.user, sessionId: sessionId});
         }
 

@@ -5,9 +5,9 @@
 
 import Vuex from 'vuex'
 
-import actions from './Authenticate-actions'
-import mutations from './Authenticate-mutations'
-import getters from './Authenticate-getters'
+import actions from './AuthenticatedUser-actions'
+import mutations from './AuthenticatedUser-mutations'
+import getters from './AuthenticatedUser-getters'
 
 import User from 'models/User/User.model';
 

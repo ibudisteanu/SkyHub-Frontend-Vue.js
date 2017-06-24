@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     comment () {
-      return this.$store.state.Hackernews.items[this.id]
+      return this.$store.state.hackernews.items[this.id]
     }
   },
   methods: {

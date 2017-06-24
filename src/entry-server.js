@@ -2,9 +2,6 @@ import { createApp } from './app'
 
 const isDev = process.env.NODE_ENV !== 'production'
 
-import { put, delay } from 'vuex-saga'
-import {AUTHENTICATE_USER_BY_SESSION} from 'store/authenticate-store/Authenticate-actions';
-
 // This exported function will be called by `bundleRenderer`.
 // This is where we perform data-prefetching to determine the
 // state of our application before actually rendering it.

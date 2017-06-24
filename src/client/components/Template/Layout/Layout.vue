@@ -1,7 +1,13 @@
 <template>
     <div id="wrapper">
 
-        <Body> </Body>
+
+        <Body/>
+
+        <Footer />
+        <StickyButtons />
+
+        <RightSidebar />
 
     </div>
 </template>
@@ -9,10 +15,12 @@
 <script>
 
     import Body from '../Template-components/Body/Body.vue'
+    import Footer from '../Template-components/Footer/Footer.vue';
+
 
     export default {
         name: 'layout-view',
-        components: { Body },
+        components: { Body , Footer},
 
         data: () => ({
             loading: true
@@ -44,12 +52,7 @@
         },
 
         methods: {
-            fetchComments () {
-                this.loading = true
-                fetchComments(this.$store, this.item).then(() => {
-                    this.loading = false
-                })
-            }
+
         }
     }
 

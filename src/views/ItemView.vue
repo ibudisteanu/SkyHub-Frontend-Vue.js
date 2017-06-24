@@ -41,7 +41,7 @@ export default {
 
   computed: {
     item () {
-      return this.$store.state.Hackernews.items[this.$route.params.id]
+      return this.$store.state.hackernews.items[this.$route.params.id]
     }
   },
 
@@ -82,7 +82,7 @@ function fetchComments (store, item) {
     return store.dispatch('FETCH_ITEMS', {
       ids: item.kids
     }).then(() => Promise.all(item.kids.map(id => {
-      return fetchComments(store, store.state.Hackernews.items[id])
+      return fetchComments(store, store.state.hackernews.items[id])
     })))
   }
 }

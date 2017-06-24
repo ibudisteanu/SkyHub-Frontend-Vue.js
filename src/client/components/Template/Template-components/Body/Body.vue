@@ -5,32 +5,26 @@
 
     THIS IS BODY
 
-    <div id="page-wrapper" @class="gray-bg" @style="{minHeight: 785}">
+    <div id="page-wrapper" class="gray-bg" :style="{minHeight: 785}">
 
-      <Header />
-
-      <Content>
-
-        <AuthenticationModal />
-
-      </Content>
 
 
     </div>
 
-    <Footer />
-    <StickyButtons />
 
-    <RightSidebar />
 
   </div>
 </template>
 
 
 <script>
+
+    import LeftSidebar from './Left-sidebar/LeftSidebar.vue';
+    import Header from '../Header/Header.vue';
+
     export default {
         name: 'layout-body-view',
-        components: { },
+        components: { LeftSidebar, Header },
 
         data: () => ({
             loading: true
@@ -62,12 +56,7 @@
         },
 
         methods: {
-            fetchComments () {
-                this.loading = true
-                fetchComments(this.$store, this.item).then(() => {
-                    this.loading = false
-                })
-            }
+
         }
     }
 </script>

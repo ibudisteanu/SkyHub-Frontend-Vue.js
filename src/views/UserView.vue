@@ -25,7 +25,7 @@ export default {
 
   computed: {
     user () {
-      return this.$store.state.Hackernews.users[this.$route.params.id]
+      return this.$store.state.hackernews.users[this.$route.params.id]
     }
   },
 
