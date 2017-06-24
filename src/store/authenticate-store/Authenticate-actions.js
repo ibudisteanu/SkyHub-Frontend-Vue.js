@@ -44,13 +44,10 @@ export default {
 
         let resData = await FetchService.sendRequestGetData("auth/login-session", {sessionId: sessionId});
 
-        console.log("AUTHENTICATING...3", resData);
-
-        console.log('Answer from Login sessionId Async');
-        console.log(resData);
+        console.log('Answer from Login sessionId Async', resData, state);
 
         if (resData.result === true) {
-            await commit('SET_AUTHENTICATED_NEW_USER_JSON', {
+           await commit('SET_AUTHENTICATED_NEW_USER_JSON', {
                 newUserData: resData.user,
                 sessionId: sessionId
             });

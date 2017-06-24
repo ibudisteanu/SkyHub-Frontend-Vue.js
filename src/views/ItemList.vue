@@ -1,5 +1,6 @@
 <template>
   <div class="news-view">
+    {{ authenticatedUser }}
     <div class="news-list-nav">
       <router-link v-if="page > 1" :to="'/' + type + '/' + (page - 1)">&lt; prev</router-link>
       <a v-else class="disabled">&lt; prev</a>
@@ -42,6 +43,10 @@ export default {
   },
 
   computed: {
+    authenticatedUser(){
+        console.log('authenticatedUser',this.$store.state)
+        return this.$store.state.Authenticate.user.id||'none';
+    },
     page () {
       return Number(this.$store.state.route.params.page) || 1
     },
