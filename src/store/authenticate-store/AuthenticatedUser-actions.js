@@ -3,8 +3,6 @@
  * (C) BIT TECHNOLOGIES
  */
 
-require ('services/hackernews-api/index');
-
 import FetchService from 'services/communication/FetchService'
 import CookiesService from 'services/cookies/cookies.service';
 

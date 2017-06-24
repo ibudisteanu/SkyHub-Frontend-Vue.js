@@ -2,10 +2,14 @@
     <div >
 
         <Chat/>
-        <NotificationStickyButton :rightOffset="rightOffset"/>
 
 
-        <ChatStickyButton :rightOffset="this.rightOffset + 50"/>
+        <div v-if="!areNotificationsGranted">
+            <NotificationStickyButton :rightOffset="notifcationsStickyButtonRightOffset" />
+        </div>
+
+
+        <ChatStickyButton :rightOffset="chatStickyButtonRightOffset"/>
 
     </div>
 </template>
@@ -20,8 +24,26 @@
         name: "StickyButtons",
 
         data: () => ({
-            rightOffset: "0",
+
         }),
+
+        computed: {
+
+            notifcationsStickyButtonRightOffset(){
+                return 0;
+            },
+
+            chatStickyButtonRightOffset (){
+                if (this.areNotificationsGranted) return 0;
+                else return 50;
+            },
+
+            areNotificationsGranted(){
+                return this.$store.state.systemNotifications.notificationsPermissionGranted;
+
+            }
+
+        },
 
         components: {
             'Chat': Chat,

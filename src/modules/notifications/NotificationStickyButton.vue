@@ -27,8 +27,12 @@
 
       props: ['rightOffset'],
 
+
+
       methods:{
-          handleStickyButtonClick(e){
+          async handleStickyButtonClick(e){
+
+              await this.$store.dispatch('SYSTEM_NOTIFICATIONS_ASK_PERMISSION',{});
 
           }
       }
