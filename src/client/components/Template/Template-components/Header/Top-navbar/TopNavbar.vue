@@ -13,9 +13,10 @@
           <i class="fa fa-bars"></i>
         </a>
 
-        <form role="search" class="navbar-form-custom" action="http://webapplayers.com/inspinia_admin-v2.7.1/search_results.html">
+        <form role="search" class="navbar-form-custom" >
           <div class="form-group">
-            <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search" />
+
+            <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search" style="margin-left: 10px" />
           </div>
         </form>
       </div>

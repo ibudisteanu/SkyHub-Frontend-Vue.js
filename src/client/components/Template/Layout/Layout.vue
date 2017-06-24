@@ -1,5 +1,6 @@
 <template>
-    <body :class="getBodyClass">
+
+    <div id="templateBody" :class="getBodyClass">
         <div id="wrapper">
 
             <LayoutBody>
@@ -19,7 +20,9 @@
             <RightSidebar />
 
         </div>
-    </body>
+
+    </div>
+
 
 </template>
 
@@ -41,12 +44,26 @@
         }),
 
         computed: {
+
             getBodyClass(){
                 if (User.isLoggedIn(this.$store.state.authenticatedUser.user))
                     return "pace-done";
                 else
-                    return "pace-done mini-navbar top-navigation";
-            }
+                    return "pace-done mini-navbar top-navigation"
+            },
+
+            authenticatedUser(){
+
+//                if (typeof window === "undefined") return '';
+//
+//                if (this.$store.state.authenticatedUser)
+//                    document.getElementsByTagName("body")[0].style="pace-done";
+//                else
+//                    document.getElementsByTagName("body")[0].style="pace-done mini-navbar top-navigation";
+//
+//                return this.$store.state.authenticatedUser;
+            },
+
         },
 
         // We only fetch the item itself before entering the view, because

@@ -118,11 +118,6 @@ function render (req, res) {
     }
   }
 
-    const path = require('path')
-  for (let i=0; i<10; i++)
-    console.log(path.resolve(__dirname + '/../src/services'));
-    console.log('coookies@@@@@@@@@@@@@',req.cookies);
-
   const context = {
     title: 'Vue HN 2.0', // default title
     cookies: req.cookies,   //signedCookies instead

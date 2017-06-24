@@ -34,6 +34,8 @@ export default class CookiesService {
     }
 
     static setCookie(name , value, days) {
+      if (typeof window ==="undefined") return '';
+
       let expires = "";
       if (days) {
           let date = new Date();

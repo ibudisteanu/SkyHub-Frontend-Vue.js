@@ -52,10 +52,10 @@ class HTTPServiceClass {
 
     async postRequest(sRequest, requestData){
 
-        if (!requestData.hasOwnProperty('sessionId')) {
+        if (typeof requestData.sessionId === "undefined") {
             let sessionId = CookiesService.getSessionCookie();
 
-            if ((sessionId !== "") && (!requestData.hasOwnProperty('sessionId')) && (typeof requestData !== "string"))
+            if ((sessionId !== "") && (typeof requestData !== "string"))
                 requestData.sessionId = sessionId;
         }
 

@@ -33,13 +33,19 @@ export default {
 
     AUTHENTICATE_USER_BY_SESSION: async ({ commit, dispatch, state }, { sessionId }) => {
 
+        if ((User.isLoggedIn(state.user) === true)&&((typeof sessionId === "undefined")||(sessionId.length < 5))) {   //Invalid Session ID
+            await dispatch('AUTHENTICATE_LOGOUT_USER', {});
+            return {result:false };
+        }
+
         if (User.isLoggedIn(state.user) === true) {     //already logged in
             return ( {result: true, user: state.user, sessionId: sessionId});
         }
 
-        let resData = await FetchService.sendRequestGetData("auth/login-session", {sessionId: sessionId});
+        console.log('Fetching session', sessionId, state.user.lastName);
+        let resData = await FetchService.sendRequestGetData("auth/login-session", {sessionId: sessionId });
 
-        console.log('Answer from Login sessionId Async', resData, state);
+        console.log('Answer from Login sessionId Async', resData, state.user.lastName);
 
         if (resData.result === true) {
             resData.user.loggedIn = true;
@@ -91,6 +97,7 @@ export default {
         console.log('Answer from Server Auth Register', resData);
 
         if (resData.result === true) {
+            resData.user.loggedIn = true;
             await dispatch('AUTHENTICATE_USER_BY_LOGIN',{sEmailAddress:sEmailAddress, sPassword: sPassword});
         }
 
