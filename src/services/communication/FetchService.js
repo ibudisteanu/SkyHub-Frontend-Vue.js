@@ -28,9 +28,6 @@ class FetchServiceClass {
   }
 
 
-  sendRequestGetData(sRequestName, data){
-    return CommunicationService.sendRequestGetData()
-  }
 
 }
 

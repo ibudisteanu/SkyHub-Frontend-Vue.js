@@ -28,6 +28,13 @@ export default {
 
     },
 
+    // AUTHENTICATE_USER_BY_COOKIES: async ({ commit, dispatch, state }, { cookies }) => {
+    //     let sessionId = CookiesService.extractAuthCookie(cookies); //extract only the sessionId
+    //
+    //     console.log("AUTHENTICATE_USER_BY_COOKIES cooooookies", cookies);
+    //     if (sessionId !== null)
+    //         return dispatch.commit('AUTHENTICATE_USER_BY_COOKIES', {sessionId: sessionId});
+    // },
 
     AUTHENTICATE_USER_BY_SESSION: async ({ commit, dispatch, state }, { sessionId }) => {
 
@@ -37,11 +44,13 @@ export default {
 
         let resData = await FetchService.sendRequestGetData("auth/login-session", {sessionId: sessionId});
 
+        console.log("AUTHENTICATING...3", resData);
+
         console.log('Answer from Login sessionId Async');
         console.log(resData);
 
         if (resData.result === true) {
-            await dispatch('AUTHENTICATE_USER_BY_PROVIDING_USER', {
+            await commit('SET_AUTHENTICATED_NEW_USER_JSON', {
                 newUserData: resData.user,
                 sessionId: sessionId
             });

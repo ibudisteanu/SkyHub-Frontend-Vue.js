@@ -43,4 +43,29 @@ export default class CookiesService {
       document.cookie = name + "=" + value + expires + "; path=/";
     }
 
+
+    static extractAuthCookie(cookies){
+
+        let sessionId = '';
+
+        //based on this https://stackoverflow.com/questions/3393854/get-and-set-a-single-cookie-with-node-js-http-server
+        cookies && cookies.split(';').forEach( function( cookie ) {
+            let parts = cookie.split('=');
+
+            let cookieName = parts.shift().trim();
+
+            if (cookieName === 'sessionId')
+                sessionId = decodeURI(parts.join('='));
+
+        });
+
+        if ((sessionId !== '')&&(sessionId.length > 5))
+
+            return sessionId;
+
+         else
+            return null;
+
+    }
+
 }

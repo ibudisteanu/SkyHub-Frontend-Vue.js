@@ -125,7 +125,7 @@ function render (req, res) {
 
   const context = {
     title: 'Vue HN 2.0', // default title
-    sessionId: req.cookies,   //signedCookies instead
+    cookies: req.cookies,   //signedCookies instead
     url: req.url
   }
   renderer.renderToString(context, (err, html) => {

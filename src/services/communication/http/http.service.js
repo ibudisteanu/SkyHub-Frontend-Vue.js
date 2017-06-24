@@ -25,10 +25,10 @@ class HTTPServiceClass {
 
     async sendRequestGetData(sRequest, requestData){
 
-        if (!requestData.hasOwnProperty('sessionId')) {
+        if (typeof requestData.sessionId === "undefined") {
             let sessionId = CookiesService.getSessionCookie();
 
-            if ((sessionId !== "") && (!requestData.hasOwnProperty('sessionId')) && (typeof requestData !== "string"))
+            if ((sessionId !== "") && (typeof requestData !== "string"))
                 requestData.sessionId = sessionId;
         }
 
@@ -63,42 +63,14 @@ class HTTPServiceClass {
         return answer.data;
     }
 
-    // async checkAuthCookie(cookie){
-    //
-    //   let sessionId = '';
-    //
-    //   //based on this https://stackoverflow.com/questions/3393854/get-and-set-a-single-cookie-with-node-js-http-server
-    //   cookie && cookie.split(';').forEach( function( cookie ) {
-    //     let parts = cookie.split('=');
-    //
-    //     let cookieName = parts.shift().trim();
-    //
-    //     if (cookieName === 'sessionId')
-    //       sessionId = decodeURI(parts.join('='));
-    //
-    //   });
-    //
-    //   if ((sessionId !== '')&&(sessionId.length > 5)){
-    //
-    //     return await this.sendRequestGetData("auth/login-session", {sessionId: sessionId});
-    //
-    //   } else {
-    //     return {
-    //       data: {
-    //         result: false,
-    //         message: "cookie invalid",
-    //       }
-    //     }
-    //   }
-    // }
-    //
-    // addTrailingSlash(url){
-    //     var lastChar = url.substr(-1); // Selects the last character
-    //     if (lastChar != '/') {         // If the last character is not a slash
-    //         url = url + '/';            // Append a slash to it.
-    //     }
-    //     return url;
-    // }
+
+    addTrailingSlash(url){
+        var lastChar = url.substr(-1); // Selects the last character
+        if (lastChar != '/') {         // If the last character is not a slash
+            url = url + '/';            // Append a slash to it.
+        }
+        return url;
+    }
 
 }
 
