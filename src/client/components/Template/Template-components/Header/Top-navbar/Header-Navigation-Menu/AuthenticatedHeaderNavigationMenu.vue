@@ -16,13 +16,13 @@
 
     <li>
       <router-link to="/" >
-        <i class="fa fa-home"></i>
+        <i class="fa fa-user"></i>
         <span class="m-r-sm text-muted welcome-message">Profile</span>
       </router-link >
     </li>
 
 
-    <NotificationMenu/>
+    <NotificationsMenu/>
 
 
     <li class="dropdown">
@@ -85,8 +85,14 @@
 </template>
 
 <script>
+
+  import NotificationsMenu from 'modules/notifications/NotificationsMenu.vue';
+
   export default {
       name: 'Header-Navigation-Menu-Authenticated',
+
+      components: {NotificationsMenu},
+
       computed:{
           authenticatedUser(){
               console.log('authenticatedUser',this.$store.state)

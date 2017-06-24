@@ -5,16 +5,10 @@ import * as UserProperties from '../User/User.properties.js';
 
 export default class Notification {
 
-  destinationId;
-  senderId;
 
-  description;
-  id;
-  dtCreation;
-  template;
-  title;
+    constructor( data) {
 
-    constructor( data: Object = {}) {
+      if (typeof data === "undefined") data = {};
 
       this.id = data.id||'';
       this.dtCreation = data.dtCreation || '';

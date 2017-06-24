@@ -25,7 +25,7 @@ class ClientSocketServiceClass {
       this.dispatch = dispatch;
       this.socketStatus = socketStatus;
 
-      this.createClientSocket
+      this.createClientSocket();
     }
 
 

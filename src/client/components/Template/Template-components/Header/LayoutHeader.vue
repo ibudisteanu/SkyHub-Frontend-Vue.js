@@ -1,5 +1,5 @@
 <template>
-    <div class="row border-bottom">
+    <div class="row">
 
         <TopNavbar />
 
