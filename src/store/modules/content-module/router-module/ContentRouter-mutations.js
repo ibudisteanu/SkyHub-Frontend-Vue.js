@@ -11,8 +11,8 @@ export default{
 
         state.routerObject.currentRouterObject = ContentObjectService.createObject(routerObject);
 
-        if (url === '/') state.type = "home";
-            state.routerObject.type = ContentObjectService.extractObjectTypeFromId(routerObject);
+        if (url === '/') state.routerObject.type = "home";
+        else state.routerObject.type = ContentObjectService.extractObjectTypeFromId(routerObject);
 
         state.routerObject.pageURL = url;
         state.routerObject.notFound = notFound;
@@ -23,8 +23,8 @@ export default{
 
         state.routerParentObject.currentRouterObject = ContentObjectService.createObject(routerObject);
 
-        if (url === '/') state.type = "home";
-        state.routerParentObject.type = ContentObjectService.extractObjectTypeFromId(routerObject);
+        if (url === '/') state.routerParentObject.type = "home";
+        else state.routerParentObject.type = ContentObjectService.extractObjectTypeFromId(routerObject);
 
         state.routerParentObject.notFound = notFound;
     },

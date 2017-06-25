@@ -15,18 +15,18 @@ export default{
         if ( res.result === true){
 
             let parent = (typeof res.object !== "undefined") && (res.object !== null) ? res.object.parent : '';
+            let id =     (typeof res.object !== "undefined") && (res.object !== null) ? res.id : '';
 
-            await dispatch('CONTENT_FETCH_ROUTER_PARENT_OBJECT', {url: parent} ); //fetching the parent object
-
+            await dispatch('CONTENT_FETCH_ROUTER_PARENT_OBJECT', {url: parent} ); //fetching the parent object)
 
             switch (state.contentRouter.routerObject.type){
                 case "home":
                 case "forum":
-                        await this.fetchTopForums(sContentToSearchId, 1, 8);
-                        //await this.fetchTopContent(sContentToSearchId, 1, 8);
+                    await dispatch('CONTENT_FETCH_TOP_FORUMS',{parent: id,  pageIndex: 1, pageCount:8 });
+                    //await this.fetchTopContent(sContentToSearchId, 1, 8);
                     break;
                 case "topic":
-                        //await this.fetchTopReplies(sContentToSearchId, 1, 8);
+                    //await this.fetchTopReplies(sContentToSearchId, 1, 8);
                     break;
             }
 

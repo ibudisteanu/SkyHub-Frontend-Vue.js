@@ -11,7 +11,7 @@ export default {
 
     state:{
 
-        forums: [],
+        forums: {/* [id: number]: Item */},
 
     },
 

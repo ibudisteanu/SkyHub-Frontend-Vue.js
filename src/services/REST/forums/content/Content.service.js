@@ -30,41 +30,7 @@ class ContentServiceClass {
     }
 
 
-    /*
-
-     */
-
-    processNewContent(newContentObjects, previousContentObjects){
-
-      if (newContentObjects.constructor !== Array) newContentObjects = [newContentObjects];
-
-      let toBeAdded = [];
-
-      for (let i=0; i<newContentObjects.length; i++ ){
-
-        let newObject = newContentObjects[i].object;
-
-        let bFound=false;
-
-        if ((previousContentObjects !== null) )
-          for (let obj in previousContentObjects)
-            if (newObject.id === obj.id){
-              bFound=true;
-              break;
-            }
-
-        if ((!bFound)&&(newObject!==null)&&(newObject.id !== null)) {
-          newObject = ContentObjectService.createObject(newObject);
-
-          if (newObject !== null)
-            toBeAdded.push(newObject);
-        }
-
-      }
-
-      return toBeAdded;
-    }
-
+    /
     async getObjectContent(sContentToSearchId){
 
       if (sContentToSearchId !== '')
@@ -73,38 +39,6 @@ class ContentServiceClass {
         return {result: true, data: {content: null}};
     }
 
-
-    getURLSlug(parent, name){
-      return FetchDataService.sendRequestWithProtocol("content/get-URL-slug", {parent:parent, name: name} );
-    }
-
-    getMetaUrl(link){
-      return FetchDataService.sendRequestWithProtocol("meta-extractor/extract-url", {link:link} );
-    }
-
-    /*
-     FETCHING PARENT CONTENT (Topics)
-    */
-
-    async fetchTopContent(parent, pageIndex, pageCount){
-
-      let answer = {result : false};
-
-      answer = await FetchDataService.sendRequestWithProtocol( "content/get-top-content",{parent: parent, pageIndex:pageIndex, pageCount: pageCount} );
-
-      console.log("ANSWER TOP CONTENT",answer);
-
-      let toBeAdded = [];
-      if (answer.result === true){
-
-        toBeAdded = this.processNewContent(answer.content, this.contentState.contentObjects.objects );
-
-        if (toBeAdded !== [])
-          await this.dispatch(setContentState_AddContentObjects_Action(toBeAdded ));
-
-      }
-      return toBeAdded;
-    }
 
     /*
         FETCHING TOP CONTENT (Topics)

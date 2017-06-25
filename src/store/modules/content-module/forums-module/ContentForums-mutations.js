@@ -3,10 +3,27 @@
  * (C) BIT TECHNOLOGIES
  */
 
-
-import ContentObjectService from 'services/REST/forums/content/ContentObject.service'
+import Vue from 'vue';
 
 export default{
 
+    //SET MULTIPLE FORUMS
+    SET_CONTENT_FORUMS: (state, { forums }) => {
+
+        for (let i=0; i<forums.length; i++){
+
+            let forum = forums[i].object;
+
+            console.log("SET_CONTENT_FORUMS", forum.id,  forum.name);
+
+            Vue.set(state.forums, forum.id, forum );
+        }
+    },
+
+    SET_CONTENT_FORUM: (state, { forum }) => {
+
+        Vue.set(state.forums, forum.id, forum);
+
+    },
 
 }

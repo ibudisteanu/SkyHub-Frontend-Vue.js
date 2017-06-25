@@ -4,6 +4,7 @@
  */
 
 import FetchService from 'services/communication/FetchService'
+import {calculateNewObjectsToBeAdded} from 'store/helpers/StoreHelper'
 
 export default{
 
@@ -21,35 +22,17 @@ export default{
 
         console.log("ANSWER TOP FORUMS", answer);
 
-        let toBeAdded = [];
         if ((typeof answer !== "undefined")&&(answer.result === true)) {
 
-            toBeAdded = this.processNewContent(answer.content, this.contentState.contentForums.objects );
 
-            if (toBeAdded !== [])
-                await this.dispatch(setContentState_AddForumsObjects_Action(toBeAdded ));
+            await commit('SET_CONTENT_FORUMS', {forums: answer.content});
 
-        }
-        return toBeAdded;
-
-
-
-        if ((typeof url === "undefined")||(url === '')) url = '/';
-
-        if ( url === '/' ){
-            await commit(routerObjectTypeCommit,{routerObject: null, notFound:false, url: '/'});
-            return {result: true, object: null};
+            return  {result: true, forums: answer.content }
         }
 
-        //extracting the data
-        let routerObjectAnswer = await dispatch('CONTENT_FETCH_OBJECT',{url}); //getting the object
-        let notFound = (routerObjectAnswer !== null);
+        else
+            return {result:false, forums: []}
 
-
-
-        await commit(routerObjectTypeCommit, {routerObject: routerObjectAnswer.content, notFound: notFound});
-
-        return {result: notFound, object: routerObjectAnswer.content};
     },
 
 
