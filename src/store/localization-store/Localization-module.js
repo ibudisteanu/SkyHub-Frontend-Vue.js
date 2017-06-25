@@ -18,7 +18,7 @@ export default {
         city: '',
         latitude: '',
         longitude: '',
-        IP: '',
+        ip: '',
         timeZone: '',
 
         clientIP: '',

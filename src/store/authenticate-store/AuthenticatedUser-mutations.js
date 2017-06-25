@@ -32,5 +32,11 @@ export default {
         state.error = ''
     },
 
+    SET_AUTHENTICATED_SESSION_STORE: (state, { sessionId }) => {
+
+        state.sessionId = sessionId;
+
+    },
+
 
 }

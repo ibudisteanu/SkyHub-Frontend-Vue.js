@@ -36,7 +36,7 @@
               <div class="sidebar-message">
                 <a href="#">
                   <div class="pull-left text-center">
-                    <img alt="image" class="img-circle message-avatar" src="img/a1.jpg">
+                    <img alt="image" class="img-circle message-avatar" src="http://webapplayers.com/inspinia_admin-v2.7.1/img/a1.jpg">
 
                     <div class="m-t-xs">
                       <i class="fa fa-star text-warning"></i>
@@ -54,7 +54,7 @@
               <div class="sidebar-message">
                 <a href="#">
                   <div class="pull-left text-center">
-                    <img alt="image" class="img-circle message-avatar" src="img/a2.jpg">
+                    <img alt="image" class="img-circle message-avatar" src="http://webapplayers.com/inspinia_admin-v2.7.1/img/a2.jpg">
                   </div>
                   <div class="media-body">
                     The point of using Lorem Ipsum is that it has a more-or-less normal.
@@ -66,7 +66,7 @@
               <div class="sidebar-message">
                 <a href="#">
                   <div class="pull-left text-center">
-                    <img alt="image" class="img-circle message-avatar" src="img/a3.jpg">
+                    <img alt="image" class="img-circle message-avatar" src="http://webapplayers.com/inspinia_admin-v2.7.1/img/a3.jpg">
 
                     <div class="m-t-xs">
                       <i class="fa fa-star text-warning"></i>
@@ -84,7 +84,7 @@
               <div class="sidebar-message">
                 <a href="#">
                   <div class="pull-left text-center">
-                    <img alt="image" class="img-circle message-avatar" src="img/a4.jpg">
+                    <img alt="image" class="img-circle message-avatar" src="http://webapplayers.com/inspinia_admin-v2.7.1/img/a4.jpg">
                   </div>
 
                   <div class="media-body">
@@ -97,7 +97,7 @@
               <div class="sidebar-message">
                 <a href="#">
                   <div class="pull-left text-center">
-                    <img alt="image" class="img-circle message-avatar" src="img/a8.jpg">
+                    <img alt="image" class="img-circle message-avatar" src="http://webapplayers.com/inspinia_admin-v2.7.1/img/a8.jpg">
                   </div>
                   <div class="media-body">
 
@@ -110,7 +110,7 @@
               <div class="sidebar-message">
                 <a href="#">
                   <div class="pull-left text-center">
-                    <img alt="image" class="img-circle message-avatar" src="img/a7.jpg">
+                    <img alt="image" class="img-circle message-avatar" src="http://webapplayers.com/inspinia_admin-v2.7.1/img/a7.jpg">
                   </div>
                   <div class="media-body">
                     Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
@@ -122,7 +122,7 @@
               <div class="sidebar-message">
                 <a href="#">
                   <div class="pull-left text-center">
-                    <img alt="image" class="img-circle message-avatar" src="img/a3.jpg">
+                    <img alt="image" class="img-circle message-avatar" src="http://webapplayers.com/inspinia_admin-v2.7.1/img/a3.jpg">
 
                     <div class="m-t-xs">
                       <i class="fa fa-star text-warning"></i>
@@ -140,7 +140,7 @@
               <div class="sidebar-message">
                 <a href="#">
                   <div class="pull-left text-center">
-                    <img alt="image" class="img-circle message-avatar" src="img/a4.jpg">
+                    <img alt="image" class="img-circle message-avatar" src="http://webapplayers.com/inspinia_admin-v2.7.1/img/a4.jpg">
                   </div>
                   <div class="media-body">
                     Uncover many web sites still in their infancy. Various versions have.

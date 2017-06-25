@@ -13,7 +13,7 @@ export default {
         state.ip = ip;
     },
 
-    NEW_LOCALIZATION: (state, {payload}) => {
+    LOCALIZATION_SET_DATA: (state, {payload}) => {
         state.country = payload.country;
         state.countryCode = payload.countryCode;
         state.city = payload.city;
@@ -21,6 +21,15 @@ export default {
         state.longtitude = payload.longitude;
         state.timeZone = payload.timeZone;
         state.request = payload.request;
+        state.clientIP = payload.clientIP;
+    },
+
+    LOCALIZATION_SET_REQUEST_ERROR: (state, {}) => {
+        state.request = {
+            sent: true,
+            done: false,
+            error: true,
+        };
     },
 
 }

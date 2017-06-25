@@ -31,6 +31,12 @@ export default {
 
     },
 
+    AUTHENTICATE_SET_SESSION_STORE: ({ commit, dispatch, state }, { sessionId }) => {
+
+        if ((typeof sessionId !== "undefined")&&(sessionId.length > 5))
+            return commit('SET_AUTHENTICATED_SESSION_STORE', { newUserData: resData.user,  sessionId: sessionId });
+    },
+
     AUTHENTICATE_USER_BY_SESSION: async ({ commit, dispatch, state }, { sessionId }) => {
 
         if ((User.isLoggedIn(state.user) === true)&&((typeof sessionId === "undefined")||(sessionId.length < 5))) {   //Invalid Session ID

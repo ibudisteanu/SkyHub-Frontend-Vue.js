@@ -21,5 +21,11 @@ export default {
 
     components: { Layout },
 
+    async asyncData ({ store }) {
+
+        console.log('xxxxxxxxx ASYNC DATA HOMEPAGE ');
+        return await store.dispatch('LOCALIZATION_FETCH', {ip: ''});
+    },
+
 }
 </script>

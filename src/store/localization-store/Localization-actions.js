@@ -3,26 +3,21 @@
  * (C) BIT TECHNOLOGIES
  */
 
+let axios = require ('axios');
 
 export default {
     // ensure data for rendering given list type
 
-    LOCALIZATION_EXTRACT_IP_SERVER_SIDE: async ({ commit, dispatch, state }, { req }) => {
+    LOCALIZATION_NEW_IP: ({ commit, dispatch, state }, { ip }) => {
 
-        let ip = req.headers['x-real-ip'] || req.connection.remoteAddress;
-        //const requestIp = require('request-ip');
-        //const ip = requestIp.getClientIp(req);
-
-        console.log('IP::'); console.log(ip);
-
-        return await commit('LOCALIZATION_SET_IP', { ip: ip });
+        return commit("LOCALIZATION_SET_IP",{ip});
 
     },
 
-    LOCALIZATION_FETCH: async ({ commit, dispatch, state }, { sIP }) => {
+    LOCALIZATION_FETCH: async ({ commit, dispatch, state }, { ip }) => {
 
         try {
-            let res = await axios.get("http://freegeoip.net/json/" + state.IP);
+            let res = await axios.get("http://freegeoip.net/json/" + ip||state.ip);
 
             res = res.data;
 
@@ -32,7 +27,7 @@ export default {
                 city: res.city || '',
                 latitude: res.latitude || '',
                 longitude: res.longitude || '',
-                ip: res.ip || '',
+                clientIP: res.ip || '',
                 timeZone: res.time_zone || '',
                 request: {
                     sent: true,
@@ -41,14 +36,12 @@ export default {
                 },
             };
 
-            //console.log("IP STATUS",payload);
-
-            return await dispatch('NEW_LOCALIZATION',{payload: payload});
+            return await commit('LOCALIZATION_SET_DATA',{payload: payload});
         }
         catch(Exception){
-            console.log("Promise Rejected",error);
+            console.log("Promise Rejected",Exception);
 
-            return await dispatch('NEW_LOCALIZATION_REQUEST_ERROR',{});
+            return await commit('LOCALIZATION_SET_REQUEST_ERROR',{});
         };
 
     },

@@ -11,9 +11,9 @@
 <template>
 
  <div style="display: table-row">
-     <span class="input-group-addon"><img :class="selectedCountryCSS||'flag'" style="display: inline-block; position: relative; vertical-align: middle; padding-top:11px !important;"></span>
+     <span class="input-group-addon"><img :class="(getSelectValue.css||'flag').toLowerCase()" style="display: inline-block; position: relative; vertical-align: middle; padding-top:11px !important;"></span>
 
-     <multiselect @input="onChangeSelect" v-model="value" label="label" track-by="label" :options="options" :option-height="16" :custom-label="customLabel" :show-labels="false" :close-on-select="true">
+     <multiselect @input="onChangeSelect" v-model="getSelectValue" label="label" track-by="label" :options="options" :option-height="16" :custom-label="customLabel" :show-labels="false" :close-on-select="true">
 
       <template slot="option" scope="props">
        <img :class="props.option.css" style="display: inline-block; position: relative; verticalAlign: middle; padding-top:11px !important;" />
@@ -43,12 +43,26 @@
                 selectedCountryCode: '',
                 selectedCountryCSS: '',
 
-                value: { value:'am',   css:"flag am", label:"Armenia"},
+                value: { value:'',   css:"flag am", label:"Armenia"},
                 options: getFlags(),
             }
         },
 
-        props: ['defaultCountry','onSelect'],
+        props: {
+            defaultCountry : {default: ''},
+            defaultCountryCode : {default: ''},
+            onSelect : {default: function () {}},
+
+        },
+
+        computed:{
+            getSelectValue(){
+                if (this.value.value === '')
+                    return {value: this.defaultCountryCode, css: 'flag '+this.defaultCountryCode, label: this.defaultCountry }
+                else
+                    return this.value;
+            }
+        },
 
         methods: {
 

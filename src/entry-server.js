@@ -14,9 +14,11 @@ export default context => {
 
 
     //processing the AUTHENTICATION
+    store.dispatch('LOCALIZATION_NEW_IP', { ip: context.ip } ); //Dispatching the Context IP
 
     console.log("SERVERSIDE     AUTHENTICATE_USER_BY_SESSION", context.cookies.sessionId ) ;
-    store.dispatch('AUTHENTICATE_USER_BY_SESSION', { sessionId: context.cookies.sessionId } ).then((answer)=>{ //my change
+
+    store.dispatch('AUTHENTICATE_USER_BY_SESSION', { sessionId: context.cookies.sessionId } ).then( (answer)=>{ //my change
 
         const { url } = context
         const fullPath = router.resolve(url).route.fullPath

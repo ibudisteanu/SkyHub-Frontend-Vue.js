@@ -118,11 +118,19 @@ function render (req, res) {
     }
   }
 
+  //EXTRACTING THE IP
+   var ip = req.headers['x-real-ip'] || req.connection.remoteAddress;
+   //const requestIp = require('request-ip');
+   //const ip = requestIp.getClientIp(req);
+   console.log('IP::'); console.log(ip);
+
   const context = {
     title: 'Vue HN 2.0', // default title
     cookies: req.cookies,   //signedCookies instead
+    ip: ip,   //the ip
     url: req.url
-  }
+  };
+
   renderer.renderToString(context, (err, html) => {
     if (err) {
       return handleError(err)

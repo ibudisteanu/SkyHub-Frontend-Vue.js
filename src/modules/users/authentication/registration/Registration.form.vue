@@ -101,8 +101,7 @@
                         <div :class="'input-group ' + this.showInputStatus(countryValidationStatus)"  >
 
 
-
-                            <CountrySelect :defaultCountry="localization.countryCode||''" :onSelect="handleCountrySelect"/>
+                            <CountrySelect :defaultCountry="localization.country||''"  :defaultCountryCode="localization.countryCode||''"  :onSelect="handleCountrySelect"/>
 
                             <span :class="this.showInputFeedback(countryValidationStatus)"></span>
                         </div>
