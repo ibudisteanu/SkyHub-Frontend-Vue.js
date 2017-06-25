@@ -7,8 +7,8 @@ import Vuex from 'vuex'
 
 import HackerNewsModule from './hackernews-module/Hackernews-module';
 import AuthenticateModule from './authenticate-module/AuthenticatedUser-module'
-import SocketStatusModule from './socket-status-module/SocketStatus-module'
-import SystemNotificationsModule from './system-notifications-module/SystemNotifications-module'
+import SocketStatusModule from './modules/socket-status-module/SocketStatus-module'
+import SystemNotificationsModule from './modules/system-notifications-module/SystemNotifications-module'
 import LocalizationModule from './localization-module/Localization-module'
 import GlobalModule from './global-module/Global-module'
 import ContentModule from './content-module/Content-module'

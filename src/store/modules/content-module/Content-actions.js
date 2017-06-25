@@ -14,7 +14,7 @@ export default{
 
         if ( res.result === true){
 
-            let parent = (typeof res.object !== "undefined" ? res.object.parent : '');
+            let parent = (typeof res.object !== "undefined") && (res.object !== null) ? res.object.parent : '';
 
             await dispatch('CONTENT_FETCH_ROUTER_PARENT_OBJECT', {url: parent} ); //fetching the parent object
 
@@ -22,7 +22,7 @@ export default{
             switch (state.contentRouter.routerObject.type){
                 case "home":
                 case "forum":
-                        //await this.fetchTopForums(sContentToSearchId, 1, 8);
+                        await this.fetchTopForums(sContentToSearchId, 1, 8);
                         //await this.fetchTopContent(sContentToSearchId, 1, 8);
                     break;
                 case "topic":

@@ -26,7 +26,6 @@ export default{
         if (url === '/') state.type = "home";
         state.routerParentObject.type = ContentObjectService.extractObjectTypeFromId(routerObject);
 
-        state.routerParentObject.pageURL = url;
         state.routerParentObject.notFound = notFound;
     },
 
