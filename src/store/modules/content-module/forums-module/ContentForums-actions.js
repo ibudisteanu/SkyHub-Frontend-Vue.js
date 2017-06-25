@@ -4,14 +4,8 @@
  */
 
 import FetchService from 'services/communication/FetchService'
-import {calculateNewObjectsToBeAdded} from 'store/helpers/StoreHelper'
 
 export default{
-
-
-    /*
-     THE FETCHING IS THE SAME...
-     */
 
     CONTENT_FETCH_TOP_FORUMS: async ( {commit, state, dispatch}, {parent, pageIndex, pageCount}) =>{
 
@@ -26,6 +20,7 @@ export default{
 
 
             await commit('SET_CONTENT_FORUMS', {forums: answer.content});
+            commit('SET_CONTENT_FORUMS_PAGE_INFORMATION',  {pageIndex: pageIndex, pageCount: pageCount} );
 
             return  {result: true, forums: answer.content }
         }
@@ -34,6 +29,5 @@ export default{
             return {result:false, forums: []}
 
     },
-
 
 }

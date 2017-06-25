@@ -65,32 +65,6 @@ class ContentServiceClass {
     }
 
 
-    /*
-     FETCHING TOP FORUMS (Topics)
-     */
-
-    async fetchTopForums(parent, pageIndex, pageCount){
-
-      let answer = {result : false};
-
-      answer = await FetchDataService.sendRequestWithProtocol( "forums/get-top-forums",{parent: parent, pageIndex:pageIndex, pageCount: pageCount} );
-
-      console.log("ANSWER TOP FORUMS", answer);
-      console.log("redux state",this.contentState);
-
-      let toBeAdded = [];
-      if ((typeof answer !== "undefined")&&(answer.result === true)) {
-
-        toBeAdded = this.processNewContent(answer.content, this.contentState.contentForums.objects );
-
-        if (toBeAdded !== [])
-          await this.dispatch(setContentState_AddForumsObjects_Action(toBeAdded ));
-
-      }
-      return toBeAdded;
-    }
-
-
 
 
     /*

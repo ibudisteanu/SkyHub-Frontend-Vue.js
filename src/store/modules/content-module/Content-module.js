@@ -10,11 +10,13 @@ import getters from './Content-getters'
 
 import ContentRouter from './router-module/ContentRouter-module';
 import ContentForums from './forums-module/ContentForums-module';
+import ContentTopics from './topics-module/ContentTopics-module';
 
 export default {
     modules: {
         contentRouter: ContentRouter,
         contentForums: ContentForums,
+        contentTopics: ContentTopics,
     },
     state:  {
 

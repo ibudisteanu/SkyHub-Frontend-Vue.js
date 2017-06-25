@@ -26,4 +26,12 @@ export default{
 
     },
 
+
+    SET_CONTENT_FORUMS_PAGE_INFORMATION: (state, {  pageIndex, pageCount }) => {
+
+        state.pageIndex = pageIndex;
+        state.pageCount = pageCount;
+
+    },
+
 }

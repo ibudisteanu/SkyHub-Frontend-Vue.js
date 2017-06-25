@@ -23,7 +23,7 @@ export default{
                 case "home":
                 case "forum":
                     await dispatch('CONTENT_FETCH_TOP_FORUMS',{parent: id,  pageIndex: 1, pageCount:8 });
-                    //await this.fetchTopContent(sContentToSearchId, 1, 8);
+                    await dispatch('CONTENT_FETCH_TOP_TOPICS',{parent: id,  pageIndex: 1, pageCount:8 });
                     break;
                 case "topic":
                     //await this.fetchTopReplies(sContentToSearchId, 1, 8);

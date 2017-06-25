@@ -4,14 +4,14 @@
  */
 
 
-import actions from './ContentForums-actions'
-import mutations from './ContentForums-mutations'
+import actions from './ContentTOpics-actions'
+import mutations from './ContentTopics-mutations'
 
 export default {
 
     state:{
 
-        forums: {/* [id: number]: Item */},
+        topics: {/* [id: number]: Item */},
 
         pageIndex : 0,
         pageCount : 0,
