@@ -15,10 +15,14 @@
 
 <script>
 
-    //import
+    import ViewForum from './pages/ViewForum.page.vue';
 
     export default{
         name: 'PageContent',
+
+        components:{
+            'ViewForum':ViewForum,
+        },
 
         computed:{
             getCurrentRouterObjectType(){

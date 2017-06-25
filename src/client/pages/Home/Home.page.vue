@@ -6,31 +6,37 @@
 <template>
 
         <Layout>
-             "About Skyhub"
+            <div slot="layout-content">
+                "HOME PAGE"
+                <PageContent>
+
+                </PageContent>
+            </div>
         </Layout>
 
 </template>
 
 <script>
 
-import Layout from 'client/components/Template/Layout/Layout.vue';
+    import Layout from 'client/components/Template/Layout/Layout.vue';
+    import PageContent from './Content-Pages/PageContent.page.vue';
 
-export default {
+    export default {
 
-    name: 'HomePage',
+        name: 'HomePage',
 
-    components: { Layout },
+        components: { Layout, PageContent },
 
-    async asyncData ({ store,  route: { params: { url }} }) {
+        async asyncData ({ store,  route: { params: { url }} }) {
 
-        console.log("%%%%%%%%%%%%%%% ASYNC DATA", url);
-        await store.dispatch('LOCALIZATION_FETCH', {ip: ''});
+            console.log("%%%%%%%%%%%%%%% ASYNC DATA", url);
+            await store.dispatch('LOCALIZATION_FETCH', {ip: ''});
 
-        await store.dispatch('CONTENT_FETCH_ROUTER_OBJECT_AND_CONTENT', {url} );
+            await store.dispatch('CONTENT_FETCH_ROUTER_OBJECT_AND_CONTENT', {url} );
 
-        return true;
+            return true;
 
-    },
+        },
 
-}
+    }
 </script>

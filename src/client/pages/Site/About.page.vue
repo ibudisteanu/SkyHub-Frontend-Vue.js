@@ -7,7 +7,9 @@
 <template>
 
     <Layout>
+        <div slot="layout-content">
             "About Skyhub"
+        </div>
     </Layout>
 
 </template>

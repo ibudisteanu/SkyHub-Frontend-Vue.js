@@ -5,8 +5,6 @@
 
 <template>
 
-    <div>
-
         <Layout>
             <div slot="layout-content">
                 <h1> Login to SkyHub now</h1>
@@ -15,8 +13,6 @@
             </div>
 
         </Layout>
-
-    </div>
 
 </template>
 
