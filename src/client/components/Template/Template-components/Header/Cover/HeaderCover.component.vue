@@ -5,7 +5,7 @@
 <template>
     <div style="padding-bottom: 20px">
 
-        <div class="header-cover row  border-bottom white-bg dashboard-header " :style="{backgroundImage: 'url('+coverPic||''+')'+')', backgroundColor: (this.coverColor!=='' ? '#'+this.coverColor : 'darkblue'), marginLeft: -25, marginRight: -25}">
+        <div class="header-cover row  border-bottom white-bg dashboard-header " :style="{backgroundImage: 'url('+(coverPic||'')+')', backgroundColor: (this.coverColor!=='' ? '#'+this.coverColor : 'darkblue')}">
 
             <div v-if="showLayOver === true" class='header-cover-layover'>
 
@@ -17,7 +17,7 @@
                 <div class='header-cover-description' >
                     <div>
 
-                        <image :src="icon||'/res/logo/SkyHub-logo.png'" />
+                        <img :src="icon||'/public/SkyHub-logo.png'" />
 
                         <div class="row">
                             <h1 class='fg-white'>{{title}}</h1>
@@ -80,8 +80,9 @@
             showDescriptionMenu: {default: true},
             coverPic: {default: 'http://spitfiresocial.com/wp-content/uploads/2015/03/worldsocial.jpg'},
             coverColor: {default: ''},
-            showLayOver: {default: true},
             icon: {default: ''},
+
+            showLayOver: {default: false}, //lay over mask
         },
 
         components:{
