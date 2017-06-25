@@ -41,18 +41,15 @@
               e.preventDefault(); e.stopPropagation();
               console.log("SIGN IN");
 
-              this.$refs['refAuthenticationModal'].openLogin();
-
-              if ((this.props.routerState !== null)&&(this.props.routerState.refAuthenticationModal !== null))
-                  this.props.routerState.refAuthenticationModal.openLogin();
+              if (this.$store.state.global.refAuthenticationModal !== null)
+                this.$store.state.global.refAuthenticationModal.openLogin();
           },
 
           handleRegister(e){
               e.preventDefault(); e.stopPropagation();
 
-              this.$refs['refAuthenticationModal'].openRegistration();
-              if ((this.props.routerState !== null)&&(this.props.routerState.refAuthenticationModal !== null))
-                  this.props.routerState.refAuthenticationModal.openRegistration();
+              if (this.$store.state.global.refAuthenticationModal !== null)
+                this.$store.state.global.refAuthenticationModal.openRegistration();
           }
       }
   }

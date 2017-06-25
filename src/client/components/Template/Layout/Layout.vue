@@ -58,6 +58,10 @@
 
         },
 
+        mounted: function (){
+            this.$store.dispatch('GLOBAL_NEW_AUTHENTICATION_MODAL', {refAuthenticationModal: this.$refs['refAuthenticationModal']})
+        },
+
         computed: {
 
 

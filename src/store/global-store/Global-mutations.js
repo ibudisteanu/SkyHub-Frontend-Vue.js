@@ -5,7 +5,9 @@
 
 
 export default{
-    SET_SYSTEM_NOTIFICATIONS_PERMISSION_STATE: (state, { permission }) => {
-        state.notificationsPermissionGranted = permission;
+
+    GLOBAL_SET_AUTHENTICATION_MODAL: (state, { refAuthenticationModal }) => {
+        state.refAuthenticationModal = refAuthenticationModal;
     },
+
 }
