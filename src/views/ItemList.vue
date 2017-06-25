@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { watchList } from '../services/hackernews-api/index'
+import { watchList } from 'services/hackernews-api/index'
 import Item from '../components/Item.vue'
 
 export default {

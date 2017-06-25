@@ -2,7 +2,7 @@ import {
   fetchUser,
   fetchItems,
   fetchIdsByType
-} from '../../services/hackernews-api/index'
+} from 'services/hackernews-api/index'
 
 export default {
   // ensure data for rendering given list type
