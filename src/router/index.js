@@ -11,7 +11,7 @@ const UserView = () => import('../views/UserView.vue')
 const LayoutElement = id => () => import('../client/components/Template/Layout/LayoutElement').then(m => m.default(id))
 const Layout = () => import('client/components/Template/Layout/Layout.vue')
 
-const HomePage = () => import('client/pages/Home.page.vue');
+const HomePage = () => import('client/pages/Home/Home.page.vue');
 const LoginPage = () => import('client/pages/Site/Login.page.vue');
 const RegistrationPage = () => import('client/pages/Site/Registration.page.vue');
 const AboutPage = () => import('client/pages/Site/About.page.vue');
