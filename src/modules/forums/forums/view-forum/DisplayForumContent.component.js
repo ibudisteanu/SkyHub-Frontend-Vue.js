@@ -9,9 +9,9 @@ import {connect} from "react-redux";
 import AuthService from 'services/REST/authentication/Auth.service';
 import ContentService from 'services/REST/forums/content/Content.service';
 
-import ContentButtons from '../../components/ContentButtons.component';
+import ContentButtons from '../../components/ContentButtons.component.vue';
 
-import PreviewContent from '../../components/PreviewContent.component';
+import PreviewContent from '../../components/PreviewContent.component.vue';
 import PreviewAllTopics from '../../topics/view-topic/PreviewAllTopics.component';
 import PreviewForums from './PreviewForums.component';
 
