@@ -11,6 +11,9 @@
                     <b>TEST LAYOUT</b>
 
                     <button @click="openModal"> Open Modal</button>
+                    <view-reply :reply ="reply" title="titlu mesaj"
+                    >
+                    </view-reply>
                 </div>
 
             </LayoutBody>
@@ -38,14 +41,27 @@
 
     import AuthenticationModal from 'modules/users/authentication/modals/Authentication.modal.vue';
 
-    import User from 'models/User/User.model';
+    import User from "models/User/User.model";
+    import Reply from "models/Reply/Reply.model";
+
+    import ViewReply from  'modules/forums/replies/view-reply/ViewReply.component.vue'
 
     export default {
         name: 'Layout',
-        components: { LayoutBody , LayoutFooter, StickyButtons, RightSidebar, AuthenticationModal},
+        components: { LayoutBody , LayoutFooter, StickyButtons, RightSidebar, AuthenticationModal,ViewReply},
 
         data: () => ({
-            loading: true
+            loading: true,
+            reply : ( new Reply( {
+                id :22, title:"nume titlu",topicId : 244, replyParentId : 323, votingId : 21441, authorId : 2414, description : "fk3kkfeac"
+            })
+//            new User ( {id : 22,
+//                firstName : "testing nume",
+//                lastName : "nume final",
+//                email: "ifeaviea@gea3.com",
+//                username : "userX",
+//                loggedIn : "19-15-2016"}
+                ),
         }),
 
         created: function (){
