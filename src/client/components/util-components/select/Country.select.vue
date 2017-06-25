@@ -39,11 +39,8 @@
 
         data () {
             return {
-                selectedCountry: '',
-                selectedCountryCode: '',
-                selectedCountryCSS: '',
 
-                value: { value:'',   css:"flag am", label:"Armenia"},
+                value: {},   //{ value:'ar',   css:"flag am", label:"Armenia"},
                 options: getFlags(),
             }
         },
@@ -57,7 +54,7 @@
 
         computed:{
             getSelectValue(){
-                if (this.value.value === '')
+                if ((typeof this.value.value === "undefined")||(this.value.value === ''))
                     return {value: this.defaultCountryCode, css: 'flag '+this.defaultCountryCode, label: this.defaultCountry }
                 else
                     return this.value;
@@ -71,13 +68,11 @@
             },
 
             onChangeSelect(value, id){
-               this.selectedCountryCSS = value.css;
-               this.selectedCountry = value.label;
-               this.selectedCountryCode = value.value;
 
+               this.value = value;
 
                let onSelect = this.onSelect||function(){};
-               onSelect(this.selectedCountry, this.selectedCountryCode, this.selectedCountryCSS);
+               onSelect(value.label, this.value.value, this.value.css);
 
                return value;
             }
