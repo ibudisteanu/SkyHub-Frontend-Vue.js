@@ -5,24 +5,24 @@
 
 
 <template>
-  <div class="modal inmodal in" :key="'modal'+modalId"  ref="refModal"  role="dialog" aria-hidden="true" >
+  <div class="modal inmodal in" :key="'modal'+myModalId"  ref="refModal"  role="dialog" aria-hidden="true" >
       <div class="modal-dialog">
-          <div :class="'modal-content ' + animation" >
+          <div :class="'modal-content ' + (animation||myAnimation)" >
 
                 <div class="modal-header">
 
-                  <button v-show="closable" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                  <button v-show="(closable||myClosable)" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
 
                   <h4 v-show="title !== ''" class="modal-title">{{title}}</h4>
 
-                  <small v-show="subTitle !== ''" class="font-bold">{{subTitle}}</small>
+                  <small v-show="(subTitle||mySubTitle) !== ''" class="font-bold">{{(subTitle||mySubTitle)}}</small>
 
                 </div>
 
 
-                <div v-show="showBody" class="modal-body">
+                <div class="modal-body">
 
-                  <p v-show="body !== ''">{{body}}</p>
+                  <p v-show="body !== ''">{{(body||myBody)}}</p>
 
                   <slot name="modal-content" />
 
@@ -30,9 +30,9 @@
 
                 <div v-if="showButtons" class="modal-footer">
 
-                    
+
                     <button
-                            v-for="(button, index) in buttons"
+                            v-for="(button, index) in (buttons||myButtons)"
                             :key="'modalButton_modal'+modalId+'_'+index"
                             :class="'btn '+button.className||''"
                             @click="button.onClick()"
@@ -53,16 +53,26 @@
   export default{
       name: 'ModalComponent',
 
-      props: {
-          modalId: {default: 'modal-sample'},
-          isModalOpen: {default: false},
-          title: {default: 'TITLE'},
-          subTitle: {default: 'SUB TITLE'},
-          body: {default: 'BODY'},
-          closable: {default: true},
-          buttons: {default: function(){return [ {className: 'btn-white', closable: true, text: 'Close'}, {className:'btn-primary', closable:false, text:'Save'}] }},
-          animation: {default: 'animated flipInY'},
+      data: function () {
+          return {
+              myModalId: 'modal-sample',
+              myIsModalOpen: false,
+              myTitle: 'TITLE',
+              mySubTitle: 'SUB TITLE',
+              myBody: 'BODY',
+              myClosable: true,
+              myButtons: function () {
+                      return [{className: 'btn-white', closable: true, text: 'Close'}, {
+                          className: 'btn-primary',
+                          closable: false,
+                          text: 'Save'
+                      }]
+                  },
+              myAnimation: 'animated flipInY',
+          }
       },
+
+      props: ['title','subTitle','body','closable','buttons','animation'],
 
       computed:{
 
@@ -71,19 +81,21 @@
           },
 
           showButtons(){
-              return (this.buttons !== []) && (this.buttons !== null) && (typeof this.buttons !== "undefined")
+
+              return    ((this.buttons !== [])&&(this.buttons !== {}) && (this.buttons !== null) && (typeof this.buttons !== "undefined"))||
+                        ((this.myButtons !== [])&&(this.myButtons !== {}) && (this.myButtons !== null) && (typeof this.myButtons !== "undefined"))
           },
 
       },
 
       methods: {
           showAlert(title, subTitle, body, buttons){
-              this.title = title;
-              this.subTitle = subTitle;
-              this.body = body;
-              this.closable = true;
-              this.buttons = buttons;
-              this.animation = "animated flipInY";
+              this.myTitle = title;
+              this.mySubTitle = subTitle;
+              this.myBody = body;
+              this.myClosable = true;
+              this.myButtons = buttons;
+              this.myAnimation = "animated flipInY";
 
               this.showModal();
           },
@@ -91,13 +103,13 @@
           showModal(){
               $(this.$refs['refModal']).modal("show");
 
-              this.isModalOpen = true;
+              this.myIsModalOpen = true;
           },
 
           hideModal(){
               $(this.$refs['refModal']).modal("hide");
 
-              this.isModalOpen = false;
+              this.myIsModalOpen = false;
           },
 
           closeModal(){
@@ -105,45 +117,9 @@
           },
 
           handleToggle(){
-              if (this.isModalOpen === true) this.hideModal();
+              if (this.myIsModalOpen === true) this.hideModal();
               else  this.showModal();
           }
       }
   }
 </script>
-
-import React from 'react';
-
-export default class ModalComponent extends React.Component {
-
-
-
-  renderButtons(buttons){
-    let output = [];
-
-    if (typeof buttons === "undefined" ) return '';
-
-    for (let i=0; i<buttons.length; i++) {
-      let button = buttons[i];
-      output.push(<button type="button" key={"modal"+this.props.modalId+"_Button"+i} class={"btn "+buttons[i].className||''} onClick={button.onClick||function(){}} data-dismiss={ (button.closable||false) === true ? "modal" : ''}> {button.text||''} </button>)
-    }
-
-    if (output === []) return '';
-
-    return (
-      <div class="modal-footer">
-        {output}
-      </div>
-    )
-  }
-
-  render(){
-
-
-
-    return (
-
-    )
-  }
-
-}

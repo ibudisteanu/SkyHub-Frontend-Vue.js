@@ -22,7 +22,7 @@
 
             <RightSidebar />
 
-            <ModalComponent modalId="authenticationModal" ref="refAuthenticationModal"/>
+            <AuthenticationModal modalId="authenticationModal" ref="refAuthenticationModal"/>
 
         </div>
 
@@ -38,13 +38,13 @@
     import StickyButtons from '../Template-components/Body/Sticky-buttons/StickyButtons.vue';
     import RightSidebar from '../Template-components/Body/Right-sidebar/RightSidebar.vue';
 
-    import ModalComponent from 'client/components/util-components/modals/Modal.component.vue';
+    import AuthenticationModal from 'modules/users/authentication/modals/Authentication.modal.vue';
 
     import User from 'models/User/User.model';
 
     export default {
         name: 'Layout',
-        components: { LayoutBody , LayoutFooter, StickyButtons, RightSidebar, ModalComponent},
+        components: { LayoutBody , LayoutFooter, StickyButtons, RightSidebar, AuthenticationModal},
 
         data: () => ({
             loading: true
@@ -118,7 +118,7 @@
             },
 
             openModal(){
-                this.$refs['refAuthenticationModal'].showModal();
+                this.$refs['refAuthenticationModal'].openLogin();
 
             }
         }
