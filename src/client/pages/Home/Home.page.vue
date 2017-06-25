@@ -7,7 +7,6 @@
 
         <Layout>
             <div slot="layout-content">
-                "HOME PAGE"
                 <PageContent>
 
                 </PageContent>

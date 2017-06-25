@@ -17,7 +17,7 @@
                 <div class='header-cover-description' >
                     <div>
 
-                        <image :src="this.icon||'/res/logo/SkyHub-logo.png'" />
+                        <image :src="icon||'/res/logo/SkyHub-logo.png'" />
 
                         <div class="row">
                             <h1 class='fg-white'>{{title}}</h1>
@@ -33,12 +33,12 @@
 
                                 {{buttons}}
 
-                                <button type="button" id='likeCount' onClick={::this.handleLike}>
-                                    <i class='icon-fontello-heart-1' />
+                                <button type="button" id='likeCount' >
+                                    <i class='fa fa-hart' />
                                 </button>
 
                                 <label class='header-cover-toolbar-label' >
-                                    <span class={this.state.likeTextStyle}>{this.state.likeCount} likes</span>
+                                    <span class=''>0 likes</span>
                                 </label>
 
                             </div>
@@ -55,7 +55,7 @@
 
 
         <div v-if="this.breadcrumbs !== []" class="row wrapper border-bottom white-bg page-heading" style='padding-bottom: 15px'>
-            <DisplayBreadcrumbs :breadcrumbs="this.breadcrumbs" :currentPageTitle="this.title" currentPageUrl="this.url" />
+            <DisplayBreadcrumbs :breadcrumbs="breadcrumbs" :currentPageTitle="title" :currentPageUrl="url" />
         </div>
 
     </div>
@@ -70,6 +70,19 @@
     export default{
 
         name: 'HeadCover',
+
+        props:{
+            url: {default: ''},
+            title: {default: ''},
+            subTitle: {default: ''},
+            breadcrumbs: {default: function (){return []}},
+            buttons: {default: function() {return []}},
+            showDescriptionMenu: {default: true},
+            coverPic: {default: 'http://spitfiresocial.com/wp-content/uploads/2015/03/worldsocial.jpg'},
+            coverColor: {default: ''},
+            showLayOver: {default: true},
+            icon: {default: ''},
+        },
 
         components:{
             'DisplayBreadcrumbs' : DisplayBreadcrumbs,
