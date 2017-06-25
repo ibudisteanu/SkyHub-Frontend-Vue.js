@@ -7,8 +7,8 @@ import React from 'react';
 import {connect} from "react-redux";
 
 
-import TopicsService from '../../../../../services/REST/forums/topics/Topics.service';
-import ContentService from '../../../../../services/REST/forums/content/Content.service';
+import TopicsService from 'services/REST/forums/topics/Topics.service';
+import ContentService from 'services/REST/forums/content/Content.service';
 
 import AutoCompleteSelect from '../../../../components/util-components/select/AutoComplete.select.component';
 import SearchAutoComplete from '../../../../components/util-components/select/SearchAutoComplete.select.component';

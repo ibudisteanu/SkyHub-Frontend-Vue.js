@@ -8,8 +8,8 @@ import {connect} from "react-redux";
 
 import {newRouterObjectArgumentAction} from '../../../../../my-redux/actions/RouterState.actions';
 
-import AuthService from '../../../../../services/REST/authentication/Auth.service.js';
-import ForumsService from '../../../../../services/REST/forums/forums/Forums.service';
+import AuthService from 'services/REST/authentication/Auth.service.js';
+import ForumsService from 'services/REST/forums/forums/Forums.service';
 
 import ShowDate from '../../../../components/util-components/UI/show-date/ShowDate.component';
 

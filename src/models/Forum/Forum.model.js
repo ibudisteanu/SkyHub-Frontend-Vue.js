@@ -6,36 +6,8 @@
 
 export default class Forum {
 
-    id;
 
-    title;
-    URL;
-    description;
-    authorId;
-
-    arrKeywords : [];
-    arrBreadcrumbs: [];
-
-    iconPic;
-    coverPic;
-    coverColor;
-
-    authorId: '';
-    parentId: '';
-    parents: [];
-
-    preferredLang;
-
-    longitude;
-    latitude;
-
-    country;
-    city;
-
-    dtCreation;
-    dtLastActivity;
-
-    constructor( data: Object = {}) {
+    constructor( data ) {
 
         this.id = data.id||'';
 

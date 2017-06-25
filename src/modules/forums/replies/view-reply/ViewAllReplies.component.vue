@@ -6,8 +6,8 @@
 import React from 'react';
 import {connect} from "react-redux";
 
-import AuthService from '../../../../../services/REST/authentication/Auth.service.js';
-import ForumsService from '../../../../../services/REST/forums/forums/Forums.service';
+import AuthService from 'services/REST/authentication/Auth.service.js';
+import ForumsService from 'services/REST/forums/forums/Forums.service';
 
 import Topic from '../User/Topic.model';
 import Link from '../../../../components/Link/Link';

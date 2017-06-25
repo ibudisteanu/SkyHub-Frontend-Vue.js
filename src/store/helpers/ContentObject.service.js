@@ -3,8 +3,8 @@
  * (C) BIT TECHNOLOGIES
  */
 
-import Forum from '../../../../models/Forum/Forum.model';
-import Topic from '../../../../models/Topic/Topic.model';
+import Forum from 'models/Forum/Forum.model';
+import Topic from 'models/Topic/Topic.model';
 
 class ContentObjectServiceClass {
 

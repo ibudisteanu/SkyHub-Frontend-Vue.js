@@ -10,7 +10,7 @@ export default {
 
     LOCALIZATION_NEW_IP: ({ commit, dispatch, state }, { ip }) => {
 
-        return commit("LOCALIZATION_SET_IP",{ip});
+        return commit("SET_LOCALIZATION_IP",{ip});
 
     },
 
@@ -36,12 +36,12 @@ export default {
                 },
             };
 
-            return await commit('LOCALIZATION_SET_DATA',{payload: payload});
+            return await commit('SET_LOCALIZATION_DATA',{payload: payload});
         }
         catch(Exception){
             console.log("Promise Rejected",Exception);
 
-            return await commit('LOCALIZATION_SET_REQUEST_ERROR',{});
+            return await commit('SET_LOCALIZATION_REQUEST_ERROR',{});
         };
 
     },

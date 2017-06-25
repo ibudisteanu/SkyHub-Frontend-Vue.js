@@ -5,14 +5,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import HackerNewsModule from './hackernews-store/Hackernews-module';
-import AuthenticateModule from './authenticate-store/AuthenticatedUser-module'
-import SocketStatusModule from './socket-status-store/SocketStatus-module'
-import SystemNotificationsModule from './system-notifications-store/SystemNotifications-module'
-import LocalizationModule from './localization-store/Localization-module'
-import GlobalModule from './global-store/Global-module'
+import HackerNewsModule from './modules/hackernews-module/Hackernews-module';
+import AuthenticateModule from './modules/authenticate-module/AuthenticatedUser-module'
+import SocketStatusModule from './modules/socket-status-module/SocketStatus-module'
+import SystemNotificationsModule from './modules/system-notifications-module/SystemNotifications-module'
+import LocalizationModule from './modules/localization-module/Localization-module'
+import GlobalModule from './modules/global-module/Global-module'
+import ContentModule from './modules/content-module/Content-module'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export function createStore () {
     return new Vuex.Store({
@@ -23,6 +24,8 @@ export function createStore () {
             systemNotifications: SystemNotificationsModule,
             localization: LocalizationModule,
             global: GlobalModule,
+
+            content: ContentModule,
         }
     });
 }

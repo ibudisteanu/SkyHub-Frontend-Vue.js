@@ -6,7 +6,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 
-import AuthService  from '../../../../services/REST/authentication/Auth.service';
+import AuthService  from 'services/REST/authentication/Auth.service';
 
 import AddForumForm from '../forums/components/AddForum.form'
 import AddTopicForm from '../topics/components/AddTopic.form'
