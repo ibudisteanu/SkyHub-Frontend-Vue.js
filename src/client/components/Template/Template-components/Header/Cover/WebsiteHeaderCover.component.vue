@@ -2,7 +2,7 @@
  * Created by BIT TECHNOLOGIES on 5/28/2017.
  */
 import React from 'react';
-import HeaderCover from './HeaderCover.component';
+import HeaderCover from './HeaderCover.component.vue';
 
 export default class WebsiteHeaderCover extends React.Component {
 

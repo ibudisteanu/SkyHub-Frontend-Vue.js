@@ -10,20 +10,20 @@
 
 <template>
 
- <div style="display: table-row">
-     <span class="input-group-addon"><img :class="(getSelectValue.css||'flag').toLowerCase()" style="display: inline-block; position: relative; vertical-align: middle; padding-top:11px !important;"></span>
+     <div style="display: table-row">
+         <span class="input-group-addon"><img :class="(getSelectValue.css||'flag').toLowerCase()" style="display: inline-block; position: relative; vertical-align: middle; padding-top:11px !important;"></span>
 
-     <multiselect @input="onChangeSelect" v-model="getSelectValue" label="label" track-by="label" :options="options" :option-height="16" :custom-label="customLabel" :show-labels="false" :close-on-select="true">
+         <multiselect @input="onChangeSelect" v-model="getSelectValue" label="label" track-by="label" :options="options" :option-height="16" :custom-label="customLabel" :show-labels="false" :close-on-select="true">
 
-      <template slot="option" scope="props">
-       <img :class="props.option.css" style="display: inline-block; position: relative; verticalAlign: middle; padding-top:11px !important;" />
-       <div class="option__desc">
-        <span class="option__title">{{ props.option.label }}</span>
-       </div>
-      </template>
+          <template slot="option" scope="props">
+           <img :class="props.option.css" style="display: inline-block; position: relative; verticalAlign: middle; padding-top:11px !important;" />
+           <div class="option__desc">
+            <span class="option__title">{{ props.option.label }}</span>
+           </div>
+          </template>
 
-     </multiselect>
- </div>
+         </multiselect>
+     </div>
 
 </template>
 
