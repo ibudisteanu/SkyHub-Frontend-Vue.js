@@ -22,6 +22,22 @@
 }
 
 /*
+        FIX LEFT SIDE BAR (it was too big)
+ */
+
+@media (min-width: 768px) {
+    .navbar-static-side {
+        width: 180px;
+    }
+}
+
+@media (min-width: 768px) {
+    #page-wrapper {
+        margin-left: 180px;
+    }
+}
+
+/*
     STICKY BUTTONS
  */
 

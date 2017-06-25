@@ -5,28 +5,42 @@
 
 <template>
 
-    <div>
-        <ViewForum v-if="getCurrentRouterObjectType === 'forum' || getCurrentRouterObjectType === 'none'" />
+        <div v-if="getCurrentRouterObjectType === 'home' ">
+            <AuthenticatedHome v-if="isAuthenticated"/>
+            <NotAuthenticatedHome v-else />
+        </div>
+        <div v-else>
+            <ViewForum v-if="getCurrentRouterObjectType === 'forum'"/>
 
-        <ViewTopic v-if="getCurrentRouterObjectType === 'topic'"/>
-    </div>
+            <ViewTopic v-else-if="getCurrentRouterObjectType === 'topic'"/>
+        </div>
 
 </template>
 
 <script>
 
+    import AuthenticatedHome from './home-page/AuthenticatedHome.page.vue';
+    import NotAuthenticatedHome from './home-page/NotAuthenticatedHome.page.vue';
     import ViewForum from './pages/ViewForum.page.vue';
+
+    import User from 'models/User/User.model';
 
     export default{
         name: 'PageContent',
 
         components:{
             'ViewForum':ViewForum,
+            'AuthenticatedHome': AuthenticatedHome,
+            'NotAuthenticatedHome': NotAuthenticatedHome,
         },
 
         computed:{
             getCurrentRouterObjectType(){
                 return this.$store.state.content.contentRouter.routerObject.type;
+            },
+
+            isAuthenticated(){
+                return User.isLoggedIn(this.$store.state.authenticatedUser);
             }
         }
 

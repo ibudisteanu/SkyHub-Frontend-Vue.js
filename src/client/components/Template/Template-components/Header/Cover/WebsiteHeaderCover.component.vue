@@ -5,12 +5,13 @@
 <template>
 
     <HeaderCover :title="this.title||'SkyHub - Forum 2.0'"
-                                   :subTitle="this.subTitle||'Discover, Connect and Change the world together'"
-                                   :coverPic = "this.coverPic||'http://spitfiresocial.com/wp-content/uploads/2015/03/worldsocial.jpg'"
-                                   :breadcrumbs="[]"
-                                   url="/"
->
-</HeaderCover>
+                 :subTitle="this.subTitle||'Discover, Connect and Change the world together'"
+                 :coverPic = "this.coverPic||'http://spitfiresocial.com/wp-content/uploads/2015/03/worldsocial.jpg'"
+                 :breadcrumbs="[]"
+                 url="/"
+    >
+
+    </HeaderCover>
 
 </template>
 
@@ -24,6 +25,12 @@
         name: 'WebsiteHeaderCover',
 
         components: ['HeaderCover'],
+
+        params:{
+            subTitle: {default: ''},
+            title: {default: ''},
+            coverPic: {default:''},
+        }
 
     }
 </script>
