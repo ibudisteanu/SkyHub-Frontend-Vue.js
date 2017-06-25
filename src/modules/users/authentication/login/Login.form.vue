@@ -36,7 +36,7 @@
                         <div class="col-xs-6" style="padding-top: 10px">
 
                             <div>
-                                <router-link to="/register" class="item-footer-menu" @click.native.prevent="handleSwitchForm">
+                                <router-link to="/register" class="item-footer-menu"  :event="''"  @click.native.prevent="handleSwitchForm">
                                 <strong> Register </strong></router-link>to SkyHub
                             </div>
 
@@ -164,11 +164,12 @@
 
             handleSwitchForm(e){
 
-                if (typeof onSwitch !== "undefined")
+                if (typeof this.onSwitch !== "undefined")
                 {
                     e.preventDefault(); e.stopPropagation();
-                    onSwitch(e);
-                }
+                    this.onSwitch(e);
+                } else
+                    this.$router.push('/registration')
 
                 return false;
             }

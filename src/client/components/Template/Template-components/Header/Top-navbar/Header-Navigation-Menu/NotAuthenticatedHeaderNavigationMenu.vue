@@ -39,7 +39,6 @@
       methods:{
           handleSignIn(e){
               e.preventDefault(); e.stopPropagation();
-              console.log("SIGN IN");
 
               if (this.$store.state.global.refAuthenticationModal !== null)
                 this.$store.state.global.refAuthenticationModal.openLogin();

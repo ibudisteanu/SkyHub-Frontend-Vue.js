@@ -4,7 +4,7 @@
 
 import React from 'react';
 
-import DisplayBreadcrumbs from './../../../../util-components/UI/breadcrumbs/DisplayBreadcrumbs.component';
+import DisplayBreadcrumbs from '../../../../util-components/UI/breadcrumbs/DisplayBreadcrumbs.component.vue';
 
 export default class HeaderCover extends React.Component {
 

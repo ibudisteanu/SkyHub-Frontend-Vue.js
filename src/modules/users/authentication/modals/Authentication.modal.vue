@@ -20,7 +20,7 @@
 
 <script>
 
-    import ModalComponent from 'client/components/util-components/modals/Modal.component.vue';
+    import ModalComponent from 'client/components/util-components/UI/modals/Modal.component.vue';
     import LoginForm from 'modules/users/authentication/login/Login.form.vue';
     import RegistrationForm from 'modules/users/authentication/registration/Registration.form.vue';
 

@@ -129,7 +129,7 @@
                         <div class="col-xs-6" style='padding-top: 5px'>
 
                             <div>
-                                <router-link to="/login" class="item-footer-menu" @click.native.prevent="handleSwitchForm">
+                                <router-link to="/login" class="item-footer-menu" :event="''" @click.native.prevent="handleSwitchForm">
                                     <strong> Login </strong></router-link>to SkyHub
                             </div>
 
@@ -365,6 +365,18 @@
 
                 onError(res);
             },
+
+            handleSwitchForm(e){
+
+                if (typeof this.onSwitch !== "undefined")
+                {
+                    e.preventDefault(); e.stopPropagation();
+                    this.onSwitch(e);
+                } else
+                    this.$router.push('/login')
+
+                return false;
+            }
         }
     }
 </script>
