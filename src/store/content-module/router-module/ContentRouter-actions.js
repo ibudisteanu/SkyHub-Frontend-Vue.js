@@ -5,23 +5,42 @@
 
 export default{
 
-    CONTENT_FETCH_ROUTER_OBJECT_AND_CONTENT: async ({ commit, store, dispatch }, { url }) => {
 
-        await dispatch('CONTENT_FETCH_ROUTER_OBJECT', {url});
-
-    },
 
     CONTENT_FETCH_ROUTER_OBJECT: async ( {commit, store, dispatch}, {url}) =>{
 
-        if (typeof url === "undefined") url = '/';
+        return dispatch('CONTENT_FETCH_ROUTER_OBJECT_TEMPLATE',{url, routerObjectTypeCommit: 'SET_CURRENT_ROUTER_OBJECT' })
+
+    },
+
+    CONTENT_FETCH_ROUTER_PARENT_OBJECT: async ( {commit, store, dispatch}, {url}) =>{
+
+        return dispatch('CONTENT_FETCH_ROUTER_OBJECT_TEMPLATE',{url, routerObjectTypeCommit: 'SET_CURRENT_ROUTER_PARENT_OBJECT' })
+
+    },
+
+    /*
+            THE FETCHING IS THE SAME...
+     */
+
+    CONTENT_FETCH_ROUTER_OBJECT_TEMPLATE: async ( {commit, store, dispatch}, {url, routerObjectTypeCommit}) =>{
+
+        if ((typeof url === "undefined")||(url === '')) url = '/';
 
         if ( url === '/' ){
-            return await commit('SET_CURRENT_ROUTER_OBJECT',{routerObject: null, notFound:false, url: '/'});
+            await commit(routerObjectTypeCommit,{routerObject: null, notFound:false, url: '/'});
+            return {result: true, object: null};
         }
 
+        //extracting the data
         let routerObjectAnswer = await dispatch('CONTENT_FETCH_OBJECT',{url}); //getting the object
-        return await commit('SET_CURRENT_ROUTER_OBJECT', {routerObject: routerObjectAnswer, notFound: (routerObjectAnswer !== null), url: url });
+        let notFound = (routerObjectAnswer !== null);
 
+
+
+        await commit(routerObjectTypeCommit, {routerObject: routerObjectAnswer.content, notFound: notFound});
+
+        return {result: notFound, object: routerObjectAnswer.content};
     },
 
 

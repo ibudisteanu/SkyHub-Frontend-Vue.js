@@ -7,6 +7,32 @@ import FetchService from 'services/communication/FetchService'
 
 export default{
 
+    CONTENT_FETCH_ROUTER_OBJECT_AND_CONTENT: async ({ commit, state, dispatch }, { url }) => {
+
+        let res;
+        res = await dispatch('CONTENT_FETCH_ROUTER_OBJECT', {url: url});
+
+        if ( res.result === true){
+
+            let parent = (typeof res.object !== "undefined" ? res.object.parent : '');
+
+            await dispatch('CONTENT_FETCH_ROUTER_PARENT_OBJECT', {url: parent} ); //fetching the parent object
+
+
+            switch (state.contentRouter.routerObject.type){
+                case "home":
+                case "forum":
+                        //await this.fetchTopForums(sContentToSearchId, 1, 8);
+                        //await this.fetchTopContent(sContentToSearchId, 1, 8);
+                    break;
+                case "topic":
+                        //await this.fetchTopReplies(sContentToSearchId, 1, 8);
+                    break;
+            }
+
+        }
+    },
+
 
 
     CONTENT_FETCH_OBJECT: async ( {commit, store}, {sContentToSearchId}) => {

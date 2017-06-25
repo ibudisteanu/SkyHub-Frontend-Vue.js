@@ -7,13 +7,20 @@
 import actions from './ContentRouter-actions'
 import mutations from './ContentRouter-mutations'
 
+import ContentRouterObject from './current-router-object-module/ContentRouter-module';
+import ParentRouterObject from './parent-router-object-module/ParentRouter-module';
+
 export default {
-    state:{
-        currentRouterObject: false,
-        pageURL: '',
-        notFound: false,
-        type: 'none',
+
+    modules:{
+        routerObject: ContentRouterObject,
+        routerParentObject: ParentRouterObject,
     },
+
+    state:{
+
+    },
+
 
     actions,
     mutations,
