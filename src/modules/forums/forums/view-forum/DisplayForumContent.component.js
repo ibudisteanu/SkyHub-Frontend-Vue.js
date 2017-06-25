@@ -13,7 +13,7 @@ import ContentButtons from '../../components/ContentButtons.component.vue';
 
 import PreviewContent from '../../components/PreviewContent.component.vue';
 import PreviewAllTopics from '../../topics/view-topic/PreviewAllTopics.component';
-import PreviewForums from './PreviewForums.component';
+import PreviewForums from './PreviewForums.vue';
 
 class DisplayForumContent extends React.Component {
 
