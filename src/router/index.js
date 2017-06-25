@@ -30,7 +30,6 @@ export function createRouter () {
       { path: '/hn/user/:id', component: UserView },
       { path: '/hn/', redirect: '/hn/top' },
 
-      { path: '/', component: HomePage },
       { path: '/about', component: AboutPage },
       { path: '/login', component: LoginPage },
       { path: '/signin', component: LoginPage },
@@ -39,7 +38,8 @@ export function createRouter () {
       { path: '/signup', component: RegistrationPage },
       { path: '/registration', component: RegistrationPage },
 
-      //{ path: '/', component: LayoutElement('test') }
+      { path: '/:url*', component: HomePage },
+
     ]
   })
 }

@@ -6,38 +6,8 @@
 
 export default class Topic {
 
-    id;
 
-    title;
-    URL;
-
-    image: '';
-    description;
-
-    arrAttachments: [];
-    arrKeywords: [];
-    arrBreadcrumbs: [];
-
-    authorId: '';
-    parentId: '';
-    parents: [];
-
-    preferredLang;
-
-
-    longitude;
-    latitude;
-
-    country;
-    city;
-
-    dtCreation;
-    dtLastActivity;
-
-
-    preview:false;
-
-    constructor( data: Object = {}) {
+    constructor( data ) {
 
         this.id = data.id || '';
 

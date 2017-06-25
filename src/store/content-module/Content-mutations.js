@@ -5,8 +5,5 @@
 
 export default{
 
-    SET_CURRENT_ROUTER_OBJECT: (state, { object }) => {
-        state.currentRouterObject = object;
-    },
 
 }

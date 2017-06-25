@@ -21,10 +21,15 @@ export default {
 
     components: { Layout },
 
-    async asyncData ({ store }) {
+    async asyncData ({ store,  route: { params: { url }} }) {
 
-        console.log('xxxxxxxxx ASYNC DATA HOMEPAGE ');
-        return await store.dispatch('LOCALIZATION_FETCH', {ip: ''});
+        console.log("%%%%%%%%%%%%%%% ASYNC DATA", url);
+        await store.dispatch('LOCALIZATION_FETCH', {ip: ''});
+
+        await store.dispatch('CONTENT_FETCH_ROUTER_OBJECT_AND_CONTENT', {url} );
+
+        return true;
+
     },
 
 }
