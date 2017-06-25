@@ -11,8 +11,9 @@ import SocketStatusModule from './socket-status-store/SocketStatus-module'
 import SystemNotificationsModule from './system-notifications-store/SystemNotifications-module'
 import LocalizationModule from './localization-store/Localization-module'
 import GlobalModule from './global-store/Global-module'
+import ContentModule from './content-store/Content-module'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export function createStore () {
     return new Vuex.Store({
@@ -23,6 +24,8 @@ export function createStore () {
             systemNotifications: SystemNotificationsModule,
             localization: LocalizationModule,
             global: GlobalModule,
+
+            content: ContentModule,
         }
     });
 }

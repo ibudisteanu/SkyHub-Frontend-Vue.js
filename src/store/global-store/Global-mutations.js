@@ -6,7 +6,7 @@
 
 export default{
 
-    GLOBAL_SET_AUTHENTICATION_MODAL: (state, { refAuthenticationModal }) => {
+    SET_GLOBAL_AUTHENTICATION_MODAL: (state, { refAuthenticationModal }) => {
         state.refAuthenticationModal = refAuthenticationModal;
     },
 

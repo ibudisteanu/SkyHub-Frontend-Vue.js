@@ -9,11 +9,11 @@ import Vue from 'vue'
 
 export default {
 
-    LOCALIZATION_SET_IP: (state, {ip}) => {
+    SET_LOCALIZATION_IP: (state, {ip}) => {
         state.ip = ip;
     },
 
-    LOCALIZATION_SET_DATA: (state, {payload}) => {
+    SET_LOCALIZATION_DATA: (state, {payload}) => {
         state.country = payload.country;
         state.countryCode = payload.countryCode;
         state.city = payload.city;
@@ -24,7 +24,7 @@ export default {
         state.clientIP = payload.clientIP;
     },
 
-    LOCALIZATION_SET_REQUEST_ERROR: (state, {}) => {
+    SET_LOCALIZATION_SET_REQUEST_ERROR: (state, {}) => {
         state.request = {
             sent: true,
             done: false,

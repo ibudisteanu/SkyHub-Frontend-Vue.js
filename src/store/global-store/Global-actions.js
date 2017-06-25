@@ -8,7 +8,7 @@ export default{
 
     GLOBAL_NEW_AUTHENTICATION_MODAL: ({ commit }, { refAuthenticationModal }) => {
 
-        commit('GLOBAL_SET_AUTHENTICATION_MODAL', {refAuthenticationModal});
+        commit('SET_GLOBAL_AUTHENTICATION_MODAL', {refAuthenticationModal});
 
     },
 
