@@ -1,13 +1,16 @@
 <template>
 
-    <div id="templateBody" :class="getBodyClass">
         <div id="wrapper">
+
+            {{authenticatedUser}}
 
             <LayoutBody>
 
                 <div slot="content">
                     <slot name="layout-content" />
                     <b>TEST LAYOUT</b>
+
+                    <button @click="openModal"> Open Modal</button>
                 </div>
 
             </LayoutBody>
@@ -19,9 +22,11 @@
 
             <RightSidebar />
 
+            <ModalComponent modalId="authenticationModal" ref="refAuthenticationModal"/>
+
         </div>
 
-    </div>
+
 
 
 </template>
@@ -33,17 +38,29 @@
     import StickyButtons from '../Template-components/Body/Sticky-buttons/StickyButtons.vue';
     import RightSidebar from '../Template-components/Body/Right-sidebar/RightSidebar.vue';
 
+    import ModalComponent from 'client/components/util-components/modals/Modal.component.vue';
+
     import User from 'models/User/User.model';
 
     export default {
         name: 'Layout',
-        components: { LayoutBody , LayoutFooter, StickyButtons, RightSidebar},
+        components: { LayoutBody , LayoutFooter, StickyButtons, RightSidebar, ModalComponent},
 
         data: () => ({
             loading: true
         }),
 
+        created: function (){
+
+//            var self = this;
+//            setInterval(self.time, 1000);
+//            self.time();
+
+        },
+
         computed: {
+
+
 
             getBodyClass(){
                 if (User.isLoggedIn(this.$store.state.authenticatedUser.user))
@@ -54,14 +71,17 @@
 
             authenticatedUser(){
 
-//                if (typeof window === "undefined") return '';
-//
-//                if (this.$store.state.authenticatedUser)
-//                    document.getElementsByTagName("body")[0].style="pace-done";
-//                else
-//                    document.getElementsByTagName("body")[0].style="pace-done mini-navbar top-navigation";
-//
-//                return this.$store.state.authenticatedUser;
+                console.log("trying...");
+
+                if (typeof window !== "undefined")
+                    if (User.isLoggedIn(this.$store.state.authenticatedUser.user))
+                        document.body.className = document.body.className.replace("mini-navbar top-navigation","");
+                    else {
+                        if (document.body.className.indexOf("mini-navbar top-navigation") < 0)
+                            document.body.className += " mini-navbar top-navigation ";
+                    }
+
+                return '';
             },
 
         },
@@ -93,7 +113,14 @@
         },
 
         methods: {
+            time() {
+                console.log("TEEST",typeof window);
+            },
 
+            openModal(){
+                this.$refs['refAuthenticationModal'].showModal();
+
+            }
         }
     }
 

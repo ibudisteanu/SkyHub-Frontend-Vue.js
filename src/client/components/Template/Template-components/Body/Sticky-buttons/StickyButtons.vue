@@ -3,10 +3,7 @@
 
         <Chat/>
 
-
-        <div v-if="!areNotificationsGranted">
-            <NotificationStickyButton :rightOffset="notifcationsStickyButtonRightOffset" />
-        </div>
+        <NotificationStickyButton v-show="!areNotificationsGranted" :rightOffset="notifcationsStickyButtonRightOffset" />
 
 
         <ChatStickyButton :rightOffset="chatStickyButtonRightOffset"/>

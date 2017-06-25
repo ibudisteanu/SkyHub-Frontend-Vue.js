@@ -4,7 +4,7 @@
  */
 
 <template>
-    <div v-if="displayStatusBar">
+    <div v-show="displayStatusBar">
         <nav class='navbar navbar-default' :style="{display: 'inline-block', width: '100%', marginBottom: '10px', minHeight: '26px', background: getStatusBarBackgroundColor }" >
 
             <div :style="{textAlign: 'center', margiTop: 5, color: getStatusBarTextColor}">
