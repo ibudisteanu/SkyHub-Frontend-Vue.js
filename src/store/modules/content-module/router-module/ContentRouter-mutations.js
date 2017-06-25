@@ -3,7 +3,7 @@
  * (C) BIT TECHNOLOGIES
  */
 
-import ContentObjectService from 'services/REST/forums/content/ContentObject.service'
+import ContentObjectService from 'store/helpers/ContentObject.service'
 
 export default{
 

@@ -4,6 +4,7 @@
  */
 
 import Vue from 'vue';
+import ContentObjectService from 'store/helpers/ContentObject.service';
 
 export default{
 
@@ -12,7 +13,7 @@ export default{
 
         for (let i=0; i<forums.length; i++){
 
-            let forum = forums[i].object;
+            let forum = ContentObjectService.createObject(forums[i].object);
 
             console.log("SET_CONTENT_FORUMS", forum.id,  forum.name);
 

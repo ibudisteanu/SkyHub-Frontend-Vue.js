@@ -7,7 +7,7 @@ import React from 'react';
 import {connect} from "react-redux";
 
 import  AuthService  from 'services/REST/authentication/Auth.service';
-import  ContentObjectService  from 'services/REST/forums/content/ContentObject.service';
+import  ContentObjectService  from 'store/helpers/ContentObject.service';
 
 import Forum from '../../../../models/Forum/Forum.model';
 import Topic from '../../../../models/Topic/Topic.model';

@@ -4,6 +4,7 @@
  */
 
 import Vue from 'vue';
+import ContentObjectService from 'store/helpers/ContentObject.service';
 
 export default{
 
@@ -12,7 +13,7 @@ export default{
 
         for (let i=0; i<topics.length; i++){
 
-            let topic = topics[i].object;
+            let topic = ContentObjectService.createObject(topics[i].object);
 
             console.log("SET_CONTENT_TOPIC", topic.id,  topic.name);
 
