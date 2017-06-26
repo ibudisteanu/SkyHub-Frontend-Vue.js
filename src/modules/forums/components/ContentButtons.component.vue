@@ -6,32 +6,28 @@
 <template>
     <div >
 
-        <div :style="style">
+        <div :style="styleButtonsForm">
 
-            <button v-if="enableAddForum && showAddForum" type="button" class="btn btn-warning dim btn-rounded" data-toggle="button" aria-pressed="true"  @click={handleAddForum} style='margin-right: 5px' >
+            <button v-if="enableAddForum" type="button" class="btn btn-warning dim btn-rounded" data-toggle="button" aria-pressed="true"  @click="handleAddForum" style='margin-right: 5px' >
                 <i class="fa fa-users" style='margin-right: 5px' />
                 Forum
             </button>
 
-            <button v-if="enableAddTopic && showAddTopic" type="button" class="btn btn-success dim btn-rounded" @click={::this.handleAddTopic} style={{marginRight: 5}} >
+            <button v-if="enableAddTopic" type="button" class="btn btn-success dim btn-rounded" @click="handleAddTopic" style='margin-right: 5px' >
                 <i class="fa fa-pencil" style='margin-right: 5px' />
                 Topic
             </button>
 
-            <button v-if="enableAddReply && showAddReply" type="button" class="btn btn-danger dim btn-rounded" @click={::this.handleAddTopic} style={{marginRight: 5}} >
+            <button v-if="enableAddReply" type="button" class="btn btn-danger dim btn-rounded" @click="handleAddTopic" style='margin-right: 5px' >
                 <i class="fa fa-comment" style='margin-right: 5px' />
                 Reply
             </button>
 
         </div>
 
-        <AddForumForm v-if="showAddForum" :parentId="parentId" parentName={this.props.parentName} />
+        <AddForumForm v-if="showAddForum" :parentId="parentId" parentName="parentName" />
 
-        <AddTopicForm v-if="showAddTopic" :parentId="parentId" parentName={this.props.parentName}/>
-
-        {this.state.showAddForumForm ? this.showAddForum() : ''}
-
-        {this.state.showAddTopicForm ? this.showAddTopic() : ''}
+        <AddTopicForm v-if="showAddTopic" :parentId="parentId" parentName="parentName"/>
 
     </div>
 
@@ -45,9 +41,9 @@
 
         data: function (){
             return {
-                showAddForumForm : false,
-                showAddTopicForm : false,
-                showAddReplyForm : false,
+                showAddForum : false,
+                showAddTopic : false,
+                showAddReply : false,
             }
         },
 
@@ -58,8 +54,8 @@
             enableAddForum : {default: true},
             enableAddTopic : {default: true},
             enableAddReply : {default: true},
-            
-            style : {default: ''},
+
+            styleButtonsForm: {default: function (){return {} }},
         },
 
         methods:{

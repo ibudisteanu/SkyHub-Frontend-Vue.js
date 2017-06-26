@@ -16,7 +16,7 @@ export default {
 
     LOCALIZATION_FETCH: async ({ commit, dispatch, state }, { ip }) => {
 
-        if (state.request.done === true){
+        if ((state.request.done === true)&&(state.request.error === false)){
             return;
         }
 

@@ -29,7 +29,7 @@
         async asyncData ({ store,  route: { params: { url }} }) {
 
             console.log("%%%%%%%%%%%%%%% ASYNC DATA", url);
-            await store.dispatch('LOCALIZATION_FETCH', {ip: ''});
+            await store.dispatch('LOCALIZATION_FETCH', {ip: ''}); //the localization is required...
 
             await store.dispatch('CONTENT_FETCH_ROUTER_OBJECT_AND_CONTENT', {url} );
 

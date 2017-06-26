@@ -7,14 +7,13 @@ import FetchService from 'services/communication/FetchService'
 
 export default{
 
-    CONTENT_FETCH_TOP_FORUMS: async ( {commit, state, dispatch}, {parent, pageIndex, pageCount}) =>{
+    CONTENT_FETCH_TOP_FORUMS: async ( {commit, state, dispatch}, {parent, pageIndex, pageCount, reset}) =>{
 
+        if (reset === true) await commit('SET_CONTENT_FORUMS_CLEAR', {});
 
         let answer = {result : false};
 
         answer = await FetchService.sendRequestGetData( "forums/get-top-forums",{parent: parent, pageIndex:pageIndex, pageCount: pageCount} );
-
-        console.log("ANSWER TOP FORUMS", answer);
 
         if ((typeof answer !== "undefined")&&(answer.result === true)) {
 

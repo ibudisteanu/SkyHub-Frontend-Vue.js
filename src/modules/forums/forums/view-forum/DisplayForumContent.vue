@@ -33,12 +33,14 @@
 <script>
 
     import PreviewForums from './PreviewForums.vue';
+    import ContentButtons from 'modules/forums/components/ContentButtons.component.vue';
 
     export default{
         name: 'DisplayForumContent',
 
         components: {
             'PreviewForums': PreviewForums,
+            'ContentButtons': ContentButtons,
         },
 
         computed:{
@@ -61,12 +63,12 @@
 
             getForumName(){
                 if (this.getForumRouter.object === null) return '';
-                else return this.getForumRouter.object.name||this.getForumName.object.title;
+                else return this.getForumRouter.object.name||this.getForumRouter.object.title;
             },
 
             getForumTitle(){
                 if (this.getForumRouter.object === null) return 'SkyHub';
-                else return this.getForumRouter.object.name||this.getForumName.object.title;
+                else return this.getForumRouter.object.name||this.getForumRouter.object.title;
             },
 
         }

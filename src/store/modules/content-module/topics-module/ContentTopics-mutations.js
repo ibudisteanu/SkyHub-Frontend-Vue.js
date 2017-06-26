@@ -15,8 +15,6 @@ export default{
 
             let topic = ContentObjectService.createObject(topics[i].object);
 
-            console.log("SET_CONTENT_TOPIC", topic.id,  topic.name);
-
             Vue.set(state.topics, topic.id, topic );
         }
     },
@@ -27,6 +25,11 @@ export default{
 
     },
 
+    SET_CONTENT_TOPICS_CLEAR : (state, { }) => {
+
+        state.topics = {};
+
+    },
 
     SET_CONTENT_TOPICS_PAGE_INFORMATION: (state, {  pageIndex, pageCount }) => {
 

@@ -14,16 +14,18 @@ export default{
 
         if ( res.result === true){
 
-            let parent = (typeof res.object !== "undefined") && (res.object !== null) ? res.object.parent : '';
-            let id =     (typeof res.object !== "undefined") && (res.object !== null) ? res.id : '';
+            let parent = ((typeof res.object !== "undefined") && (res.object !== null)) ? res.object.parent : '';
+            let id =     ((typeof res.object !== "undefined") && (res.object !== null)) ? res.object.id : '';
+
+            console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESULT",id, parent);
 
             await dispatch('CONTENT_FETCH_ROUTER_PARENT_OBJECT', {url: parent} ); //fetching the parent object)
 
             switch (state.contentRouter.routerObject.type){
                 case "home":
                 case "forum":
-                    await dispatch('CONTENT_FETCH_TOP_FORUMS',{parent: id,  pageIndex: 1, pageCount:8 });
-                    await dispatch('CONTENT_FETCH_TOP_TOPICS',{parent: id,  pageIndex: 1, pageCount:8 });
+                    await dispatch('CONTENT_FETCH_TOP_FORUMS',{parent: id,  pageIndex: 1, pageCount:8, reset:true, });
+                    await dispatch('CONTENT_FETCH_TOP_TOPICS',{parent: id,  pageIndex: 1, pageCount:8, reset:true, });
                     break;
                 case "topic":
                     //await this.fetchTopReplies(sContentToSearchId, 1, 8);
@@ -36,6 +38,8 @@ export default{
 
 
     CONTENT_FETCH_OBJECT: async ( {commit, store}, {sContentToSearchId}) => {
+
+        console.log("CONTENT_FETCH_ROUTER_OBJECT_AND_CONTENT", {url: sContentToSearchId});
 
         if (sContentToSearchId !== '')
             return await FetchService.sendRequestGetData('content/get-content', {id: sContentToSearchId});
