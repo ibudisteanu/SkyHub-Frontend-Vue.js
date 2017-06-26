@@ -20,9 +20,8 @@
                 <h4 style='font-size:30px'>What's hot on {{getForumTitle}}</h4>
             </div>
 
-            <PreviewTopics :title="getForumTitle" :topics="getTopics" />
+            <PreviewTopics :key="'PreviewForums_'+getForumId" :title="getForumTitle" :topics="getTopics" />
 
-            <!-- <PreviewContent object={object}></PreviewContent> -->
 
         </div>
 
@@ -42,12 +41,13 @@
 
         components: {
             'PreviewForums': PreviewForums,
+            'PreviewTopics': PreviewTopics,
             'ContentButtons': ContentButtons,
         },
 
         computed:{
             getTopics(){
-                return this.$store.state.content.contentTopics.topics;
+                return this.$store.getters.getTopics;
             },
 
             getForums(){

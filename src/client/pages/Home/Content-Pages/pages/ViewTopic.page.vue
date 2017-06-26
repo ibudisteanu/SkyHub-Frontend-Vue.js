@@ -5,12 +5,130 @@
 
 
 <template>
+    <div  class='anchor col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 col-xxs-12 col-xxs-offset-0 col-tn-12 col-tn-offset-0' style='padding-left: 40px; padding-bottom: 20px'>
+        
+        <HeaderCover  v-if=" (routerObject.object !== null) && (routerObject.notFound === false)"
+                      :title="routerObject.object.title||''"
+                      :subTitle="routerObject.object.description||''"
+                      :icon="routerObject.object.iconPic||''"
+                      :cover="routerObject.object.coverPic||''"
+                      :coverColor="routerObject.object.coverColor||''"
+                      :breadcrumbs="routerObject.object.arrBreadcrumbs||[]"
+                      :url="routerObject.object.URL"
+        />
 
+        <WebsiteHeaderCover v-else />
+
+
+        <div style='position: relative; z-index: 2 '>
+
+            <div v-if="(routerObject.notFound === false)">
+
+                <!--
+                <a href="http://skyhub.me/profile/muflonel2000">
+                    <img class="avatar-topic-question-image" src="http://skyhub.me/uploads/images/avatars/57ddb59508e581fc1200006e/muflonel-1474148373-19926_50.jpg" alt="George Muflonel">
+                </a>
+
+                <img class="avatar-topic-question-circle" src="http://skyhub.me/theme/assets/images/user/offline.png" alt="offline" />
+                -->
+
+                <!--
+                <div id="Vote58f7e46bc24edd8c07016631" class="upvote voting-topic-question">
+                    <a class="upvote upvote-on upvote-enabled" title="This is good stuff. Vote it up! (Click again to undo)"></a>
+                    <span class="count" title="Total number of votes">0</span>
+                    <a class="downvote  upvote-enabled" title="This is not useful. Vote it down. (Click again to undo)"></a>
+                    <a class="star  upvote-enabled" title="Mark as favorite. (Click again to undo)"></a>
+                </div>
+                -->
+
+
+                <div class="topic-question" style='overflow: hidden' >
+
+                    <time class="date information" datetime="2016-Dec-04 00:07" data-toggle="tooltip" data-placement="left" title="" data-original-title="2016-Dec-04 00:07"><i class="fa fa-clock-o"></i> 6m  20d </time>
+                    <span class="views information" data-toggle="tooltip" data-placement="left" title="" data-original-title="Views 468"><i class="fa fa-eye"></i> 468</span>
+                    <span class="unique-views information" data-toggle="tooltip" data-placement="left" title="" data-original-title="Unique Views 216"><i class="fa fa-eye-slash"></i> 216</span>
+
+                    <a class="topic-question-header author" href="http://skyhub.me/profile/muflonel2000"> George Muflonel</a>
+
+                    <h1>
+                        {Topic.getTitle(this.props.topic.object)||""}
+                    </h1>
+
+                    <div class="formHeadLine"> </div>
+
+                    <div class="articleContent anchor">
+                        <div class="container-fluid topic-question-body">
+
+
+                            <a v-if="sImage !==''" href="https://media.giphy.com/media/dzaUX7CAG0Ihi/giphy.gif">
+                                <img src={sImage} alt={Topic.getTitle(this.props.topic.object)||'no title'} class="topic-question-image" />
+                            </a>
+
+                            <p>{{this.props.topic.object.description}} </p>
+
+                        </div>
+                    </div>
+
+
+                    <div class="topic-question-footer">
+                        <div class="col-xs-12 col-sm-5 topic-question-footer-buttons" style={{overflow: "hidden"}}>
+                            <a id="addReplyButton_58435025f23ffe11318b4577" class="btn btn-primary btn-circle" style={{width: "initial"}}>
+                            <i class="fa fa-comment btn-circle-icon" style={{margin: "0 8px 0 8px"}}> <div class="btn-circle-text">Reply</div> </i>
+                            </a>
+                        </div>
+
+                        <!--
+                        <div class="col-xs-12 col-sm-7 topic-question-footer-later-edit" style={{textAlign: "right"}}>
+                            <ShowDate date={this.props.topic.object.dtCreation} />
+                            by <i class="glyphicon glyphicon-user"></i> <span> <a href="http://skyhub.me/profile\admin">Alexandru Ionut Budisteanu</a> </span>
+                        </div>
+                        -->
+                    </div>
+
+                </div>
+                
+            </div>
+            <div v-else> <!-- ERROR -->
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+                        <div class="alert alert-danger ">
+                            <h4 style='textAlign: center;'>Forum <strong>NOT Found</strong></h4>
+                            <strong>{{this.$store.state.route.fullPath||"/"}}</strong> was not found. Probably what you've been looking for doesn't exists or has been deleted in the mean while.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <DisplayTopicmContent/>
+
+    </div>
 </template>
 
 
 <script>
+
+    import HeaderCover from 'client/components/Template/Template-components/Header/Cover/HeaderCover.component.vue';
+    import DisplayTopicContent from 'modules/forums/topics/view-topic/DisplayTopicContent.vue';
+
+
     export default{
+
+        name: 'ViewTopic',
+
+        components:{
+            'HeaderCover' : HeaderCover,
+            'DisplayTopicContent' : DisplayTopicContent,
+        },
+
+        computed:{
+
+            routerObject(){
+                return this.$store.state.content.contentRouter.routerObject;
+            }
+
+        }
 
     }
 </script>

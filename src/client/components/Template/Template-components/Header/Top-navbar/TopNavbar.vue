@@ -9,14 +9,19 @@
 
       <div class="navbar-header">
 
-        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary" v-if="isLoggedIn" href="#">
+        <a v-if="isLoggedIn" class="navbar-minimalize minimalize-styl-2 btn btn-primary"  href="#">
           <i class="fa fa-bars"></i>
         </a>
 
-        <form role="search" class="navbar-form-custom" >
+        <img v-if="!isLoggedIn" src="/public/SkyHub-logo.png" alt="SkyHub Social Network" height="44px" style="padding: 0 5px 0 5px; float:left" />
+
+        <i class="fa fa-search" style="float: left; padding-top: 20px"></i>
+
+        <form role="search" class="navbar-form-custom"  >
           <div class="form-group">
 
-            <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search" style="margin-left: 10px" />
+            <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search" style="margin-left: 5px" />
+
           </div>
         </form>
       </div>

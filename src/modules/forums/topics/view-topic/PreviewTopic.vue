@@ -11,14 +11,14 @@
             <div class="anchor" style='padding-left: 42px'>
 
                 <router-link :to="topic.URL" :disableLink="topic.preview" >
-                    <img class="table-forums-topic-image" :src="getTopicImage" :alt="Topic.getTitle(topic)||'no title'" />
+                    <img class="table-forums-topic-image" :src="getTopicImage" :alt="getTopicTitle" />
 
-                    <h4 class="table-forums-topic-title">{{Topic.getTitle(topic)||'no title'}}</h4>
+                    <h4 class="table-forums-topic-title">{{getTopicTitle}}</h4>
 
                     <br />
 
                     <p class="table-forums-topic-body word-wrap">
-                        {{Topic.getDescription(topic)||'no description'}}
+                        {{getTopicDescription}}
                     </p>
 
                 </router-link>
@@ -64,10 +64,22 @@
             'ShowDate':ShowDate,
         },
 
+        props:{
+            topic:  {default: null},
+        },
+
         computed: {
             getTopicImage(){
                 return Topic.getImage(this.topic) || "https://citation-beweb.netdna-ssl.com/img/compose.png";
-            }
+            },
+
+            getTopicTitle(){
+                return Topic.getTitle(this.topic)||'no title';
+            },
+
+            getTopicDescription(){
+                return Topic.getDescription(this.topic)||'no description';
+            },
         }
 
     }

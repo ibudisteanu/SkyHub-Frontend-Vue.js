@@ -10,9 +10,6 @@
 
       <LayoutHeader />
 
-
-      "HELLO WORLD!!!"
-
       <slot name="content" />
 
 

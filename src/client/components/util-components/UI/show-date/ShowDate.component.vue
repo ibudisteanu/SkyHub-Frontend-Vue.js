@@ -5,7 +5,7 @@
 
 <template>
   <span class="time" data-toggle="tooltip" data-placement="right" :title="getFullDate">
-    <i class="fa fa-clock-o"></i> {{this.calculateDateDiff()}}
+    <i class="fa fa-clock-o"></i> {{this.calculateDateDiff}}
   </span>
 </template>
 
@@ -18,6 +18,7 @@
 
 
       computed:{
+
           calculateDateDiff() {
 
               let myDate = this.date;
@@ -95,8 +96,9 @@
               myDate = new Date(myDate);
 
               return myDate.toString();
-          }
-      }
+          },
+
+      },
 
       methods:{
 

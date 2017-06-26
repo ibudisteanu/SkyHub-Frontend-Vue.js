@@ -4,7 +4,8 @@
  */
 
 
-import actions from './ContentTOpics-actions'
+import actions from './ContentTopics-actions'
+import getters from './ContentTopics-getters'
 import mutations from './ContentTopics-mutations'
 
 export default {
@@ -19,6 +20,8 @@ export default {
 
 
     actions,
+    getters,
     mutations,
+
 }
 

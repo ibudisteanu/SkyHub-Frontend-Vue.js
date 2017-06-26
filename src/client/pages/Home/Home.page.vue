@@ -6,7 +6,7 @@
 <template>
 
         <Layout>
-            <div slot="layout-content">
+            <div class="row" slot="layout-content">
                 <PageContent>
 
                 </PageContent>
