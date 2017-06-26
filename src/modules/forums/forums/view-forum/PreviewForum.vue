@@ -7,7 +7,7 @@
 <template>
 
     <router-link :to="forum.URL" >
-        <img :src="forum.iconPic||''" :style="{backgroundColor: '#'+object.coverColor||'#79B0EC' }" />
+        <img :src="forum.iconPic||''" :style="{backgroundColor: '#'+forum.coverColor||'#79B0EC' }" />
         <span>{{forum.title}}</span>
     </router-link>
 

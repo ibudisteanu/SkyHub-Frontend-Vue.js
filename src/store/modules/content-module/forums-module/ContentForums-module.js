@@ -6,6 +6,7 @@
 
 import actions from './ContentForums-actions'
 import mutations from './ContentForums-mutations'
+import getters from './ContentForums-getters'
 
 export default {
 
@@ -19,6 +20,7 @@ export default {
 
 
     actions,
+    getters,
     mutations,
 }
 

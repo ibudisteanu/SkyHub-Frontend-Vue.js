@@ -6,6 +6,7 @@
 <template>
     <div>
 
+        <DisplayForumContent />
 
         
     </div>

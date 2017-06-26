@@ -5,7 +5,6 @@
 <template>
     <div class="lightBoxGallery">
 
-
         <PreviewForum
                 v-for="(forum, index) in forums"
                 :forum="forum"
@@ -22,6 +21,10 @@
 
     export default{
         name: 'PreviewForums',
+
+        components: {
+            'PreviewForum':PreviewForum,
+        },
 
         props: {
             forums: {default: function () {return []}},
