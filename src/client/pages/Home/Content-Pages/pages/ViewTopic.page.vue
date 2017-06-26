@@ -46,7 +46,7 @@
 
 
                     <div class="topic-question" style='overflow: hidden' >
-                        
+
                         <ShowDate className="date information" :date="getTopic.dtCreation" />
                         <span class="views information" data-toggle="tooltip" data-placement="left" title="" data-original-title="Views 468"><i class="fa fa-eye"></i> 468</span>
                         <span class="unique-views information" data-toggle="tooltip" data-placement="left" title="" data-original-title="Unique Views 216"><i class="fa fa-eye-slash"></i> 216</span>

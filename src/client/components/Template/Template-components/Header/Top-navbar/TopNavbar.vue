@@ -13,7 +13,9 @@
           <i class="fa fa-bars"></i>
         </a>
 
-        <img v-if="!isLoggedIn" src="/public/SkyHub-logo.png" alt="SkyHub Social Network" height="44px" style="padding: 0 5px 0 5px; float:left" />
+        <router-link v-if="!isLoggedIn" to="/" >
+            <img src="/public/SkyHub-logo.png" alt="SkyHub Social Network" height="44px" style="padding: 0 5px 0 5px; float:left" />
+        </router-link>
 
         <i class="fa fa-search" style="float: left; padding-top: 20px"></i>
 

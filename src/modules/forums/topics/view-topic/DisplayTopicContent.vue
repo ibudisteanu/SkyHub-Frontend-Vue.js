@@ -28,12 +28,14 @@
 <script>
 
     import PreviewAllTopics from './PreviewTopics.vue';
+    import ContentButtons from 'modules/forums/components/ContentButtons.component.vue';
 
     export default{
         name: 'DisplayTopicContent',
 
         components: {
             'PreviewAllTopics': PreviewAllTopics,
+            'ContentButtons' : ContentButtons,
         },
 
         computed:{
