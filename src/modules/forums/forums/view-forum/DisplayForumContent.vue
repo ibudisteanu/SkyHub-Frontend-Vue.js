@@ -20,7 +20,7 @@
                 <h4 style='font-size:30px'>What's hot on {{getForumTitle}}</h4>
             </div>
 
-            <PreviewAllTopics :title="getForumTitle" :topics="getTopics" />
+            <PreviewTopics :title="getForumTitle" :topics="getTopics" />
 
             <!-- <PreviewContent object={object}></PreviewContent> -->
 
@@ -33,6 +33,8 @@
 <script>
 
     import PreviewForums from './PreviewForums.vue';
+    import PreviewTopics from 'modules/forums/topics/view-topic/PreviewTopics.vue';
+
     import ContentButtons from 'modules/forums/components/ContentButtons.component.vue';
 
     export default{

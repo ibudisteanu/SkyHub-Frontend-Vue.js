@@ -3,6 +3,40 @@
  * (C) BIT TECHNOLOGIES
  */
 
+<template>
+
+    <div style='background-color: aliceblue;'>
+
+        <PreviewAllTopics hideHeader={true} topics={ [this.state.topic] } />
+
+    </div>
+
+</template>
+
+
+
+
+<script>
+
+    export default{
+
+        props:{
+            title: this.props.title||'',
+            image: this.props.image||'',
+            description: this.props.description||'',
+            attachments: this.props.attachments||[],
+            keywords: this.props.keywords||[],
+            authorId: this.props.authorId||'',
+
+            dtCreation: '',
+
+            preview: true,
+        },
+    }
+
+
+</script>
+
 import React from 'react';
 
 import PreviewTopic from '../view-topic/PreviewTopic.component';
@@ -23,16 +57,7 @@ class PreviewNewTopic extends React.Component {
 
   componentWillUpdate(){
     this.state.topic = new Topic({
-      title: this.props.title||'',
-      image: this.props.image||'',
-      description: this.props.description||'',
-      attachments: this.props.attachments||[],
-      keywords: this.props.keywords||[],
-      authorId: this.props.authorId||'',
 
-      dtCreation: '',
-
-      preview: true,
     });
   }
 
@@ -40,11 +65,7 @@ class PreviewNewTopic extends React.Component {
 
     return (
 
-      <div style={{backgroundColor: "aliceblue"}}>
 
-        <PreviewAllTopics hideHeader={true} topics={ [this.state.topic] } />
-
-      </div>
 
     );
   }
