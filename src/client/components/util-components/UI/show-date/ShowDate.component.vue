@@ -4,9 +4,10 @@
  */
 
 <template>
-  <span class="time" data-toggle="tooltip" data-placement="right" :title="getFullDate">
+
+  <time :class="this.className" :datetime="this.date" data-toggle="tooltip" data-placement="right" :title="getFullDate" :data-original-title="getFullDate">
     <i class="fa fa-clock-o"></i> {{this.calculateDateDiff}}
-  </span>
+  </time>
 </template>
 
 
@@ -14,7 +15,10 @@
   export default{
       name: 'ShowDate',
 
-      props: ['date'],
+      props: {
+          date : {default: null},
+          className: {default: 'time'}
+      },
 
 
       computed:{

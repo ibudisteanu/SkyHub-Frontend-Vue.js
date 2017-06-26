@@ -31,6 +31,7 @@
 
         components:{
             'ViewForum':ViewForum,
+            'ViewTopic':ViewTopic,
             'AuthenticatedHome': AuthenticatedHome,
             'NotAuthenticatedHome': NotAuthenticatedHome,
         },
