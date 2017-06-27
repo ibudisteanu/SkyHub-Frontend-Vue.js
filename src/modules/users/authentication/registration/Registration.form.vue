@@ -144,7 +144,7 @@
                 <div v-if="error !== ''">
                     <div>
                         <div class="alert alert-danger alert-dismissable">
-                            {{error}}
+                            <div v-html="this.error" />
                         </div>
                     </div>
                 </div>

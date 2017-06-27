@@ -122,7 +122,7 @@
                     -->
                     <div v-if="this.error !== ''">
                         <div class="alert alert-danger alert-dismissable">
-                            {{this.error}}
+                            <div v-html="this.error" />
                         </div>
                     </div>
 
@@ -237,9 +237,6 @@
                     e.stopPropagation();
                 }
 
-                let onSuccess = this.props.onSuccess || function (){};
-                let onError = this.props.onError || function (){};
-
                 let bValidationError=false;
                 this.error = ''; this.titleValidationStatus = [null, ''];  this.linkValidationStatus = [null,'']; this.descriptionValidationStatus = [null,'']; this.keywordsValidationStatus = [null,'']; this.countryValidationStatus = [null,'']; this.cityValidationStatus = [null,''];
 
@@ -256,7 +253,7 @@
                         console.log("ANSWER FROM adding forum",answer);
 
                         if (answer.result === true) {
-                            onSuccess(answer);
+                            this.onSuccess(answer);
 
                             history.push(answer.topic.URL);// redirecting to the forum URL ;)
                         }
@@ -276,7 +273,7 @@
                                 if ((this.titleValidationStatus[0] === null)&&(this.descriptionValidationStatus[0] === null)&&(this.keywordsValidationStatus[0] === null)&&(this.countryValidationStatus[0] === null)&&(this.cityValidationStatus[0] === null))
                                     this.openLogin();
 
-                            onError(answer);
+                            this.onError(answer);
                         }
                     }
                     catch(Exception){
