@@ -7,7 +7,7 @@
 
     <div style='background-color: aliceblue;'>
 
-        <PreviewAllTopics hideHeader={true} topics={ [this.state.topic] } />
+        <PreviewTopics :hideHeader="true" :topics="[this.topic]" />
 
     </div>
 
@@ -18,57 +18,44 @@
 
 <script>
 
+    import Topic from 'models/Topic/Topic.model';
+    import PreviewTopics from 'modules/forums/topics/view-topic/PreviewTopics.vue'
+
     export default{
 
-        props:{
-            title: this.props.title||'',
-            image: this.props.image||'',
-            description: this.props.description||'',
-            attachments: this.props.attachments||[],
-            keywords: this.props.keywords||[],
-            authorId: this.props.authorId||'',
+        name: 'PreviewNewTopic',
 
-            dtCreation: '',
-
-            preview: true,
+        components:{
+            'PreviewTopics': PreviewTopics,
         },
+
+        props:{
+            title: {default: ''},
+            image: {default: ''},
+            description: {default: ''},
+            attachments: {default: ''},
+            keywords: {default: []},
+            authorId: {default: ''},
+        },
+
+        computed: {
+            topic: function (){
+                return new Topic({
+                    title: this.title,
+                    image: this.image,
+                    description: this.description,
+                    keywords: this.keywords,
+                    authorId: this.authorId,
+                    attachments: this.attachments,
+
+                    dtCreation: '',
+
+                    preview: true,
+                })
+            },
+        }
+
     }
 
 
 </script>
-
-import React from 'react';
-
-import PreviewTopic from '../view-topic/PreviewTopic.component';
-import PreviewAllTopics from '../view-topic/PreviewAllTopics.component';
-
-import Topic from '../../../../../models/Topic/Topic.model';
-
-class PreviewNewTopic extends React.Component {
-
-  constructor(props){
-    super(props);
-
-    this.state=({
-      topic: new Topic({}),
-    });
-
-  }
-
-  componentWillUpdate(){
-    this.state.topic = new Topic({
-
-    });
-  }
-
-  render() {
-
-    return (
-
-
-
-    );
-  }
-}
-
-export default (PreviewNewTopic);

@@ -25,7 +25,14 @@
           }
       },
 
-      props: ['canDisable','click','className','icon','text'],
+      props: {
+          canDisable: {default: false},
+          className: {default: function (){}},
+          icon: {default: ''},
+          text: {default: ''},
+
+            onClick: {default: function (){}},
+      },
 
       methods: {
           handleClick(e){

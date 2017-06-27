@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-xs-6 text-right">
 
-                            <LoadingButton className="btn-success" icon="fa fa-sign-in" text="Login" :click="handleCheckLogin" ref="refLoadingButtonLogin"/>
+                            <LoadingButton className="btn-success" icon="fa fa-sign-in" text="Login" :onClick="handleCheckLogin" ref="refLoadingButtonLogin"/>
 
 
                         </div>

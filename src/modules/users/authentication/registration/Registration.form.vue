@@ -135,7 +135,7 @@
 
                         </div>
                         <div class="col-xs-6 text-right" >
-                            <LoadingButton className="btn-success" icon="fa fa-sign-in" text="Register" :click="handleCheckRegister" ref="refLoadingButtonRegistration"/>
+                            <LoadingButton className="btn-success" icon="fa fa-sign-in" text="Register" :onClick="handleCheckRegister" ref="refLoadingButtonRegistration"/>
                         </div>
                     </div>
                 </div>

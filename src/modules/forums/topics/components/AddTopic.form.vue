@@ -4,14 +4,15 @@
  */
 
 <template>
-
     <div class="col-sm-8 col-sm-offset-2" style='padding:0' >
-
         <div class="panel panel-success">
+
 
             <div class="panel-heading">
                 <h2 style='margin-top: 0'>New <strong>Topic</strong> in {{this.parentName||this.parentNameProp||'Home'}} </h2>
             </div>
+
+
 
             <div class="panel-body">
 
@@ -24,7 +25,7 @@
 
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
 
-                            <AutoCompleteSelect autoFocus multi={false} controlId="nameSelect" class='border-focus-blue'  placeholder='title / subject'  :value="this.title"  :onSelect="this.handleTitleChangeSelect" style='z-index:0'  />
+                            <SearchAutoComplete :multi="false" dataSuggestion="google" placeholder='title / subject' :defaultValue="this.title||this.parentName"  :defaultLabel="this.title||this.parentName" :onSelect="this.handleTitleChange" :clearOnSelect="true" />
 
                             <span :class="this.showInputFeedback(this.titleValidationStatus)" style='width:60px; top:10px'></span>
                         </div>
@@ -43,7 +44,9 @@
                         </div>
                         <label class="error" >{{this.linkValidationStatus[1]}}</label> <br />
 
+                        <!--
                         <FileUploadDropzone :onSuccessNewAttachment="this.fileUploadSuccess" :onRemoveAttachment="this.fileUploadRemoved" />
+                        -->
 
                     </div>
 
@@ -52,7 +55,9 @@
                     <strong>Description</strong>
 
 
-                    <DraftWYSIWYG onChange="this.handleDescriptionChange" />
+                        <!--
+                        <DraftWYSIWYG onChange="this.handleDescriptionChange" />
+                        -->
 
                     <span :class="this.showInputFeedback(this.descriptionValidationStatus)"></span>
 
@@ -65,7 +70,7 @@
 
                         <span class="input-group-addon"><i class="fa fa-edit"></i></span>
 
-                        <SearchAutoComplete key="addForumParentSearch" :multi="false" dataSuggestion="parents" placeholder='select a parent-forum' :defaultValue="this.parentId||this.parentIdProp"  :defaultLabel="this.parentName||this.parentNameProp" :onSelect="handleParentChangeSelect" :clearable="false"/>
+                        <SearchAutoComplete key="addTopicParentSearch" :multi="false" dataSuggestion="parents" placeholder='select a parent-forum' :defaultValue="this.parentId||this.parentIdProp"  :defaultLabel="this.parentName||this.parentNameProp" :onSelect="handleParentChangeSelect" :clearOnSelect="true"/>
 
                         <span :class="this.showInputFeedback(this.parentValidationStatus)"></span>
                     </div>
@@ -76,41 +81,41 @@
                     <PreviewNewTopic :title="this.title" description="this.description" :attachments="this.attachments" :keywords="this.keywords" :authorId="this.$store.state.authenticatedUser.user.id||''" ref="refPreviewNewTopic" />
 
                     <!--
-                    <div class={"input-group " + this.showInputStatus(this.state.keywordsValidationStatus)}  >
+                    <strong>Keywords</strong>
+                    <div :class="'input-group ' + this.showInputStatus(this.keywordsValidationStatus)"  >
 
-                      <span class="input-group-addon"><i class="fa fa-tags"></i></span>
+                        <span class="input-group-addon"><i class="fa fa-tags"></i></span>
 
-                      <AutoCompleteSelect controlId="keywordsSelect" value={this.state.keywords} multi={true}   onSelect={::this.handleKeywordsSelect} style={{zIndex:0}} placeholder="three keywords"/>
+                        <SearchAutoComplete key="addForumKeywordsSearch" :multi="true" dataSuggestion="google" placeholder='three keywords' :defaultValue="''"  :defaultLabel="''" :onSelect="handleKeywordsSelect" :clearable="false"/>
+
 
                     </div>
-                    <label class="error" >{this.state.keywordsValidationStatus[1]}</label> <br />
+                    <label class="error" >{{this.keywordsValidationStatus[1]}}</label> <br />
 
 
                     <div class="row" >
 
-                      <div class="col-sm-6">
-                        <div class={"input-group " + this.showInputStatus(this.state.countryValidationStatus)}  >
+                        <div class="col-sm-6" style="padding-left: 0">
+                            <div :class="'input-group ' + this.showInputStatus(this.countryValidationStatus)"  >
 
-                          <span class="input-group-addon"><i class="fa fa-flag"></i></span>
+                                <CountrySelect :defaultCountry="localization.country||''"  :defaultCountryCode="localization.countryCode||''"  :onSelect="handleCountrySelect"/>
 
-                          <MyCountrySelect initialCountry={this.props.localization.countryCode||''} onSelect={::this.handleCountrySelect}/>
-
-                          <span class={::this.showInputFeedback(this.state.countryValidationStatus)}></span>
+                                <span :class="this.showInputFeedback(this.countryValidationStatus)"></span>
+                            </div>
+                            <label class="error" >{{this.countryValidationStatus[1]}}</label> <br />
                         </div>
-                        <label class="error" >{this.state.countryValidationStatus[1]}</label> <br />
-                      </div>
 
-                      <div class="col-sm-6" style={{paddingBottom: 5}}>
-                        <div class={"input-group " + this.showInputStatus(this.state.cityValidationStatus)}  >
+                        <div class="col-sm-6" style='padding-right: 0; padding-bottom: 5px'>
+                            <div :class="'input-group ' + this.showInputStatus(this.cityValidationStatus)"  >
 
-                          <span class="input-group-addon"><i class="fa fa-institution"></i></span>
+                                <span class="input-group-addon"><i class="fa fa-institution"></i></span>
 
-                          <input type='text' class='form-control input' placeholder='city'  value={this.props.localization.city||this.state.city} onChange={::this.handleCityChange} />
+                                <input type='text' class='form-control input' placeholder='city'  :value="this.localization.city||this.city" @change="handleCityChange" style="z-index:0"/>
 
-                          <span class={::this.showInputFeedback(this.state.cityValidationStatus)}></span>
+                                <span :class="showInputFeedback(this.cityValidationStatus)"></span>
+                            </div>
+                            <label class="error" >{{this.cityValidationStatus[1]}}</label> <br />
                         </div>
-                        <label class="error" >{this.state.cityValidationStatus[1]}</label> <br />
-                      </div>
 
                     </div>
 
@@ -134,7 +139,7 @@
         </div>
 
     </div>
-    
+
 </template>
 
 
@@ -146,6 +151,9 @@
     import CountrySelect from 'client/components/util-components/select/Country.select.vue';
     import SearchAutoComplete from 'client/components/util-components/select/SearchAutoComplete.select.vue';
 
+    import PreviewNewTopic from 'modules/forums/topics/components/PreviewNewTopic.vue';
+    import Topic from 'models/Topic/Topic.model';
+
     export default{
         name: "AddTopic",
 
@@ -153,6 +161,8 @@
             "LoadingButton": LoadingButton,
             "CountrySelect": CountrySelect,
             "SearchAutoComplete" : SearchAutoComplete,
+
+            "PreviewNewTopic" : PreviewNewTopic,
         },
 
         data: function (){
@@ -177,6 +187,7 @@
                 countryValidationStatus: [null, ''],
                 cityValidationStatus: [null, ''],
 
+                error: '',
 
                 parentId: '',
                 parentName: '',
@@ -194,7 +205,23 @@
         computed:{
             localization(){
                 return this.$store.state.localization;
-            }
+            },
+
+            getTitle(){
+                return Topic.getTitle(this.$refs['refPreviewNewTopic'].topic);
+            },
+
+            getImage(){
+                return Topic.getImage(this.$refs['refPreviewNewTopic'].topic);
+            },
+
+            getKeywords(){
+                return Topic.getKeywords(this.$refs['refPreviewNewTopic'].topic);
+            },
+
+            getDescription(){
+                return Topic.getDescription(this.$refs['refPreviewNewTopic'].topic);
+            },
         },
 
         methods:{
@@ -220,11 +247,11 @@
 
                 if (!bValidationError)
                     try{
-                        let answer = await TopicsService.topicAdd(this.state.parentId||this.props.parentId, Topic.getTitle(this.refPreviewNewTopic.state.topic), Topic.getImage(this.refPreviewNewTopic.state.topic),  Topic.getDescription(this.refPreviewNewTopic.state.topic), this.state.attachments, Topic.getKeywords(this.refPreviewNewTopic.state.topic),
-                            this.state.countryCode||this.props.localization.countryCode, '',
-                            this.state.city||this.props.localization.city, this.state.latitude||this.props.localization.latitude, this.state.longitude||this.state.latitude)
+                        let answer = await TopicsService.topicAdd(this.parentId||this.parentIdProp, this.getTitle, this.getImage, this.getDescription, this.attachments, this.getKeywords,
+                                                                  this.countryCode||this.localization.countryCode, '',
+                                                                  this.city||this.localization.city, this.latitude||this.localization.latitude, this.latitude||this.localization.latitude)
 
-                        this.refSubmitButton.enableButton();
+                        this.$refs['refSubmitButton'].enableButton();
 
                         console.log("ANSWER FROM adding forum",answer);
 
@@ -265,17 +292,17 @@
                 this.titleValidationStatus  = [null, ''] ;
             },
 
-            handleTitleChange(e){
-                this.handleTitleChangeSelect(e.target.value);
+            handleTitleChange(value){
+                this.handleTitleChangeSelect(value);
             },
 
             async handleLinkChange(e){
 
-                this.link = sLink;
+                this.link = e.target.value;
 
                 try{
-                    let answer = await ContentService.getMetaUrl(this.link);
-                    let newAttachments =  this.state.attachments||[];
+                    let answer = await this.$store.dispatch('CONTENT_URL_META',{link: this.link});
+                    let newAttachments =  this.attachments||[];
 
                     console.log("handleLinkChange", answer);
                     if (answer.result){
@@ -310,10 +337,7 @@
                     this.attachments = newAttachments;
 
                 }catch (Exception){
-                    this.link = sLink;
-                    this.error = "Error. " + Exception.toString();
-
-                    console.log("Error extracting Link Meta", Exception)
+                    this.error = "Error extracting Link Meta: " + Exception.toString();
                 }
 
             },
@@ -366,7 +390,7 @@
 
             fileUploadSuccess(type, name, url, thumbnail){
 
-                let newAttachments =  this.state.attachments||[];
+                let newAttachments =  this.attachments||[];
                 newAttachments.push({
                     type: 'file',
                     typeFile: type,
@@ -381,7 +405,7 @@
 
             fileUploadRemoved(type, name, url, thumbnail){
 
-                let newAttachments =  this.state.attachments||[];
+                let newAttachments =  this.attachments||[];
                 for (let i=0; i<newAttachments.length; i++)
                     if ((newAttachments[i].url === url)&&(newAttachments[i].typeFile===type)&&(newAttachments[i].title === name)&&(newAttachments[i]).img === thumbnail){
                         newAttachments.splice(i,1);
@@ -390,7 +414,9 @@
                 //console.log("newAttachments",newAttachments);
 
                 this.attachments = newAttachments; //storing thew new attachments
-            }
+            },
+
+
 
         }
 

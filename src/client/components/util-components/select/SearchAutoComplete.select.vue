@@ -28,6 +28,9 @@
         },
 
         props: {
+
+            selectId: {default: ''},
+
             defaultValue : {default: ''},
             defaultLabel : {default: ''},
             limitText : {default: function (count){}},

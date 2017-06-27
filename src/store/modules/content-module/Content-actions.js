@@ -61,7 +61,7 @@ export default{
         return FetchService.sendRequestGetData("content/get-URL-slug", {parent:parent, name: name} );
     },
 
-    CONTENT_URL_META: async ( {commit, store}, {parent, name}) => {
+    CONTENT_URL_META: async ( {commit, store}, {link}) => {
         return FetchService.sendRequestGetData("meta-extractor/extract-url", {link:link});
     },
 

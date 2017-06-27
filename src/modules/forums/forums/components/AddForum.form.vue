@@ -22,7 +22,7 @@
 
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
 
-                            <SearchAutoComplete key="addForumNameSearch" :multi="false" dataSuggestion="google" placeholder='forum name (one or two words)' :defaultValue="name"  :defaultLabel="name" :onSelect="handleNameChangeSelect" :clearable="false"/>
+                            <SearchAutoComplete key="addForumNameSearch" :multi="false" dataSuggestion="google" placeholder='forum name (one or two words)' :defaultValue="name"  :defaultLabel="name" :onSelect="handleNameChangeSelect" :clearOnSelect="true"/>
 
                             <span :class='showInputFeedback(nameValidationStatus)' style='width:60px; top:10px'> </span>
 
@@ -54,7 +54,7 @@
 
                         <span class="input-group-addon"><i class="fa fa-edit"></i></span>
 
-                        <textarea type='text' class='form-control input' rows="5" placeholder='description'  style="z-index:0" name="description" :value="this.description" @change="this.handleDescriptionChange" />
+                        <textarea type='text' class='form-control input' rows="5" placeholder='description'  style="z-index:0" name="description" :value="this.description" @change="this.handleDescriptionChange"  />
 
                         <span :class="showInputFeedback(this.descriptionValidationStatus)"></span>
                     </div>
@@ -67,7 +67,7 @@
                         <span class="input-group-addon"><i class="fa fa-edit"></i></span>
 
 
-                        <SearchAutoComplete key="addForumParentSearch" :multi="false" dataSuggestion="parents" placeholder='select a parent-forum' :defaultValue="this.parentId||this.parentIdProp"  :defaultLabel="this.parentName||this.parentNameProp" :onSelect="handleParentChangeSelect" :clearable="false"/>
+                        <SearchAutoComplete key="addForumParentSearch" :multi="false" dataSuggestion="parents" placeholder='select a parent-forum' :defaultValue="this.parentId||this.parentIdProp"  :defaultLabel="this.parentName||this.parentNameProp" :onSelect="handleParentChangeSelect" :clearOnSelect="true" />
 
                         <span :class="showInputFeedback(this.parentValidationStatus)"></span>
                     </div>
@@ -125,7 +125,7 @@
 
             <div class="panel-footer text-right" style='padding-top:20px; padding-bottom:20px; padding-right:20px'>
 
-                <LoadingButton class="btn-success" :click="handleAddForum" icon="fa fa-plus" text="Create Forum"  ref="refSubmitButton"  />
+                <LoadingButton class="btn-success" :onClick="handleAddForum" icon="fa fa-plus" text="Create Forum"  ref="refSubmitButton"  />
 
             </div>
 

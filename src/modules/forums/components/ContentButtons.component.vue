@@ -6,6 +6,7 @@
 <template>
     <div >
 
+
         <div :style="buttonsStyle">
 
             <button v-if="enableAddForum" type="button" class="btn btn-warning dim btn-rounded" data-toggle="button" aria-pressed="true"  @click="handleAddForum" style='margin-right: 5px' >
@@ -25,9 +26,12 @@
 
         </div>
 
-        <AddForumForm v-if="showAddForum" :parentId="parentId" parentName="parentName" />
 
-        <AddTopicForm v-if="showAddTopic" :parentId="parentId" parentName="parentName"/>
+        <AddForumForm v-show="showAddForum" :parentId="parentId" :parentName="parentName" />
+
+        <AddTopicForm v-show="showAddTopic" :parentId="parentId" :parentName="parentName"/>
+
+
 
     </div>
 
