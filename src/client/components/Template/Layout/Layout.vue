@@ -15,12 +15,10 @@
                     <ViewAllReplies
                         :reply = "null"
                         :repliesList = "repliesList"
-<<<<<<< HEAD
+
                         parentReplyId = "1"
                         key = 'ViewReplies_'
-=======
-                        parentReplyId = 2
->>>>>>> 52b1e041778f1a52e3ffe0d58c0d92562ea8358a
+                        
                     >
                     </ViewAllReplies>
                     <Voting
