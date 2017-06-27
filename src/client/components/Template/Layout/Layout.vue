@@ -13,9 +13,8 @@
                     <button @click="openModal"> Open Modal</button>
 
                     <ViewAllReplies
-                        :reply = "null"
                         :repliesList = "repliesList"
-                        parentReplyId = 2
+                        parentReplyId = "2"
                     >
                     </ViewAllReplies>
                     <Voting
