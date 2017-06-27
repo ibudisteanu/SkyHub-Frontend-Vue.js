@@ -18,7 +18,11 @@
                         parentReplyId = 2
                     >
                     </ViewAllReplies>
+                    <Voting
+                            :votingValue="2313"
+                            >
 
+                    </Voting>
                 </div>
 
             </LayoutBody>
@@ -50,6 +54,7 @@
     import Reply from "models/Reply/Reply.model";
 
     import ViewAllReplies from  'modules/forums/replies/view-reply/ViewAllReplies.component.vue'
+    import Voting from  'modules/forums/voting/Voting.component.vue'
 
     export default {
         name: 'Layout',
@@ -59,7 +64,9 @@
             'StickyButtons': StickyButtons,
             'RightSidebar': RightSidebar,
             'AuthenticationModal': AuthenticationModal,
+            'Voting': Voting ,
             'ViewAllReplies': ViewAllReplies
+
         },
 
         data: function() {

@@ -52,7 +52,6 @@
 
 <script>
 
- //   import ViewReply from  './ViewReply.component.vue'
 
     export default {
 
@@ -60,6 +59,7 @@
 
         components: {
             "ViewAllReplies":  this,
+
         },
 
         props:{
