@@ -67,7 +67,7 @@
                         <span class="input-group-addon"><i class="fa fa-edit"></i></span>
 
 
-                        <SearchAutoComplete key="addForumParentSearch" :multi="false" dataSuggestion="parents" placeholder='select a parent-forum' :defaultValue="this.parentId||this.parentIdProp"  :defaultLabel="this.parentName||this.parentName" :onSelect="handleParentChangeSelect" :clearable="false"/>
+                        <SearchAutoComplete key="addForumParentSearch" :multi="false" dataSuggestion="parents" placeholder='select a parent-forum' :defaultValue="this.parentId||this.parentIdProp"  :defaultLabel="this.parentName||this.parentNameProp" :onSelect="handleParentChangeSelect" :clearable="false"/>
 
                         <span :class="showInputFeedback(this.parentValidationStatus)"></span>
                     </div>
@@ -175,9 +175,8 @@
                 cityValidationStatus : [null, ''],
 
 
-                parentValidationStatus: [null, ''],
-
                 parentId:'', parentName:'',
+                parentValidationStatus: [null, ''],
             }
         },
 
