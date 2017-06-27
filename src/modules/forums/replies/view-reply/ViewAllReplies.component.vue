@@ -27,18 +27,20 @@
 
 <script>
 
+    import ViewReply from './ViewReply.component.vue';
+
 
     export default {
 
         name: 'ViewAllReplies',
 
         components: {
-            "ViewAllReplies":  this,
-
+            "ViewReply": ViewReply,
         },
 
         props:{
-             repliesList: {default: function (){return []}},
+
+            repliesList: {default: function (){return []}},
             parentReplyId :{default:1},
         },
 
