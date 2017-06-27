@@ -29,4 +29,32 @@ export default{
 
     },
 
+    CONTENT_TOPICS_ADD: async ({commit, state, dispatch}, {parentId, title,  image, description, attachments, arrKeywords, countryCode, language, city, latitude, longitude}) =>{
+
+        try {
+
+            //Using Promise
+            let resData = await FetchService.sendRequestGetData("topics/add-topic",{parent : parentId, title: title, image:image, description: description,  attachments: attachments,
+                                                                                    keywords : arrKeywords,  country: countryCode, language:language, city : city,
+                                                                                    latitude: latitude, longitude : longitude});
+
+            console.log('Answer from TOPIC ', resData);
+
+            return resData;
+
+        }
+        catch (Exception){
+            console.log("Exception adding a new topic",Exception);
+            throw Exception;
+        }
+
+    },
+
+    CONTENT_TOPICS_GET: async ({commit, state, dispatch}, {id}) =>{
+
+        //Using Promise
+        return FetchService.sendRequestGetData("topics/get-topic",{id: id});
+
+    }
+
 }

@@ -78,7 +78,7 @@
 
                     <strong>Preview</strong>
 
-                    <PreviewNewTopic :title="this.title" description="this.description" :attachments="this.attachments" :keywords="this.keywords" :authorId="this.$store.state.authenticatedUser.user.id||''" ref="refPreviewNewTopic" />
+                    <PreviewNewTopic :title="this.title" :description="this.description" :attachments="this.attachments" :keywords="this.keywords" :authorId="this.$store.state.authenticatedUser.user.id||''" ref="refPreviewNewTopic" />
 
                     <!--
                     <strong>Keywords</strong>
@@ -237,25 +237,26 @@
                     e.stopPropagation();
                 }
 
+                let onSuccess = this.onSuccess || function (){};
+                let onError = this.onError || function (){};
+
                 let bValidationError=false;
                 this.error = ''; this.titleValidationStatus = [null, ''];  this.linkValidationStatus = [null,'']; this.descriptionValidationStatus = [null,'']; this.keywordsValidationStatus = [null,'']; this.countryValidationStatus = [null,'']; this.cityValidationStatus = [null,''];
 
-                console.log('ADDing topic... ',this.$refs['refPreviewNewTopic']);
-
                 if (!bValidationError)
                     try{
-                        let answer = await TopicsService.topicAdd(this.parentId||this.parentIdProp, this.getTitle, this.getImage, this.getDescription, this.attachments, this.getKeywords,
-                                                                  this.countryCode||this.localization.countryCode, '',
-                                                                  this.city||this.localization.city, this.latitude||this.localization.latitude, this.latitude||this.localization.latitude)
+                        let answer = await this.$store.dispatch('CONTENT_TOPICS_ADD',{parentId:this.parentId||this.parentIdProp, title: this.getTitle, image: this.getImage, description: this.getDescription, attachments: this.attachments, arrKeywords: this.getKeywords,
+                                                                countryCode: this.countryCode||this.localization.countryCode, language:'',
+                                                                city: this.city||this.localization.city, latitude:this.latitude||this.localization.latitude, longitude:this.longtitude||this.localization.longitude});
 
                         this.$refs['refSubmitButton'].enableButton();
 
-                        console.log("ANSWER FROM adding forum",answer);
+                        console.log("ANSWER FROM adding topic ",answer);
 
                         if (answer.result === true) {
-                            this.onSuccess(answer);
+                            onSuccess(answer);
 
-                            history.push(answer.topic.URL);// redirecting to the forum URL ;)
+                            this.$router.push(answer.topic.URL);  // redirecting to the forum URL ;)
                         }
                         else
                         if (answer.result === false) {
@@ -273,7 +274,7 @@
                                 if ((this.titleValidationStatus[0] === null)&&(this.descriptionValidationStatus[0] === null)&&(this.keywordsValidationStatus[0] === null)&&(this.countryValidationStatus[0] === null)&&(this.cityValidationStatus[0] === null))
                                     this.openLogin();
 
-                            this.onError(answer);
+                            onError(answer);
                         }
                     }
                     catch(Exception){

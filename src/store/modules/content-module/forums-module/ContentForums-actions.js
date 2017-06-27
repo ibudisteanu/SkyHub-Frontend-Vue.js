@@ -49,10 +49,10 @@ export default{
     },
 
 
-    CONTENT_FORUMS_GET(sId){
+    CONTENT_FORUMS_GET: async ({commit, state, dispatch}, {id}) =>{
 
         //Using Promise
-        return FetchService.sendRequestGetData("forums/get-forum",{id: sId});
+        return FetchService.sendRequestGetData("forums/get-forum",{id: id});
 
     }
 
