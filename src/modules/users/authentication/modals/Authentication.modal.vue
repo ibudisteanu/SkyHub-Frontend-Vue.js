@@ -37,6 +37,9 @@
             return {
                 modalType: {default: 'login'},
                 modalTitle: {default: 'Login'},
+
+                onSuccessFunction: {default: function () {}},
+                onErrorFunction: {default: function () {}},
             }
         },
 
@@ -79,13 +82,17 @@
                 let onSuccess = this.onSuccess||function(){};
                 onSuccess(resource);
 
+                this.onSuccessFunction(resource);
+
                 this.close();
             },
 
 
             registrationSuccess(resource){
-                let onSuccess = this.props.onSuccess||function(){};
+                let onSuccess = this.onSuccess||function(){};
                 onSuccess(resource);
+
+                this.onSuccessFunction(resource);
 
                 this.close();
             },
@@ -99,6 +106,10 @@
                 e.preventDefault(); e.stopPropagation();
                 this.setLogin();
             },
+
+            setOnSuccessEvent(newFunction){
+                this.onSuccessFunction = newFunction;
+            }
 
         }
 

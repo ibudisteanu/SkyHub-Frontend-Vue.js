@@ -341,7 +341,7 @@
                 this.error = '';
             },
 
-            handleCountrySelect(selectedCountry, selectedCountryCode, selectedCountryCSS){
+            handleCountrySelect(selectedCountry, selectedCountryCode){
                 this.country = selectedCountry
                 this.countryCode  = selectedCountryCode;
                 this.countryValidationStatus  = [null, ''];
