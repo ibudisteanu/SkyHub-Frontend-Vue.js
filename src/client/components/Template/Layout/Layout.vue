@@ -11,9 +11,11 @@
                     <b>TEST LAYOUT</b>
 
                     <button @click="openModal"> Open Modal</button>
-                    <view-reply :reply ="reply" title="titlu mesaj"
+                    <view-all-replies
+                        :repliesList = "repliesList"
+                        parentReplyId = "4"
                     >
-                    </view-reply>
+                    </view-all-replies>
                 </div>
 
             </LayoutBody>
@@ -45,24 +47,33 @@
     import Reply from "models/Reply/Reply.model";
 
     import ViewReply from  'modules/forums/replies/view-reply/ViewReply.component.vue'
+    import ViewAllReplies from  'modules/forums/replies/view-reply/ViewAllReplies.component.vue'
 
     export default {
         name: 'Layout',
-        components: { LayoutBody , LayoutFooter, StickyButtons, RightSidebar, AuthenticationModal,ViewReply},
+        components: { LayoutBody , LayoutFooter, StickyButtons, RightSidebar, AuthenticationModal,ViewReply,ViewAllReplies},
 
-        data: () => ({
-            loading: true,
-            reply : ( new Reply( {
-                id :22, title:"nume titlu",topicId : 244, replyParentId : 323, votingId : 21441, authorId : 2414, description : "fk3kkfeac"
-            })
-//            new User ( {id : 22,
-//                firstName : "testing nume",
-//                lastName : "nume final",
-//                email: "ifeaviea@gea3.com",
-//                username : "userX",
-//                loggedIn : "19-15-2016"}
-                ),
-        }),
+        data: function() {
+            let reply1  = new Reply( {
+                id :1, title:"nume titlu1",topicId : 244, replyParentId : "", votingId : 21441, authorId : 2414, description : "fk3kkfeac"
+            });
+
+            let reply2  = new Reply( {
+                id :2, title:"nume titlu 2",topicId : 242224, replyParentId : "2", votingId : 21441, authorId : 2414, description : "fk3kkfeac"
+            });
+
+            let reply3  = new Reply( {
+                id :3, title:"nume titlu 3",topicId : 242224, replyParentId : "2", votingId : 21441, authorId : 2414, description : "fk3kkfeac"
+            });
+
+            let reply4  = new Reply( {
+                id :4, title:"nume titlu 4",topicId : 242224, replyParentId : "4", votingId : 21441, authorId : 2414, description : "fk3kkfeac"
+            });
+
+            return {
+                loading: true,
+                repliesList: [reply1, reply2,reply3,reply4]
+            }},
 
         created: function (){
 

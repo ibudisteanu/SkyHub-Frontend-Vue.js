@@ -3,105 +3,45 @@
  * (C) BIT TECHNOLOGIES
  */
 
-import React from 'react';
-import {connect} from "react-redux";
 
-import AuthService from 'services/REST/authentication/Auth.service.js';
-import ForumsService from 'services/REST/forums/forums/Forums.service';
-
-import Topic from '../User/Topic.model';
-import Link from '../../../../components/Link/Link';
-
-import ViewReply from './ViewReply.component';
 
 /*
  PreviewTopic can also work with a prop id="1_frm_3333", and it fetch automatically the forum from you
  */
 
-class ViewAllReplies extends React.Component {
 
-  constructor(props){
-    super(props);
-  }
+<template>
 
-  renderError(){
-    return (
-      <a title="Forums not found" data-gallery="">
-        <img style={{backgroundColor: "red"}} />
-        <span>Forum not found!</span>
-      </a>
-    )
-  }
+      <div>
+       <ViewReply
+              v-for="(reply, index) in repliesList"
+              :reply="reply"
+              :key="reply.id"
 
-  renderTopics(){
+              v-if= "reply.replyParentId == parentReplyId"
+              :repliesList = "repliesList"
+      >
+      </ViewReply>
+      </div>
+</template>
 
-    let objects = [];
+<script>
 
-    if (typeof this.props.topics !== "undefined")  objects = this.props.topics;
-    else objects = this.props.contentState.contentObjects.objects;
+    import ViewReply from  'modules/forums/replies/view-reply/ViewReply.component.vue'
 
-    if ((objects === null)||(typeof objects === "undefined")||(objects === [])) return '';
+    export default {
 
-    console.log("render topics::::: ",objects);
+        components: {"ViewReply":ViewReply},
 
-    return (
-      objects.map((object) =>
-        <PreviewTopic key={"previewTopic"+object.id} topic={object} />
-      )
-    );
-  }
+        props:{
+             repliesList: {default: function (){return []}},
+            parentReplyId :{default:1},
+        },
 
+        data: function () {
+            return {
 
-  render() {
-
-    console.log(this.props.topics);
-
-    return (
-
-      <table className="table table-hover table-forums parent-table">
-        <tbody>
-
-
-
-        {
-          this.props.hideHeader||false === true
-            ?
-            <tr>
-            </tr>
-            :
-            <tr >
-              <th>
-
-                <h3>
-                  <i className="fa fa-comments table-forums-icon table-forums-icon" style={{paddingRight: 5}}></i> {this.props.title||''}
-                </h3>
-
-              </th>
-              <th><i className="fa fa-comments-o table-forums-icon" aria-hidden="true"></i></th>
-              <th><i className="fa fa-eye table-forums-icon" aria-hidden="true"></i></th>
-            </tr>
+            }
         }
-
-        {::this.renderTopics()}
-
-
-        </tbody>
-      </table>
-    );
-  }
-}
-
-function mapState (state){
-  return {
-    userAuthenticated: state.userAuthenticated,
-    contentState: state.contentState,
-  }
-};
-
-function mapDispatch (dispatch) {
-  return {
-    dispatch : dispatch,
-  }
-};
-
-export default connect(mapState, mapDispatch)(ViewAllReplies);
+    }
+</script>
