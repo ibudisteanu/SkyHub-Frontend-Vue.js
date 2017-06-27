@@ -11,7 +11,19 @@
 
 
 <template>
+    <div>
+       <ViewReply
+              v-for="(reply, index) in getChildReplies"
+              :reply="reply"
+              :key="reply.id"
 
+              v-if= "reply.replyParentId == parentReplyId"
+              :repliesList = "repliesList"
+      >
+      </ViewReply>
+    </div>
+
+<<<<<<< HEAD
     <div>
 
         <div v-if="reply !== null" class="media">
@@ -48,6 +60,8 @@
 
 
 
+=======
+>>>>>>> 3c2fc5fb798758d12a3a3e514f3910a958fae81b
 </template>
 
 <script>
@@ -63,9 +77,26 @@
         },
 
         props:{
+<<<<<<< HEAD
             reply: {default: null},
+=======
+>>>>>>> 3c2fc5fb798758d12a3a3e514f3910a958fae81b
             repliesList: {default: function (){return []}},
             parentReplyId :{default:1},
+        },
+
+        computed:{
+
+            getChildReplies(){
+                let result = [];
+
+                for (let i=0; i<this.repliesList.length; i++)
+                    if (this.repliesList[i].replyParentId == this.parentReplyId)
+                    result.push(this.repliesList[i]);
+
+                return result;
+            },
+
         },
 
         data: function () {
