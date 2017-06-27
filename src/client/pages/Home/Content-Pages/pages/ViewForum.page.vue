@@ -22,9 +22,7 @@
 	   <div style='position: relative; z-index: 2 '>
 
 		  <div v-if="(routerObject.notFound === false)">
-			 <h1>
-				 <span>{{routerObject.object.title||'NO TITLE'}}</span>
-			 </h1>
+
 		  </div>
 		  <div v-else> <!-- ERROR -->
             <div class="row">

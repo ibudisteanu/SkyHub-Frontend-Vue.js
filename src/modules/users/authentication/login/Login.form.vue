@@ -64,6 +64,7 @@
 
     import {showInputStatus, showInputFeedback, convertValidationErrorToString} from 'client/components/util-components/form-validation/formValidation';
     import LoadingButton from 'client/components/util-components/UI/buttons/LoadingButton.vue';
+    import OauthSocialNetworkComponent from './../oauth-social-networks-form/OAuth.social.networks.vue';
 
     export default {
 
@@ -72,6 +73,7 @@
 
         components: {
             'LoadingButton':LoadingButton,
+            'OauthSocialNetworkComponent':OauthSocialNetworkComponent,
         },
 
         data: function () {

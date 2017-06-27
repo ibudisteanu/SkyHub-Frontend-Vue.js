@@ -16,7 +16,7 @@
 
         <div class="row" style='padding-bottom: 20px'>
 
-            <div class="text-center">
+            <div class="text-center" style='padding-bottom: 40px'>
                 <h4 style='font-size:30px'>What's hot on {{getForumTitle}}</h4>
             </div>
 

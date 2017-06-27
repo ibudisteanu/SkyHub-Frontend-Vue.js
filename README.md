@@ -1,43 +1,16 @@
-# vue-hackernews-2.0
+# SkyHub Vue.js
 
-HackerNews clone built with Vue 2.0 + vue-router + vuex, with server-side rendering.
+## 1 Installation
 
-<p align="center">
-  <a href="https://vue-hn.now.sh" target="_blank">
-    <img src="https://cloud.githubusercontent.com/assets/499550/17546273/5aabc5fc-5eaf-11e6-8d6a-ad00937e8bd6.png" width="700px">
-    <br>
-    Live Demo
-  </a>
-</p>
+1. Install Node.js : https://nodejs.org/en/download/
+2. gitclone repository https://github.com/ibudisteanu/SkyHub-Frontend-React.js.git . You can also install and clone using **Git Desktop**
+3. `npm install`
+3. Install the missing modules with `npm install missing-node-module-name --save` (in case there are missing modules )
 
-## Features
-
-> Note: in practice, it is unnecessary to code-split for an app of this size (where each async chunk is only a few kilobytes), nor is it optimal to extract an extra CSS file (which is only 1kb) -- they are used simply because this is a demo app showcasing all the supported features. In real apps, you should always measure and optimize based on your actual app constraints.
-
-- Server Side Rendering
-  - Vue + vue-router + vuex working together
-  - Server-side data pre-fetching
-  - Client-side state & DOM hydration
-  - Automatically inlines CSS used by rendered components only
-  - Preload / prefetch resource hints
-  - Route-level code splitting
-- Progressive Web App
-  - App manifest
-  - Service worker
-  - 100/100 Lighthouse score
-- Single-file Vue Components
-  - Hot-reload in development
-  - CSS extraction for production
-- Animation
-  - Effects when switching route views
-  - Real-time list updates with FLIP Animation
-
-## Architecture Overview
-
-<img width="973" alt="screen shot 2016-08-11 at 6 06 57 pm" src="https://cloud.githubusercontent.com/assets/499550/17607895/786a415a-5fee-11e6-9c11-45a2cfdf085c.png">
-
-**A detailed Vue SSR guide can be found [here](https://ssr.vuejs.org).**
-
+4. Open Command Prompt/Terminal and    
+    1.    **cd** location\clone_repository\
+    
+    
 ## Build Setup
 
 **Requires Node.js 7+**
@@ -55,7 +28,59 @@ npm run build
 # serve in production mode
 npm start
 ```
+##### intellij WebStorm
+
+The "src" folder must be set as Resource Root. To do this Settings->Directories where you Set Directories "src" folder as "Resource Root"
+
+
+#### Online Versions:
+
+1. myskyhub.ddns.net:8080 for Vue.js Frontend
+2. myskyhub.ddns.net:4000 for Express Backend with Redis Database
+
+
+
+# TO DOs
+
+##### Working components
+
+1. Login
+2. Register
+    2.1. Facebook & Google integration (I need to port the component from React to Vue.js)
+3. REST
+    3.1 Socket.io
+        3.2 Cookie Authentication JWT (using tokens)
+    3.2 HTTP requests   
+5. Header Navigation Menu
+6. Server Status Head Bar
+7. Forums
+    7.1 Preview Forums
+    7.2 Preview Forum
+    7.3 View Forum
+    7.4 Add Forum (i need to port the code from React to Vue.js)
+8. Topics
+    8.1 Preview Topics
+    8.2 Preview Topic
+    8.3 View Topic
+    8.4 Add Topic (i need to port the code from React to Vue.js)
+    
+
+## To DOs
+
+1. Topics   
+    Edit Topics
+    Delete Topics
+2. Replies   
+    Finish the View Replies 
+    Edit Replies
+    Delete Replies
+3. Voting
+    Add Voting (Up and Downs)
+    Unvote   
+
+
 
 ## License
 
-MIT
+CopyRight 2016-2017 by BIT TECHNOLOGIES RO
+  htttp://bit-technologies.net
