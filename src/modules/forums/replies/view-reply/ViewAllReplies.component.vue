@@ -12,31 +12,59 @@
 
 <template>
 
-      <div>
-           <ViewReply
-                  v-for="(reply, index) in repliesList"
-                  :reply="reply"
-                  :key="reply.id"
+    <div>
 
-                  v-if= "reply.replyParentId == parentReplyId"
-                  :repliesList = "repliesList"
-          >
-          </ViewReply>
-      </div>
+        <div v-if="reply !== null" class="media">
+            <a class="forum-avatar" href="#">
+                <img :src="reply.authorId" class="img-circle" alt="image"/>
+                <div class="author-info">
+                    <strong>Posts:</strong> 542<br/>
+                    <strong>Joined:</strong> April 11.2015<br/>
+                </div>
+            </a>
+
+            <div class="media-body">
+                <h4 class="media-heading">{{reply.title || '' }} </h4>
+                <div v-if="reply.authorId !== ''"> {{reply.authorId}} , {{reply.authorId}}</div>
+                )
+            </div>
+            <p> {{reply.description}}</p>
+
+         </div>
+
+        <div style="padding-right: 20px">
+            <ViewAllReply
+                    v-for="(myReply, index) in repliesList"
+                    :reply="myReply"
+                    :key="myReply.id"
+
+                    v-if= "myReply.replyParentId == parentReplyId"
+                    :repliesList = "repliesList"
+            >
+            </ViewAllReply>
+        </div>
+
+    </div>
+
+
+
 </template>
 
 <script>
 
-    import ViewReply from  './ViewReply.component.vue'
+ //   import ViewReply from  './ViewReply.component.vue'
 
     export default {
 
+        name: 'ViewAllReplies',
+
         components: {
-            "ViewReply":  ViewReply
+            "ViewAllReplies":  this,
         },
 
         props:{
-             repliesList: {default: function (){return []}},
+            reply: {default: null},
+            repliesList: {default: function (){return []}},
             parentReplyId :{default:1},
         },
 
