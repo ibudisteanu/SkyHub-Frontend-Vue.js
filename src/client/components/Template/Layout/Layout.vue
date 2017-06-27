@@ -11,6 +11,11 @@
                     <b>TEST LAYOUT</b>
 
                     <button @click="openModal"> Open Modal</button>
+                    <view-all-replies
+                        :repliesList = "repliesList"
+                        parentReplyId = "4"
+                    >
+                    </view-all-replies>
                 </div>
 
             </LayoutBody>
@@ -38,15 +43,37 @@
 
     import AuthenticationModal from 'modules/users/authentication/modals/Authentication.modal.vue';
 
-    import User from 'models/User/User.model';
+    import User from "models/User/User.model";
+    import Reply from "models/Reply/Reply.model";
+
+    import ViewReply from  'modules/forums/replies/view-reply/ViewReply.component.vue'
+    import ViewAllReplies from  'modules/forums/replies/view-reply/ViewAllReplies.component.vue'
 
     export default {
         name: 'Layout',
-        components: { LayoutBody , LayoutFooter, StickyButtons, RightSidebar, AuthenticationModal},
+        components: { LayoutBody , LayoutFooter, StickyButtons, RightSidebar, AuthenticationModal,ViewReply,ViewAllReplies},
 
-        data: () => ({
-            loading: true
-        }),
+        data: function() {
+            let reply1  = new Reply( {
+                id :1, title:"nume titlu1",topicId : 244, replyParentId : "", votingId : 21441, authorId : 2414, description : "fk3kkfeac"
+            });
+
+            let reply2  = new Reply( {
+                id :2, title:"nume titlu 2",topicId : 242224, replyParentId : "2", votingId : 21441, authorId : 2414, description : "fk3kkfeac"
+            });
+
+            let reply3  = new Reply( {
+                id :3, title:"nume titlu 3",topicId : 242224, replyParentId : "2", votingId : 21441, authorId : 2414, description : "fk3kkfeac"
+            });
+
+            let reply4  = new Reply( {
+                id :4, title:"nume titlu 4",topicId : 242224, replyParentId : "4", votingId : 21441, authorId : 2414, description : "fk3kkfeac"
+            });
+
+            return {
+                loading: true,
+                repliesList: [reply1, reply2,reply3,reply4]
+            }},
 
         created: function (){
 
