@@ -13,12 +13,21 @@
                     <button @click="openModal"> Open Modal</button>
 
                     <ViewAllReplies
+                        :reply = "null"
                         :repliesList = "repliesList"
+<<<<<<< HEAD
                         parentReplyId = "1"
                         key = 'ViewReplies_'
+=======
+                        parentReplyId = 2
+>>>>>>> 52b1e041778f1a52e3ffe0d58c0d92562ea8358a
                     >
                     </ViewAllReplies>
+                    <Voting
+                            :votingValue="2313"
+                            >
 
+                    </Voting>
                 </div>
 
             </LayoutBody>
@@ -50,6 +59,7 @@
     import Reply from "models/Reply/Reply.model";
 
     import ViewAllReplies from  'modules/forums/replies/view-reply/ViewAllReplies.component.vue'
+    import Voting from  'modules/forums/voting/Voting.component.vue'
 
     export default {
         name: 'Layout',
@@ -59,7 +69,9 @@
             'StickyButtons': StickyButtons,
             'RightSidebar': RightSidebar,
             'AuthenticationModal': AuthenticationModal,
+            'Voting': Voting ,
             'ViewAllReplies': ViewAllReplies
+
         },
 
         data: function() {
