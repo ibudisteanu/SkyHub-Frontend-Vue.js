@@ -6,7 +6,7 @@
 <template>
     <div >
 
-        <div :style="styleButtonsForm">
+        <div :style="buttonsStyle">
 
             <button v-if="enableAddForum" type="button" class="btn btn-warning dim btn-rounded" data-toggle="button" aria-pressed="true"  @click="handleAddForum" style='margin-right: 5px' >
                 <i class="fa fa-users" style='margin-right: 5px' />
@@ -61,7 +61,7 @@
             enableAddTopic : {default: true},
             enableAddReply : {default: true},
 
-            styleButtonsForm: {default: function (){return {} }},
+            buttonsStyle: {default: function (){return {} }},
         },
 
         methods:{

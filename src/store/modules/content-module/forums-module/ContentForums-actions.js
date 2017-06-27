@@ -29,4 +29,31 @@ export default{
 
     },
 
+
+    CONTENT_FORUMS_ADD: async ( {commit, state, dispatch}, {parent, name, title, description,  keywords, country, language, city, latitude, longitude, timeZone}) =>{
+        try{
+            let resData = await FetchService.sendRequestGetData("forums/add-forum",{parent, name, title, description, keywords ,
+                                                                country, language, city , latitude, longitude,  timeZone});
+
+
+            console.log('Answer from FORUM ', resData);
+
+            return resData;
+
+        }
+        catch(Exception)
+        {
+            console.log("Exception adding a new forum", Exception);
+            throw Exception;
+        }
+    },
+
+
+    CONTENT_FORUMS_GET(sId){
+
+        //Using Promise
+        return FetchService.sendRequestGetData("forums/get-forum",{id: sId});
+
+    }
+
 }

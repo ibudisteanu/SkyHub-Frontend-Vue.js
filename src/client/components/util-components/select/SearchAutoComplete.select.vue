@@ -32,12 +32,15 @@
             defaultLabel : {default: ''},
             limitText : {default: function (count){}},
             limit: 0,
-            multi: false,
-            closeOnSelect: true,
-            clearOnSelect: false,
+            multi: {default: false},
+            closeOnSelect: {default: true},
+            clearOnSelect: {default: false},
             placeholder: {default: 'Type to search'},
             onSelect: {default: function (){}},
             dataSuggestion: {default: 'google'},
+            createNewElement: {default: true}, //show even what the user typed as an option
+
+            returnObjects: {default:false},
         },
 
         data () {
@@ -77,19 +80,23 @@
 
                     if (!Array.isArray(value)) value = [value];
 
-                    answer = [];
+                    answer = []; let returnObjects = this.returnObjects;
                     value.forEach (function(element){
+                        if (returnObjects === false) answer.push(element.value);
+                        else
                         answer.push({
                             value: element.value,
                             label: element.label,
                         })
-                    });
+                    }.bind(this));
 
                 } else { //just value
-                    answer = {
-                        value: value.value,
-                        label: value.label,
-                    };
+                    if (this.returnObjects === false) answer = value.value;
+                    else
+                        answer = {
+                            value: value.value,
+                            label: value.label,
+                        };
                 }
 
                 console.log("AUTOCOMPLETE:: ",answer);
@@ -114,32 +121,33 @@
                 this.isLoading = true;
                 this.options = [];
 
-                new Promise((resolve) => {
-                    jsonp('http://google.com/complete/search?client=firefox&hl='+(this.localization.countryCode||'us')+'&q='+input, null, function (err, data) {
-                        if (err) {
-                            console.error('Error getting KEYWORDS '+err.message);
-                            resolve([]);
-                        } else {
-                            //console.log({options: data[1]});
+                jsonp('http://google.com/complete/search?client=firefox&hl='+(this.localization.countryCode||'us')+'&q='+input, null, function (err, data) {
+                    if (err) {
+                        console.error('Error getting KEYWORDS '+err.message);
+                        resolve([]);
+                    } else {
+                        //console.log({options: data[1]});
 
-                            var keywords = data[1];
-                            var optionsKeywords = [];
-                            keywords.forEach(function (entry){
-                                if (entry !== input)
-                                    optionsKeywords.push({
-                                        value: entry,
-                                        label: entry,
-                                    });
-                            });
+                        var options = [];
 
-                            resolve(optionsKeywords);
-                        }
-                    });
-                })
-                    .then ((options)=>{
+                        var keywords = data[1];
+
+                        if (this.createNewElement)
+                            options.push({value: input, label: input});
+
+
+                        keywords.forEach(function (entry){
+                            if (entry !== input)
+                                options.push({
+                                    value: entry,
+                                    label: entry,
+                                });
+                        });
+
                         this.options = options;
                         this.isLoading = false;
-                    });
+                    }
+                }.bind(this));
             },
 
 
@@ -159,6 +167,12 @@
                         console.log("DATA",data);
 
                         var options = [];
+
+
+                        if (this.createNewElement)
+                            options.push({value: input, label: input});
+
+
                         data.forEach(function (entry){
                             if ((entry !== input)&&(entry.text !== '')&&(entry.text !== null))
                                 options.push({

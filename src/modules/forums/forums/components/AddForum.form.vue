@@ -9,7 +9,7 @@
         <div class="panel panel-warning">
 
             <div class="panel-heading">
-                <h2 style='margin-top: 0'>New <strong>Forum</strong> in {{this.parentNameVariable||this.parentName||'Home'}} </h2>
+                <h2 style='margin-top: 0'>New <strong>Forum</strong> in {{this.parentName||this.parentNameProp||'Home'}} </h2>
             </div>
 
             <div class="panel-body">
@@ -22,7 +22,7 @@
 
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
 
-                            <SearchAutoComplete key="addForumNameSearch" :multi="false" dataSuggestion="parents" placeholder='forum name (one or two words)' :defaultValue="name"  :defaultLabel="name" :select="handleNameChangeSelect" :clearable="false"/>
+                            <SearchAutoComplete key="addForumNameSearch" :multi="false" dataSuggestion="google" placeholder='forum name (one or two words)' :defaultValue="name"  :defaultLabel="name" :onSelect="handleNameChangeSelect" :clearable="false"/>
 
                             <span :class='showInputFeedback(nameValidationStatus)' style='width:60px; top:10px'> </span>
 
@@ -67,7 +67,7 @@
                         <span class="input-group-addon"><i class="fa fa-edit"></i></span>
 
 
-                        <SearchAutoComplete key="addForumParentSearch" :multi="false" dataSuggestion="parents" placeholder='select a parent-forum' :defaultValue="this.parentId||this.parentId"  :defaultLabel="this.parentName||this.parentName" :select="handleParentChangeSelect" :clearable="false"/>
+                        <SearchAutoComplete key="addForumParentSearch" :multi="false" dataSuggestion="parents" placeholder='select a parent-forum' :defaultValue="this.parentId||this.parentIdProp"  :defaultLabel="this.parentName||this.parentName" :onSelect="handleParentChangeSelect" :clearable="false"/>
 
                         <span :class="showInputFeedback(this.parentValidationStatus)"></span>
                     </div>
@@ -79,7 +79,7 @@
 
                         <span class="input-group-addon"><i class="fa fa-tags"></i></span>
 
-                        <SearchAutoComplete key="addForumKeywordsSearch" :multi="true" dataSuggestion="google" placeholder='three keywords' :defaultValue="''"  :defaultLabel="''" :select="handleKeywordsSelect" :clearable="false"/>
+                        <SearchAutoComplete key="addForumKeywordsSearch" :multi="true" dataSuggestion="google" placeholder='three keywords' :defaultValue="''"  :defaultLabel="''" :onSelect="handleKeywordsSelect" :clearable="false"/>
 
 
                     </div>
@@ -88,7 +88,7 @@
 
                     <div class="row" >
 
-                        <div class="col-sm-6">
+                        <div class="col-sm-6" style="padding-left: 0">
                             <div :class="'input-group ' + this.showInputStatus(this.countryValidationStatus)"  >
 
                                 <CountrySelect :defaultCountry="localization.country||''"  :defaultCountryCode="localization.countryCode||''"  :onSelect="handleCountrySelect"/>
@@ -98,7 +98,7 @@
                             <label class="error" >{{this.countryValidationStatus[1]}}</label> <br />
                         </div>
 
-                        <div class="col-sm-6" style='padding-bottom: 5px'>
+                        <div class="col-sm-6" style='padding-right: 0; padding-bottom: 5px'>
                             <div :class="'input-group ' + this.showInputStatus(this.cityValidationStatus)"  >
 
                                 <span class="input-group-addon"><i class="fa fa-institution"></i></span>
@@ -125,7 +125,7 @@
 
             <div class="panel-footer text-right" style='padding-top:20px; padding-bottom:20px; padding-right:20px'>
 
-                <LoadingButton class="btn-success" @click="handleAddForum" icon="fa fa-plus" text="Create Forum"  ref="refSubmitButton"  />
+                <LoadingButton class="btn-success" :click="handleAddForum" icon="fa fa-plus" text="Create Forum"  ref="refSubmitButton"  />
 
             </div>
 
@@ -175,10 +175,17 @@
                 cityValidationStatus : [null, ''],
 
 
-                parentId:'',
-                parentName:'',
                 parentValidationStatus: [null, ''],
+
+                parentId:'', parentName:'',
             }
+        },
+
+        props:{
+            parentIdProp: {default:''},
+            parentNameProp: {default:''},
+            onSuccess: {default: function (){}},
+            onError: {default: function (){}},
         },
 
         computed:{
@@ -200,8 +207,8 @@
                     e.stopPropagation();
                 }
 
-                let onSuccess = this.props.onSuccess || function (){};
-                let onError = this.props.onError || function (){};
+                let onSuccess = this.onSuccess || function (){};
+                let onError = this.onError || function (){};
 
                 let bValidationError=false;
                 this.error =  ''; this.nameValidationStatus =  [null, '']; this.titleValidationStatus = [null,'']; this.descriptionValidationStatus = [null,''];
@@ -211,72 +218,60 @@
 
                 if (!bValidationError)
                     try{
-                        let answer = await ForumsService.forumAdd(this.state.parentId || this.props.parentId, this.state.name, this.state.title||this.state.name||'', this.state.description, this.state.keywords,
-                            this.state.countryCode || this.props.localization.countryCode, '',
-                            this.state.city || this.props.localization.city, this.state.latitude || this.props.localization.latitude, this.state.longitude || this.state.latitude, this.state.timeZone)
+                        let answer = await this.$store.dispatch('CONTENT_FORUMS_ADD',{ parentId:this.parentId || this.parentId, name: this.name, title: this.title||this.name||'', description:this.description, keywords:this.keywords,
+                                country: this.countryCode || this.localization.countryCode, language:'',  city: this.city || this.localization.city, latitude: this.latitude || this.localization.latitude, longitude: this.longitude || this.localization.longitude, timezone: this.localization.longitude})
 
-                        this.refSubmitButton.enableButton();
+                        this.$refs['refSubmitButton'].enableButton();
 
                         console.log("ANSWER FROM adding forum", answer);
 
                         if (answer.result === true) {
                             onSuccess(answer);
 
-                            history.push(answer.forum.URL);// redirecting to the forum URL ;)
+                            this.$router.push(answer.forum.URL);  // redirecting to the forum URL ;)
                         }
                         else if (answer.result === false) {
 
-                            if ((typeof answer.errors.name !== "undefined") && (Object.keys(answer.errors.name).length !== 0 )) nameValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.name[0])];
-                            if ((typeof answer.errors.title !== "undefined") && (Object.keys(answer.errors.title).length !== 0 )) titleValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.title[0])];
-                            if ((typeof answer.errors.description !== "undefined") && (Object.keys(answer.errors.description).length !== 0)) descriptionValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.description[0])];
-                            if ((typeof answer.errors.keywords !== "undefined") && (Object.keys(answer.errors.keywords).length !== 0)) keywordsValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.keywords[0])];
-                            if ((typeof answer.errors.country !== "undefined") && (Object.keys(answer.errors.country).length !== 0)) countryValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.country[0])];
-                            if ((typeof answer.errors.city !== "undefined") && (Object.keys(answer.errors.city).length !== 0)) cityValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.city[0])];
+                            if ((typeof answer.errors.name !== "undefined") && (Object.keys(answer.errors.name).length !== 0 )) this.nameValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.name[0])];
+                            if ((typeof answer.errors.title !== "undefined") && (Object.keys(answer.errors.title).length !== 0 )) this.titleValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.title[0])];
+                            if ((typeof answer.errors.description !== "undefined") && (Object.keys(answer.errors.description).length !== 0)) this.descriptionValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.description[0])];
+                            if ((typeof answer.errors.keywords !== "undefined") && (Object.keys(answer.errors.keywords).length !== 0)) this.keywordsValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.keywords[0])];
+                            if ((typeof answer.errors.country !== "undefined") && (Object.keys(answer.errors.country).length !== 0)) this.countryValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.country[0])];
+                            if ((typeof answer.errors.city !== "undefined") && (Object.keys(answer.errors.city).length !== 0)) this.cityValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.city[0])];
 
                             //in case there are no other errors, except the fact that I am not logged In
                             if ((typeof answer.errors.authorId !== "undefined") && (Object.keys(answer.errors.authorId).length !== 0))
-                                if ((titleValidationStatus[0] === null) && (descriptionValidationStatus[0] === null) && (keywordsValidationStatus[0] === null) && (countryValidationStatus[0] === null) && (cityValidationStatus[0] === null))
+                                if ((this.titleValidationStatus[0] === null) && (this.descriptionValidationStatus[0] === null) && (this.keywordsValidationStatus[0] === null) && (this.countryValidationStatus[0] === null) && (this.cityValidationStatus[0] === null))
                                     this.openLogin();
 
-                            this.setState({
-                                nameValidationStatus: nameValidationStatus,
-                                titleValidationStatus: titleValidationStatus,
-                                descriptionValidationStatus: descriptionValidationStatus,
-                                keywordsValidationStatus: keywordsValidationStatus,
-                                countryValidationStatus: countryValidationStatus,
-                                cityValidationStatus: cityValidationStatus,
-                            });
 
                             onError(answer);
                         }
                     }
                     catch(Exception){
-                        this.refSubmitButton.enableButton();
-                        this.setState({error: "There was a internal problem publishing your forum... Try again"+Exception.toString()});
+                        this.$refs['refSubmitButton'].enableButton();
+                        this.error = "There was a internal problem publishing your forum... Try again <br/> <strong> "+Exception.toString()+" </strong>";
                     }
 
             },
 
             handleNameChangeSelect(value) {
 
-                this.setState({
-                    name : value,
-                    nameValidationStatus  : [null, '']
-                });
+                value = value;
+
+                this.name = value;
+                this.nameValidationStatus  = [null, ''] ;
 
                 value = (((value !== null)&&(value.hasOwnProperty("value"))) ? value.value : value);
 
                 console.log("name",value);
-                this.setState({ nameValidationStatus: [null, ''] });
 
-                ContentService.getURLSlug('',value) .then( (answer)=>{
+                this.$store.dispatch('CONTENT_URL_SLUG',{parent:'', name:value}).then( (answer)=>{
 
-                    let netStateChange = {titleGenerated: value};
+                    this.titleGenerated = value;
 
-                    if (!answer.result)  netStateChange.nameValidationStatus = ["error", answer.message] ;
-                    else netStateChange.urlSlug = answer.URLSlug;
-
-                    if (netStateChange !== {}) this.setState(netStateChange);
+                    if (!answer.result)  this.nameValidationStatus = ["error", answer.message] ;
+                    else this.urlSlug = answer.URLSlug;
 
                 });
 
