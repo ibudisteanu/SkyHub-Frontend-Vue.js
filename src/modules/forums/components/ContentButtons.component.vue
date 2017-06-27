@@ -36,8 +36,14 @@
 
 <script>
 
+    import AddForumForm from 'modules/forums/forums/components/AddForum.form.vue';
+
     export default{
         name: 'ContentButtons',
+
+        components:{
+            'AddForumForm':AddForumForm,
+        },
 
         data: function (){
             return {

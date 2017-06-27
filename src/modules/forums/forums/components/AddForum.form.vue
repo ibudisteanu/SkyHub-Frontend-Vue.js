@@ -16,19 +16,22 @@
 
                 <form @submit="this.handleAddForum" autoComplete="on">
 
-                    <div style="padding-bottom: 20">
+                    <div style="padding-bottom: 20px">
                         <strong>Forum Name (one - two words)</strong>
                         <div :class="'input-group ' + this.showInputStatus(this.nameValidationStatus)" >
 
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
 
-                            <AutoCompleteSelect :selectOnClickOnly="false" autoFocus :multi="false" class='border-focus-blue'  placeholder='forum name (one or two words)'  :value="name"  :select="handleNameChangeSelect" style='z-index:0'  clearable="false" />
+
+                            <SearchAutoComplete  :multi="false" dataSuggestion="google" placeholder='forum name (one or two words)' :defaultValue="name"  :defaultLabel="name" :select="handleNameChangeSelect" :clearable="false"/>
 
                             <span :class='showInputFeedback(nameValidationStatus)' style='width:60px; top:10px'> </span>
 
                         </div>
                         <label class="error" >{{nameValidationStatus[1]}}</label> <br />
+
                         Title URL: skyhub.me/<label class="success" >{{urlSlug}}</label> <br />
+
                     </div>
 
 
@@ -37,7 +40,7 @@
 
                         <span class="input-group-addon"><i class="fa fa-font"></i></span>
 
-                        <input type='text' class='form-control input' placeholder='title'  name="title" :value={this.title||this.name} @change="handleTitleChange" />
+                        <input type='text' class='form-control input' placeholder='title' style="z-index:0" name="title" :value="this.title||this.name" @change="handleTitleChange" />
 
                         <AutoCompleteSelect :multi="false" class='border-focus-blue'  placeholder='title'  :value="title"  @select="handleTitleChangeSelect" style='z-index:0'  />
 
@@ -52,7 +55,7 @@
 
                         <span class="input-group-addon"><i class="fa fa-edit"></i></span>
 
-                        <textarea type='text' class='form-control input' rows="5" placeholder='description'  name="description" :value={this.description} @change="this.handleDescriptionChange" />
+                        <textarea type='text' class='form-control input' rows="5" placeholder='description'  style="z-index:0" name="description" :value="this.description" @change="this.handleDescriptionChange" />
 
                         <span :class="showInputFeedback(this.descriptionValidationStatus)"></span>
                     </div>
@@ -64,11 +67,11 @@
 
                         <span class="input-group-addon"><i class="fa fa-edit"></i></span>
 
-                        <SearchAutoComplete multi={false} class='border-focus-blue'  placeholder='select a parent-forum'  :value="{label:this.parentName||this.parentName, value:this.parentId||this.parentId}"  onSelect="handleParentChangeSelect" style='z-index:0'  :clearable="false" />
+                        <!--<SearchAutoComplete multi={false} class='border-focus-blue'  placeholder='select a parent-forum'  :value="{label:this.parentName||this.parentName, value:this.parentId||this.parentId}"  onSelect="handleParentChangeSelect" style='z-index:0'  :clearable="false" />-->
 
                         <span :class="showInputFeedback(this.parentValidationStatus)"></span>
                     </div>
-                    <label class="error" >{{this.state.parentValidationStatus[1]}}</label> <br />
+                    <label class="error" >{{this.parentValidationStatus[1]}}</label> <br />
 
 
                     <strong>Keywords</strong>
@@ -86,8 +89,6 @@
 
                         <div class="col-sm-6">
                             <div :class="'input-group ' + this.showInputStatus(this.countryValidationStatus)"  >
-
-                                <span class="input-group-addon"><i class="fa fa-flag"></i></span>
 
                                 <CountrySelect :defaultCountry="localization.country||''"  :defaultCountryCode="localization.countryCode||''"  :onSelect="handleCountrySelect"/>
 
@@ -138,8 +139,9 @@
 
     import {showInputStatus, showInputFeedback, convertValidationErrorToString} from 'client/components/util-components/form-validation/formValidation';
     import LoadingButton from 'client/components/util-components/UI/buttons/LoadingButton.vue';
-    import CountrySelect from 'client/components/util-components/select/Country.select.vue';
 
+    import CountrySelect from 'client/components/util-components/select/Country.select.vue';
+    import SearchAutoComplete from 'client/components/util-components/select/SearchAutoComplete.select.vue';
 
     export default{
         name: 'AddForum',
@@ -147,6 +149,7 @@
         components:{
             "LoadingButton": LoadingButton,
             "CountrySelect": CountrySelect,
+            "SearchAutoComplete" : SearchAutoComplete,
         },
 
         data: function (){
@@ -177,8 +180,18 @@
             }
         },
 
+        computed:{
+            localization(){
+                return this.$store.state.localization;
+            }
+        },
 
         methods:{
+
+            showInputStatus(status) {return showInputStatus(status)},
+            showInputFeedback(status) {return showInputFeedback(status)},
+            convertValidationErrorToString(error) {return convertValidationErrorToString(error)},
+
             async handleAddForum(e){
 
                 if (typeof e !== "undefined") {
@@ -189,18 +202,9 @@
                 let onSuccess = this.props.onSuccess || function (){};
                 let onError = this.props.onError || function (){};
 
-                let nameValidationStatus = [null,''], titleValidationStatus = [null, ''], descriptionValidationStatus = [null, ''], keywordsValidationStatus = [null, ''], countryValidationStatus = [null, ''], cityValidationStatus = [null, ''];
-
                 let bValidationError=false;
-                this.setState({
-                    error: '',
-                    nameValidationStatus: nameValidationStatus,
-                    titleValidationStatus: titleValidationStatus,
-                    descriptionValidationStatus: descriptionValidationStatus,
-                    keywordsValidationStatus: keywordsValidationStatus,
-                    countryValidationStatus: countryValidationStatus,
-                    cityValidationStatus: cityValidationStatus,
-                });
+                this.error =  ''; this.nameValidationStatus =  [null, '']; this.titleValidationStatus = [null,'']; this.descriptionValidationStatus = [null,''];
+                this.keywordsValidationStatus = [null,'']; this.countryValidationStatus  = [null, '']; this.cityValidationStatus = [null, ''];
 
                 console.log('ADDing forum... ');
 
