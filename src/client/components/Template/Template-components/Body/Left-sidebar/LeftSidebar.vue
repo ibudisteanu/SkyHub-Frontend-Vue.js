@@ -6,7 +6,7 @@
           <div class="dropdown profile-element">
 
             <span v-if="isLoggedIn">
-                <img alt="image" class="img-circle" :src="getProfilePic" :style="{maxWidth:145, maxHeight: 145, paddingBottom: 15, marginLeft: 'auto', marginRight: 'auto', display: 'block'}" />
+                <img alt="getName" class="img-circle" :src="getProfilePic" style='max-width:145px; max-height: 145px; padding-bottom: 15px; margin-left: auto; margin-right: auto; display: block' />
             </span>
 
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">

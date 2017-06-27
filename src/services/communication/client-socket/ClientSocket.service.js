@@ -95,7 +95,7 @@ class ClientSocketServiceClass {
 
     sendRequest(sRequestName, requestData) {
 
-        console.log('sending 1'+sRequestName, requestData);
+        //console.log('sending 1'+sRequestName, requestData);
 
         if (!requestData.hasOwnProperty('sessionId')) {
           var sessionId = CookiesService.getSessionCookie();
@@ -104,7 +104,7 @@ class ClientSocketServiceClass {
             requestData.sessionId = sessionId;
         }
 
-        console.log('sending 2'+sRequestName, requestData);
+        //console.log('sending 2'+sRequestName, requestData);
 
 
         if ((sRequestName !== '') || (requestData !== ''))

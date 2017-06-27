@@ -34,6 +34,7 @@
     "socket.io-client": "^2.0.3",
     "transform-runtime": "0.0.0",
     "vue": "^2.3.2",
+    "vue-facebook-signin-button": "^1.0.1",
     "vue-multiselect": "^2.0.0-beta.15",
     "vue-router": "^2.5.0",
     "vue-server-renderer": "^2.3.2",

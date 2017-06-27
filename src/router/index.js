@@ -16,6 +16,8 @@ const LoginPage = () => import('client/pages/Site/Login.page.vue');
 const RegistrationPage = () => import('client/pages/Site/Registration.page.vue');
 const AboutPage = () => import('client/pages/Site/About.page.vue');
 
+const OAuthResponse = () => import('modules/users/authentication/oauth-social-networks-form/Oauth2Response.vue');
+
 export function createRouter () {
   return new Router({
     mode: 'history',
@@ -37,6 +39,8 @@ export function createRouter () {
       { path: '/register', component: RegistrationPage },
       { path: '/signup', component: RegistrationPage },
       { path: '/registration', component: RegistrationPage },
+
+      { path: '/auth/facebook', component: OAuthResponse },
 
       { path: '/:url*', component: HomePage },
 
