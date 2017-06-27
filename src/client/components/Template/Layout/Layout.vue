@@ -17,14 +17,10 @@
 
                         parentReplyId = "1"
                         key = 'ViewReplies_'
-                        
+
                     >
                     </ViewAllReplies>
-                    <Voting
-                            :votingValue="2313"
-                            >
 
-                    </Voting>
                 </div>
 
             </LayoutBody>
@@ -58,6 +54,7 @@
     import ViewAllReplies from  'modules/forums/replies/view-reply/ViewAllReplies.component.vue'
     import Voting from  'modules/forums/voting/Voting.component.vue'
 
+
     export default {
         name: 'Layout',
         components: {
@@ -67,8 +64,7 @@
             'RightSidebar': RightSidebar,
             'AuthenticationModal': AuthenticationModal,
             'Voting': Voting ,
-            'ViewAllReplies': ViewAllReplies
-
+            'ViewAllReplies': ViewAllReplies,
         },
 
         data: function() {
@@ -108,6 +104,8 @@
         mounted: function (){
             this.$store.dispatch('GLOBAL_NEW_AUTHENTICATION_MODAL', {refAuthenticationModal: this.$refs['refAuthenticationModal']})
         },
+
+
 
         computed: {
 
