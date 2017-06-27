@@ -9,7 +9,7 @@ export default{
 
     CONTENT_FETCH_ROUTER_OBJECT: async ( {commit, store, dispatch}, {url}) =>{
 
-        return dispatch('CONTENT_FETCH_ROUTER_OBJECT_TEMPLATE',{url, routerObjectTypeCommit: 'SET_CURRENT_ROUTER_OBJECT' })
+        return dispatch('CONTENT_FETCH_ROUTER_OBJECT_TEMPLATE',{ url: url, routerObjectTypeCommit: 'SET_CURRENT_ROUTER_OBJECT' })
 
     },
 
@@ -33,14 +33,16 @@ export default{
         }
 
         //extracting the data
-        let routerObjectAnswer = await dispatch('CONTENT_FETCH_OBJECT',{url}); //getting the object
-        let notFound = (routerObjectAnswer !== null);
+        let answer = await dispatch('CONTENT_FETCH_OBJECT',{sContentToSearchId: url}); //getting the object
 
-
-
-        await commit(routerObjectTypeCommit, {routerObject: routerObjectAnswer.content, notFound: notFound});
-
-        return {result: notFound, object: routerObjectAnswer.content};
+        if (answer.result){
+            let notFound = (answer.content === null);
+            await commit(routerObjectTypeCommit, {routerObject: answer.content, notFound: notFound});
+            return {result: !notFound, object: answer.content};
+        } else {
+            await commit(routerObjectTypeCommit, {routerObject: null, notFound: true});
+            return {result: false, object: null};
+        }
     },
 
 

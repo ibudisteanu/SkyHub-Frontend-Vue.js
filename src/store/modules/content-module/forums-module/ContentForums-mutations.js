@@ -15,8 +15,6 @@ export default{
 
             let forum = ContentObjectService.createObject(forums[i].object);
 
-            console.log("SET_CONTENT_FORUMS", forum.id,  forum.name);
-
             Vue.set(state.forums, forum.id, forum );
         }
     },
@@ -25,6 +23,10 @@ export default{
 
         Vue.set(state.forums, forum.id, forum);
 
+    },
+
+    SET_CONTENT_FORUMS_CLEAR: (state, { }) => {
+        state.forums = {};
     },
 
 

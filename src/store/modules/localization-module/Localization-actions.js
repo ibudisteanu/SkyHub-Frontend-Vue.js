@@ -16,6 +16,10 @@ export default {
 
     LOCALIZATION_FETCH: async ({ commit, dispatch, state }, { ip }) => {
 
+        if ((state.request.done === true)&&(state.request.error === false)){
+            return;
+        }
+
         try {
             let res = await axios.get("http://freegeoip.net/json/" + ip||state.ip);
 

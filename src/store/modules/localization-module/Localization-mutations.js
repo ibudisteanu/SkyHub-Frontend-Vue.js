@@ -24,7 +24,7 @@ export default {
         state.clientIP = payload.clientIP;
     },
 
-    SET_LOCALIZATION_SET_REQUEST_ERROR: (state, {}) => {
+    SET_LOCALIZATION_REQUEST_ERROR: (state, {}) => {
         state.request = {
             sent: true,
             done: false,

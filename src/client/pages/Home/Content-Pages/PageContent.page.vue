@@ -22,6 +22,7 @@
     import AuthenticatedHome from './home-page/AuthenticatedHome.page.vue';
     import NotAuthenticatedHome from './home-page/NotAuthenticatedHome.page.vue';
     import ViewForum from './pages/ViewForum.page.vue';
+    import ViewTopic from './pages/ViewTopic.page.vue';
 
     import User from 'models/User/User.model';
 
@@ -30,6 +31,7 @@
 
         components:{
             'ViewForum':ViewForum,
+            'ViewTopic':ViewTopic,
             'AuthenticatedHome': AuthenticatedHome,
             'NotAuthenticatedHome': NotAuthenticatedHome,
         },

@@ -22,8 +22,21 @@
 }
 
 /*
-        FIX LEFT SIDE BAR (it was too big)
+            ENABLE FULL WIDTH ROWS
  */
+#page-wrapper{
+    padding: 0;
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+
+    /*
+            FIX LEFT SIDE BAR (it was too big)
+     */
 
 @media (min-width: 768px) {
     .navbar-static-side {
@@ -116,7 +129,7 @@
  */
 
 .header-cover{
-  min-height: 350px;
+  min-height: 320px;
 
   background-position: center;
   background-size: cover;
@@ -128,6 +141,7 @@
   right: 0;
   top: 0;
   bottom: 0;
+  height:320px;
   background-color: rgba(0, 0, 0, 0.3);
 }
 

@@ -17,14 +17,14 @@
           :key="'breadcrumb_'+breadcrumb.name+'_'+index"
     >
       <router-link :key="'breadcrumb_'+breadcrumb.name+'_'+index" :to="breadcrumb.url" >
-        {{object.name}}
+        {{breadcrumb.name}}
       </router-link>
 
     </li>
 
     <li  class="active" key="breadcrumb_current_Page">
       <router-link key="breadcrumb_current_Page" :to="currentPageUrl" >
-        {{getPageTitle()}}
+        {{getPageTitle}}
       </router-link>
     </li>
 
@@ -43,14 +43,19 @@
       props: {
           'currentPageUrl': {default: ''},
           'breadcrumbs': {function (){return []}},
+          'currentPageTitle': {default: ''},
       },
 
-      methods: {
+      computed:{
           getPageTitle(){
               if ((this.currentPageUrl === '')||(this.currentPageUrl === '/')) return 'Home';
 
-              return currentPageTitle;
+              return this.currentPageTitle;
           }
+      },
+
+      methods: {
+
       }
 
   }
