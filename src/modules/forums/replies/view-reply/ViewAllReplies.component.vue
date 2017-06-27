@@ -11,18 +11,18 @@
 
 
 <template>
+    <div>
+       <ViewReply
+              v-for="(reply, index) in getChildReplies"
+              :reply="reply"
+              :key="reply.id"
 
-      <div>
-           <ViewReply
-                  v-for="(reply, index) in repliesList"
-                  :reply="reply"
-                  :key="reply.id"
+              v-if= "reply.replyParentId == parentReplyId"
+              :repliesList = "repliesList"
+      >
+      </ViewReply>
+    </div>
 
-                  v-if= "reply.replyParentId == parentReplyId"
-                  :repliesList = "repliesList"
-          >
-          </ViewReply>
-      </div>
 </template>
 
 <script>
@@ -31,13 +31,29 @@
 
     export default {
 
+        name: 'ViewAllReplies',
+
         components: {
             "ViewReply":  ViewReply
         },
 
         props:{
-             repliesList: {default: function (){return []}},
+            repliesList: {default: function (){return []}},
             parentReplyId :{default:1},
+        },
+
+        computed:{
+
+            getChildReplies(){
+                let result = [];
+
+                for (let i=0; i<this.repliesList.length; i++)
+                    if (this.repliesList[i].replyParentId == this.parentReplyId)
+                    result.push(this.repliesList[i]);
+
+                return result;
+            },
+
         },
 
         data: function () {

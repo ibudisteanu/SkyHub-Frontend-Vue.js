@@ -26,15 +26,12 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
 
         <div style="padding-right: 10px">
 
-            <ViewAllReplies
-                    v-for="(reply, index) in repliesList"
-                    :reply="reply"
-                    :key="reply.id"
 
-                    v-if="reply.replyParentId == parentReplyId"
+            <ViewAllReplies
+                    :key="'ViewReplies_'+reply.id"
+                    :parentReplyId = "reply.id"
                     :repliesList="repliesList"
-            >
-            </ViewAllReplies>
+            />
 
         </div>
     </div>
@@ -50,8 +47,14 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
 
     export default {
 
+        name: 'ViewReply',
+
         components:{
             'ViewAllReplies': ViewAllReplies,
+        },
+
+        beforeCreate: function () {
+            this.$options.components.ViewAllReplies = require('./ViewAllReplies.component.vue')
         },
 
         props: {
