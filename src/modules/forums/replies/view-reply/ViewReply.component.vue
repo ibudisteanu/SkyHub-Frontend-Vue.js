@@ -25,7 +25,8 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
         <p> {{reply.description}}</p>
 
         <div style="padding-right: 10px">
-            <view-all-replies
+
+            <ViewAllReplies
                     v-for="(reply, index) in repliesList"
                     :reply="reply"
                     :key="reply.id"
@@ -33,7 +34,7 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
                     v-if="reply.replyParentId == parentReplyId"
                     :repliesList="repliesList"
             >
-            </view-all-replies>
+            </ViewAllReplies>
 
         </div>
     </div>
@@ -45,9 +46,13 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
 <script>
 
     import Reply from "models/Reply/Reply.model";
-    import ViewAllReplies from "modules/forums/components/ViewAllReplies.component";
+    import ViewAllReplies from "./ViewAllReplies.component.vue";
 
     export default {
+
+        components:{
+            'ViewAllReplies': ViewAllReplies,
+        },
 
         props: {
             reply: {default: null},

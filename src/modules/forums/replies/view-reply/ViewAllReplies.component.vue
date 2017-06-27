@@ -13,25 +13,27 @@
 <template>
 
       <div>
-       <ViewReply
-              v-for="(reply, index) in repliesList"
-              :reply="reply"
-              :key="reply.id"
+           <ViewReply
+                  v-for="(reply, index) in repliesList"
+                  :reply="reply"
+                  :key="reply.id"
 
-              v-if= "reply.replyParentId == parentReplyId"
-              :repliesList = "repliesList"
-      >
-      </ViewReply>
+                  v-if= "reply.replyParentId == parentReplyId"
+                  :repliesList = "repliesList"
+          >
+          </ViewReply>
       </div>
 </template>
 
 <script>
 
-    import ViewReply from  'modules/forums/replies/view-reply/ViewReply.component.vue'
+    import ViewReply from  './ViewReply.component.vue'
 
     export default {
 
-        components: {"ViewReply":ViewReply},
+        components: {
+            "ViewReply":  ViewReply
+        },
 
         props:{
              repliesList: {default: function (){return []}},

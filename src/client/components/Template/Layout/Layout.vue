@@ -11,11 +11,13 @@
                     <b>TEST LAYOUT</b>
 
                     <button @click="openModal"> Open Modal</button>
-                    <view-all-replies
+
+                    <ViewAllReplies
                         :repliesList = "repliesList"
                         parentReplyId = "4"
                     >
-                    </view-all-replies>
+                    </ViewAllReplies>
+
                 </div>
 
             </LayoutBody>
@@ -46,12 +48,18 @@
     import User from "models/User/User.model";
     import Reply from "models/Reply/Reply.model";
 
-    import ViewReply from  'modules/forums/replies/view-reply/ViewReply.component.vue'
     import ViewAllReplies from  'modules/forums/replies/view-reply/ViewAllReplies.component.vue'
 
     export default {
         name: 'Layout',
-        components: { LayoutBody , LayoutFooter, StickyButtons, RightSidebar, AuthenticationModal,ViewReply,ViewAllReplies},
+        components: {
+            'LayoutBody': LayoutBody ,
+            'LayoutFooter': LayoutFooter,
+            'StickyButtons': StickyButtons,
+            'RightSidebar': RightSidebar,
+            'AuthenticationModal': AuthenticationModal,
+            'ViewAllReplies': ViewAllReplies
+        },
 
         data: function() {
             let reply1  = new Reply( {

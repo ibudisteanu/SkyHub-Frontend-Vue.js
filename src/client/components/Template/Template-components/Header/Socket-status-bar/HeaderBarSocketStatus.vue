@@ -5,7 +5,7 @@
 
 <template>
     <div v-show="displayStatusBar">
-        <nav class='navbar navbar-default' :style="{display: 'inline-block', width: '100%', minHeight: '26px', background: getStatusBarBackgroundColor }" >
+        <nav class='navbar navbar-default' :style="{display: 'inline-block', width: '100%', marginBottom:0, minHeight: '24px', background: getStatusBarBackgroundColor }" >
 
             <div :style="{textAlign: 'center', margiTop: 5, color: getStatusBarTextColor}">
                 <i :class="socketStatus.icon" aria-hidden="true"></i>

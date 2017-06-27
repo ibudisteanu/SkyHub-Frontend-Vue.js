@@ -12,6 +12,7 @@
 
                 <div style='margin-right: 20px'>
 
+                    <!--
                     <FacebookLogin
                             appId="622709767918813"
                             autoLoad={false}
@@ -22,11 +23,13 @@
                             callback={::this.responseFacebook}
                             cssClass="btn btn-social-icon btn-facebook btn-lg"
                     />
+                    -->
 
                 </div>
 
                 <div style='marginRight:20px'>
 
+                    <!--
                     <GoogleLogin
                             clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
                             buttonText=""
@@ -38,6 +41,7 @@
                     >
                         <i class="fa fa-google-plus" />
                     </GoogleLogin>
+                    -->
 
                 </div>
 
