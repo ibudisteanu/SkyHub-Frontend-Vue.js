@@ -22,8 +22,7 @@
 
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
 
-
-                            <SearchAutoComplete  :multi="false" dataSuggestion="google" placeholder='forum name (one or two words)' :defaultValue="name"  :defaultLabel="name" :select="handleNameChangeSelect" :clearable="false"/>
+                            <SearchAutoComplete key="addForumNameSearch" :multi="false" dataSuggestion="parents" placeholder='forum name (one or two words)' :defaultValue="name"  :defaultLabel="name" :select="handleNameChangeSelect" :clearable="false"/>
 
                             <span :class='showInputFeedback(nameValidationStatus)' style='width:60px; top:10px'> </span>
 
@@ -42,7 +41,7 @@
 
                         <input type='text' class='form-control input' placeholder='title' style="z-index:0" name="title" :value="this.title||this.name" @change="handleTitleChange" />
 
-                        <AutoCompleteSelect :multi="false" class='border-focus-blue'  placeholder='title'  :value="title"  @select="handleTitleChangeSelect" style='z-index:0'  />
+                        <!--<SearchAutoComplete  key="addForumNameTitle" :multi="false" dataSuggestion="google" placeholder='title' :defaultValue="title"  :defaultLabel="title" :select="handleTitleChangeSelect" :clearable="false"/> -->
 
                         <span :class="showInputFeedback(this.titleValidationStatus)"></span>
                     </div>
@@ -67,7 +66,8 @@
 
                         <span class="input-group-addon"><i class="fa fa-edit"></i></span>
 
-                        <!--<SearchAutoComplete multi={false} class='border-focus-blue'  placeholder='select a parent-forum'  :value="{label:this.parentName||this.parentName, value:this.parentId||this.parentId}"  onSelect="handleParentChangeSelect" style='z-index:0'  :clearable="false" />-->
+
+                        <SearchAutoComplete key="addForumParentSearch" :multi="false" dataSuggestion="parents" placeholder='select a parent-forum' :defaultValue="this.parentId||this.parentId"  :defaultLabel="this.parentName||this.parentName" :select="handleParentChangeSelect" :clearable="false"/>
 
                         <span :class="showInputFeedback(this.parentValidationStatus)"></span>
                     </div>
@@ -79,7 +79,8 @@
 
                         <span class="input-group-addon"><i class="fa fa-tags"></i></span>
 
-                        <AutoCompleteSelect :selectOnClickOnly="false" controlId="keywordsSelect" :value="this.keywords" multi={true}   :onSelect="this.handleKeywordsSelect" style='z-index:0' placeholder="three keywords"/>
+                        <SearchAutoComplete key="addForumKeywordsSearch" :multi="true" dataSuggestion="google" placeholder='three keywords' :defaultValue="''"  :defaultLabel="''" :select="handleKeywordsSelect" :clearable="false"/>
+
 
                     </div>
                     <label class="error" >{{this.keywordsValidationStatus[1]}}</label> <br />
@@ -102,7 +103,7 @@
 
                                 <span class="input-group-addon"><i class="fa fa-institution"></i></span>
 
-                                <input type='text' class='form-control input' placeholder='city'  :value="this.localization.city||this.city" @change="handleCityChange" />
+                                <input type='text' class='form-control input' placeholder='city'  :value="this.localization.city||this.city" @change="handleCityChange" style="z-index:0"/>
 
                                 <span :class="showInputFeedback(this.cityValidationStatus)"></span>
                             </div>

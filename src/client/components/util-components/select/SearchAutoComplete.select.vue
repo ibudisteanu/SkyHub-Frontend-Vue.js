@@ -43,7 +43,10 @@
         data () {
 
             let value = {value: this.defaultValue||'', label: this.defaultLabel||''};
-            if (this.multi) value = [value];
+            if (this.multi) {
+                if ((this.defaultValue === '') &&(this.defaultLabel === '')) value = []; //it is empty
+                else value = [value];
+            }
 
             return {
                 value: value,
