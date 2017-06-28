@@ -44,9 +44,10 @@
                         </div>
                         <label class="error" >{{this.linkValidationStatus[1]}}</label> <br />
 
-                        <!--
-                        <FileUploadDropzone :onSuccessNewAttachment="this.fileUploadSuccess" :onRemoveAttachment="this.fileUploadRemoved" />
-                        -->
+                        <no-ssr>
+                            <FileUploadDropzone :idProp="this.parentIdProp" :onSuccessNewAttachment="this.fileUploadSuccess" :onRemoveAttachment="this.fileUploadRemoved" />
+                        </no-ssr>
+
 
                     </div>
 
@@ -148,8 +149,11 @@
     import {showInputStatus, showInputFeedback, convertValidationErrorToString} from 'client/components/util-components/form-validation/formValidation';
     import LoadingButton from 'client/components/util-components/UI/buttons/LoadingButton.vue';
 
+    import NoSSR from 'vue-no-ssr'
+
     import CountrySelect from 'client/components/util-components/select/Country.select.vue';
     import SearchAutoComplete from 'client/components/util-components/select/SearchAutoComplete.select.vue';
+    import FileUploadDropzone from 'client/components/util-components/file-upload/dropzone/FileUploadDropzone.component.vue';
 
     import PreviewNewTopic from 'modules/forums/topics/components/PreviewNewTopic.vue';
     import Topic from 'models/Topic/Topic.model';
@@ -158,11 +162,13 @@
         name: "AddTopic",
 
         components: {
+            'no-ssr': NoSSR,
             "LoadingButton": LoadingButton,
             "CountrySelect": CountrySelect,
             "SearchAutoComplete" : SearchAutoComplete,
 
             "PreviewNewTopic" : PreviewNewTopic,
+            "FileUploadDropzone": FileUploadDropzone,
         },
 
         data: function (){

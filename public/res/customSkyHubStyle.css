@@ -217,7 +217,6 @@
  */
 
 
-
 div.filepicker {
   text-align: center;
   padding: 5px;
@@ -292,35 +291,71 @@ div.filepicker {
 }
 
 .dz-success-mark{
-  width: 44%;
+  width: 50%;
   height: 0px;
-  padding-bottom: 44%;
+  padding-bottom: 50%;
   border-radius: 50%;
   -webkit-border-radius: 50%;
   background-color: goldenrod;
+  margin-left: -24px !important;
+  margin-top: -24px !important;
+}
+.dz-success-mark > i{
+    font-size: 30px
 }
 
 .dz-error-mark{
-  width: 44%;
+  width: 50%;
   height: 0px;
-  padding-bottom: 44%;
+  padding-bottom: 50%;
   border-radius: 50%;
   -webkit-border-radius: 50%;
   background-color: darkred;
+  margin-left: -24px !important;
+  margin-top: -24px !important;
+}
+
+.dz-error-mark > i{
+    font-size: 30px
 }
 
 .dz-error-message{
-  margin-top:20px;
+  margin-top:10px;
 }
 
 .dz-remove{
-  background-color: beige;
+  background-color: red !important;
+    padding: 2px !important;
+    border: 0 solid aqua !important;
+    bottom: 3px !important;
+    left: 12px !important;
+
+}
+
+.dz-preview{
+    z-index: 10 !important;
 }
 
 /*
-
+    REACT MULTI SELECT z-index...
  */
 
+.multiselect__element{
+    z-index: 100 !important;
+    position: relative;
+}
+.multiselect__option{
+    z-index: 100 !important;
+    position: relative;
+}
+.multiselect__option > span{
+    z-index: 100 !important;
+    position: relative;
+}
+.multiselect__content{
+    z-index: 100 !important;
+    position: relative;
+}
 
 
 /* TOPIC

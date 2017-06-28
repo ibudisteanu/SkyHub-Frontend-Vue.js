@@ -78,7 +78,8 @@ The "src" folder must be set as Resource Root. To do this Settings->Directories 
     Add Voting (Up and Downs)
     Unvote   
 
-
+### Server Side Rendering component
+https://github.com/egoist/vue-no-ssr
 
 ## License
 
