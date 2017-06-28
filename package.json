@@ -41,6 +41,7 @@
     "vue-no-ssr": "^0.1.2",
     "vue-router": "^2.5.0",
     "vue-server-renderer": "^2.3.2",
+    "vueditor": "^0.2.4",
     "vuex": "^2.3.1",
     "vuex-router-sync": "^4.1.2",
     "vuex-saga": "^0.1.3"

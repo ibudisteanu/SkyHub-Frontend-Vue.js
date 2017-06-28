@@ -18,7 +18,7 @@
                     <br />
 
                     <p class="table-forums-topic-body word-wrap">
-                        {{getTopicDescription}}
+                        <div v-html="getTopicDescription"/>
                     </p>
 
                 </router-link>

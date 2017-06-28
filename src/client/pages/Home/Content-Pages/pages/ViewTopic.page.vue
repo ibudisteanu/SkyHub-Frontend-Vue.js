@@ -20,7 +20,7 @@
         <WebsiteHeaderCover v-else />
 
 
-        <div  class='anchor col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 col-xxs-12 col-xxs-offset-0 col-tn-12 col-tn-offset-0' style='padding-left: 40px; padding-bottom: 20px'>
+        <div  class='anchor col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 col-tn-12 col-tn-offset-0' >
 
 
             <div style='position: relative; z-index: 2 '>
@@ -67,7 +67,9 @@
                                     <img :src="getImage" :alt="getTitle" class="topic-question-image" />
                                 </a>
 
-                                <p>{{getTopic.description}} </p>
+                                <p>
+                                    <div v-html="getTopic.description" />
+                                </p>
 
                             </div>
                         </div>

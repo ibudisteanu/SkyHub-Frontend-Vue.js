@@ -27,9 +27,9 @@
         </div>
 
 
-        <AddForumForm v-show="showAddForum" :parentId="parentId" :parentName="parentName" />
+        <AddForumForm v-show="showAddForum" :parentId="parentId" :parentName="parentName" :onSuccess="forumSuccess" />
 
-        <AddTopicForm v-show="showAddTopic" :parentId="parentId" :parentName="parentName"/>
+        <AddTopicForm v-show="showAddTopic" :parentId="parentId" :parentName="parentName" :onSuccess="topicSuccess"/>
 
 
 
@@ -94,6 +94,14 @@
                 this.showAddTopic = false;
                 this.showAddReply = true;
             },
+
+            forumSuccess(){
+                this.showAddForum = false;
+            },
+
+            topicSuccess(){
+                this.showAddTopic = false;
+            }
 
         }
     }

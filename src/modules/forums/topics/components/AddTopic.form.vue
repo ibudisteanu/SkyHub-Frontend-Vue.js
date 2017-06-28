@@ -4,7 +4,7 @@
  */
 
 <template>
-    <div class="col-sm-8 col-sm-offset-2" style='padding:0' >
+    <div class="col-md-8 col-md-offset-2" style='padding:0' >
         <div class="panel panel-success">
 
 
@@ -38,7 +38,7 @@
 
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
 
-                            <input  type='text' class='form-control input' placeholder='title'  name="title" :value="this.link" @change="this.handleLinkChange" style='z-index:0' />
+                            <input  type='text' class='form-control input' placeholder='title'  name="title" :value="this.link" @change="this.handleLinkChange" style='z-index : 0' />
 
                             <span :class="this.showInputFeedback(this.linkValidationStatus)" style="width:60px; top:10px"></span>
                         </div>
@@ -55,13 +55,11 @@
 
                     <strong>Description</strong>
 
-
-                        <!--
-                        <DraftWYSIWYG onChange="this.handleDescriptionChange" />
-                        -->
+                        <no-ssr>
+                            <MyVueEditor ref="refDescriptionEditor" :onChange = "handleDescriptionChange"/>
+                        </no-ssr>
 
                     <span :class="this.showInputFeedback(this.descriptionValidationStatus)"></span>
-
                     <label class="error" >{{this.descriptionValidationStatus[1]}}</label> <br />
 
 
@@ -154,6 +152,7 @@
     import CountrySelect from 'client/components/util-components/select/Country.select.vue';
     import SearchAutoComplete from 'client/components/util-components/select/SearchAutoComplete.select.vue';
     import FileUploadDropzone from 'client/components/util-components/file-upload/dropzone/FileUploadDropzone.component.vue';
+    import MyVueEditor from 'client/components/util-components/text-editor/MyVueEditor.component.vue';
 
     import PreviewNewTopic from 'modules/forums/topics/components/PreviewNewTopic.vue';
     import Topic from 'models/Topic/Topic.model';
@@ -169,6 +168,7 @@
 
             "PreviewNewTopic" : PreviewNewTopic,
             "FileUploadDropzone": FileUploadDropzone,
+            'MyVueEditor': MyVueEditor,
         },
 
         data: function (){
@@ -204,6 +204,7 @@
         props:{
             parentIdProp: {default:''},
             parentNameProp: {default:''},
+
             onSuccess: {default: function (){}},
             onError: {default: function (){}},
         },
@@ -228,7 +229,10 @@
             getDescription(){
                 return Topic.getDescription(this.$refs['refPreviewNewTopic'].topic);
             },
+
         },
+
+
 
         methods:{
 
@@ -347,8 +351,8 @@
             },
 
             handleDescriptionChange(value){
+                //this.descriptionValidationStatus  = [null, ''];
                 this.description = value;
-                this.descriptionValidationStatus  = [null, ''];
             },
 
             handleParentChangeSelect(dataSelected){

@@ -337,6 +337,26 @@ div.filepicker {
 }
 
 /*
+    VUE EDITOR
+ */
+
+.ve-toolbar > div > a {
+    padding: 4px !important;
+    color: #e2d7d7 !important;
+    font-size: 15px !important;
+}
+
+.ve-toolbar > div > a > i {
+    color: #e2d7d7 !important;
+    font-size: 12px !important;
+}
+
+.emoji{
+    width: 18px !important;
+    height: 18px !important;
+}
+
+/*
     REACT MULTI SELECT z-index...
  */
 
