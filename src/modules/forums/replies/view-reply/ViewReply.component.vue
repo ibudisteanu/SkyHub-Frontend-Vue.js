@@ -11,10 +11,10 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
     <div class="media">
 
         <div class="forum-avatar"  >
-            <Voting :voteId = "reply.votingId"
-            >
-            </Voting>
-            <img :src="reply.authorId" class="img-circle" alt="image"/>
+
+            <Voting :voteId = "reply.votingId" />
+
+            <img src="https://blogcdn1.secureserver.net/wp-content/uploads/2014/06/create-a-gravatar-beard.png" class="img-circle" alt="image"/>
             <div class="author-info">
                 <strong>Posts:</strong> 542<br/>
                 <strong>Joined:</strong> April 11.2015<br/>

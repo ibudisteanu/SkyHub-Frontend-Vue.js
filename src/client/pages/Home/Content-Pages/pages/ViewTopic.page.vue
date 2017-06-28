@@ -63,7 +63,7 @@
                             <div class="container-fluid topic-question-body">
 
 
-                                <a v-if="getImage !==''" href="https://media.giphy.com/media/dzaUX7CAG0Ihi/giphy.gif">
+                                <a v-if="getImage !==''" :href="getImage">
                                     <img :src="getImage" :alt="getTitle" class="topic-question-image" />
                                 </a>
 
@@ -77,11 +77,12 @@
 
                         <div class="topic-question-footer">
                             <div class="col-xs-12 col-sm-5 topic-question-footer-buttons" style='overflow: hidden'>
-                                <a class="btn btn-primary btn-circle" style='width: initial'>
-                                  <i class="fa fa-comment btn-circle-icon" style='margin: 0 8px 0 8px'>
-                                      <div class="btn-circle-text">Reply</div>
-                                  </i>
+
+                                <a class="btn btn-success btn-rounded" type="button">
+                                    <i class="fa fa-comment"></i> Reply
                                 </a>
+
+
                             </div>
 
                             <!--

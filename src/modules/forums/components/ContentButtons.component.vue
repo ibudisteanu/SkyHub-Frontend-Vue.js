@@ -95,12 +95,20 @@
                 this.showAddReply = true;
             },
 
+            topicSuccess(){
+                this.showAddTopic = false;
+            },
+
+            topicCancel(){
+                this.showAddTopic = false;
+            },
+
             forumSuccess(){
                 this.showAddForum = false;
             },
 
-            topicSuccess(){
-                this.showAddTopic = false;
+            forumCancel(){
+                this.showAddForum = false;
             }
 
         }

@@ -358,13 +358,6 @@
     border-bottom: 6px solid #be2626
 }
 
-html {
-    background-color: #f9f9f9
-}
-
-html {
-    background-color: #f9f9f9
-}
 
 .dropzone {
     border: 2px solid #e5e5e5;
@@ -376,10 +369,6 @@ html {
 
 .dropzone:hover {
     background-color: #f6f6f6
-}
-
-i {
-    color: #ccc
 }
 
 .dropzone .dz-preview .dz-image {

@@ -520,6 +520,14 @@ div.filepicker {
   margin: 5px 0 5px 0;
 }
 
+/*
+    VOTING
+ */
+
+.vote-actions {
+    margin-right: 0;
+}
+
 
 /* FORUM TABLE
 ============================================================*/
