@@ -1,13 +1,16 @@
-
 <template>
 
     <div class="vote-actions">
-            <i class="fa fa-chevron-up"  v-on:click="increment"> </i>
-        <div> {{myVotingValue}}</div>
-            <i class="fa fa-chevron-down"  v-on:click="decrement"> </i>
+        <i class="fa fa-chevron-up" v-on:click="increment"> </i>
+        <div v-if="myVotingValue >0">
+            {{myVotingValue}}
+        </div>
+        <div v-else>
+            -
+        </div>
+        <i class="fa fa-chevron-down" v-on:click="decrement"> </i>
     </div>
 </template>
-
 
 <script>
 
@@ -18,31 +21,31 @@
         name: 'Voting',
 
         components: {
-            "Voting":  this,
+            "Voting": this,
             "Votes": Votes
         },
 
-        props:{
-            voteId :{default:null}
+        props: {
+            voteId: {default: null}
         },
 
         data: function () {
-            this.votes  = new Votes( {
-                id :55544, value:1, parentId:5,topicId : 244, votings : 677801931,
+            this.votes = new Votes({
+                id: 55544, value: 1, parentId: 5, topicId: 244, votings: 677801931,
             });
             return {
 
-                myVotingValue :this.votes.value,
+                myVotingValue: this.votes.value,
             }
         },
 
-        mounted: function (){
+        mounted: function () {
 
 
         },
         methods: {
             increment() {
-                  this.myVotingValue++;
+                this.myVotingValue++;
             },
             decrement() {
                 this.myVotingValue--;
@@ -50,4 +53,4 @@
         }
 
     }
- </script>
+</script>
