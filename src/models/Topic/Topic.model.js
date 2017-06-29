@@ -2,6 +2,8 @@
  * Created by BIT TECHNOLOGIES on 5/28/2017.
  */
 
+import Attachments from 'models/Attachment/Attachments.model';
+
 export default class Topic {
 
 
@@ -46,19 +48,10 @@ export default class Topic {
     }
 
 
-    static getLinkAttachment(Topic){
-      for (let i=0; i<Topic.attachments.length; i++)
-        if (Topic.attachments[i].type === "link"){
-          return Topic.attachments[i];
-        }
-
-      return null;
-    }
-
     static getTitle(Topic){
-      console.log("getTitle", Topic.title, Topic.attachments, this.getLinkAttachment(Topic));
+      console.log("getTitle", Topic.title, Topic.attachments, Attachments.getLinkAttachment(Topic));
       if (Topic.title !== '') return Topic.title;
-      if (this.getLinkAttachment(Topic) !== null) return this.getLinkAttachment(Topic).title;
+      if (Attachments.getLinkAttachment(Topic) !== null) return Attachments.getLinkAttachment(Topic).title;
       if (Topic.attachments.length > 0 ) return Topic.attachments[0].title;
 
       return '';
@@ -66,7 +59,7 @@ export default class Topic {
 
     static getDescription(Topic){
       if (Topic.description !== '') return Topic.description;
-      if (this.getLinkAttachment(Topic) !== null) return this.getLinkAttachment(Topic).description;
+      if (Attachments.getLinkAttachment(Topic) !== null) return Attachments.getLinkAttachment(Topic).description;
       if (Topic.attachments.length > 0 ) return Topic.attachments[0].description;
 
       return '';
@@ -80,14 +73,14 @@ export default class Topic {
           if ((Topic.attachments[i].type === "file")&&(Topic.attachments[i].typeFile.indexOf("image") >= 0 ))
             return Topic.attachments[0].img;
 
-      if (this.getLinkAttachment(Topic) !== null) return this.getLinkAttachment(Topic).img;
+      if (Attachments.getLinkAttachment(Topic) !== null) return Attachments.getLinkAttachment(Topic).img;
 
       return '';
     }
 
     static getKeywords(Topic){
       if ((typeof Topic.keywords !== "undefined")&&(Topic.keywords !== '')) return Topic.keywords;
-      if (this.getLinkAttachment(Topic) !== null) return this.getLinkAttachment(Topic).keywords;
+      if (Attachments.getLinkAttachment(Topic) !== null) return Attachments.getLinkAttachment(Topic).keywords;
       if (Topic.attachments.length > 0 ) return Topic.attachments[0].keywords;
 
       return '';

@@ -654,3 +654,12 @@ div.filepicker {
     bottom: 0;
     left: 0;
 }
+
+/*
+    TOOL TIPS
+ */
+
+.tooltip{
+    overflow:visible !important;
+    z-index: 100;
+}

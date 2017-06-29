@@ -113,3 +113,9 @@
     }
 
 </script>
+
+<style>
+    .vue-dropzone{
+        padding:0 !important;
+    }
+</style>

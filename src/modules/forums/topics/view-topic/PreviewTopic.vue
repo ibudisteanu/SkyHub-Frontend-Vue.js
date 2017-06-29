@@ -15,8 +15,6 @@
 
                     <h4 class="table-forums-topic-title">{{getTopicTitle}}</h4>
 
-                    <br />
-
                     <p class="table-forums-topic-body word-wrap">
                         <div v-html="getTopicDescription"/>
                     </p>

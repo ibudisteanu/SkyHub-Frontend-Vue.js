@@ -5,7 +5,7 @@
 
 <template>
 
-  <time :class="this.className" :datetime="this.date" data-toggle="tooltip" data-placement="right" :title="getFullDate" :data-original-title="getFullDate">
+  <time :class="this.className" :datetime="this.date" :title="getFullDate" v-tooltip:top="getFullDate" >
     <i class="fa fa-clock-o"></i> {{this.calculateDateDiff}}
   </time>
 </template>

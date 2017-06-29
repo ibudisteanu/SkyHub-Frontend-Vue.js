@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import Spinner from '../modules/hackernews/components/Spinner.vue'
-import Comment from '../modules/hackernews/components/Comment.vue'
+import Spinner from '../components/Spinner.vue'
+import Comment from '../components/Comment.vue'
 
 export default {
   name: 'item-view',

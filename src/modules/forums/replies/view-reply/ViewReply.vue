@@ -8,7 +8,7 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
 
 <template>
 
-    <div class="media">
+    <div class="media" style="overflow: auto">
 
         <div class="forum-avatar"  >
 
@@ -16,14 +16,13 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
 
             <img src="https://blogcdn1.secureserver.net/wp-content/uploads/2014/06/create-a-gravatar-beard.png" class="img-circle" alt="image"/>
             <div class="author-info">
-                <strong>Posts:</strong> 542<br/>
-                <strong>Joined:</strong> April 11.2015<br/>
+                <strong>Bio</strong>
             </div>
         </div>
 
         <div class="media-body">
             <h4 class="media-heading">{{reply.title || '' }} </h4>
-            <div v-if="reply.authorId !== ''"> {{reply.authorId}} , {{reply.authorId}}</div>
+
         </div>
 
         <p  v-html="reply.description" > </p>

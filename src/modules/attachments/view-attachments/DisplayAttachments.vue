@@ -6,8 +6,6 @@
 <template>
 
     <div>
-        <div ><i class="fa fa-paperclip"></i></div>
-
         <DisplayAttachment
                 v-for="(attachment, index) in attachments"
                 :attachment="attachment"

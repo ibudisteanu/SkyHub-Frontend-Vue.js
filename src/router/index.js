@@ -4,9 +4,9 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 // route-level code splitting
-const createListView = id => () => import('../views/CreateListView').then(m => m.default(id))
-const ItemView = () => import('../views/ItemView.vue')
-const UserView = () => import('../views/UserView.vue')
+const createListView = id => () => import('modules/hackernews/views/CreateListView').then(m => m.default(id))
+const ItemView = () => import('modules/hackernews/views/ItemView.vue')
+const UserView = () => import('modules/hackernews/views/UserView.vue')
 
 const LayoutElement = id => () => import('../client/components/Template/Layout/LayoutElement').then(m => m.default(id))
 const Layout = () => import('client/components/Template/Layout/Layout.vue')

@@ -1,7 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 
-//import UserProperties from './User.properties.js';
-//var UserProperties = require ('./User.properties.js');
+import Attachments from 'models/Attachment/Attachments.model';
 
 export default class Reply {
 
@@ -28,18 +27,9 @@ export default class Reply {
     }
 
 
-    static getLinkAttachment(Reply){
-        for (let i=0; i<Reply.attachments.length; i++)
-            if (Reply.attachments[i].type === "link"){
-                return Reply.attachments[i];
-            }
-
-        return null;
-    }
-
     static getTitle(Reply){
         if (Reply.title !== '') return Reply.title;
-        if (this.getLinkAttachment(Reply) !== null) return this.getLinkAttachment(Reply).title;
+        if (Attachments.getLinkAttachment(Reply) !== null) return Attachments.getLinkAttachment(Reply).title;
         if (Reply.attachments.length > 0 ) return Reply.attachments[0].title;
 
         return '';
@@ -47,7 +37,7 @@ export default class Reply {
 
     static getDescription(Reply){
         if (Reply.description !== '') return Reply.description;
-        if (this.getLinkAttachment(Reply) !== null) return this.getLinkAttachment(Reply).description;
+        if (Attachments.getLinkAttachment(Reply) !== null) return Attachments.getLinkAttachment(Reply).description;
         if (Reply.attachments.length > 0 ) return Reply.attachments[0].description;
 
         return '';
@@ -61,7 +51,7 @@ export default class Reply {
                 if ((Reply.attachments[i].type === "file")&&(Reply.attachments[i].typeFile.indexOf("image") >= 0 ))
                     return Reply.attachments[0].img;
 
-        if (this.getLinkAttachment(Reply) !== null) return this.getLinkAttachment(Reply).img;
+        if (Attachments.getLinkAttachment(Reply) !== null) return Attachments.getLinkAttachment(Reply).img;
 
         return '';
     }

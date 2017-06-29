@@ -59,7 +59,7 @@
 
                         <div class="formHeadLine"> </div>
 
-                        <div class="articleContent anchor">
+                        <div :id="getTopic.id" class="articleContent anchor">
                             <div class="container-fluid topic-question-body">
 
 
@@ -76,6 +76,12 @@
 
 
                         <div class="topic-question-footer">
+
+                            <div v-if="(Array.isArray(getTopic.attachments))&&(getTopic.attachments.length > 0)">
+                                <DisplayAttachments :attachments="getTopic.attachments||[]" />
+                            </div>
+
+
                             <div class="col-xs-12 topic-question-footer-buttons" style='overflow: hidden'>
 
                                 <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="this.getTopic.id" :parentName="this.getTopic.title" replyParentId="" replyParentName=""/>
@@ -121,6 +127,7 @@
     import DisplayTopicContent from 'modules/forums/topics/view-topic/DisplayTopicContent.vue';
 
     import ContentButtonsInline from 'modules/forums/components/ContentButtonsInline.component.vue';
+    import DisplayAttachments from 'modules/attachments/view-attachments/DisplayAttachments.vue';
 
     import Topic from 'models/Topic/Topic.model';
 
@@ -133,6 +140,7 @@
             'DisplayTopicContent' : DisplayTopicContent,
             'ShowDate' : ShowDate,
             'ContentButtonsInline':ContentButtonsInline,
+            'DisplayAttachments': DisplayAttachments,
         },
 
         computed:{

@@ -24,6 +24,13 @@ Vue.mixin({
   }
 })
 
+// usage of tooltips https://stackoverflow.com/questions/37078423/how-can-add-bootstrap-tooltip-inside-vue-js
+Vue.directive('tooltip', function(el, binding){
+    $(el).attr('data-toggle', 'tooltip')
+        .attr('data-placement', binding.arg)
+        .attr('trigger', 'hover').tooltip({title: binding.value})
+})
+
 const { app, router, store } = createApp()
 
 // prime the store with server-initialized state.
