@@ -10,7 +10,7 @@
 
 
             <div class="panel-heading">
-                <h3 style='margin: 0'>New <strong>Reply</strong> in {{this.parentName||this.parentNameProp||'Home'}} </h3>
+                <h3 style='margin: 0'>New <strong>Reply</strong> in {{this.parentReplyNameProp||this.parentName||'Home'}} </h3>
             </div>
 
 
@@ -21,7 +21,6 @@
 
 
                     <div style="padding-bottom: 10px" >
-                        <strong>Title:</strong>
                         <div :class="'input-group ' + this.showInputStatus(this.titleValidationStatus)"  >
 
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
@@ -34,19 +33,17 @@
                     </div>
 
 
-                    <div class="ibox " style="margin-bottom:0">
+                    <div class="ibox float-e-margins border-bottom " style="margin-bottom: 20px">
                         <div class="ibox-title">
-                            <h5><i class="fa fa-picture-o" style="padding-right: 5px"></i> <i class="fa fa-link" style="padding-right: 5px"></i>Link images<small> attachments </small></h5>
-                            <div class="ibox-tools">
-                                <a class="collapse-link" onClick="collapseIBOX(this)">
-                                    <i class="fa fa-chevron-up" ></i>
-                                </a>
+                            <h5 style="padding-right: 20px"><i class="fa fa-picture-o" style="padding-right: 5px"></i> <i class="fa fa-link" style="padding-right: 5px"></i>Link images<small> attachments </small></h5>
+
+                            <div class="ibox-tools" style="text-align: left; " onClick="collapseIBOX(this, this)">
+                                <i class="fa fa-chevron-down" ></i>
                             </div>
                         </div>
-                        <div class="ibox-content">
+                        <div class="ibox-content" style="display: none;">
                             <div class="row">
 
-                                <div style="padding-bottom: 20px" >
                                     <strong>Link:</strong>
                                     <div :class="'input-group ' + this.showInputStatus(this.linkValidationStatus)"  >
 
@@ -62,7 +59,6 @@
                                         <FileUploadDropzone :idProp="this.parentIdProp" :onSuccessNewAttachment="this.fileUploadSuccess" :onRemoveAttachment="this.fileUploadRemoved" />
                                     </no-ssr>
 
-                                </div>
 
 
                             </div>
@@ -70,8 +66,6 @@
                     </div>
 
 
-
-                    <strong>Description</strong>
 
                     <no-ssr>
                         <MyVueEditor ref="refDescriptionEditor" :onChange = "handleDescriptionChange"/>
@@ -144,15 +138,14 @@
 
                 error: '',
 
-                parentId: '',
-                parentName: '',
+
                 parentValidationStatus: [null, ''],
             }
         },
 
         props:{
-            parentIdProp: {default:''},
-            parentNameProp: {default:''},
+            parentId: {default:''},
+            parentName: {default:''},
 
             parentReplyIdProp : {default: ''},
             parentReplyNameProp : {default: ''},
@@ -207,7 +200,7 @@
 
                 if (!bValidationError)
                     try {
-                        let answer = await this.$store.dispatch('CONTENT_TOPICS_ADD',{parentId:this.parentId||this.parentIdProp, title: this.getTitle, image: this.getImage, description: this.getDescription, attachments: this.attachments, arrKeywords: this.getKeywords,
+                        let answer = await this.$store.dispatch('CONTENT_TOPICS_ADD',{parentId:this.parentId, title: this.getTitle, image: this.getImage, description: this.getDescription, attachments: this.attachments, arrKeywords: this.getKeywords,
                             countryCode: this.countryCode||this.localization.countryCode, language:'',
                             city: this.city||this.localization.city, latitude:this.latitude||this.localization.latitude, longitude:this.longtitude||this.localization.longitude});
 
@@ -247,8 +240,8 @@
 
             },
 
-            handleTitleChangeSelect(value){
-                this.title = value;
+            handleTitleChangeSelect(e){
+                this.title = e.target.value;
                 this.titleValidationStatus  = [null, ''] ;
             },
 

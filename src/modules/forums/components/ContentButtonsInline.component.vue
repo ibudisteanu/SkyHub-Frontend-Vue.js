@@ -13,7 +13,7 @@
             </a>
         </div>
 
-        <AddReplyForm v-if="showAddReply" :parentId="parentId" :parentName="parentName" :onSuccess="replySuccess" :onCancel="replyCancel" />
+        <AddReplyForm v-if="showAddReply" :parentId="parentId" :parentName="parentName" :replyParentId="this.replyParentId" :replyParentName="this.replyParentName" :onSuccess="replySuccess" :onCancel="replyCancel" />
 
     </div>
 
@@ -40,6 +40,9 @@
         props:{
             parentId : {default: '' },
             parentName : {default: ''},
+            replyParentId : {default: ''},
+            replyParentName : {default: ''},
+
             buttonsRowStyle : {default: ''},
 
             enableAddReply : {default: true},

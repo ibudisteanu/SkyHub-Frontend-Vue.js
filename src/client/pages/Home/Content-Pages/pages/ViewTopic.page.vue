@@ -78,7 +78,7 @@
                         <div class="topic-question-footer">
                             <div class="col-xs-12 topic-question-footer-buttons" style='overflow: hidden'>
 
-                                <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="this.getTopic.id" :parentName="this.getTopic.title"/>
+                                <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="this.getTopic.id" :parentName="this.getTopic.title" replyParentId="" replyParentName=""/>
 
                             </div>
 

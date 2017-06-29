@@ -5,11 +5,11 @@
  *
  */
 
-var collapseIBOX = function (){
-    console.log('collapse-link', this);
+var collapseIBOX = function (element){
+    console.log('collapse-link',  element);
 
-    var ibox = $(this).closest('div.ibox');
-    var button = $(this).find('i');
+    var ibox = $(element).closest('div.ibox');
+    var button = $(element).find('i');
     var content = ibox.children('.ibox-content');
     content.slideToggle(200);
     button.toggleClass('fa-chevron-up').toggleClass('fa-chevron-down');

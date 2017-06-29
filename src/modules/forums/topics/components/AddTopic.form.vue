@@ -294,54 +294,51 @@
 
             },
 
-            handleTitleChangeSelect(value){
-                this.title = value;
-                this.titleValidationStatus  = [null, ''] ;
-            },
+            handleTitleChange(e){
 
-            handleTitleChange(value){
-                this.handleTitleChangeSelect(value);
+                this.title = (typeof e === "string" ? e : e.target.value) ;
+                this.titleValidationStatus  = [null, ''] ;
+
+                this.handleLinkChange(e);
+
             },
 
             async handleLinkChange(e){
 
-                this.link = e.target.value;
+                this.link = (typeof e === "string" ? e : e.target.value);
 
                 try{
                     let answer = await this.$store.dispatch('CONTENT_URL_META',{link: this.link});
                     let newAttachments =  this.attachments||[];
 
                     console.log("handleLinkChange", answer);
+
                     if (answer.result){
+                        let bFound=false;
+                        for (let i=0; i<newAttachments.length; i++ )
+                            if (newAttachments[i].type === 'link'){
+                                newAttachments[i].url = this.link;
+                                newAttachments[i].img = (typeof answer.data !== "undefined" ? answer.data.image : '');
+                                newAttachments[i].title = (typeof answer.data !== "undefined" ? answer.data.title : '');
+                                newAttachments[i].description = (typeof answer.data !== "undefined" ? answer.data.description : '');
+                                newAttachments[i].keywords = (typeof answer.data !== "undefined" ? answer.data.keywords : '');
+                                bFound=true;
+                                break;
+                            }
 
+                        if (!bFound)
+                            newAttachments.push({
+                                type:'link',
+                                url: this.link,
+                                img: (typeof answer.data !== "undefined"? answer.data.image : ''),
+                                title: (typeof answer.data !== "undefined"? answer.data.title : ''),
+                                description: (typeof answer.data !== "undefined" ? answer.data.description : ''),
+                                keywords: (typeof answer.data !== "undefined" ? answer.data.keywords : ''),
+                            });
+
+                        console.log("newAttachments",newAttachments);
+                        this.attachments = newAttachments;
                     }
-
-                    let bFound=false;
-                    for (let i=0; i<newAttachments.length; i++ )
-                        if (newAttachments[i].type === 'link'){
-                            newAttachments[i].url = this.link;
-                            newAttachments[i].img = (typeof answer.data !== "undefined" ? answer.data.image : '');
-                            newAttachments[i].title = (typeof answer.data !== "undefined" ? answer.data.title : '');
-                            newAttachments[i].description = (typeof answer.data !== "undefined" ? answer.data.description : '');
-                            newAttachments[i].keywords = (typeof answer.data !== "undefined" ? answer.data.keywords : '');
-                            bFound=true;
-                            break;
-                        }
-
-                    if (!bFound){
-                        newAttachments.push({
-                            type:'link',
-                            url: this.link,
-                            img: (typeof answer.data !== "undefined"? answer.data.image : ''),
-                            title: (typeof answer.data !== "undefined"? answer.data.title : ''),
-                            description: (typeof answer.data !== "undefined" ? answer.data.description : ''),
-                            keywords: (typeof answer.data !== "undefined" ? answer.data.keywords : ''),
-                        })
-                    }
-
-                    console.log("newAttachments",newAttachments);
-
-                    this.attachments = newAttachments;
 
                 }catch (Exception){
                     this.error = "Error extracting Link Meta: " + Exception.toString();
