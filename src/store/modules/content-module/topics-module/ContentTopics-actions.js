@@ -7,7 +7,7 @@ import FetchService from 'services/communication/FetchService'
 
 export default{
 
-    CONTENT_FETCH_TOP_TOPICS: async ( {commit, state, dispatch}, {parent, pageIndex, pageCount, reset}) =>{
+    CONTENT_TOPICS_FETCH_TOP: async ( {commit, state, dispatch}, {parent, pageIndex, pageCount, reset}) =>{
 
         if (reset === true) await commit('SET_CONTENT_TOPICS_CLEAR', {});
 
@@ -29,7 +29,7 @@ export default{
 
     },
 
-    CONTENT_TOPICS_ADD: async ({commit, state, dispatch}, {parentId, title,  image, description, attachments, arrKeywords, countryCode, language, city, latitude, longitude}) =>{
+    CONTENT_TOPICS_SUBMIT_ADD: async ({commit, state, dispatch}, {parentId, title,  image, description, attachments, arrKeywords, countryCode, language, city, latitude, longitude}) =>{
 
         try {
 

@@ -217,7 +217,7 @@
 
                 if (!bValidationError)
                     try{
-                        let answer = await this.$store.dispatch('CONTENT_FORUMS_ADD',{ parentId:this.parentId || this.parentId, name: this.name, title: this.title||this.name||'', description:this.description, keywords:this.keywords,
+                        let answer = await this.$store.dispatch('CONTENT_FORUMS_SUBMIT_ADD',{ parentId:this.parentId || this.parentId, name: this.name, title: this.title||this.name||'', description:this.description, keywords:this.keywords,
                                 country: this.countryCode || this.localization.countryCode, language:'',  city: this.city || this.localization.city, latitude: this.latitude || this.localization.latitude, longitude: this.longitude || this.localization.longitude, timezone: this.localization.longitude})
 
                         this.$refs['refSubmitButton'].enableButton();

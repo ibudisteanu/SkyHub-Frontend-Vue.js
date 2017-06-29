@@ -1,5 +1,5 @@
 /**
- * Created by Alexandru Ionut Budisteanu - SkyHub on 6/25/2017.
+ * Created by Alexandru Ionut Budisteanu - SkyHub on 6/29/2017.
  * (C) BIT TECHNOLOGIES
  */
 
@@ -7,7 +7,7 @@ import FetchService from 'services/communication/FetchService'
 
 export default{
 
-    CONTENT_FORUMS_FETCH_TOP: async ( {commit, state, dispatch}, {parent, pageIndex, pageCount, reset}) =>{
+    CONTENT_REPLIES_FETCH_TOP: async ( {commit, state, dispatch}, {parent, pageIndex, pageCount, reset}) =>{
 
         if (reset === true) await commit('SET_CONTENT_FORUMS_CLEAR', {});
 
@@ -30,10 +30,10 @@ export default{
     },
 
 
-    CONTENT_FORUMS_SUBMIT_ADD: async ( {commit, state, dispatch}, {parent, name, title, description,  keywords, country, language, city, latitude, longitude, timeZone}) =>{
+    CONTENT_REPLIES_SUBMIT_ADD: async ( {commit, state, dispatch}, {parent, name, title, description,  keywords, country, language, city, latitude, longitude, timeZone}) =>{
         try{
             let resData = await FetchService.sendRequestGetData("forums/add-forum",{parent, name, title, description, keywords ,
-                                                                country, language, city , latitude, longitude,  timeZone});
+                country, language, city , latitude, longitude,  timeZone});
 
 
             console.log('Answer from FORUM ', resData);
@@ -49,7 +49,7 @@ export default{
     },
 
 
-    CONTENT_FORUMS_GET: async ({commit, state, dispatch}, {id}) =>{
+    CONTENT_REPLIES_GET: async ({commit, state, dispatch}, {id}) =>{
 
         //Using Promise
         return FetchService.sendRequestGetData("forums/get-forum",{id: id});
