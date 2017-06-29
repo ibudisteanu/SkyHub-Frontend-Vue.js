@@ -24,10 +24,9 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
         <div class="media-body">
             <h4 class="media-heading">{{reply.title || '' }} </h4>
             <div v-if="reply.authorId !== ''"> {{reply.authorId}} , {{reply.authorId}}</div>
-            )
         </div>
 
-        <p> {{reply.description}}</p>
+        <p  v-html="reply.description" > </p>
 
         <div style="padding-right: 10px">
 

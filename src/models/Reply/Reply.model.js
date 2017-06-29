@@ -22,7 +22,7 @@ export default class Reply {
 
         this.preview = data.preview||false;
 
-        console.log('User assigned ', data, data.title, data.replyParentId);
+        //console.log('Reply assigned ', data, data.title, data.replyParentId);
     }
 
 

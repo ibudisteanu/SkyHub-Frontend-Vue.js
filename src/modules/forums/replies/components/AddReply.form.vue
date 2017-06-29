@@ -10,7 +10,7 @@
 
 
             <div class="panel-heading">
-                <h3 style='margin: 0'>New <strong>Reply</strong> in {{this.parentReplyNameProp||this.parentName||'Home'}} </h3>
+                <h3 style='margin: 0'>New <strong>Reply</strong> in {{this.parentReplyName||this.parentName||'Home'}} </h3>
             </div>
 
 
@@ -25,7 +25,7 @@
 
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
 
-                            <input  type='text' class='form-control input' placeholder='title'  name="title" :value="this.title" @change="this.handleTitleChange" style='z-index : 0' />
+                            <input  type='text' class='form-control input' placeholder='title'  name="title" :value="this.title" @keydown="this.handleTitleChange" @change="this.handleTitleChange" style='z-index : 0' />
 
                             <span :class="this.showInputFeedback(this.titleValidationStatus)" style='width:60px; top:10px'></span>
                         </div>
@@ -56,10 +56,8 @@
                                     <label class="error" >{{this.linkValidationStatus[1]}}</label> <br />
 
                                     <no-ssr>
-                                        <FileUploadDropzone :idProp="this.parentIdProp" :onSuccessNewAttachment="this.fileUploadSuccess" :onRemoveAttachment="this.fileUploadRemoved" />
+                                        <FileUploadDropzone :idProp="this.parentId+'_'+this.parentReplyId" :onSuccessNewAttachment="this.fileUploadSuccess" :onRemoveAttachment="this.fileUploadRemoved" />
                                     </no-ssr>
-
-
 
                             </div>
                         </div>
@@ -148,8 +146,8 @@
             parentId: {default:''},
             parentName: {default:''},
 
-            parentReplyIdProp : {default: ''},
-            parentReplyNameProp : {default: ''},
+            parentReplyId : {default: ''},
+            parentReplyName : {default: ''},
 
             onSuccess: {default: function (){}},
             onError: {default: function (){}},
@@ -162,19 +160,19 @@
             },
 
             getTitle(){
-                return Topic.getTitle(this.$refs['refPreviewNewTopic'].topic);
+                return Reply.getTitle(this.$refs['refPreviewNewReply'].reply);
             },
 
             getImage(){
-                return Topic.getImage(this.$refs['refPreviewNewTopic'].topic);
+                return Reply.getImage(this.$refs['refPreviewNewReply'].reply);
             },
 
             getKeywords(){
-                return Topic.getKeywords(this.$refs['refPreviewNewTopic'].topic);
+                return Reply.getKeywords(this.$refs['refPreviewNewReply'].reply);
             },
 
             getDescription(){
-                return Topic.getDescription(this.$refs['refPreviewNewTopic'].topic);
+                return Reply.getDescription(this.$refs['refPreviewNewReply'].reply);
             },
 
         },
@@ -201,7 +199,7 @@
 
                 if (!bValidationError)
                     try {
-                        let answer = await this.$store.dispatch('CONTENT_TOPICS_ADD',{parentId:this.parentId, title: this.getTitle, image: this.getImage, description: this.getDescription, attachments: this.attachments, arrKeywords: this.getKeywords,
+                        let answer = await this.$store.dispatch('CONTENT_REPLIES_ADD',{parentId:this.parentId, title: this.getTitle, image: this.getImage, description: this.getDescription, attachments: this.attachments, arrKeywords: this.getKeywords,
                             countryCode: this.countryCode||this.localization.countryCode, language:'',
                             city: this.city||this.localization.city, latitude:this.latitude||this.localization.latitude, longitude:this.longtitude||this.localization.longitude});
 
@@ -245,6 +243,8 @@
             handleTitleChange(e){
                 this.title = (typeof e === "string" ? e : e.target.value) ;
                 this.titleValidationStatus  = [null, ''] ;
+
+                console.log('new title',this.title);
 
                 if (this.title )
                     this.handleLinkChange(e, true);

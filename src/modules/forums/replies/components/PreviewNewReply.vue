@@ -8,7 +8,7 @@
 
     <div style='background-color: aliceblue;'>
 
-        <PreviewReply :hideHeader="true" :reply="[this.reply]" />
+        <PreviewReply :reply="this.reply"  />
 
     </div>
 
@@ -35,12 +35,14 @@
             image: {default: ''},
             description: {default: ''},
             attachments: {default: ''},
-            keywords: {default: []},
             authorId: {default: ''},
         },
 
         computed: {
             reply: function (){
+
+                console.log('reply title '+this.title);
+
                 return new Reply({
                     title: this.title,
                     image: this.image,
