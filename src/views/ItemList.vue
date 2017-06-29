@@ -21,7 +21,7 @@
 
 <script>
 import { watchList } from 'services/hackernews-api/index'
-import Item from '../components/Item.vue'
+import Item from '../modules/hackernews/components/Item.vue'
 
 export default {
   name: 'item-list',

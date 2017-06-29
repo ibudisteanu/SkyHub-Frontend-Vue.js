@@ -2,8 +2,6 @@
  * Created by BIT TECHNOLOGIES on 5/28/2017.
  */
 
-/* eslint-disable import/prefer-default-export */
-
 export default class Topic {
 
 

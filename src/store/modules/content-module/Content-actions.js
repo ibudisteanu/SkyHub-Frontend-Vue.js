@@ -25,7 +25,7 @@ export default{
                 case "home":
                 case "forum":
                     await dispatch('CONTENT_FORUMS_FETCH_TOP',{parent: id,  pageIndex: 1, pageCount:8, reset:true, });
-                    await dispatch('CONTENT_TOPICS_ETCH_TOP',{parent: id,  pageIndex: 1, pageCount:8, reset:true, });
+                    await dispatch('CONTENT_TOPICS_FETCH_TOP',{parent: id,  pageIndex: 1, pageCount:8, reset:true, });
                     break;
                 case "topic":
                     //await this.fetchTopReplies(sContentToSearchId, 1, 8);
