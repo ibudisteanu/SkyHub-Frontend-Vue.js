@@ -48,7 +48,7 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
 <script>
 
     import Reply from "models/Reply/Reply.model";
-    import ViewAllReplies from "./ViewAllReplies.component.vue";
+    import ViewAllReplies from "./ViewAllReplies.vue";
     import Voting from  'modules/forums/voting/Voting.component.vue'
 
     export default {
@@ -61,7 +61,7 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
         },
 
         beforeCreate: function () {
-            this.$options.components.ViewAllReplies = require('./ViewAllReplies.component.vue')
+            this.$options.components.ViewAllReplies = require('./ViewAllReplies.vue')
         },
 
 

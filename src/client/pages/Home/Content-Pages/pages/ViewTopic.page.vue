@@ -76,12 +76,9 @@
 
 
                         <div class="topic-question-footer">
-                            <div class="col-xs-12 col-sm-5 topic-question-footer-buttons" style='overflow: hidden'>
+                            <div class="col-xs-12 topic-question-footer-buttons" style='overflow: hidden'>
 
-                                <a class="btn btn-success btn-rounded" type="button">
-                                    <i class="fa fa-comment"></i> Reply
-                                </a>
-
+                                <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="this.getTopic.id" :parentName="this.getTopic.title"/>
 
                             </div>
 
@@ -123,6 +120,8 @@
     import ShowDate from 'client/components/util-components/UI/show-date/ShowDate.component.vue';
     import DisplayTopicContent from 'modules/forums/topics/view-topic/DisplayTopicContent.vue';
 
+    import ContentButtonsInline from 'modules/forums/components/ContentButtonsInline.component.vue';
+
     import Topic from 'models/Topic/Topic.model';
 
     export default{
@@ -133,6 +132,7 @@
             'HeaderCover' : HeaderCover,
             'DisplayTopicContent' : DisplayTopicContent,
             'ShowDate' : ShowDate,
+            'ContentButtonsInline':ContentButtonsInline,
         },
 
         computed:{

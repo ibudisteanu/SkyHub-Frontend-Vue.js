@@ -28,7 +28,7 @@
 
 <script>
 
-    import ViewReply from './ViewReply.component.vue';
+    import ViewReply from './ViewReply.vue';
 
 
     export default {

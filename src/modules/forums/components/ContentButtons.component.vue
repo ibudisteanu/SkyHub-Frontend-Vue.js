@@ -6,8 +6,7 @@
 <template>
     <div >
 
-
-        <div :style="buttonsStyle">
+        <div :style="buttonsRowStyle">
 
             <button v-if="enableAddForum" type="button" class="btn btn-warning dim btn-rounded" data-toggle="button" aria-pressed="true"  @click="handleAddForum" style='margin-right: 5px' >
                 <i class="fa fa-users" style='margin-right: 5px' />
@@ -27,10 +26,9 @@
         </div>
 
 
-        <AddForumForm v-show="showAddForum" :parentId="parentId" :parentName="parentName" :onSuccess="forumSuccess" />
+        <AddForumForm v-show="showAddForum" :parentId="parentId" :parentName="parentName" :onSuccess="forumSuccess" :onCancel="forumCancel"/>
 
-        <AddTopicForm v-show="showAddTopic" :parentId="parentId" :parentName="parentName" :onSuccess="topicSuccess"/>
-
+        <AddTopicForm v-show="showAddTopic" :parentId="parentId" :parentName="parentName" :onSuccess="topicSuccess" :onCancel="topicCancel"/>
 
 
     </div>
@@ -67,7 +65,7 @@
             enableAddTopic : {default: true},
             enableAddReply : {default: true},
 
-            buttonsStyle: {default: function (){return {} }},
+            buttonsRowStyle: {default: function (){return {} }},
         },
 
         methods:{

@@ -9,7 +9,7 @@
         <div class="panel panel-warning">
 
             <div class="panel-heading">
-                <h2 style='margin-top: 0'>New <strong>Forum</strong> in {{this.parentName||this.parentNameProp||'Home'}} </h2>
+                <h3 style='margin: 0'>New <strong>Forum</strong> in {{this.parentName||this.parentNameProp||'Home'}} </h3>
             </div>
 
             <div class="panel-body">

@@ -1,7 +1,8 @@
 /**
- * Created by Alexandru Ionut Budisteanu - SkyHub on 6/16/2017.
+ * Created by Alexandru Ionut Budisteanu - SkyHub on 6/29/2017.
  * (C) BIT TECHNOLOGIES
  */
+
 
 <template>
     <div class="col-md-8 col-md-offset-2" style='padding:0' >
@@ -9,115 +10,80 @@
 
 
             <div class="panel-heading">
-                <h3 style='margin: 0'>New <strong>Topic</strong> in {{this.parentName||this.parentNameProp||'Home'}} </h3>
+                <h3 style='margin: 0'>New <strong>Reply</strong> in {{this.parentName||this.parentNameProp||'Home'}} </h3>
             </div>
 
 
 
             <div class="panel-body">
 
-                <form @submit="this.handleAddTopic" autoComplete="on">
+                <form @submit="this.handleAddReply" autoComplete="on">
 
 
-                    <div style="padding-bottom: 20px">
+                    <div style="padding-bottom: 10px" >
                         <strong>Title:</strong>
                         <div :class="'input-group ' + this.showInputStatus(this.titleValidationStatus)"  >
 
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
 
-                            <SearchAutoComplete :multi="false" dataSuggestion="google" placeholder='title / subject' :defaultValue="this.title||this.parentName"  :defaultLabel="this.title||this.parentName" :onSelect="this.handleTitleChange" :clearOnSelect="true" />
+                            <input  type='text' class='form-control input' placeholder='title'  name="title" :value="this.title" @change="this.handleTitleChange" style='z-index : 0' />
 
                             <span :class="this.showInputFeedback(this.titleValidationStatus)" style='width:60px; top:10px'></span>
                         </div>
                         <label class="error" >{{this.titleValidationStatus[1]}}</label> <br />
                     </div>
 
-                    <div style="padding-bottom: 20px">
-                        <strong>Link:</strong>
-                        <div :class="'input-group ' + this.showInputStatus(this.linkValidationStatus)"  >
 
-                            <span class="input-group-addon"><i class="fa fa-picture-o"></i></span>
-
-                            <input  type='text' class='form-control input' placeholder='link'  name="link" :value="this.link" @change="this.handleLinkChange" style='z-index : 0' />
-
-                            <span :class="this.showInputFeedback(this.linkValidationStatus)" style="width:60px; top:10px"></span>
+                    <div class="ibox " style="margin-bottom:0">
+                        <div class="ibox-title">
+                            <h5><i class="fa fa-picture-o" style="padding-right: 5px"></i> <i class="fa fa-link" style="padding-right: 5px"></i>Link images<small> attachments </small></h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link" onClick="collapseIBOX(this)">
+                                    <i class="fa fa-chevron-up" ></i>
+                                </a>
+                            </div>
                         </div>
-                        <label class="error" >{{this.linkValidationStatus[1]}}</label> <br />
+                        <div class="ibox-content">
+                            <div class="row">
 
-                        <no-ssr>
-                            <FileUploadDropzone :idProp="this.parentIdProp" :onSuccessNewAttachment="this.fileUploadSuccess" :onRemoveAttachment="this.fileUploadRemoved" />
-                        </no-ssr>
+                                <div style="padding-bottom: 20px" >
+                                    <strong>Link:</strong>
+                                    <div :class="'input-group ' + this.showInputStatus(this.linkValidationStatus)"  >
+
+                                        <span class="input-group-addon"><i class="fa fa-link"></i></span>
+
+                                        <input  type='text' class='form-control input' placeholder='title'  name="title" :value="this.link" @change="this.handleLinkChange" style='z-index : 0' />
+
+                                        <span :class="this.showInputFeedback(this.linkValidationStatus)" style="width:60px; top:10px"></span>
+                                    </div>
+                                    <label class="error" >{{this.linkValidationStatus[1]}}</label> <br />
+
+                                    <no-ssr>
+                                        <FileUploadDropzone :idProp="this.parentIdProp" :onSuccessNewAttachment="this.fileUploadSuccess" :onRemoveAttachment="this.fileUploadRemoved" />
+                                    </no-ssr>
+
+                                </div>
 
 
+                            </div>
+                        </div>
                     </div>
 
 
 
                     <strong>Description</strong>
 
-                        <no-ssr>
-                            <MyVueEditor ref="refDescriptionEditor" :onChange = "handleDescriptionChange"/>
-                        </no-ssr>
+                    <no-ssr>
+                        <MyVueEditor ref="refDescriptionEditor" :onChange = "handleDescriptionChange"/>
+                    </no-ssr>
 
                     <span :class="this.showInputFeedback(this.descriptionValidationStatus)"></span>
                     <label class="error" >{{this.descriptionValidationStatus[1]}}</label> <br />
 
 
-
-                    <strong>Forum</strong>
-                    <div :class="'input-group ' + this.showInputStatus(this.parentValidationStatus)"  >
-
-                        <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-
-                        <SearchAutoComplete key="addTopicParentSearch" :multi="false" dataSuggestion="parents" placeholder='select a parent-forum' :defaultValue="this.parentId||this.parentIdProp"  :defaultLabel="this.parentName||this.parentNameProp" :onSelect="handleParentChangeSelect" :clearOnSelect="true"/>
-
-                        <span :class="this.showInputFeedback(this.parentValidationStatus)"></span>
-                    </div>
-                    <label class="error" >{{this.parentValidationStatus[1]}}</label> <br />
-
                     <strong>Preview</strong>
-                    <PreviewNewTopic :title="this.title" :description="this.description" :attachments="this.attachments" :keywords="this.keywords" :authorId="this.$store.state.authenticatedUser.user.id||''" ref="refPreviewNewTopic" />
+                    <PreviewNewReply :title="this.title" :description="this.description" :attachments="this.attachments" :authorId="this.$store.state.authenticatedUser.user.id||''" ref="refPreviewNewReply" />
 
-                    <!--
-                    <strong>Keywords</strong>
-                    <div :class="'input-group ' + this.showInputStatus(this.keywordsValidationStatus)"  >
-
-                        <span class="input-group-addon"><i class="fa fa-tags"></i></span>
-
-                        <SearchAutoComplete key="addForumKeywordsSearch" :multi="true" dataSuggestion="google" placeholder='three keywords' :defaultValue="''"  :defaultLabel="''" :onSelect="handleKeywordsSelect" :clearable="false"/>
-
-
-                    </div>
-                    <label class="error" >{{this.keywordsValidationStatus[1]}}</label> <br />
-
-
-                    <div class="row" >
-
-                        <div class="col-sm-6" style="padding-left: 0">
-                            <div :class="'input-group ' + this.showInputStatus(this.countryValidationStatus)"  >
-
-                                <CountrySelect :defaultCountry="localization.country||''"  :defaultCountryCode="localization.countryCode||''"  :onSelect="handleCountrySelect"/>
-
-                                <span :class="this.showInputFeedback(this.countryValidationStatus)"></span>
-                            </div>
-                            <label class="error" >{{this.countryValidationStatus[1]}}</label> <br />
-                        </div>
-
-                        <div class="col-sm-6" style='padding-right: 0; padding-bottom: 5px'>
-                            <div :class="'input-group ' + this.showInputStatus(this.cityValidationStatus)"  >
-
-                                <span class="input-group-addon"><i class="fa fa-institution"></i></span>
-
-                                <input type='text' class='form-control input' placeholder='city'  :value="this.localization.city||this.city" @change="handleCityChange" style="z-index:0"/>
-
-                                <span :class="showInputFeedback(this.cityValidationStatus)"></span>
-                            </div>
-                            <label class="error" >{{this.cityValidationStatus[1]}}</label> <br />
-                        </div>
-
-                    </div>
-
-                    -->
                     <div v-if="this.error !== ''">
                         <div class="alert alert-danger alert-dismissable">
                             <div v-html="this.error" />
@@ -130,14 +96,13 @@
 
             <div class="panel-footer text-right" style='padding-top:20px; padding-bottom:20px; padding-right:20px'>
 
-                <LoadingButton class="btn-success" :onClick="this.handleAddTopic" text="Create Topic" icon="fa fa-plus"  ref="refSubmitButton"  />
+                <LoadingButton class="btn-success" :onClick="this.handleAddReply" text="submit Reply" icon="fa fa-plus"  ref="refSubmitButton"  />
 
             </div>
 
         </div>
 
     </div>
-
 </template>
 
 
@@ -148,49 +113,34 @@
 
     import NoSSR from 'vue-no-ssr'
 
-    import CountrySelect from 'client/components/util-components/select/Country.select.vue';
-    import SearchAutoComplete from 'client/components/util-components/select/SearchAutoComplete.select.vue';
     import FileUploadDropzone from 'client/components/util-components/file-upload/dropzone/FileUploadDropzone.component.vue';
     import MyVueEditor from 'client/components/util-components/text-editor/MyVueEditor.component.vue';
 
-    import PreviewNewTopic from 'modules/forums/topics/components/PreviewNewTopic.vue';
-    import Topic from 'models/Topic/Topic.model';
+    import Reply from 'models/Reply/Reply.model';
 
     export default{
-        name: "AddTopic",
+        name: "AddReply",
 
         components: {
             'no-ssr': NoSSR,
             "LoadingButton": LoadingButton,
-            "CountrySelect": CountrySelect,
-            "SearchAutoComplete" : SearchAutoComplete,
 
-            "PreviewNewTopic" : PreviewNewTopic,
+            //"PreviewNewTopic" : PreviewNewTopic,
             "FileUploadDropzone": FileUploadDropzone,
             'MyVueEditor': MyVueEditor,
         },
 
         data: function (){
             return {
-                urlSlug: '',
                 title: '',
                 link: '',
                 description: '',
-                keywords: [],
 
                 attachments: [],
-
-                countryCode: '', country: '',
-                city: '',
-                language: '',
-                latitude: 0, longitude: 0,
 
                 titleValidationStatus: [null, ''],
                 linkValidationStatus: [null, ''],
                 descriptionValidationStatus: [null, ''],
-                keywordsValidationStatus: [null, ''],
-                countryValidationStatus: [null, ''],
-                cityValidationStatus: [null, ''],
 
                 error: '',
 
@@ -204,11 +154,15 @@
             parentIdProp: {default:''},
             parentNameProp: {default:''},
 
+            parentReplyIdProp : {default: ''},
+            parentReplyNameProp : {default: ''},
+
             onSuccess: {default: function (){}},
             onError: {default: function (){}},
         },
 
         computed:{
+
             localization(){
                 return this.$store.state.localization;
             },
@@ -232,14 +186,13 @@
         },
 
 
-
         methods:{
 
             showInputStatus(status) {return showInputStatus(status)},
             showInputFeedback(status) {return showInputFeedback(status)},
             convertValidationErrorToString(error) {return convertValidationErrorToString(error)},
 
-            async handleAddTopic(e){
+            async handleAddReply(e){
 
                 if (typeof e !== "undefined") {
                     e.preventDefault();
@@ -250,13 +203,13 @@
                 let onError = this.onError || function (){};
 
                 let bValidationError=false;
-                this.error = ''; this.titleValidationStatus = [null, ''];  this.linkValidationStatus = [null,'']; this.descriptionValidationStatus = [null,'']; this.keywordsValidationStatus = [null,'']; this.countryValidationStatus = [null,'']; this.cityValidationStatus = [null,''];
+                this.error = ''; this.titleValidationStatus = [null, '']; this.linkValidationStatus = [null,'']; this.descriptionValidationStatus = [null,'']; this.keywordsValidationStatus = [null,'']; this.countryValidationStatus = [null,'']; this.cityValidationStatus = [null,''];
 
                 if (!bValidationError)
-                    try{
+                    try {
                         let answer = await this.$store.dispatch('CONTENT_TOPICS_ADD',{parentId:this.parentId||this.parentIdProp, title: this.getTitle, image: this.getImage, description: this.getDescription, attachments: this.attachments, arrKeywords: this.getKeywords,
-                                                                countryCode: this.countryCode||this.localization.countryCode, language:'',
-                                                                city: this.city||this.localization.city, latitude:this.latitude||this.localization.latitude, longitude:this.longtitude||this.localization.longitude});
+                            countryCode: this.countryCode||this.localization.countryCode, language:'',
+                            city: this.city||this.localization.city, latitude:this.latitude||this.localization.latitude, longitude:this.longtitude||this.localization.longitude});
 
                         this.$refs['refSubmitButton'].enableButton();
 
@@ -354,34 +307,6 @@
                 this.description = value;
             },
 
-            handleParentChangeSelect(dataSelected){
-                console.log('handleParentChangeSelect', );
-                this.parentId = dataSelected.value;
-                this.parentName = dataSelected.label;
-                this.parentValidationStatus = [null, ''];
-            },
-
-            handleKeywordsSelect(value){
-                this.keywords = value;
-                this.keywordsValidationStatus = [null, ''];
-
-                console.log("KEYWORDS SELECTED: " , value );
-            },
-
-            handleCountrySelect(selectedCountry, selectedCountryCode){
-                this.country = selectedCountry;
-                this.countryCode  = selectedCountryCode;
-                this.countryValidationStatus  = [null, ''];
-                this.error = '';
-
-                console.log("values selected are:", val);
-            },
-
-            handleCityChange(e){
-                this.city = e.target.value;
-                this.cityValidationStatus  = [null, '']
-            },
-
             openLogin(){
 
                 if (this.$store.state.global.refAuthenticationModal !== null) {
@@ -391,8 +316,8 @@
 
             },
 
-            authenticationSuccessfully(resource){
-                this.handleAddTopic();
+            authenticationSuccessfully (resource) {
+                this.handleAddReply();
             },
 
             fileUploadSuccess(type, name, url, thumbnail){
@@ -424,9 +349,8 @@
             },
 
 
-
         }
 
     }
-    
+
 </script>

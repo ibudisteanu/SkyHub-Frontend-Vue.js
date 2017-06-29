@@ -51,7 +51,7 @@
     import User from "models/User/User.model";
     import Reply from "models/Reply/Reply.model";
 
-    import ViewAllReplies from  'modules/forums/replies/view-reply/ViewAllReplies.component.vue'
+    import ViewAllReplies from  'modules/forums/replies/view-reply/ViewAllReplies.vue'
     import Voting from  'modules/forums/voting/Voting.component.vue'
 
 
