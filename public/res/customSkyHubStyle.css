@@ -623,3 +623,34 @@ div.filepicker {
     font-size:18px !important;
   }
 }
+
+
+/*
+    ATTACHMENTS
+ */
+
+.attachment{
+    text-align:center;
+    position: relative;
+    display: inline-block;
+    margin-right: 20px;
+    width: 80px;
+}
+.attachment-img{
+    background-color: white;
+    max-width: 72px;
+    max-height: 72px;
+    height: auto;
+    width:auto;
+}
+
+.attachment-img-text{
+}
+
+.attachment-img-caption{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 0;
+    left: 0;
+}

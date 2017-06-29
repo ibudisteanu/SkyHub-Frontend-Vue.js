@@ -11,9 +11,9 @@ export default class Attachment {
 
 
     static getLinkAttachment(Topic){
-        for (let i=0; i<Topic.arrAttachments.length; i++)
-            if (Topic.arrAttachments[i].type === "link"){
-                return Topic.arrAttachments[i];
+        for (let i=0; i<Topic.attachments.length; i++)
+            if (Topic.attachments[i].type === "link"){
+                return Topic.attachments[i];
             }
 
         return null;

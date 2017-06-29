@@ -264,7 +264,7 @@
 
                 if (!bValidationError)
                     try{
-                        let answer = await this.$store.dispatch('CONTENT_TOPICS_SUBMIT_ADD',{parentId:this.parentId||this.parentIdProp, title: this.getTitle, image: this.getImage, description: this.getDescription, attachments: this.attachments, arrKeywords: this.getKeywords,
+                        let answer = await this.$store.dispatch('CONTENT_TOPICS_SUBMIT_ADD',{parentId:this.parentId||this.parentIdProp, title: this.getTitle, image: this.getImage, description: this.getDescription, attachments: this.attachments, keywords: this.getKeywords,
                                                                 countryCode: this.countryCode||this.localization.countryCode, language:'',
                                                                 city: this.city||this.localization.city, latitude:this.latitude||this.localization.latitude, longitude:this.longtitude||this.localization.longitude});
 

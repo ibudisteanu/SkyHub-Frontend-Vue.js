@@ -28,6 +28,10 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
 
         <p  v-html="reply.description" > </p>
 
+        <div v-if="(Array.isArray(reply.attachments))&&(reply.attachments.length > 0)">
+            <DisplayAttachments :attachments="reply.attachments||[]" />
+        </div>
+
         <div style="padding-right: 10px">
 
             <ViewAllReplies
@@ -49,6 +53,7 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
     import Reply from "models/Reply/Reply.model";
     import ViewAllReplies from "./ViewAllReplies.vue";
     import Voting from  'modules/forums/voting/Voting.component.vue'
+    import DisplayAttachments from 'modules/attachments/view-attachments/DisplayAttachments.vue'
 
     export default {
 
@@ -56,14 +61,13 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
 
         components:{
             'ViewAllReplies': ViewAllReplies,
-            'Voting' : Voting
+            'Voting' : Voting,
+            'DisplayAttachments': DisplayAttachments,
         },
 
         beforeCreate: function () {
             this.$options.components.ViewAllReplies = require('./ViewAllReplies.vue')
         },
-
-
 
 
 

@@ -12,7 +12,7 @@
 					 :icon="routerObject.object.iconPic||''"
 					 :cover="routerObject.object.coverPic||''"
 					 :coverColor="routerObject.object.coverColor||''"
-					 :breadcrumbs="routerObject.object.arrBreadcrumbs||[]"
+					 :breadcrumbs="routerObject.object.breadcrumbs||[]"
 					 :url="routerObject.object.URL"
 	   />
 

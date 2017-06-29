@@ -17,9 +17,9 @@ export default class Topic {
         this.image = data.image || '';
 
 
-        this.arrKeywords = data.keywords || [];
-        this.arrAttachments = data.attachments || [];
-        this.arrBreadcrumbs = data.breadcrumbs || [];
+        this.keywords = data.keywords || [];
+        this.attachments = data.attachments || [];
+        this.breadcrumbs = data.breadcrumbs || [];
 
         this.authorId = data.authorId || '';
         this.parentId = data.parentId || '';
@@ -47,9 +47,9 @@ export default class Topic {
 
 
     static getLinkAttachment(Topic){
-      for (let i=0; i<Topic.arrAttachments.length; i++)
-        if (Topic.arrAttachments[i].type === "link"){
-          return Topic.arrAttachments[i];
+      for (let i=0; i<Topic.attachments.length; i++)
+        if (Topic.attachments[i].type === "link"){
+          return Topic.attachments[i];
         }
 
       return null;
@@ -59,7 +59,7 @@ export default class Topic {
       console.log("getTitle", Topic.title, Topic.attachments, this.getLinkAttachment(Topic));
       if (Topic.title !== '') return Topic.title;
       if (this.getLinkAttachment(Topic) !== null) return this.getLinkAttachment(Topic).title;
-      if (Topic.arrAttachments.length > 0 ) return Topic.arrAttachments[0].title;
+      if (Topic.attachments.length > 0 ) return Topic.attachments[0].title;
 
       return '';
     }
@@ -67,7 +67,7 @@ export default class Topic {
     static getDescription(Topic){
       if (Topic.description !== '') return Topic.description;
       if (this.getLinkAttachment(Topic) !== null) return this.getLinkAttachment(Topic).description;
-      if (Topic.arrAttachments.length > 0 ) return Topic.arrAttachments[0].description;
+      if (Topic.attachments.length > 0 ) return Topic.attachments[0].description;
 
       return '';
     }
@@ -75,10 +75,10 @@ export default class Topic {
     static getImage(Topic){
       if ((typeof Topic.image !== "undefined")&&(Topic.image !== '')) return Topic.image;
 
-      if (Topic.arrAttachments.length > 0 ) //I have an uploaded image
-        for (let i=0; i<Topic.arrAttachments.length; i++)
-          if ((Topic.arrAttachments[i].type === "file")&&(Topic.arrAttachments[i].typeFile.indexOf("image") >= 0 ))
-            return Topic.arrAttachments[0].img;
+      if (Topic.attachments.length > 0 ) //I have an uploaded image
+        for (let i=0; i<Topic.attachments.length; i++)
+          if ((Topic.attachments[i].type === "file")&&(Topic.attachments[i].typeFile.indexOf("image") >= 0 ))
+            return Topic.attachments[0].img;
 
       if (this.getLinkAttachment(Topic) !== null) return this.getLinkAttachment(Topic).img;
 
@@ -86,9 +86,9 @@ export default class Topic {
     }
 
     static getKeywords(Topic){
-      if ((typeof Topic.arrKeywords !== "undefined")&&(Topic.arrKeywords !== '')) return Topic.arrKeywords;
+      if ((typeof Topic.keywords !== "undefined")&&(Topic.keywords !== '')) return Topic.keywords;
       if (this.getLinkAttachment(Topic) !== null) return this.getLinkAttachment(Topic).keywords;
-      if (Topic.arrAttachments.length > 0 ) return Topic.arrAttachments[0].keywords;
+      if (Topic.attachments.length > 0 ) return Topic.attachments[0].keywords;
 
       return '';
     }

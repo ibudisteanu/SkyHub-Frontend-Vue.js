@@ -5,7 +5,8 @@
 
 <template>
 
-    <div class="lightBoxGallery">
+    <div>
+        <div ><i class="fa fa-paperclip"></i></div>
 
         <DisplayAttachment
                 v-for="(attachment, index) in attachments"
@@ -38,6 +39,6 @@
 
         },
 
-    },
+    }
 
 </script>

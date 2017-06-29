@@ -13,7 +13,7 @@
                       :icon="getTopic.iconPic||''"
                       :cover="getTopic.coverPic||''"
                       :coverColor="getTopic.coverColor||''"
-                      :breadcrumbs="getTopic.arrBreadcrumbs||[]"
+                      :breadcrumbs="getTopic.breadcrumbs||[]"
                       :url="getTopic.URL"
         />
 

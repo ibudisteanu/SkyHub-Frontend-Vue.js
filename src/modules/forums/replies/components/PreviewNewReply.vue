@@ -34,7 +34,7 @@
             title: {default: ''},
             image: {default: ''},
             description: {default: ''},
-            attachments: {default: ''},
+            attachments: {default: []},
             authorId: {default: ''},
         },
 
@@ -42,6 +42,7 @@
             reply: function (){
 
                 console.log('reply title '+this.title);
+                console.log(this.attachments);
 
                 return new Reply({
                     title: this.title,

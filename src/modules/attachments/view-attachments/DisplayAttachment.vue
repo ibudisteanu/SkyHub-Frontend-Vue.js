@@ -17,10 +17,12 @@
 
 <template>
 
-    <router-link :to="attachment.URL||''" >
-        <img :src="attachment.img||''" :style="{backgroundColor: '#79B0EC', maxWidth: 64, maxHeight:64 }" />
-        <span>{{attachment.title||'}}</span>
-    </router-link>
+        <div class="attachment">
+            <router-link :to="attachment.URL||''" >
+                <img class="attachment-img" :src="attachment.img||''"  :alt="attachment.title+' '+attachment.description" />
+            </router-link>
+            <div class="word-wrap attachment-img-text">{{attachment.type}}</div>
+        </div>
 
 </template>
 

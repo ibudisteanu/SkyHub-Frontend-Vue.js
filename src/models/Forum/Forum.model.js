@@ -21,8 +21,8 @@ export default class Forum {
         this.coverPic  = data.coverPic || '';
         this.coverColor = data.coverColor || '';
 
-        this.arrKeywords = data.keywords||[];
-        this.arrBreadcrumbs = data.breadcrumbs || [];
+        this.keywords = data.keywords||[];
+        this.breadcrumbs = data.breadcrumbs || [];
 
         this.authorId = data.authorId || '';
         this.parentId = data.parentId || '';
