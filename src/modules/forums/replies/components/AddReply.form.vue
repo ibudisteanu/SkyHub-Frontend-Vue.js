@@ -109,6 +109,7 @@
 
     import FileUploadDropzone from 'client/components/util-components/file-upload/dropzone/FileUploadDropzone.component.vue';
     import MyVueEditor from 'client/components/util-components/text-editor/MyVueEditor.component.vue';
+    import PreviewNewReply from 'modules/forums/replies/components/PreviewNewReply.vue';
 
     import Reply from 'models/Reply/Reply.model';
 
@@ -119,7 +120,7 @@
             'no-ssr': NoSSR,
             "LoadingButton": LoadingButton,
 
-            //"PreviewNewTopic" : PreviewNewTopic,
+            "PreviewNewReply" : PreviewNewReply,
             "FileUploadDropzone": FileUploadDropzone,
             'MyVueEditor': MyVueEditor,
         },
@@ -240,54 +241,58 @@
 
             },
 
-            handleTitleChangeSelect(e){
-                this.title = e.target.value;
+
+            handleTitleChange(e){
+                this.title = (typeof e === "string" ? e : e.target.value) ;
                 this.titleValidationStatus  = [null, ''] ;
+
+                if (this.title )
+                    this.handleLinkChange(e, true);
             },
 
-            handleTitleChange(value){
-                this.handleTitleChangeSelect(value);
-            },
+            async handleLinkChange(e, fromTitle){
 
-            async handleLinkChange(e){
+                let link =  (typeof e === "string" ? e : e.target.value);
 
-                this.link = e.target.value;
+                if (!fromTitle)
+                    this.link = link;
 
                 try{
-                    let answer = await this.$store.dispatch('CONTENT_URL_META',{link: this.link});
+                    let answer = await this.$store.dispatch('CONTENT_URL_META',{link: link});
                     let newAttachments =  this.attachments||[];
 
                     console.log("handleLinkChange", answer);
+
                     if (answer.result){
 
+                        if (fromTitle)
+                            this.link = link;
+
+                        let bFound=false;
+                        for (let i=0; i<newAttachments.length; i++ )
+                            if (newAttachments[i].type === 'link'){
+                                newAttachments[i].url = link;
+                                newAttachments[i].img = (typeof answer.data !== "undefined" ? answer.data.image : '');
+                                newAttachments[i].title = (typeof answer.data !== "undefined" ? answer.data.title : '');
+                                newAttachments[i].description = (typeof answer.data !== "undefined" ? answer.data.description : '');
+                                newAttachments[i].keywords = (typeof answer.data !== "undefined" ? answer.data.keywords : '');
+                                bFound=true;
+                                break;
+                            }
+
+                        if (!bFound)
+                            newAttachments.push({
+                                type:'link',
+                                url: link,
+                                img: (typeof answer.data !== "undefined"? answer.data.image : ''),
+                                title: (typeof answer.data !== "undefined"? answer.data.title : ''),
+                                description: (typeof answer.data !== "undefined" ? answer.data.description : ''),
+                                keywords: (typeof answer.data !== "undefined" ? answer.data.keywords : ''),
+                            });
+
+                        console.log("newAttachments",newAttachments);
+                        this.attachments = newAttachments;
                     }
-
-                    let bFound=false;
-                    for (let i=0; i<newAttachments.length; i++ )
-                        if (newAttachments[i].type === 'link'){
-                            newAttachments[i].url = this.link;
-                            newAttachments[i].img = (typeof answer.data !== "undefined" ? answer.data.image : '');
-                            newAttachments[i].title = (typeof answer.data !== "undefined" ? answer.data.title : '');
-                            newAttachments[i].description = (typeof answer.data !== "undefined" ? answer.data.description : '');
-                            newAttachments[i].keywords = (typeof answer.data !== "undefined" ? answer.data.keywords : '');
-                            bFound=true;
-                            break;
-                        }
-
-                    if (!bFound){
-                        newAttachments.push({
-                            type:'link',
-                            url: this.link,
-                            img: (typeof answer.data !== "undefined"? answer.data.image : ''),
-                            title: (typeof answer.data !== "undefined"? answer.data.title : ''),
-                            description: (typeof answer.data !== "undefined" ? answer.data.description : ''),
-                            keywords: (typeof answer.data !== "undefined" ? answer.data.keywords : ''),
-                        })
-                    }
-
-                    console.log("newAttachments",newAttachments);
-
-                    this.attachments = newAttachments;
 
                 }catch (Exception){
                     this.error = "Error extracting Link Meta: " + Exception.toString();

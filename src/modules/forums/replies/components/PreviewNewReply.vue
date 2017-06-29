@@ -8,7 +8,7 @@
 
     <div style='background-color: aliceblue;'>
 
-        <PreviewReply :hideHeader="true" :topics="[this.topic]" />
+        <PreviewReply :hideHeader="true" :reply="[this.reply]" />
 
     </div>
 
@@ -20,7 +20,7 @@
 <script>
 
     import Reply from 'models/Reply/Reply.model';
-    import PreviewReply from 'modules/forums/replies/view-reply/ViewReply'
+    import PreviewReply from 'modules/forums/replies/view-reply/ViewReply.vue'
 
     export default{
 
@@ -40,12 +40,11 @@
         },
 
         computed: {
-            topic: function (){
-                return new Topic({
+            reply: function (){
+                return new Reply({
                     title: this.title,
                     image: this.image,
                     description: this.description,
-                    keywords: this.keywords,
                     authorId: this.authorId,
                     attachments: this.attachments,
 

@@ -32,23 +32,33 @@
                         <label class="error" >{{this.titleValidationStatus[1]}}</label> <br />
                     </div>
 
-                    <div style="padding-bottom: 20px">
-                        <strong>Link:</strong>
-                        <div :class="'input-group ' + this.showInputStatus(this.linkValidationStatus)"  >
+                    <div class="ibox float-e-margins border-bottom " style="margin-bottom: 20px">
+                        <div class="ibox-title">
+                            <h5 style="padding-right: 20px"><i class="fa fa-picture-o" style="padding-right: 5px"></i> <i class="fa fa-link" style="padding-right: 5px"></i>Link images<small> attachments </small></h5>
 
-                            <span class="input-group-addon"><i class="fa fa-picture-o"></i></span>
-
-                            <input  type='text' class='form-control input' placeholder='link'  name="link" :value="this.link" @change="this.handleLinkChange" style='z-index : 0' />
-
-                            <span :class="this.showInputFeedback(this.linkValidationStatus)" style="width:60px; top:10px"></span>
+                            <div class="ibox-tools" style="text-align: left; " onClick="collapseIBOX(this, this)">
+                                <i class="fa fa-chevron-down" ></i>
+                            </div>
                         </div>
-                        <label class="error" >{{this.linkValidationStatus[1]}}</label> <br />
+                        <div class="ibox-content" style="display: none;">
+                            <div class="row">
 
-                        <no-ssr>
-                            <FileUploadDropzone :idProp="this.parentIdProp" :onSuccessNewAttachment="this.fileUploadSuccess" :onRemoveAttachment="this.fileUploadRemoved" />
-                        </no-ssr>
+                                <strong>Link:</strong>
+                                <div :class="'input-group ' + this.showInputStatus(this.linkValidationStatus)"  >
 
+                                    <span class="input-group-addon"><i class="fa fa-picture-o"></i></span>
 
+                                    <input  type='text' class='form-control input' placeholder='link'  name="link" :value="this.link" @change="this.handleLinkChange" style='z-index : 0' />
+
+                                    <span :class="this.showInputFeedback(this.linkValidationStatus)" style="width:60px; top:10px"></span>
+                                </div>
+                                <label class="error" >{{this.linkValidationStatus[1]}}</label> <br />
+
+                                <no-ssr>
+                                    <FileUploadDropzone :idProp="this.parentIdProp" :onSuccessNewAttachment="this.fileUploadSuccess" :onRemoveAttachment="this.fileUploadRemoved" />
+                                </no-ssr>
+                            </div>
+                        </div>
                     </div>
 
 
@@ -299,25 +309,32 @@
                 this.title = (typeof e === "string" ? e : e.target.value) ;
                 this.titleValidationStatus  = [null, ''] ;
 
-                this.handleLinkChange(e);
-
+                if (this.title )
+                    this.handleLinkChange(e, true);
             },
 
-            async handleLinkChange(e){
+            async handleLinkChange(e, fromTitle){
 
-                this.link = (typeof e === "string" ? e : e.target.value);
+                let link =  (typeof e === "string" ? e : e.target.value);
+
+                if (!fromTitle)
+                    this.link = link;
 
                 try{
-                    let answer = await this.$store.dispatch('CONTENT_URL_META',{link: this.link});
+                    let answer = await this.$store.dispatch('CONTENT_URL_META',{link: link});
                     let newAttachments =  this.attachments||[];
 
                     console.log("handleLinkChange", answer);
 
                     if (answer.result){
+
+                        if (fromTitle)
+                            this.link = link;
+
                         let bFound=false;
                         for (let i=0; i<newAttachments.length; i++ )
                             if (newAttachments[i].type === 'link'){
-                                newAttachments[i].url = this.link;
+                                newAttachments[i].url = link;
                                 newAttachments[i].img = (typeof answer.data !== "undefined" ? answer.data.image : '');
                                 newAttachments[i].title = (typeof answer.data !== "undefined" ? answer.data.title : '');
                                 newAttachments[i].description = (typeof answer.data !== "undefined" ? answer.data.description : '');
@@ -329,7 +346,7 @@
                         if (!bFound)
                             newAttachments.push({
                                 type:'link',
-                                url: this.link,
+                                url: link,
                                 img: (typeof answer.data !== "undefined"? answer.data.image : ''),
                                 title: (typeof answer.data !== "undefined"? answer.data.title : ''),
                                 description: (typeof answer.data !== "undefined" ? answer.data.description : ''),
