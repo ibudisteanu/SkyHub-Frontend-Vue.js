@@ -114,6 +114,15 @@
 
             <DisplayTopicContent parentId=""/>
 
+
+            <ViewAllReplies
+
+                    parentReplyId = "1"
+                    key = 'ViewReplies_'
+
+            >
+            </ViewAllReplies>
+
         </div>
 
     </div>
@@ -129,6 +138,8 @@
     import ContentButtonsInline from 'modules/forums/components/ContentButtonsInline.component.vue';
     import DisplayAttachments from 'modules/attachments/view-attachments/DisplayAttachments.vue';
 
+    import ViewAllReplies from  'modules/forums/replies/view-reply/ViewAllReplies.vue'
+
     import Topic from 'models/Topic/Topic.model';
 
     export default{
@@ -141,6 +152,7 @@
             'ShowDate' : ShowDate,
             'ContentButtonsInline':ContentButtonsInline,
             'DisplayAttachments': DisplayAttachments,
+            'ViewAllReplies': ViewAllReplies,
         },
 
         computed:{

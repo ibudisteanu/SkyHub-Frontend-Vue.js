@@ -9,26 +9,35 @@ export default{
 
     CONTENT_REPLIES_FETCH_TOP: async ( {commit, state, dispatch}, {parent, pageIndex, pageCount, reset}) =>{
 
-        if (reset === true) await commit('SET_CONTENT_FORUMS_CLEAR', {});
+        if (reset === true) await commit('SET_CONTENT_REPLIES_CLEAR', {});
 
-        let answer = {result : false};
-
-        answer = await FetchService.sendRequestGetData( "forums/get-top-forums",{parent: parent, pageIndex:pageIndex, pageCount: pageCount} );
+        let answer = await FetchService.sendRequestGetData( "replies/get-top-replies",{parent: parent, pageIndex:pageIndex, pageCount: pageCount} );
 
         if ((typeof answer !== "undefined")&&(answer.result === true)) {
 
+            await commit('SET_CONTENT_REPLIES', {replies: answer.content});
+            commit('SET_CONTENT_REPLIES_PAGE_INFORMATION',  {pageIndex: pageIndex, pageCount: pageCount} );
 
-            await commit('SET_CONTENT_FORUMS', {forums: answer.content});
-            commit('SET_CONTENT_FORUMS_PAGE_INFORMATION',  {pageIndex: pageIndex, pageCount: pageCount} );
-
-            return  {result: true, forums: answer.content }
+            return  {result: true, replies: answer.content }
         }
-
         else
-            return {result:false, forums: []}
+            return {result:false, replies: []}
 
     },
 
+    CONTENT_REPLIES_FETCH_ALL: async ( {commit, state, dispatch}, {parent, reset}) =>{
+
+        if (reset === true) await commit('SET_CONTENT_REPLIES_CLEAR', {});
+
+        let answer = await FetchService.sendRequestGetData( "replies/get-all-replies",{parent: parent} );
+
+        if ((typeof answer !== "undefined")&&(answer.result === true)) {
+            await commit('SET_CONTENT_REPLIES', {replies: answer.content});
+            return  {result: true, replies: answer.content }
+        } else
+            return {result:false, replies: []}
+
+    },
 
     CONTENT_REPLIES_SUBMIT_ADD: async ( {commit, state, dispatch}, {parent, parentReply, title, description,  attachments, keywords, country, language, city, latitude, longitude}) =>{
         try{
@@ -38,6 +47,10 @@ export default{
 
 
             console.log('Answer from REPLY ', resData);
+
+            if (resData.result === true){
+                commit('SET_CONTENT_REPLY', { reply : resData.reply });
+            }
 
             return resData;
 

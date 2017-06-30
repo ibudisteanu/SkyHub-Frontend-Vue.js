@@ -36,7 +36,7 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
             <ViewAllReplies
                     :key="'ViewReplies_'+reply.id"
                     :parentReplyId = "reply.id"
-                    :repliesList="repliesList"
+                    :parentId = "parentId"
              />
 
 
@@ -72,11 +72,11 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
 
         props: {
             reply: {default: null},
-            repliesList: {
-                default: function () {
-                    return []
-                }
-            },
+
+            //repliesList: { default: function () { return [] } },
+
+            parentReplyId :{default: null},
+            parentId : {default: null},
 
         },
 

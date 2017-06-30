@@ -15,10 +15,11 @@
        <ViewReply
               v-for="(reply, index) in getChildReplies"
               :reply="reply"
+              :parentId = "parentId"
+              :parentReplyId = "parentReplyId"
               :key="reply.id"
 
-              v-if= "reply.replyParentId == parentReplyId"
-              :repliesList = "repliesList"
+              v-if= "(reply.replyParentId == this.parentReplyId) && (reply.parentId == this.parentId)"
       >
 
       </ViewReply>
@@ -40,19 +41,26 @@
         },
 
         props:{
+            //repliesList: {default: function (){return []}},
 
-            repliesList: {default: function (){return []}},
-            parentReplyId :{default:1},
+            parentReplyId :{default: null},
+            parentId : {default: null},
         },
 
         computed:{
 
+            repliesList(){
+                return this.$store.getters.getReplies;
+            },
+
             getChildReplies(){
                 let result = [];
 
-                for (let i=0; i<this.repliesList.length; i++)
-                    if (this.repliesList[i].replyParentId == this.parentReplyId)
-                    result.push(this.repliesList[i]);
+                let repliesList = this.repliesList;
+
+                for (let i=0; i<repliesList.length; i++)
+                    if ((repliesList[i].replyParentId == this.parentReplyId)&&(repliesList[i].parentId == this.parentId))
+                        result.push(repliesList[i]);
 
                 return result;
             },
