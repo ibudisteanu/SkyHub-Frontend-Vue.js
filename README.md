@@ -44,9 +44,10 @@ The "src" folder must be set as Resource Root. To do this Settings->Directories 
 
 ##### Working components
 
+
 1. Login
 2. Register
-    2.1. Facebook & Google integration (I need to port the component from React to Vue.js)
+    2.1. Facebook & Google integration
 3. REST
     3.1 Socket.io
         3.2 Cookie Authentication JWT (using tokens)
@@ -54,16 +55,34 @@ The "src" folder must be set as Resource Root. To do this Settings->Directories 
 5. Header Navigation Menu
 6. Server Status Head Bar
 7. Forums
-    7.1 Preview Forums
-    7.2 Preview Forum
-    7.3 View Forum
-    7.4 Add Forum (i need to port the code from React to Vue.js)
+    1. Preview Forums
+    2. Preview Forum
+    3. View Forum
+    4. Add Forum 
+    5. Vuex Store
 8. Topics
-    8.1 Preview Topics
-    8.2 Preview Topic
-    8.3 View Topic
-    8.4 Add Topic (i need to port the code from React to Vue.js)
-    
+    1. Preview Topics
+    2. Preview Topic
+    3. View Topic
+    4. Add Topic
+    5. Vuex Store 
+9. Replies (part of)
+    1. View Reply
+    2. View Replies (All Replies)
+    3. Add Reply
+    4. Vuex Store
+10. Attachments
+    1. Image/Link Attachments
+    2. Meta Scrapper (using Backend). It should scrape the content also on frontend too... to reduce the number of communications and work-load from the Backend
+11. Voting
+    1. View Vote
+12. Notifications
+    1. System Notifications (Notifications API)       
+        1. Asking Permisions
+        2. Vuex Store
+        3. Sticky Button for asking permissions
+    2. SkyHub Notifications
+       
 
 ## To DOs
 
@@ -71,12 +90,13 @@ The "src" folder must be set as Resource Root. To do this Settings->Directories 
     Edit Topics
     Delete Topics
 2. Replies   
-    Finish the View Replies 
     Edit Replies
     Delete Replies
 3. Voting
     Add Voting (Up and Downs)
     Unvote   
+4. WebSock (SocketWorker) on the Server Side Rendering as a fetching mechanism instead of using http requests 
+
 
 ### Server Side Rendering component
 https://github.com/egoist/vue-no-ssr
