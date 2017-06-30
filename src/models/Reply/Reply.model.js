@@ -56,6 +56,15 @@ export default class Reply {
         return '';
     }
 
+    static getKeywords(Reply){
+        if ((typeof Reply.keywords !== "undefined")&&(Reply.keywords !== '')) return Reply.keywords;
+        if (Attachments.getLinkAttachment(Reply) !== null) return Attachments.getLinkAttachment(Reply).keywords;
+        if (Reply.attachments.length > 0 ) return Reply.attachments[0].keywords;
+
+        return '';
+    }
+
+
 
 
 }

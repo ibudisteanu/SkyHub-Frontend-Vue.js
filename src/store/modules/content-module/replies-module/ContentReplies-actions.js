@@ -30,20 +30,21 @@ export default{
     },
 
 
-    CONTENT_REPLIES_SUBMIT_ADD: async ( {commit, state, dispatch}, {parent, name, title, description,  keywords, country, language, city, latitude, longitude, timeZone}) =>{
+    CONTENT_REPLIES_SUBMIT_ADD: async ( {commit, state, dispatch}, {parent, parentReply, title, description,  attachments, keywords, country, language, city, latitude, longitude}) =>{
         try{
-            let resData = await FetchService.sendRequestGetData("forums/add-forum",{parent, name, title, description, keywords ,
-                country, language, city , latitude, longitude,  timeZone});
+            let resData = await FetchService.sendRequestGetData("replies/add-reply",{parent : parent, parentReply:parentReply, title: title, description: description,  attachments: attachments,
+                                                                                    keywords : keywords,  country: country, language:language, city : city,
+                                                                                    latitude: latitude, longitude : longitude});
 
 
-            console.log('Answer from FORUM ', resData);
+            console.log('Answer from REPLY ', resData);
 
             return resData;
 
         }
         catch(Exception)
         {
-            console.log("Exception adding a new forum", Exception);
+            console.log("Exception adding a new reply", Exception);
             throw Exception;
         }
     },

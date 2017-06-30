@@ -131,6 +131,11 @@
 
                 attachments: [],
 
+                countryCode: '', country: '',
+                city: '',
+                language: '',
+                latitude: 0, longitude: 0,
+
                 titleValidationStatus: [null, ''],
                 linkValidationStatus: [null, ''],
                 descriptionValidationStatus: [null, ''],
@@ -199,13 +204,13 @@
 
                 if (!bValidationError)
                     try {
-                        let answer = await this.$store.dispatch('CONTENT_REPLIES_ADD',{parentId:this.parentId, title: this.getTitle, image: this.getImage, description: this.getDescription, attachments: this.attachments, keywords: this.getKeywords,
-                            countryCode: this.countryCode||this.localization.countryCode, language:'',
-                            city: this.city||this.localization.city, latitude:this.latitude||this.localization.latitude, longitude:this.longtitude||this.localization.longitude});
+                        let answer = await this.$store.dispatch('CONTENT_REPLIES_SUBMIT_ADD',{parent:this.parentId, parentReply: this.parentReplyId, title: this.getTitle, description: this.getDescription, attachments: this.attachments, keywords: this.getKeywords,
+                                                                                             countryCode: this.countryCode||this.localization.countryCode, language:'',
+                                                                                             city: this.city||this.localization.city, latitude:this.latitude||this.localization.latitude, longitude:this.longtitude||this.localization.longitude});
 
                         this.$refs['refSubmitButton'].enableButton();
 
-                        console.log("ANSWER FROM adding topic ",answer);
+                        console.log("ANSWER FROM adding reply ",answer);
 
                         if (answer.result === true) {
                             onSuccess(answer);
@@ -219,8 +224,6 @@
                             if ((typeof answer.errors.link !== "undefined") && (Object.keys(answer.errors.link).length !== 0 )) this.linkValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.link[0])];
                             if ((typeof answer.errors.description !== "undefined") && (Object.keys(answer.errors.description).length !== 0)) this.descriptionValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.description[0])];
                             if ((typeof answer.errors.keywords !== "undefined") && (Object.keys(answer.errors.keywords).length !== 0)) this.keywordsValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.keywords[0])];
-                            if ((typeof answer.errors.country !== "undefined") && (Object.keys(answer.errors.country).length !== 0)) this.countryValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.country[0])];
-                            if ((typeof answer.errors.city !== "undefined") && (Object.keys(answer.errors.city).length !== 0)) this.cityValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.city[0])];
 
 
                             //in case there are no other errors, except the fact that I am not logged In
