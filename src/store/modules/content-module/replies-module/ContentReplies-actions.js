@@ -33,8 +33,8 @@ export default{
     CONTENT_REPLIES_SUBMIT_ADD: async ( {commit, state, dispatch}, {parent, parentReply, title, description,  attachments, keywords, country, language, city, latitude, longitude}) =>{
         try{
             let resData = await FetchService.sendRequestGetData("replies/add-reply",{parent : parent, parentReply:parentReply, title: title, description: description,  attachments: attachments,
-                                                                                    keywords : keywords,  country: country, language:language, city : city,
-                                                                                    latitude: latitude, longitude : longitude});
+                                                                                     keywords : keywords,  country: country, language:language, city : city,
+                                                                                     latitude: latitude, longitude : longitude});
 
 
             console.log('Answer from REPLY ', resData);

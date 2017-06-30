@@ -36,7 +36,7 @@
             <br />
 
             <div class="topic-question-footer">
-
+                <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="this.topic.id" :parentName="this.topic.title" replyParentId="" replyParentName=""/>
             </div>
 
         </td>
@@ -54,12 +54,15 @@
     import Topic from 'models/Topic/Topic.model';
     import ShowDate from 'client/components/util-components/UI/show-date/ShowDate.component.vue';
 
+    import ContentButtonsInline from 'modules/forums/components/ContentButtonsInline.component.vue';
+
     export default{
 
         name: '',
 
         components: {
-            'ShowDate':ShowDate,
+            'ShowDate' : ShowDate,
+            'ContentButtonsInline' : ContentButtonsInline,
         },
 
         props:{

@@ -4,7 +4,7 @@
  */
 
 <template>
-    <div class="col-md-8 col-md-offset-2" style='padding:0' >
+
         <div class="panel panel-success">
 
 
@@ -145,8 +145,6 @@
             </div>
 
         </div>
-
-    </div>
 
 </template>
 

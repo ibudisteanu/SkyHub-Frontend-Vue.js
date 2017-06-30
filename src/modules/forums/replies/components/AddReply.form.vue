@@ -5,7 +5,7 @@
 
 
 <template>
-    <div class="col-md-8 col-md-offset-2" style='padding:0' >
+
         <div class="panel panel-success">
 
 
@@ -94,7 +94,6 @@
 
         </div>
 
-    </div>
 </template>
 
 
@@ -214,8 +213,6 @@
 
                         if (answer.result === true) {
                             onSuccess(answer);
-
-                            this.$router.push(answer.topic.URL);  // redirecting to the forum URL ;)
                         }
                         else
                         if (answer.result === false) {
@@ -236,7 +233,7 @@
                     }
                     catch(Exception){
                         this.$refs['refSubmitButton'].enableButton();
-                        this.error = "There was a internal problem publishing your topic ... Try again <br/> <strong> "+Exception.toString()+" </strong>";
+                        this.error = "There was a internal problem publishing your reply ... Try again <br/> <strong> "+Exception.toString()+" </strong>";
                     }
 
 

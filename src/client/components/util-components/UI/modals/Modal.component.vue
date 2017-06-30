@@ -107,6 +107,7 @@
           },
 
           hideModal(){
+              console.log('hiding modal...');
               $(this.$refs['refModal']).modal("hide");
 
               this.myIsModalOpen = false;

@@ -79,10 +79,12 @@
             },
 
             loginSuccess(resource){
-                let onSuccess = this.onSuccess||function(){};
-                onSuccess(resource);
 
-                this.onSuccessFunction(resource);
+                let onSuccess = this.onSuccess||function(){};
+                if (typeof onSuccess === 'function') onSuccess(resource);
+
+                onSuccess = this.onSuccessFunction||function(){};
+                if (typeof onSuccess === 'function') onSuccess(resource);
 
                 this.close();
             },
@@ -90,9 +92,10 @@
 
             registrationSuccess(resource){
                 let onSuccess = this.onSuccess||function(){};
-                onSuccess(resource);
+                if (typeof onSuccess === 'function') onSuccess(resource);
 
-                this.onSuccessFunction(resource);
+                onSuccess = this.onSuccessFunction||function(){};
+                if (typeof onSuccess === 'function') onSuccess(resource);
 
                 this.close();
             },

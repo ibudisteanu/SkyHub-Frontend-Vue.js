@@ -2,7 +2,7 @@
 
         <div id="wrapper">
 
-            {{authenticatedUser}}
+            {{this.checkAuthenticatedUser}}
 
             <LayoutBody>
 
@@ -109,16 +109,11 @@
 
         computed: {
 
-
-
-            getBodyClass(){
-                if (User.isLoggedIn(this.$store.state.authenticatedUser.user))
-                    return "pace-done";
-                else
-                    return "pace-done mini-navbar top-navigation"
+            notAuthenticated(){
+                return !User.isLoggedIn(this.$store.state.authenticatedUser.user);
             },
 
-            authenticatedUser(){
+            checkAuthenticatedUser(){
 
                 console.log("trying...");
 

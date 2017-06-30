@@ -30,10 +30,10 @@ export default{
     },
 
 
-    CONTENT_FORUMS_SUBMIT_ADD: async ( {commit, state, dispatch}, {parent, name, title, description,  keywords, country, language, city, latitude, longitude, timeZone}) =>{
+    CONTENT_FORUMS_SUBMIT_ADD: async ( {commit, state, dispatch}, { parent, name, title, description,  keywords, country, language, city, latitude, longitude, timeZone }) =>{
         try{
             let resData = await FetchService.sendRequestGetData("forums/add-forum",{parent, name, title, description, keywords ,
-                                                                country, language, city , latitude, longitude,  timeZone});
+                                                                                    country, language, city , latitude, longitude,  timeZone});
 
 
             console.log('Answer from FORUM ', resData);
