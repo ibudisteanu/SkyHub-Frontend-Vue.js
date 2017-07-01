@@ -515,9 +515,39 @@ div.filepicker {
   box-shadow: none;
 }
 
-.formHeadLine{
+.form-head-line{
   border-bottom: 1px solid #f4f4f4;
   margin: 5px 0 5px 0;
+}
+
+/*
+    REPLIES
+ */
+
+.reply-form{
+    border-radius: 10px;
+    overflow: auto;
+    background-color:white;
+}
+
+.reply-header-title{
+    font-size: 1em;
+    margin-top: 0;
+    font-weight: 800;
+    margin-left: 20px;
+}
+.reply-header-authorName{
+    font-size: 0.8em;
+    margin-top: 0;
+    color: navy;
+    display: inline;
+}
+.reply-header-bio{
+    font-size: 0.8em;
+    margin-top: 0;
+    margin-left: 10px;
+    color: grey;
+    display: inline;
 }
 
 /*
@@ -663,3 +693,4 @@ div.filepicker {
     overflow:visible !important;
     z-index: 100;
 }
+

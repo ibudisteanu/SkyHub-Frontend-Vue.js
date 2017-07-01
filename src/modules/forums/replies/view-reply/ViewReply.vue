@@ -8,39 +8,43 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
 
 <template>
 
-    <div class="media" style="overflow: auto">
+    <div class="media reply-form" style="background-color:white; ">
 
-        <div class="forum-avatar"  >
-
+        <div class="row form-head-line">
             <Voting :voteId = "reply.votingId" />
 
-            <img src="https://blogcdn1.secureserver.net/wp-content/uploads/2014/06/create-a-gravatar-beard.png" class="img-circle" alt="image"/>
-            <div class="author-info">
-                <strong>Bio</strong>
+            <div >
+                <img src="https://blogcdn1.secureserver.net/wp-content/uploads/2014/06/create-a-gravatar-beard.png" class="img-circle" align="left" alt="image" style='max-width: 48px; max-height: 48px' />
+                <h3 class="reply-header-title">{{reply.title || '' }} </h3>
+
+                <h4 class="reply-header-authorName">{{ reply.authorId }} </h4>
+                <h5 class="reply-header-bio">{{ 'BIO' }} </h5>
             </div>
         </div>
 
-        <div class="media-body">
-            <h4 class="media-heading">{{reply.title || '' }} </h4>
+        <div class="media-body" style="padding-left: 10px">
 
+            <p>
+                <div v-html="reply.description" />
+            </p>
+
+
+            <div v-if="(Array.isArray(reply.attachments))&&(reply.attachments.length > 0)">
+                <DisplayAttachments :attachments="reply.attachments||[]" />
+            </div>
+
+            <div style="padding-right: 10px">
+
+                <ViewAllReplies
+                        :key="'ViewReplies_'+reply.id"
+                        :parentReplyId = "reply.id"
+                        :parentId = "parentId"
+                 />
+
+
+            </div>
         </div>
 
-        <p  v-html="reply.description" > </p>
-
-        <div v-if="(Array.isArray(reply.attachments))&&(reply.attachments.length > 0)">
-            <DisplayAttachments :attachments="reply.attachments||[]" />
-        </div>
-
-        <div style="padding-right: 10px">
-
-            <ViewAllReplies
-                    :key="'ViewReplies_'+reply.id"
-                    :parentReplyId = "reply.id"
-                    :parentId = "parentId"
-             />
-
-
-        </div>
     </div>
 
 
@@ -65,7 +69,9 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
         },
 
         beforeCreate: function () {
-            this.$options.components.ViewAllReplies = require('./ViewAllReplies.vue')
+
+            if ((typeof this !== 'undefined')&&(typeof this.$options !== 'undefined'))
+                this.$options.components.ViewAllReplies = require('./ViewAllReplies.vue')
         },
 
 

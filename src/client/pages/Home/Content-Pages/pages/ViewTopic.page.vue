@@ -57,7 +57,7 @@
                             {{getTitle}}
                         </h1>
 
-                        <div class="formHeadLine"> </div>
+                        <div class="form-head-line"> </div>
 
                         <div :id="getTopic.id" class="articleContent anchor">
                             <div class="container-fluid topic-question-body">

@@ -5,7 +5,7 @@
 
 <template>
 
-    <div>
+    <div style="vertical-align: middle;">
         <DisplayAttachment
                 v-for="(attachment, index) in attachments"
                 :attachment="attachment"

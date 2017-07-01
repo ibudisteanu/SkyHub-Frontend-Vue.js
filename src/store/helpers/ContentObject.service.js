@@ -5,6 +5,7 @@
 
 import Forum from 'models/Forum/Forum.model';
 import Topic from 'models/Topic/Topic.model';
+import Reply from 'models/Reply/Reply.model';
 
 class ContentObjectServiceClass {
 
@@ -45,6 +46,9 @@ class ContentObjectServiceClass {
             case 'forum':
                 return 'forum';
 
+            case 'reply':
+                return 'reply';
+
             case 'user':
                 return 'user';
 
@@ -63,8 +67,10 @@ class ContentObjectServiceClass {
             case 'forum':
                 return new Forum(objectJSON);
             case 'topic':
-                let obj = new Topic(objectJSON);
                 return new Topic(objectJSON);
+
+            case 'reply':
+                return new Reply(objectJSON);
         }
 
         return null;

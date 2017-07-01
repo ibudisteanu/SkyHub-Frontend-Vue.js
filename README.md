@@ -53,11 +53,11 @@ The "src" folder must be set as Resource Root. To do this Settings->Directories 
 
 1. Login
 2. Register
-    2.1. Facebook & Google integration
+    1. Facebook & Google integration
 3. REST
-    3.1 Socket.io
-        3.2 Cookie Authentication JWT (using tokens)
-    3.2 HTTP requests   
+    1. Socket.io
+        1. Cookie Authentication JWT (using tokens)
+    2. HTTP requests   
 5. Header Navigation Menu
 6. Server Status Head Bar
 7. Forums
