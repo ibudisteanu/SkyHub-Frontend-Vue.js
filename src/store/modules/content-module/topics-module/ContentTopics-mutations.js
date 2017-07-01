@@ -11,12 +11,13 @@ export default{
     //SET MULTIPLE FORUMS
     SET_CONTENT_TOPICS: (state, { topics }) => {
 
-        for (let i=0; i<topics.length; i++){
+        for (let i=0; i<topics.length; i++)
+            if (topics[i].object !== null){
 
-            let topic = ContentObjectService.createObject(topics[i].object);
+                let topic = ContentObjectService.createObject(topics[i].object);
 
-            Vue.set(state.topics, topic.id, topic );
-        }
+                Vue.set(state.topics, topic.id, topic );
+            }
     },
 
     SET_CONTENT_TOPIC: (state, { topic }) => {

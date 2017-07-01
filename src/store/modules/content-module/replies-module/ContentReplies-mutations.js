@@ -11,12 +11,13 @@ export default{
     //SET MULTIPLE FORUMS
     SET_CONTENT_REPLIES: (state, { replies }) => {
 
-        for (let i=0; i<replies.length; i++){
+        for (let i=0; i<replies.length; i++)
+            if (replies[i].object !== null) {
 
-            let reply = ContentObjectService.createObject(replies[i].object);
+                let reply = ContentObjectService.createObject(replies[i].object);
 
-            Vue.set(state.replies, replies.id, reply );
-        }
+                Vue.set(state.replies, replies.id, reply );
+            }
     },
 
     SET_CONTENT_REPLY: (state, { reply }) => {

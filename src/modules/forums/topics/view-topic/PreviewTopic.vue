@@ -36,7 +36,7 @@
             <br />
 
             <div class="topic-question-footer">
-                <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="this.topic.id" :parentName="this.topic.title" replyParentId="" replyParentName=""/>
+                <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="this.topic.id" :parentName="this.topic.title" parentReplyId="" parentReplyName=""/>
             </div>
 
         </td>

@@ -20,7 +20,7 @@
         <WebsiteHeaderCover v-else />
 
 
-        <div  class='anchor col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 col-tn-12 col-tn-offset-0' >
+        <div  class='anchor col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 col-tn-12 col-tn-offset-0'  style="padding-bottom: 30px" >
 
 
             <div style='position: relative; z-index: 2 '>
@@ -84,7 +84,7 @@
 
                             <div class="col-xs-12 topic-question-footer-buttons" style='overflow: hidden'>
 
-                                <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="this.getTopic.id" :parentName="this.getTopic.title" replyParentId="" replyParentName=""/>
+                                <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="this.getTopic.id" :parentName="this.getTopic.title" parentReplyId="" parentReplyName=""/>
 
                             </div>
 
@@ -117,8 +117,9 @@
 
             <ViewAllReplies
 
-                    parentReplyId = "1"
-                    key = 'ViewReplies_'
+                    :parentId = "this.getTopic.id"
+                    parentReplyId = ""
+                    :key = "'ViewReplies_'+this.getTopic.id+'_'"
 
             >
             </ViewAllReplies>

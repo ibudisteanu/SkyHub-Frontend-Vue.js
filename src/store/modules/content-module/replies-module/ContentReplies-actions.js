@@ -31,6 +31,8 @@ export default{
 
         let answer = await FetchService.sendRequestGetData( "replies/get-all-replies",{parent: parent} );
 
+        console.log("@@@@@@@@@ REPLIES answer",answer);
+
         if ((typeof answer !== "undefined")&&(answer.result === true)) {
             await commit('SET_CONTENT_REPLIES', {replies: answer.content});
             return  {result: true, replies: answer.content }

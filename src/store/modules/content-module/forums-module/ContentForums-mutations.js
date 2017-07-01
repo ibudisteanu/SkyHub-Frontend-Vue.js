@@ -11,12 +11,13 @@ export default{
     //SET MULTIPLE FORUMS
     SET_CONTENT_FORUMS: (state, { forums }) => {
 
-        for (let i=0; i<forums.length; i++){
+        for (let i=0; i<forums.length; i++)
+            if (forums[i].object !== null) {
 
-            let forum = ContentObjectService.createObject(forums[i].object);
+                let forum = ContentObjectService.createObject(forums[i].object);
 
-            Vue.set(state.forums, forum.id, forum );
-        }
+                Vue.set(state.forums, forum.id, forum);
+            }
     },
 
     SET_CONTENT_FORUM: (state, { forum }) => {

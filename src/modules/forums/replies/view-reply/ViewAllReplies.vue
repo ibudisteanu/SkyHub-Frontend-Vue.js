@@ -19,7 +19,7 @@
               :parentReplyId = "parentReplyId"
               :key="reply.id"
 
-              v-if= "(reply.replyParentId == this.parentReplyId) && (reply.parentId == this.parentId)"
+
       >
 
       </ViewReply>
@@ -58,8 +58,10 @@
 
                 let repliesList = this.repliesList;
 
+                console.log("@@@@@@@@@@@ REPLIES LIST", repliesList);
+
                 for (let i=0; i<repliesList.length; i++)
-                    if ((repliesList[i].replyParentId == this.parentReplyId)&&(repliesList[i].parentId == this.parentId))
+                    if ((repliesList[i] !== null)&&(repliesList[i].parentReplyId == this.parentReplyId)&&(repliesList[i].parentId == this.parentId))
                         result.push(repliesList[i]);
 
                 return result;

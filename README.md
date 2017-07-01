@@ -1,17 +1,28 @@
 # SkyHub Vue.js
 
+# Online Versions:
+
+1. myskyhub.ddns.net:8080 for Vue.js Frontend
+2. myskyhub.ddns.net:4000 for Express Backend with Redis Database
+
+**Gitter** - for communications with the SkyHub contributors:
+ 
+1. https://gitter.im/SkyHub/SkyHubRomania 
+2. https://gitter.im/SkyHub/Lobby
+
 ## 1 Installation
 
 1. Install Node.js : https://nodejs.org/en/download/
 2. gitclone repository https://github.com/ibudisteanu/SkyHub-Frontend-React.js.git . You can also install and clone using **Git Desktop**
-3. `npm install`
-3. Install the missing modules with `npm install missing-node-module-name --save` (in case there are missing modules )
+3. run in cmd/terminal `npm install`
+3. In case there are missing node_modules in the package.json, you need to install the missing node_modules using the command line `npm install missing-node-module-name --save` (in case there are missing modules )
 
-4. Open Command Prompt/Terminal and    
-    1.    **cd** location\clone_repository\
+4. Open cmd/Terminal 
+    1.    `cd location\clone_repository\`
     
+In case you have problems and encounter errors installing SkyHub, please contact us in the Gitter!!    
     
-## Build Setup
+## Build Setup - Running SkyHub locally
 
 **Requires Node.js 7+**
 
@@ -32,11 +43,6 @@ npm start
 
 The "src" folder must be set as Resource Root. To do this Settings->Directories where you Set Directories "src" folder as "Resource Root"
 
-
-#### Online Versions:
-
-1. myskyhub.ddns.net:8080 for Vue.js Frontend
-2. myskyhub.ddns.net:4000 for Express Backend with Redis Database
 
 
 

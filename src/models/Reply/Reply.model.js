@@ -13,7 +13,7 @@ export default class Reply {
         this.title = data.title || '';
         this.topicId = data.topicId || '';
 
-        this.replyParentId = data.replyParentId || '';
+        this.parentReplyId = data.parentReplyId || '';
         this.parentId = data.parentId || '';
 
         this.votingId = data.votingId || '';
@@ -25,7 +25,7 @@ export default class Reply {
 
         this.attachments = data.attachments || [];
 
-        console.log('Reply assigned ', data, data.title, data.replyParentId);
+        console.log('Reply assigned ', data, data.title, data.parentReplyId);
     }
 
 

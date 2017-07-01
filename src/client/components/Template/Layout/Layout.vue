@@ -69,23 +69,23 @@
 
         data: function() {
             let reply1  = new Reply( {
-                id :1, title:"nume titlu1",topicId : 244, replyParentId : "", votingId : 21441, authorId : 2414, description : "fk3kkfeac"
+                id :1, title:"nume titlu1",topicId : 244, parentReplyId : "", votingId : 21441, authorId : 2414, description : "fk3kkfeac"
             });
 
             let reply2  = new Reply( {
-                id :2, title:"nume titlu 2",topicId : 244, replyParentId : "1", votingId : 21441, authorId : 2414, description : "fk3kkfeac"
+                id :2, title:"nume titlu 2",topicId : 244, parentReplyId : "1", votingId : 21441, authorId : 2414, description : "fk3kkfeac"
             });
 
             let reply3  = new Reply( {
-                id :3, title:"nume titlu 3",topicId : 244, replyParentId : "1", votingId : 21441, authorId : 2414, description : "fk3kkfeac"
+                id :3, title:"nume titlu 3",topicId : 244, parentReplyId : "1", votingId : 21441, authorId : 2414, description : "fk3kkfeac"
             });
 
             let reply3_3  = new Reply( {
-                id :33, title:"nume titlu 3",topicId : 244, replyParentId : "3", votingId : 21441, authorId : 2414, description : "fk3kkfeac"
+                id :33, title:"nume titlu 3",topicId : 244, parentReplyId : "3", votingId : 21441, authorId : 2414, description : "fk3kkfeac"
             });
 
             let reply4  = new Reply( {
-                id :4, title:"nume titlu 4",topicId : 244, replyParentId : "4", votingId : 21441, authorId : 2414, description : "fk3kkfeac"
+                id :4, title:"nume titlu 4",topicId : 244, parentReplyId : "4", votingId : 21441, authorId : 2414, description : "fk3kkfeac"
             });
 
             return {
