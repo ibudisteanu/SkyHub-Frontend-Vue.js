@@ -13,33 +13,42 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
         <div class="row form-head-line">
             <Voting :voteId = "reply.votingId" />
 
-            <div >
-                <img src="https://blogcdn1.secureserver.net/wp-content/uploads/2014/06/create-a-gravatar-beard.png" class="img-circle" align="left" alt="image" style='max-width: 48px; max-height: 48px' />
-                <h3 class="reply-header-title">{{reply.title || '' }} </h3>
+            <img src="https://blogcdn1.secureserver.net/wp-content/uploads/2014/06/create-a-gravatar-beard.png" class="img-circle" align="left" alt="image" style='max-width: 48px; max-height: 48px' />
+
+            <div>
+                <h3 class="reply-header-title">{{reply.title || ' ' }} </h3>
 
                 <h4 class="reply-header-authorName">{{ reply.authorId }} </h4>
                 <h5 class="reply-header-bio">{{ 'BIO' }} </h5>
             </div>
+
         </div>
 
-        <div class="media-body" style="padding-left: 10px">
+        <div class="media-body reply-form-content">
 
             <p>
                 <div v-html="reply.description" />
             </p>
 
+        </div>
+
+        <div class="reply-form-footer">
 
             <div v-if="(Array.isArray(reply.attachments))&&(reply.attachments.length > 0)">
                 <DisplayAttachments :attachments="reply.attachments||[]" />
             </div>
 
-            <div style="padding-right: 10px">
+            <div class="reply-form-footer-buttons">
+                <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="reply.parentId" parentName="" :parentReplyId="reply.id" :parentReplyName="reply.title"/>
+            </div>
+
+            <div  class="reply-form-footer-subReplies" style="padding-right: 10px">
 
                 <ViewAllReplies
                         :key="'ViewReplies_'+reply.id"
                         :parentReplyId = "reply.id"
                         :parentId = "parentId"
-                 />
+                />
 
 
             </div>
@@ -58,6 +67,8 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
     import Voting from  'modules/forums/voting/Voting.component.vue'
     import DisplayAttachments from 'modules/attachments/view-attachments/DisplayAttachments.vue'
 
+    import ContentButtonsInline from 'modules/forums/components/ContentButtonsInline.component.vue';
+
     export default {
 
         name: 'ViewReply',
@@ -66,6 +77,7 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
             'ViewAllReplies': ViewAllReplies,
             'Voting' : Voting,
             'DisplayAttachments': DisplayAttachments,
+            'ContentButtonsInline': ContentButtonsInline,
         },
 
         beforeCreate: function () {

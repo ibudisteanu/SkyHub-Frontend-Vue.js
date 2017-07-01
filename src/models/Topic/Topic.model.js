@@ -18,6 +18,7 @@ export default class Topic {
 
         this.image = data.image || '';
 
+        this.votingId = data.votingId || '';
 
         this.keywords = data.keywords || [];
         this.attachments = data.attachments || [];

@@ -45,19 +45,30 @@
                     -->
 
 
-                    <div class="topic-question" style='overflow: hidden' >
+                    <div class="topic-question" >
 
                         <ShowDate className="date information" :date="getTopic.dtCreation" />
+                        <!--
                         <span class="views information" data-toggle="tooltip" data-placement="left" title="" data-original-title="Views 468"><i class="fa fa-eye"></i> 468</span>
                         <span class="unique-views information" data-toggle="tooltip" data-placement="left" title="" data-original-title="Unique Views 216"><i class="fa fa-eye-slash"></i> 216</span>
+                        -->
 
-                        <a class="topic-question-header author" href="http://skyhub.me/profile/muflonel2000"> George Muflonel</a>
+                        <!-- HEADER -->
 
-                        <h1>
-                            {{getTitle}}
-                        </h1>
+                        <div class="row form-head-line">
 
-                        <div class="form-head-line"> </div>
+                            <Voting :voteId = "getTopic.votingId" />
+
+                            <div >
+                                <img src="https://blogcdn1.secureserver.net/wp-content/uploads/2014/06/create-a-gravatar-beard.png" class="img-circle" align="left" alt="image" style='max-width: 48px; max-height: 48px' />
+                                <h3 class="reply-header-title">{{getTopic.title || '' }} </h3>
+
+                                <h4 class="reply-header-authorName">{{ getTopic.authorId }} </h4>
+                                <h5 class="reply-header-bio">{{ 'BIO' }} </h5>
+                            </div>
+                        </div>
+
+                        <!-- CONTENT -->
 
                         <div :id="getTopic.id" class="articleContent anchor">
                             <div class="container-fluid topic-question-body">
@@ -74,6 +85,7 @@
                             </div>
                         </div>
 
+                        <!-- FOOTER -->
 
                         <div class="topic-question-footer">
 
@@ -82,10 +94,8 @@
                             </div>
 
 
-                            <div class="col-xs-12 topic-question-footer-buttons" style='overflow: hidden'>
-
+                            <div class="topic-question-footer-buttons">
                                 <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="this.getTopic.id" :parentName="this.getTopic.title" parentReplyId="" parentReplyName=""/>
-
                             </div>
 
                             <!--
@@ -114,7 +124,6 @@
 
             <DisplayTopicContent parentId=""/>
 
-
             <ViewAllReplies
 
                     :parentId = "this.getTopic.id"
@@ -140,6 +149,7 @@
     import DisplayAttachments from 'modules/attachments/view-attachments/DisplayAttachments.vue';
 
     import ViewAllReplies from  'modules/forums/replies/view-reply/ViewAllReplies.vue'
+    import Voting from  'modules/forums/voting/Voting.component.vue'
 
     import Topic from 'models/Topic/Topic.model';
 
@@ -154,6 +164,7 @@
             'ContentButtonsInline':ContentButtonsInline,
             'DisplayAttachments': DisplayAttachments,
             'ViewAllReplies': ViewAllReplies,
+            'Voting' : Voting,
         },
 
         computed:{

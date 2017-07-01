@@ -10,7 +10,7 @@
 
 
             <div class="panel-heading">
-                <h3 style='margin: 0'>New <strong>Reply</strong> in {{this.parentReplyName||this.parentName||'Home'}} </h3>
+                <h3 style='margin: 0'><strong>Reply</strong> to {{this.parentReplyName||this.parentName||'Home'}} </h3>
             </div>
 
 

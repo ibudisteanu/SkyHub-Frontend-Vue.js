@@ -8,8 +8,9 @@
 
     <div>
         <div :style="buttonsRowStyle">
-            <a class="btn btn-success btn-rounded" type="button" style="padding-top: 3px; padding-bottom: 3px" @click="this.handleAddReply">
-                <i class="fa fa-comment" ></i> Reply
+            <a class="btn btn-success btn-rounded" type="button" style="font-size: 10px; padding: 3px 10px 3px 10px " @click="this.handleAddReply">
+                <i class="fa fa-comment" ></i>
+                <span> Reply</span>
             </a>
         </div>
 
