@@ -12,14 +12,7 @@
 
                     <button @click="openModal"> Open Modal</button>
 
-                    <ViewAllReplies
-                        :repliesList = "repliesList"
 
-                        parentReplyId = "1"
-                        key = 'ViewReplies_'
-
-                    >
-                    </ViewAllReplies>
 
                 </div>
 
@@ -59,8 +52,7 @@
             'StickyButtons': StickyButtons,
             'RightSidebar': RightSidebar,
             'AuthenticationModal': AuthenticationModal,
-            'Voting': Voting ,
-            'ViewAllReplies': ViewAllReplies,
+
         },
 
         data: function() {

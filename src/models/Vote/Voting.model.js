@@ -2,8 +2,9 @@
 import Vote from './Vote.model';
 
 const VoteType = {
-    UP_VOTE: 0,
-    DOWN_VOTE: 1,
+    VOTE_UP: 1,
+    VOTE_DOWN: -1,
+    VOTE_NONE: 666,
 };
 
 export default class Voting {

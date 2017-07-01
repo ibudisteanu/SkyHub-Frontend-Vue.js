@@ -45,13 +45,16 @@ module.exports = {
             case 'user': return UserRolesEnum.USER;
             case 'admin':
             case 'administrator':
+
                 return UserRolesEnum.ADMIN;
             case 'moderator': return UserRolesEnum.MODERATOR;
             case 'sys admin':
             case 'system admin':
+
                 return UserRolesEnum.SYS_ADMIN;
             case 'not registered':
             case 'anonymous':
+
                 return UserRolesEnum.NOT_REGISTERED;
             default:
                 return UserRolesEnum.USER;
@@ -59,6 +62,7 @@ module.exports = {
     },
 
     getTimeZone : function (timeZone){
+
         return '';
     },
 

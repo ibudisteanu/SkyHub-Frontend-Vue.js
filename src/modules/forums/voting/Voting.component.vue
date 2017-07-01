@@ -36,7 +36,9 @@
         },
 
         data: function () {
+            return {
 
+            }
         },
 
         mounted: function () {
