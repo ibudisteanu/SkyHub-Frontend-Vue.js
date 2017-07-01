@@ -14,29 +14,29 @@
 
 <script>
 
-    import Votes from 'models/Votes/Votes.model'
+    import Voting from 'models/Vote/Voting.model'
 
     export default {
 
         name: 'Voting',
 
         components: {
-            "Voting": this,
-            "Votes": Votes
         },
 
         props: {
-            voteId: {default: null}
+            voteId : { default: '' }
+        },
+
+        computed:{
+
+            voting(){
+
+            }
+
         },
 
         data: function () {
-            this.votes = new Votes({
-                id: 55544, value: 1, parentId: 5, topicId: 244, votings: 677801931,
-            });
-            return {
 
-                myVotingValue: this.votes.value,
-            }
         },
 
         mounted: function () {

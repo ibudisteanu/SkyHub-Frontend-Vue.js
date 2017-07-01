@@ -51,10 +51,6 @@
     import User from "models/User/User.model";
     import Reply from "models/Reply/Reply.model";
 
-    import ViewAllReplies from  'modules/forums/replies/view-reply/ViewAllReplies.vue'
-    import Voting from  'modules/forums/voting/Voting.component.vue'
-
-
     export default {
         name: 'Layout',
         components: {
@@ -68,29 +64,9 @@
         },
 
         data: function() {
-            let reply1  = new Reply( {
-                id :1, title:"nume titlu1",topicId : 244, parentReplyId : "", votingId : 21441, authorId : 2414, description : "fk3kkfeac"
-            });
-
-            let reply2  = new Reply( {
-                id :2, title:"nume titlu 2",topicId : 244, parentReplyId : "1", votingId : 21441, authorId : 2414, description : "fk3kkfeac"
-            });
-
-            let reply3  = new Reply( {
-                id :3, title:"nume titlu 3",topicId : 244, parentReplyId : "1", votingId : 21441, authorId : 2414, description : "fk3kkfeac"
-            });
-
-            let reply3_3  = new Reply( {
-                id :33, title:"nume titlu 3",topicId : 244, parentReplyId : "3", votingId : 21441, authorId : 2414, description : "fk3kkfeac"
-            });
-
-            let reply4  = new Reply( {
-                id :4, title:"nume titlu 4",topicId : 244, parentReplyId : "4", votingId : 21441, authorId : 2414, description : "fk3kkfeac"
-            });
 
             return {
                 loading: true,
-                repliesList: [reply1, reply2,reply3,reply4, reply3_3  ]
             }},
 
         created: function (){

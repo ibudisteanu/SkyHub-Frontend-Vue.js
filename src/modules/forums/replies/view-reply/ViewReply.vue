@@ -87,7 +87,6 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
         },
 
 
-
         props: {
             reply: {default: null},
 

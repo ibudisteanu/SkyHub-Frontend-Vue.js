@@ -8,7 +8,7 @@
 
     <div style='background-color: aliceblue;'>
 
-        <PreviewReply :reply="this.reply"  />
+        <ViewReply :reply="this.reply"  />
 
     </div>
 
@@ -20,15 +20,9 @@
 <script>
 
     import Reply from 'models/Reply/Reply.model';
-    import PreviewReply from 'modules/forums/replies/view-reply/ViewReply.vue'
-
     export default{
 
         name: 'PreviewNewTopic',
-
-        components:{
-            'PreviewReply': PreviewReply,
-        },
 
         props:{
             title: {default: ''},
@@ -56,7 +50,13 @@
                     preview: true,
                 })
             },
-        }
+        },
+
+        beforeCreate: function () {
+
+            if ((typeof this !== 'undefined')&&(typeof this.$options !== 'undefined'))
+                this.$options.components.ViewReply = require('./../view-reply/ViewReply.vue')
+        },
 
     }
 
