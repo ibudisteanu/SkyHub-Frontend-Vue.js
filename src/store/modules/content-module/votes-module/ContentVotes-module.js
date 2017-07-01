@@ -13,6 +13,8 @@ export default {
 
         votes: { /* [id: number]: Item */},
 
+        loadingVotes: {  },
+
     },
 
 

@@ -16,8 +16,6 @@ export default class Reply {
         this.parentReplyId = data.parentReplyId || '';
         this.parentId = data.parentId || '';
 
-        this.votingId = data.votingId || '';
-
         this.authorId = data.authorId || '';
         this.description = data.description || '';
 

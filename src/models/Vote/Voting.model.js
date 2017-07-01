@@ -19,7 +19,6 @@ export default class Voting {
 
         if (typeof data === "undefined") data = {};
 
-        this.id = data.id||'';
         this.parentId = data.parentId || '';
         this.value = data.value || '';
 

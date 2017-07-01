@@ -16,13 +16,13 @@ export default{
 
                 let voting = new Voting(votes[i].object);
 
-                Vue.set(state.votings, voting.id, voting );
+                Vue.set(state.votings, voting.parentId, voting );
             }
     },
 
     SET_CONTENT_VOTE: (state, { vote }) => {
 
-        Vue.set(state.votes, vote.id, vote);
+        Vue.set(state.votes, vote.parentId, new Voting(vote) );
 
     },
 

@@ -16,13 +16,13 @@ export default{
 
                 let topic = ContentObjectService.createObject(topics[i].object);
 
-                Vue.set(state.topics, topic.id, topic );
+                Vue.set(state.topics, topic.parentId, topic );
             }
     },
 
     SET_CONTENT_TOPIC: (state, { topic }) => {
 
-        Vue.set(state.topics, topic.id, topic);
+        Vue.set(state.topics, topic.parentId, topic);
 
     },
 

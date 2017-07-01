@@ -11,7 +11,7 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
     <div class="media reply-form" style="background-color:white; ">
 
         <div class="row form-head-line">
-            <Voting :voteId = "reply.votingId" />
+            <Voting :parentId = "reply.id" />
 
             <img src="https://blogcdn1.secureserver.net/wp-content/uploads/2014/06/create-a-gravatar-beard.png" class="img-circle" align="left" alt="image" style='max-width: 48px; max-height: 48px' />
 

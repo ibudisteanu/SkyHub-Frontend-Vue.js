@@ -57,7 +57,7 @@
 
                         <div class="row form-head-line">
 
-                            <Voting :voteId = "getTopic.votingId" />
+                            <Voting :parentId = "getTopic.id" />
 
                             <div >
                                 <img src="https://blogcdn1.secureserver.net/wp-content/uploads/2014/06/create-a-gravatar-beard.png" class="img-circle" align="left" alt="image" style='max-width: 48px; max-height: 48px' />

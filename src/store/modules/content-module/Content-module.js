@@ -12,6 +12,7 @@ import ContentRouter from './router-module/ContentRouter-module';
 import ContentForums from './forums-module/ContentForums-module';
 import ContentTopics from './topics-module/ContentTopics-module';
 import ContentReplies from './replies-module/ContentReplies-module';
+import ContentVotes from './votes-module/ContentVotes-module';
 
 export default {
     modules: {
@@ -19,6 +20,7 @@ export default {
         contentForums: ContentForums,
         contentTopics: ContentTopics,
         contentReplies: ContentReplies,
+        contentVotes : ContentVotes,
     },
     state:  {
 

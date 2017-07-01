@@ -9,4 +9,6 @@ export default{
     getVotes (state, getters) {
         return Object.keys(state.votes).map(function(key){return state.votes[key]});
     }
+
+
 }
