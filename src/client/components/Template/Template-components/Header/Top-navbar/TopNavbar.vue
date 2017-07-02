@@ -9,12 +9,9 @@
 
       <div class="navbar-header">
 
-        <a v-if="isLoggedIn" class="navbar-minimalize minimalize-styl-2 btn btn-primary"  href="#">
-          <i class="fa fa-bars"></i>
-        </a>
 
-        <router-link v-if="!isLoggedIn" to="/" >
-            <img src="/public/SkyHub-logo.png" alt="SkyHub Social Network" height="44px" style="padding: 0 5px 0 5px; float:left" />
+        <router-link to="/" >
+            <img src="/public/SkyHub-logo.png" alt="SkyHub Social Network" height="44px" style="padding: 0 15px 0 5px; float:left" />
         </router-link>
 
         <i class="fa fa-search" style="float: left; padding-top: 20px"></i>

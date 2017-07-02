@@ -1,12 +1,19 @@
 <template>
   <nav class="navbar-default navbar-static-side" role="navigation" :style="{backgroundColor: '#2f4050'}">
     <div class="sidebar-collapse">
+
+        <a v-if="isLoggedIn" class="navbar-minimalize minimalize-styl-2 btn btn-primary"  href="#">
+            <i class="fa fa-bars"></i>
+        </a>
+
       <ul class="nav metismenu" id="side-menu" >
         <li class="nav-header" :style="{paddingTop: 15}">
-          <div class="dropdown profile-element">
+
+
+            <div class="dropdown profile-element">
 
             <span v-if="isLoggedIn">
-                <img alt="getName" class="img-circle" :src="getProfilePic" style='max-width:145px; max-height: 145px; padding-bottom: 15px; margin-left: auto; margin-right: auto; display: block' />
+                <img :alt="getName" class="img-circle" :src="getProfilePic" style='max-width:145px; max-height: 145px; padding-bottom: 15px; margin-left: auto; margin-right: auto; display: block' />
             </span>
 
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -29,7 +36,7 @@
           </div>
           <div class="logo-element">
             <router-link to="/" >
-              <img src="/public/SkyHub-logo.png"  alt="SkyHub Social Network" width="45px" />
+                <img :alt="getName" class="img-circle" :src="getProfilePic" style='max-width:75px; max-height: 75px; padding-bottom: 15px; margin-left: auto; margin-right: auto; display: block' />
             </router-link>
           </div>
         </li>
