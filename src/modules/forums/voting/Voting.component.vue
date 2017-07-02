@@ -6,11 +6,16 @@
             <div v-if="((typeof voting === 'undefined')||(voting.loading === true))">
                 <i class="fa fa-spinner fa-spin" > </i>
             </div>
-            <div class="cursor" v-else-if="(voting.value) >= 0" @click="showAllVotes" v-popover:right="{title:'', html:true, content:this.getVotesListContent}" >
-                {{voting.value}}
-            </div>
-            <div class="cursor" v-else>
-                <strong> - </strong>
+
+            <div v-else @click="showAllVotes" v-popover:right="{title:'', html:true, content:this.getVotesListContent}" >
+
+                <div class="cursor" v-if="(voting.value) >= 0" >
+                    {{voting.value}}
+                </div>
+                <div class="cursor" v-else  >
+                    <strong> - </strong>
+                </div>
+
             </div>
 
         <i class="fa fa-thumbs-o-down vote-font-icon cursor" @click="voteDown" :style="{color: this.votedDown ? 'red' : ''}"> </i>
@@ -34,16 +39,19 @@
 
             getVotesListContent(){
 
-                console.log('getVotesListContent', this.voting.votesAllLoaded, 'showVotesAllLoading', this.showVotesAllLoading);
+                let voting = this.$store.state.content.contentVotes.votes[this.parentId];
+
+                //console.log('getVotesListContent', voting.votesAllLoaded, 'showVotesAllLoading', this.showVotesAllLoading);
+
                 if (!this.showVotesAllLoading) return '';
 
-                if (!this.voting.votesAllLoaded)
+                if (!voting.votesAllLoaded)
                     return '<i class=\'fa fa-spinner fa-spin\' > </i>';
                 else {
 
                     let sHTML = '';
-                    console.log(this.voting.votes);
-                    for (let i=0; i<this.voting.votes.length; i++)
+
+                    for (let i=0; i<voting.votes.length; i++)
                         if ((this.voting.votes[i].voteType === VoteType.VOTE_UP)||(this.voting.votes[i].voteType === VoteType.VOTE_DOWN))
                         {
                             sHTML+=`
@@ -54,6 +62,7 @@
                                 `;
                         }
 
+                    console.log(sHTML);
                     return sHTML;
                 }
             },
@@ -116,8 +125,11 @@
                 this.$store.dispatch('CONTENT_VOTES_SUBMIT_VOTE', {parentId: this.parentId, userId: this.$store.state.authenticatedUser.user.id, voteType: VoteType.VOTE_DOWN});
             },
             showAllVotes(){
-                this.showVotesAllLoading=true;
-                this.$store.dispatch('CONTENT_VOTES_FETCH_ALL_VOTES', {parentId: this.parentId});
+                this.showVotesAllLoading = !this.showVotesAllLoading;
+
+                if (this.showVotesAllLoading)
+                    this.$store.dispatch('CONTENT_VOTES_FETCH_ALL_VOTES', {parentId: this.parentId});
+
             },
         }
 
