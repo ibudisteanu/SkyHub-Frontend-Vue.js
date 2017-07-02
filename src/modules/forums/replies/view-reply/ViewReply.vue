@@ -16,6 +16,10 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
             <img src="https://blogcdn1.secureserver.net/wp-content/uploads/2014/06/create-a-gravatar-beard.png" class="img-circle" align="left" alt="image" style='max-width: 48px; max-height: 48px' />
 
             <div>
+                <ShowDate className="date information" style="float:right; margin-right: 10px" :date="reply.dtCreation" />
+            </div>
+
+            <div>
                 <h3 class="reply-header-title">{{reply.title || ' ' }} </h3>
 
                 <h4 class="reply-header-authorName">{{ reply.authorId }} </h4>
@@ -64,6 +68,7 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
 
     import Reply from "models/Reply/Reply.model";
     import ViewAllReplies from "./ViewAllReplies.vue";
+    import ShowDate from 'client/components/util-components/UI/show-date/ShowDate.component.vue';
     import Voting from  'modules/forums/voting/Voting.component.vue'
     import DisplayAttachments from 'modules/attachments/view-attachments/DisplayAttachments.vue'
 
@@ -78,6 +83,7 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
             'Voting' : Voting,
             'DisplayAttachments': DisplayAttachments,
             'ContentButtonsInline': ContentButtonsInline,
+            'ShowDate': ShowDate,
         },
 
         beforeCreate: function () {

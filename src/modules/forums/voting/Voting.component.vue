@@ -1,19 +1,19 @@
 <template>
 
     <div class="vote-actions">
-        <i class="fa fa-chevron-up vote-font-icon" @click="voteUp" :style="{color: this.votedUp ? 'deepskyblue' : ''}"> </i>
+        <i class="fa fa-thumbs-o-up vote-font-icon cursor" @click="voteUp" :style="{color: this.votedUp ? 'deepskyblue' : ''}"> </i>
 
             <div v-if="((typeof voting === 'undefined')||(voting.loading === true))">
                 <i class="fa fa-spinner fa-spin" > </i>
             </div>
-            <div v-else-if="(voting.value) >= 0" >
+            <div class="cursor" v-else-if="(voting.value) >= 0" @click="showAllVotes" v-popover:right="{title:'', html:true, content:this.getVotesListContent}" >
                 {{voting.value}}
             </div>
-            <div v-else>
+            <div class="cursor" v-else>
                 <strong> - </strong>
             </div>
 
-        <i class="fa fa-chevron-down vote-font-icon" @click="voteDown" :style="{color: this.votedDown ? 'deepskyblue' : ''}"> </i>
+        <i class="fa fa-thumbs-o-down vote-font-icon cursor" @click="voteDown" :style="{color: this.votedDown ? 'red' : ''}"> </i>
     </div>
 </template>
 
@@ -31,6 +31,32 @@
         },
 
         computed:{
+
+            getVotesListContent(){
+
+                console.log('getVotesListContent', this.voting.votesAllLoaded, 'showVotesAllLoading', this.showVotesAllLoading);
+                if (!this.showVotesAllLoading) return '';
+
+                if (!this.voting.votesAllLoaded)
+                    return '<i class=\'fa fa-spinner fa-spin\' > </i>';
+                else {
+
+                    let sHTML = '';
+                    console.log(this.voting.votes);
+                    for (let i=0; i<this.voting.votes.length; i++)
+                        if ((this.voting.votes[i].voteType === VoteType.VOTE_UP)||(this.voting.votes[i].voteType === VoteType.VOTE_DOWN))
+                        {
+                            sHTML+=`
+                                <div>
+                                     <span>${this.voting.votes[i].userId}</span>
+                                     <i class="fa ${this.voting.votes[i].voteType === VoteType.VOTE_UP ? 'fa-thumbs-o-up' : 'fa-thumbs-o-down'}"> </i>
+                                </div>
+                                `;
+                        }
+
+                    return sHTML;
+                }
+            },
 
             voting(){
                 return this.$store.state.content.contentVotes.votes[this.parentId];
@@ -72,7 +98,7 @@
 
         data: function () {
             return {
-
+                showVotesAllLoading: false,
             }
         },
 
@@ -88,6 +114,10 @@
             },
             voteDown() {
                 this.$store.dispatch('CONTENT_VOTES_SUBMIT_VOTE', {parentId: this.parentId, userId: this.$store.state.authenticatedUser.user.id, voteType: VoteType.VOTE_DOWN});
+            },
+            showAllVotes(){
+                this.showVotesAllLoading=true;
+                this.$store.dispatch('CONTENT_VOTES_FETCH_ALL_VOTES', {parentId: this.parentId});
             },
         }
 

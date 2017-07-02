@@ -17,6 +17,7 @@ export default{
 
         if ((typeof answer !== "undefined")&&(answer.result === true)) {
 
+            //console.log('@@@@@@@@@@@ TOPICS FETCH TOP ',answer);
 
             await commit('SET_CONTENT_TOPICS', {topics: answer.content});
             commit('SET_CONTENT_TOPICS_PAGE_INFORMATION',  {pageIndex: pageIndex, pageCount: pageCount} );

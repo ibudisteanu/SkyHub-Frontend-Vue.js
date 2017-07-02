@@ -13,6 +13,11 @@
   hyphens: auto;
 }
 
+.cursor{
+    cursor: pointer;
+    cursor: hand;
+}
+
 .breadcrumb{
   padding-top: 10px;
 }

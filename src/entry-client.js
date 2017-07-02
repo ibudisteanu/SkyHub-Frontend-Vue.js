@@ -31,6 +31,17 @@ Vue.directive('tooltip', function(el, binding){
         .attr('trigger', 'hover').tooltip({title: binding.value})
 })
 
+Vue.directive('popover', function(el, binding){
+
+    $(el).attr('data-toggle', 'popover')
+        .attr('data-placement', binding.arg)
+        .attr('data-html', binding.value.html||false)
+        .attr('trigger', 'hover').popover({title: binding.value.title, content: binding.value.content});
+
+    $(el).data('bs.popover').options.content = binding.value.content;
+    $(el).popover('show');
+})
+
 const { app, router, store } = createApp()
 
 // prime the store with server-initialized state.

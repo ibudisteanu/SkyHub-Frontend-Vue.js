@@ -22,6 +22,9 @@ export default class Voting {
         this.votes = [];
         this.loading = false;
 
+        if (typeof data.votesAllLoaded === 'undefined') this.votesAllLoaded = false;
+        else this.votesAllLoaded = data.votesAllLoaded;
+
         let votes = data.votes || [];
         for (let i=0; i<votes.length; i++)
             this.votes.push( new Vote(votes[i]) );
@@ -52,7 +55,9 @@ export default class Voting {
             if (voteType === Voting.votes[voteIndex].voteType)
                 return {result: false, message: 'You can not vote multiple times'};
 
-            Voting.value -= Voting.votes[voteIndex].voteType;
+            if (Voting.votes[voteIndex].voteType !== VoteType.VOTE_NONE)
+                Voting.value -= Voting.votes[voteIndex].voteType;
+
             Voting.votes[voteIndex].voteType =  voteType;
 
             Voting.value += voteType;

@@ -32,6 +32,13 @@ export default{
 
     },
 
+    SET_CONTENT_VOTE_ALL_VOTES : (state, { vote }) => {
+
+        vote.votesAllLoaded = true; // marking the fact that the all the votes had been shown
+        Vue.set(state.votes, vote.parentId, new Voting(vote));
+
+    },
+
     SET_CONTENT_VOTES_CLEAR : (state, { }) => {
 
         state.votes = {};

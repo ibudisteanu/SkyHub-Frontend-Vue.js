@@ -8,6 +8,8 @@
     <tr>
         <td :key="'TopicTable_'+topic.id" class="anchor">
 
+            <Voting :parentId = "topic.id" />
+
             <div class="anchor" style='padding-left: 42px'>
 
                 <router-link :to="topic.URL" :disableLink="topic.preview" >
@@ -53,6 +55,7 @@
 
     import Topic from 'models/Topic/Topic.model';
     import ShowDate from 'client/components/util-components/UI/show-date/ShowDate.component.vue';
+    import Voting from  'modules/forums/voting/Voting.component.vue'
 
     import ContentButtonsInline from 'modules/forums/components/ContentButtonsInline.component.vue';
 
@@ -63,6 +66,7 @@
         components: {
             'ShowDate' : ShowDate,
             'ContentButtonsInline' : ContentButtonsInline,
+            'Voting': Voting,
         },
 
         props:{

@@ -50,6 +50,21 @@ export default{
 
         return result;
 
+    },
+
+    CONTENT_VOTES_FETCH_ALL_VOTES: async ({commit, state, dispatch}, {parentId }) =>{
+
+        let result  = await FetchService.sendRequestGetData("voting/get-all-votes", {parentId: parentId}, parentId);
+
+        if (result.result === true){
+
+            console.log('CONTENT_VOTES_FETCH_ALL_VOTES answer', result);
+            await commit('SET_CONTENT_VOTE_ALL_VOTES', {vote: result.vote});
+
+        }
+
+        return result;
+
     }
 
 }
