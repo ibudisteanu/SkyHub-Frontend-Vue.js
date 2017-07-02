@@ -534,9 +534,8 @@ div.filepicker {
 /* FORUM TABLE
 ============================================================*/
 
-.table > .table > .forum-posts-table > .table-hover tr:hover
-{
-  background-color: #ffff99;
+.table-forums > tbody > tr:hover {
+    background-color:  honeydew;
 }
 
 .table-forums{

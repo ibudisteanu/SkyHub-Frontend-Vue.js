@@ -1,23 +1,24 @@
 <template>
 
     <div class="vote-actions">
-        <i class="fa fa-chevron-up" v-on:click="increment"> </i>
-        <div v-if="typeof voting === 'undefined'">
+        <i class="fa fa-chevron-up" @click="voteUp"> </i>
+        <div v-if="((typeof voting === 'undefined')||(voting.loading === true))">
             <i class="fa fa-spinner fa-spin" > </i>
         </div>
-        <div v-else-if="(voting.value || 0) >= 0">
-            {{voting.value || 0}}
+        <div v-else-if="(voting.value) >= 0">
+            {{voting.value}}
         </div>
         <div v-else>
             <strong> - </strong>
         </div>
-        <i class="fa fa-chevron-down" v-on:click="decrement"> </i>
+        <i class="fa fa-chevron-down" @click="voteDown"> </i>
     </div>
 </template>
 
 <script>
 
     import Voting from 'models/Vote/Voting.model'
+    import VoteType from 'models/Vote/VoteType';
 
     export default {
 
@@ -50,11 +51,11 @@
         },
 
         methods: {
-            increment() {
-                this.myVotingValue++;
+            voteUp() {
+                this.$store.dispatch('CONTENT_VOTES_SUBMIT_VOTE', {parentId: this.parentId, userId: this.$store.state.authenticatedUser.user.id, voteType: VoteType.VOTE_UP});
             },
-            decrement() {
-                this.myVotingValue--;
+            voteDown() {
+                this.$store.dispatch('CONTENT_VOTES_SUBMIT_VOTE', {parentId: this.parentId, userId: this.$store.state.authenticatedUser.user.id, voteType: VoteType.VOTE_DOWN});
             },
         }
 

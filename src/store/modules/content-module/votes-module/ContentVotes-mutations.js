@@ -26,6 +26,12 @@ export default{
 
     },
 
+    SET_CONTENT_VOTE_LOADING_STATUS : (state, { parentId, loadingStatus }) => {
+
+        state.votes[parentId].loading = loadingStatus;
+
+    },
+
     SET_CONTENT_VOTES_CLEAR : (state, { }) => {
 
         state.votes = {};

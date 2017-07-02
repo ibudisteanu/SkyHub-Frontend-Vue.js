@@ -15,9 +15,14 @@ class FetchServiceClass {
   }
 
   //it is async
-  sendRequestGetData(sRequestName, data){
+    /*
 
-    return CommunicationService.sendRequestGetData(sRequestName, data);
+        receivingSuffix it is only for websocks used, because the path it is the same for multiple simultaneously requests with different data and I couldn't make it working without a suffix in the socket path
+
+     */
+  sendRequestGetData(sRequestName, data, receivingSuffix){
+
+    return CommunicationService.sendRequestGetData(sRequestName, data, receivingSuffix);
 
   }
 

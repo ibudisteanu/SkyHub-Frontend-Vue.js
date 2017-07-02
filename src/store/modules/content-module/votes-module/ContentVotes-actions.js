@@ -13,8 +13,11 @@ export default{
 
         try {
 
-            //Using Promise
-            let resData = await FetchService.sendRequestGetData("voting/submit-vote",{parentId: parentId, voteType: voteType });
+            await commit('SET_CONTENT_VOTE_LOADING_STATUS',{parentId: parentId, loadingStatus: true});
+
+            let resData = await FetchService.sendRequestGetData("voting/submit-vote",{parentId: parentId, voteType: voteType }, parentId);
+
+            await commit('SET_CONTENT_VOTE_LOADING_STATUS',{parentId: parentId, loadingStatus: false});
 
             console.log('Answer from Votings ', resData);
 
@@ -32,7 +35,7 @@ export default{
 
         if (typeof state.votes.parentId !== 'undefined') return {result: true, vote: state.votes.parentId }; //already fetched previously...
 
-        let result  = await FetchService.sendRequestGetData("voting/get-vote",{parentId: parentId});
+        let result  = await FetchService.sendRequestGetData("voting/get-vote", {parentId: parentId}, parentId);
 
         if (result.result === true){
 

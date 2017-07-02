@@ -114,12 +114,15 @@ class ClientSocketServiceClass {
     /*
      Sending the Request and Obtain the Promise to Wait Async
      */
-    sendRequestGetData(sRequestName, sRequestData) {
+    sendRequestGetData(sRequestName, sRequestData, receivingSuffix) {
+
+        if (typeof receivingSuffix === 'undefined') receivingSuffix = '';
+
         return new Promise((resolve) => {
 
             this.sendRequest(sRequestName, sRequestData);
 
-            this.socket.once(this.sServerSocketApi + sRequestName, function (resData) {
+            this.socket.once(this.sServerSocketApi + sRequestName + (receivingSuffix !== '' ? '/'+receivingSuffix : ''), function (resData) {
 
                 /*console.log('SOCKET RECEIVED: ');
                  console.log(resData);*/

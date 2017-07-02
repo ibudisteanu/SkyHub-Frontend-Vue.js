@@ -1,11 +1,6 @@
 
 import Vote from './Vote.model';
-
-const VoteType = {
-    VOTE_UP: 1,
-    VOTE_DOWN: -1,
-    VOTE_NONE: 666,
-};
+import VoteType from './VoteType';
 
 export default class Voting {
 
@@ -20,9 +15,12 @@ export default class Voting {
         if (typeof data === "undefined") data = {};
 
         this.parentId = data.parentId || '';
-        this.value = data.value || '';
+
+        if (typeof data.value === 'undefined') this.value = 0;
+        else this.value = data.value;
 
         this.votes = [];
+        this.loading = false;
 
         let votes = data.votes || [];
         for (let i=0; i<votes.length; i++)
