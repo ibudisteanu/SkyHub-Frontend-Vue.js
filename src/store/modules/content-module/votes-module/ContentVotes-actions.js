@@ -4,22 +4,26 @@
  */
 
 import FetchService from 'services/communication/FetchService'
+import Voting from 'models/Vote/Voting.model';
 
 export default{
 
 
 
-    CONTENT_VOTES_SUBMIT_VOTE: async ({commit, state, dispatch}, {parentId, voteType}) =>{
+    CONTENT_VOTES_SUBMIT_VOTE: async ({commit, state, dispatch}, {parentId, userId, voteType}) =>{
 
         try {
 
             await commit('SET_CONTENT_VOTE_LOADING_STATUS',{parentId: parentId, loadingStatus: true});
 
             let resData = await FetchService.sendRequestGetData("voting/submit-vote",{parentId: parentId, voteType: voteType }, parentId);
+            console.log('Answer from Votings ', resData);
 
             await commit('SET_CONTENT_VOTE_LOADING_STATUS',{parentId: parentId, loadingStatus: false});
 
-            console.log('Answer from Votings ', resData);
+            if (resData.result){
+                Voting.addVote( state.votes[parentId], userId, voteType );
+            }
 
             return resData;
 

@@ -17,7 +17,7 @@ export default class Voting {
         this.parentId = data.parentId || '';
 
         if (typeof data.value === 'undefined') this.value = 0;
-        else this.value = data.value;
+        else this.value = parseInt(data.value);
 
         this.votes = [];
         this.loading = false;
@@ -47,14 +47,20 @@ export default class Voting {
 
         if (voteIndex !== null){
 
-            if (voteType === this.votes[voteIndex].voteType)
+            console.log('addVote', Voting, Voting.votes, authorId, voteIndex, voteType, Voting.votes[voteIndex].voteType);
+
+            if (voteType === Voting.votes[voteIndex].voteType)
                 return {result: false, message: 'You can not vote multiple times'};
 
-            this.votes[voteIndex].voteType =  voteType;
+            Voting.value -= Voting.votes[voteIndex].voteType;
+            Voting.votes[voteIndex].voteType =  voteType;
+
+            Voting.value += voteType;
             return {result : true};
         }
 
-        this.votes.push(new Vote({userId: authorId, voteType: voteType}));
+        Voting.votes.push(new Vote({userId: authorId, voteType: voteType}));
+        Voting.value += voteType;
         return {result : true};
     }
 

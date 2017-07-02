@@ -3,11 +3,13 @@
  * (C) BIT TECHNOLOGIES
  */
 
+import VoteType from './VoteType';
+
 export default class Vote {
 
     constructor( data) {
         this.userId = data.userId || '';
-        this.voteType = data.voteType || '';
+        this.voteType = parseInt(data.voteType) || VoteType.VOTE_NONE;
     }
 
 }
