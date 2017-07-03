@@ -20,9 +20,9 @@ export default{
 
     },
 
-    USER_NOTIFICATIONS_FETCHING_SERVICE_EXECUTE: async ({commit, state, dispatch}, {}) => {
+    USER_NOTIFICATIONS_FETCHING_SERVICE_EXECUTE: async ({commit, state, rootState, dispatch}, {}) => {
 
-        console.log('#### USER_NOTIFICATIONS_FETCHING_SERVICE_EXECUTE ');
+        //console.log('#### USER_NOTIFICATIONS_FETCHING_SERVICE_EXECUTE ');
         if (state.serviceStarted === false){
             return false; //the service has been finished
         }
@@ -34,16 +34,15 @@ export default{
 
             commit('SET_USER_NOTIFICATIONS_UNREAD_COUNT', {unreadNotifications: parseInt(resData.unreadNotifications)});
 
-            for (let i=0; i<resData.notifications; i++){
-                if (typeof state.notifications[resData.notifications[i].id] === 'undefined') { //it is a new notification
+            for (let i=0; i<resData.notifications.length; i++){
+                if (typeof rootState.notifications.user.notifications[resData.notifications[i].id] === 'undefined') { //it is a new notification
 
-                    let notification = new Notification(state.notifications[resData.notifications[i]]);
+                    let notification = new Notification(resData.notifications[i]);
 
                     commit('SET_USER_NOTIFICATION',{notification: notification});
 
-                    if (resData.notifications[i].shown === false){
-                        dispatch('SYSTEM_NOTIFICATIONS_SPAWN_NOTIFICATION',notification);
-                    }
+                    if (notification.shown === false)
+                        dispatch('SYSTEM_NOTIFICATIONS_SPAWN_NOTIFICATION',{notification: notification});
 
                 }
 

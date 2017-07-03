@@ -3,6 +3,8 @@
  * (C) BIT TECHNOLOGIES
  */
 
+import Vue from 'vue';
+
 export default{
 
     SET_USER_NOTIFICATION: (state, { notification } ) => {
@@ -13,7 +15,7 @@ export default{
 
     SET_USER_NOTIFICATION_AS_SHOWN: (state, { notificationId, shown } ) => {
 
-        state.notifications[notificationId.id].shown = shown;
+        state.notifications[notificationId].shown = shown;
         //Vue.set(state.notifications, notification.id, notification);
 
     },

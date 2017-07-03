@@ -3,6 +3,12 @@
  * (C) BIT TECHNOLOGIES
  */
 
+/*
+        DOCUMENTATION: https://developer.mozilla.org/ro/docs/Web/API/notification
+ */
+
+import FetchService from 'services/communication/FetchService'
+
 export default{
 
     SYSTEM_NOTIFICATIONS_ASK_PERMISSION: ({ commit, dispatch, state, getters }, {  }) => {
@@ -27,19 +33,23 @@ export default{
 
     },
 
-    SYSTEM_NOTIFICATIONS_SPAWN: async ( {commit, dispatch, state, getters}, {title, body, icon, notificationId}) => {
+    SYSTEM_NOTIFICATIONS_SPAWN: async ( {commit, dispatch, state, getters}, {title, body, icon, timestamp, notificationId}) => {
 
         if (!getters.areAvailable)
             return false;
 
         var options = {
             body: body,
-            icon: icon
+            icon: icon,
+            timestamp: timestamp,
         }
 
         if (Notification.permission === "granted") {                              // Let's check whether notification permissions have already been granted
 
             var notification = new Notification(title, options);
+
+            if (typeof notificationId !== 'undefined')
+                dispatch('USER_NOTIFICATION_NOTIFICATION_SHOWN',{notificationId: notificationId});
         }
 
         else if (Notification.permission !== 'denied') {                          // Otherwise, we need to ask the user for permission
@@ -48,7 +58,8 @@ export default{
                 if (permission === "granted") {
                     var notification = new Notification(title, options);
 
-                    commit('SET_USER_NOTIFICATION_AS_SHOWN',{notificationId:notificationId, shown:true});
+                    if (typeof notificationId !== 'undefined')
+                        dispatch('USER_NOTIFICATION_NOTIFICATION_SHOWN',{notificationId: notificationId});
 
                 }
             });
@@ -56,11 +67,14 @@ export default{
 
     },
 
-    SYSTEM_NOTIFICATIONS_SPAWN_NOTIFICATION: async ( {commit, dispatch, state, getters}, {notification} ) => {
+    SYSTEM_NOTIFICATIONS_SPAWN_NOTIFICATION: async ( {commit, dispatch}, {notification} ) => {
+
+        console.log('### SYSTEM_NOTIFICATIONS_SPAWN_NOTIFICATION ',notification);
 
         switch (notification.template){
             default:
-                dispatch('SYSTEM_NOTIFICATIONS_SPAWN',{title: notification.params.title||'', body: notification.params.body||'', icon: notification.params.icon||'', notificationId:notification.id});
+                dispatch('SYSTEM_NOTIFICATIONS_SPAWN',{title: notification.params.title||'SkyHub Social Network', body: notification.params.body||'', icon: notification.params.icon||'/public/SkyHub-logo.png',
+                                                       timestamp: notification.dtCreation, notificationId:notification.id});
                 break;
         }
 
