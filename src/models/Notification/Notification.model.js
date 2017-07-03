@@ -1,23 +1,23 @@
 /* eslint-disable import/prefer-default-export */
 
-import * as UserProperties from '../User/User.properties.js';
-//var UserProperties = require ('./User.properties.ts');
 
 export default class Notification {
 
 
+    // id = '';
+    // dtCreation = 0;
+    // authorId = '';
+    // params: {}; //params is a JSON object that contains objects
+
     constructor( data) {
 
-      if (typeof data === "undefined") data = {};
+        if (typeof data === "undefined") data = {};
 
-      this.id = data.id||'';
-      this.dtCreation = data.dtCreation || '';
-      this.description = data.description || '';
-      this.template = data.template || '';
-      this.title = data.title || '';
-      this.destinationId = data.destinationId || '';
-      this.senderId = data.sender || '';
-      this.body = data.body || '';
+        this.id = data.id||'';
+        this.dtCreation = data.dtCreation || '';
+        this.authorId = data.authorId || '';
+        this.template = data.template || '';
+        this.params = data.params || {};
 
     }
 

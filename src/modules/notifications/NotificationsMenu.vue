@@ -2,7 +2,8 @@
   <li key="notificationMenu" class="dropdown">
 
     <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-      <i class="fa fa-envelope"></i>  <span class="label label-warning">{{notifications.length}}</span>
+        <i class="fa fa-bell"></i>
+        <span v-if="unreadUserNotifications > 0" class="label label-warning">{{unreadUserNotifications}}</span>
     </a>
     <ul class="dropdown-menu dropdown-messages">
 
@@ -51,6 +52,12 @@
 
           return {notifications: [notification1,notification2]}
       },
+
+      computed: {
+          unreadUserNotifications(){
+              return this.$store.state.notifications.user.unreadNotifications;
+          }
+      }
 
   }
 </script>

@@ -36,7 +36,7 @@
             },
 
             areNotificationsGranted(){
-                return this.$store.state.systemNotifications.notificationsPermissionGranted;
+                return this.$store.state.notifications.system.notificationsPermissionGranted;
 
             }
 

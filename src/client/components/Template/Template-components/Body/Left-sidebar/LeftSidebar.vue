@@ -9,7 +9,6 @@
       <ul class="nav metismenu" id="side-menu" >
         <li class="nav-header" :style="{paddingTop: 15}">
 
-
             <div class="dropdown profile-element">
 
             <span v-if="isLoggedIn">

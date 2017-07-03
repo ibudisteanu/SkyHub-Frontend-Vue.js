@@ -8,7 +8,7 @@ import Vuex from 'vuex'
 import HackerNewsModule from './modules/hackernews-module/Hackernews-module';
 import AuthenticateModule from './modules/authenticate-module/AuthenticatedUser-module'
 import SocketStatusModule from './modules/socket-status-module/SocketStatus-module'
-import SystemNotificationsModule from './modules/system-notifications-module/SystemNotifications-module'
+import NotificationsModule from './modules/notifications-module/Notifications-module.js'
 import LocalizationModule from './modules/localization-module/Localization-module'
 import GlobalModule from './modules/global-module/Global-module'
 import ContentModule from './modules/content-module/Content-module'
@@ -21,7 +21,7 @@ export function createStore () {
             hackernews: HackerNewsModule,
             authenticatedUser: AuthenticateModule,
             socketStatus: SocketStatusModule,
-            systemNotifications: SystemNotificationsModule,
+            notifications: NotificationsModule,
             localization: LocalizationModule,
             global: GlobalModule,
 
