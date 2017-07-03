@@ -5,13 +5,20 @@
         <i class="fa fa-bell"></i>
         <span v-if="unreadUserNotifications > 0" class="label label-warning">{{unreadUserNotifications}}</span>
     </a>
-    <ul class="dropdown-menu dropdown-messages">
+    <ul class="dropdown-menu dropdown-messages" style="padding: 0;">
 
       <NotificationItem
            v-for="(notification, index) in notifications"
            :notification="notification"
            :key="notification.id"
+           :last="index === (notifications.length-1)"
       />
+
+        <li>
+            <div class="text-center link-block" @click="markAllAsRead">
+                <i class="fa fa-envelope"></i> <strong> Mark All as read</strong>
+            </div>
+        </li>
 
     </ul>
   </li>
@@ -27,35 +34,20 @@
 
       components: {NotificationItem},
 
-      data: function (){
-
-          let notification1 = new Notification({
-              body: '3323',
-              destinationId: '2145',
-              senderId: '4151251',
-              description: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ',
-              id: '425151',
-              dtCreation: '23/jan/1987',
-              template: '',
-              title: 'so such a lovly twist'
-          });
-          let notification2 =  new Notification({
-              body: '3323',
-              destinationId: '2145',
-              senderId: '4151251',
-              description: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ',
-              id: '425151ssss',
-              dtCreation: '23/jan/1987',
-              template: '',
-              title: 'so such a lovly twist'
-          });
-
-          return {notifications: [notification1,notification2]}
-      },
-
       computed: {
           unreadUserNotifications(){
               return this.$store.state.notifications.user.unreadNotifications;
+          },
+
+          notifications(){
+              return this.$store.getters.getNotifications;
+          }
+
+      },
+
+      methods:{
+          markAllAsRead(){
+              return this.$store.dispatch('USER_NOTIFICATIONS_MARK_READ', {notificationId:'', read:true, all:true});
           }
       }
 

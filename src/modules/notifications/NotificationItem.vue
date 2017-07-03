@@ -5,30 +5,54 @@
 
 
 <template>
- <div>
-  <li>
-   <div class="dropdown-messages-box">
-    <a href="profile.html" class="pull-left">
-     <img alt="image" class="img-circle" src="http://webapplayers.com/inspinia_admin-v2.7.1/img/a7.jpg" />
-    </a>
-    <div>
+ <div :style="!notification.read ? 'background-color: #edf2fa' : '' ">
+      <li>
+           <div class="dropdown-messages-box" @click="markNotificationAsRead">
 
-     <small class="pull-right">46h ago</small>
-     <strong>dddd</strong>
-     started following <strong>{{notification.destinationId}}</strong>. <br/>
-     <small class="text-muted">{{notification.dtCreation}}</small>
-    </div>
-   </div>
-  </li>
-  <li class="divider"></li>
+               <router-link :to="notification.params.url||''" style="display:block">
+                   <div style="margin-left: -15px;">
+                        <img alt="image" class="img-circle" :src="notification.params.icon || '/public/SkyHub-logo.png'"  align="left"  />
+                   </div>
+               </router-link>
+
+               <router-link :to="notification.params.url||''" style="display:block">
+                    <div class="media-body" style="min-height: 50px; padding-left: 10px">
+                         <small class="pull-right">
+                             <ShowDate :date="notification.dtCreation" />
+                         </small>
+                         <strong>{{notification.params.title}}</strong> <br/>
+
+                        <small class="text-muted">{{notification.params.body}}</small> <br/>
+
+                    </div>
+               </router-link >
+
+           </div>
+      </li>
+      <li v-if="!last" class="divider" style="margin: 2px;"></li>
  </div>
 </template>
 
 <script>
- export default{
-     name: 'NotificationItem',
+    import ShowDate from 'client/components/util-components/UI/show-date/ShowDate.component.vue';
 
-     props: ['notification','val'],
+     export default{
+         name: 'NotificationItem',
 
- }
+         components:{
+             'ShowDate' : ShowDate,
+         },
+
+         props: {
+             notification: {default:  null},
+             last: {default: false},
+         },
+
+         methods:{
+             markNotificationAsRead(){
+                 return this.$store.dispatch('USER_NOTIFICATIONS_MARK_READ', {notificationId:this.notification.id, read:true, false:true});
+             }
+         },
+
+     }
 </script>

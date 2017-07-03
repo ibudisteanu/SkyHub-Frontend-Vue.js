@@ -49,7 +49,7 @@ export default{
             var notification = new Notification(title, options);
 
             if (typeof notificationId !== 'undefined')
-                dispatch('USER_NOTIFICATION_NOTIFICATION_SHOWN',{notificationId: notificationId});
+                dispatch('USER_NOTIFICATIONS_MARK_SHOWN',{notificationId: notificationId});
         }
 
         else if (Notification.permission !== 'denied') {                          // Otherwise, we need to ask the user for permission
@@ -59,7 +59,7 @@ export default{
                     var notification = new Notification(title, options);
 
                     if (typeof notificationId !== 'undefined')
-                        dispatch('USER_NOTIFICATION_NOTIFICATION_SHOWN',{notificationId: notificationId});
+                        dispatch('USER_NOTIFICATIONS_MARK_SHOWN',{notificationId: notificationId});
 
                 }
             });

@@ -675,3 +675,16 @@ div.filepicker {
     z-index: 100;
 }
 
+
+/*
+        NOTIFICATIONS
+ */
+
+
+.dropdown-menu > .divider {
+    margin: 2px;
+}
+
+.navbar-top-links .dropdown-messages-box:hover{
+    background: #c8daf7;
+}
