@@ -3,12 +3,6 @@
  * (C) BIT TECHNOLOGIES
  */
 
-import {
-    fetchUser,
-    fetchItems,
-    fetchIdsByType
-} from 'services/hackernews-api/index'
-
 export default {
 
     SOCKET_CONNECTING_ERROR: async ({ commit } , {error}) => {

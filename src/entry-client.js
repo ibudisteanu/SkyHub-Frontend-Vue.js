@@ -4,6 +4,7 @@ import { createApp } from './app'
 import ProgressBar from './modules/hackernews/components/ProgressBar.vue'
 
 import FetchService from 'services/communication/FetchService';
+import infiniteScroll from 'vue-infinite-scroll'; //infinite scroll directive  https://github.com/ElemeFE/vue-infinite-scroll
 
 // global progress bar
 const bar = Vue.prototype.$bar = new Vue(ProgressBar).$mount()
@@ -22,14 +23,16 @@ Vue.mixin({
       next()
     }
   }
-})
+});
+
+Vue.use(infiniteScroll); //infinite scroll directive  https://github.com/ElemeFE/vue-infinite-scroll
 
 // usage of tooltips https://stackoverflow.com/questions/37078423/how-can-add-bootstrap-tooltip-inside-vue-js
 Vue.directive('tooltip', function(el, binding){
     $(el).attr('data-toggle', 'tooltip')
         .attr('data-placement', binding.arg)
         .attr('trigger', 'hover').tooltip({title: binding.value})
-})
+});
 
 Vue.directive('popover', function(el, binding){
 
@@ -40,7 +43,7 @@ Vue.directive('popover', function(el, binding){
 
     $(el).data('bs.popover').options.content = binding.value.content;
     $(el).popover('show');
-})
+});
 
 const { app, router, store } = createApp()
 
@@ -53,6 +56,7 @@ if (window.__INITIAL_STATE__) {
 //send the store and commit to the FetchService (SocketClient needs store.socketStatus
 FetchService.startService(store.dispatch, store.state.socketStatus);
 store.dispatch('SYSTEM_NOTIFICATIONS_CHECK_PERMISSION',{});
+store.dispatch('USER_NOTIFICATIONS_FETCHING_SERVICE_START',{});
 
 console.log("@@@@@@@@@ STORE", store);
 
