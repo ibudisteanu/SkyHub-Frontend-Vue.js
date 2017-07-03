@@ -9,7 +9,7 @@ import mutations from './UserNotificationsFetchingService-mutations'
 export default{
 
     state: {
-        fetchingServiceInterval : null,
+        serviceStarted : false,
     },
 
     actions,

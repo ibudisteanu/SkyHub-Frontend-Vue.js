@@ -27,7 +27,7 @@ export default{
 
     },
 
-    SYSTEM_NOTIFICATIONS_SPAWN: async ( {commit, dispatch, state, getters}, {title, body, icon}) => {
+    SYSTEM_NOTIFICATIONS_SPAWN: async ( {commit, dispatch, state, getters}, {title, body, icon, notificationId}) => {
 
         if (!getters.areAvailable)
             return false;
@@ -47,10 +47,24 @@ export default{
                 // If the user accepts, let's create a notification
                 if (permission === "granted") {
                     var notification = new Notification(title, options);
+
+                    commit('SET_USER_NOTIFICATION_AS_SHOWN',{notificationId:notificationId, shown:true});
+
                 }
             });
         }
 
+    },
 
-    }
+    SYSTEM_NOTIFICATIONS_SPAWN_NOTIFICATION: async ( {commit, dispatch, state, getters}, {notification} ) => {
+
+        switch (notification.template){
+            default:
+                dispatch('SYSTEM_NOTIFICATIONS_SPAWN',{title: notification.params.title||'', body: notification.params.body||'', icon: notification.params.icon||'', notificationId:notification.id});
+                break;
+        }
+
+
+
+    },
 }

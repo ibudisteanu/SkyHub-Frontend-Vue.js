@@ -9,7 +9,7 @@ import User from 'models/User/User.model';
 
 export default {
 
-    SET_AUTHENTICATED_USER_SESSION: (state, { sessionId }) => {
+    SET_AUTHENTICATED_USER_SESSION: (state , { sessionId }) => {
         state.sessionId = sessionId;
     },
 
@@ -17,22 +17,25 @@ export default {
         let userLogged = new User( newUserData);
         state.user = userLogged;
         state.sessionId = sessionId;
+
     },
 
-    SET_AUTHENTICATED_NEW_USER: (state, { newUser, sessionId }) => {
+    SET_AUTHENTICATED_NEW_USER: (state , { newUser, sessionId }) => {
         state.user = newUser;
         state.sessionId = sessionId;
+
     },
 
 
-    SET_USER_LOGOUT: (state, {  }) => {
+    SET_USER_LOGOUT: ( state, {  }) => {
         console.log('==== SET_USER_LOGOUT');
         state.sessionId = '';
         state.user =  new User({});
-        state.error = ''
+        state.error = '';
+
     },
 
-    SET_AUTHENTICATED_SESSION_STORE: (state, { sessionId }) => {
+    SET_AUTHENTICATED_SESSION_STORE: ({ commit, dispatch, state }, { sessionId }) => {
 
         state.sessionId = sessionId;
 
