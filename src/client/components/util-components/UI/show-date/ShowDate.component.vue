@@ -49,7 +49,6 @@
                   result = diffYears+'y ';
 
                   if (diffMonths > 0) return result+diffMonths + 'm ';
-                  if (diffDays > 0) return result+diffDays + 'd ';
 
                   return result;
               }
@@ -59,7 +58,6 @@
               if (diffMonths > 0){
                   result = diffMonths + 'm ';
                   if (diffDays > 0) return result+diffDays + 'd ';
-                  if (diffHours > 0) return result+diffHours + 'h ';
 
                   return result;
               }
@@ -67,7 +65,7 @@
               let diffMinutes = Math.trunc(diff / (1000 * 60));
 
               if (diffDays > 0){
-                  result = diffDays + ' d ';
+                  result = diffDays + 'd ';
                   if (diffHours > 0) return result + diffHours + 'h ';
                   if (diffMinutes > 0) return result +diffMinutes+'m ';
 
@@ -77,10 +75,14 @@
               let diffSeconds = Math.trunc(diff / 1000);
 
               if (diffHours > 0){
-                  result = diffHours + ' h ';
+                  result = diffHours + 'h ';
                   if (diffMinutes > 0) return result + diffMinutes + 'm ';
-                  if (diffSeconds > 0) return result + diffSeconds + 's ';
               } else
+              if (diffMinutes > 0) {
+                  return result + diffMinutes + 'm ';
+                  if (diffSeconds > 0) return result + diffSeconds + 's ';
+              }
+              else
               if (diffSeconds > 0){
                   result = diffSeconds + 's ';
               } else

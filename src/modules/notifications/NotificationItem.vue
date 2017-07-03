@@ -50,7 +50,7 @@
 
          methods:{
              markNotificationAsRead(){
-                 return this.$store.dispatch('USER_NOTIFICATIONS_MARK_READ', {notificationId:this.notification.id, read:true, false:true});
+                 return this.$store.dispatch('USER_NOTIFICATIONS_MARK_READ', {notificationId:this.notification.id, markRead:true, markAll:true});
              }
          },
 

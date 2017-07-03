@@ -16,7 +16,12 @@ export default{
     SET_USER_NOTIFICATION_AS_SHOWN: (state, { notificationId, shown } ) => {
 
         state.notifications[notificationId].shown = shown;
-        //Vue.set(state.notifications, notification.id, notification);
+
+    },
+
+    SET_USER_NOTIFICATION_AS_MARKED: (state, { notificationId, markedValue } ) => {
+
+        state.notifications[notificationId].read = markedValue;
 
     },
 
@@ -24,6 +29,10 @@ export default{
 
         state.unreadNotifications = unreadNotifications;
 
+    },
+
+    SET_USER_NOTIFICATION_RESET_UNREAD_COUNTER: (state, {}) =>{
+        state.unreadNotifications = 0;
     }
 
 }
