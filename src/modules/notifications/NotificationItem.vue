@@ -7,7 +7,7 @@
 <template>
  <div :style="!notification.read ? 'background-color: #edf2fa' : '' ">
       <li>
-           <div class="dropdown-messages-box" @click="markNotificationAsRead">
+           <div class="dropdown-messages-box" @click="this.markNotificationAsRead">
 
                <router-link :to="notification.params.url||''" style="display:block">
                    <div style="margin-left: -15px;">
@@ -29,7 +29,7 @@
 
            </div>
       </li>
-      <li v-if="!last" class="divider" style="margin: 2px;"></li>
+      <li class="divider" style="margin: 2px;"></li>
  </div>
 </template>
 
@@ -50,7 +50,8 @@
 
          methods:{
              markNotificationAsRead(){
-                 return this.$store.dispatch('USER_NOTIFICATIONS_MARK_READ', {notificationId:this.notification.id, markRead:true, markAll:true});
+                 console.log('markNotificationAsRead');
+                 return this.$store.dispatch('USER_NOTIFICATIONS_MARK_READ', {notificationId:this.notification.id, markRead:true, markAll:false});
              }
          },
 

@@ -21,6 +21,7 @@ export default{
 
     SET_USER_NOTIFICATION_AS_MARKED: (state, { notificationId, markedValue } ) => {
 
+        console.log('SET_USER_NOTIFICATION_AS_MARKED',notificationId, markedValue);
         state.notifications[notificationId].read = markedValue;
 
     },

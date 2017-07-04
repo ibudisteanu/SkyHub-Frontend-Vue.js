@@ -22,6 +22,10 @@ export default class Reply {
         this.preview = data.preview||false;
 
         this.attachments = data.attachments || [];
+        this.URL = data.URL || '';
+
+        this.dtCreation = ((typeof data.dtCreation === "string")&&(data.dtCreation !== '')) ? Date.parse(data.dtCreation) : new Date(data.dtCreation||new Date());
+        this.dtLastActivity = ((typeof data.dtLastActivity === "string")&&(data.dtLastActivity !== '')) ? Date.parse(data.dtLastActivity) : new Date(data.dtLastActivity||new Date());
 
         console.log('Reply assigned ', data, data.title, data.parentReplyId);
     }

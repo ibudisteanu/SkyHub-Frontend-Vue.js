@@ -14,6 +14,8 @@ export default{
         for (let i=0; i<replies.length; i++)
             if (replies[i].object !== null) {
 
+                console.log('######## SET_CONTENT_REPLIES', replies[i].object);
+
                 let reply = ContentObjectService.createObject(replies[i].object);
 
                 Vue.set(state.replies, reply.id, reply );
