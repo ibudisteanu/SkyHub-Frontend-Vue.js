@@ -10,14 +10,14 @@
         <HeaderCover  v-if=" (getTopic !== null) && (getTopicRouter.notFound === false)"
                       :title="getTopic.title||''"
                       :subTitle="getTopic.description||''"
-                      :icon="getTopic.iconPic||''"
-                      :cover="getTopic.coverPic||''"
-                      :coverColor="getTopic.coverColor||''"
+                      :icon="getParentForum.iconPic||''"
+                      :cover="getParentForum.coverPic||''"
+                      :coverColor="getParentForum.coverColor||''"
                       :breadcrumbs="getTopic.breadcrumbs||[]"
                       :url="getTopic.URL"
 
-                      :enableChangeIcon = "getTopic.isOwner"
-                      :enableChangeCover = "getTopic.isOwner"
+                      :enableChangeIcon = "getParentForum.isOwner"
+                      :enableChangeCover = "getParentForum.isOwner"
         />
 
         <WebsiteHeaderCover v-else />
@@ -175,8 +175,16 @@
             getTopicRouter(){
                 return this.$store.state.content.contentRouter.routerObject;
             },
+
+            getParentForumRouter(){
+                return this.$store.state.content.contentRouter.routerParentObject;
+            },
             
             getTopic(){
+                return this.getTopicRouter.object;
+            },
+
+            getParentForum(){
                 return this.getTopicRouter.object;
             },
 

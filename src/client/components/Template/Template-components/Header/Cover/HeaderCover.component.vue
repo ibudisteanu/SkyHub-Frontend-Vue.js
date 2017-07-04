@@ -17,11 +17,13 @@
                 <div class='header-cover-description' >
                     <div>
 
-                        <div class="image-with-caption" style="display: inline-block;">
-                            <a>
+                        <ImageCropUpload :enableFileUpload="enableChangeIcon" :initialImage="icon||'/public/SkyHub-logo.png'" :show="showIconImageCropUpload"/>
+
+                        <div class="image-with-caption-link" style="display: inline-block;" @click="this.showIconImageCropUpload=true">
+                            <router-link :to="''">
                                 <img :src="icon||'/public/SkyHub-logo.png'" />
                                 <span v-if="enableChangeIcon" style="color: yellow"><i class="fa fa-picture-o"/> Change Picture</span>
-                            </a>
+                            </router-link>
                         </div>
 
                         <div class="row">
@@ -71,10 +73,22 @@
 <script>
 
     import DisplayBreadcrumbs from 'client/components/util-components/UI/breadcrumbs/DisplayBreadcrumbs.component.vue';
+    import ImageCropUpload from 'client/components/util-components/file-upload/vue-image-crop-upload/ImageCropUpload.component.vue';
 
     export default{
 
         name: 'HeadCover',
+
+        components:{
+            'ImageCropUpload':ImageCropUpload,
+            'DisplayBreadcrumbs' : DisplayBreadcrumbs,
+        },
+
+        data: function () {
+            return{
+                showIconImageCropUpload : false,
+            }
+        },
 
         props:{
             url: {default: ''},
@@ -93,9 +107,6 @@
             enableChangeCover : {default: false},
         },
 
-        components:{
-            'DisplayBreadcrumbs' : DisplayBreadcrumbs,
-        },
 
         methods:{
 

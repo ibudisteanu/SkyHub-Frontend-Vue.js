@@ -100,22 +100,25 @@
 /*
     Gallery used for Forums
  */
-.image-with-caption{
+.image-with-caption-link{
 
 }
 
-.image-with-caption > a{
+.image-with-caption,
+.image-with-caption-link > a{
   position:relative;
   margin-bottom:20px;
   margin-right:10px;
   display: inline-block;
 }
 
-.image-with-caption > a > img{
+.image-with-caption > img,
+.image-with-caption-link > a > img{
   margin: 0;
 }
 
-.image-with-caption > a > span {
+.image-with-caption > span,
+.image-with-caption-link > a > span{
   position:absolute;
   bottom:0;
   left:0;
@@ -126,6 +129,8 @@
   opacity: 0.7;
   text-align: center;
 }
+
+
 
 /*
     PREVIEW PAGES
