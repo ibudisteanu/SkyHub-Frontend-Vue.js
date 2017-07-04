@@ -6,40 +6,44 @@
 
 <template>
    <div>
-	   <HeaderCover  v-if=" (routerObject.object !== null) && (routerObject.notFound === false)"
-					 :title="routerObject.object.title||''"
-					 :subTitle="routerObject.object.description||''"
-					 :icon="routerObject.object.iconPic||''"
-					 :cover="routerObject.object.coverPic||''"
-					 :coverColor="routerObject.object.coverColor||''"
-					 :breadcrumbs="routerObject.object.breadcrumbs||[]"
-					 :url="routerObject.object.URL"
-	   />
+           <HeaderCover  v-if=" (routerObject.object !== null) && (routerObject.notFound === false)"
+                         :title="routerObject.object.title||''"
+                         :subTitle="routerObject.object.description||''"
+                         :icon="routerObject.object.iconPic||''"
+                         :cover="routerObject.object.coverPic||''"
+                         :coverColor="routerObject.object.coverColor||''"
+                         :breadcrumbs="routerObject.object.breadcrumbs||[]"
+                         :url="routerObject.object.URL"
 
-	   <WebsiteHeaderCover v-else />
+                         :enableChangeIcon = "routerObject.object.isOwner"
+                         :enableChangeCover = "routerObject.object.isOwner"
+
+           />
+
+           <WebsiteHeaderCover v-else />
 
 
-	   <div style='position: relative; z-index: 2 '>
+           <div style='position: relative; z-index: 2 '>
 
-		  <div v-if="(routerObject.notFound === false)">
+              <div v-if="(routerObject.notFound === false)">
 
-		  </div>
-		  <div v-else> <!-- ERROR -->
-            <div class="row">
-              <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-               <div class="alert alert-danger ">
-                <h4 style='textAlign: center;'>Forum <strong>NOT Found</strong></h4>
-                <strong>{{this.$store.state.route.fullPath||"/"}}</strong> was not found. Probably what you've been looking for doesn't exists or has been deleted in the mean while.
-               </div>
               </div>
-            </div>
-		  </div>
+              <div v-else> <!-- ERROR -->
+                <div class="row">
+                  <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+                   <div class="alert alert-danger ">
+                    <h4 style='textAlign: center;'>Forum <strong>NOT Found</strong></h4>
+                    <strong>{{this.$store.state.route.fullPath||"/"}}</strong> was not found. Probably what you've been looking for doesn't exists or has been deleted in the mean while.
+                   </div>
+                  </div>
+                </div>
+              </div>
 
-	   </div>
+           </div>
 
-	  <DisplayForumContent/>
+          <DisplayForumContent/>
 
- </div>
+    </div>
 </template>
 
 

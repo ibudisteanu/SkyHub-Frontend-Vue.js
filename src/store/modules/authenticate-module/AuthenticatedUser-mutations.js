@@ -13,16 +13,14 @@ export default {
         state.sessionId = sessionId;
     },
 
-    SET_AUTHENTICATED_NEW_USER_JSON: (state, { newUserData, sessionId }) => {
+    SET_AUTHENTICATED_NEW_USER_JSON: (state, { newUserData}) => {
         let userLogged = new User( newUserData);
         state.user = userLogged;
-        state.sessionId = sessionId;
 
     },
 
-    SET_AUTHENTICATED_NEW_USER: (state , { newUser, sessionId }) => {
+    SET_AUTHENTICATED_NEW_USER: (state , { newUser}) => {
         state.user = newUser;
-        state.sessionId = sessionId;
 
     },
 
@@ -32,12 +30,6 @@ export default {
         state.sessionId = '';
         state.user =  new User({});
         state.error = '';
-
-    },
-
-    SET_AUTHENTICATED_SESSION_STORE: ({ commit, dispatch, state }, { sessionId }) => {
-
-        state.sessionId = sessionId;
 
     },
 

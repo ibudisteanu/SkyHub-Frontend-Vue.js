@@ -1,4 +1,5 @@
 import { createApp } from './app'
+import FetchService from 'services/communication/FetchService';
 
 const isDev = process.env.NODE_ENV !== 'production'
 
@@ -12,9 +13,12 @@ export default context => {
     const s = isDev && Date.now()
     const { app, router, store } = createApp()
 
+    //send the store and dispatch to the FetchService (SocketClient needs store.socketStatus
+    FetchService.startService(store.dispatch, store.state);
 
     //processing the AUTHENTICATION
     store.dispatch('LOCALIZATION_NEW_IP', { ip: context.ip } ); //Dispatching the Context IP
+    store.commit('SET_AUTHENTICATED_USER_SESSION', { sessionId: context.cookies.sessionId } ); //Dispatching the Context IP
 
     console.log("SERVERSIDE     AUTHENTICATE_USER_BY_SESSION", context.cookies.sessionId ) ;
 

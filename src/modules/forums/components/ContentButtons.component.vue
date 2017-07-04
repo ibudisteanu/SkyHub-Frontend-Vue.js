@@ -28,9 +28,9 @@
 
         <div class="col-md-8 col-md-offset-2" style='padding:0' >
 
-            <AddForumForm v-show="showAddForum" :parentId="parentId" :parentName="parentName" :onSuccess="forumSuccess" :onCancel="forumCancel"/>
+            <AddForumForm v-show="showAddForum" :parentIdProp="parentId" :parentNameProp="parentName" :onSuccess="forumSuccess" :onCancel="forumCancel"/>
 
-            <AddTopicForm v-show="showAddTopic" :parentId="parentId" :parentName="parentName" :onSuccess="topicSuccess" :onCancel="topicCancel"/>
+            <AddTopicForm v-show="showAddTopic" :parentIdProp="parentId" :parentNameProp="parentName" :onSuccess="topicSuccess" :onCancel="topicCancel"/>
 
         </div>
 

@@ -53,8 +53,8 @@ if (window.__INITIAL_STATE__) {
   store.replaceState(window.__INITIAL_STATE__)
 }
 
-//send the store and commit to the FetchService (SocketClient needs store.socketStatus
-FetchService.startService(store.dispatch, store.state.socketStatus);
+//send the store and dispatch to the FetchService (SocketClient needs store.socketStatus
+FetchService.startService(store.dispatch, store.state);
 store.dispatch('SYSTEM_NOTIFICATIONS_CHECK_PERMISSION',{});
 store.dispatch('USER_NOTIFICATIONS_FETCHING_SERVICE_START',{});
 

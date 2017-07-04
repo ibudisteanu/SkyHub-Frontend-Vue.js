@@ -17,7 +17,12 @@
                 <div class='header-cover-description' >
                     <div>
 
-                        <img :src="icon||'/public/SkyHub-logo.png'" />
+                        <div class="image-with-caption" style="display: inline-block;">
+                            <a>
+                                <img :src="icon||'/public/SkyHub-logo.png'" />
+                                <span v-if="enableChangeIcon" style="color: yellow"><i class="fa fa-picture-o"/> Change Picture</span>
+                            </a>
+                        </div>
 
                         <div class="row">
                             <h1 class='fg-white'>{{title}}</h1>
@@ -83,6 +88,9 @@
             icon: {default: ''},
 
             showLayOver: {default: false}, //lay over mask
+
+            enableChangeIcon : {default: false},
+            enableChangeCover : {default: false},
         },
 
         components:{

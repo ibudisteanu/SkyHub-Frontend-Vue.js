@@ -65,7 +65,6 @@
 
                         <span class="input-group-addon"><i class="fa fa-edit"></i></span>
 
-
                         <SearchAutoComplete key="addForumParentSearch" :multi="false" dataSuggestion="parents" placeholder='select a parent-forum' :defaultValue="this.parentId||this.parentIdProp"  :defaultLabel="this.parentName||this.parentNameProp" :onSelect="handleParentChangeSelect" :clearOnSelect="true" />
 
                         <span :class="showInputFeedback(this.parentValidationStatus)"></span>

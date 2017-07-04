@@ -31,12 +31,6 @@ export default {
 
     },
 
-    AUTHENTICATE_SET_SESSION_STORE: ({ commit, dispatch, state }, { sessionId }) => {
-
-        if ((typeof sessionId !== "undefined")&&(sessionId.length > 5))
-            return commit('SET_AUTHENTICATED_SESSION_STORE', { newUserData: resData.user,  sessionId: sessionId });
-    },
-
     AUTHENTICATE_USER_BY_SESSION: async ({ commit, dispatch, state }, { sessionId }) => {
 
         if ((User.isLoggedIn(state.user) === true)&&((typeof sessionId === "undefined")||(sessionId.length < 5))) {   //Invalid Session ID
@@ -54,8 +48,12 @@ export default {
         console.log('Answer from Login sessionId Async', resData, state.user.lastName);
 
         if (resData.result === true) {
-            resData.user.loggedIn = true;
-           await commit('SET_AUTHENTICATED_NEW_USER_JSON', { newUserData: resData.user,  sessionId: sessionId });
+           CookiesService.setCookie('sessionId', sessionId, 365*5, '/');
+           commit('SET_AUTHENTICATED_USER_SESSION', {sessionId: sessionId});
+
+           resData.user.loggedIn = true;
+
+           await commit('SET_AUTHENTICATED_NEW_USER_JSON', { newUserData: resData.user});
         }
 
         return resData;
@@ -64,9 +62,9 @@ export default {
     AUTHENTICATE_USER_BY_PROVIDING_USER:  async ({ commit, dispatch, state }, { userJSON, sessionId }) => {
 
         CookiesService.setCookie('sessionId', sessionId, 365*5, '/');
-        console.log('setting cookie   '+sessionId);
+        commit('SET_AUTHENTICATED_USER_SESSION', {sessionId: ''});
 
-        return await commit('SET_AUTHENTICATED_NEW_USER_JSON',{ newUserData: userJSON, sessionId: sessionId });
+        return await commit('SET_AUTHENTICATED_NEW_USER_JSON',{ newUserData: userJSON});
 
     },
 
@@ -78,6 +76,7 @@ export default {
         FetchService.sendRequestGetData("auth/logout",{});
 
         CookiesService.deleteCookie("sessionId");
+        commit('SET_AUTHENTICATED_USER_SESSION', {sessionId: ''});
 
         return commit('SET_USER_LOGOUT', {});
     },

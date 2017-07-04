@@ -7,7 +7,6 @@ import * as io from 'socket.io-client';
 
 import { Observable, Subscribable } from 'rxjs/Observable';
 
-import CookiesService from '../../Cookies/Cookies.service';
 import * as SocketStatusActions from '../../../../my-redux/actions/SocketStatus.actions';
 
 class LinkScraperServiceClass {

@@ -26,8 +26,8 @@ class FetchServiceClass {
 
   }
 
-  startService(dispatcher, data){
-    CommunicationService.startService(dispatcher,data);
+  startService(dispatcher, storeState){
+    CommunicationService.startService(dispatcher, storeState);
   }
 
 

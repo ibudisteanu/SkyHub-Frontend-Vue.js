@@ -25,6 +25,8 @@ export default class User {
         this.profilePic = data.profilePic || '';
         this.coverPic  = data.coverPic || '';
 
+        this.isOwner = data.isOwner || false;
+
         this.country = data.country || '';
         this.city = data.city || '';
         this.dtCreation = data.dtCreation || Date.now();

@@ -6,7 +6,6 @@
 import * as io from 'socket.io-client';
 
 import { Observable, Subscribable } from 'rxjs/Observable';
-import CookiesService from '../../cookies/cookies.service';
 
 class ClientSocketServiceClass {
 
@@ -21,9 +20,9 @@ class ClientSocketServiceClass {
 
     }
 
-    startService(dispatch, socketStatus){
+    startService(dispatch, storeState){
       this.dispatch = dispatch;
-      this.socketStatus = socketStatus;
+      this.storeState = storeState;
 
       this.createClientSocket();
     }
@@ -33,7 +32,7 @@ class ClientSocketServiceClass {
 
         this.socket = io.connect(this.sServerSocketAddress, {
             //query: "token=aaa" //JWT Token
-            query: "token=" + CookiesService.getSessionCookie() //JWT Token
+            query: "token=" + this.storeState.authenticatedUser.sessionId //JWT Token
         });
 
         this.setSocketReadObservable("connect").subscribe(response => {
@@ -98,7 +97,7 @@ class ClientSocketServiceClass {
         //console.log('sending 1'+sRequestName, requestData);
 
         if (!requestData.hasOwnProperty('sessionId')) {
-          var sessionId = CookiesService.getSessionCookie();
+          var sessionId = this.storeState.authenticatedUser.sessionId;
 
           if ((sessionId !== "") && (!requestData.hasOwnProperty('sessionId')) && (typeof requestData !== "string"))
             requestData.sessionId = sessionId;

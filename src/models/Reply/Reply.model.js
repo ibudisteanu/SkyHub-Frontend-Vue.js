@@ -21,6 +21,8 @@ export default class Reply {
 
         this.preview = data.preview||false;
 
+        this.isOwner = data.isOwner || false;
+
         this.attachments = data.attachments || [];
         this.URL = data.URL || '';
 

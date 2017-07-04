@@ -3,7 +3,7 @@
  */
 
 <template>
-    <div class="lightBoxGallery">
+    <div class="lightBoxGallery image-with-caption">
 
         <PreviewForum
                 v-for="(forum, index) in forums"

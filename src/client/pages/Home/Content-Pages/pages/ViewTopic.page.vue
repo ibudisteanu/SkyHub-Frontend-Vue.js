@@ -15,6 +15,9 @@
                       :coverColor="getTopic.coverColor||''"
                       :breadcrumbs="getTopic.breadcrumbs||[]"
                       :url="getTopic.URL"
+
+                      :enableChangeIcon = "getTopic.isOwner"
+                      :enableChangeCover = "getTopic.isOwner"
         />
 
         <WebsiteHeaderCover v-else />
@@ -122,7 +125,7 @@
 
             </div>
 
-            <DisplayTopicContent parentId=""/>
+            <DisplayTopicContent />
 
             <ViewAllReplies
 

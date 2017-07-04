@@ -3,7 +3,6 @@
  * (C) BIT TECHNOLOGIES
  */
 
-import CookiesService from '../../cookies/cookies.service';
 import axios from 'axios';
 
 //import { Configuration } from '../app.constants';
@@ -19,20 +18,22 @@ class HTTPServiceClass {
 
     }
 
-    startService(){
-
+    startService(dispatch, storeState){
+        this.dispatch = dispatch;
+        this.storeState = storeState;
     }
 
     async sendRequestGetData(sRequest, requestData){
 
         if (typeof requestData.sessionId === "undefined") {
-            let sessionId = CookiesService.getSessionCookie();
+            let sessionId = this.storeState.authenticatedUser.sessionId;
 
             if ((sessionId !== "") && (typeof requestData !== "string"))
                 requestData.sessionId = sessionId;
         }
 
         console.log(""); console.log(""); console.log(""); console.log(this.addTrailingSlash(this.serverHTTPApi)+sRequest);  console.log(requestData);
+        console.log(this.storeState.sessionId);
 
         requestData = {data: requestData};
 
@@ -53,7 +54,7 @@ class HTTPServiceClass {
     async postRequest(sRequest, requestData){
 
         if (typeof requestData.sessionId === "undefined") {
-            let sessionId = CookiesService.getSessionCookie();
+            var sessionId = this.storeState.authenticatedUser.sessionId;
 
             if ((sessionId !== "") && (typeof requestData !== "string"))
                 requestData.sessionId = sessionId;

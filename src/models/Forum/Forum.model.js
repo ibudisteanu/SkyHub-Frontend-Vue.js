@@ -28,6 +28,8 @@ export default class Forum {
         this.parentId = data.parentId || '';
         this.parents = data.parents || [];
 
+        this.isOwner = data.isOwner || false;
+
         this.preferredLang = data.preferredLang || data.language || null;
 
         this.country = data.country || '';
@@ -41,13 +43,6 @@ export default class Forum {
         console.log('Forum Assigned', data);
     }
 
-    static getAuthor(Topic){
-        return null;
-    }
-
-    static isOwnerAuthor(Topic, UserAuthenticated){
-
-    }
 
 
 }
