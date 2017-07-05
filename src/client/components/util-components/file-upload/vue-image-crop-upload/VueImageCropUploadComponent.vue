@@ -1,6 +1,6 @@
 <template>
     <div class="vue-image-crop-upload" v-show="value">
-        <div class="vicp-wrap">
+        <div class=" vicp-wrap "  style='padding-right: 0; padding-left: 10px'>
             <div class="vicp-close" @click="off">
                 <i class="vicp-icon4"></i>
             </div>
@@ -19,14 +19,14 @@
                 <div class="vicp-error" v-show="hasError">
                     <i class="vicp-icon2"></i> {{ errorMsg }}
                 </div>
-                <div class="vicp-operate">
-                    <a @click="off" @mousedown="ripple">{{ lang.btn.off }}</a>
+                <div class="vicp-operate" >
+                    <a @click="off" @mousedown="ripple" style="color: red"><i class="fa fa-times" />  {{ lang.btn.off }}</a>
                 </div>
             </div>
 
             <div class="vicp-step2" v-if="step == 2">
-                <div class="vicp-crop">
-                    <div class="vicp-crop-left" v-show="true">
+                <div class="vicp-crop row">
+                    <div class="vicp-crop-left" v-show="true" style="padding-right: 20px;">
                         <div class="vicp-img-container">
                             <img :src="sourceImgUrl" :style="sourceImgStyle" class="vicp-img" draggable="false"
                                  @drag="preventDefault"
@@ -54,7 +54,7 @@
                             <i @mousedown="startZoomAdd" @mouseout="endZoomAdd" @mouseup="endZoomAdd" class="vicp-icon6"></i>
                         </div>
                     </div>
-                    <div class="vicp-crop-right" v-show="true">
+                    <div class="vicp-crop-right " v-show="true" style=" float: none; display: inline-block;">
                         <div class="vicp-preview">
                             <div class="vicp-preview-item">
                                 <img :src="createImgUrl" :style="previewStyle">
@@ -68,8 +68,8 @@
                     </div>
                 </div>
                 <div class="vicp-operate">
-                    <a @click="setStep(1)" @mousedown="ripple">{{ lang.btn.back }}</a>
-                    <a class="vicp-operate-btn" @click="upload" @mousedown="ripple">{{ lang.btn.save }}</a>
+                    <a @click="setStep(1)" @mousedown="ripple" style="color: red"><i class="fa fa-times" />  {{ lang.btn.back }}</a>
+                    <a class="vicp-operate-btn" @click="upload" @mousedown="ripple" style="color: blue"> <i class="fa fa-floppy-o"/>  {{ lang.btn.save }}</a>
                 </div>
             </div>
 
@@ -961,8 +961,8 @@
         left: 0;
         right: 0;
         margin: auto;
-        width: 600px;
-        height: 330px;
+        /*width: 600px;*/
+        /*height: 330px;*/
         padding: 25px;
         background-color: #fff;
         border-radius: 2px;

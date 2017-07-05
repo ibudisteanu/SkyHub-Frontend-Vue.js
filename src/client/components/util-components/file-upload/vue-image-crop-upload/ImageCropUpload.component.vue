@@ -14,7 +14,7 @@
         <VueImageCropUploadComponent  v-if="enableFileUpload"
 
 
-                field="img"
+                field="file"
                 @crop-success="cropSuccess"
                 @crop-upload-success="cropUploadSuccess"
                 @crop-upload-fail="cropUploadFail"
@@ -28,7 +28,9 @@
 
                 img-format="png"
                 :params="params"
-                :headers="headers">
+                :headers="headers"
+                ref="refVueImageCropUploadComponent"
+        >
 
         </VueImageCropUploadComponent>
 
@@ -62,7 +64,7 @@
 
         props:{
             enableFileUpload: {default: false},
-            onImageChanged: {default: function(){}},
+            //onImageChanged: {default: function(){}},
         },
 
         methods: {
@@ -80,7 +82,7 @@
             cropSuccess(imgDataUrl, field){
                 console.log('-------- crop success --------');
 
-                if (typeof this.onImageChanged !== 'undefined') this.onImageChanged(imgDataUrl, field);
+                //this.$emit('onImageChanged',[imgDataUrl, field]);
             },
             /**
              * upload success
@@ -92,6 +94,9 @@
                 console.log('-------- upload success --------');
                 console.log(jsonData);
                 console.log('field: ' + field);
+
+                this.$emit('onImageChanged',jsonData.url, field);
+                this.$refs['refVueImageCropUploadComponent'].off();
             },
             /**
              * upload fail

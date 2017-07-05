@@ -17,7 +17,7 @@
                 <div class='header-cover-description' >
                     <div>
 
-                        <ImageCropUpload :enableFileUpload="enableChangeIcon" :initialImage="icon||'/public/SkyHub-logo.png'" ref="refIconImageCropUpload"/>
+                        <ImageCropUpload :enableFileUpload="enableChangeIcon" ref="refIconImageCropUpload" @onImageChanged="iconChanged"/>
 
                         <div class="image-with-caption-link" style="display: inline-block" @click="showIconImageCropUploadMethod()" @mouseover="imageIconActive = true" @mouseout="imageIconActive = false">
                             <router-link :to="''">
@@ -112,6 +112,10 @@
             showIconImageCropUploadMethod(){
                 if (typeof this.$refs['refIconImageCropUpload'] !== 'undefined')
                     this.$refs['refIconImageCropUpload'].showModal();
+            },
+
+            iconChanged(imageURL, field){
+                this.icon = imageURL;
             }
         }
 
