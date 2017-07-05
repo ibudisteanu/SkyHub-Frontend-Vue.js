@@ -9,24 +9,24 @@ export default{
 
     SET_CURRENT_ROUTER_OBJECT: (state, { routerObject, notFound, url }) => {
 
-        state.routerObject.object = ContentObjectService.createObject(routerObject);
+        state.currentObject.object = ContentObjectService.createObject(routerObject);
 
-        if (url === '/') state.routerObject.type = "home";
-        else state.routerObject.type = ContentObjectService.extractObjectTypeFromId(routerObject);
+        if (url === '/') state.currentObject.type = "home";
+        else state.currentObject.type = ContentObjectService.extractObjectTypeFromId(routerObject);
 
-        state.routerObject.pageURL = url;
-        state.routerObject.notFound = notFound;
+        state.currentObject.pageURL = url;
+        state.currentObject.notFound = notFound;
     },
 
 
     SET_CURRENT_ROUTER_PARENT_OBJECT: (state, { routerObject, notFound, url }) => {
 
-        state.routerParentObject.object = ContentObjectService.createObject(routerObject);
+        state.parentObject.object = ContentObjectService.createObject(routerObject);
 
-        if (url === '/') state.routerParentObject.type = "home";
-        else state.routerParentObject.type = ContentObjectService.extractObjectTypeFromId(routerObject);
+        if (url === '/') state.parentObject.type = "home";
+        else state.parentObject.type = ContentObjectService.extractObjectTypeFromId(routerObject);
 
-        state.routerParentObject.notFound = notFound;
+        state.parentObject.notFound = notFound;
     },
 
 }

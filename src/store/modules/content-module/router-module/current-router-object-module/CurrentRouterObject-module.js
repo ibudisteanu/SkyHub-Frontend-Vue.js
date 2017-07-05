@@ -3,6 +3,8 @@
  * (C) BIT TECHNOLOGIES
  */
 
+import actions from './CurrentRouterObject-actions'
+import mutations from './CurrentRouterObject-mutations'
 
 export default {
 
@@ -12,6 +14,9 @@ export default {
             notFound: false,
             type: 'none',
         },
+
+    actions,
+    mutations,
 
 }
 

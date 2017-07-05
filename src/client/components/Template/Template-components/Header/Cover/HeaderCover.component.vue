@@ -21,7 +21,7 @@
 
                         <div class="image-with-caption-link" style="display: inline-block" @click="showIconImageCropUploadMethod()" @mouseover="imageIconActive = true" @mouseout="imageIconActive = false">
                             <router-link :to="''">
-                                <img :src="icon||'/public/SkyHub-logo.png'" />
+                                <img :src="icon||'/public/SkyHub-logo.png'" :style="{backgroundColor: (enableChangeIcon && imageIconActive ? 'rgba(255, 255, 255, 0.5)' : 'rgba(255, 255, 255, 0)')}" />
                                 <span v-if="enableChangeIcon" :style="{color: imageIconActive ? 'white' : 'yellow',  opacity: (imageIconActive ?  1 : 0.7)}"><i class="fa fa-picture-o"/> Change Picture</span>
                             </router-link>
                         </div>
@@ -115,7 +115,8 @@
             },
 
             iconChanged(imageURL, field){
-                this.icon = imageURL;
+
+                this.$emit('onIconChanged', imageURL);
             }
         }
 

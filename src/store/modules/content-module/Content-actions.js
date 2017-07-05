@@ -21,7 +21,7 @@ export default{
 
             await dispatch('CONTENT_FETCH_ROUTER_PARENT_OBJECT', {url: parent} ); //fetching the parent object)
 
-            switch (state.contentRouter.routerObject.type){
+            switch (state.contentRouter.currentObject.type){
                 case "home":
                 case "forum":
                     await dispatch('CONTENT_FORUMS_FETCH_TOP',{parent: id,  pageIndex: 1, pageCount:8, reset:true, });

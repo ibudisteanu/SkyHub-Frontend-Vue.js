@@ -55,7 +55,7 @@
 
             getTopic(){
                 if (this.topic !== null) return this.topic;
-                else return this.$store.state.content.contentRouter.routerObject;
+                else return this.$store.state.content.contentRouter.currentObject;
             },
 
             getTopicId(){

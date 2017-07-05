@@ -57,7 +57,7 @@
 
 
             getForum(){
-                return this.$store.state.content.contentRouter.routerObject;
+                return this.$store.state.content.contentRouter.currentObject;
             },
 
             getForumId(){

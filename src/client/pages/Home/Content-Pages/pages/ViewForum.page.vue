@@ -18,6 +18,9 @@
                          :enableChangeIcon = "routerObject.object.isOwner"
                          :enableChangeCover = "routerObject.object.isOwner"
 
+                         @onIconChanged = "iconChanged"
+                         @onCoverChanged = "coverChanged"
+
            />
 
            <WebsiteHeaderCover v-else />
@@ -66,10 +69,24 @@
 		computed:{
 
             routerObject(){
-				return this.$store.state.content.contentRouter.routerObject;
-			}
+				return this.$store.state.content.contentRouter.currentObject;
+			},
 
-		}
+			routerObjectParent(){
+                return this.$store.state.content.contentRouter.parentObject;
+            },
+
+		},
+
+		methods:{
+            iconChanged(imageURL){
+                this.$store.dispatch('CONTENT_CURRENT_ROUTER_OBJECT_CHANGE_ICON', {icon: imageURL} );
+            },
+
+            coverChanged(imageURL){
+                this.$store.dispatch('CONTENT_CURRENT_ROUTER_OBJECT_CHANGE_COVER', {cover: imageURL} );
+            }
+        }
 
 	}
 </script>

@@ -173,11 +173,11 @@
         computed:{
 
             getTopicRouter(){
-                return this.$store.state.content.contentRouter.routerObject;
+                return this.$store.state.content.contentRouter.currentObject;
             },
 
             getParentForumRouter(){
-                return this.$store.state.content.contentRouter.routerParentObject;
+                return this.$store.state.content.contentRouter.parentObject;
             },
             
             getTopic(){

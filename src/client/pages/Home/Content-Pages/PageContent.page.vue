@@ -38,7 +38,7 @@
 
         computed:{
             getCurrentRouterObjectType(){
-                return this.$store.state.content.contentRouter.routerObject.type;
+                return this.$store.state.content.contentRouter.currentObject.type;
             },
 
             isAuthenticated(){
