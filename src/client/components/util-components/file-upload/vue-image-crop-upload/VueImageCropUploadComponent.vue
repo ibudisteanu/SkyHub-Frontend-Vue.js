@@ -316,7 +316,7 @@
                 // 浏览器是否支持该控件
                 isSupported,
                 // 浏览器是否支持触屏事件
-                isSupportTouch: document.hasOwnProperty("ontouchstart"),
+                isSupportTouch: (typeof document !== 'undefined') && (document.hasOwnProperty("ontouchstart")),
 
                 // 步骤
                 step: 1, //1选择文件 2剪裁 3上传

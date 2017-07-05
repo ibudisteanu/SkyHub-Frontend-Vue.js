@@ -18,11 +18,13 @@
                 @crop-success="cropSuccess"
                 @crop-upload-success="cropUploadSuccess"
                 @crop-upload-fail="cropUploadFail"
+                v-model="show"
+
                 :width="300"
                 :height="300"
                 url="http://myskyhub.ddns.net:4000/upload/image"
                 lang-type="en"
-                :value.sync="show"
+
 
                 img-format="png"
                 :params="params"
@@ -46,6 +48,7 @@
 
         data: function(){
             return {
+                show: false,
                 params: {
                     token: '123456798',
                     name: 'avatar'
@@ -58,12 +61,16 @@
         },
 
         props:{
-            show: {default: false},
             enableFileUpload: {default: false},
             onImageChanged: {default: function(){}},
         },
 
         methods: {
+
+            showModal(){
+                this.show=true;
+            },
+
             /**
              * crop success
              *

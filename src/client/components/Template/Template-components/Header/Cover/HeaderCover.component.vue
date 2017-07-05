@@ -17,12 +17,12 @@
                 <div class='header-cover-description' >
                     <div>
 
-                        <ImageCropUpload :enableFileUpload="enableChangeIcon" :initialImage="icon||'/public/SkyHub-logo.png'" :show="showIconImageCropUpload"/>
+                        <ImageCropUpload :enableFileUpload="enableChangeIcon" :initialImage="icon||'/public/SkyHub-logo.png'" ref="refIconImageCropUpload"/>
 
-                        <div class="image-with-caption-link" style="display: inline-block;" @click="this.showIconImageCropUpload=true">
+                        <div class="image-with-caption-link" style="display: inline-block" @click="showIconImageCropUploadMethod()" @mouseover="imageIconActive = true" @mouseout="imageIconActive = false">
                             <router-link :to="''">
                                 <img :src="icon||'/public/SkyHub-logo.png'" />
-                                <span v-if="enableChangeIcon" style="color: yellow"><i class="fa fa-picture-o"/> Change Picture</span>
+                                <span v-if="enableChangeIcon" :style="{color: imageIconActive ? 'white' : 'yellow',  opacity: (imageIconActive ?  1 : 0.7)}"><i class="fa fa-picture-o"/> Change Picture</span>
                             </router-link>
                         </div>
 
@@ -86,7 +86,7 @@
 
         data: function () {
             return{
-                showIconImageCropUpload : false,
+                imageIconActive: false,
             }
         },
 
@@ -109,7 +109,10 @@
 
 
         methods:{
-
+            showIconImageCropUploadMethod(){
+                if (typeof this.$refs['refIconImageCropUpload'] !== 'undefined')
+                    this.$refs['refIconImageCropUpload'].showModal();
+            }
         }
 
 
