@@ -14,7 +14,7 @@
             </a>
         </div>
 
-        <AddReplyForm v-if="showAddReply" :parentId="parentId" :parentName="parentName" :parentReplyId="this.parentReplyId" :parentReplyName="this.parentReplyName" :onSuccess="replySuccess" :onCancel="replyCancel" />
+        <AddReplyForm v-if="showAddReply" :parentId="parentId" :parentName="parentName" :parentReplyId="this.parentReplyId" :parentReplyName="this.parentReplyName" @onSuccess="replySuccess" @onCancel="replyCancel" />
 
     </div>
 

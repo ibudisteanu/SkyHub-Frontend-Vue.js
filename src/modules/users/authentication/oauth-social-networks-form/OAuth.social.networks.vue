@@ -101,9 +101,10 @@
         },
 
         props:{
-            onSuccess: {default: function (){}},
-            onError: {default: function (){}},
+
         },
+        //@onSuccess,
+        //@onError,
 
         methods:{
 
@@ -129,15 +130,12 @@
 
             registrationSuccessfully(response){
                 this.error = '';
-                let onSuccess = this.onSuccess || function (){};
 
-                onSuccess(response);
+                this.$emit('onSuccess', response);
             },
 
             registrationFailure(response){
-                let onError = this.onError || function (){};
-
-                onError(response);
+                this.$emit('onError',response);
             },
 
             responseFacebook(response) {

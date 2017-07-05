@@ -3,11 +3,11 @@
     <ModalComponent modalId="AuthenticationModalComponent"  ref="refModal" :title="modalTitle" subTitle="" :buttons="{}" body="" >
 
         <div v-if="modalType === 'login'" slot="modal-content">
-            <LoginForm v-show="modalType === 'login'" ref="refLogin" :onSuccess="loginSuccess" :onSwitch="switchLoginToRegistration" />
+            <LoginForm v-show="modalType === 'login'" ref="refLogin" @onSuccess="loginSuccess" :onSwitch="switchLoginToRegistration" />
         </div>
 
         <div v-if="modalType === 'registration'" slot="modal-content">
-            <RegistrationForm v-show="modalType === 'registration'" ref="refRegistration" :onSuccess="registrationSuccess" :onSwitch="switchRegistrationToLogin" />
+            <RegistrationForm v-show="modalType === 'registration'" ref="refRegistration" @onSuccess="registrationSuccess" :onSwitch="switchRegistrationToLogin" />
         </div>
 
     </ModalComponent>

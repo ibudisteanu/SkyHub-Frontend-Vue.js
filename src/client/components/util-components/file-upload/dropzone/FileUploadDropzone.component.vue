@@ -33,10 +33,11 @@
         },
 
         props:{
-            onSuccessNewAttachment: {default: function (){}},
-            onRemoveAttachment: {default: function(){}},
             idProp: {default: 0},
         },
+
+        //@onSuccessNewAttachment
+        //@onRemoveAttachment
 
         computed:{
             getAuthorId(){
@@ -48,14 +49,12 @@
             success(fileData, response){
                 console.log("uploaded successfully ",fileData);
 
-                let onSuccessNewAttachment = this.onSuccessNewAttachment||function(){};
-
                 if ((typeof fileData.xhr.responseText !== "undefined")&&(fileData.xhr.responseText !== '')){
                     let response = JSON.parse(fileData.xhr.responseText);
                     //console.log("FILE UPLOADED", response.type, response.name,  response.url, response.thumbnail);
 
                     if (response.result === true)
-                        onSuccessNewAttachment(response.type, response.name,  response.url, response.thumbnail);
+                        this.$emit('onSuccessNewAttachment',response.type, response.name,  response.url, response.thumbnail);
 
                 }
 
@@ -64,14 +63,12 @@
             removedfile(fileData, error, xhr){
                 console.log("removed successfully ",fileData, error);
 
-                let onRemoveAttachment = this.onRemoveAttachment||function(){};
-
                 if ((typeof fileData.xhr.responseText !== "undefined")&&(fileData.xhr.responseText !== '')){
                     let response = JSON.parse(fileData.xhr.responseText);
                     console.log("file removed", response.type, response.name,  response.url, response.thumbnail);
 
                     if (response.result === true)
-                        onRemoveAttachment(response.type, response.name,  response.url, response.thumbnail);
+                        this.$emit('onRemoveAttachment',response.type, response.name,  response.url, response.thumbnail);
 
                 }
             }

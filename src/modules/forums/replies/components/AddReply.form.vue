@@ -56,7 +56,7 @@
                                     <label class="error" >{{this.linkValidationStatus[1]}}</label> <br />
 
                                     <no-ssr>
-                                        <FileUploadDropzone :idProp="this.parentId+'_'+this.parentReplyId" :onSuccessNewAttachment="this.fileUploadSuccess" :onRemoveAttachment="this.fileUploadRemoved" />
+                                        <FileUploadDropzone :idProp="this.parentId+'_'+this.parentReplyId" @onSuccessNewAttachment="this.fileUploadSuccess" @onRemoveAttachment="this.fileUploadRemoved" />
                                     </no-ssr>
 
                             </div>
@@ -88,7 +88,7 @@
 
             <div class="panel-footer text-right" style='padding-top:20px; padding-bottom:20px; padding-right:20px'>
 
-                <LoadingButton class="btn-success" :onClick="this.handleAddReply" text="submit Reply" icon="fa fa-plus"  ref="refSubmitButton"  />
+                <LoadingButton class="btn-success" @onClick="this.handleAddReply" text="submit Reply" icon="fa fa-plus"  ref="refSubmitButton"  />
 
             </div>
 
@@ -152,10 +152,10 @@
 
             parentReplyId : {default: ''},
             parentReplyName : {default: ''},
-
-            onSuccess: {default: function (){}},
-            onError: {default: function (){}},
         },
+
+        //@onSuccess;
+        //@onError;
 
         computed:{
 
@@ -195,9 +195,6 @@
                     e.stopPropagation();
                 }
 
-                let onSuccess = this.onSuccess || function (){};
-                let onError = this.onError || function (){};
-
                 let bValidationError=false;
                 this.error = ''; this.titleValidationStatus = [null, '']; this.linkValidationStatus = [null,'']; this.descriptionValidationStatus = [null,'']; this.keywordsValidationStatus = [null,'']; this.countryValidationStatus = [null,'']; this.cityValidationStatus = [null,''];
 
@@ -212,7 +209,7 @@
                         console.log("ANSWER FROM adding reply ",answer);
 
                         if (answer.result === true) {
-                            onSuccess(answer);
+                            this.$emit('onSuccess',answer);
                         }
                         else
                         if (answer.result === false) {
@@ -228,7 +225,7 @@
                                 if ((this.titleValidationStatus[0] === null)&&(this.descriptionValidationStatus[0] === null)&&(this.keywordsValidationStatus[0] === null)&&(this.countryValidationStatus[0] === null)&&(this.cityValidationStatus[0] === null))
                                     this.openLogin();
 
-                            onError(answer);
+                            this.$emit('onError',answer);
                         }
                     }
                     catch(Exception){

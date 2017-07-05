@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-xs-6 text-right">
 
-                            <LoadingButton className="btn-success" icon="fa fa-sign-in" text="Login" :onClick="handleCheckLogin" ref="refLoadingButtonLogin"/>
+                            <LoadingButton className="btn-success" icon="fa fa-sign-in" text="Login" @onClick="handleCheckLogin" ref="refLoadingButtonLogin"/>
 
 
                         </div>
@@ -55,7 +55,7 @@
 
         </div>
 
-        <OauthSocialNetworkComponent :onSuccess="loginSuccessfully"    :onError="loginFailure" />
+        <OauthSocialNetworkComponent @onSuccess="loginSuccessfully"    @onError="loginFailure" />
 
     </div>
 </template>
@@ -88,10 +88,12 @@
         },
 
         props : {
-            onSuccess: { type: Function },
-            onError: { type: Function },
             onSwitch: { type: Function },
         },
+
+        //@onSuccess,
+        //@onError,
+
 
         methods:{
 
@@ -154,14 +156,12 @@
             },
 
             loginSuccessfully(res){
-                let onSuccess = this.onSuccess || function (){};
 
-                onSuccess(res);
+                this.$emit('onSuccess',res);
             },
 
             loginFailure(res){
-                let onError = this.onError || function (){};
-                onError(res);
+                this.$emit('onError',res);
             },
 
             handleSwitchForm(e){

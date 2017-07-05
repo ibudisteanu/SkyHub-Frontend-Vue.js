@@ -25,7 +25,7 @@
 
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
 
-                            <SearchAutoComplete :multi="false" dataSuggestion="google" placeholder='title / subject' :defaultValue="this.title||this.parentName"  :defaultLabel="this.title||this.parentName" :onSelect="this.handleTitleChange" :clearOnSelect="true" />
+                            <SearchAutoComplete :multi="false" dataSuggestion="google" placeholder='title / subject' :defaultValue="this.title||this.parentName"  :defaultLabel="this.title||this.parentName" @onSelect="this.handleTitleChange" :clearOnSelect="true" />
 
                             <span :class="this.showInputFeedback(this.titleValidationStatus)" style='width:60px; top:10px'></span>
                         </div>
@@ -55,7 +55,7 @@
                                 <label class="error" >{{this.linkValidationStatus[1]}}</label> <br />
 
                                 <no-ssr>
-                                    <FileUploadDropzone :idProp="this.parentIdProp" :onSuccessNewAttachment="this.fileUploadSuccess" :onRemoveAttachment="this.fileUploadRemoved" />
+                                    <FileUploadDropzone :idProp="this.parentIdProp" @onSuccessNewAttachment="this.fileUploadSuccess" @onRemoveAttachment="this.fileUploadRemoved" />
                                 </no-ssr>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
 
                         <span class="input-group-addon"><i class="fa fa-edit"></i></span>
 
-                        <SearchAutoComplete key="addTopicParentSearch" :multi="false" dataSuggestion="parents" placeholder='select a parent-forum' :defaultValue="this.parentId||this.parentIdProp"  :defaultLabel="this.parentName||this.parentNameProp" :onSelect="handleParentChangeSelect" :clearOnSelect="true"/>
+                        <SearchAutoComplete key="addTopicParentSearch" :multi="false" dataSuggestion="parents" placeholder='select a parent-forum' :defaultValue="this.parentId||this.parentIdProp"  :defaultLabel="this.parentName||this.parentNameProp" @onSelect="handleParentChangeSelect" :clearOnSelect="true"/>
 
                         <span :class="this.showInputFeedback(this.parentValidationStatus)"></span>
                     </div>
@@ -94,7 +94,7 @@
 
                         <span class="input-group-addon"><i class="fa fa-tags"></i></span>
 
-                        <SearchAutoComplete key="addForumKeywordsSearch" :multi="true" dataSuggestion="google" placeholder='three keywords' :defaultValue="''"  :defaultLabel="''" :onSelect="handleKeywordsSelect" :clearable="false"/>
+                        <SearchAutoComplete key="addForumKeywordsSearch" :multi="true" dataSuggestion="google" placeholder='three keywords' :defaultValue="''"  :defaultLabel="''" @onSelect="handleKeywordsSelect" :clearable="false"/>
 
 
                     </div>
@@ -140,7 +140,7 @@
 
             <div class="panel-footer text-right" style='padding-top:20px; padding-bottom:20px; padding-right:20px'>
 
-                <LoadingButton class="btn-success" :onClick="this.handleAddTopic" text="Create Topic" icon="fa fa-plus"  ref="refSubmitButton"  />
+                <LoadingButton class="btn-success" @onClick="this.handleAddTopic" text="Create Topic" icon="fa fa-plus"  ref="refSubmitButton"  />
 
             </div>
 
@@ -211,9 +211,6 @@
         props:{
             parentIdProp: {default:''},
             parentNameProp: {default:''},
-
-            onSuccess: {default: function (){}},
-            onError: {default: function (){}},
         },
 
         computed:{
@@ -254,9 +251,6 @@
                     e.stopPropagation();
                 }
 
-                let onSuccess = this.onSuccess || function (){};
-                let onError = this.onError || function (){};
-
                 let bValidationError=false;
                 this.error = ''; this.titleValidationStatus = [null, ''];  this.linkValidationStatus = [null,'']; this.descriptionValidationStatus = [null,'']; this.keywordsValidationStatus = [null,'']; this.countryValidationStatus = [null,'']; this.cityValidationStatus = [null,''];
 
@@ -271,7 +265,7 @@
                         console.log("ANSWER FROM adding topic ",answer);
 
                         if (answer.result === true) {
-                            onSuccess(answer);
+                            this.$emit('onSuccess', answer);
 
                             this.$router.push(answer.topic.URL);  // redirecting to the forum URL ;)
                         }
@@ -291,7 +285,7 @@
                                 if ((this.titleValidationStatus[0] === null)&&(this.descriptionValidationStatus[0] === null)&&(this.keywordsValidationStatus[0] === null)&&(this.countryValidationStatus[0] === null)&&(this.cityValidationStatus[0] === null))
                                     this.openLogin();
 
-                            onError(answer);
+                            this.$emit('onError',answer);
                         }
                     }
                     catch(Exception){

@@ -101,7 +101,7 @@
                         <div :class="'input-group ' + this.showInputStatus(countryValidationStatus)"  >
 
 
-                            <CountrySelect :defaultCountry="localization.country||''"  :defaultCountryCode="localization.countryCode||''"  :onSelect="handleCountrySelect"/>
+                            <CountrySelect :defaultCountry="localization.country||''"  :defaultCountryCode="localization.countryCode||''"  @onSelect="handleCountrySelect"/>
 
                             <span :class="this.showInputFeedback(countryValidationStatus)"></span>
                         </div>
@@ -135,7 +135,7 @@
 
                         </div>
                         <div class="col-xs-6 text-right" >
-                            <LoadingButton className="btn-success" icon="fa fa-sign-in" text="Register" :onClick="handleCheckRegister" ref="refLoadingButtonRegistration"/>
+                            <LoadingButton className="btn-success" icon="fa fa-sign-in" text="Register" @onClick="handleCheckRegister" ref="refLoadingButtonRegistration"/>
                         </div>
                     </div>
                 </div>
@@ -152,7 +152,7 @@
             </form>
         </div>
 
-        <OauthSocialNetworkComponent :onSuccess={registrationSuccessfully} :onError={registrationFailure} />
+        <OauthSocialNetworkComponent @onSuccess={registrationSuccessfully} @onError={registrationFailure} />
 
     </div>
 
@@ -163,6 +163,7 @@
     import {showInputStatus, showInputFeedback, convertValidationErrorToString} from 'client/components/util-components/form-validation/formValidation';
     import LoadingButton from 'client/components/util-components/UI/buttons/LoadingButton.vue';
     import CountrySelect from 'client/components/util-components/select/Country.select.vue';
+    import OauthSocialNetworkComponent from './../oauth-social-networks-form/OAuth.social.networks.vue';
 
     export default{
         name: 'RegistrationForm',
@@ -170,6 +171,7 @@
         components: {
             'LoadingButton':LoadingButton,
             'CountrySelect':CountrySelect,
+            'OauthSocialNetworkComponent':OauthSocialNetworkComponent,
         },
 
         data: function () {
@@ -206,11 +208,12 @@
         },
 
         props : {
-            onSuccess: { type: Function },
-            onError: { type: Function },
+
             onSwitch: { type: Function },
         },
 
+        //@onSuccess,
+        //@onError,
 
         computed:{
             localization(){
@@ -354,15 +357,11 @@
             },
 
             registrationSuccessfully(res){
-                var onSuccess = this.onSuccess || function (){};
-
-                onSuccess(res);
+                this.$emit('onSuccess',res);
             },
 
             registrationFailure(res){
-                var onError = this.onError || function (){};
-
-                onError(res);
+                this.$emit('onError', res);
             },
 
             handleSwitchForm(e){

@@ -30,9 +30,9 @@
           className: {default: function (){}},
           icon: {default: ''},
           text: {default: ''},
-
-            onClick: {default: function (){}},
       },
+
+      //@onClick
 
       methods: {
           handleClick(e){
@@ -42,8 +42,7 @@
               if ((typeof this.canDisable === "undefined")||(this.canDisable === true))
                   this.disabled=true;
 
-              let onClick = this.onClick || function (){};
-              onClick(e);
+              this.$emit('onClick',e);
           },
 
           enableButton(e){

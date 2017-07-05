@@ -50,9 +50,9 @@
         props: {
             defaultCountry : {default: ''},
             defaultCountryCode : {default: ''},
-            onSelect : {default: function () {}},
-
         },
+
+        //@onSelect
 
         computed:{
             getSelectValue(){
@@ -73,8 +73,7 @@
 
                this.value = value;
 
-               let onSelect = this.onSelect||function(){};
-               onSelect(value.label, this.value.value, this.value.css);
+               this.$emit('onSelect',value.label, this.value.value, this.value.css);
 
                return value;
             }

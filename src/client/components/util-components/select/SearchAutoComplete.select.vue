@@ -39,12 +39,13 @@
             closeOnSelect: {default: true},
             clearOnSelect: {default: false},
             placeholder: {default: 'Type to search'},
-            onSelect: {default: function (){}},
             dataSuggestion: {default: 'google'},
             createNewElement: {default: true}, //show even what the user typed as an option
 
             returnObjects: {default:false},
         },
+
+        //@onSelect
 
         data () {
 
@@ -104,8 +105,7 @@
 
                 console.log("AUTOCOMPLETE:: ",answer);
 
-                let onSelect = this.onSelect||function(){};
-                onSelect(answer);
+                this.$emit('onSelect',answer);
 
                 this.isLoading = false;
             },

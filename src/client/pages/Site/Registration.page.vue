@@ -9,7 +9,7 @@
             <div slot="layout-content">
                 <h1> Login to SkyHub now</h1>
 
-                <RegistrationForm :onSuccess="redirectSuccess" />
+                <RegistrationForm @onSuccess="redirectSuccess" />
             </div>
 
         </Layout>

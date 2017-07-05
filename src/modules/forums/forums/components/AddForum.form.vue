@@ -21,7 +21,7 @@
 
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
 
-                            <SearchAutoComplete key="addForumNameSearch" :multi="false" dataSuggestion="google" placeholder='forum name (one or two words)' :defaultValue="name"  :defaultLabel="name" :onSelect="handleNameChangeSelect" :clearOnSelect="true"/>
+                            <SearchAutoComplete key="addForumNameSearch" :multi="false" dataSuggestion="google" placeholder='forum name (one or two words)' :defaultValue="name"  :defaultLabel="name" @onSelect="handleNameChangeSelect" :clearOnSelect="true"/>
 
                             <span :class='showInputFeedback(nameValidationStatus)' style='width:60px; top:10px'> </span>
 
@@ -65,7 +65,7 @@
 
                         <span class="input-group-addon"><i class="fa fa-edit"></i></span>
 
-                        <SearchAutoComplete key="addForumParentSearch" :multi="false" dataSuggestion="parents" placeholder='select a parent-forum' :defaultValue="this.parentId||this.parentIdProp"  :defaultLabel="this.parentName||this.parentNameProp" :onSelect="handleParentChangeSelect" :clearOnSelect="true" />
+                        <SearchAutoComplete key="addForumParentSearch" :multi="false" dataSuggestion="parents" placeholder='select a parent-forum' :defaultValue="this.parentId||this.parentIdProp"  :defaultLabel="this.parentName||this.parentNameProp" @onSelect="handleParentChangeSelect" :clearOnSelect="true" />
 
                         <span :class="showInputFeedback(this.parentValidationStatus)"></span>
                     </div>
@@ -77,7 +77,7 @@
 
                         <span class="input-group-addon"><i class="fa fa-tags"></i></span>
 
-                        <SearchAutoComplete key="addForumKeywordsSearch" :multi="true" dataSuggestion="google" placeholder='three keywords' :defaultValue="''"  :defaultLabel="''" :onSelect="handleKeywordsSelect" :clearable="false"/>
+                        <SearchAutoComplete key="addForumKeywordsSearch" :multi="true" dataSuggestion="google" placeholder='three keywords' :defaultValue="''"  :defaultLabel="''" @onSelect="handleKeywordsSelect" :clearable="false"/>
 
 
                     </div>
@@ -89,7 +89,7 @@
                         <div class="col-sm-6" style="padding-left: 0">
                             <div :class="'input-group ' + this.showInputStatus(this.countryValidationStatus)"  >
 
-                                <CountrySelect :defaultCountry="localization.country||''"  :defaultCountryCode="localization.countryCode||''"  :onSelect="handleCountrySelect"/>
+                                <CountrySelect :defaultCountry="localization.country||''"  :defaultCountryCode="localization.countryCode||''"  @onSelect="handleCountrySelect"/>
 
                                 <span :class="this.showInputFeedback(this.countryValidationStatus)"></span>
                             </div>
@@ -123,7 +123,7 @@
 
             <div class="panel-footer text-right" style='padding-top:20px; padding-bottom:20px; padding-right:20px'>
 
-                <LoadingButton class="btn-success" :onClick="handleAddForum" icon="fa fa-plus" text="Create Forum"  ref="refSubmitButton"  />
+                <LoadingButton class="btn-success" @onClick="handleAddForum" icon="fa fa-plus" text="Create Forum"  ref="refSubmitButton"  />
 
             </div>
 
@@ -179,9 +179,11 @@
         props:{
             parentIdProp: {default:''},
             parentNameProp: {default:''},
-            onSuccess: {default: function (){}},
-            onError: {default: function (){}},
+
         },
+
+        //@onSuccess;
+        //@onError;
 
         computed:{
             localization(){
@@ -202,9 +204,6 @@
                     e.stopPropagation();
                 }
 
-                let onSuccess = this.onSuccess || function (){};
-                let onError = this.onError || function (){};
-
                 let bValidationError=false;
                 this.error =  ''; this.nameValidationStatus =  [null, '']; this.titleValidationStatus = [null,'']; this.descriptionValidationStatus = [null,''];
                 this.keywordsValidationStatus = [null,'']; this.countryValidationStatus  = [null, '']; this.cityValidationStatus = [null, ''];
@@ -222,7 +221,7 @@
                         console.log("ANSWER FROM adding forum", answer);
 
                         if (answer.result === true) {
-                            onSuccess(answer);
+                            this.$emit('onSuccess',answer);
 
                             this.$router.push(answer.forum.URL);  // redirecting to the forum URL ;)
                         }
@@ -241,7 +240,7 @@
                                     this.openLogin();
 
 
-                            onError(answer);
+                            this.$emit('onError', answer);
                         }
                     }
                     catch(Exception){
