@@ -1,9 +1,9 @@
 <template>
 
     <div class="vote-actions">
-        <i class="fa fa-thumbs-o-up vote-font-icon cursor" @click="voteUp" :style="{color: this.votedUp ? 'deepskyblue' : ''}"> </i>
+        <i class="fa fa-chevron-up vote-font-icon cursor" @click="voteUp" :style="{color: this.votedUp ? 'deepskyblue' : ''}"> </i>
 
-            <div v-if="((typeof voting === 'undefined')||(voting.loading === true))">
+            <div v-if="(!preview)&&((typeof voting === 'undefined')||(voting.loading === true))">
                 <i class="fa fa-spinner fa-spin" > </i>
             </div>
 
@@ -18,7 +18,7 @@
 
             </div>
 
-        <i class="fa fa-thumbs-o-down vote-font-icon cursor" @click="voteDown" :style="{color: this.votedDown ? 'red' : ''}"> </i>
+        <i class="fa fa-chevron-down vote-font-icon cursor" @click="voteDown" :style="{color: this.votedDown ? 'red' : ''}"> </i>
     </div>
 </template>
 
@@ -32,7 +32,8 @@
         name: 'Voting',
 
         props: {
-            parentId : { default: '' }
+            parentId : { default: '' },
+            preview: {default: false},
         },
 
         computed:{

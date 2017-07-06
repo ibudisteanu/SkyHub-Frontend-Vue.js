@@ -13,6 +13,7 @@ import ContentForums from './forums-module/ContentForums-module';
 import ContentTopics from './topics-module/ContentTopics-module';
 import ContentReplies from './replies-module/ContentReplies-module';
 import ContentVotes from './votes-module/ContentVotes-module';
+import ContentUsers from './users-module/ContentUsers-module';
 
 export default {
     modules: {
@@ -21,6 +22,7 @@ export default {
         contentTopics: ContentTopics,
         contentReplies: ContentReplies,
         contentVotes : ContentVotes,
+        contentUsers: ContentUsers,
     },
     state:  {
 

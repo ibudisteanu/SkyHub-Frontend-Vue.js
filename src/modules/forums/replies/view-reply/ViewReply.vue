@@ -13,7 +13,7 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
         <div class="row form-head-line">
             <Voting :parentId = "reply.id" />
 
-            <img src="https://blogcdn1.secureserver.net/wp-content/uploads/2014/06/create-a-gravatar-beard.png" class="img-circle" align="left" alt="image" style='max-width: 48px; max-height: 48px' />
+            <img :src="this.getUserProfilePic" class="img-circle" align="left" alt="image" style='max-width: 48px; max-height: 48px; margin-right: 10px' />
 
             <div>
                 <ShowDate className="date information" style="float:right; margin-right: 10px" :date="reply.dtCreation" />
@@ -22,8 +22,8 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
             <div>
                 <h3 class="reply-header-title">{{reply.title || ' ' }} </h3>
 
-                <h4 class="reply-header-authorName">{{ reply.authorId }} </h4>
-                <h5 class="reply-header-bio">{{ 'BIO' }} </h5>
+                <h4 class="reply-header-authorName">{{ this.getUserFullName }} </h4>
+                <h5 class="reply-header-bio">{{ this.getUserBio }} </h5>
             </div>
 
         </div>
@@ -71,6 +71,7 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
     import ShowDate from 'client/components/util-components/UI/show-date/ShowDate.component.vue';
     import Voting from  'modules/forums/voting/Voting.component.vue'
     import DisplayAttachments from 'modules/attachments/view-attachments/DisplayAttachments.vue'
+    import User from 'models/User/User.model';
 
     import ContentButtonsInline from 'modules/forums/components/ContentButtonsInline.component.vue';
 
@@ -78,9 +79,9 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
 
         name: 'ViewReply',
 
-        components:{
+        components: {
             'ViewAllReplies': ViewAllReplies,
-            'Voting' : Voting,
+            'Voting': Voting,
             'DisplayAttachments': DisplayAttachments,
             'ContentButtonsInline': ContentButtonsInline,
             'ShowDate': ShowDate,
@@ -88,7 +89,7 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
 
         beforeCreate: function () {
 
-            if ((typeof this !== 'undefined')&&(typeof this.$options !== 'undefined'))
+            if ((typeof this !== 'undefined') && (typeof this.$options !== 'undefined'))
                 this.$options.components.ViewAllReplies = require('./ViewAllReplies.vue')
         },
 
@@ -98,16 +99,38 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
 
             //repliesList: { default: function () { return [] } },
 
-            parentReplyId :{default: null},
-            parentId : {default: null},
+            parentReplyId: {default: null},
+            parentId: {default: null},
 
+        },
+
+        mounted: function () {
+            this.$store.dispatch('CONTENT_USERS_GET', {userId: this.reply.authorId})
         },
 
         data: function () {
             return {}
-        }
+        },
+
+        computed: {
+
+            user() {
+                return this.$store.state.content.contentUsers.users[this.reply.authorId];
+            },
+
+            getUserFullName(){
+                return typeof this.user !== 'undefined' ? User.getName(this.user) :  this.reply.authorId;
+            },
+
+            getUserBio(){
+                return typeof this.user !== 'undefined' ? this.user.shortBio :  'bio';
+            },
+
+            getUserProfilePic(){
+                return typeof this.user !== 'undefined' ? this.user.profilePic : 'https://forums.carm.org/vb5/core/images/default/default_avatar_medium.png';
+            }
+        },
 
 
     }
 </script>
-

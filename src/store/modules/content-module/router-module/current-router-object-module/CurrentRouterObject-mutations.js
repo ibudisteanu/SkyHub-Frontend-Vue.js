@@ -29,14 +29,14 @@ export default{
 
     SET_CURRENT_ROUTER_OBJECT_COVER: (state, { cover }) => {
 
-        console.log('NEW ICON', state, cover);
+        console.log('NEW COVER', state, cover);
 
         if ((state.notFound)||(state.object === null)) return false; //there is no object
 
         switch (state.type){
             case 'forum':
             case 'user':
-                state.object.coverPic = icon;
+                state.object.coverPic = cover;
                 break;
 
             case 'topic': // not done yet...

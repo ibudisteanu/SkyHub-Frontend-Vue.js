@@ -5,14 +5,14 @@
 <template>
     <div style="padding-bottom: 20px">
 
-        <div class="header-cover row  border-bottom white-bg dashboard-header " :style="{backgroundImage: 'url('+(coverPic||'')+')', backgroundColor: (this.coverColor!=='' ? '#'+this.coverColor : 'darkblue')}" @mouseover="imageCoverActive=true" @mouseout="imageCoverActive=false" @click="showCoverImageCropUploadModal()">
+        <div class="header-cover row  border-bottom white-bg dashboard-header "  :style="{cursor: ( this.enableChangeCover ? 'pointer' : 'default'), backgroundImage: 'url('+(this.cover||'')+')', backgroundColor: (this.coverColor!=='' ? '#'+this.coverColor : 'darkblue') }" @mouseover="imageCoverActive=true" @mouseout="imageCoverActive=false" @click="handleShowCoverImageCropUploadModal">
 
-            <ImageCropUpload :enableFileUpload="enableChangeIcon" ref="refCoverImageCropUpload" @onImageChanged="coverChanged" :width="1500" :height="320"/>
+            <ImageCropUpload :enableFileUpload="enableChangeCover" ref="refCoverImageCropUpload" @onImageChanged="coverChanged" :width="1500" :height="320"/>
 
             <div v-if="showLayOver === true" class='header-cover-layover'>
             </div>
 
-            <div v-if="enableChangeIcon" style="position: absolute" :style="{color: 'white', backgroundColor: imageCoverActive ?  'rgba(0,0,0, 0.8)' : 'rgba(0,0,0, 1)'}">
+            <div v-if="enableChangeIcon" style="position: absolute; padding-left: 10px; padding-right: 10px" :style="{color: 'white', backgroundColor: imageCoverActive ?  'rgba(0,0,0, 0.8)' : 'rgba(0,0,0, 1)'}">
                 <i class="fa fa-picture-o"/>
                 {{imageCoverActive && !imageIconActive ? ' Change Cover' : ''}}
             </div>
@@ -22,12 +22,12 @@
                 <div class='header-cover-description' >
                     <div>
 
-                        <ImageCropUpload :enableFileUpload="enableChangeIcon" ref="refIconImageCropUpload" @onImageChanged="iconChanged"/>
+                        <ImageCropUpload :enableFileUpload="enableChangeIcon" ref="refIconImageCropUpload" @onImageChanged="iconChanged" :width="150" :height="150" />
 
-                        <div class="image-with-caption-link" style="display: inline-block" @click="showIconImageCropUploadModal()"    @mouseover="imageIconActive=true; " @mouseout="imageIconActive=false">
-                            <router-link :to="''">
-                                <img :src="icon||'/public/SkyHub-logo.png'" />
-                                <span v-if="enableChangeIcon" :style="{color: 'white',  opacity: (imageIconActive ?  1 : 0.7)}"><i class="fa fa-picture-o"/> {{imageIconActive ? 'Change Picture' : ''}}</span>
+                        <div class="image-with-caption-link" style="display: inline-block" @click="handleShowIconImageCropUploadModal"    @mouseover="imageIconActive=true; " @mouseout="imageIconActive=false">
+                            <router-link :to="''" style="margin-bottom: 0">
+                                <img :class="(showPicBorder ? 'profile-pic' : '')" :src="icon||'/public/SkyHub-logo-square.png'" />
+                                <span v-if="enableChangeIcon" :style="showPicBorder ? 'margin-left: 5px; margin-bottom: 5px; width: 90%;' : '' + 'color:white' + 'opacity: '+(imageIconActive ?  1 : 0.7)" ><i class="fa fa-picture-o"/> {{imageIconActive ? 'Change Picture' : ''}}</span>
                             </router-link>
                         </div>
 
@@ -45,6 +45,7 @@
 
                                 {{buttons}}
 
+<!--
                                 <button type="button" id='likeCount' >
                                     <i class='fa fa-hart' />
                                 </button>
@@ -52,6 +53,7 @@
                                 <label class='header-cover-toolbar-label' >
                                     <span class=''>0 likes</span>
                                 </label>
+-->
 
                             </div>
 
@@ -103,11 +105,13 @@
             breadcrumbs: {default: function (){return []}},
             buttons: {default: function() {return []}},
             showDescriptionMenu: {default: true},
-            coverPic: {default: 'http://spitfiresocial.com/wp-content/uploads/2015/03/worldsocial.jpg'},
+            //cover: {default: 'http://spitfiresocial.com/wp-content/uploads/2015/03/worldsocial.jpg'},
+            cover: {default: 'https://az616578.vo.msecnd.net/files/responsive/cover/main/desktop/2016/06/09/636010412452379284-1137686895_friends.jpg'},
             coverColor: {default: ''},
             icon: {default: ''},
 
             showLayOver: {default: false}, //lay over mask
+            showPicBorder : {default: false},
 
             enableChangeIcon : {default: false},
             enableChangeCover : {default: false},
@@ -115,8 +119,15 @@
 
 
         methods:{
-            showIconImageCropUploadModal(){
-                if (typeof this.$refs['refIconImageCropUpload'] !== 'undefined')
+            handleShowIconImageCropUploadModal(e){
+                //e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation(); //stil not working...
+
+                this.imageCoverActive = false;
+
+                if (this.$refs['refCoverImageCropUpload'].show) return false;
+                console.log('########## SHOW ICON', this.imageIconActive, this.imageCoverActive);
+
+                if ((this.imageIconActive)&&(typeof this.$refs['refIconImageCropUpload'] !== 'undefined'))
                     this.$refs['refIconImageCropUpload'].showModal();
             },
 
@@ -124,8 +135,15 @@
                 this.$emit('onIconChanged', imageURL);
             },
 
-            showCoverImageCropUploadModal(){
-                if (typeof this.$refs['refCoverImageCropUpload'] !== 'undefined')
+            handleShowCoverImageCropUploadModal(e){
+                //e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation(); //stil not working...
+
+                if (this.$refs['refIconImageCropUpload'].show) return false;
+                console.log('########## SHOW COVER', this.imageIconActive, this.imageCoverActive);
+
+                this.imageIconActive = false;
+
+                if ((this.imageCoverActive)&&(typeof this.$refs['refCoverImageCropUpload'] !== 'undefined'))
                     this.$refs['refCoverImageCropUpload'].showModal();
             },
 

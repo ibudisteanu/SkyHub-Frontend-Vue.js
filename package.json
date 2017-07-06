@@ -46,7 +46,8 @@
     "vueditor": "^0.2.4",
     "vuex": "^2.3.1",
     "vuex-router-sync": "^4.1.2",
-    "vuex-saga": "^0.1.3"
+    "vuex-saga": "^0.1.3",
+    "webpack-bundle-analyzer": "^2.8.2"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.7",

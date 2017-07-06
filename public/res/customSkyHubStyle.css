@@ -130,7 +130,15 @@
   text-align: center;
 }
 
-
+.profile-pic{
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    -webkit-transition: border .2s ease-in-out;
+    -o-transition: border .2s ease-in-out;
+    transition: border .2s ease-in-out;
+    padding: 4px;
+}
 
 /*
     PREVIEW PAGES
@@ -616,8 +624,10 @@ div.filepicker {
 
 .table-forums-topic-image{
   float: left;
-  margin: 0 15px 15px 0;
+  margin: 0 2% 2% 0;
   width: 25%;
+  max-width: 200px;
+  max-height: 200px;
 }
 .table-forums-topic-title{
   font-weight: 700;
@@ -690,4 +700,32 @@ div.filepicker {
 
 .navbar-top-links .dropdown-messages-box:hover{
     background: #c8daf7;
+}
+
+/*
+        HOVER EFECTS documentation: based on https://codepen.io/nxworld/pen/ZYNOBZ
+ */
+
+.opacity-effect:hover{
+    opacity: 1;
+    -webkit-animation: flash 1.5s;
+    animation: flash 1.5s;
+}
+
+/* Flashing */
+@-webkit-keyframes flash {
+    0% {
+        opacity: .4;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes flash {
+    0% {
+        opacity: .4;
+    }
+    100% {
+        opacity: 1;
+    }
 }

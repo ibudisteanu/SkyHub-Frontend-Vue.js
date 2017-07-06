@@ -3,8 +3,11 @@ const webpack = require('webpack')
 const vueConfig = require('./vue-loader.config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const isProd = process.env.NODE_ENV === 'production'
+//const isAnalyze = process.argv.includes('--analyze') || process.argv.includes('--analyse');
+const isAnalyze = false;
 
 module.exports = {
   entry: ['babel-regenerator-runtime'],
@@ -66,6 +69,8 @@ module.exports = {
   },
   plugins: isProd
     ? [
+        ...isAnalyze ? [new BundleAnalyzerPlugin()] : [],
+
         new webpack.optimize.UglifyJsPlugin({
           compress: { warnings: false }
         }),
@@ -74,6 +79,7 @@ module.exports = {
         })
       ]
     : [
+        ...isAnalyze ? [new BundleAnalyzerPlugin()] : [],
         new FriendlyErrorsPlugin()
       ]
 }

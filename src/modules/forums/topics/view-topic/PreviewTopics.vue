@@ -18,8 +18,6 @@
                         </h3>
 
                     </th>
-                    <th><i class="fa fa-comments-o table-forums-icon" aria-hidden="true"></i></th>
-                    <th><i class="fa fa-eye table-forums-icon" aria-hidden="true"></i></th>
                 </tr>
 
 

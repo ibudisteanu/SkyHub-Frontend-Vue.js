@@ -58,7 +58,6 @@
                 headers: {
                     smail: '*_~'
                 },
-                imgDataUrl: '' // the datebase64 url of created image
             }
         },
 
