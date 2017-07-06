@@ -5,12 +5,17 @@
 <template>
     <div style="padding-bottom: 20px">
 
-        <div class="header-cover row  border-bottom white-bg dashboard-header " :style="{backgroundImage: 'url('+(coverPic||'')+')', backgroundColor: (this.coverColor!=='' ? '#'+this.coverColor : 'darkblue')}">
+        <div class="header-cover row  border-bottom white-bg dashboard-header " :style="{backgroundImage: 'url('+(coverPic||'')+')', backgroundColor: (this.coverColor!=='' ? '#'+this.coverColor : 'darkblue')}" @mouseover="imageCoverActive=true" @mouseout="imageCoverActive=false" @click="showCoverImageCropUploadModal()">
+
+            <ImageCropUpload :enableFileUpload="enableChangeIcon" ref="refCoverImageCropUpload" @onImageChanged="coverChanged" :width="1500" :height="320"/>
 
             <div v-if="showLayOver === true" class='header-cover-layover'>
-
             </div>
 
+            <div v-if="enableChangeIcon" style="position: absolute" :style="{color: 'white', backgroundColor: imageCoverActive ?  'rgba(0,0,0, 0.8)' : 'rgba(0,0,0, 1)'}">
+                <i class="fa fa-picture-o"/>
+                {{imageCoverActive && !imageIconActive ? ' Change Cover' : ''}}
+            </div>
 
 
             <div  v-if="showDescriptionMenu" class="col-xs-12 " >
@@ -19,10 +24,10 @@
 
                         <ImageCropUpload :enableFileUpload="enableChangeIcon" ref="refIconImageCropUpload" @onImageChanged="iconChanged"/>
 
-                        <div class="image-with-caption-link" style="display: inline-block" @click="showIconImageCropUploadMethod()" @mouseover="imageIconActive = true" @mouseout="imageIconActive = false">
+                        <div class="image-with-caption-link" style="display: inline-block" @click="showIconImageCropUploadModal()"    @mouseover="imageIconActive=true; " @mouseout="imageIconActive=false">
                             <router-link :to="''">
-                                <img :src="icon||'/public/SkyHub-logo.png'" :style="{backgroundColor: (enableChangeIcon && imageIconActive ? 'rgba(255, 255, 255, 0.5)' : 'rgba(255, 255, 255, 0)')}" />
-                                <span v-if="enableChangeIcon" :style="{color: imageIconActive ? 'white' : 'yellow',  opacity: (imageIconActive ?  1 : 0.7)}"><i class="fa fa-picture-o"/> Change Picture</span>
+                                <img :src="icon||'/public/SkyHub-logo.png'" />
+                                <span v-if="enableChangeIcon" :style="{color: 'white',  opacity: (imageIconActive ?  1 : 0.7)}"><i class="fa fa-picture-o"/> {{imageIconActive ? 'Change Picture' : ''}}</span>
                             </router-link>
                         </div>
 
@@ -87,6 +92,7 @@
         data: function () {
             return{
                 imageIconActive: false,
+                imageCoverActive: false,
             }
         },
 
@@ -109,14 +115,22 @@
 
 
         methods:{
-            showIconImageCropUploadMethod(){
+            showIconImageCropUploadModal(){
                 if (typeof this.$refs['refIconImageCropUpload'] !== 'undefined')
                     this.$refs['refIconImageCropUpload'].showModal();
             },
 
             iconChanged(imageURL, field){
-
                 this.$emit('onIconChanged', imageURL);
+            },
+
+            showCoverImageCropUploadModal(){
+                if (typeof this.$refs['refCoverImageCropUpload'] !== 'undefined')
+                    this.$refs['refCoverImageCropUpload'].showModal();
+            },
+
+            coverChanged(imageURL, field){
+                this.$emit('onCoverChanged', imageURL);
             }
         }
 

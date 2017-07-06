@@ -20,8 +20,8 @@
                 @crop-upload-fail="cropUploadFail"
                 v-model="show"
 
-                :width="300"
-                :height="300"
+                :width="this.width"
+                :height="this.height"
                 url="http://myskyhub.ddns.net:4000/upload/image"
                 lang-type="en"
 
@@ -64,6 +64,8 @@
 
         props:{
             enableFileUpload: {default: false},
+            width: {default: 300},
+            height: {default: 300},
             //onImageChanged: {default: function(){}},
         },
 
