@@ -11,9 +11,9 @@ export default{
 
         if (reset === true) await commit('SET_CONTENT_TOPICS_RESET', {});
 
-        let answer = {result : false};
+        //  pageCount = 2;
 
-        answer = await FetchService.sendRequestGetData( "content/get-top-content", {parent: parent, pageIndex:pageIndex, pageCount: pageCount } );
+        let answer = await FetchService.sendRequestGetData( "content/get-top-content", {parent: parent, pageIndex:pageIndex, pageCount: pageCount } );
 
         console.log('CONTENT_TOPICS_FETCH_TOP',parent, pageIndex, pageCount, reset, answer);
 

@@ -85,11 +85,8 @@ Infinite Scroll: https://github.com/ElemeFE/vue-infinite-scroll
 
                 if (this.preview === true) return false;
 
-                console.log('load MORE');
-                await this.$store.dispatch('CONTENT_TOPICS_FETCH_TOP_NEXT', {parent: this.parentId} );
-
                 try{
-                    console.log('################', this.$refs['refInfiniteLoading']);
+                    await this.$store.dispatch('CONTENT_TOPICS_FETCH_TOP_NEXT', {parent: this.parentId} );
                     this.$refs['refInfiniteLoading'].scrollContinue();
                 } catch(Exception){
                     this.error = "Error! Couldn't load  the topics " + Exception.toString();

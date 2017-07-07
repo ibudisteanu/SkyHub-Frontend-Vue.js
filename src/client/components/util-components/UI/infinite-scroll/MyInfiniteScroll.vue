@@ -50,18 +50,17 @@
                 let windowHeight = window.outerHeight||document.body.offsetHeight;
                 let pageHeight = document.body.offsetHeight;
 
-                console.log('--------- scroll', pageHeight, divTop, windowHeight, scrollY);
-
+                //console.log('--------- scroll', pageHeight, divTop, windowHeight, scrollY);
 
                 let iDiff = divTop - window.scrollY - pageHeight ;
 
                 if (iDiff <= this.distance ){
-                    console.log('################## EMITTING onSCROLL');
+                    //console.log('################## EMITTING onSCROLL');
                     this.isLoading = true;
                     this.$emit('onScroll', iDiff)
                 }
 
-                console.log(iDiff);
+                //console.log(iDiff);
             },
 
             scrollContinue(){
