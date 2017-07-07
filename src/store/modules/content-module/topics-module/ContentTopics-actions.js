@@ -9,21 +9,23 @@ export default{
 
     CONTENT_TOPICS_FETCH_TOP: async ( {commit, state, dispatch}, {parent, pageIndex, pageCount, reset}) =>{
 
-        if (reset === true) await commit('SET_CONTENT_TOPICS_CLEAR', {});
+        if (reset === true) await commit('SET_CONTENT_TOPICS_RESET', {});
 
         let answer = {result : false};
 
-        answer = await FetchService.sendRequestGetData( "content/get-top-content", {parent: parent, pageIndex:pageIndex, pageCount: pageCount} );
+        answer = await FetchService.sendRequestGetData( "content/get-top-content", {parent: parent, pageIndex:pageIndex, pageCount: pageCount } );
+
+        console.log('CONTENT_TOPICS_FETCH_TOP',parent, pageIndex, pageCount, reset, answer);
 
         if ((typeof answer !== "undefined")&&(answer.result === true)) {
 
             //console.log('@@@@@@@@@@@ TOPICS FETCH TOP ',answer);
 
             await commit('SET_CONTENT_TOPICS', {topics: answer.content});
-            commit('SET_CONTENT_TOPICS_PAGE_INFORMATION',  {pageIndex: pageIndex, pageCount: pageCount} );
+            commit('SET_CONTENT_TOPICS_PAGE_INFORMATION',  {pageIndex: answer.newPageIndex-1, pageCount: pageCount, hasNext: answer.hasNext} );
 
             for (let i=0; i<answer.content.length; i++){
-                console.log('####### CONTENT_REPLIES_FETCH_TOP',answer.content[i].id);
+                //console.log('####### CONTENT_REPLIES_FETCH_TOP',answer.content[i].id);
                 await dispatch('CONTENT_REPLIES_FETCH_TOP',{parent: answer.content[i].id, pageIndex:1, pageCount:3, reset:false, });
             }
 
@@ -32,6 +34,12 @@ export default{
 
         else
             return {result:false, topics: []}
+
+    },
+
+    CONTENT_TOPICS_FETCH_TOP_NEXT:  ( {commit, state, dispatch}, {parent}) =>{
+
+        return dispatch('CONTENT_TOPICS_FETCH_TOP',{parent: parent, pageIndex: state.pageIndex+1, pageCount: state.pageCount, reset:false});
 
     },
 

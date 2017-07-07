@@ -4,6 +4,10 @@
  */
 
 
+/*
+    IT IS NO LONGER USED
+*/
+
 <template>
 
     <PreviewForums v-if="getObjectType === 'forum'" :key="'previewForum_'+object.id" :forum="object" />

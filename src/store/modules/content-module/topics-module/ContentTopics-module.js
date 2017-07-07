@@ -16,6 +16,7 @@ export default {
 
         pageIndex : 0,
         pageCount : 0,
+        hasNext : true,
     },
 
 

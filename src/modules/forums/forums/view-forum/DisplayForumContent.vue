@@ -7,7 +7,7 @@
     <div class="col-xl-6 col-xl-offset-3 col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12" style='padding:0; margin-bottom:0'>
 
         <div class="row">
-            <PreviewForums :forums="getContentForums" />
+            <PreviewForums :forums="forums" :parentId="getForumId" :hasNext="forumsHasNext" />
         </div>
 
         <div class="row" style='padding-bottom: 20px; padding-top:20px'>
@@ -20,7 +20,7 @@
                 <h4 style='font-size:30px'>What's hot on {{getForumTitle}}</h4>
             </div>
 
-            <PreviewTopics :key="'PreviewForums_'+getForumId" :title="getForumTitle" :topics="getContentTopics" />
+            <PreviewTopics :key="'PreviewForums_'+getForumId" :title="this.getForumTitle" :topics="this.contentTopics" :parentId="this.getForumId" :hasNext="this.topicsHasNext" />
 
         </div>
 
@@ -45,15 +45,21 @@
         },
 
         computed:{
-            getContentTopics(){
+            contentTopics(){
                 return this.$store.getters.getTopics;
             },
 
-            getContentForums(){
+            topicsHasNext(){
+                return this.$store.state.content.contentTopics.hasNext;
+            },
+
+            forums(){
                 return this.$store.getters.getForums;
             },
 
-
+            forumsHasNext(){
+                return this.$store.state.content.contentForums.hasNext;
+            },
 
 
             getForum(){

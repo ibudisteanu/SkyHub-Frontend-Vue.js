@@ -93,7 +93,7 @@
         },
 
         mounted: function () {
-            this.$store.dispatch('CONTENT_USERS_GET', {userId: this.getTopic.authorId})
+            this.$store.dispatch('CONTENT_USERS_GET', {userId: this.topic.authorId})
         },
 
         computed: {

@@ -21,21 +21,24 @@ export default{
     },
 
     SET_CONTENT_TOPIC: (state, { topic }) => {
-
         Vue.set(state.topics, topic.id, topic);
-
     },
 
     SET_CONTENT_TOPICS_CLEAR : (state, { }) => {
-
         state.topics = {};
-
     },
 
-    SET_CONTENT_TOPICS_PAGE_INFORMATION: (state, {  pageIndex, pageCount }) => {
+    SET_CONTENT_TOPICS_RESET : (state, { }) => {
+        state.topics = {};
+        state.hasNext = true;
+    },
+
+
+    SET_CONTENT_TOPICS_PAGE_INFORMATION: (state, {  pageIndex, pageCount, hasNext }) => {
 
         state.pageIndex = pageIndex;
         state.pageCount = pageCount;
+        state.hasNext = hasNext;
 
     },
 

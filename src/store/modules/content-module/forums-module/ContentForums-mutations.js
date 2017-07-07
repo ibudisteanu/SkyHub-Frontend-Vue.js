@@ -30,11 +30,17 @@ export default{
         state.forums = {};
     },
 
+    SET_CONTENT_FORUMS_RESET: (state, { }) => {
+        state.hasNext = true;
+        state.forums = {};
+    },
 
-    SET_CONTENT_FORUMS_PAGE_INFORMATION: (state, {  pageIndex, pageCount }) => {
+
+    SET_CONTENT_FORUMS_PAGE_INFORMATION: (state, {  pageIndex, pageCount, hasNext }) => {
 
         state.pageIndex = pageIndex;
         state.pageCount = pageCount;
+        state.hasNext = hasNext;
 
     },
 

@@ -9,17 +9,16 @@ export default{
 
     CONTENT_FORUMS_FETCH_TOP: async ( {commit, state, dispatch}, {parent, pageIndex, pageCount, reset}) =>{
 
-        if (reset === true) await commit('SET_CONTENT_FORUMS_CLEAR', {});
+        if (reset === true) await commit('SET_CONTENT_FORUMS_RESET', {});
 
-        let answer = {result : false};
+        let answer = await FetchService.sendRequestGetData( "forums/get-top-forums",{parent: parent, pageIndex:pageIndex, pageCount: pageCount} );
 
-        answer = await FetchService.sendRequestGetData( "forums/get-top-forums",{parent: parent, pageIndex:pageIndex, pageCount: pageCount} );
+        //console.log('CONTENT_FORUMS_FETCH_TOP',parent, pageIndex, pageCount, reset, answer);
 
         if ((typeof answer !== "undefined")&&(answer.result === true)) {
 
-
             await commit('SET_CONTENT_FORUMS', {forums: answer.content});
-            commit('SET_CONTENT_FORUMS_PAGE_INFORMATION',  {pageIndex: pageIndex, pageCount: pageCount} );
+            commit('SET_CONTENT_FORUMS_PAGE_INFORMATION',  {pageIndex: answer.newPageIndex-1, pageCount: pageCount, hasNext: answer.hasNext} );
 
             return  {result: true, forums: answer.content }
         }
@@ -29,6 +28,11 @@ export default{
 
     },
 
+    CONTENT_FORUMS_FETCH_TOP_NEXT: async ( {commit, state, dispatch}, { parent }) =>{
+
+        return dispatch('CONTENT_FORUMS_FETCH_TOP',{parent: parent, pageIndex: state.pageIndex+1, pageCount: state.pageCount, reset:false});
+
+    },
 
     CONTENT_FORUMS_SUBMIT_ADD: async ( {commit, state, dispatch}, { parent, name, title, description,  keywords, country, language, city, latitude, longitude, timeZone }) =>{
         try{

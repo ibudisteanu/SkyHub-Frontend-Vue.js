@@ -4,7 +4,6 @@ import { createApp } from './app'
 import ProgressBar from './modules/hackernews/components/ProgressBar.vue'
 
 import FetchService from 'services/communication/FetchService';
-import infiniteScroll from 'vue-infinite-scroll'; //infinite scroll directive  https://github.com/ElemeFE/vue-infinite-scroll
 
 // global progress bar
 const bar = Vue.prototype.$bar = new Vue(ProgressBar).$mount()
@@ -24,8 +23,6 @@ Vue.mixin({
     }
   }
 });
-
-Vue.use(infiniteScroll); //infinite scroll directive  https://github.com/ElemeFE/vue-infinite-scroll
 
 // usage of tooltips https://stackoverflow.com/questions/37078423/how-can-add-bootstrap-tooltip-inside-vue-js
 Vue.directive('tooltip', function(el, binding){
