@@ -17,6 +17,7 @@ const RegistrationPage = () => import('client/pages/Site/Registration.page.vue')
 const AboutPage = () => import('client/pages/Site/About.page.vue');
 
 export function createRouter () {
+
   return new Router({
     mode: 'history',
     scrollBehavior: () => ({ y: 0 }),
@@ -30,7 +31,7 @@ export function createRouter () {
       { path: '/hn/user/:id', component: UserView },
       { path: '/hn/', redirect: '/hn/top' },
 
-      { path: '/about', component: AboutPage },
+      { path: '/about/test', component: AboutPage },
       { path: '/login', component: LoginPage },
       { path: '/signin', component: LoginPage },
 
@@ -38,7 +39,14 @@ export function createRouter () {
       { path: '/signup', component: RegistrationPage },
       { path: '/registration', component: RegistrationPage },
 
-      { path: '/:url*', component: HomePage },
+      // { path: '/:url*', component: HomePage },
+
+      { path: '/:a?/:b?/:c?', component: HomePage },
+      { path: '/:a?/:b?', component: HomePage },
+      { path: '/:a?', component: HomePage },
+      { path: '/', component: HomePage },
+
+
 
     ]
   })
