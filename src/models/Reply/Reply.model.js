@@ -17,7 +17,9 @@ export default class Reply {
         this.parentId = data.parentId || '';
 
         this.authorId = data.authorId || '';
+
         this.description = data.description || '';
+        this.shortDescription = data.shortDescription || '';
 
         this.preview = data.preview||false;
 
@@ -42,7 +44,7 @@ export default class Reply {
     }
 
     static getDescription(Reply){
-        if (Reply.description !== '') return Reply.description;
+        if (Reply.shortDescription !== '') return Reply.shortDescription;
         if (Attachments.getLinkAttachment(Reply) !== null) return Attachments.getLinkAttachment(Reply).description;
         if (Reply.attachments.length > 0 ) return Reply.attachments[0].description;
 

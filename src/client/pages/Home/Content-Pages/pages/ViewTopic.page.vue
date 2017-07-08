@@ -9,9 +9,9 @@
     <div>
         <HeaderCover  v-if=" (getTopic !== null) && (getTopicRouter.notFound === false)"
                       :title="getTopic.title||''"
-                      :subTitle="getTopic.description||''"
+                      :subTitle="getTopic.shortDescription||''"
                       :icon="getParentForum.iconPic||''"
-                      :cover="getParentForum.coverPic||''"
+                      :cover="getTopic.coverPic||getParentForum.coverPic||''"
                       :coverColor="getParentForum.coverColor||''"
                       :breadcrumbs="getTopic.breadcrumbs||[]"
                       :url="getTopic.URL"
@@ -155,6 +155,7 @@
     import Voting from  'modules/forums/voting/Voting.component.vue'
 
     import Topic from 'models/Topic/Topic.model';
+    import User from 'models/User/User.model';
 
     export default{
 
@@ -183,7 +184,7 @@
             getParentForumRouter(){
                 return this.$store.state.content.contentRouter.parentObject;
             },
-            
+
             getTopic(){
                 return this.getTopicRouter.object;
             },

@@ -12,6 +12,8 @@ export default{
         let res;
         res = await dispatch('CONTENT_FETCH_ROUTER_OBJECT', {url: url});
 
+        console.log('##### CONTENT_FETCH_ROUTER_OBJECT', res);
+
         if ( res.result === true){
 
             let parent = ((typeof res.object !== "undefined") && (res.object !== null)) ? res.object.parent : '';

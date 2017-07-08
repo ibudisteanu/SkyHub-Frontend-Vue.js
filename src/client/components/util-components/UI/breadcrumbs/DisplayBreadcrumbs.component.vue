@@ -16,14 +16,14 @@
     <li   v-for="(breadcrumb, index) in breadcrumbs"
           :key="'breadcrumb_'+breadcrumb.name+'_'+index"
     >
-      <router-link :key="'breadcrumb_'+breadcrumb.name+'_'+index" :to="breadcrumb.url" >
+      <router-link :key="'breadcrumb_'+breadcrumb.name+'_'+index" :to="'/'+breadcrumb.url" >
         {{breadcrumb.name}}
       </router-link>
 
     </li>
 
     <li  class="active" key="breadcrumb_current_Page">
-      <router-link key="breadcrumb_current_Page" :to="currentPageUrl" >
+      <router-link key="breadcrumb_current_Page" :to="'/'+currentPageUrl" >
         {{getPageTitle}}
       </router-link>
     </li>

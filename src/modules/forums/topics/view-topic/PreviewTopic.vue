@@ -13,7 +13,7 @@
             <div>
                 <div class="anchor" style='padding-left: 42px'>
 
-                    <router-link :to="topic.URL" :disableLink="topic.preview" >
+                    <router-link :to="'/'+topic.URL" :disableLink="topic.preview" >
                         <img class="table-forums-topic-image" :src="getTopicImage" :alt="getTopicTitle" />
 
                         <h4 class="table-forums-topic-title">{{getTopicTitle}}</h4>

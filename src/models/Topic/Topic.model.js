@@ -13,10 +13,12 @@ export default class Topic {
 
         this.title = data.title || '';
         this.description = data.description || '';
+        this.shortDescription = data.shortDescription || '';
 
         this.URL = data.URL || '';
 
-        this.image = data.image || '';
+        //this.image = data.image || '';
+        this.coverPic = data.coverPic || '';
 
         this.keywords = data.keywords || [];
         this.attachments = data.attachments || [];
@@ -59,7 +61,7 @@ export default class Topic {
     }
 
     static getDescription(Topic){
-      if (Topic.description !== '') return Topic.description;
+      if (Topic.shortDescription !== '') return Topic.shortDescription;
       if (Attachments.getLinkAttachment(Topic) !== null) return Attachments.getLinkAttachment(Topic).description;
       if (Topic.attachments.length > 0 ) return Topic.attachments[0].description;
 
@@ -67,7 +69,7 @@ export default class Topic {
     }
 
     static getImage(Topic){
-      if ((typeof Topic.image !== "undefined")&&(Topic.image !== '')) return Topic.image;
+      //if ((typeof Topic.image !== "undefined")&&(Topic.image !== '')) return Topic.image;
 
       if (Topic.attachments.length > 0 ) //I have an uploaded image
         for (let i=0; i<Topic.attachments.length; i++)

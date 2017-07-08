@@ -9,13 +9,13 @@
       <li>
            <div class="dropdown-messages-box" @click="this.markNotificationAsRead">
 
-               <router-link :to="notification.params.url||''" style="display:block">
+               <router-link :to="'/'+notification.params.url||''" style="display:block">
                    <div style="margin-left: -15px;">
                         <img alt="image" class="img-circle" :src="notification.params.icon || '/public/SkyHub-logo.png'"  align="left"  />
                    </div>
                </router-link>
 
-               <router-link :to="notification.params.url||''" style="display:block">
+               <router-link :to="'/'+notification.params.url||''" style="display:block">
                     <div class="media-body" style="min-height: 50px; padding-left: 10px">
                          <small class="pull-right">
                              <ShowDate :date="notification.dtCreation" />
