@@ -14,9 +14,9 @@
                 <div class="anchor" style='padding-left: 42px'>
 
                     <router-link :to="'/'+topic.URL" :disableLink="topic.preview" >
-                        <img class="table-forums-topic-image" :src="getTopicImage" :alt="getTopicTitle" />
+                        <img v-if="getTopicImage !== ''" class="table-forums-topic-image" :src="getTopicImage" :alt="getTopicTitle" />
 
-                        <h4 class="table-forums-topic-title">{{getTopicTitle}}</h4>
+                        <h4 class="table-forums-topic-title" v-html="getTopicTitle"></h4>
 
                         <p class="table-forums-topic-body word-wrap">
                             <div v-html="getTopicDescription"/>
@@ -98,7 +98,7 @@
 
         computed: {
             getTopicImage(){
-                return Topic.getImage(this.topic) || "https://citation-beweb.netdna-ssl.com/img/compose.png";
+                return Topic.getImage(this.topic) || "";
             },
 
             getTopicTitle(){

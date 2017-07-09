@@ -6,5 +6,5 @@
 export default  {
     VOTE_UP: 1,
     VOTE_DOWN: -1,
-    VOTE_NONE: 666,
+    VOTE_NONE: 0,
 };

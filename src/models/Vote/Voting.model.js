@@ -16,8 +16,11 @@ export default class Voting {
 
         this.parentId = data.parentId || '';
 
-        if (typeof data.value === 'undefined') this.value = 0;
-        else this.value = parseInt(data.value);
+        if (typeof data.ups === 'undefined') this.ups = 0;
+        else this.ups = parseInt(data.value);
+
+        if (typeof data.downs === 'undefined') this.downs = 0;
+        else this.downs = parseInt(data.value);
 
         this.votes = [];
         this.loading = false;

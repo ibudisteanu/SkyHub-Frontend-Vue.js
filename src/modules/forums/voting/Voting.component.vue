@@ -9,8 +9,8 @@
 
             <div v-else @click="showAllVotes" v-popover:right="{title:'', html:true, content:this.getVotesListContent}" >
 
-                <div class="cursor" v-if="(voting.value) >= 0" >
-                    {{voting.value}}
+                <div class="cursor" v-if="(voting.ups-voting.downs) >= 0" >
+                    {{voting.ups-voting.downs}}
                 </div>
                 <div class="cursor" v-else  >
                     <strong> - </strong>

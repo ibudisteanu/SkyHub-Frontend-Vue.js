@@ -25,7 +25,7 @@
                 <i v-if="attachment.type==='link'" class="fa fa-link"></i>
                 <i v-else-if="attachment.type==='img'" class="fa fa-picture-o"></i>
                 <i v-else class="fa fa-file"></i>
-                {{(typeof attachment.title === 'string' ? attachment.title.substr(0, 50) : '')}}
+                {{(typeof attachment.title === 'string' && attachment.title.length > 50 ?  attachment.title.substr(0, 50)+'...' : attachment.title)}}
             </div>
         </div>
 

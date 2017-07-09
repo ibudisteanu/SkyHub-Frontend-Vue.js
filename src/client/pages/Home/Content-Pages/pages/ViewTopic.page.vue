@@ -155,7 +155,7 @@
     import Voting from  'modules/forums/voting/Voting.component.vue'
 
     import Topic from 'models/Topic/Topic.model';
-    import User from 'models/User/User.model';
+    import User from 'models/User/User.model'
 
     export default{
 

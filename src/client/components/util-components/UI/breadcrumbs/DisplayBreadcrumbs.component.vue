@@ -9,7 +9,9 @@
 
     <li v-if="currentPageUrl !== '/' && currentPageUrl !== ''" key="breadcrumb_home">
       <router-link to="/" >
-        Home
+          <i class="fa fa-home">
+            Home
+          </i>
       </router-link>
     </li>
 
@@ -17,14 +19,18 @@
           :key="'breadcrumb_'+breadcrumb.name+'_'+index"
     >
       <router-link :key="'breadcrumb_'+breadcrumb.name+'_'+index" :to="'/'+breadcrumb.url" >
-        {{breadcrumb.name}}
+        {{typeof breadcrumb.name === 'string' && breadcrumb.name.length > 30 ? breadcrumb.name.substr(0,30)+'...' :  breadcrumb.name}}
       </router-link>
 
     </li>
 
     <li  class="active" key="breadcrumb_current_Page">
       <router-link key="breadcrumb_current_Page" :to="'/'+currentPageUrl" >
-        {{getPageTitle}}
+
+        <i v-if="this.getPageTitle === 'Home'" class="fa fa-home"> </i>
+
+        {{typeof this.getPageTitle === 'string' && this.getPageTitle.length > 30 ? getPageTitle.substr(0,30)+'...' :  this.getPageTitle}}
+
       </router-link>
     </li>
 
