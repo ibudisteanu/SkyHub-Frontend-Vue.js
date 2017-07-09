@@ -14,7 +14,7 @@
 <script>
 
     import NotificationStickyButton from 'modules/notifications/NotificationStickyButton.vue';
-    import Chat from 'modules/Chat/Chat.vue';
+    import Chat from 'modules/chat/Chat.vue';
     import ChatStickyButton from 'modules/chat/ChatStickyButton.vue';
 
     export default{
