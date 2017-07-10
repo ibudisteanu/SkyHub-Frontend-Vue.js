@@ -36,6 +36,8 @@
             if (typeof b !== 'undefined') url += '/'+b;
             if (typeof c !== 'undefined') url += '/'+c;
 
+            if (url === '/index.htm') url = ''; //forward bug fix
+
             //let url = route.fullPath.toString();
             if ((typeof url === 'string')&&(url[0]==='/')) url = url.substr(1, url.length);
             console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@',url);
