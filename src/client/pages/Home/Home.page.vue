@@ -44,9 +44,6 @@
             console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@',url);
             console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@',url);
             console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@',url);
-            console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@',url);
-            console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@',url);
-            console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@',url);
 
             console.log("%%%%%%%%%%%%%%% ASYNC DATA", url);
             await store.dispatch('LOCALIZATION_FETCH', {ip: ''}); //the localization is required...

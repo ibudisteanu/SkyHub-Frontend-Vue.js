@@ -155,7 +155,7 @@ class ClientSocketServiceClass {
                 });
             });
 
-        console.log("OBSERVABLE for "+sRequestName,observable,);
+        //console.log("OBSERVABLE for "+sRequestName,observable,);
         return observable;
     }
 

@@ -31,7 +31,7 @@ export default class Reply {
         this.dtCreation = ((typeof data.dtCreation === "string")&&(data.dtCreation !== '')) ? Date.parse(data.dtCreation) : new Date(data.dtCreation||new Date());
         this.dtLastActivity = ((typeof data.dtLastActivity === "string")&&(data.dtLastActivity !== '')) ? Date.parse(data.dtLastActivity) : new Date(data.dtLastActivity||new Date());
 
-        console.log('Reply assigned ', data, data.title, data.parentReplyId);
+        //console.log('Reply assigned ', data, data.title, data.parentReplyId);
     }
 
 

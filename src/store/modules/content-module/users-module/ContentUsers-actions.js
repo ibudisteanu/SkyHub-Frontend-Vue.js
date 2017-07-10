@@ -21,9 +21,12 @@ export default{
                 return await state.loading[userId];
             }
 
+            console.log('get-user', userId);
 
-            let resData = FetchService.sendRequestGetData("users/get-user", {userId: userId });
+            let resData = await FetchService.sendRequestGetData("users/get-user", {userId: userId });
             Vue.set(state.loading, userId, resData);
+
+            console.log('get-user answer', resData);
 
             resData = await resData;
 

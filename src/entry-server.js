@@ -18,11 +18,12 @@ export default context => {
 
     //processing the AUTHENTICATION
     store.dispatch('LOCALIZATION_NEW_IP', { ip: context.ip } ); //Dispatching the Context IP
-    store.commit('SET_AUTHENTICATED_USER_SESSION', { sessionId: context.cookies.sessionId } ); //Dispatching the Context IP
 
-    console.log("SERVERSIDE     AUTHENTICATE_USER_BY_SESSION", context.cookies.sessionId ) ;
+    let cookie =   context.cookies.sessionId || context.cookies.credential; //credential is the old SkyHub session Id
 
-    store.dispatch('AUTHENTICATE_USER_BY_SESSION', { sessionId: context.cookies.sessionId } ).then( (answer)=>{ //my change
+    store.commit('SET_AUTHENTICATED_USER_SESSION', { sessionId: cookie } ); //Dispatching the Context IP
+    console.log("SERVERSIDE     AUTHENTICATE_USER_BY_SESSION", cookie ) ;
+    store.dispatch('AUTHENTICATE_USER_BY_SESSION', { sessionId: cookie } ).then( (answer)=>{ //my change
 
         const { url } = context
         const fullPath = router.resolve(url).route.fullPath

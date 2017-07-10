@@ -17,10 +17,10 @@ export default class Voting {
         this.parentId = data.parentId || '';
 
         if (typeof data.ups === 'undefined') this.ups = 0;
-        else this.ups = parseInt(data.value);
+        else this.ups = parseInt(data.ups);
 
         if (typeof data.downs === 'undefined') this.downs = 0;
-        else this.downs = parseInt(data.value);
+        else this.downs = parseInt(data.downs);
 
         this.votes = [];
         this.loading = false;

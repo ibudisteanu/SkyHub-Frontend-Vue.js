@@ -26,7 +26,7 @@ export default{
 
             for (let i=0; i<answer.content.length; i++){
                 //console.log('####### CONTENT_REPLIES_FETCH_TOP',answer.content[i].id);
-                await dispatch('CONTENT_REPLIES_FETCH_TOP',{parent: answer.content[i].id, pageIndex:1, pageCount:3, reset:false, });
+                await dispatch('CONTENT_REPLIES_FETCH_TOP',{parent: answer.content[i].object.id, pageIndex:1, pageCount:3, reset:false, });
             }
 
             return  {result: true, topics: answer.content }

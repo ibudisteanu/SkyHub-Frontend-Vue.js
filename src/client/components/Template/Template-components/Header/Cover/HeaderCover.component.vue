@@ -106,7 +106,7 @@
             buttons: {default: function() {return []}},
             showDescriptionMenu: {default: true},
             //cover: {default: 'http://spitfiresocial.com/wp-content/uploads/2015/03/worldsocial.jpg'},
-            cover: {default: 'https://az616578.vo.msecnd.net/files/responsive/cover/main/desktop/2016/06/09/636010412452379284-1137686895_friends.jpg'},
+            cover: {default: 'http://i.imgur.com/hqLGii9.jpg'},
             coverColor: {default: ''},
             icon: {default: ''},
 

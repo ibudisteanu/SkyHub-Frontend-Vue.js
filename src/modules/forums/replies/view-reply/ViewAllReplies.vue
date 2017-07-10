@@ -58,7 +58,7 @@
 
                 let repliesList = this.repliesList;
 
-                console.log("@@@@@@@@@@@ REPLIES LIST", repliesList);
+                ///console.log("@@@@@@@@@@@ REPLIES LIST", repliesList);
 
                 for (let i=0; i<repliesList.length; i++)
                     if ((repliesList[i] !== null)&&(repliesList[i].parentReplyId == this.parentReplyId)&&(repliesList[i].parentId == this.parentId))
