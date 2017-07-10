@@ -43,7 +43,6 @@ export default{
 
         if (result.result === true){
 
-            console.log('CONTENT_VOTES_FETCH answer', result);
             await commit('SET_CONTENT_VOTE', {vote: result.vote});
 
         }

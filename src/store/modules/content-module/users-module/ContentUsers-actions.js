@@ -12,23 +12,25 @@ export default{
 
         try {
 
+            if ((userId === '')||(typeof userId === 'uundefined')) return {result: false };
+
             if (typeof state.users[userId] !== 'undefined'){ //already fetched before
                 return {result:true, user: state.users[userId]};
-            };
+            }
 
             if (typeof state.loading[userId] !== 'undefined') {
                 console.log('@@@@@@@@@@@@@ await promise');
                 return await state.loading[userId];
             }
 
-            console.log('get-user', userId);
+            console.log('get-user', '#'+userId+'#');
 
-            let resData = await FetchService.sendRequestGetData("users/get-user", {userId: userId });
+            let resData =  FetchService.sendRequestGetData("users/get-user", {userId: userId });
             Vue.set(state.loading, userId, resData);
 
-            console.log('get-user answer', resData);
-
             resData = await resData;
+
+            console.log('get-user answer', resData);
 
             if (resData.result){
                 await commit('SET_CONTENT_USER',{user: resData.user});

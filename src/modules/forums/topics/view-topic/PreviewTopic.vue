@@ -27,15 +27,11 @@
                 </div>
 
 
-                <div style='display: inline'>
+                <ViewUserForum style='display: inline' :authorId="topic.authorId">
 
-                    <img :src="this.getUserProfilePic" class="img-circle" align="left" alt="image" style='max-width: 48px; max-height: 48px; margin-right: 10px' />
-                    <h4 class="reply-header-authorName">{{ this.getUserFullName }} </h4>
-                    <h5 class="reply-header-bio">{{ this.getUserBio }} </h5>
+                    <ShowDate :date="topic.dtCreation" slot="view-user-bottom"/>
 
-                    <ShowDate :date="topic.dtCreation" />
-
-                </div>
+                </ViewUserForum>
 
                 <br />
 
@@ -49,11 +45,13 @@
 
             </div>
 
-            <ViewAllReplies style="padding-left: 40px"
+            <ViewAllReplies style="padding-left: 40px; padding-bottom: 20px;"
 
                     :parentId = "this.topic.id"
                     parentReplyId = ""
                     :key = "'ViewReplies_'+this.topic.id+'_'"
+
+                    :preview = "true"
 
             >
             </ViewAllReplies>
@@ -69,13 +67,13 @@
 <script>
 
     import Topic from 'models/Topic/Topic.model';
-    import User from 'models/User/User.model';
 
     import ShowDate from 'client/components/util-components/UI/show-date/ShowDate.component.vue';
     import Voting from  'modules/forums/voting/Voting.component.vue'
     import ViewAllReplies from  'modules/forums/replies/view-reply/ViewAllReplies.vue'
     import ContentButtonsInline from 'modules/forums/components/ContentButtonsInline.component.vue';
 
+    import ViewUserForum from 'modules/users/view-users/ViewUserForum.component.vue';
 
     export default{
 
@@ -86,6 +84,7 @@
             'ContentButtonsInline' : ContentButtonsInline,
             'Voting': Voting,
             'ViewAllReplies': ViewAllReplies,
+            'ViewUserForum' : ViewUserForum,
         },
 
         props:{
@@ -110,21 +109,6 @@
             },
 
 
-            user() {
-                return this.$store.state.content.contentUsers.users[this.topic.authorId];
-            },
-
-            getUserFullName(){
-                return typeof this.user !== 'undefined' ? User.getName(this.user) :  this.topic.authorId;
-            },
-
-            getUserBio(){
-                return typeof this.user !== 'undefined' ? this.user.shortBio :  'bio';
-            },
-
-            getUserProfilePic(){
-                return typeof user !== 'undefined' ? user.profilePic : 'https://forums.carm.org/vb5/core/images/default/default_avatar_medium.png';
-            }
         }
 
     }

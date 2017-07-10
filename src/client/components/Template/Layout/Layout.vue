@@ -8,11 +8,6 @@
 
                 <div slot="content">
                     <slot name="layout-content" />
-                    <b>TEST LAYOUT</b>
-
-                    <button @click="openModal"> Open Modal</button>
-
-
 
                 </div>
 

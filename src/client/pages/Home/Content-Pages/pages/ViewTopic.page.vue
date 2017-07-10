@@ -62,13 +62,10 @@
 
                             <Voting :parentId = "getTopic.id" />
 
-                            <div >
-                                <img :src="this.getUserProfilePic" class="img-circle" align="left" alt="image" style='max-width: 48px; max-height: 48px; margin-right: 10px' />
-                                <h3 class="reply-header-title">{{getTopic.title || '' }} </h3>
+                            <ViewUserForum :authorId="getTopic.authorId">
+                                <h3 class="reply-header-title"  slot="view-user-after-profile-pic">{{getTopic.title || '' }} </h3>
+                            </ViewUserForum>
 
-                                <h4 class="reply-header-authorName">{{ this.getUserFullName }} </h4>
-                                <h5 class="reply-header-bio">{{ this.getUserBio }} </h5>
-                            </div>
                         </div>
 
                         <!-- CONTENT -->
@@ -153,9 +150,9 @@
 
     import ViewAllReplies from  'modules/forums/replies/view-reply/ViewAllReplies.vue'
     import Voting from  'modules/forums/voting/Voting.component.vue'
+    import ViewUserForum from 'modules/users/view-users/ViewUserForum.component.vue';
 
     import Topic from 'models/Topic/Topic.model';
-    import User from 'models/User/User.model'
 
     export default{
 
@@ -169,10 +166,7 @@
             'DisplayAttachments': DisplayAttachments,
             'ViewAllReplies': ViewAllReplies,
             'Voting' : Voting,
-        },
-
-        mounted: function () {
-            this.$store.dispatch('CONTENT_USERS_GET', {userId: this.getTopic.authorId})
+            'ViewUserForum': ViewUserForum,
         },
 
         computed:{
@@ -206,21 +200,6 @@
             },
 
 
-            user() {
-                return this.$store.state.content.contentUsers.users[this.getTopic.authorId];
-            },
-
-            getUserFullName(){
-                return typeof this.user !== 'undefined' ? User.getName(this.user) :  this.getTopic.authorId;
-            },
-
-            getUserBio(){
-                return typeof this.user !== 'undefined' ? this.user.shortBio :  'bio';
-            },
-
-            getUserProfilePic(){
-                return typeof this.user !== 'undefined' ? this.user.profilePic : 'https://forums.carm.org/vb5/core/images/default/default_avatar_medium.png';
-            }
 
         }
 

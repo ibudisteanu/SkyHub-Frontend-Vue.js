@@ -41,7 +41,7 @@ export default class User {
         this.longitude = data.longitude || -666;
         this.latitude = data.latitude || -666;
 
-        console.log('User assigned ', data, data.firstName, data.userName);
+        console.log('User assigned ', data, data.firstName, data.username);
     }
 
     static getName(User) {

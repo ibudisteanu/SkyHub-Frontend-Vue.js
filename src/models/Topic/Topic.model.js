@@ -52,7 +52,7 @@ export default class Topic {
 
 
     static getTitle(Topic){
-      console.log("getTitle", Topic.title, Topic.attachments, Attachments.getLinkAttachment(Topic));
+
       if (Topic.title !== '') return Topic.title;
       if (Attachments.getLinkAttachment(Topic) !== null) return Attachments.getLinkAttachment(Topic).title;
       if (Topic.attachments.length > 0 ) return Topic.attachments[0].title;

@@ -499,7 +499,8 @@ div.filepicker {
 .reply-form{
     border-radius: 10px;
     overflow: auto;
-    background-color:white;
+    background-color: rgba(27, 0, 255, 0.03);;
+    margin-right: 10px;
 }
 
 .reply-form-content{
@@ -532,6 +533,7 @@ div.filepicker {
 
 .reply-form-footer-subReplies{
     padding-left: 10px;
+    padding-bottom: 10px;
 }
 
 .reply-form-footer-buttons{

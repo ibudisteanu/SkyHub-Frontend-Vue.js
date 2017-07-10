@@ -19,6 +19,7 @@
               :parentReplyId = "parentReplyId"
               :key="reply.id"
 
+              :preview="this.preview"
 
       >
 
@@ -45,6 +46,7 @@
 
             parentReplyId :{default: null},
             parentId : {default: null},
+            preview : {default: false},
         },
 
         computed:{
