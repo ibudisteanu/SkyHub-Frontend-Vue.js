@@ -66,7 +66,7 @@
                     <strong>Description</strong>
 
                         <no-ssr>
-                            <MyVueEditor ref="refDescriptionEditor" :onChange = "handleDescriptionChange"/>
+                            <MyVueEditor ref="refDescriptionEditor" @onChange = "handleDescriptionChange"/>
                         </no-ssr>
 
                     <span :class="this.showInputFeedback(this.descriptionValidationStatus)"></span>

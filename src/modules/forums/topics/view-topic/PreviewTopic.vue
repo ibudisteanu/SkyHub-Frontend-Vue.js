@@ -8,12 +8,12 @@
     <tr>
         <td :key="'TopicTable_'+topic.id" class="anchor">
 
-            <Voting :parentId = "topic.id" />
+            <Voting :parentId = "topic.id" :preview="this.preview" />
 
             <div>
                 <div class="anchor" style='padding-left: 42px'>
 
-                    <router-link :to="'/'+topic.URL" :disableLink="topic.preview" >
+                    <router-link :to="'/'+topic.URL" :disableLink="this.preview" >
                         <img v-if="getTopicImage !== ''" class="table-forums-topic-image" :src="getTopicImage" :alt="getTopicTitle" />
 
                         <h4 class="table-forums-topic-title" v-html="getTopicTitle"></h4>
@@ -35,7 +35,7 @@
 
                 <br />
 
-                <div class="topic-question-footer">
+                <div class="topic-question-footer" v-if="!this.preview">
                     <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="this.topic.id" :parentName="this.topic.title" parentReplyId="" parentReplyName=""/>
                 </div>
 
@@ -51,7 +51,7 @@
                     parentReplyId = ""
                     :key = "'ViewReplies_'+this.topic.id+'_'"
 
-                    :preview = "true"
+                    :preview = "this.preview"
 
             >
             </ViewAllReplies>
@@ -89,6 +89,7 @@
 
         props:{
             topic:  {default: null},
+            preview: {default: false},
         },
 
         mounted: function () {

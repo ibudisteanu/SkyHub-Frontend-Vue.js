@@ -11,7 +11,7 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
     <div class="media reply-form" >
 
         <div class="row form-head-line">
-            <Voting :parentId = "reply.id" />
+            <Voting :parentId = "reply.id" :preview="this.preview" />
 
 
             <ViewUserForum :authorId="this.reply.authorId">

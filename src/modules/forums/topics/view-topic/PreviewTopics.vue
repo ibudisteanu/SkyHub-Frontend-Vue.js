@@ -29,7 +29,9 @@ Infinite Scroll: https://github.com/ElemeFE/vue-infinite-scroll
                     v-for="(topic, index) in topics"
                     :topic="topic"
                     :key="'PreviewTopic_'+topic.id||''"
-            />
+                    :preview="preview"
+            >
+            </PreviewTopic>
 
 
             </tbody>

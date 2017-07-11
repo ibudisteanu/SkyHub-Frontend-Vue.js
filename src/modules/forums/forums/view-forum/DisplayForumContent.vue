@@ -11,7 +11,7 @@
         </div>
 
         <div class="row" style='padding-bottom: 20px; padding-top:20px'>
-            <ContentButtons :parentId="getForumId" :parentName="getForumName" buttonsRowStyle="text-align: center; padding-bottom:20px" />
+            <ContentButtons :enableAddReply="false" :parentId="getForumId" :parentName="getForumName" buttonsRowStyle="text-align: center; padding-bottom:20px" />
         </div>
 
         <div class="row" style='padding-bottom: 20px'>

@@ -32,6 +32,8 @@
 
             <AddTopicForm v-show="showAddTopic" :parentIdProp="parentId" :parentNameProp="parentName" @onSuccess="topicSuccess" @onCancel="topicCancel"/>
 
+            <AddReplyForm v-show="showAddReply" :parentIdProp="parentId" :parentNameProp="parentName" @onSuccess="replySuccess" @onCancel="replyCancel"/>
+
         </div>
 
 
@@ -44,6 +46,7 @@
 
     import AddForumForm from 'modules/forums/forums/components/AddForum.form.vue';
     import AddTopicForm from 'modules/forums/topics/components/AddTopic.form.vue';
+    import AddReplyForm from 'modules/forums/replies/components/AddReply.form.vue';
 
     export default{
         name: 'ContentButtons',
@@ -51,6 +54,7 @@
         components:{
             'AddForumForm':AddForumForm,
             'AddTopicForm':AddTopicForm,
+            'AddReplyForm':AddReplyForm,
         },
 
         data: function (){
@@ -111,6 +115,14 @@
 
             forumCancel(){
                 this.showAddForum = false;
+            },
+
+            replySuccess(){
+                this.showAddReply = false;
+            },
+
+            replyCancel(){
+                this.showAddReply = false;
             }
 
         }

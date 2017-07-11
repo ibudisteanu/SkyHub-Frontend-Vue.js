@@ -7,7 +7,7 @@
                 <i class="fa fa-spinner fa-spin" > </i>
             </div>
 
-            <div v-else @click="showAllVotes" v-popover:right="{title:'', html:true, content:this.getVotesListContent}" >
+            <div v-else-if="typeof voting !== 'undefined'" @click="showAllVotes" v-popover:right="{title:'', html:true, content:this.getVotesListContent}" >
 
                 <div class="cursor" v-if="(voting.ups-voting.downs) >= 0" >
                     {{voting.ups-voting.downs}}

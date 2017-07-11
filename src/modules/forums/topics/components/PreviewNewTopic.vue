@@ -7,7 +7,7 @@
 
     <div style='background-color: aliceblue;'>
 
-        <PreviewTopics :preview="true" :topics="[this.topic]" />
+        <PreviewTopics :topics="[this.topic]"  :preview="true" />
 
     </div>
 
@@ -44,13 +44,12 @@
                     title: this.title,
                     image: this.image,
                     description: this.description,
+                    shortDescription: (this.description.length > 500 ? this.description.substr(0, 500) : this.description),
                     keywords: this.keywords,
                     authorId: this.authorId,
                     attachments: this.attachments,
 
                     dtCreation: '',
-
-                    preview: true,
                 })
             },
         }

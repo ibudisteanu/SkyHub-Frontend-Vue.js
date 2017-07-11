@@ -104,8 +104,8 @@
                 this.content = this.getContent;
                 //console.log('descriere',  this.content);
 
-                let onChange = this.onChange || function (){};
-                onChange(this.content);
+                this.$emit('onChange',this.content);
+
             },
 
         },
@@ -117,5 +117,11 @@
 <style>
     .vue-dropzone{
         padding:0 !important;
+    }
+    .ve-design{
+        min-height: 200px;
+    }
+    .ve-design > div{
+        min-height: 200px;
     }
 </style>

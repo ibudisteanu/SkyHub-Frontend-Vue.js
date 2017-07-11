@@ -41,8 +41,6 @@ export default class Topic {
         this.longitude = data.longitude || -666;
         this.latitude = data.latitude || -666;
 
-        this.preview = data.preview||false;
-
         //console.log('Topic Assigned', data);
     }
 
