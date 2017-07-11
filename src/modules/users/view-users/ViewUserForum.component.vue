@@ -34,11 +34,12 @@
             authorId: {default: ''}
         },
 
+        mounted(){
+             this.$store.dispatch('CONTENT_USERS_GET', {userId: this.authorId});
+        },
+
         computed:{
             user(){
-                if (typeof this.$store.state.content.contentUsers.users[this.authorId] === 'undefined')
-                    this.$store.dispatch('CONTENT_USERS_GET', {userId: this.authorId});
-
                 return this.$store.state.content.contentUsers.users[this.authorId];
             },
 

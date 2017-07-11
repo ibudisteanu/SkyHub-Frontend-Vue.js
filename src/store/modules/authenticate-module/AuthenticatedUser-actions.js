@@ -33,6 +33,10 @@ export default {
 
     AUTHENTICATE_USER_BY_SESSION: async ({ commit, dispatch, state }, { sessionId }) => {
 
+        if ((typeof sessionId === 'undefined')||(sessionId.length <= 3)){ //invalid sessions
+            return {result:false, message: 'sessionId is empty'};
+        }
+
         if ((User.isLoggedIn(state.user) === true)&&((typeof sessionId === "undefined")||(sessionId.length < 5))) {   //Invalid Session ID
             await dispatch('AUTHENTICATE_LOGOUT_USER', {});
             return {result:false };

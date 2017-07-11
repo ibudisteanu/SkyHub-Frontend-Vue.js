@@ -15,20 +15,17 @@ export default{
             if ((userId === '')||(typeof userId === 'uundefined')) return {result: false };
 
             if (typeof state.users[userId] !== 'undefined'){ //already fetched before
-                return {result:true, user: state.users[userId]};
+                return {result:true, user: tstate.users[userId], message:'Already Fetched before'};
             }
 
-            if (typeof state.loading[userId] !== 'undefined') {
-                console.log('@@@@@@@@@@@@@ await promise');
-                return await state.loading[userId];
+            if (typeof state.loading[userId] !== 'undefined'){
+                return {result:true, message:'It is loading...'}
             }
 
             console.log('get-user', '#'+userId+'#');
 
-            let resData =  FetchService.sendRequestGetData("users/get-user", {userId: userId });
-            Vue.set(state.loading, userId, resData);
-
-            resData = await resData;
+            commit('SET_CONTENT_USER_AS_LOADING',{userId: userId, status: true});
+            let resData =  await FetchService.sendRequestGetData("users/get-user", {userId: userId }, userId);
 
             console.log('get-user answer', resData);
 
@@ -40,8 +37,7 @@ export default{
 
         }
         catch (Exception){
-            console.log("Exception submitting the voting",Exception);
-            throw Exception;
+            console.log("Exception getting the user ",Exception.toString());
         }
 
     },

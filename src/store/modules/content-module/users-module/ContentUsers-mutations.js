@@ -14,4 +14,10 @@ export default{
 
     },
 
+    SET_CONTENT_USER_AS_LOADING: (state, {userId, status}) => {
+    
+        Vue.set(state.loading, user.id, status )
+    
+    }, 
+
 }

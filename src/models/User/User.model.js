@@ -25,6 +25,8 @@ export default class User {
         this.profilePic = data.profilePic || '';
         this.coverPic  = data.coverPic || '';
 
+        this.age = data.age || 0;
+
         this.isOwner = data.isOwner || false;
 
         this.country = data.country || '';
@@ -32,7 +34,7 @@ export default class User {
         this.dtCreation = data.dtCreation || Date.now();
         this.dtLastActivity = data.dtLastActivity || Date.now();
 
-        this.gender = data.gender || '';
+        this.gender = data.gender || 0;
 
         //this.role = data.role || UserProperties.UserRolesEnum.NOT_REGISTERED;
 
@@ -41,7 +43,7 @@ export default class User {
         this.longitude = data.longitude || -666;
         this.latitude = data.latitude || -666;
 
-        console.log('User assigned ', data, data.firstName, data.username);
+        //console.log('User assigned ', data, data.firstName, data.username);
     }
 
     static getName(User) {

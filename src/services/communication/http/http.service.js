@@ -32,21 +32,29 @@ class HTTPServiceClass {
                 requestData.sessionId = sessionId;
         }
 
-        console.log(""); console.log(""); console.log(""); console.log(this.addTrailingSlash(this.serverHTTPApi)+sRequest);  console.log(requestData);
-        console.log(this.storeState.sessionId);
+        // console.log(""); console.log(""); console.log(""); console.log(this.addTrailingSlash(this.serverHTTPApi)+sRequest);  console.log(requestData);
+        // console.log(this.storeState.sessionId);
 
         requestData = {data: requestData};
 
-        let answer = await axios.get(this.addTrailingSlash(this.serverHTTPApi)+sRequest, requestData);
-        return answer.data;
+        try{
+            let answer = await axios.get(this.addTrailingSlash(this.serverHTTPApi)+sRequest, requestData);
+            return answer.data;
+        } catch(Exception){
+            return {result:false, message: "Can not connect to the server "+ this.serverHTTPApi+ " . Error: "+Exception.toString()};
+        }
     }
 
     async sendRequestGetDataURL(sRequest, req){
 
         req = {data: req};
 
-        let answer = await axios.get(sRequest, req);
-        return answer.data;
+        try{
+            let answer = await axios.get(sRequest, req);
+            return answer.data;
+        } catch (Exception){
+            return {result:false, message: "Can not connect to the server "+ this.serverHTTPApi+ " . Error: "+Exception.toString()};
+        }
 
     }
 
@@ -59,9 +67,13 @@ class HTTPServiceClass {
             if ((sessionId !== "") && (typeof requestData !== "string"))
                 requestData.sessionId = sessionId;
         }
-
-        let answer = await axios.post(this.addTrailingSlash(this.serverHTTPApi)+sRequest, requestData);
-        return answer.data;
+    
+        try{
+            let answer = await axios.post(this.addTrailingSlash(this.serverHTTPApi)+sRequest, requestData);
+            return answer.data;            
+        } catch(Exception){
+            return {result:false, message: "Can not connect to the server "+ this.serverHTTPApi+ " . Error: "+Exception.toString()};
+        }
     }
 
 

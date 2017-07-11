@@ -1,7 +1,8 @@
+require("babel-polyfill");
+
+/*
 // this is aliased in webpack config based on server/client build
 import { createAPI } from 'createApi';
-
-require("babel-polyfill");
 
 const logRequests = !!process.env.DEBUG_API
 
@@ -76,3 +77,6 @@ export function watchList (type, cb) {
     ref.off('value', handler)
   }
 }
+
+
+*/

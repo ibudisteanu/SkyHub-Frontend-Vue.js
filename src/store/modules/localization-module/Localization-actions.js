@@ -43,7 +43,7 @@ export default {
             return await commit('SET_LOCALIZATION_DATA',{payload: payload});
         }
         catch(Exception){
-            console.log("Promise Rejected",Exception);
+            console.log("Geo IP rejected ",Exception.toString());
 
             return await commit('SET_LOCALIZATION_REQUEST_ERROR',{});
         };
