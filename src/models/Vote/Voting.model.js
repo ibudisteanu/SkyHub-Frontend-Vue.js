@@ -58,12 +58,27 @@ export default class Voting {
             if (voteType === Voting.votes[voteIndex].voteType)
                 return {result: false, message: 'You can not vote multiple times'};
 
-            if (Voting.votes[voteIndex].voteType !== VoteType.VOTE_NONE)
-                Voting.value -= Voting.votes[voteIndex].voteType;
+            if (Voting.votes[voteIndex].voteType !== VoteType.VOTE_NONE) {
+                switch (Voting.votes[voteIndex].voteType){
+                    case voteType.VOTE_UP:
+                        Voting.ups--;
+                        break;
+                    case voteType.VOTE_DOWN:
+                        Voting.downs--;
+                        break;
+                }
+            }
 
             Voting.votes[voteIndex].voteType =  voteType;
+            switch (voteType){
+                case voteType.VOTE_UP:
+                    Voting.ups++;
+                    break;
+                case voteType.VOTE_DOWN:
+                    Voting.downs++;
+                    break;
+            }
 
-            Voting.value += voteType;
             return {result : true};
         }
 

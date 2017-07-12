@@ -101,7 +101,7 @@
             showInputFeedback(status) {return showInputFeedback(status)},
             convertValidationErrorToString(error) {return convertValidationErrorToString(error)},
 
-            handleCheckLogin(e){
+            async handleCheckLogin(e){
 
                 e.preventDefault(); e.stopPropagation();
                 this.error = '';
@@ -109,7 +109,8 @@
                 console.log(this.userEmail, this.password);
 
 
-                this.$store.dispatch('AUTHENTICATE_USER_BY_LOGIN',{sEmailUserName: this.userEmail, sPassword: this.password }).then((res)=>{
+                try{
+                    let res = await this.$store.dispatch('AUTHENTICATE_USER_BY_LOGIN',{sEmailUserName: this.userEmail, sPassword: this.password })
                     this.$refs['refLoadingButtonLogin'].enableButton();
 
                     this.userEmailValidationStatus = [null, '']; this.passwordValidationStatus = [null,''];
@@ -117,7 +118,7 @@
                     console.log("LOGIN ANSWER",res);
 
                     if (res.result === true) {
-                        this.loginSuccessfully(res);
+                        this.loginSuccessfully(res.user.id||'', res);
                     }
                     else
                     if (res.result === false){
@@ -132,11 +133,12 @@
 
                         this.loginFailure(res);
                     }
-                })
-                    .catch((Exception)=>{
-                        this.$refs['refLoadingButtonLogin'].enableButton();
-                        this.error = "There was a internal problem REGISTERING... Try again"+Exception.toString();
-                    });
+                }
+                catch(Exception) {
+                    this.$refs['refLoadingButtonLogin'].enableButton();
+                    this.error = "There was a internal problem REGISTERING... Try again"+Exception.toString();
+                }
+
 
 
 
@@ -155,9 +157,9 @@
                 this.passwordValidationStatus  = [null, ''];
             },
 
-            loginSuccessfully(res){
+            loginSuccessfully(userId, user){
 
-                this.$emit('onSuccess',res);
+                this.$emit('onSuccess',userId, user);
             },
 
             loginFailure(res){

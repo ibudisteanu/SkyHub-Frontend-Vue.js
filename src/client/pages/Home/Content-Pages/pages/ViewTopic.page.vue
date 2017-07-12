@@ -30,24 +30,6 @@
 
                 <div v-if="(getTopicRouter.notFound === false)">
 
-                    <!--
-                    <a href="http://skyhub.me/profile/muflonel2000">
-                        <img class="avatar-topic-question-image" src="http://skyhub.me/uploads/images/avatars/57ddb59508e581fc1200006e/muflonel-1474148373-19926_50.jpg" alt="George Muflonel">
-                    </a>
-
-                    <img class="avatar-topic-question-circle" src="http://skyhub.me/theme/assets/images/user/offline.png" alt="offline" />
-                    -->
-
-                    <!--
-                    <div id="Vote58f7e46bc24edd8c07016631" class="upvote voting-topic-question">
-                        <a class="upvote upvote-on upvote-enabled" title="This is good stuff. Vote it up! (Click again to undo)"></a>
-                        <span class="count" title="Total number of votes">0</span>
-                        <a class="downvote  upvote-enabled" title="This is not useful. Vote it down. (Click again to undo)"></a>
-                        <a class="star  upvote-enabled" title="Mark as favorite. (Click again to undo)"></a>
-                    </div>
-                    -->
-
-
                     <div class="topic-question" >
 
                         <ShowDate className="date information" :date="getTopic.dtCreation" />
@@ -70,7 +52,7 @@
 
                         <!-- CONTENT -->
 
-                        <div :id="getTopic.id" class="articleContent anchor">
+                        <div :id="getTopic.id" class="articleContent anchor" style="display: inline">
                             <div class="container-fluid topic-question-body">
 
 
@@ -85,9 +67,11 @@
                             </div>
                         </div>
 
+                        <div class="clearfix" />
+
                         <!-- FOOTER -->
 
-                        <div class="topic-question-footer">
+                        <div class="topic-question-footer" style="display: inline;">
 
                             <div v-if="(Array.isArray(getTopic.attachments))&&(getTopic.attachments.length > 0)">
                                 <DisplayAttachments :attachments="getTopic.attachments||[]" />

@@ -6,8 +6,7 @@
 <template>
 
         <div v-if="getCurrentRouterObjectType === 'home' ">
-            <AuthenticatedHome v-if="isAuthenticated"/>
-            <NotAuthenticatedHome v-else />
+            <ViewHome />
         </div>
         <div v-else>
             <ViewForum v-if="getCurrentRouterObjectType === 'forum'"/>
@@ -19,10 +18,9 @@
 
 <script>
 
-    import AuthenticatedHome from './home-page/AuthenticatedHome.page.vue';
-    import NotAuthenticatedHome from './home-page/NotAuthenticatedHome.page.vue';
     import ViewForum from './pages/ViewForum.page.vue';
     import ViewTopic from './pages/ViewTopic.page.vue';
+    import ViewHome from './pages/ViewHome.page.vue'
 
     import User from 'models/User/User.model';
 
@@ -32,8 +30,7 @@
         components:{
             'ViewForum':ViewForum,
             'ViewTopic':ViewTopic,
-            'AuthenticatedHome': AuthenticatedHome,
-            'NotAuthenticatedHome': NotAuthenticatedHome,
+            'ViewHome':ViewHome,
         },
 
         computed:{
@@ -42,7 +39,7 @@
             },
 
             isAuthenticated(){
-                return User.isLoggedIn(this.$store.state.authenticatedUser);
+                return this.$store.getters.isUserLoggedIn;
             }
         }
 

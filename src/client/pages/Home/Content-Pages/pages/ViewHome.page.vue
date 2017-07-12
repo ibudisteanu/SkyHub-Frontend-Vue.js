@@ -4,12 +4,18 @@
  */
 
 <template>
+
     <div>
+
+        <HeaderCover
+                title="SkyHub Social Network"
+                subTitle="Change the world together"
+        />
 
         <DisplayForumContent />
 
-        
     </div>
+
 </template>
 
 
@@ -19,6 +25,13 @@
     import DisplayForumContent from 'modules/forums/forums/view-forum/DisplayForumContent.vue';
 
     export default{
-        name: "AuthenticatedHomePage"
+        name: "ViewHome",
+
+        components: {
+            'HeaderCover': HeaderCover,
+            'DisplayForumContent' : DisplayForumContent,
+        },
+
+
     }
 </script>

@@ -10,6 +10,7 @@ import User from 'models/User/User.model';
 export default {
 
     SET_AUTHENTICATED_USER_SESSION: (state , { sessionId }) => {
+        if (typeof sessionId === 'undefined') sessionId = '';
         state.sessionId = sessionId;
     },
 

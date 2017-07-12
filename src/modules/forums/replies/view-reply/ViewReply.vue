@@ -13,14 +13,13 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
         <div class="row form-head-line">
             <Voting :parentId = "reply.id" :preview="this.preview" />
 
+            <div>
+                <ShowDate className="date information" style="float:right; margin-right: 10px" :date="reply.dtCreation" />
+            </div>
 
             <ViewUserForum :authorId="this.reply.authorId">
                 <h3 class="reply-header-title" slot="view-user-after-profile-pic">{{reply.title || ' ' }} </h3>
             </ViewUserForum>
-
-            <div>
-                <ShowDate className="date information" style="float:right; margin-right: 10px" :date="reply.dtCreation" />
-            </div>
 
         </div>
 
@@ -38,7 +37,7 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
                 <DisplayAttachments :attachments="reply.attachments||[]" />
             </div>
 
-            <div class="reply-form-footer-buttons">
+            <div class="reply-form-footer-buttons" v-if="!this.preview">
                 <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="reply.parentId" parentName="" :parentReplyId="reply.id" :parentReplyName="reply.title"/>
             </div>
 

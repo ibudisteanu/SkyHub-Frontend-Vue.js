@@ -26,8 +26,6 @@
     import LeftSidebar from './Left-sidebar/LeftSidebar.vue';
     import LayoutHeader from '../Header/LayoutHeader.vue';
 
-    import User from 'models/User/User.model';
-
     export default {
         name: 'layout-body-view',
         components: { LeftSidebar, LayoutHeader },
@@ -38,7 +36,7 @@
 
         computed: {
             isLoggedIn(){
-                return User.isLoggedIn(this.$store.state.authenticatedUser.user);
+                return this.$store.getters.isUserLoggedIn;
             }
         },
 

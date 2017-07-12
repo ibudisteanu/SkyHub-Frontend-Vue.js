@@ -29,11 +29,4 @@ export default class Notification {
     }
 
 
-    isLoggedIn(){
-        return this.loggedIn || false;
-    }
-
-
-
-
 }

@@ -3,7 +3,15 @@
  * (C) BIT TECHNOLOGIES
  */
 
+import User from 'models/User/User.model'
+
 export default {
+
+    isUserLoggedIn (state) {
+
+        return User.isLoggedIn(state.user);
+
+    }
 
 }
 

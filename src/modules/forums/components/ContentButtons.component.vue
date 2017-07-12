@@ -19,7 +19,7 @@
                 Topic
             </button>
 
-            <button v-if="enableAddReply" type="button" class="btn btn-danger dim btn-rounded" @click="handleAddTopic" style='margin-right: 5px' >
+            <button v-if="enableAddReply" type="button" class="btn btn-danger dim btn-rounded" @click="handleAddReply" style='margin-right: 5px' >
                 <i class="fa fa-comment" style='margin-right: 5px' />
                 Reply
             </button>

@@ -33,13 +33,13 @@ export default {
 
     AUTHENTICATE_USER_BY_SESSION: async ({ commit, dispatch, state }, { sessionId }) => {
 
-        if ((typeof sessionId === 'undefined')||(sessionId.length <= 3)){ //invalid sessions
-            return {result:false, message: 'sessionId is empty'};
-        }
-
         if ((User.isLoggedIn(state.user) === true)&&((typeof sessionId === "undefined")||(sessionId.length < 5))) {   //Invalid Session ID
             await dispatch('AUTHENTICATE_LOGOUT_USER', {});
             return {result:false };
+        }
+
+        if ((typeof sessionId === 'undefined')||(sessionId.length <= 3)){ //invalid sessions
+            return {result:false, message: 'sessionId is empty'};
         }
 
         if (User.isLoggedIn(state.user) === true) {     //already logged in
@@ -53,7 +53,7 @@ export default {
 
         if (resData.result === true) {
            CookiesService.setCookie('sessionId', sessionId, 365*5, '/');
-           commit('SET_AUTHENTICATED_USER_SESSION', {sessionId: sessionId});
+           await commit('SET_AUTHENTICATED_USER_SESSION', {sessionId: sessionId});
 
            resData.user.loggedIn = true;
 
@@ -66,7 +66,7 @@ export default {
     AUTHENTICATE_USER_BY_PROVIDING_USER:  async ({ commit, dispatch, state }, { userJSON, sessionId }) => {
 
         CookiesService.setCookie('sessionId', sessionId, 365*5, '/');
-        commit('SET_AUTHENTICATED_USER_SESSION', {sessionId: ''});
+        await commit('SET_AUTHENTICATED_USER_SESSION', {sessionId: sessionId});
 
         return await commit('SET_AUTHENTICATED_NEW_USER_JSON',{ newUserData: userJSON});
 
@@ -77,10 +77,10 @@ export default {
 
         console.log("LOGOUT ACTION");
 
-        FetchService.sendRequestGetData("auth/logout",{});
+        FetchService.sendRequestGetData("auth/logout",{userId: state.user.id||''});
 
         CookiesService.deleteCookie("sessionId");
-        commit('SET_AUTHENTICATED_USER_SESSION', {sessionId: ''});
+        await commit('SET_AUTHENTICATED_USER_SESSION', {sessionId: ''});
 
         return commit('SET_USER_LOGOUT', {});
     },

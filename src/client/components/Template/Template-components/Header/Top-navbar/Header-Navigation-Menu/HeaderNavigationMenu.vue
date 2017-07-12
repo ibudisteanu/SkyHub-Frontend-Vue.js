@@ -28,7 +28,7 @@
           },
 
           userLoggedIn(){
-              return User.isLoggedIn(this.authenticatedUser.user);
+              return this.$store.getters.isUserLoggedIn;
           }
       }
   }

@@ -73,7 +73,7 @@
         computed: {
 
             notAuthenticated(){
-                return !User.isLoggedIn(this.$store.state.authenticatedUser.user);
+                return !this.$store.getters.isUserLoggedIn;
             },
 
             checkAuthenticatedUser(){
@@ -81,7 +81,7 @@
                 console.log("trying...");
 
                 if (typeof window !== "undefined")
-                    if (User.isLoggedIn(this.$store.state.authenticatedUser.user))
+                    if (this.$store.getters.isUserLoggedIn)
                         document.body.className = document.body.className.replace("mini-navbar top-navigation","");
                     else {
                         if (document.body.className.indexOf("mini-navbar top-navigation") < 0)

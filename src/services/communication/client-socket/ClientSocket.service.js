@@ -93,7 +93,7 @@ class ClientSocketServiceClass {
 
     sendRequest(sRequestName, requestData) {
 
-        //console.log('sending 1'+sRequestName, requestData);
+        //console.log('sending 1'+sRequestName, requestData, this.storeState.authenticatedUser.sessionId);
 
         if (!requestData.hasOwnProperty('sessionId')) {
           var sessionId = this.storeState.authenticatedUser.sessionId;

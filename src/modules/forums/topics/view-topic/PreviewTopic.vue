@@ -11,7 +11,7 @@
             <Voting :parentId = "topic.id" :preview="this.preview" />
 
             <div>
-                <div class="anchor" style='padding-left: 42px'>
+                <div class="anchor" style='padding-left: 42px' >
 
                     <router-link :to="'/'+topic.URL" :disableLink="this.preview" >
                         <img v-if="getTopicImage !== ''" class="table-forums-topic-image" :src="getTopicImage" :alt="getTopicTitle" />
@@ -26,6 +26,8 @@
 
                 </div>
 
+                <div class="clearfix" />
+
 
                 <ViewUserForum style='display: inline' :authorId="topic.authorId">
 
@@ -39,9 +41,7 @@
                     <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="this.topic.id" :parentName="this.topic.title" parentReplyId="" parentReplyName=""/>
                 </div>
 
-                <div class="clearfix">
-
-                </div>
+                <div class="clearfix" />
 
             </div>
 

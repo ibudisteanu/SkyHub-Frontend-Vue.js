@@ -227,7 +227,7 @@
             showInputFeedback(status) {return showInputFeedback(status)},
             convertValidationErrorToString(error) {return convertValidationErrorToString(error)},
 
-            handleCheckRegister(e){
+            async handleCheckRegister(e){
 
                 e.preventDefault(); e.stopPropagation();
 
@@ -273,38 +273,47 @@
 
                 if (bValidationError)
                     this.$refs['refLoadingButtonRegistration'].enableButton();
-                else
-                    this.$store.dispatch('AUTHENTICATE_REGISTER',{sUsername: this.userName, sEmailAddress:this.emailAddress, sPassword:this.password, sFirstName:this.firstName, sLastName:this.lastName,
-                                                                  sCountry:(this.countryCode||this.localization.countryCode), sLanguage:'', sCity:(this.city||this.localization.city), sLatitude:(this.latitude||this.localization.latitude),
-                                                                  sLongitude:(this.longitude||this.localization.longtitude), iTimeZone:this.localization.timeZone}).then((res)=>{
+                else {
+
+                    try {
+                        let res = await this.$store.dispatch('AUTHENTICATE_REGISTER', {
+                            sUsername: this.userName,
+                            sEmailAddress: this.emailAddress,
+                            sPassword: this.password,
+                            sFirstName: this.firstName,
+                            sLastName: this.lastName,
+                            sCountry: (this.countryCode || this.localization.countryCode),
+                            sLanguage: '',
+                            sCity: (this.city || this.localization.city),
+                            sLatitude: (this.latitude || this.localization.latitude),
+                            sLongitude: (this.longitude || this.localization.longtitude),
+                            iTimeZone: this.localization.timeZone
+                        });
 
                         this.$refs['refLoadingButtonRegistration'].enableButton();
                         console.log(res);
 
                         if (res.result === true) {
-                            this.registrationSuccessfully(res);
+                            this.registrationSuccessfully(res.user.id||'', res);
                         }
-                        else
-                        if (res.result === false){
+                        else if (res.result === false) {
 
-                            if ((typeof res.errors.username !=="undefined")&&(Object.keys(res.errors.username).length !== 0 )) this.userNameValidationStatus = ["error", this.convertValidationErrorToString(res.errors.username[0])];
-                            if ((typeof res.errors.email !=="undefined")&&(Object.keys(res.errors.email).length !== 0)) this.emailAddressValidationStatus = ["error", this.convertValidationErrorToString(res.errors.email[0])];
-                            if ((typeof res.errors.firstName !=="undefined")&&(Object.keys(res.errors.firstName).length !== 0)) this.firstNameValidationStatus = ["error", this.convertValidationErrorToString(res.errors.firstName[0])];
-                            if ((typeof res.errors.lastName !=="undefined")&&(Object.keys(res.errors.lastName).length  !== 0)) this.lastNameValidationStatus = ["error", this.convertValidationErrorToString(res.errors.lastName[0])];
-                            if ((typeof res.errors.country !=="undefined")&&(Object.keys(res.errors.country).length  !== 0)) this.countryValidationStatus = ["error", this.convertValidationErrorToString(res.errors.country[0])];
-                            if ((typeof res.errors.city !=="undefined")&&(Object.keys(res.errors.city).length  !== 0)) this.cityValidationStatus = ["error", this.convertValidationErrorToString(res.errors.city[0])];
+                            if ((typeof res.errors.username !== "undefined") && (Object.keys(res.errors.username).length !== 0 )) this.userNameValidationStatus = ["error", this.convertValidationErrorToString(res.errors.username[0])];
+                            if ((typeof res.errors.email !== "undefined") && (Object.keys(res.errors.email).length !== 0)) this.emailAddressValidationStatus = ["error", this.convertValidationErrorToString(res.errors.email[0])];
+                            if ((typeof res.errors.firstName !== "undefined") && (Object.keys(res.errors.firstName).length !== 0)) this.firstNameValidationStatus = ["error", this.convertValidationErrorToString(res.errors.firstName[0])];
+                            if ((typeof res.errors.lastName !== "undefined") && (Object.keys(res.errors.lastName).length !== 0)) this.lastNameValidationStatus = ["error", this.convertValidationErrorToString(res.errors.lastName[0])];
+                            if ((typeof res.errors.country !== "undefined") && (Object.keys(res.errors.country).length !== 0)) this.countryValidationStatus = ["error", this.convertValidationErrorToString(res.errors.country[0])];
+                            if ((typeof res.errors.city !== "undefined") && (Object.keys(res.errors.city).length !== 0)) this.cityValidationStatus = ["error", this.convertValidationErrorToString(res.errors.city[0])];
 
                             this.registrationFailure(res);
                         }
 
-                    })
-                        .catch((Exception)=>{
-                            this.$refs['refLoadingButtonRegistration'].enableButton();
-                            this.error = "There was a internal problem REGISTERING... Try again"+Exception.toString();
-                        });
-
-
-
+                    }
+                    catch (Exception) {
+                        this.$refs['refLoadingButtonRegistration'].enableButton();
+                        this.error = "There was a internal problem REGISTERING... Try again" + Exception.toString();
+                    }
+                }
             },
 
             handleUserNameChange(e){
@@ -356,8 +365,8 @@
                 this.cityValidationStatus  = [null, ''];
             },
 
-            registrationSuccessfully(res){
-                this.$emit('onSuccess',res);
+            registrationSuccessfully(userId, res){
+                this.$emit('onSuccess',userId, res);
             },
 
             registrationFailure(res){

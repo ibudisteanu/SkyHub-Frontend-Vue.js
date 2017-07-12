@@ -246,7 +246,7 @@
 
             async handleAddTopic(e){
 
-                if (typeof e !== "undefined") {
+                if ((typeof e !== "undefined")&&(e !== null)) {
                     e.preventDefault();
                     e.stopPropagation();
                 }

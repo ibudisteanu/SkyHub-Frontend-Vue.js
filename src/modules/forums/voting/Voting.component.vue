@@ -120,9 +120,31 @@
 
         methods: {
             voteUp() {
+
+                if (!this.$store.getters.isUserLoggedIn){
+
+                    if (this.$store.state.global.refAuthenticationModal !== null) {
+                        this.$store.state.global.refAuthenticationModal.setOnSuccessEvent(this.voteUp);
+                        this.$store.state.global.refAuthenticationModal.openLogin();
+                    }
+
+                    return false;
+                }
+
                 this.$store.dispatch('CONTENT_VOTES_SUBMIT_VOTE', {parentId: this.parentId, userId: this.$store.state.authenticatedUser.user.id, voteType: VoteType.VOTE_UP});
             },
             voteDown() {
+
+                if (!this.$store.getters.isUserLoggedIn){
+
+                    if (this.$store.state.global.refAuthenticationModal !== null) {
+                        this.$store.state.global.refAuthenticationModal.setOnSuccessEvent(this.voteDown);
+                        this.$store.state.global.refAuthenticationModal.openLogin();
+                    }
+
+                    return false;
+                }
+
                 this.$store.dispatch('CONTENT_VOTES_SUBMIT_VOTE', {parentId: this.parentId, userId: this.$store.state.authenticatedUser.user.id, voteType: VoteType.VOTE_DOWN});
             },
             showAllVotes(){

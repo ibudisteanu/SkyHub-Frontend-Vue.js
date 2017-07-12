@@ -8,9 +8,9 @@
 
         <div class="panel panel-success">
 
-
             <div class="panel-heading">
                 <h3 style='margin: 0'><strong>Reply</strong> to {{this.parentReplyName||this.parentName||'Home'}} </h3>
+
             </div>
 
 
@@ -141,7 +141,6 @@
 
                 error: '',
 
-
                 parentValidationStatus: [null, ''],
             }
         },
@@ -190,7 +189,7 @@
 
             async handleAddReply(e){
 
-                if (typeof e !== "undefined") {
+                if ((typeof e !== "undefined")&&(e !== null)) {
                     e.preventDefault();
                     e.stopPropagation();
                 }
@@ -311,7 +310,7 @@
 
             },
 
-            authenticationSuccessfully (resource) {
+            authenticationSuccessfully (userId, resource) {
                 this.handleAddReply();
             },
 
