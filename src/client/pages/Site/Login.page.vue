@@ -39,7 +39,14 @@
                 //this.$router.back();
                 this.$router.push('/')
             }
-        }
+        },
+
+        /*
+            SEO
+         */
+
+        title: 'Login, Sign In to SkyHub Social Network',
+        description: 'Login, Sign In right now to the SkyHub Social Network',
 
     }
 </script>

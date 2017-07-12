@@ -30,7 +30,7 @@ export default{
         let resData = await FetchService.sendRequestGetData("notifications/get-last-notifications", {});
 
         if (resData.result){
-            console.log('#### USER_NOTIFICATIONS_FETCHING_SERVICE_EXECUTE ANSWER', resData);
+            //console.log('#### USER_NOTIFICATIONS_FETCHING_SERVICE_EXECUTE ANSWER', resData);
 
             commit('SET_USER_NOTIFICATIONS_UNREAD_COUNT', {unreadNotifications: parseInt(resData.unreadNotifications)});
 

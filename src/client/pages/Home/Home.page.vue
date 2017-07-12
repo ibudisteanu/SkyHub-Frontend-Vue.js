@@ -28,7 +28,6 @@
 
         //async asyncData ({ store,  route: { params: { url }} }) {
         async asyncData ({ store,  route: { params: { a,b,c }} }) {
-        //async asyncData ({ store,  route}) {
 
             //url = store.state.route.fullPath.toString();
             let url = '';
@@ -40,10 +39,6 @@
 
             //let url = route.fullPath.toString();
             if ((typeof url === 'string')&&(url[0]==='/')) url = url.substr(1, url.length);
-            console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@',url);
-            console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@',url);
-            console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@',url);
-            console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@',url);
 
             console.log("%%%%%%%%%%%%%%% ASYNC DATA", url);
             await store.dispatch('LOCALIZATION_FETCH', {ip: ''}); //the localization is required...
@@ -53,6 +48,35 @@
             return true;
 
         },
+
+        computed: {
+            currentObject() {
+                return this.$store.state.content.contentRouter.currentObject.object;
+            },
+
+            parentObject(){
+                return this.$store.state.content.contentRouter.parentObject.object;
+            },
+        },
+
+        /*
+                        SEO
+         */
+        title: function() {
+            return (this.currentObject !== null)
+                ?
+                    this.currentObject.title||this.currentObject.name
+                :
+                    'Home'
+        },
+
+        description: function() {
+            return (this.currentObject !== null)
+                ?
+                    this.currentObject.shotDescription||this.currentObject.description||this.title
+                :
+                    'Home'
+        }
 
     }
 </script>

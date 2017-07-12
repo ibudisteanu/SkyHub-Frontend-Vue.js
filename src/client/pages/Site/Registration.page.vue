@@ -37,7 +37,14 @@
 
                 this.$router.push('/')
             }
-        }
+        },
+
+        /*
+                SEO
+         */
+
+        title: 'Register, Sing up to SkyHub Social Network',
+        description: 'Register, Sign Up right now to the SkyHub Social Network',
 
     }
 </script>

@@ -24,5 +24,13 @@
 
         components: { Layout },
 
+
+        /*
+                SEO
+         */
+
+        title: 'About SkyHub Social Network',
+        description: 'SkyHub is a disruptive new kind of social network that allows the people to connect and change the world together',
+
     }
 </script>

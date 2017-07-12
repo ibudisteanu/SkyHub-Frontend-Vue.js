@@ -4,11 +4,29 @@ import App from './App.vue'
 import { createStore } from './store'
 import { createRouter } from './router'
 import { sync } from 'vuex-router-sync'
-import titleMixin from './modules/hackernews/util/title'
+
+
+//USED for SEO SSR and Client
+import TitleMixin from './modules/utils/SEO/TitleMixin';
+import TitleFacebookMixin from './modules/utils/SEO/TitleFacebookMixin';
+import TitleTwitterMixin from './modules/utils/SEO/TitleTwitterMixin';
+import DescriptionMixin from './modules/utils/SEO/DescriptionMixin';
+import DescriptionFacebookMixin from './modules/utils/SEO/DescriptionFacebookMixin';
+import DescriptionTwitterMixin from './modules/utils/SEO/DescriptionTwitterMixin';
+import KeywordsMixin from './modules/utils/SEO/KeywordsMixin';
+
+
 import * as filters from './modules/hackernews/util/filters'
 
-// mixin for handling title
-Vue.mixin(titleMixin)
+// mixin for handling title, description, etc...
+// DOCUMENTATION, it is based on Vue.js Hackernews v2 https://github.com/vuejs/vue-hackernews-2.0/blob/master/src/util/title.js
+Vue.mixin(TitleMixin);
+Vue.mixin(TitleFacebookMixin);
+Vue.mixin(TitleTwitterMixin);
+Vue.mixin(DescriptionMixin);
+Vue.mixin(DescriptionFacebookMixin);
+Vue.mixin(DescriptionTwitterMixin);
+Vue.mixin(KeywordsMixin);
 
 // register global utility filters.
 Object.keys(filters).forEach(key => {

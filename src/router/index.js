@@ -31,7 +31,7 @@ export function createRouter () {
       { path: '/hn/user/:id', component: UserView },
       { path: '/hn/', redirect: '/hn/top' },
 
-      { path: '/about/test', component: AboutPage },
+      { path: '/about', component: AboutPage },
       { path: '/login', component: LoginPage },
       { path: '/signin', component: LoginPage },
 
@@ -45,8 +45,6 @@ export function createRouter () {
       { path: '/:a?/:b?', component: HomePage },
       { path: '/:a?', component: HomePage },
       { path: '/', component: HomePage },
-
-
 
     ]
   })

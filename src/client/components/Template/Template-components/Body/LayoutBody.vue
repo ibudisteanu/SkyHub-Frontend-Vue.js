@@ -47,10 +47,6 @@
             //return store.dispatch('FETCH_ITEMS', { ids: [id] })
         },
 
-        title () {
-            return 'HELLO WORLD'
-        },
-
         // Fetch comments when mounted on the client
         beforeMount () {
             //this.fetchComments()

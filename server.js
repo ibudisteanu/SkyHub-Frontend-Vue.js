@@ -125,7 +125,20 @@ function render (req, res) {
    console.log('IP::'); console.log(ip);
 
   const context = {
-    title: 'Vue HN 2.0', // default title
+    title: 'SkyHub Forum 2.0 Social Network', // default title
+    description: 'SkyHub Forum Social Network',
+      
+    titleFacebook:   'SkyHub Forum 2.0 Social Network', // default title
+    descriptionFacebook:   'SkyHub Forum Social Network', // default title
+      
+    titleTwitter:   'SkyHub Forum 2.0 Social Network', // default title
+    descriptionTwitter:   'SkyHub Forum 2.0 Social Network', // default title
+      
+    keywords: 'social network, forum 2.0, forums, discussions, networks',
+    copyright: 'SkyHub Social Network - Forum 2.0',
+    language: 'en-US',
+    pageType: 'article',
+
     cookies: req.cookies,   //signedCookies instead
     ip: ip,   //the ip
     url: req.url
