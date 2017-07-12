@@ -54,9 +54,11 @@
                 </div>
 
 
+                <!--
                 <a class="btn btn-social-icon btn-twitter " style='margin-right:20px'>
                     <span class="fa fa-twitter"></span>
                 </a>
+                -->
 
             </div>
 
