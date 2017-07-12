@@ -109,7 +109,6 @@
                 return Topic.getDescription(this.topic)||'no description';
             },
 
-
         }
 
     }

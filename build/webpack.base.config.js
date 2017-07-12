@@ -22,6 +22,7 @@ module.exports = {
   },
   resolve: {
     alias: {
+      'root': path.resolve(__dirname, '../'),
       'public': path.resolve(__dirname, '../public'),
       'src': path.resolve(__dirname + '/../src'),
       'models': path.resolve(__dirname + '/../src/models'),

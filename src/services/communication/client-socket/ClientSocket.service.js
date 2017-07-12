@@ -7,12 +7,11 @@ import * as io from 'socket.io-client';
 
 import { Observable, Subscribable } from 'rxjs/Observable';
 
+var constants = require('root/constants.js');
+
 class ClientSocketServiceClass {
 
     constructor() {
-
-        this.sServerSocketAddress = "myskyhub.ddns.net:4000";
-        this.sServerSocketApi = "api/";
 
         this.sServerSocketVersion = "";
 
@@ -30,7 +29,7 @@ class ClientSocketServiceClass {
 
     createClientSocket() {
 
-        this.socket = io.connect(this.sServerSocketAddress, {
+        this.socket = io.connect( constants.SERVICE_WEBSOCK_URL, {
             //query: "token=aaa" //JWT Token
             query: "token=" + this.storeState.authenticatedUser.sessionId //JWT Token
         });
@@ -107,7 +106,7 @@ class ClientSocketServiceClass {
 
 
         if ((sRequestName !== '') || (requestData !== ''))
-            return this.socket.emit(this.sServerSocketApi + sRequestName, requestData);
+            return this.socket.emit( constants.SERVICE_WEBSOCK_API + sRequestName, requestData);
     }
 
     /*
@@ -121,7 +120,7 @@ class ClientSocketServiceClass {
 
             this.sendRequest(sRequestName, sRequestData);
 
-            this.socket.once(this.sServerSocketApi + sRequestName + (receivingSuffix !== '' ? '/'+receivingSuffix : ''), function (resData) {
+            this.socket.once(constants.SERVICE_WEBSOCK_API + sRequestName + (receivingSuffix !== '' ? '/'+receivingSuffix : ''), function (resData) {
 
                 /*console.log('SOCKET RECEIVED: ');
                  console.log(resData);*/
@@ -146,7 +145,7 @@ class ClientSocketServiceClass {
     setSocketReadObservable(sRequestName) {
 
         if ((sRequestName !== "connect") && (sRequestName !== "disconnect") && (sRequestName !== 'connect_failed')&&(sRequestName !== 'connect_error'))
-            sRequestName = this.sServerSocketApi + sRequestName;
+            sRequestName = constants.SERVICE_WEBSOCK_API + sRequestName;
 
         //let observable = new Observable < Object > (observer => {
         let observable = Observable.create(observer => {
@@ -161,5 +160,4 @@ class ClientSocketServiceClass {
 
 }
 
-var ClientSocketService = new ClientSocketServiceClass();
-export default ClientSocketService;
+export default new ClientSocketServiceClass();

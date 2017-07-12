@@ -12,10 +12,10 @@ export default{
 
         try {
 
-            if ((userId === '')||(typeof userId === 'uundefined')) return {result: false };
+            if ((userId === '')||(typeof userId === 'undefined')) return {result: false };
 
             if (typeof state.users[userId] !== 'undefined'){ //already fetched before
-                return {result:true, user: tstate.users[userId], message:'Already Fetched before'};
+                return {result:true, user: state.users[userId], message:'Already Fetched before'};
             }
 
             if (typeof state.loading[userId] !== 'undefined'){

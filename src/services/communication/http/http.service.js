@@ -5,17 +5,12 @@
 
 import axios from 'axios';
 
-//import { Configuration } from '../app.constants';
+var constants = require('root/constants.js');
 
 class HTTPServiceClass {
 
     constructor() {
-
-        this.serverHTTP = "http://myskyhub.ddns.net:4000/";
-        this.serverHTTPApi = this.serverHTTP+"api/";
-
         console.log("Creating HTTP Service");
-
     }
 
     startService(dispatch, storeState){
@@ -32,16 +27,16 @@ class HTTPServiceClass {
                 requestData.sessionId = sessionId;
         }
 
-        // console.log(""); console.log(""); console.log(""); console.log(this.addTrailingSlash(this.serverHTTPApi)+sRequest);  console.log(requestData);
+        // console.log(""); console.log(""); console.log(""); console.log(this.addTrailingSlash(constants.SERVICE_HTTP_API_URL)+sRequest);  console.log(requestData);
         // console.log(this.storeState.sessionId);
 
         requestData = {data: requestData};
 
         try{
-            let answer = await axios.get(this.addTrailingSlash(this.serverHTTPApi)+sRequest, requestData);
+            let answer = await axios.get( this.addTrailingSlash(constants.SERVICE_HTTP_API_URL)+sRequest, requestData );
             return answer.data;
         } catch(Exception){
-            return {result:false, message: "Can not connect to the server "+ this.serverHTTPApi+ " . Error: "+Exception.toString()};
+            return {result:false, message: "Can not connect to the server "+ constants.SERVICE_HTTP_API_URL+ " . Error: "+Exception.toString()};
         }
     }
 
@@ -53,7 +48,7 @@ class HTTPServiceClass {
             let answer = await axios.get(sRequest, req);
             return answer.data;
         } catch (Exception){
-            return {result:false, message: "Can not connect to the server "+ this.serverHTTPApi+ " . Error: "+Exception.toString()};
+            return {result:false, message: "Can not connect to the server "+ constants.SERVICE_HTTP_API_URL+ " . Error: "+Exception.toString()};
         }
 
     }
@@ -69,10 +64,10 @@ class HTTPServiceClass {
         }
     
         try{
-            let answer = await axios.post(this.addTrailingSlash(this.serverHTTPApi)+sRequest, requestData);
+            let answer = await axios.post(this.addTrailingSlash(constants.SERVICE_HTTP_API_URL)+sRequest, requestData);
             return answer.data;            
         } catch(Exception){
-            return {result:false, message: "Can not connect to the server "+ this.serverHTTPApi+ " . Error: "+Exception.toString()};
+            return {result:false, message: "Can not connect to the server "+ constants.SERVICE_HTTP_API_URL+ " . Error: "+Exception.toString()};
         }
     }
 
@@ -87,5 +82,4 @@ class HTTPServiceClass {
 
 }
 
-var HTTPServiceInstance = new HTTPServiceClass();
-export default HTTPServiceInstance;
+export default new HTTPServiceClass();
