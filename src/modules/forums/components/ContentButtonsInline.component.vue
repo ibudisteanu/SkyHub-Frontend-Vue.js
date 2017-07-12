@@ -12,6 +12,12 @@
                 <i class="fa fa-comment" ></i>
                 <span> Reply</span>
             </a>
+
+            <a class="btn btn-danger btn-rounded" v-if="isOwner" type="button" style="font-size: 10px; padding: 3px 10px 3px 10px " @click="this.handleDeleteReply">
+                <i class="fa fa-comment" ></i>
+                <span> Delete</span>
+            </a>
+
         </div>
 
         <AddReplyForm v-if="showAddReply" :parentId="parentId" :parentName="parentName" :parentReplyId="this.parentReplyId" :parentReplyName="this.parentReplyName" @onSuccess="replySuccess" @onCancel="replyCancel" />
@@ -39,8 +45,9 @@
         },
 
         props:{
-            parentId : {default: '' },
             parentName : {default: ''},
+            isOwner: {default: false},
+
             parentReplyId : {default: ''},
             parentReplyName : {default: ''},
 
@@ -54,6 +61,13 @@
                 e.preventDefault(); e.stopPropagation();
 
                 this.showAddReply = true;
+            },
+
+            handleDeleteReply(e){
+                e.preventDefault();
+
+                this.$store.dispatch('CONTENT_DELETE_OBJECT', {objectId: this.parentReplyId||this.parentId})
+
             },
 
             replySuccess(){

@@ -38,7 +38,7 @@
                 <br />
 
                 <div class="topic-question-footer" v-if="!this.preview">
-                    <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="this.topic.id" :parentName="this.topic.title" parentReplyId="" parentReplyName=""/>
+                    <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="this.topic.id" :parentName="this.topic.title" :isOwner="this.topic.isOwner||false" parentReplyId="" parentReplyName=""/>
                 </div>
 
                 <div class="clearfix" />

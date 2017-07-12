@@ -53,7 +53,17 @@ export default{
 
 
 
+    CONTENT_DELETE_OBJECT: async ( {commit, state, dispatch}, {objectId}) =>{
+        try{
 
+            if (objectId !== '')
+                return await FetchService.sendRequestGetData('content/delete-object', {id: objectId});
+
+        } catch (Exception){
+            console.log("Exception deleting the reply", Exception);
+            throw Exception;
+        }
+    },
 
 
 
