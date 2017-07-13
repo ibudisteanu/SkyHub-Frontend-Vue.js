@@ -21,9 +21,11 @@ export default{
     },
 
     SET_CONTENT_FORUM: (state, { forum }) => {
-
         Vue.set(state.forums, forum.id, forum);
+    },
 
+    SET_CONTENT_FORUM_DELETE: (state, { id }) => {
+        Vue.delete(state.forums, id);
     },
 
     SET_CONTENT_FORUMS_CLEAR: (state, { }) => {

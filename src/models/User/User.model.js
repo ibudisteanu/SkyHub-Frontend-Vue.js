@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 
-//import UserProperties from './User.properties.js';
+import UserProperties from './User.properties.js';
 //var UserProperties = require ('./User.properties.js');
 
 export default class User {
@@ -36,7 +36,7 @@ export default class User {
 
         this.gender = data.gender || 0;
 
-        //this.role = data.role || UserProperties.UserRolesEnum.NOT_REGISTERED;
+        this.role = parseInt(data.role||0) || UserProperties.UserRolesEnum.NOT_REGISTERED;
 
         this.timeZone = data.timeZone || 0;
         this.shortBio = data.shortBio || '';

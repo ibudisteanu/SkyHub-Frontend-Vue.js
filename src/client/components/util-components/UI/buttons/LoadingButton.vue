@@ -4,7 +4,7 @@
  */
 
 <template>
-  <button :class="'btn '+(className||' btn-success ')+(disabled ? ' disabled ' : '')" type='button' @click="handleClick">
+  <button type="submit" :class="'btn '+(className||' btn-success ')+(disabled ? ' disabled ' : '')" @click="handleClick">
 
     <i :class="loading ? 'fa fa-spinner fa-spin' : icon||'fa fa-plus'" style='margin-right:10px' />
 
@@ -26,7 +26,7 @@
       },
 
       props: {
-          canDisable: {default: false},
+          canDisable: {default: true},
           className: {default: function (){}},
           icon: {default: ''},
           text: {default: ''},
@@ -39,10 +39,10 @@
 
               this.loading = true;
 
+              this.$emit('onClick',e);
+
               if ((typeof this.canDisable === "undefined")||(this.canDisable === true))
                   this.disabled=true;
-
-              this.$emit('onClick',e);
           },
 
           enableButton(e){

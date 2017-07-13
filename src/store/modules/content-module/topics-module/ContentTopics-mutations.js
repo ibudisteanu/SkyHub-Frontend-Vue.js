@@ -24,6 +24,10 @@ export default{
         Vue.set(state.topics, topic.id, topic);
     },
 
+    SET_CONTENT_TOPIC_DELETE: (state, { id }) => {
+        Vue.delete(state.topics, id);
+    },
+
     SET_CONTENT_TOPICS_CLEAR : (state, { }) => {
         state.topics = {};
     },

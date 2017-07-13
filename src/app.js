@@ -17,6 +17,7 @@ import KeywordsMixin from './modules/utils/SEO/KeywordsMixin';
 
 
 import * as filters from './modules/hackernews/util/filters'
+import * as UtilitiesFunctions from './modules/utils/global-utilities/UtilitiesFunctions';
 
 // mixin for handling title, description, etc...
 // DOCUMENTATION, it is based on Vue.js Hackernews v2 https://github.com/vuejs/vue-hackernews-2.0/blob/master/src/util/title.js
@@ -28,10 +29,15 @@ Vue.mixin(DescriptionFacebookMixin);
 Vue.mixin(DescriptionTwitterMixin);
 Vue.mixin(KeywordsMixin);
 
+// register global utility helpers.
+Object.keys(UtilitiesFunctions).forEach(key => {
+  Vue.filter(key, UtilitiesFunctions[key])
+});
+
 // register global utility filters.
-Object.keys(filters).forEach(key => {
-  Vue.filter(key, filters[key])
-})
+// Object.keys(filters).forEach(key => {
+//     Vue.filter(key, filters[key])
+// });
 
 // Expose a factory function that creates a fresh set of store, router,
 // app instances on each call (which is called for each SSR request)

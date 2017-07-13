@@ -104,10 +104,11 @@
             async handleCheckLogin(e){
 
                 e.preventDefault(); e.stopPropagation();
+
+                if (this.$refs['refLoadingButtonLogin'].disabled === true) // avoid multiple post requests
+                    return false;
+
                 this.error = '';
-
-                console.log(this.userEmail, this.password);
-
 
                 try{
                     let res = await this.$store.dispatch('AUTHENTICATE_USER_BY_LOGIN',{sEmailUserName: this.userEmail, sPassword: this.password })

@@ -56,8 +56,18 @@ export default{
     CONTENT_DELETE_OBJECT: async ( {commit, state, dispatch}, {objectId}) =>{
         try{
 
-            if (objectId !== '')
-                return await FetchService.sendRequestGetData('content/delete-object', {id: objectId});
+            if (objectId !== '') {
+                let answer = await FetchService.sendRequestGetData('content/delete-object', {id: objectId}, objectId);
+
+                console.log('------------------------- CONTENT DELETE OBJECT',answer);
+                if (answer.result === true){
+                    commit('SET_CONTENT_FORUM_DELETE',{id: objectId});
+                    commit('SET_CONTENT_TOPIC_DELETE',{id: objectId});
+                    commit('SET_CONTENT_REPLY_DELETE',{id: objectId});
+                }
+
+                return answer;
+            }
 
         } catch (Exception){
             console.log("Exception deleting the reply", Exception);

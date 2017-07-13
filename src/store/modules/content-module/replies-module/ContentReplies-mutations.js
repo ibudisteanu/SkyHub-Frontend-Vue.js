@@ -23,9 +23,11 @@ export default{
     },
 
     SET_CONTENT_REPLY: (state, { reply }) => {
-
         Vue.set(state.replies, reply.id, reply);
+    },
 
+    SET_CONTENT_REPLY_DELETE: (state, { id }) => {
+        Vue.delete(state.replies, id);
     },
 
     SET_CONTENT_REPLIES_CLEAR: (state, { }) => {

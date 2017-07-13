@@ -204,6 +204,9 @@
                     e.stopPropagation();
                 }
 
+                if (this.$refs['refSubmitButton'].disabled === true) // avoid multiple post requests
+                    return false;
+
                 let bValidationError=false;
                 this.error =  ''; this.nameValidationStatus =  [null, '']; this.titleValidationStatus = [null,'']; this.descriptionValidationStatus = [null,''];
                 this.keywordsValidationStatus = [null,'']; this.countryValidationStatus  = [null, '']; this.cityValidationStatus = [null, ''];

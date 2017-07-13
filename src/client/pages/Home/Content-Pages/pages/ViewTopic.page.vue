@@ -79,7 +79,7 @@
 
 
                             <div class="topic-question-footer-buttons">
-                                <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="this.getTopic.id" :parentName="this.getTopic.title" :isOwner="this.getTopic.isOwner||false" parentReplyId="" parentReplyName=""/>
+                                <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="this.getTopic.id" :parentName="this.getTopic.title" :isOwner="this.$store.authenticatedUser.state.user , this.getTopic | checkOwner " parentReplyId="" parentReplyName=""/>
                             </div>
 
                             <!--
