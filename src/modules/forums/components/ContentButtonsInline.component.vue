@@ -13,10 +13,7 @@
                 <span> Reply</span>
             </a>
 
-            <a class="btn btn-danger btn-rounded" v-if="isOwner" type="button" style="font-size: 10px; margin-right:3px; padding: 3px 10px 3px 10px " @click="this.handleDeleteReply">
-                <i class="fa fa-comment" ></i>
-                <span> Delete</span>
-            </a>
+            <LoadingButton v-if="isOwner" class="btn-danger btn-rounded" style="font-size: 10px; margin-right:3px; padding: 3px 10px 3px 10px " @onClick="this.handleDelete" text="Delete" icon="fa fa-times"  ref="refSubmitButtonDelete"  />
 
         </div>
 
@@ -30,12 +27,14 @@
 <script>
 
     import AddReplyForm from 'modules/forums/replies/components/AddReply.form.vue';
+    import LoadingButton from 'client/components/util-components/UI/buttons/LoadingButton.vue';
 
     export default{
         name: 'ContentButtonsInline',
 
         components:{
             'AddReplyForm' : AddReplyForm,
+            'LoadingButton' : LoadingButton,
         },
 
         data: function () {
@@ -64,13 +63,13 @@
                 this.showAddReply = true;
             },
 
-            handleDeleteReply(e){
+            async handleDelete(e){
                 e.preventDefault();
 
+                if (this.$refs['refSubmitButtonDelete'].disabled === true) // avoid multiple post requests
+                    return false;
 
-                console.log('Am dat click pe Delete', this.parentReplyId||this.parentId);
-
-                this.$store.dispatch('CONTENT_DELETE_OBJECT', { objectId: this.parentReplyId||this.parentId } )
+                let answer = await this.$store.dispatch('CONTENT_DELETE_OBJECT', { objectId: this.parentReplyId||this.parentId } );
             },
 
             replySuccess(){
