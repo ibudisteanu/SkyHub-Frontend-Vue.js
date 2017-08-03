@@ -24,9 +24,13 @@ export default{
             await commit('SET_CONTENT_TOPICS', {topics: answer.content});
             commit('SET_CONTENT_TOPICS_PAGE_INFORMATION',  {pageIndex: answer.newPageIndex-1, pageCount: pageCount, hasNext: answer.hasNext} );
 
-            for (let i=0; i<answer.content.length; i++){
-                //console.log('####### CONTENT_REPLIES_FETCH_TOP',answer.content[i].id);
-                await dispatch('CONTENT_REPLIES_FETCH_TOP',{parent: answer.content[i].object.id, pageIndex:1, pageCount:3, reset:false, });
+            if ((answer.content !== "undefined")){
+                if (!Array.isArray(answer.content)) answer.content = [answer.content]
+
+                for (let i=0; i<answer.content.length; i++){
+                    //console.log('####### CONTENT_REPLIES_FETCH_TOP',answer.content[i].id);
+                    await dispatch('CONTENT_REPLIES_FETCH_TOP',{parent: answer.content[i].object.id, pageIndex:1, pageCount:3, reset:false, });
+                }
             }
 
             return  {result: true, topics: answer.content }

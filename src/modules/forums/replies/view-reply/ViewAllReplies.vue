@@ -62,9 +62,14 @@
 
                 ///console.log("@@@@@@@@@@@ REPLIES LIST", repliesList);
 
-                for (let i=0; i<repliesList.length; i++)
-                    if ((repliesList[i] !== null)&&(repliesList[i].parentReplyId == this.parentReplyId)&&(repliesList[i].parentId == this.parentId))
-                        result.push(repliesList[i]);
+                if ((typeof repliesList !== "undefined")){
+                    if (!Array.isArray(repliesList)) repliesList = [repliesList]
+
+                    for (let i=0; i<repliesList.length; i++)
+                        if ((repliesList[i] !== null)&&(repliesList[i].parentReplyId == this.parentReplyId)&&(repliesList[i].parentId == this.parentId))
+                            result.push(repliesList[i]);
+
+                }
 
                 return result;
             },

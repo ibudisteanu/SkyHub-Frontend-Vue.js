@@ -28,7 +28,7 @@
 
             <div style='position: relative; z-index: 2 '>
 
-                <div v-if="(getTopicRouter.notFound === false)">
+                <div v-if="(getTopicRouter.notFound === false)&&(getTopic !== null)">
 
                     <div class="topic-question" >
 
@@ -97,7 +97,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
                             <div class="alert alert-danger ">
-                                <h4 style='textAlign: center;'>Forum <strong>NOT Found</strong></h4>
+                                <h4 style='textAlign: center;'>Topic <strong>NOT Found</strong></h4>
                                 <strong>{{this.$store.state.route.fullPath||"/"}}</strong> was not found. Probably what you've been looking for doesn't exists or has been deleted in the mean while.
                             </div>
                         </div>
