@@ -13,7 +13,8 @@ function getKeywords (vm) {
     if (keywords) {
         let keywordsData = typeof keywords === 'function'
             ? keywords.call(vm)
-            : keywords;
+            : keywords || '';
+
         if (typeof keywords === 'undefined') return '';
         else return keywordsData.toString() //converting array to keywords string like "a,b,c,d"
     }

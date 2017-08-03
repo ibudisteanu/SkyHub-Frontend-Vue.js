@@ -15,7 +15,7 @@ function getTitleTwitter (vm) {
     if (title) {
         let result = typeof title === 'function'
             ? title.call(vm)
-            : title
+            : title || '';
 
         return addSuffix( result, ' - SkyHub Social Network',' - SkyHub', 70);
     }

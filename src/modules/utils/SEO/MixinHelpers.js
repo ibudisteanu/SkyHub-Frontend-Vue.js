@@ -3,6 +3,12 @@
  */
 
 export function addSuffix(initialString, suffix, suffix2, maxLength){
+
+    initialString = initialString || '';
+    suffix = suffix || '';
+    suffix2 = suffix2 || '';
+    maxLength = maxLength || 100;
+
     if (initialString.length > maxLength)
         return initialString.substr(0, maxLength-3)+'...';
 

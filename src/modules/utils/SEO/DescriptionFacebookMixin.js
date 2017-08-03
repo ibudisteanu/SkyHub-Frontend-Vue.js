@@ -13,7 +13,7 @@ function getDescriptionFacebook (vm) {
     if (description) {
         let result = typeof description === 'function'
             ? description.call(vm)
-            : description
+            : description || '';
 
         return addSuffix(result, ' - SkyHub Forum Social Network', ' - SkyHub', 110)
     }

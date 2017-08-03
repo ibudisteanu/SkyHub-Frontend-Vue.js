@@ -9,12 +9,13 @@ import {addSuffix} from './MixinHelpers';
  DESCRIPTION
  */
 
+
 function getDescription (vm) {
     const { description } = vm.$options
     if (description) {
         let result = typeof description === 'function'
             ? description.call(vm)
-            : description
+            : description || '';
 
         return addSuffix(result, ' - SkyHub Forum Social Network', ' - SkyHub', 150)
     }
@@ -22,7 +23,7 @@ function getDescription (vm) {
 
 const serverDescriptionMixin = {
     created () {
-        const description = getDescription(this)
+        const description = getDescription(this);
         if (description)
             this.$ssrContext.description = description
     }
@@ -30,7 +31,7 @@ const serverDescriptionMixin = {
 
 const clientDescriptionMixin = {
     mounted () {
-        const description = getDescription(this)
+        const description = getDescription(this);
         if (description)
             document.description = description
     }
