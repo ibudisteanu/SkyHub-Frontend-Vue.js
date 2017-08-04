@@ -22,7 +22,7 @@
 
                 :width="this.width"
                 :height="this.height"
-                url="http://myskyhub.ddns.net:4000/upload/image"
+                :url="getFileUploadURL"
                 lang-type="en"
 
 
@@ -39,6 +39,7 @@
 
 <script>
     import VueImageCropUploadComponent from './VueImageCropUploadComponent.vue';
+    import constants from 'root/constants.js'
 
     export default{
 
@@ -109,6 +110,12 @@
                 console.log('-------- upload fail --------');
                 console.log(status);
                 console.log('field: ' + field);
+            },
+        },
+
+        computed:{
+            getFileUploadURL(){
+                return constants.SERVICE_FILE_UPLOAD_URL
             }
         }
 

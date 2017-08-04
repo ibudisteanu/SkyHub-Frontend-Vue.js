@@ -2,8 +2,8 @@
 
 # Online Versions:
 
-1. myskyhub.ddns.net:8080 for Vue.js Frontend
-2. myskyhub.ddns.net:4000 for Express Backend with Redis Database
+1. skyhub.me:80 for Vue.js Frontend
+2. skyhub.me:4000 for Express Backend with Redis Database
 
 **Gitter** - for communications with the SkyHub contributors:
  

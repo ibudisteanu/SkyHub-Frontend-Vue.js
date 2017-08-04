@@ -111,7 +111,7 @@
             icon: {default: ''},
 
             showLayOver: {default: false}, //lay over mask
-            showPicBorder : {default: false},
+            showPicBorder : {default: true},
 
             enableChangeIcon : {default: false},
             enableChangeCover : {default: false},
