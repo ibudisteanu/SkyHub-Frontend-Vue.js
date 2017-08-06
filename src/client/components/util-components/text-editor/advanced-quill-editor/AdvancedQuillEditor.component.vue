@@ -21,40 +21,35 @@ modules:
 
 <script>
 
-    console.log('MyQuillEditor');
-    //import Quill from 'quill';
-    var quillEditor = null;
-    console.log(window.Quill);
+    //console.log('MyQuillEditor'); console.log(window.Quill);
+    var VueQuillEditor = null;
 
     if (typeof window === 'undefined') {
-        const VueQuillEditor = require('vue-quill-editor/ssr');
-        quillEditor = VueQuillEditor.quillEditor;
+         VueQuillEditor = require('vue-quill-editor/ssr');
     } else {
-        const VueQuillEditor = require('vue-quill-editor');
-
-        var Quill = VueQuillEditor.Quill;
-        quillEditor = VueQuillEditor.quillEditor;
-
+        VueQuillEditor = require('vue-quill-editor');
     }
+    var quillEditor = VueQuillEditor.quillEditor;
+    var Quill = VueQuillEditor.Quill;
 
     // if you need register quill modules, you need to introduce and register before the vue program is instantiated
-
     import ImageResize from 'quill-image-resize-module';
-    import {ImageDrop} from 'quill-image-drop-module';
-
-    //import ImageResize from './modules/quill-image-resize-module-master/src/ImageResize';
-    //let ImageResize = Quill.import('quill-image-resize-module');
-    //var ImageResize = require('quill-image-resize-module').ImageResize;
+    //import {ImageDrop} from 'quill-image-drop-module';
+    import { ImageDrop } from './modules/ImageDrop.js'
 
     Quill.register('modules/imageResize', ImageResize);
     Quill.register('modules/imageDrop', ImageDrop);
 
+    import {imageHandler, selectLocalImage} from './modules/ImageUpload'
+
     //WORKING 2nd version....
-/*    import { ImageImport } from './modules/ImageImport.js'
-    import { ImageResize } from './modules/ImageResize.js'
+/*
+    import { ImageResize } from './modules/obsolete/ImageResize.js'
 
     Quill.register('modules/imageResize', ImageResize);
-    Quill.register('modules/imageImport', ImageImport);*/
+*/
+
+
 
     export default{
         components: {
@@ -67,6 +62,9 @@ modules:
                 text: '',
                 editorOption: {
                     // some quill options
+                    placeholder: 'Your text ...',
+                    imageHandler: imageHandler,
+                    imgHandler: imageHandler,
                     modules: {
 //                        toolbar: [
 //                            [{ 'size': ['small', false, 'large'] }],
@@ -80,7 +78,8 @@ modules:
                             modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
                         },
                         imageDrop:true,
-                    }
+                    },
+
                 }
             }
         },
@@ -112,6 +111,12 @@ modules:
         mounted() {
             // you can use current editor object to do something(quill methods)
             console.log('this is current quill instance object', this.editor)
+
+            // quill editor add image handler
+            this.editor.getModule('toolbar').addHandler('image', () => {
+                selectLocalImage(this.editor);
+            });
+
         }
 
     }

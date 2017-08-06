@@ -3,6 +3,9 @@
  * and paste images from clipboard (Works on Chrome, Firefox, Edge, not on Safari)
  * @see https://quilljs.com/blog/building-a-custom-module/
  */
+
+import {saveToServer} from './ImageUpload'
+
 export class ImageDrop {
 
     /**
@@ -45,18 +48,21 @@ export class ImageDrop {
      */
     handlePaste(evt) {
         if (evt.clipboardData && evt.clipboardData.items && evt.clipboardData.items.length) {
-            this.readFiles(evt.clipboardData.items, dataUrl => {
-                const selection = this.quill.getSelection();
-                if (selection) {
-                    // we must be in a browser that supports pasting (like Firefox)
-                    // so it has already been placed into the editor
-                }
-                else {
-                    // otherwise we wait until after the paste when this.quill.getSelection()
-                    // will return a valid index
-                    setTimeout(() => this.insert(dataUrl), 0);
-                }
-            });
+
+            this.readFiles(evt.clipboardData.items, ()=>{});
+
+            // this.readFiles(evt.clipboardData.items, dataUrl => {
+            //     const selection = this.quill.getSelection();
+            //     if (selection) {
+            //         // we must be in a browser that supports pasting (like Firefox)
+            //         // so it has already been placed into the editor
+            //     }
+            //     else {
+            //         // otherwise we wait until after the paste when this.quill.getSelection()
+            //         // will return a valid index
+            //         setTimeout(() => this.insert(dataUrl), 0);
+            //     }
+            // });
         }
     }
 
@@ -64,9 +70,36 @@ export class ImageDrop {
      * Insert the image into the document at the current cursor position
      * @param {String} dataUrl  The base64-encoded image URI
      */
+
+    convertURIToImageData(URI) {
+        return new Promise(function(resolve, reject) {
+            if (URI == null) return reject();
+            var canvas = document.createElement('canvas'),
+                context = canvas.getContext('2d'),
+                image = new Image();
+            image.addEventListener('load', function() {
+                canvas.width = image.width;
+                canvas.height = image.height;
+                context.drawImage(image, 0, 0, canvas.width, canvas.height);
+                resolve(context.getImageData(0, 0, canvas.width, canvas.height));
+            }, false);
+            image.src = URI;
+        });
+    }
+
     insert(dataUrl) {
-        const index = (this.quill.getSelection() || {}).index || this.quill.getLength();
-        this.quill.insertEmbed(index, 'image', dataUrl, 'user');
+
+        this.convertURIToImageData(dataUrl).then((image)=>{
+            console.log(image);
+            saveToServer(this.quill, image);
+        }) ;
+
+        // const index = (this.quill.getSelection() || {}).index || this.quill.getLength();
+        // this.quill.insertEmbed(index, 'image', dataUrl, 'user');
+    }
+
+    insertFile(file) {
+        saveToServer(this.quill, file);
     }
 
     /**
@@ -89,9 +122,14 @@ export class ImageDrop {
             };
             // read the clipboard item or file
             const blob = file.getAsFile ? file.getAsFile() : file;
-            if (blob instanceof Blob) {
-                reader.readAsDataURL(blob);
-            }
+            //reading as dataURI
+            // if (blob instanceof Blob) {
+            //     reader.readAsDataURL(blob);
+            // }
+
+            //console.log('---------- blob', blob);
+            this.insertFile(blob);
+
         });
     }
 
