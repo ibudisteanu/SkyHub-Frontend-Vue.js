@@ -146,7 +146,7 @@
 
                 console.log(response);
 
-                userData = await FB.api('/me', {fields: 'id,name,email,picture,cover,first_name,last_name,age_range,link,gender,locale,timezone,updated_time,verified,location'});
+                let userData = await FB.api('/me', {fields: 'id,name,email,picture,cover,first_name,last_name,age_range,link,gender,locale,timezone,updated_time,verified,location'});
 
                     console.log('facebook decoded data', userData);
 
@@ -215,7 +215,7 @@
                             //  name: "Bucharest, Romania
                             //}
 
-                            locationData = await FB.api('/'+locationId, {fields: 'location'}, locationData);
+                            let locationData = await FB.api('/'+locationId, {fields: 'location'}, locationData);
 
                             //{
                             //    "location": {
