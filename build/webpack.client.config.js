@@ -5,9 +5,7 @@ const base = require('./webpack.base.config')
 const SWPrecachePlugin = require('sw-precache-webpack-plugin')
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 
-const path = require('path')
-
-
+const path = require('path');
 
 const config = merge(base, {
   entry: {
@@ -20,7 +18,11 @@ const config = merge(base, {
     }
   },
   plugins: [
-    // strip dev-only code in Vue source
+    new webpack.ProvidePlugin({
+        'window.Quill': 'quill/dist/quill.js',
+        'Quill': 'quill/dist/quill.js',
+    }),
+      // strip dev-only code in Vue source
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       'process.env.VUE_ENV': '"client"'

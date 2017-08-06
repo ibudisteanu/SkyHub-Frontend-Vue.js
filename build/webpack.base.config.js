@@ -43,7 +43,8 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
+        //exclude: /node_modules/,
+        exclude: /node_modules(?!\/quill-image-drop-module|quill|quill-image-resize-module)/,
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
@@ -68,19 +69,20 @@ module.exports = {
     maxEntrypointSize: 300000,
     hints: isProd ? 'warning' : false
   },
-  plugins: isProd
-    ? [
-        ...isAnalyze ? [new BundleAnalyzerPlugin()] : [],
+  plugins:
+       isProd
+        ? [
+            ...isAnalyze ? [new BundleAnalyzerPlugin()] : [],
 
-        new webpack.optimize.UglifyJsPlugin({
-          compress: { warnings: false }
-        }),
-        new ExtractTextPlugin({
-          filename: 'common.[chunkhash].css'
-        })
-      ]
-    : [
-        ...isAnalyze ? [new BundleAnalyzerPlugin()] : [],
-        new FriendlyErrorsPlugin()
-      ]
+            new webpack.optimize.UglifyJsPlugin({
+              compress: { warnings: false }
+            }),
+            new ExtractTextPlugin({
+              filename: 'common.[chunkhash].css'
+            })
+          ]
+        : [
+            ...isAnalyze ? [new BundleAnalyzerPlugin()] : [],
+            new FriendlyErrorsPlugin()
+          ]
 }

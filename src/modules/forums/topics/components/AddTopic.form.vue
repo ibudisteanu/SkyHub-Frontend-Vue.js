@@ -66,7 +66,7 @@
                     <strong>Description</strong>
 
                         <no-ssr>
-                            <MyVueEditor ref="refDescriptionEditor" @onChange = "handleDescriptionChange"/>
+                            <MyQuillEditor ref="refDescriptionEditor" @onChange = "handleDescriptionChange"/>
                         </no-ssr>
 
                     <span :class="this.showInputFeedback(this.descriptionValidationStatus)"></span>
@@ -159,7 +159,7 @@
     import CountrySelect from 'client/components/util-components/select/Country.select.vue';
     import SearchAutoComplete from 'client/components/util-components/select/SearchAutoComplete.select.vue';
     import FileUploadDropzone from 'client/components/util-components/file-upload/dropzone/FileUploadDropzone.component.vue';
-    import MyVueEditor from 'client/components/util-components/text-editor/MyVueEditor.component.vue';
+    import MyQuillEditor from 'client/components/util-components/text-editor/MyQuillEditor.component.vue';
 
     import PreviewNewTopic from 'modules/forums/topics/components/PreviewNewTopic.vue';
     import Topic from 'models/Topic/Topic.model';
@@ -175,7 +175,7 @@
 
             "PreviewNewTopic" : PreviewNewTopic,
             "FileUploadDropzone": FileUploadDropzone,
-            'MyVueEditor': MyVueEditor,
+            'MyQuillEditor': MyQuillEditor,
         },
 
         data: function (){

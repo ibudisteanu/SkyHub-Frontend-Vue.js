@@ -461,20 +461,20 @@ div.filepicker {
   color: black;
 }
 .topic-question-footer{
-  overflow: hidden;
+
   padding-bottom: 7px;
   padding-top: 10px;
   margin-right:0;
   color:black;
 }
 .topic-question  > .topic-question-footer > .topic-question-SubReplies{
+
   padding-top: 10px;
   padding-left: 0px;
-  overflow: hidden;
   margin-left: -9px;
 }
 .topic-question-footer-buttons{
-    overflow: hidden;
+
     padding-left: 10px;
     padding-top:  10px;
 }
@@ -499,8 +499,9 @@ div.filepicker {
  */
 
 .reply-form{
+    overflow:  visible !important;
     border-radius: 10px;
-    overflow: auto;
+
     background-color: rgba(27, 0, 255, 0.03);;
     margin-right: 10px;
 }
@@ -688,6 +689,11 @@ div.filepicker {
  */
 
 .tooltip{
+    overflow:visible !important;
+    z-index: 100;
+}
+
+.ql-tooltip{
     overflow:visible !important;
     z-index: 100;
 }

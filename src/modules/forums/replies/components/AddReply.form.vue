@@ -66,7 +66,8 @@
 
 
                     <no-ssr>
-                        <MyVueEditor ref="refDescriptionEditor" @onChange = "handleDescriptionChange"/>
+                        <!-- <MyVueEditor ref="refDescriptionEditor" @onChange = "handleDescriptionChange"/> -->
+                        <MyQuillEditor ref="refDescriptionEditor" @onChange = "handleDescriptionChange"/>
                     </no-ssr>
 
                     <span :class="this.showInputFeedback(this.descriptionValidationStatus)"></span>
@@ -105,7 +106,7 @@
     import NoSSR from 'vue-no-ssr'
 
     import FileUploadDropzone from 'client/components/util-components/file-upload/dropzone/FileUploadDropzone.component.vue';
-    import MyVueEditor from 'client/components/util-components/text-editor/MyVueEditor.component.vue';
+    import MyQuillEditor from 'client/components/util-components/text-editor/MyQuillEditor.component.vue';
     import PreviewNewReply from 'modules/forums/replies/components/PreviewNewReply.vue';
 
     import Reply from 'models/Reply/Reply.model';
@@ -119,7 +120,7 @@
 
             "PreviewNewReply" : PreviewNewReply,
             "FileUploadDropzone": FileUploadDropzone,
-            'MyVueEditor': MyVueEditor,
+            'MyQuillEditor': MyQuillEditor,
         },
 
         data: function (){
@@ -299,9 +300,9 @@
 
             },
 
-            handleDescriptionChange(value){
+            handleDescriptionChange(editor, content, text){
                 //this.descriptionValidationStatus  = [null, ''];
-                this.description = value;
+                this.description = content;
             },
 
             openLogin(){
