@@ -140,13 +140,13 @@
                 this.$emit('onError',response);
             },
 
-            responseFacebook(response) {
+            async responseFacebook(response) {
 
                 this.error = '';
 
                 console.log(response);
 
-                FB.api('/me', {fields: 'id,name,email,picture,cover,first_name,last_name,age_range,link,gender,locale,timezone,updated_time,verified,location'}, userData => {
+                userData = await FB.api('/me', {fields: 'id,name,email,picture,cover,first_name,last_name,age_range,link,gender,locale,timezone,updated_time,verified,location'});
 
                     console.log('facebook decoded data', userData);
 
@@ -203,50 +203,55 @@
                         let bVerified = userData.verified;
 
 
-                        let locationId = userData.location.id||'';
-                        //location: {
-                        //  id: "number"
-                        //  name: "Bucharest, Romania
-                        //}
+                        let sCity = '';
+                        let sCountry = '';
+                        let longitude = '';
+                        let latitude = '';
 
-                        FB.api('/'+locationId, {fields: 'location'}, locationData => {
+                        if ((typeof userData.location !== 'undefined')&&(userData.location !== null)){
+                            let locationId = userData.location.id||'';
+                            //location: {
+                            //  id: "number"
+                            //  name: "Bucharest, Romania
+                            //}
 
-                                 //{
-                                 //    "location": {
-                                 //        "city": "Ramat Gan",
-                                 //        "country": "Israel",
-                                 //        "latitude": 32.0833,
-                                 //        "longitude": 34.8167,
-                                 //        "zip": "<<not-applicable>>"
-                                 //},
-                                 //   "id": "112604772085346"
-                                 //}
+                            locationData = await FB.api('/'+locationId, {fields: 'location'}, locationData);
 
-                            let sCity = locationData.location.city;
-                            let sCountry = locationData.location.country;
-                            let longitude = locationData.location.longtitude;
-                            let latitude = locationData.location.latitude;
+                            //{
+                            //    "location": {
+                            //        "city": "Ramat Gan",
+                            //        "country": "Israel",
+                            //        "latitude": 32.0833,
+                            //        "longitude": 34.8167,
+                            //        "zip": "<<not-applicable>>"
+                            //},
+                            //   "id": "112604772085346"
+                            //}
 
                             console.log("locationData",locationData);
 
-                            this.$store.dispatch('AUTHENTICATE_REGISTER_OAUTH',{sSocialNetworkName:'facebook', sSocialNetworkId: sFacebookId,  sAccessToken: sAccessToken, sEmail:sEmail, sFirstName:sFirstName, sLastName:sLastName, sProfilePic:sProfilePic, sCoverImage:sCoverImage,
-                                                                                sCountryCode: sCountry||this.localization.countryCode||'us', sLanguage: sLanguage, sCity:sCity||this.localization.city||'none', latitude: latitude||this.localization.latitude, longitude:longitude||this.localization.longitude, sShortBio:sShortBio, iAge:iAge, sGender:sGender,
-                                                                                iTimeZone:iTimeZone||this.localization.timeZone, bVerified:bVerified})
-
-                                .then( (res) => {
-
-                                    console.log("Auth Service answer ",res);
-
-                                    if (res.result === true) this.registrationSuccessfully(res);
-                                    else if (res.result === false) {
-                                        this.errorRegisteringFacebook(userData);
-                                    }
-
-                                });
+                            sCity = locationData.location.city;
+                            sCountry = locationData.location.country;
+                            longitude = locationData.location.longtitude;
+                            latitude = locationData.location.latitude;
+                        }
 
 
 
-                        });
+                        this.$store.dispatch('AUTHENTICATE_REGISTER_OAUTH',{sSocialNetworkName:'facebook', sSocialNetworkId: sFacebookId,  sAccessToken: sAccessToken, sEmail:sEmail, sFirstName:sFirstName, sLastName:sLastName, sProfilePic:sProfilePic, sCoverImage:sCoverImage,
+                                                                            sCountryCode: sCountry||this.localization.countryCode||'us', sLanguage: sLanguage, sCity:sCity||this.localization.city||'none', latitude: latitude||this.localization.latitude, longitude:longitude||this.localization.longitude, sShortBio:sShortBio, iAge:iAge, sGender:sGender,
+                                                                            iTimeZone:iTimeZone||this.localization.timeZone, bVerified:bVerified})
+
+                            .then( (res) => {
+
+                                console.log("Auth Service answer ",res);
+
+                                if (res.result === true) this.registrationSuccessfully(res);
+                                else if (res.result === false) {
+                                    this.errorRegisteringFacebook(userData);
+                                }
+
+                            });
 
 
                     } catch (Exception)
@@ -256,11 +261,6 @@
                     }
 
                     console.log(userData);
-
-
-                });
-
-
 
             },
         }
