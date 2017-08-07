@@ -26,6 +26,7 @@ module.exports = {
 
     convertGenderString (sGender){
 
+        if (typeof sGender === 'undefined') sGender = '';
         sGender = sGender.toLowerCase();
 
         switch (sGender){
@@ -39,6 +40,7 @@ module.exports = {
 
     convertRoleType (sUserRoleType){
 
+        if (typeof sUserRoleType === 'undefined') sUserRoleType = '';
         sUserRoleType = sUserRoleType.toLowerCase();
 
         switch (sUserRoleType){

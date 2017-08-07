@@ -5,14 +5,13 @@
 
 <template>
 
-        <div v-if="getCurrentRouterObjectType === 'home' ">
-            <ViewHome />
-        </div>
-        <div v-else>
-            <ViewForum v-if="getCurrentRouterObjectType === 'forum'"/>
+    <div>
+        <ViewHome v-if="getCurrentRouterObjectType === 'home' " />
 
-            <ViewTopic v-else-if="getCurrentRouterObjectType === 'topic'"/>
-        </div>
+        <ViewForum v-else-if="getCurrentRouterObjectType === 'forum'"/>
+
+        <ViewTopic v-else-if="getCurrentRouterObjectType === 'topic'"/>
+    </div>
 
 </template>
 

@@ -78,7 +78,7 @@
 
             checkAuthenticatedUser(){
 
-                console.log("trying...");
+                console.log("layout trying...");
 
                 if (typeof window !== "undefined")
                     if (this.$store.getters.isUserLoggedIn)
@@ -87,6 +87,8 @@
                         if (document.body.className.indexOf("mini-navbar top-navigation") < 0)
                             document.body.className += " mini-navbar top-navigation ";
                     }
+
+                console.log("layout finished...");
 
                 return '';
             },
