@@ -18,7 +18,6 @@ modules:
     </quillEditor>
 
 </template>
-
 <script>
 
     //console.log('MyQuillEditor'); console.log(window.Quill);
@@ -34,21 +33,19 @@ modules:
 
     // if you need register quill modules, you need to introduce and register before the vue program is instantiated
     import ImageResize from 'quill-image-resize-module';
+    import Emoji from 'quill-emoji/dist/quill-emoji';
     //import {ImageDrop} from 'quill-image-drop-module';
     import { ImageDrop } from './modules/ImageDrop.js'
 
     Quill.register('modules/imageResize', ImageResize);
     Quill.register('modules/imageDrop', ImageDrop);
+    Quill.register('modules/emoji', Emoji);
 
     import {imageHandler, selectLocalImage} from './modules/ImageUpload'
 
-    //WORKING 2nd version....
-/*
-    import { ImageResize } from './modules/obsolete/ImageResize.js'
 
-    Quill.register('modules/imageResize', ImageResize);
-*/
-
+    console.log('emoji');
+    console.log(Emoji);
 
 
     export default{
@@ -63,16 +60,34 @@ modules:
                 editorOption: {
                     // some quill options
                     placeholder: 'Your text ...',
-                    imageHandler: imageHandler,
-                    imgHandler: imageHandler,
+//                    imageHandler: imageHandler,
+//                    imgHandler: imageHandler,
                     modules: {
-//                        toolbar: [
-//                            [{ 'size': ['small', false, 'large'] }],
-//                            ['bold', 'italic'],
-//                            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-//                            ['link', 'image']
-//                        ],
-
+                        toolbar: {
+                            container: [
+                                [{'size': ['small', false, 'large']}],
+                                ['bold', 'italic', 'underline', 'strike'],
+                                ['blockquote', 'code-block'],
+                                [{ 'header': 1 }, { 'header': 2 }],
+                                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                                [{ 'script': 'sub' }, { 'script': 'super' }],
+                                [{ 'indent': '-1' }, { 'indent': '+1' }],
+                                [{ 'direction': 'rtl' }],
+                                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                                [{ 'color': [] }, { 'background': [] }],
+                                [{ 'font': [] }],
+                                [{ 'align': [] }],
+                                ['clean'],
+                                ['link', 'image', 'video'],
+                                ['emoji'],
+                            ],
+                            handlers: {
+                                'emoji': function () {}
+                            },
+                        },
+                        toolbar_emoji: true,
+                        short_name_emoji: true,
+                        textarea_emoji:true,
                         imageResize:{
                             displaySize: true,
                             modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
@@ -125,6 +140,8 @@ modules:
 </script>
 
 <style>
+    @import "./../../../../../../node_modules/quill-emoji/dist/quill-emoji.css";
+
     .ql-container .ql-editor {
         min-height: 20em;
         padding-bottom: 1em;
