@@ -25,7 +25,8 @@
 
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
 
-                            <SearchAutoComplete :multi="false" dataSuggestion="google" placeholder='title / subject' :defaultValue="this.title||this.parentName"  :defaultLabel="this.title||this.parentName" @onSelect="this.handleTitleChange" :clearOnSelect="true" />
+                            <input type='text' class='form-control input' placeholder='title' style="z-index:0" name="title" :value="this.title||this.parentName" @change="handleTitleChange" />
+                            <!-- <SearchAutoComplete :multi="false" dataSuggestion="google" placeholder='title / subject' :defaultValue="this.title||this.parentName"  :defaultLabel="this.title||this.parentName" @onSelect="this.handleTitleChange" :clearOnSelect="true" /> -->
 
                             <span :class="this.showInputFeedback(this.titleValidationStatus)" style='width:60px; top:10px'></span>
                         </div>
@@ -358,9 +359,9 @@
 
             },
 
-            handleDescriptionChange(value){
+            handleDescriptionChange(editor, content, text){
                 //this.descriptionValidationStatus  = [null, ''];
-                this.description = value;
+                this.description = content;
             },
 
             handleParentChangeSelect(dataSelected){
@@ -416,6 +417,9 @@
                 });
 
                 this.attachments = newAttachments;//storing thew new attachments
+
+                console.log(type, name, url, thumbnail);
+                console.log(this.attachments);
 
             },
 

@@ -8,7 +8,7 @@
 */
 
 <template>
-        <dropzone :id="'fileUploadDropzone_'+this.idProp" url="http://myskyhub.ddns.net:4000/upload/topic-file" @vdropzone-success="success" @vdropzone-removed-file="removedfile" :useFontAwesome="true" :thumbnail-height="100" :thumbnail-width="100" acceptedFileTypes="image/jpeg,image/jpg,image/png,image/gif,application/pdf,application/doc,application/docx,application/zip,application/rar" >
+        <dropzone :id="'fileUploadDropzone_'+this.idProp" :url="getFileTopicUploadURL" @vdropzone-success="successFile" @vdropzone-removed-file="removedfile" :useFontAwesome="true" :thumbnail-height="100" :thumbnail-width="100" acceptedFileTypes="image/jpeg,image/jpg,image/png,image/gif,application/pdf,application/doc,application/docx,application/zip,application/rar" >
             <!-- Optional parameters if any! -->
             <input type="hidden" name="token" value="xxx">
             <input type="hidden" name="authorId" :value="getAuthorId">
@@ -21,7 +21,7 @@
 <script>
 
     import Dropzone from './vue2-dropzone/index.vue';
-
+    import constants from 'root/constants.js'
 
     export default{
 
@@ -43,10 +43,14 @@
             getAuthorId(){
                 return this.$store.state.authenticatedUser.user.id||'';
             },
+
+            getFileTopicUploadURL(){
+                return constants.SERVICE_FILE_UPLOAD_TOPIC_URL
+            }
         },
 
         methods:{
-            success(fileData, response){
+            successFile(fileData, response){
                 console.log("uploaded successfully ",fileData);
 
                 if ((typeof fileData.xhr.responseText !== "undefined")&&(fileData.xhr.responseText !== '')){
