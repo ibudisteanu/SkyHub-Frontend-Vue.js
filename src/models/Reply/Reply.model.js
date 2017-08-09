@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 
 import Attachments from 'models/Attachment/Attachments.model';
+import sanitizeHtml from 'sanitize-html';
 
 export default class Reply {
 
@@ -20,6 +21,14 @@ export default class Reply {
 
         this.description = data.description || '';
         this.shortDescription = data.shortDescription || '';
+
+        this.description = sanitizeHtml(this.description);
+        this.shortDescription = sanitizeHtml(this.shortDescription);
+
+        if (this.description !== this.shortDescription)
+            this.viewMore = true;
+        else
+            this.viewMore = false;
 
         this.preview = data.preview||false;
 
@@ -44,6 +53,14 @@ export default class Reply {
     }
 
     static getDescription(Reply){
+        if (Reply.description !== '') return Reply.description;
+        if (Attachments.getLinkAttachment(Reply) !== null) return Attachments.getLinkAttachment(Reply).description;
+        if (Reply.attachments.length > 0 ) return Reply.attachments[0].description;
+
+        return '';
+    }
+
+    static getShortDescription(Reply){
         if (Reply.shortDescription !== '') return Reply.shortDescription;
         if (Attachments.getLinkAttachment(Reply) !== null) return Attachments.getLinkAttachment(Reply).description;
         if (Reply.attachments.length > 0 ) return Reply.attachments[0].description;

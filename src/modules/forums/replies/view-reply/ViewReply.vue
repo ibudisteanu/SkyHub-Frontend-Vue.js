@@ -11,7 +11,7 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
     <div class="media reply-form" >
 
         <div class="row form-head-line">
-            <Voting :parentId = "reply.id" :preview="this.preview" />
+            <Voting :parentId = "reply.id" :showPreview="this.showPreview" />
 
             <div>
                 <ShowDate className="date information" style="float:right; margin-right: 10px" :date="reply.dtCreation" />
@@ -25,9 +25,25 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
 
         <div class="media-body reply-form-content">
 
-            <p>
-                <div v-html="this.preview ? reply.shortDescription : reply.description" />
-            </p>
+            <div v-if="(this.viewMore === true) && (this.showPreview === true) && (this.previewStatus)">
+                <p >
+                    <div v-html="this.getShortDescription" />
+
+                    <span class="label label-default view-more" @click="enablePreviewStatus(false)">
+                        ... View More
+                    </span>
+                </p>
+            </div>
+
+            <div v-if="(this.viewMore === false) || ((this.viewMore === true) && (this.showPreview === false)) || ((this.viewMore === true) && (this.showPreview === true)  && (this.previewStatus === false))">
+                <p>
+                    <div v-html="this.getDescription" />
+
+                    <div v-if="(this.viewMore === true) && (this.showPreview === true)  && (this.previewStatus === false)" class="label label-default view-less" @click="enablePreviewStatus(true)">
+                        ... View Less
+                    </div>
+                </p>
+            </div>
 
         </div>
 
@@ -37,7 +53,7 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
                 <DisplayAttachments :attachments="reply.attachments||[]" />
             </div>
 
-            <div class="reply-form-footer-buttons" v-if="!this.preview">
+            <div class="reply-form-footer-buttons" v-if="!this.showPreview">
                 <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="reply.parentId" parentName="" :parentReplyId="reply.id" :parentReplyName="reply.title" :isOwner="this.$store.state.authenticatedUser.user , reply | checkOwner" />
             </div>
 
@@ -48,7 +64,7 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
                         :parentReplyId = "reply.id"
                         :parentId = "parentId"
 
-                        :preview="this.preview"
+                        :showPreview="this.showPreview"
                 />
 
 
@@ -97,19 +113,40 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
 
             parentReplyId: {default: null},
             parentId: {default: null},
-            preview : {default: false},
+            showPreview : {default: false},
 
         },
 
         data: function () {
-            return {}
+            return {
+                previewStatus: true,
+            }
         },
 
         computed: {
 
 
+            getDescription(){
+                if ((typeof (this.reply) === 'undefined')||(this.reply === null)) return '';
+                return Reply.getShortDescription(this.reply)||'';
+            },
+
+            getShortDescription(){
+                if ((typeof (this.reply) === 'undefined')||(this.reply === null)) return '';
+                return Reply.getShortDescription(this.reply)||'';
+            },
+
+            viewMore(){
+                return this.reply.viewMore;
+            },
+
         },
 
+        methods:{
+            enablePreviewStatus(newStatus){
+                this.previewStatus = newStatus;
+            }
+        }
 
     }
 </script>

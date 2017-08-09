@@ -544,6 +544,15 @@ div.filepicker {
 }
 
 /*
+    FORMS
+ */
+
+.view-more,
+.view-less {
+    color : grey;
+}
+
+/*
     VOTING
  */
 

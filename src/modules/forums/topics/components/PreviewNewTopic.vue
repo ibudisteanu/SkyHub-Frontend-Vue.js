@@ -7,7 +7,7 @@
 
     <div style='background-color: aliceblue;'>
 
-        <PreviewTopics :topics="[this.topic]"  :preview="true" />
+        <PreviewTopics :topics="[this.topic]"  :showTablePreview="true" />
 
     </div>
 

@@ -3,7 +3,7 @@
     <div class="vote-actions">
         <i class="fa fa-chevron-up vote-font-icon cursor" @click="voteUp" :style="{color: this.votedUp ? 'deepskyblue' : ''}"> </i>
 
-            <div v-if="(!preview)&&((typeof voting === 'undefined')||(voting.loading === true))">
+            <div v-if="(!showPreview)&&((typeof voting === 'undefined')||(voting.loading === true))">
                 <i class="fa fa-spinner fa-spin" > </i>
             </div>
 
@@ -33,7 +33,7 @@
 
         props: {
             parentId : { default: '' },
-            preview: {default: false},
+            showPreview: {default: false},
         },
 
         computed:{

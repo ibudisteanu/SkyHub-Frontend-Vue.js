@@ -8,19 +8,36 @@
     <tr>
         <td :key="'TopicTable_'+topic.id" class="anchor">
 
-            <Voting :parentId = "topic.id" :preview="this.preview" />
+            <Voting :parentId = "topic.id" :showPreview="this.showPreview" />
 
             <div>
                 <div class="anchor" style='padding-left: 42px' >
 
-                    <router-link :to="'/'+topic.URL" :disableLink="this.preview" >
+                    <router-link :to="'/'+topic.URL" :disableLink="this.showPreview" >
                         <img v-if="getTopicImage !== ''" class="table-forums-topic-image" :src="getTopicImage" :alt="getTopicTitle" />
 
                         <h4 class="table-forums-topic-title" v-html="getTopicTitle"></h4>
 
-                        <p class="table-forums-topic-body word-wrap">
-                            <div v-html="getTopicDescription"/>
-                        </p>
+
+                        <div v-if="(this.viewMore === true) && (this.showPreview === true) && (this.previewStatus)">
+                            <p class="table-forums-topic-body word-wrap">
+                                <div v-html="this.getShortDescription" />
+
+                                <span class="label label-default view-more" @click="enablePreviewStatus(false)">
+                                    ... View More
+                                </span>
+                            </p>
+                        </div>
+
+                        <div v-if="(this.viewMore === false) || ((this.viewMore === true) && (this.showPreview === false)) || ((this.viewMore === true) && (this.showPreview === true)  && (this.previewStatus === false))">
+                            <p class="table-forums-topic-body word-wrap">
+                                <div v-html="this.getDescription" />
+
+                                <div v-if="(this.viewMore === true) && (this.showPreview === true)  && (this.previewStatus === false)" class="label label-default view-less" @click="enablePreviewStatus(true)">
+                                    ... View Less
+                                </div>
+                            </p>
+                        </div>
 
                     </router-link>
 
@@ -37,7 +54,7 @@
 
                 <br />
 
-                <div class="topic-question-footer" v-if="!this.preview">
+                <div class="topic-question-footer" v-if="!this.showPreview">
                     <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="this.topic.id" :parentName="this.topic.title" :isOwner="this.$store.state.authenticatedUser.user , this.topic | checkOwner" parentReplyId="" parentReplyName=""/>
                 </div>
 
@@ -51,7 +68,7 @@
                     parentReplyId = ""
                     :key = "'ViewReplies_'+this.topic.id+'_'"
 
-                    :preview = "this.preview"
+                    :showPreview = "this.showPreview"
 
             >
             </ViewAllReplies>
@@ -91,7 +108,13 @@
 
         props:{
             topic:  {default: null},
-            preview: {default: false},
+            showPreview: {default: false},
+        },
+
+        data: function () {
+            return {
+                previewStatus: true,
+            }
         },
 
         mounted: function () {
@@ -107,10 +130,24 @@
                 return Topic.getTitle(this.topic)||'no title';
             },
 
-            getTopicDescription(){
+            getDescription(){
                 return Topic.getDescription(this.topic)||'no description';
             },
 
+            getShortDescription(){
+                return Topic.getShortDescription(this.topic)||'no description';
+            },
+
+            viewMore(){
+                return this.topic.viewMore;
+            },
+
+        },
+
+        methods:{
+            enablePreviewStatus(newStatus){
+                this.previewStatus = newStatus;
+            }
         }
 
     }

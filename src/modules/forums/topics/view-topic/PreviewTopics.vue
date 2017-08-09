@@ -12,9 +12,9 @@ Infinite Scroll: https://github.com/ElemeFE/vue-infinite-scroll
         <table class="table table-hover table-forums parent-table">
             <tbody>
 
-            <tr v-if="preview">
+            <tr v-if="showTablePreview">
             </tr>
-            <tr v-if="!preview">
+            <tr v-if="!showTablePreview">
                 <th>
 
                     <h3>
@@ -29,7 +29,7 @@ Infinite Scroll: https://github.com/ElemeFE/vue-infinite-scroll
                     v-for="(topic, index) in topics"
                     :topic="topic"
                     :key="'PreviewTopic_'+topic.id||''"
-                    :preview="preview"
+                    :showPreview="true"
             >
             </PreviewTopic>
 
@@ -67,7 +67,7 @@ Infinite Scroll: https://github.com/ElemeFE/vue-infinite-scroll
             hasNext: {default: true},
             parentId: {default: ''},
 
-            preview: {default: false},
+            showTablePreview: {default: false},
             title: {title: 'no title'},
         },
 
@@ -85,7 +85,7 @@ Infinite Scroll: https://github.com/ElemeFE/vue-infinite-scroll
 
             async loadMore(){
 
-                if (this.preview === true) return false;
+                if (this.showTablePreview === true) return false;
 
                 try{
                     await this.$store.dispatch('CONTENT_TOPICS_FETCH_TOP_NEXT', {parent: this.parentId} );

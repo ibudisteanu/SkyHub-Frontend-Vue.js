@@ -60,9 +60,25 @@
                                     <img :src="getImage" :alt="getTitle" class="topic-question-image" />
                                 </a>
 
-                                <p>
-                                    <div v-html="getTopic.description" />
-                                </p>
+                                <div v-if="(this.viewMore === true) && (this.showPreview === true) && (this.previewStatus)">
+                                    <p >
+                                        <div v-html="this.getShortDescription" />
+
+                                        <span class="label label-default view-more" @click="enablePreviewStatus(false)">
+                                            ... View More
+                                        </span>
+                                    </p>
+                                </div>
+
+                                <div v-if="(this.viewMore === false) || ((this.viewMore === true) && (this.showPreview === false)) || ((this.viewMore === true) && (this.showPreview === true)  && (this.previewStatus === false))">
+                                    <p>
+                                        <div v-html="this.getDescription" />
+
+                                        <div v-if="(this.viewMore === true) && (this.showPreview === true)  && (this.previewStatus === false)" class="label label-default view-less" @click="enablePreviewStatus(true)">
+                                            ... View Less
+                                        </div>
+                                    </p>
+                                </div>
 
                             </div>
                         </div>
@@ -153,6 +169,16 @@
             'ViewUserForum': ViewUserForum,
         },
 
+        props: {
+            showPreview : {default: false},
+        },
+
+        data: function () {
+            return {
+                previewStatus: true,
+            }
+        },
+
         computed:{
 
             getTopicRouter(){
@@ -180,11 +206,23 @@
             },
 
             getDescription(){
-                return this.getTopic.description||'';
+                return Topic.getDescription(this.getTopic)||'';
             },
 
+            getShortDescription(){
+                return Topic.getShortDescription(this.getTopic)||'';
+            },
 
+            viewMore(){
+                return this.getTopic.viewMore;
+            },
 
+        },
+
+        methods:{
+            enablePreviewStatus(newStatus){
+                this.previewStatus = newStatus;
+            }
         }
 
     }

@@ -3,17 +3,25 @@
  */
 
 import Attachments from 'models/Attachment/Attachments.model';
+import sanitizeHtml from 'sanitize-html';
 
 export default class Topic {
-
 
     constructor( data ) {
 
         this.id = data.id || '';
 
         this.title = data.title || '';
+
         this.description = data.description || '';
         this.shortDescription = data.shortDescription || '';
+
+        this.description = sanitizeHtml(this.description);
+        this.shortDescription = sanitizeHtml(this.shortDescription);
+
+        this.viewMore = false;
+        if (this.description !== this.shortDescription)
+            this.viewMore = true;
 
         this.URL = data.URL || '';
 
@@ -59,11 +67,19 @@ export default class Topic {
     }
 
     static getDescription(Topic){
-      if (Topic.shortDescription !== '') return Topic.shortDescription;
+      if (Topic.description !== '') return Topic.description;
       if (Attachments.getLinkAttachment(Topic) !== null) return Attachments.getLinkAttachment(Topic).description;
       if (Topic.attachments.length > 0 ) return Topic.attachments[0].description;
 
       return '';
+    }
+
+    static getShortDescription(Topic){
+        if (Topic.shortDescription !== '') return Topic.shortDescription;
+        if (Attachments.getLinkAttachment(Topic) !== null) return Attachments.getLinkAttachment(Topic).description;
+        if (Topic.attachments.length > 0 ) return Topic.attachments[0].description;
+
+        return '';
     }
 
     static getImage(Topic){

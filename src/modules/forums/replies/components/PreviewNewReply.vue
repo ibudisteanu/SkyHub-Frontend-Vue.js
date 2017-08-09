@@ -8,7 +8,7 @@
 
     <div style='background-color: aliceblue;'>
 
-        <ViewReply :reply="this.reply"  :preview="true" />
+        <ViewReply :reply="this.reply"  :showPreview="true" />
 
     </div>
 
@@ -36,7 +36,7 @@
             reply: function (){
 
                 console.log('reply title '+this.title);
-                console.log(this.attachments);
+                //console.log(this.attachments);
 
                 return new Reply({
                     title: this.title,
