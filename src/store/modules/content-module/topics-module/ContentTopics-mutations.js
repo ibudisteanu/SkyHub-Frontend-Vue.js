@@ -21,6 +21,7 @@ export default{
     },
 
     SET_CONTENT_TOPIC: (state, { topic }) => {
+        topic = ContentObjectService.createObject(topic);
         Vue.set(state.topics, topic.id, topic);
     },
 

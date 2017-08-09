@@ -55,7 +55,7 @@
 
                 <br />
 
-                <div class="topic-question-footer" v-if="!this.showPreview">
+                <div class="topic-question-footer" v-if="!this.showTablePreview">
                     <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="this.topic.id" :parentName="this.topic.title" :isOwner="this.$store.state.authenticatedUser.user , this.topic | checkOwner" parentReplyId="" parentReplyName=""/>
                 </div>
 
@@ -110,6 +110,7 @@
         props:{
             topic:  {default: null},
             showPreview: {default: false},
+            showTablePreview: {default: false},
         },
 
         data: function () {

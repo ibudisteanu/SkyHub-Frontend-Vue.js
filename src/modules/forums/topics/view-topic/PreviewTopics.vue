@@ -30,6 +30,7 @@ Infinite Scroll: https://github.com/ElemeFE/vue-infinite-scroll
                     :topic="topic"
                     :key="'PreviewTopic_'+topic.id||''"
                     :showPreview="true"
+                    :showTablePreview="this.showTablePreview"
             >
             </PreviewTopic>
 

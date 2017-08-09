@@ -23,6 +23,7 @@ export default{
     },
 
     SET_CONTENT_REPLY: (state, { reply }) => {
+        reply = ContentObjectService.createObject(reply);
         Vue.set(state.replies, reply.id, reply);
     },
 

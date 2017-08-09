@@ -139,7 +139,7 @@ export default {
 
         console.log('Answer from Oauth', resData);
 
-        if (resData.result === true) {
+        if ((resData !== null)&&(resData.result === true)) {
             resData.user.loggedIn = true;
             await dispatch('AUTHENTICATE_USER_BY_PROVIDING_USER',{userJSON: resData.user, sessionId: resData.sessionId});
         }

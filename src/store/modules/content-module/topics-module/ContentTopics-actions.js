@@ -58,6 +58,10 @@ export default{
 
             console.log('Answer from TOPIC ', resData);
 
+            if (resData.result === true){
+                commit('SET_CONTENT_TOPIC', { topic: resData.topic });
+            }
+
             return resData;
 
         }

@@ -18,7 +18,7 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
             </div>
 
             <ViewUserForum :authorId="this.reply.authorId">
-                <h3 class="reply-header-title" slot="view-user-after-profile-pic">{{reply.title || ' ' }} </h3>
+                <h3 v-if="reply.title !== ''" class="reply-header-title" slot="view-user-after-profile-pic">{{reply.title || ' ' }} </h3>
             </ViewUserForum>
 
         </div>
