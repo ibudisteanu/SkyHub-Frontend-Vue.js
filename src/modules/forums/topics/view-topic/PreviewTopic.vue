@@ -13,33 +13,34 @@
             <div>
                 <div class="anchor" style='padding-left: 42px' >
 
+                    <img v-if="getTopicImage !== ''" class="table-forums-topic-image" :src="getTopicImage" :alt="getTopicTitle" />
+
                     <router-link :to="'/'+topic.URL" :disableLink="this.showPreview" >
-                        <img v-if="getTopicImage !== ''" class="table-forums-topic-image" :src="getTopicImage" :alt="getTopicTitle" />
-
                         <h4 class="table-forums-topic-title" v-html="getTopicTitle"></h4>
-
-
-                        <div v-if="(this.viewMore === true) && (this.showPreview === true) && (this.previewStatus)">
-                            <p class="table-forums-topic-body word-wrap">
-                                <div v-html="this.getShortDescription" />
-
-                                <span class="label label-default view-more" @click="enablePreviewStatus(false)">
-                                    ... View More
-                                </span>
-                            </p>
-                        </div>
-
-                        <div v-if="(this.viewMore === false) || ((this.viewMore === true) && (this.showPreview === false)) || ((this.viewMore === true) && (this.showPreview === true)  && (this.previewStatus === false))">
-                            <p class="table-forums-topic-body word-wrap">
-                                <div v-html="this.getDescription" />
-
-                                <div v-if="(this.viewMore === true) && (this.showPreview === true)  && (this.previewStatus === false)" class="label label-default view-less" @click="enablePreviewStatus(true)">
-                                    ... View Less
-                                </div>
-                            </p>
-                        </div>
-
                     </router-link>
+
+
+                    <div v-if="(this.viewMore === true) && (this.showPreview === true) && (this.previewStatus)">
+
+                        <router-link :to="'/'+topic.URL" :disableLink="this.showPreview" >
+                            <p class="table-forums-topic-body word-wrap">
+                                    <div v-html="this.getShortDescription" />
+                            </p>
+                        </router-link>
+
+                        <a type="button" class="btn btn-default btn-xs btn-rounded view-more" @click="enablePreviewStatus(false)">
+                            ... View More
+                        </a>
+                    </div>
+
+                    <div v-if="(this.viewMore === false) || ((this.viewMore === true) && (this.showPreview === false)) || ((this.viewMore === true) && (this.showPreview === true)  && (this.previewStatus === false))">
+
+                        <router-link :to="'/'+topic.URL" :disableLink="this.showPreview" >
+                            <p class="table-forums-topic-body word-wrap">
+                                    <div v-html="this.getDescription" />
+                            </p>
+                        </router-link>
+                    </div>
 
                 </div>
 

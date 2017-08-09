@@ -550,6 +550,8 @@ div.filepicker {
 .view-more,
 .view-less {
     color : grey;
+    background-color: #fff6f6;
+    border-color: #e2d5d5;;
 }
 
 /*

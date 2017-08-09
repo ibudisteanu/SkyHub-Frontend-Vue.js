@@ -29,9 +29,9 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
                 <p >
                     <div v-html="this.getShortDescription" />
 
-                    <span class="label label-default view-more" @click="enablePreviewStatus(false)">
+                    <a class="btn btn-default btn-xs btn-rounded view-more" @click="enablePreviewStatus(false)">
                         ... View More
-                    </span>
+                    </a>
                 </p>
             </div>
 
@@ -39,9 +39,6 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
                 <p>
                     <div v-html="this.getDescription" />
 
-                    <div v-if="(this.viewMore === true) && (this.showPreview === true)  && (this.previewStatus === false)" class="label label-default view-less" @click="enablePreviewStatus(true)">
-                        ... View Less
-                    </div>
                 </p>
             </div>
 
