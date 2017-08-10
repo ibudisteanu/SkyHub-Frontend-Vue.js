@@ -15,24 +15,16 @@
     <meta property="og:title"  content="{{ titleFacebook }}" />
     <meta property="og:description"  content="{{ descriptionFacebook }}" />
 
-    <!--if (is_string($MetaImage))-->
-    <!--echo '<meta property="og:image" content="'.$MetaImage.'" />';-->
-    <!--else-->
-    <!--if (is_array($MetaImage))-->
-    <!--foreach ($MetaImage as $Image)-->
-    <!--echo '<meta property="og:image" content="'.$Image['src'].'" />';-->
+    <meta property="og:image"  content="{{images[0].url}}"  />
+    <meta property="og:image:alt" content="{{images[0].alt}}" />
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@ibudisteanu" />
     <meta name="twitter:title" content="{{ titleTwitter }}" />
     <meta name="twitter:description" content="{{ descriptionTwitter }}" />
 
-    <!--if (is_string($MetaImage))-->
-        <!--echo '<meta name="twitter:image" content="'.$MetaImage.'" />';-->
-    <!--else-->
-    <!--if (is_array($MetaImage))-->
-    <!--foreach ($MetaImage as $Image)-->
-    <!--echo '<meta name="twitter:image" content="'.$Image['src'].'" />';-->
+    <meta property="twitter:image"  content="{{images[0].url}}" />
+    <meta property="twitter:image:alt" content="{{images[0].url}}"   />
 
     <meta charset="utf-8">
     <meta name="mobile-web-app-capable" content="yes">

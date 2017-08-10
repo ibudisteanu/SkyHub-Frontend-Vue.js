@@ -74,11 +74,11 @@ export default class Reply {
         if (Reply.attachments.length > 0 ) //I have an uploaded image
             for (let i=0; i<Reply.attachments.length; i++)
                 if ((Reply.attachments[i].type === "file")&&(Reply.attachments[i].typeFile.indexOf("image") >= 0 ))
-                    return Reply.attachments[0].img;
+                    return Reply.attachments[0];
 
         if (Attachments.getLinkAttachment(Reply) !== null) return Attachments.getLinkAttachment(Reply).img;
 
-        return '';
+        return {url:'', alt:'', image:''};
     }
 
     static getKeywords(Reply){

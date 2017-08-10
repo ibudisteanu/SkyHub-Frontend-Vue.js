@@ -56,8 +56,8 @@
                             <div class="container-fluid topic-question-body">
 
 
-                                <a v-if="getImage !==''" :href="getImage">
-                                    <img :src="getImage" :alt="getTitle" class="topic-question-image" />
+                                <a v-if="getImage.img !==''" :href="getImage">
+                                    <img :src="getImage.img" :alt="getTitle" class="topic-question-image" />
                                 </a>
 
                                 <div v-if="(this.viewMore === true) && (this.showPreview === true) && (this.previewStatus)">

@@ -19,6 +19,7 @@
 
     import Layout from 'client/components/Template/Layout/Layout.vue';
     import PageContent from './Content-Pages/PageContent.page.vue';
+    import Topic from 'models/Topic/Topic.model';
 
     export default {
 
@@ -73,9 +74,32 @@
         description: function() {
             return (this.currentObject !== null)
                 ?
-                    this.currentObject.shotDescription||this.currentObject.description||this.title
+                    this.currentObject.shortDescription||this.currentObject.description||this.title
                 :
-                    'Home'
+                null
+        },
+
+        keywords: function() {
+            return (this.currentObject !== null)
+                ?
+                this.currentObject.keywords||[]
+                :
+                null
+        },
+
+        images: function() {
+
+            if ((this.currentObject === null)||(typeof this.currentObject.attachments === 'undefined')) return null;
+            console.log('IMAGES',[Topic.getImage(this.currentObject)]);
+            console.log('IMAGES',[Topic.getImage(this.currentObject)]);
+            console.log('IMAGES',[Topic.getImage(this.currentObject)]);
+            console.log('IMAGES',[Topic.getImage(this.currentObject)]);
+            console.log('IMAGES',[Topic.getImage(this.currentObject)]);
+            return [Topic.getImage(this.currentObject)];
+
+//            let images = [];
+//            for(let i=0; i<this.currentObject.attachments.length; i++){
+//            }
         }
 
     }

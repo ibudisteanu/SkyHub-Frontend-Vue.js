@@ -88,11 +88,11 @@ export default class Topic {
       if (Topic.attachments.length > 0 ) //I have an uploaded image
         for (let i=0; i<Topic.attachments.length; i++)
           if ((Topic.attachments[i].type === "file")&&(Topic.attachments[i].typeFile.indexOf("image") >= 0 ))
-            return Topic.attachments[0].img;
+            return Topic.attachments[0];
 
-      if (Attachments.getLinkAttachment(Topic) !== null) return Attachments.getLinkAttachment(Topic).img;
+      if (Attachments.getLinkAttachment(Topic) !== null) return Attachments.getLinkAttachment(Topic);
 
-      return '';
+      return {url:'', alt:'', image:''};
     }
 
     static getKeywords(Topic){

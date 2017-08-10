@@ -135,6 +135,7 @@ function render (req, res) {
     descriptionTwitter:   'SkyHub Forum 2.0 Social Network', // default title
       
     keywords: 'social network, forum 2.0, forums, discussions, networks',
+    images: [{url:'/public/SkyHub-landing-image.jpg',alt:'SkyHub Forum 2.0 Social Network - Change the World'}],
     copyright: 'SkyHub Social Network - Forum 2.0',
     language: 'en-US',
     pageType: 'article',

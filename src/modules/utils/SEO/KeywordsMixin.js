@@ -15,7 +15,7 @@ function getKeywords (vm) {
             ? keywords.call(vm)
             : keywords || '';
 
-        if (typeof keywords === 'undefined') return '';
+        if ((typeof keywordsData === 'undefined')||(keywordsData === null)) return '';
         else return keywordsData.toString() //converting array to keywords string like "a,b,c,d"
     }
 }
