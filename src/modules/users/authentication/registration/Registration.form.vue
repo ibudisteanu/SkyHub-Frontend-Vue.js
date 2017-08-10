@@ -13,7 +13,7 @@
 
                 <div class="row" >
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" style="padding-left: 0">
                         <div :class="'input-group ' + showInputStatus(userNameValidationStatus)"  >
 
                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
@@ -25,7 +25,7 @@
                         <label class="error" >{{userNameValidationStatus[1]}}</label> <br />
                     </div>
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" style="padding-right: 0">
                         <div :class="'input-group ' + showInputStatus(emailAddressValidationStatus)"  >
 
                             <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
@@ -41,7 +41,7 @@
 
                 <div class="row" >
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" style="padding-left: 0">
                         <div :class="'input-group ' + showInputStatus(firstNameValidationStatus)"  >
 
                             <span class="input-group-addon"><i class="fa fa-font"></i></span>
@@ -53,7 +53,7 @@
                         <label class="error" >{{firstNameValidationStatus[1]}}</label> <br />
                     </div>
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" style="padding-right: 0">
                         <div :class="'input-group ' + showInputStatus(lastNameValidationStatus)"  >
 
                             <span class="input-group-addon"><i class="fa fa-bold"></i></span>
@@ -69,7 +69,7 @@
 
                 <div class="row" >
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" style="padding-left: 0">
                         <div :class="'input-group ' + showInputStatus(passwordValidationStatus)"  >
 
                             <span class="input-group-addon"><i class="fa fa-key"></i></span>
@@ -81,7 +81,7 @@
                         <label class="error" >{{passwordValidationStatus[1]}}</label> <br />
                     </div>
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" style="padding-right: 0">
                         <div :class="'input-group ' + this.showInputStatus(retypePasswordValidationStatus)" >
 
                             <span class="input-group-addon"><i class="fa fa-key"></i></span>
@@ -97,7 +97,7 @@
 
                 <div class="row" >
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" style="padding-left: 0">
                         <div :class="'input-group ' + this.showInputStatus(countryValidationStatus)"  >
 
 
@@ -108,7 +108,7 @@
                         <label class="error" >{{countryValidationStatus[1]}}</label> <br />
                     </div>
 
-                    <div class="col-sm-6" style='padding-bottom: 5px'>
+                    <div class="col-sm-6" style='padding-right: 0; padding-bottom: 5px'>
                         <div :class="'input-group ' + this.showInputStatus(cityValidationStatus)"  >
 
                             <span class="input-group-addon"><i class="fa fa-institution"></i></span>
@@ -125,7 +125,7 @@
 
                 <div class="form-group" >
                     <div class="row">
-                        <div class="col-xs-6" style='padding-top: 5px'>
+                        <div class="col-xs-6" style='padding-left: 0; padding-top: 5px'>
 
                             <div>
                                 <router-link to="/login" class="item-footer-menu" :event="''" @click.native.prevent="handleSwitchForm">
@@ -233,7 +233,7 @@
 
                 console.log(this.userName, this.emailAddress, this.firstName, this.lastName, this.password, this.retypePassword, this.latitude, this.longitude, this.city, this.country, this.ip);
 
-                if (this.$refs['refLoadingButtonLogin'].disabled === true) // avoid multiple post requests
+                if (this.$refs['refLoadingButtonRegistration'].disabled === true) // avoid multiple post requests
                     return false;
 
                 this.userNameValidationStatus = [null, ''];  this.emailAddressValidationStatus = [null, ''];  this.firstNameValidationStatus = [null, '']; this.lastNameValidationStatus = [null, ''], this.passwordValidationStatus = [null,  ''];

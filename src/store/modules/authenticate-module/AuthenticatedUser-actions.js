@@ -19,7 +19,7 @@ export default {
         if (User.isLoggedIn(state.user) === true) { console.log("user already logged in"); return {result:true, user:state.user} }; //already logged in
 
         let resData = await FetchService.sendRequestGetData("auth/login",{emailUsername:sEmailUserName, password:sPassword});
-
+        
         console.log('Answer from Server Auth Login', resData);
 
         if(resData.result === true) {
@@ -107,7 +107,7 @@ export default {
 
         if (resData.result === true) {
             resData.user.loggedIn = true;
-            await dispatch('AUTHENTICATE_USER_BY_LOGIN',{sEmailAddress:sEmailAddress, sPassword: sPassword});
+            await dispatch('AUTHENTICATE_USER_BY_LOGIN',{sEmailUserName:sEmailAddress, sPassword: sPassword});
         }
 
         return resData;

@@ -35,7 +35,6 @@ export default{
         state.replies = {};
     },
 
-
     SET_CONTENT_REPLIES_PAGE_INFORMATION: (state, {  pageIndex, pageCount }) => {
 
         state.pageIndex = pageIndex;
