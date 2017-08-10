@@ -14,6 +14,7 @@ import DescriptionMixin from './modules/utils/SEO/DescriptionMixin';
 import DescriptionFacebookMixin from './modules/utils/SEO/DescriptionFacebookMixin';
 import DescriptionTwitterMixin from './modules/utils/SEO/DescriptionTwitterMixin';
 import KeywordsMixin from './modules/utils/SEO/KeywordsMixin';
+import ImagesMixin from './modules/utils/SEO/ImagesMixin';
 
 
 import * as filters from './modules/hackernews/util/filters'
@@ -28,6 +29,7 @@ Vue.mixin(DescriptionMixin);
 Vue.mixin(DescriptionFacebookMixin);
 Vue.mixin(DescriptionTwitterMixin);
 Vue.mixin(KeywordsMixin);
+Vue.mixin(ImagesMixin);
 
 // register global utility helpers.
 Object.keys(UtilitiesFunctions).forEach(key => {
