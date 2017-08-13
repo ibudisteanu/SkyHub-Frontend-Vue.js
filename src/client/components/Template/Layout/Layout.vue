@@ -82,7 +82,7 @@
 
                 if (typeof window !== "undefined")
                     if (this.$store.getters.isUserLoggedIn)
-                        document.body.className = document.body.className.replace("mini-navbar top-navigation","");
+                        document.body.className = document.body.className.replace("mini-navbar top-navigation","fixed-sidebar ");
                     else {
                         if (document.body.className.indexOf("mini-navbar top-navigation") < 0)
                             document.body.className += " mini-navbar top-navigation ";

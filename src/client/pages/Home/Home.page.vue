@@ -21,6 +21,20 @@
     import PageContent from './Content-Pages/PageContent.page.vue';
     import Topic from 'models/Topic/Topic.model';
 
+    function checkPageIndex(a, b){
+        if ((b!=='')&&(!isNaN(b))) {
+            let pageIndex = parseInt(b);
+            let pageType = '';
+            if ((a === 'forums'))
+                pageType = a;
+            return {
+                pageIndex: pageIndex,
+                pageType: pageType,
+            }
+        }
+        return null;
+    }
+
     export default {
 
         name: 'HomePage',
@@ -28,13 +42,46 @@
         components: { Layout, PageContent },
 
         //async asyncData ({ store,  route: { params: { url }} }) {
-        async asyncData ({ store,  route: { params: { a,b,c }} }) {
+        //  forum-name
+        //  forum-name/topic-name
+        //  forum-name/topic/3
+        //  forum-name/forums/3
+
+        async asyncData ({ store,  route: { params: { a,b, c, d }} }) {
+
+            let pageInfo = {
+                pageIndex: 0,
+                pageType: '',
+            };
+
+            if (checkPageIndex(c,d) !== null){
+                pageInfo = checkPageIndex(c,d);
+                if (pageInfo.pageIndex !== 0) d = '';
+                if (pageInfo.pageType !== '') c = '';
+            } else
+            if (checkPageIndex(b,c) !== null){
+                pageInfo = checkPageIndex(b,c);
+                if (pageInfo.pageIndex !== 0) c = '';
+                if (pageInfo.pageType !== '') b = '';
+            } else
+            if (checkPageIndex(a,b) !== null){
+                pageInfo = checkPageIndex(a,b);
+                if (pageInfo.pageIndex !== 0) b = '';
+                if (pageInfo.pageType !== '') a = '';
+            }else
+            if (checkPageIndex('',a) !== null){
+                pageInfo = checkPageIndex('',a);
+                if (pageInfo.pageIndex !== 0) a = '';
+            }
+
+            console.log(a,b,c,d);
 
             //url = store.state.route.fullPath.toString();
             let url = '';
             if (typeof a !== 'undefined') url += '/'+a;
             if (typeof b !== 'undefined') url += '/'+b;
             if (typeof c !== 'undefined') url += '/'+c;
+            if (typeof d !== 'undefined') url += '/'+d;
 
             if (url === '/index.htm') url = ''; //forward bug fix
 
@@ -58,6 +105,10 @@
             parentObject(){
                 return this.$store.state.content.contentRouter.parentObject.object;
             },
+        },
+
+        methods:{
+
         },
 
         /*
@@ -90,11 +141,7 @@
         images: function() {
 
             if ((this.currentObject === null)||(typeof this.currentObject.attachments === 'undefined')) return null;
-            console.log('IMAGES',[Topic.getImage(this.currentObject)]);
-            console.log('IMAGES',[Topic.getImage(this.currentObject)]);
-            console.log('IMAGES',[Topic.getImage(this.currentObject)]);
-            console.log('IMAGES',[Topic.getImage(this.currentObject)]);
-            console.log('IMAGES',[Topic.getImage(this.currentObject)]);
+
             return [Topic.getImage(this.currentObject)];
 
 //            let images = [];

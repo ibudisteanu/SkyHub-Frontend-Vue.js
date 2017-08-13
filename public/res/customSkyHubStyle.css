@@ -13,6 +13,11 @@
   hyphens: auto;
 }
 
+.col-centered{
+    width: 100%;
+    text-align: center;
+}
+
 .cursor{
     cursor: pointer;
     cursor: hand;
@@ -39,9 +44,9 @@
 }
 
 
-    /*
-            FIX LEFT SIDE BAR (it was too big)
-     */
+/*
+        FIX LEFT SIDE BAR (it was too big)
+ */
 
 @media (min-width: 768px) {
     .navbar-static-side {
@@ -53,6 +58,11 @@
     #page-wrapper {
         margin-left: 180px;
     }
+}
+
+.navbar-static-side
+{
+    width: 180px !important;
 }
 
 /*

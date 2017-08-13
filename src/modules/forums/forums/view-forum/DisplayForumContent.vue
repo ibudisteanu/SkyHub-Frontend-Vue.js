@@ -8,11 +8,14 @@
 
         <div class="row">
             <PreviewForums :forums="forums" :parentId="getForumId" :hasNext="forumsHasNext" />
+            <Pagination :hasNext="forumsHasNext" prefix="forums" />
         </div>
 
         <div class="row" style='padding-bottom: 20px; padding-top:20px'>
             <ContentButtons :enableAddReply="false" :parentId="getForumId" :parentName="getForumName" buttonsRowStyle="text-align: center; padding-bottom:20px" />
         </div>
+
+        <Pagination :hasNext="true" />
 
         <div class="row" style='padding-bottom: 20px'>
 
@@ -34,6 +37,7 @@
     import PreviewTopics from 'modules/forums/topics/view-topic/PreviewTopics.vue';
 
     import ContentButtons from 'modules/forums/components/ContentButtons.component.vue';
+    import Pagination from 'client/components/util-components/UI/pagination/Pagination.component.vue';
 
     export default{
         name: 'DisplayForumContent',
@@ -42,6 +46,7 @@
             'PreviewForums': PreviewForums,
             'PreviewTopics': PreviewTopics,
             'ContentButtons': ContentButtons,
+            'Pagination' : Pagination,
         },
 
         computed:{

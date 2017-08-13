@@ -92,7 +92,7 @@ export default class Topic {
 
       if (Attachments.getLinkAttachment(Topic) !== null) return Attachments.getLinkAttachment(Topic);
 
-      return {url:'', alt:'', image:''};
+      return {url:'', alt:'', img:''};
     }
 
     static getKeywords(Topic){

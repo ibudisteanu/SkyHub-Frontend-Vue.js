@@ -13,7 +13,7 @@
             <div>
                 <div class="anchor" style='padding-left: 42px' >
 
-                    <img v-if="getTopicImage !== ''" class="table-forums-topic-image" :src="getTopicImage" :alt="getTopicTitle" />
+                    <img v-if="getTopicImage.img !== ''" class="table-forums-topic-image" :src="getTopicImage.img" :alt="getTopicTitle" />
 
                     <router-link :to="'/'+topic.URL" :disableLink="this.showPreview" >
                         <h4 class="table-forums-topic-title" v-html="getTopicTitle"></h4>

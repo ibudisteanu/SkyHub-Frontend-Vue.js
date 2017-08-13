@@ -5,28 +5,28 @@
 
 
 <template>
-   <div>
-           <HeaderCover  v-if=" (routerObject.object !== null) && (routerObject.notFound === false)"
-                         :title="routerObject.object.title||''"
-                         :subTitle="routerObject.object.description||''"
-                         :icon="routerObject.object.iconPic||''"
-                         :cover="routerObject.object.coverPic||''"
-                         :coverColor="routerObject.object.coverColor||''"
-                         :breadcrumbs="routerObject.object.breadcrumbs||[]"
-                         :url="routerObject.object.URL"
+    <div>
 
-                         :enableChangeIcon = "routerObject.object.isOwner"
-                         :enableChangeCover = "routerObject.object.isOwner"
+        <HeaderCover  v-if=" (routerObject.object !== null) && (routerObject.notFound === false)"
+                      :title="routerObject.object.title||''"
+                      :subTitle="routerObject.object.description||''"
+                      :icon="routerObject.object.iconPic||''"
+                      :cover="routerObject.object.coverPic||''"
+                      :coverColor="routerObject.object.coverColor||''"
+                      :breadcrumbs="routerObject.object.breadcrumbs||[]"
+                      :url="routerObject.object.URL"
 
-                         @onIconChanged = "iconChanged"
-                         @onCoverChanged = "coverChanged"
+                      :enableChangeIcon = "routerObject.object.isOwner"
+                      :enableChangeCover = "routerObject.object.isOwner"
+
+                      @onIconChanged = "iconChanged"
+                      @onCoverChanged = "coverChanged"
 
            />
 
-           <WebsiteHeaderCover v-else />
+        <WebsiteHeaderCover v-else />
 
-
-           <div style='position: relative; z-index: 2 '>
+        <div style='position: relative; z-index: 2 '>
 
               <div v-if="(routerObject.notFound === false)">
 
@@ -42,9 +42,9 @@
                 </div>
               </div>
 
-           </div>
+        </div>
 
-          <DisplayForumContent/>
+      <DisplayForumContent/>
 
     </div>
 </template>

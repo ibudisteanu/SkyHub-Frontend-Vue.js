@@ -41,6 +41,7 @@ export function createRouter () {
 
       // { path: '/:url*', component: HomePage },
 
+      { path: '/:a?/:b?/:c?/:d?', component: HomePage },
       { path: '/:a?/:b?/:c?', component: HomePage },
       { path: '/:a?/:b?', component: HomePage },
       { path: '/:a?', component: HomePage },
