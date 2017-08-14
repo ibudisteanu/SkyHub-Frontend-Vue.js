@@ -37,8 +37,11 @@
               let diff = dateNow - myDate;
 
               let diffYears =  Math.trunc(diff / (1000 * 60 * 60 * 24 * 30 * 12));
+              diff %= (1000 * 60 * 60 * 24 * 30 * 12);
               let diffMonths = Math.trunc(diff / (1000 * 60 * 60 * 24 * 30));
+              diff %= (1000 * 60 * 60 * 24 * 30);
               let diffDays =   Math.trunc(diff / (1000 * 60 * 60 * 24));
+              diff %= (1000 * 60 * 60 * 24);
 
               // console.log("my date",myDate, dateNow, dateNow-myDate);
               // console.log("diff", diff, diffYears, diffMonths, diffDays);
@@ -54,6 +57,7 @@
               }
 
               let diffHours = Math.trunc(diff / (1000 * 60 * 60));
+              diff %= (1000 * 60 * 60);
 
               if (diffMonths > 0){
                   result = diffMonths + 'm ';
@@ -63,6 +67,7 @@
               }
 
               let diffMinutes = Math.trunc(diff / (1000 * 60));
+              diff %= (1000 * 60);
 
               if (diffDays > 0){
                   result = diffDays + 'd ';
@@ -73,6 +78,7 @@
               }
 
               let diffSeconds = Math.trunc(diff / 1000);
+              diff %= 1000;
 
               if (diffHours > 0){
                   result = diffHours + 'h ';

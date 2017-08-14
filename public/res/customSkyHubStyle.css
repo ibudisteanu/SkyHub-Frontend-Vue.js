@@ -3,6 +3,10 @@
   cursor: default;
 }
 
+.invizibil-element{
+    display: none;
+}
+
 .word-wrap{
   -ms-word-break: break-all;
   word-break: break-all;

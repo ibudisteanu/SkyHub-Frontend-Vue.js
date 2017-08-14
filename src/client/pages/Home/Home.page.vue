@@ -91,7 +91,9 @@
             console.log("%%%%%%%%%%%%%%% ASYNC DATA", url);
             await store.dispatch('LOCALIZATION_FETCH', {ip: ''}); //the localization is required...
 
-            await store.dispatch('CONTENT_FETCH_ROUTER_OBJECT_AND_CONTENT', {url} );
+            let pageIndex = pageInfo.pageIndex;
+            let pageType = pageInfo.pageType;
+            await store.dispatch('CONTENT_FETCH_ROUTER_OBJECT_AND_CONTENT', {url, pageIndex, pageType} );
 
             return true;
 

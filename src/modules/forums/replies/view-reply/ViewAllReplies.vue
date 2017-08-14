@@ -63,11 +63,30 @@
                 ///console.log("@@@@@@@@@@@ REPLIES LIST", repliesList);
 
                 if ((typeof repliesList !== "undefined")){
-                    if (!Array.isArray(repliesList)) repliesList = [repliesList]
+                    if (!Array.isArray(repliesList)) repliesList = [repliesList];
 
                     for (let i=0; i<repliesList.length; i++)
                         if ((repliesList[i] !== null)&&(repliesList[i].parentReplyId == this.parentReplyId)&&(repliesList[i].parentId == this.parentId))
                             result.push(repliesList[i]);
+
+                    if ((result.length === 0)&&(this.parentReplyId==='')) {
+
+
+                        for (let i = 0; i < repliesList.length; i++){
+                            if (repliesList[i].parentId == this.parentId) {
+
+                                let foundParent = false;
+                                for (let j = 0; j < repliesList.length; j++)
+                                    if (i !== j)
+                                        if ((repliesList[j].id == repliesList[i].parentReplyId))
+                                            foundParent = true;
+
+                                if (foundParent === false)
+                                    result.push(repliesList[i]);
+
+                            }
+                        }
+                    }
 
                 }
 

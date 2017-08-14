@@ -20,7 +20,20 @@ export function createRouter () {
 
   return new Router({
     mode: 'history',
-    scrollBehavior: () => ({ y: 0 }),
+    scrollBehavior(to, from, savedPosition) {
+        console.log(to, from, to === from);
+
+        if (savedPosition) {
+            return savedPosition
+        } else {
+            if (to.hash) {
+                return {
+                    selector: to.hash
+                }
+            }
+        }
+
+    },
     routes: [
       { path: '/hn/top/:page(\\d+)?', component: createListView('top') },
       { path: '/hn/new/:page(\\d+)?', component: createListView('new') },

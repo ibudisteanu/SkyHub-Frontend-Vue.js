@@ -1,32 +1,37 @@
 <template>
 
-    <nav aria-label="Pagination" class="col-centered">
+    <nav aria-label="Pagination" :class="'col-centered ' + (this.hidden ? 'invizibil-element' : '')">
 
         <ul class="pagination">
             <li :class="'page-item '+ (this.pageIndex <= 1 ? 'disabled' : '')">
-                <a class="page-link" href="#" tabindex="-1">
+                <router-link class="page-link" :to="getURL+(this.pageIndex-1)">
                     <i class="fa fa-angle-double-left"></i>
                     Previous
-                </a>
+                </router-link>
             </li>
 
             <li v-if="this.pageIndex > 1" class="page-item">
-                <a class="page-link" :href="getURL+(this.pageIndex-1)">{{this.pageIndex-1}}</a>
+                <router-link class="page-link" :to="getURL+(this.pageIndex-1)">
+                    {{this.pageIndex-1}}
+                </router-link>
             </li>
             <li class="page-item active">
-                <a class="page-link" href="#">{{this.pageIndex}}
+                <router-link class="page-link" :to="getURL+(this.pageIndex)">
+                    {{this.pageIndex}}
                     <span class="sr-only">(current)</span>
-                </a>
+                </router-link>
             </li>
             <li v-if="this.hasNext" class="page-item">
-                <a class="page-link" :href="getURL+(this.pageIndex+1)">{{this.pageIndex+1}}</a>
+                <router-link class="page-link" :to="getURL+(this.pageIndex+1)"  >
+                    {{this.pageIndex+1}}
+                </router-link>
             </li>
 
             <li :class="'page-item' + (this.hasNext === false ? 'disabled' : '')">
-                <a class="page-link" :href="getURL+(this.pageIndex+1)">
+                <router-link class="page-link" :to="getURL+(this.pageIndex+1)">
                     Next
                     <i class="fa fa-angle-double-right"></i>
-                </a>
+                </router-link>
             </li>
         </ul>
 
@@ -44,12 +49,19 @@
             'hasNext': {default: true},
             'url': {default: ''},
             'prefix': {default: ''},
+            'hidden': {default: false},
         },
 
         computed:{
             getURL(){
-                let str = this.url.replace(/\/$/, "");
-                return (str !== '' ? str+'/' : '')+(this.prefix !== '' ? this.prefix+'/' : '');
+                let str = this.url.replace(this.prefix,"");
+                if (str !== '/')
+                    str = str.replace(/\/$/, "");
+
+                if ((str !== '') && (str !== '/'))
+                    str = str + '/';
+
+                return str + (this.prefix !== '' ? this.prefix+'/' : '');
             }
         }
 

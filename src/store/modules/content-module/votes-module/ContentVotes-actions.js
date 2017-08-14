@@ -22,7 +22,11 @@ export default{
             await commit('SET_CONTENT_VOTE_LOADING_STATUS',{parentId: parentId, loadingStatus: false});
 
             if (resData.result){
-                Voting.addVote( state.votes[parentId], userId, voteType );
+                let answer = Voting.addVote( state.votes[parentId], userId, voteType );
+                if (answer.result === true){
+                    let vote = answer.voting;
+                    await commit('SET_CONTENT_VOTE',{vote});
+                }
             }
 
             return resData;

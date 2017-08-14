@@ -50,6 +50,7 @@ export default class Voting {
             return {result:false, message: 'You need to be logged in'};
 
         let voteIndex = this.voteExists(Voting, authorId);
+        let incrementVote = false;
 
         if (voteIndex !== null){
 
@@ -60,31 +61,40 @@ export default class Voting {
 
             if (Voting.votes[voteIndex].voteType !== VoteType.VOTE_NONE) {
                 switch (Voting.votes[voteIndex].voteType){
-                    case voteType.VOTE_UP:
+                    case VoteType.VOTE_UP:
                         Voting.ups--;
                         break;
-                    case voteType.VOTE_DOWN:
+                    case VoteType.VOTE_DOWN:
                         Voting.downs--;
                         break;
                 }
             }
 
-            Voting.votes[voteIndex].voteType =  voteType;
+            if (Voting.votes[voteIndex].voteType !== voteType){
+                Voting.votes[voteIndex].voteType =  voteType;
+                incrementVote = true;
+            }
+        } else{
+            Voting.votes.push(new Vote({userId: authorId, voteType: voteType}));
+            incrementVote = true;
+        }
+
+        console.log('Voting',voteType, Voting);
+
+        if (incrementVote === true)
             switch (voteType){
-                case voteType.VOTE_UP:
+                case VoteType.VOTE_UP:
                     Voting.ups++;
                     break;
-                case voteType.VOTE_DOWN:
+                case VoteType.VOTE_DOWN:
                     Voting.downs++;
                     break;
             }
 
-            return {result : true};
-        }
+        console.log('Voting',voteType, Voting);
 
-        Voting.votes.push(new Vote({userId: authorId, voteType: voteType}));
-        Voting.value += voteType;
-        return {result : true};
+
+        return {result : true, voting: Voting};
     }
 
     static removeVote ( Voting ){
