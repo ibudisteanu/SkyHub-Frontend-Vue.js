@@ -22,15 +22,13 @@ export default class Reply {
         this.description = data.description || '';
         this.shortDescription = data.shortDescription || '';
 
-        console.log('description ---',this.description);
         this.description = sanitizeAdvanced(this.description);
-        this.shortDescription = sanitizeAdvancedShortDescription(this.shortDescription);
+        this.shortDescription = sanitizeAdvancedShortDescription(this.shortDescription||this.description,512);
 
         this.viewMore = false;
         if (this.description !== this.shortDescription)
             this.viewMore = true;
 
-        console.log('description format ---',this.description);
 
         this.preview = data.preview||false;
 

@@ -17,7 +17,7 @@ export default class Topic {
         this.shortDescription = data.shortDescription || '';
 
         this.description = sanitizeAdvanced(this.description);
-        this.shortDescription = sanitizeAdvancedShortDescription(this.shortDescription);
+        this.shortDescription = sanitizeAdvancedShortDescription(this.shortDescription||this.description, 512);
 
         this.viewMore = false;
         if (this.description !== this.shortDescription)

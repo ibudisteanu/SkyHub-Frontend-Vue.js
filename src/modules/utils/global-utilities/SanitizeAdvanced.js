@@ -3,7 +3,7 @@ import sanitizeHtml from 'sanitize-html';
 export function sanitizeAdvanced(text) {
     return sanitizeHtml(text,
         {
-            allowedTags: ['a','b','i','u','strong', 'h1','h2','h3','h4','h5','div','font','ul','li','img', 'br', 'span','p','div','em','iframe'],
+            allowedTags: ['a','b','i','u','strong', 'h1','h2','h3','h4','h5','div','font','ul','li', 'br', 'span','p','div','em','iframe','img'],
             allowedAttributes: {
                 'a': [ 'href' ],
                 'img': ['class','src','width','height', 'style','width','height'],
@@ -20,7 +20,7 @@ export function sanitizeAdvanced(text) {
 export function sanitizeAdvancedSimple(text) {
     return sanitizeHtml(text,
         {
-            allowedTags: ['a','b','i','u','strong','div','font','ul','li', 'br', 'span','p','div','em','iframe'],
+            allowedTags: ['a','b','i','u','strong','div','font','ul','li', 'br', 'span','p','div','em','iframe','img'],
             allowedAttributes: {
                 'a': [ 'href' ],
                 'img': ['class','src','width','height', 'style','width','height'],
