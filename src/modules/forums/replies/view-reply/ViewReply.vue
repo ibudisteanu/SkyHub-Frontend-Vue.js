@@ -50,7 +50,7 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
                 <DisplayAttachments :attachments="reply.attachments||[]" />
             </div>
 
-            <div class="reply-form-footer-buttons" v-if="!this.showPreview">
+            <div class="reply-form-footer-buttons" v-if="!this.previewAddReply">
                 <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="reply.parentId" parentName="" :parentReplyId="reply.id" :parentReplyName="reply.title" :isOwner="this.$store.state.authenticatedUser.user , reply | checkOwner" />
             </div>
 
@@ -112,6 +112,8 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
             parentId: {default: null},
             showPreview : {default: false},
 
+            previewAddReply: {default: false},
+
         },
 
         data: function () {
@@ -125,7 +127,7 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
 
             getDescription(){
                 if ((typeof (this.reply) === 'undefined')||(this.reply === null)) return '';
-                return Reply.getShortDescription(this.reply)||'';
+                return Reply.getDescription(this.reply)||'';
             },
 
             getShortDescription(){

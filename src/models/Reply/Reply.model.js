@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 
 import Attachments from 'models/Attachment/Attachments.model';
-import sanitizeHtml from 'sanitize-html';
+import {sanitizeAdvanced, sanitizeAdvancedShortDescription} from 'modules/utils/global-utilities/SanitizeAdvanced';
 
 export default class Reply {
 
@@ -22,13 +22,15 @@ export default class Reply {
         this.description = data.description || '';
         this.shortDescription = data.shortDescription || '';
 
-        this.description = sanitizeHtml(this.description);
-        this.shortDescription = sanitizeHtml(this.shortDescription);
+        console.log('description ---',this.description);
+        this.description = sanitizeAdvanced(this.description);
+        this.shortDescription = sanitizeAdvancedShortDescription(this.shortDescription);
 
+        this.viewMore = false;
         if (this.description !== this.shortDescription)
             this.viewMore = true;
-        else
-            this.viewMore = false;
+
+        console.log('description format ---',this.description);
 
         this.preview = data.preview||false;
 

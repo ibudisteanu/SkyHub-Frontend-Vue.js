@@ -8,7 +8,7 @@
 
     <div style='background-color: aliceblue;'>
 
-        <ViewReply :reply="this.reply"  :showPreview="true" />
+        <ViewReply :reply="this.reply"  :showPreview="true" :previewAddReply="true" />
 
     </div>
 
@@ -42,7 +42,7 @@
                     title: this.title,
                     image: this.image,
                     description: this.description,
-                    shortDescription: (this.description.length > 500 ? this.description.substr(0, 500) : this.description),
+                    shortDescription: (this.description.length > 512 ? this.description.substr(0, 512) : this.description),
                     authorId: this.authorId,
                     attachments: this.attachments,
 

@@ -44,7 +44,7 @@
                     title: this.title,
                     image: this.image,
                     description: this.description,
-                    shortDescription: (this.description.length > 500 ? this.description.substr(0, 500) : this.description),
+                    shortDescription: (this.description.length > 512 ? this.description.substr(0, 512) : this.description),
                     keywords: this.keywords,
                     authorId: this.authorId,
                     attachments: this.attachments,

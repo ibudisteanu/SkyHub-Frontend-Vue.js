@@ -12,6 +12,7 @@
 
 <template>
     <div>
+
        <ViewReply
               v-for="(reply, index) in getChildReplies"
               :reply="reply"
@@ -19,11 +20,11 @@
               :parentReplyId = "parentReplyId"
               :key="reply.id"
 
-              :showPreview="this.showPreview"
+              :showPreview="showPreview"
 
-      >
+       >
 
-      </ViewReply>
+       </ViewReply>
     </div>
 
 </template>
