@@ -25,6 +25,17 @@ export default {
 
     },
 
+    SET_AUTHENTICATED_NEW_USER: (state , { newUser}) => {
+        state.user = newUser;
+
+    },
+
+    SET_AUTHENTICATED_PROFILE_PIC: (state , { userId, profilePic}) => {
+
+        if (state.user.id||'' === userId){
+            state.user.profilePic = profilePic;
+        }
+    },
 
     SET_USER_LOGOUT: ( state, {  }) => {
         console.log('==== SET_USER_LOGOUT');

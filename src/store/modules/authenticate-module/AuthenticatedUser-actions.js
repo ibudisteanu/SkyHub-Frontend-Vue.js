@@ -42,9 +42,9 @@ export default {
             return {result:false, message: 'sessionId is empty'};
         }
 
-        if (User.isLoggedIn(state.user) === true) {     //already logged in
-            return ( {result: true, user: state.user, sessionId: sessionId});
-        }
+        // if (User.isLoggedIn(state.user) === true) {     //already logged in
+        //     return ( {result: true, user: state.user, sessionId: sessionId});
+        // }
 
         console.log('Fetching session', sessionId, state.user.lastName);
         let resData = await FetchService.sendRequestGetData("auth/login-session", {sessionId: sessionId });
@@ -147,9 +147,6 @@ export default {
         return resData;
 
     },
-
-
-
 
 }
 

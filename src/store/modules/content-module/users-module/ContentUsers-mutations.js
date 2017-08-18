@@ -18,6 +18,15 @@ export default{
     
         Vue.set(state.loading, userId, status )
     
-    }, 
+    },
+
+    SET_CONTENT_USER_PROFILE_PIC: (state, {userId, profilePic}) => {
+
+        let user = state.users[userId];
+        if ((typeof user !== 'undefined')&&(user !== null)){
+            user.profilePic = profilePic;
+            Vue.set(state.users, userId, user);
+        }
+    },
 
 }

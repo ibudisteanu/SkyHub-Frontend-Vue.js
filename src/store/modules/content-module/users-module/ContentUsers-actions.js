@@ -42,4 +42,26 @@ export default{
 
     },
 
+    CONTENT_USERS_CHANGE_PROFILE_PIC: async ({commit, state, dispatch}, {userId, profilePic}) => {
+
+        try {
+
+            if ((userId === '')||(typeof userId === 'undefined')) return {result: false };
+
+            console.log('CONTENT_USERS_CHANGE_PROFILE_PIC 1',userId, profilePic);
+
+            let resData =  await FetchService.sendRequestGetData("users/set-profile-pic", {userId: userId, profilePic: profilePic }, userId);
+
+            console.log('CONTENT_USERS_CHANGE_PROFILE_PIC',resData);
+
+            if (resData.result){
+                await commit('SET_CONTENT_USER_PROFILE_PIC',{userId: userId, profilePic: profilePic});
+                await commit('SET_AUTHENTICATED_PROFILE_PIC',{userId: userId, profilePic: profilePic});
+            }
+
+        } catch (Exception){
+            console.log("Exception getting the user ",Exception.toString());
+        }
+    }
+
 }

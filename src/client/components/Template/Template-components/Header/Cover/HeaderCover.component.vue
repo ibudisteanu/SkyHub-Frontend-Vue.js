@@ -26,7 +26,7 @@
 
                         <div class="image-with-caption-link" style="display: inline-block" @click="handleShowIconImageCropUploadModal"    @mouseover="imageIconActive=true; " @mouseout="imageIconActive=false">
                             <router-link :to="''" style="margin-bottom: 0">
-                                <img :class="(showPicBorder ? 'profile-pic' : '')" :src="icon||'/public/SkyHub-logo-square.png'" />
+                                <img :class="(showPicBorder ? 'profile-pic-white-border' : '')" :src="icon||'/public/SkyHub-logo-square.png'" />
                                 <span v-if="enableChangeIcon" :style="showPicBorder ? 'margin-left: 5px; margin-bottom: 5px; width: 90%;' : '' + 'color:white' + 'opacity: '+(imageIconActive ?  1 : 0.7)" ><i class="fa fa-picture-o"/> {{imageIconActive ? 'Change Picture' : ''}}</span>
                             </router-link>
                         </div>

@@ -21,7 +21,7 @@ export function createRouter () {
   return new Router({
     mode: 'history',
     scrollBehavior(to, from, savedPosition) {
-        console.log(to, from, to === from);
+        //console.log('router scroll', to, from, to === from);
 
         if (savedPosition) {
             return savedPosition

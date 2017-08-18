@@ -4,6 +4,8 @@
 
             {{this.checkAuthenticatedUser}}
 
+            <a id="top"></a>
+
             <LayoutBody>
 
                 <div slot="content">

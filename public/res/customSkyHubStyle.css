@@ -144,10 +144,19 @@
   text-align: center;
 }
 
-.profile-pic{
+.profile-pic-white-border{
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 4px;
+    -webkit-transition: border .2s ease-in-out;
+    -o-transition: border .2s ease-in-out;
+    transition: border .2s ease-in-out;
+    padding: 4px;
+}
+
+.profile-pic-white-border-circle{
+    background-color: #fff;
+    border: 1px solid #ddd;
     -webkit-transition: border .2s ease-in-out;
     -o-transition: border .2s ease-in-out;
     transition: border .2s ease-in-out;

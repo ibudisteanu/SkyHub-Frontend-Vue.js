@@ -6,7 +6,7 @@
 
 <template>
 
-    <router-link :to="'/'+forum.URL" >
+    <router-link :to="'/'+forum.URL+'#top'" >
         <img class="opacity-effect" :src="forum.iconPic||''" :style="{backgroundColor: '#'+forum.coverColor||'#79B0EC',   width: '150px', height: '150px'}" />
         <span>{{ typeof forum.title === 'string' && forum.title.length > 50 ? forum.title.substr(0,50)+'...' : forum.title}}</span>
     </router-link>

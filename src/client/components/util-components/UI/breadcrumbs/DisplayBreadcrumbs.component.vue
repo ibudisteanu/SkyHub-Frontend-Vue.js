@@ -8,7 +8,7 @@
   <ol class="breadcrumb" >
 
     <li v-if="currentPageUrl !== '/' && currentPageUrl !== ''" key="breadcrumb_home">
-      <router-link to="/" >
+      <router-link to="/#top" >
           <i class="fa fa-home">
             Home
           </i>
@@ -18,14 +18,14 @@
     <li   v-for="(breadcrumb, index) in breadcrumbs"
           :key="'breadcrumb_'+breadcrumb.name+'_'+index"
     >
-      <router-link :key="'breadcrumb_'+breadcrumb.name+'_'+index" :to="'/'+breadcrumb.url" >
+      <router-link :key="'breadcrumb_'+breadcrumb.name+'_'+index" :to="'/'+breadcrumb.url+'#top'" >
         {{typeof breadcrumb.name === 'string' && breadcrumb.name.length > 30 ? breadcrumb.name.substr(0,30)+'...' :  breadcrumb.name}}
       </router-link>
 
     </li>
 
     <li  class="active" key="breadcrumb_current_Page">
-      <router-link key="breadcrumb_current_Page" :to="'/'+currentPageUrl" >
+      <router-link key="breadcrumb_current_Page" :to="'/'+currentPageUrl+'#top'" >
 
         <i v-if="this.getPageTitle === 'Home'" class="fa fa-home"> </i>
 

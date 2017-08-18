@@ -36,11 +36,6 @@ Object.keys(UtilitiesFunctions).forEach(key => {
   Vue.filter(key, UtilitiesFunctions[key])
 });
 
-// register global utility filters.
-// Object.keys(filters).forEach(key => {
-//     Vue.filter(key, filters[key])
-// });
-
 // Expose a factory function that creates a fresh set of store, router,
 // app instances on each call (which is called for each SSR request)
 export function createApp () {

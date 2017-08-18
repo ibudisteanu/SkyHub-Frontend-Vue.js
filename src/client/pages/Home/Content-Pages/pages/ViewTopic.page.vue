@@ -9,7 +9,7 @@
     <div>
         <HeaderCover  v-if=" (getTopic !== null) && (getTopicRouter.notFound === false)"
                       :title="getTopic.title||''"
-                      :subTitle="getTopic.shortDescription||''"
+                      :subTitle="' '"
                       :icon="getParentForum.iconPic||''"
                       :cover="getTopic.coverPic||getParentForum.coverPic||''"
                       :coverColor="getParentForum.coverColor||''"

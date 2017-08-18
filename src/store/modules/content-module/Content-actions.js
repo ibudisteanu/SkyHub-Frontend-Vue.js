@@ -26,8 +26,8 @@ export default{
             switch (state.contentRouter.currentObject.type){
                 case "home":
                 case "forum":
-                    await dispatch('CONTENT_FORUMS_FETCH_TOP',{parent: id,  pageIndex: ((pageIndex > 0 && pageType==='forums') ? pageIndex : 1), pageCount:8, reset: (typeof window === 'undefined'), });
-                    await dispatch('CONTENT_TOPICS_FETCH_TOP',{parent: id,  pageIndex: ((pageIndex > 0 && pageType==='') ? pageIndex : 1), pageCount:8, reset: (typeof window === 'undefined'), });
+                    await dispatch('CONTENT_FORUMS_FETCH_TOP',{parent: id,  pageIndex: ((pageIndex > 0 && pageType==='forums') ? pageIndex : 1), pageCount:8, reset: (typeof window === 'undefined')||(pageIndex===0), });
+                    await dispatch('CONTENT_TOPICS_FETCH_TOP',{parent: id,  pageIndex: ((pageIndex > 0 && pageType==='') ? pageIndex : 1), pageCount:8, reset: (typeof window === 'undefined')||(pageIndex===0), });
                     break;
                 case "topic":
                     await dispatch('CONTENT_REPLIES_FETCH_ALL',{parent: id, reset:true, });
