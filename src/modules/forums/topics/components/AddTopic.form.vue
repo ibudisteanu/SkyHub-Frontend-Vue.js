@@ -331,10 +331,10 @@
                         for (let i=0; i<newAttachments.length; i++ )
                             if (newAttachments[i].type === 'link'){
                                 newAttachments[i].url = link;
-                                newAttachments[i].img = (typeof answer.data !== "undefined" ? answer.data.image : '');
-                                newAttachments[i].title = (typeof answer.data !== "undefined" ? answer.data.title : '');
-                                newAttachments[i].description = (typeof answer.data !== "undefined" ? answer.data.description : '');
-                                newAttachments[i].keywords = (typeof answer.data !== "undefined" ? answer.data.keywords : '');
+                                newAttachments[i].img = (typeof answer.data !== "undefined" ? answer.data.image||'' : '');
+                                newAttachments[i].title = (typeof answer.data !== "undefined" ? answer.data.title||'' : '');
+                                newAttachments[i].description = (typeof answer.data !== "undefined" ? answer.data.description||'' : '');
+                                newAttachments[i].keywords = (typeof answer.data !== "undefined" ? answer.data.keywords||'' : '');
                                 bFound=true;
                                 break;
                             }
