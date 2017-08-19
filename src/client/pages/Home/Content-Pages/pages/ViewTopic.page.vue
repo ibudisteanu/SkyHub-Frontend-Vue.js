@@ -237,16 +237,19 @@
             },
 
             async handleDeleteTopic(){
+
+                let url = '/';
+                if (this.getParentForumRouter.object !== null)
+                    url =  this.getParentForumRouter.object.URL;
+
                 let answer = await this.$store.dispatch('CONTENT_DELETE_OBJECT', { objectId: this.getTopicRouter.object.id } );
 
                 if (answer.result === true){
 
                     this.$store.state.global.refModal.closeModal();
 
-                    if (this.getParentForumRouter.object !== null)
-                        this.$router.push(this.getParentForumRouter.object.URL);  // redirecting to the parent URL ;)
-                    else
-                        this.$router.push('/');
+                    this.$router.push(url);  // redirecting to the parent URL ;)
+
                 } else {
                     this.$store.state.global.refModal.setError(answer.message);
                 }

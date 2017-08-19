@@ -101,16 +101,17 @@
             },
 
             async handleDeleteForum(){
+                let url = '/';
+                if (this.routerObjectParent.object !== null)
+                    url =  this.routerObjectParent.object.URL;
+
                 let answer = await this.$store.dispatch('CONTENT_DELETE_OBJECT', { objectId: this.routerObject.object.id } );
 
                 if (answer.result === true){
 
                     this.$store.state.global.refModal.closeModal();
 
-                    if (this.routerObjectParent.object !== null)
-                        this.$router.push(this.routerObjectParent.object.URL);  // redirecting to the parent URL ;)
-                    else
-                        this.$router.push('/');
+                    this.$router.push(url);  // redirecting to the parent URL ;)
                 } else {
                     this.$store.state.global.refModal.setError(answer.message);
                 }
