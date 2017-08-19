@@ -16,7 +16,8 @@ function getImages (vm) {
             : images || [];
 
         if ((typeof imagesData === 'undefined')||(imagesData === null)) return '';
-        return imagesData //converting array to keywords string like "a,b,c,d"
+
+        return imagesData; //converting array to keywords string like "a,b,c,d"
     }
 }
 
@@ -24,7 +25,7 @@ const serverImagesMixin = {
     created () {
         const images = getImages(this)
         if (images)
-            this.$ssrContext.images = images
+            this.$ssrContext.imagesMixinData = images
     }
 }
 
@@ -32,7 +33,7 @@ const clientImagesMixin = {
     mounted () {
         const images = getImages(this)
         if (images)
-            document.images = images
+            document.imagesMixinData = images
     }
 }
 

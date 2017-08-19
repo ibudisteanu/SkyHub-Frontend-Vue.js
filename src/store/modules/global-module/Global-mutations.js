@@ -10,4 +10,9 @@ export default{
         state.refAuthenticationModal = refAuthenticationModal;
     },
 
+    SET_GLOBAL_MODAL: (state, { refModal }) => {
+        state.refModal = refModal;
+    },
+
+
 }

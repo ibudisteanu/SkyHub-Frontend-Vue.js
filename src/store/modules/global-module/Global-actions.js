@@ -12,5 +12,11 @@ export default{
 
     },
 
+    GLOBAL_NEW_MODAL: ({ commit }, { refModal }) => {
+
+        commit('SET_GLOBAL_MODAL', {refModal});
+
+    },
+
 }
 

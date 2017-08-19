@@ -16,7 +16,7 @@ export default{
 
         if  ( res.result === true){
 
-            let parent = ((typeof res.object !== "undefined") && (res.object !== null)) ? res.object.parent : '';
+            let parent = ((typeof res.object !== "undefined") && (res.object !== null)) ? res.object.parent||res.object.parentId : '';
             let id =     ((typeof res.object !== "undefined") && (res.object !== null)) ? res.object.id : '';
 
             console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESULT",id, parent);

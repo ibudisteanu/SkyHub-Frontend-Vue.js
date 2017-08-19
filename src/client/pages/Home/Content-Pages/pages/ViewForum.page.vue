@@ -19,6 +19,8 @@
                       :enableChangeIcon = "routerObject.object.isOwner"
                       :enableChangeCover = "routerObject.object.isOwner"
 
+                      :buttons="[{class:'btn-danger', style:'width: 100%;', text:'delete',icon:'fa fa-times', onClick:handleDeleteForumButtonClick}]"
+
                       @onIconChanged = "iconChanged"
                       @onCoverChanged = "coverChanged"
 
@@ -56,7 +58,6 @@
     import HeaderCover from 'client/components/Template/Template-components/Header/Cover/HeaderCover.component.vue';
     import DisplayForumContent from 'modules/forums/forums/view-forum/DisplayForumContent.vue';
 
-
     export default{
 
 		name: 'ViewForum',
@@ -85,7 +86,36 @@
 
             coverChanged(imageURL){
                 this.$store.dispatch('CONTENT_CURRENT_ROUTER_OBJECT_CHANGE_COVER', {cover: imageURL} );
-            }
+            },
+
+            handleDeleteForumButtonClick(){
+
+                if (this.$store.state.global.refModal !== null) {
+                    this.$store.state.global.refModal.showAlert("Are you sure you want to delete the forum?",'','Do you want to delete the forum?  <br/> <br/> <strong>'+(this.routerObject.object.title||'')+'</strong>',
+                        [
+                            {className: 'btn-primary', closable: true, text: 'Cancel'},
+                            {className: 'btn-danger', closable: false, text: 'Yes', onClick: this.handleDeleteForum}
+                        ]);
+                }
+
+            },
+
+            async handleDeleteForum(){
+                let answer = await this.$store.dispatch('CONTENT_DELETE_OBJECT', { objectId: this.routerObject.object.id } );
+
+                if (answer.result === true){
+
+                    this.$store.state.global.refModal.closeModal();
+
+                    if (this.routerObjectParent.object !== null)
+                        this.$router.push(this.routerObjectParent.object.URL);  // redirecting to the parent URL ;)
+                    else
+                        this.$router.push('/');
+                } else {
+                    this.$store.state.global.refModal.setError(answer.message);
+                }
+
+            },
         }
 
 	}

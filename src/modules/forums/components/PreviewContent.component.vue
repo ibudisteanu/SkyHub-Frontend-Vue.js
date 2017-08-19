@@ -10,9 +10,7 @@
 
 <template>
 
-    <PreviewForums v-if="getObjectType === 'forum'" :key="'previewForum_'+object.id" :forum="object" />
 
-    <PreviewTopic v-if="getObjectType === 'topic'" :key="'previewTopic_'+object.id" :topic="object" :showPreview="this.showPreview" />
 
 </template>
 

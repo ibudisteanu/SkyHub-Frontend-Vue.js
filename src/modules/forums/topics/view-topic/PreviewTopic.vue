@@ -23,9 +23,8 @@
                     <div v-if="(this.viewMore === true) && (this.showPreview === true) && (this.previewStatus)">
 
                         <router-link :to="'/'+topic.URL" :disableLink="this.showPreview" >
-                            <p class="table-forums-topic-body word-wrap">
-                                    <div v-html="this.getShortDescription" />
-                            </p>
+                            <div class="table-forums-topic-body word-wrap" v-html="this.getShortDescription">
+                            </div>
                         </router-link>
 
                         <a type="button" class="btn btn-default btn-xs btn-rounded view-more" @click="enablePreviewStatus(false)">
@@ -36,9 +35,8 @@
                     <div v-if="(this.viewMore === false) || ((this.viewMore === true) && (this.showPreview === false)) || ((this.viewMore === true) && (this.showPreview === true)  && (this.previewStatus === false))">
 
                         <router-link :to="'/'+topic.URL" :disableLink="this.showPreview" >
-                            <p class="table-forums-topic-body word-wrap">
-                                    <div v-html="this.getDescription" />
-                            </p>
+                            <div class="table-forums-topic-body word-wrap" v-html="this.getDescription" >
+                            </div>
                         </router-link>
                     </div>
 
@@ -94,6 +92,7 @@
     import ContentButtonsInline from 'modules/forums/components/ContentButtonsInline.component.vue';
 
     import ViewUserForum from 'modules/users/view-users/ViewUserForum.component.vue';
+    import {sanitizeAdvanced, sanitizeAdvancedShortDescription} from 'modules/utils/global-utilities/SanitizeAdvanced';
 
     export default{
 
@@ -133,11 +132,11 @@
             },
 
             getDescription(){
-                return Topic.getDescription(this.topic)||'no description';
+                return sanitizeAdvanced(Topic.getDescription(this.topic)||'',false);
             },
 
             getShortDescription(){
-                return Topic.getShortDescription(this.topic)||'no description';
+                return sanitizeAdvancedShortDescription(Topic.getShortDescription(this.topic)||'', 512, false);
             },
 
             viewMore(){

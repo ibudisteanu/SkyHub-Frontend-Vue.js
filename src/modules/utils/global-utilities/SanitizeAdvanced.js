@@ -1,9 +1,12 @@
 import sanitizeHtml from 'sanitize-html';
 
-export function sanitizeAdvanced(text) {
-    return sanitizeHtml(text,
+export function sanitizeAdvanced(text, enableAnchors) {
+
+    if (typeof enableAnchors === 'undefined') enableAnchors = true;
+
+    text = sanitizeHtml(text,
         {
-            allowedTags: ['a','b','i','u','strong', 'h1','h2','h3','h4','h5','div','font','ul','li', 'br', 'span','p','div','em','iframe','img'],
+            allowedTags: [ (enableAnchors ? 'a' : ''),'b','i','u','strong', 'h1','h2','h3','h4','h5','div','font','ul','li', 'br', 'span','p','div','em','iframe','img'],
             allowedAttributes: {
                 'a': [ 'href' ],
                 'img': ['class','src','width','height', 'style','width','height'],
@@ -14,13 +17,18 @@ export function sanitizeAdvanced(text) {
                 'em': ['class','style'],
                 'span': ['class','style'],
             }
-        })
+        });
+
+    return text
 }
 
-export function sanitizeAdvancedSimple(text) {
-    return sanitizeHtml(text,
+export function sanitizeAdvancedSimple(text, enableAnchors) {
+
+    if (typeof enableAnchors === 'undefined') enableAnchors = true;
+
+    text = sanitizeHtml(text,
         {
-            allowedTags: ['a','b','i','u','strong','div','font','ul','li', 'br', 'span','p','div','em','iframe','img'],
+            allowedTags: [(enableAnchors ? 'a' : ''),'b','i','u','strong','div','font','ul','li', 'br', 'span','p','div','em','iframe','img'],
             allowedAttributes: {
                 'a': [ 'href' ],
                 'img': ['class','src','width','height', 'style','width','height'],
@@ -31,16 +39,21 @@ export function sanitizeAdvancedSimple(text) {
                 'em': ['class'],
                 'span': ['class'],
             }
-        })
+        });
+
+    return text;
 }
 
-export function sanitizeAdvancedShortDescription(text, limit) {
+export function sanitizeAdvancedShortDescription(text, limit, enableAnchors) {
 
     if (typeof limit === 'undefined') limit = 512;
+    if (typeof enableAnchors === 'undefined') enableAnchors = true;
 
-    text = sanitizeAdvancedSimple(text);
-    if (text.length > 512) text = text.substr(0, limit);
-    text = sanitizeAdvancedSimple(text);
+    text = sanitizeAdvancedSimple(text, enableAnchors);
+    if (text.length > 512) {
+        text = text.substr(0, limit);
+        text = sanitizeAdvancedSimple(text, enableAnchors);
+    }
 
     return text;
 

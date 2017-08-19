@@ -12,6 +12,7 @@ import getters from './Global-getters'
 export default {
     state:  {
         refAuthenticationModal: null,
+        refModal: null,
     },
     actions,
     mutations,

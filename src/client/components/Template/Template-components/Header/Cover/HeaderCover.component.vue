@@ -5,16 +5,16 @@
 <template>
     <div style="padding-bottom: 20px">
 
-        <div class="header-cover row  border-bottom white-bg dashboard-header "  :style="{cursor: ( this.enableChangeCover ? 'pointer' : 'default'), backgroundImage: 'url('+(this.cover||'')+')', backgroundColor: (this.coverColor!=='' ? '#'+this.coverColor : 'darkblue') }" @mouseover="imageCoverActive=true" @mouseout="imageCoverActive=false" @click="handleShowCoverImageCropUploadModal">
+        <div class="header-cover row  border-bottom white-bg dashboard-header "  :style="{cursor: ( this.enableChangeCover ? 'pointer' : 'default'), backgroundImage: 'url('+(this.cover||'')+')', backgroundColor: (this.coverColor!=='' ? '#'+this.coverColor : 'darkblue') }" @mouseover="imageCoverMouseOver=true" @mouseout="imageCoverMouseOver=false" @click="handleShowCoverImageCropUploadModal">
 
             <ImageCropUpload :enableFileUpload="enableChangeCover" ref="refCoverImageCropUpload" @onImageChanged="coverChanged" :width="1500" :height="320"/>
 
             <div v-if="showLayOver === true" class='header-cover-layover'>
             </div>
 
-            <div v-if="enableChangeIcon" style="position: absolute; padding-left: 10px; padding-right: 10px" :style="{color: 'white', backgroundColor: imageCoverActive ?  'rgba(0,0,0, 0.8)' : 'rgba(0,0,0, 1)'}">
+            <div v-if="enableChangeIcon" style="position: absolute; padding-left: 10px; padding-right: 10px" :style="{color: 'white', backgroundColor: imageCoverMouseOver ?  'rgba(0,0,0, 0.8)' : 'rgba(0,0,0, 1)'}">
                 <i class="fa fa-picture-o"/>
-                {{imageCoverActive && !imageIconActive ? ' Change Cover' : ''}}
+                {{imageCoverMouseOver && !imageIconMouseOver && !buttonsMouseOver ? ' Change Cover' : ''}}
             </div>
 
 
@@ -24,10 +24,10 @@
 
                         <ImageCropUpload :enableFileUpload="enableChangeIcon" ref="refIconImageCropUpload" @onImageChanged="iconChanged" :width="150" :height="150" />
 
-                        <div class="image-with-caption-link" style="display: inline-block" @click="handleShowIconImageCropUploadModal"    @mouseover="imageIconActive=true; " @mouseout="imageIconActive=false">
+                        <div class="image-with-caption-link" style="display: inline-block" @click="handleShowIconImageCropUploadModal"    @mouseover="imageIconMouseOver=true; " @mouseout="imageIconMouseOver=false">
                             <router-link :to="''" style="margin-bottom: 0">
                                 <img :class="(showPicBorder ? 'profile-pic-white-border' : '')" :src="icon||'/public/SkyHub-logo-square.png'" />
-                                <span v-if="enableChangeIcon" :style="showPicBorder ? 'margin-left: 5px; margin-bottom: 5px; width: 90%;' : '' + 'color:white' + 'opacity: '+(imageIconActive ?  1 : 0.7)" ><i class="fa fa-picture-o"/> {{imageIconActive ? 'Change Picture' : ''}}</span>
+                                <span v-if="enableChangeIcon" :style="showPicBorder ? 'margin-left: 5px; margin-bottom: 5px; width: 90%;' : '' + 'color:white' + 'opacity: '+(imageIconMouseOver ?  1 : 0.7)" ><i class="fa fa-picture-o"/> {{imageIconMouseOver ? 'Change Picture' : ''}}</span>
                             </router-link>
                         </div>
 
@@ -41,19 +41,20 @@
                         </div>
 
                         <div class="header-cover-toolbar" >
-                            <div style='display: inline-block'>
+                            <div style='display: inline-block; padding-top: 10px' @mouseover="buttonsMouseOver=true; " @mouseout="buttonsMouseOver=false; ">
 
-                                {{buttons}}
 
-<!--
-                                <button type="button" id='likeCount' >
-                                    <i class='fa fa-hart' />
+                                <button type="button"
+                                        v-for="(button, index) in buttons"
+                                        :key="'HeaderButton'+'_'+index"
+                                        :class="'btn btn-circle btn-lg '+button.class||'btn-warning'"
+                                        :style="button.style||''"
+                                        @click="button.onClick()"
+                                >
+                                    <i v-if="(button.icon||'').length > 0"  :class='button.icon' />
+                                    <span v-if="(button.text||'').length > 0" class=''>  {{button.text}}</span>
                                 </button>
 
-                                <label class='header-cover-toolbar-label' >
-                                    <span class=''>0 likes</span>
-                                </label>
--->
 
                             </div>
 
@@ -93,8 +94,10 @@
 
         data: function () {
             return{
-                imageIconActive: false,
-                imageCoverActive: false,
+                imageIconMouseOver: false,
+                imageCoverMouseOver: false,
+
+                buttonsMouseOver: false,
             }
         },
 
@@ -122,12 +125,12 @@
             handleShowIconImageCropUploadModal(e){
                 //e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation(); //stil not working...
 
-                this.imageCoverActive = false;
+                this.imageCoverMouseOver = false;
 
                 if (this.$refs['refCoverImageCropUpload'].show) return false;
-                console.log('########## SHOW ICON', this.imageIconActive, this.imageCoverActive);
+                console.log('########## SHOW ICON', this.imageIconMouseOver, this.imageCoverMouseOver);
 
-                if ((this.imageIconActive)&&(typeof this.$refs['refIconImageCropUpload'] !== 'undefined'))
+                if ((this.imageIconMouseOver)&&(typeof this.$refs['refIconImageCropUpload'] !== 'undefined'))
                     this.$refs['refIconImageCropUpload'].showModal();
             },
 
@@ -138,12 +141,14 @@
             handleShowCoverImageCropUploadModal(e){
                 //e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation(); //stil not working...
 
+                if (this.buttonsMouseOver) return;
+
                 if (this.$refs['refIconImageCropUpload'].show) return false;
-                console.log('########## SHOW COVER', this.imageIconActive, this.imageCoverActive);
+                console.log('########## SHOW COVER', this.imageIconMouseOver, this.imageCoverMouseOver);
 
-                this.imageIconActive = false;
+                this.imageIconMouseOver = false;
 
-                if ((this.imageCoverActive)&&(typeof this.$refs['refCoverImageCropUpload'] !== 'undefined'))
+                if ((this.imageCoverMouseOver)&&(typeof this.$refs['refCoverImageCropUpload'] !== 'undefined'))
                     this.$refs['refCoverImageCropUpload'].showModal();
             },
 

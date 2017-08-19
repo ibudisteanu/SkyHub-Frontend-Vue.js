@@ -5,24 +5,34 @@
 
 
 <template>
-  <div class="modal inmodal in" :key="'modal'+myModalId"  ref="refModal"  role="dialog" aria-hidden="true" >
+  <div class="modal inmodal in" :key="'modal'+(getModalId)"  ref="refModal"  role="dialog" aria-hidden="true" >
       <div class="modal-dialog">
-          <div :class="'modal-content ' + (animation||myAnimation)" >
+          <div :class="'modal-content ' + (getAnimation)" >
 
                 <div class="modal-header">
 
-                  <button v-show="(closable||myClosable)" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                  <button v-show="getClosable" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
 
-                  <h4 v-show="title !== ''" class="modal-title">{{title}}</h4>
+                  <h4 v-show="getTile !== ''" class="modal-title">{{getTile}}</h4>
 
-                  <small v-show="(subTitle||mySubTitle) !== ''" class="font-bold">{{(subTitle||mySubTitle)}}</small>
+                  <small v-show="getSubTitle !== ''" class="font-bold">{{getSubTitle}}</small>
 
                 </div>
 
 
                 <div class="modal-body">
 
-                  <p v-show="body !== ''">{{(body||myBody)}}</p>
+                  <div v-show="getBody !== ''">
+                      <p v-html="getBody">
+
+                      </p>
+
+                      <div v-if="getError !== ''">
+                          <div class="alert alert-danger alert-dismissable" >
+                              <div v-html="getError" />
+                          </div>
+                      </div>
+                  </div>
 
                   <slot name="modal-content" />
 
@@ -32,11 +42,10 @@
 
 
                     <button
-                            v-for="(button, index) in (buttons||myButtons)"
-                            :key="'modalButton_modal'+modalId+'_'+index"
+                            v-for="(button, index) in (getButtons)"
+                            :key="'modalButton_modal'+(getModalId)+'_'+index"
                             :class="'btn '+button.className||''"
-                            @click="button.onClick()"
-                            :data-dimiss="(button.closable||false) === true"
+                            @click="(typeof button.onClick !== 'undefined' ? button.onClick() :  ( (button.closable||false) === true ? closeModal() : '') )"
                     >
                         {{button.text||''}}
                     </button>
@@ -55,30 +64,67 @@
 
       data: function () {
           return {
-              myModalId: 'modal-sample',
+              myModalId: '',
               myIsModalOpen: false,
-              myTitle: 'TITLE',
-              mySubTitle: 'SUB TITLE',
-              myBody: 'BODY',
-              myClosable: true,
-              myButtons: function () {
-                      return [{className: 'btn-white', closable: true, text: 'Close'}, {
-                          className: 'btn-primary',
-                          closable: false,
-                          text: 'Save'
-                      }]
-                  },
-              myAnimation: 'animated flipInY',
+              myTitle: '',
+              mySubTitle: '',
+              myBody: '',
+              myClosable: false,
+              myButtons: [],
+              myAnimation: '',
+              myError: '',
           }
       },
 
-      props: ['title','subTitle','body','closable','buttons','animation'],
+      props:{
+          'modalId': {default: 'modal-sample'},
+          'isModalOpen': {default: false},
+          'title': {default: "TITLE" },
+          'subTitle': {default: '' },
+          'body': {default: '' },
+          'closable': {default: true },
+          'buttons': {
+              default: function () {
+                  return [{className: 'btn-white', closable: true, text: 'Close'}, {
+                      className: 'btn-primary',
+                      closable: false,
+                      text: 'Save'
+                  }]
+              }
+          },
+          'animation': {default: 'animated flipInY' },
+      },
 
       computed:{
 
-          showBody(){
-              return (typeof this.body !== "undefined");
+          getModalId(){
+              return this.myModalId||this.modalId;
           },
+          getModalOpen(){
+              return this.myIsModalOpen||this.isModalOpen ;
+          },
+          getTile(){
+              return this.myTitle||this.title ;
+          },
+          getSubTitle(){
+              return this.mySubTitle||this.subTitle;
+          },
+          getBody(){
+              return this.myBody ||this.body;
+          },
+          getClosable(){
+              return this.myClosable||this.closable;
+          },
+          getButtons(){
+              return this.myButtons||this.buttons;
+          },
+          getAnimation(){
+              return this.myAnimation ||this.animation;
+          },
+          getError(){
+              return this.myError;
+          },
+
 
           showButtons(){
 
@@ -115,6 +161,10 @@
 
           closeModal(){
               this.hideModal();
+          },
+
+          setError(error){
+              this.myError = error;
           },
 
           handleToggle(){

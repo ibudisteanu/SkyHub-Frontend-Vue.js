@@ -18,6 +18,8 @@
 
                       :enableChangeIcon = "getParentForum.isOwner"
                       :enableChangeCover = "getParentForum.isOwner"
+
+                      :buttons="[{class:'btn-danger', style:'width: 100%;', text:'delete',icon:'fa fa-times', onClick:handleDeleteTopicButtonClick}]"
         />
 
         <WebsiteHeaderCover v-else />
@@ -220,7 +222,36 @@
         methods:{
             enablePreviewStatus(newStatus){
                 this.previewStatus = newStatus;
-            }
+            },
+
+            handleDeleteTopicButtonClick(){
+
+                if (this.$store.state.global.refModal !== null) {
+                    this.$store.state.global.refModal.showAlert("Are you sure you want to delete the topic?",'','Do you want to delete the topic?  <br/> <br/> <strong>'+(this.getTopicRouter.object.title||'')+'</strong>',
+                        [
+                            {className: 'btn-primary', closable: true, text: 'Cancel'},
+                            {className: 'btn-danger', closable: false, text: 'Yes', onClick: this.handleDeleteTopic}
+                        ]);
+                }
+
+            },
+
+            async handleDeleteTopic(){
+                let answer = await this.$store.dispatch('CONTENT_DELETE_OBJECT', { objectId: this.getTopicRouter.object.id } );
+
+                if (answer.result === true){
+
+                    this.$store.state.global.refModal.closeModal();
+
+                    if (this.getParentForumRouter.object !== null)
+                        this.$router.push(this.getParentForumRouter.object.URL);  // redirecting to the parent URL ;)
+                    else
+                        this.$router.push('/');
+                } else {
+                    this.$store.state.global.refModal.setError(answer.message);
+                }
+
+            },
         }
 
     }

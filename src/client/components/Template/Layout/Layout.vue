@@ -10,7 +10,6 @@
 
                 <div slot="content">
                     <slot name="layout-content" />
-
                 </div>
 
             </LayoutBody>
@@ -23,6 +22,8 @@
             <RightSidebar />
 
             <AuthenticationModal modalId="authenticationModal" ref="refAuthenticationModal"/>
+
+            <ModalComponent modalId="modalComponent" ref="refModal" />
 
         </div>
 
@@ -37,6 +38,7 @@
     import RightSidebar from '../Template-components/Body/Right-sidebar/RightSidebar.vue';
 
     import AuthenticationModal from 'modules/users/authentication/modals/Authentication.modal.vue';
+    import ModalComponent from 'client/components/util-components/UI/modals/Modal.component.vue';
 
     import User from "models/User/User.model";
     import Reply from "models/Reply/Reply.model";
@@ -49,7 +51,7 @@
             'StickyButtons': StickyButtons,
             'RightSidebar': RightSidebar,
             'AuthenticationModal': AuthenticationModal,
-
+            'ModalComponent': ModalComponent,
         },
 
         data: function() {
@@ -59,15 +61,11 @@
             }},
 
         created: function (){
-
-//            var self = this;
-//            setInterval(self.time, 1000);
-//            self.time();
-
         },
 
         mounted: function (){
             this.$store.dispatch('GLOBAL_NEW_AUTHENTICATION_MODAL', {refAuthenticationModal: this.$refs['refAuthenticationModal']})
+            this.$store.dispatch('GLOBAL_NEW_MODAL', {refModal: this.$refs['refModal']})
         },
 
 
