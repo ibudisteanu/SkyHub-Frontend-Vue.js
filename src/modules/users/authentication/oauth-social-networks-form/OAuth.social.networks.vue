@@ -264,7 +264,7 @@
 
                             if (res.result === true) this.registrationSuccessfully(res);
                             else if (res.result === false) {
-                                this.errorRegisteringFacebook(userData);
+                                this.errorRegisteringFacebook(userData, res.errors);
                             }
 
                         });
