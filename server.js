@@ -119,9 +119,9 @@ function render (req, res) {
   }
 
   //EXTRACTING THE IP
-   var ip = req.headers['x-real-ip'] || req.connection.remoteAddress;
-   //const requestIp = require('request-ip');
-   //const ip = requestIp.getClientIp(req);
+   //let ip = req.headers['x-real-ip'] || req.connection.remoteAddress;
+   const requestIp = require('request-ip');
+   let ip = requestIp.getClientIp(req);
    console.log('IP::'); console.log(ip);
 
   const context = {
