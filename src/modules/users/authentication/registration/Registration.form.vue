@@ -18,7 +18,7 @@
 
                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
 
-                            <input autoFocus type='text' class='form-control input-lg' placeholder='username'  name="username" :value="userName" @change="handleUserNameChange" />
+                            <input autoFocus type='text' class='form-control input-lg' placeholder='username'  name="username" :value="userName" @change="handleUserNameChange" style="z-index: 0;" />
 
                             <span :class="showInputFeedback(userNameValidationStatus)"></span>
                         </div>
@@ -30,7 +30,7 @@
 
                             <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
 
-                            <input type='text' class='form-control input-lg' placeholder='E-mail'  name="email" :value="emailAddress" @change="handleEmailAddressChange" />
+                            <input type='text' class='form-control input-lg' placeholder='E-mail'  name="email" :value="emailAddress" @change="handleEmailAddressChange" style="z-index: 0;" />
 
                             <span :class="showInputFeedback(emailAddressValidationStatus)"></span>
                         </div>
@@ -46,7 +46,7 @@
 
                             <span class="input-group-addon"><i class="fa fa-font"></i></span>
 
-                            <input type='text' class='form-control input-lg' placeholder='First Name' name="firstname" :value="firstName" @change="handleFirstNameChange" />
+                            <input type='text' class='form-control input-lg' placeholder='First Name' name="firstname" :value="firstName" @change="handleFirstNameChange" style="z-index: 0;"/>
 
                             <span :class="showInputFeedback(firstNameValidationStatus)"></span>
                         </div>
@@ -58,7 +58,7 @@
 
                             <span class="input-group-addon"><i class="fa fa-bold"></i></span>
 
-                            <input type='text' class='form-control input-lg' placeholder='Last Name' name="lastname" :value="lastName" @change="handleLastNameChange" />
+                            <input type='text' class='form-control input-lg' placeholder='Last Name' name="lastname" :value="lastName" @change="handleLastNameChange" style="z-index: 0;" />
 
                             <span :class="showInputFeedback(this.lastNameValidationStatus)"></span>
                         </div>
@@ -74,7 +74,7 @@
 
                             <span class="input-group-addon"><i class="fa fa-key"></i></span>
 
-                            <input type='password' class='form-control input-lg' placeholder='password' name="password" :value="password" @change="handlePasswordChange" />
+                            <input type='password' class='form-control input-lg' placeholder='password' name="password" :value="password" @change="handlePasswordChange" style="z-index: 0;" />
 
                             <span :class="showInputFeedback(passwordValidationStatus)"></span>
                         </div>
@@ -86,7 +86,7 @@
 
                             <span class="input-group-addon"><i class="fa fa-key"></i></span>
 
-                            <input type='password' class='form-control input-lg' placeholder='password'  :value="retypePassword" @change="handleRetypePasswordChange" />
+                            <input type='password' class='form-control input-lg' placeholder='password'  :value="retypePassword" @change="handleRetypePasswordChange" style="z-index: 0;" />
 
                             <span :class="showInputFeedback(retypePasswordValidationStatus)"></span>
                         </div>
@@ -113,7 +113,7 @@
 
                             <span class="input-group-addon"><i class="fa fa-institution"></i></span>
 
-                            <input  type='text' class='form-control input-lg' placeholder='city'  :value="localization.city||this.city" @change="handleCityChange" />
+                            <input  type='text' class='form-control input-lg' placeholder='city'  :value="this.city||localization.city" @change="handleCityChange" style="z-index: 0;"/>
 
                             <span :class="showInputFeedback(cityValidationStatus)"></span>
                         </div>
