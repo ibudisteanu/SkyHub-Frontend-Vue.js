@@ -65,7 +65,7 @@
 
             <div v-if="error !== ''">
                 <div class="alert alert-danger alert-dismissable">
-                    {{this.error}}
+                    <div v-html="this.error" />
                 </div>
             </div>
 
@@ -111,8 +111,11 @@
         methods:{
 
 
-            errorRegisteringFacebook (response){
+            errorRegisteringFacebook (response, exception){
                 this.error = "Error registering with Facebook";
+
+                if ((typeof exception !== 'undefined') && (exception !== null))
+                    this.error += " <br/> "+exception.toString();
 
                 //this.modalRef.showAlert('Error registering with Facebook','',"Ops! It didn't work");
 
@@ -124,10 +127,15 @@
                 console.log(response);
             },
 
-            responseFailureGoogle (response){
+            responseFailureGoogle (response, exception){
                 this.error = "Error registering with Google";
 
-                this.modalRef.showAlert('Error registering with Google','',"Ops! It didn't work");
+                if ((typeof exception !== 'undefined') && (exception !== null))
+                    this.error += " <br/> "+exception.toString();
+
+                //this.modalRef.showAlert('Error registering with Google','',"Ops! It didn't work");
+
+                this.registrationFailure(response);
             },
 
             registrationSuccessfully(response){
@@ -265,7 +273,7 @@
                 } catch (Exception)
                 {
                     console.log('error facebook registering', Exception);
-                    this.errorRegisteringFacebook (userData);
+                    this.errorRegisteringFacebook (userData, Exception);
                 }
 
                 console.log(userData);
