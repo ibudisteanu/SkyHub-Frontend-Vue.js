@@ -21,7 +21,7 @@ export default {
         }
 
         try {
-            let res = await axios.get("http://freegeoip.net/json/" + ip||state.ip);
+            let res = await axios.get("http://freegeoip.net/json/" + (ip !== '' ? ip : state.ip));
 
             res = res.data;
 
