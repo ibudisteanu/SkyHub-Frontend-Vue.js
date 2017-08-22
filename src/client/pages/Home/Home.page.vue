@@ -140,6 +140,14 @@
                 null
         },
 
+        author: function(){
+            return (this.currentObject !== null)
+                ?
+                    this.currentObject.authorName||this.currentObject.authorId
+                :
+                    null
+        },
+
         images: function() {
 
             if ((this.currentObject === null)||(typeof this.currentObject.attachments === 'undefined')) return null;
@@ -149,7 +157,21 @@
 //            let images = [];
 //            for(let i=0; i<this.currentObject.attachments.length; i++){
 //            }
-        }
+        },
+
+        webPageType: function(){
+            if (this.currentObject === null) return 'page';
+
+            switch (this.$store.state.content.contentRouter.currentObject.type){
+                case 'none':
+                    return 'page';
+                case 'forum':
+                case 'topic':
+                    return 'article';
+                case 'user':
+                    return 'webpage';
+            }
+        },
 
     }
 </script>

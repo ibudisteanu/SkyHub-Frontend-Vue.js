@@ -11,6 +11,9 @@
         <ViewForum v-else-if="getCurrentRouterObjectType === 'forum'"/>
 
         <ViewTopic v-else-if="getCurrentRouterObjectType === 'topic'"/>
+
+        <NotFound v-else="" />
+
     </div>
 
 </template>
@@ -19,7 +22,8 @@
 
     import ViewForum from './pages/ViewForum.page.vue';
     import ViewTopic from './pages/ViewTopic.page.vue';
-    import ViewHome from './pages/ViewHome.page.vue'
+    import ViewHome from './pages/ViewHome.page.vue';
+    import NotFound from './pages/NotFound.page.vue';
 
     import User from 'models/User/User.model';
 
@@ -30,6 +34,7 @@
             'ViewForum':ViewForum,
             'ViewTopic':ViewTopic,
             'ViewHome':ViewHome,
+            'NotFound': NotFound,
         },
 
         computed:{
