@@ -160,17 +160,41 @@
         },
 
         webPageType: function(){
-            if (this.currentObject === null) return 'page';
-
             switch (this.$store.state.content.contentRouter.currentObject.type){
+                case 'home':
+                    return 'website';
                 case 'none':
-                    return 'page';
+                    return 'webpage';
                 case 'forum':
                 case 'topic':
                     return 'article';
                 case 'user':
                     return 'webpage';
             }
+        },
+
+        dateCreation: function(){
+            if (this.currentObject === null) return null;
+
+            let myDate = this.currentObject.dtCreation;
+
+            if ((typeof myDate === "undefined")||(myDate === null))
+                myDate = 'now';
+
+            myDate = new Date(myDate);
+            return myDate.toString();
+        },
+
+        dateLastActivity: function(){
+            if (this.currentObject === null) return null;
+
+            let myDate = this.currentObject.dtLastActivity;
+
+            if ((typeof myDate === "undefined")||(myDate === null))
+                myDate = 'now';
+
+            myDate = new Date(myDate);
+            return myDate.toString();
         },
 
     }

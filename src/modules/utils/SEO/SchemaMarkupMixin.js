@@ -7,7 +7,7 @@
  */
 
 function getSchemaMarkup (vm) {
-    const { title, keywords, description, images, author, webPageType } = vm.$options
+    const { title, keywords, description, images, author, webPageType, dateCreation, dateLastActivity } = vm.$options
     if ((images) && (title) && (description)){
         let imagesData = typeof images === 'function'
             ? images.call(vm)
@@ -33,11 +33,23 @@ function getSchemaMarkup (vm) {
             ? author.call(vm)
             : author || 'SkyHub';
 
-        if (typeof imagesData === 'undefined') imagesData = [];
+        let dateCreationData = typeof dateCreation === 'function'
+            ? dateCreation.call(vm)
+            : dateCreation;
+
+        let dateLastActivityData = typeof dateLastActivity === 'function'
+            ? dateLastActivity.call(vm)
+            : dateLastActivity;
+
+        if ((typeof imagesData === 'undefined')||(imagesData === null)||(imagesData.length === 0)) imagesData = [ {url: "/public/SkyHub-landing-image.jpg", alt:"SkyHub Forum 2.0 Social Network - Change the World"}];
         if ((typeof titleData === 'undefined')||(titleData === '')) titleData = 'SkyHub Forum 2.0 Social Network';
         if ((typeof descriptionData === 'undefined')||(descriptionData === '')) descriptionData = 'Change the world together!';
         if ((typeof webPageTypeData === 'undefined')||(webPageTypeData === '')) webPageTypeData = 'website';
         if ((typeof keywordsData === 'undefined')||(keywordsData === null)||(keywordsData.length === 0)) keywordsData = ['social network, forum 2.0, forums, discussions, networks, communities'];
+        if ((typeof dateCreationData === 'undefined')||(dateCreationData === '')) dateCreationData = '';
+        if ((typeof dateLastActivityData === 'undefined')||(dateLastActivityData === '')) dateLastActivityData = '';
+
+        console.log(imagesData);
 
         let mixinSchemas = '';
         switch (webPageTypeData) {
@@ -46,43 +58,44 @@ function getSchemaMarkup (vm) {
                 return; //Default Website Mixin
 
             case 'webpage':
-                mixinSchemas+=
-                    '"@context": "http://schema.org",'+
-                    '"@type": "WebSite",'+
-                    '"url": "http://skyhub.me/",'+
-                    '"name": "'+titleData+'",'+
-                    '"author": "'+authorData+'",'+
-                    '"description": "'+descriptionData+'"'+
-                    '"publisher": "SkyHub Forum 2.0 Social Network",'+
-                    '"potentialAction": {'+
-                        '"@type": "SearchAction",'+
-                        '"target": "http://www.example.com/?s={search_term}",'+
-                        '"query-input": "required name=search_term" }';
-                return;
+                mixinSchemas ={
+                    "@context": "http://schema.org",
+                    "@type": "WebSite",
+                    url: "http://skyhub.me/",
+                    name: titleData,
+                    author: authorData,
+                    description: descriptionData,
+                    publisher: "SkyHub Forum 2.0 Social Network",
+                    potentialAction:{
+                        "@type": "SearchAction",
+                        target: "http://skyhub.me/search/{query}",
+                        "query-input": "required name=search_term"
+                    }
+                };
+                return mixinSchemas;
             case 'article':
-                mixinSchemas +=
-                    '"@context": "http://schema.org",'+
-                    '"@type": "Article",'+
-                    '"headline": "'+titleData+'",'+
-                    '"alternativeHeadline": "'+descriptionData.substr(0,30)+'",'+
-                    '"image": "http://example.com/image.jpg",'+
-                    '"author": "'+authorData+'",'+
-                    '"editor": "'+authorData+'",'+
-                    //'"genre": "search engine optimization",'+
-                    '"keywords": "'+keywordsData.toString()+'",'+
-                    //'"wordcount": "1120",'+
-                    '"publisher": "SkyHub Forum 2.0 Social Network",'+
-                    '"url": "http://skyhub.me",'+
-                    '"datePublished": "2015-09-20",'+
-                    '"dateCreated": "2015-09-20",'+
-                    '"dateModified": "2015-09-20",'+
-                    '"description": "'+descriptionData.substr(0,100)+'",'+
-                    '"articleBody": "'+descriptionData+'"';
-                return;
+                mixinSchemas = {
+                    "@context": "http://schema.org",
+                    "@type": "Article",
+                    headline: titleData,
+                    alternativeHeadline: descriptionData.substr(0,30),
+                    image: imagesData[0].url,
+                    author: authorData,
+                    editor: authorData,
+                    //genre: "search engine optimization",
+                    keywords: keywordsData.toString(),
+                    //'wordcount: "1120",
+                    publisher: "SkyHub Forum 2.0 Social Network",
+                    url: "http://skyhub.me",
+                    datePublished: dateCreationData.toString(),
+                    dateCreated: dateCreationData.toString(),
+                    dateModified: dateLastActivityData.toString(),
+                    description: descriptionData.substr(0,100),
+                    articleBody: descriptionData,
+                };
+
+                return mixinSchemas;
         }
-
-
-        return mixinSchemas;
 
     }
 }

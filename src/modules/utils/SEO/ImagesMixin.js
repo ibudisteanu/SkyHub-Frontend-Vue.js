@@ -13,9 +13,9 @@ function getImages (vm) {
     if (images) {
         let imagesData = typeof images === 'function'
             ? images.call(vm)
-            : images || [];
+            : images;
 
-        if ((typeof imagesData === 'undefined')||(imagesData === null)) return '';
+        if ((typeof imagesData === 'undefined')||(imagesData === null)||(imagesData.length === 0)) return '';
 
         let mixinImages = '';
         for (let i=0; i<imagesData; i++){

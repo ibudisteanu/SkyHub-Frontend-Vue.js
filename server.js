@@ -141,17 +141,18 @@ function render (req, res) {
       '<meta property="og:image:alt" content="SkyHub Forum 2.0 Social Network - Change the World" />' +
       '<meta property="twitter:image"  content="/public/SkyHub-landing-image.jpg" />'+
       '<meta property="twitter:image:alt" content="SkyHub Forum 2.0 Social Network - Change the World"   />',
-    SEOMixinSchemaMarkup:
-      '"@context": "http://schema.org",'+
-      '"@type": "WebSite",'+
-      '"name": "SkyHub",'+
-      '"alternateName": "SkyHub Forum Social Network",'+
-      '"url": "http://skyub.me/",'+
-      '"potentialAction": {'+
-        '"@type": "SearchAction",'+
-        '"target": "http://skyhub.me/search/{query}",'+
-        '"query-input": "required"'+
-      '}',
+    SEOMixinSchemaMarkup:{
+        "@context": "http://schema.org",
+        "@type": "WebSite",
+        name: "SkyHub",
+        alternateName: "SkyHub Forum Social Network",
+        url: "http://skyub.me/",
+        potentialAction: {
+            "@type": "SearchAction",
+            target: "http://skyhub.me/search/{query}",
+            "query-input": "required"
+        }
+    },
     SEOMixinWebPageType: 'website',
     SEOMixinCopyright: 'SkyHub Forum 2.0 Social Network',
     SEOMixinLanguage: 'en-US',
