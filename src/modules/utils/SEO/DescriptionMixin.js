@@ -3,7 +3,7 @@
  * Created by BIT TECHNOLOGIES on 7/12/2017.
  */
 
-import {addSuffix} from './MixinHelpers';
+import {addSuffix} from './helpers/MixinHelpers';
 
 /*
  DESCRIPTION
@@ -17,7 +17,11 @@ function getDescription (vm) {
             ? description.call(vm)
             : description || '';
 
-        return addSuffix(result, ' - SkyHub Forum Social Network', ' - SkyHub', 150)
+        return {
+            'description':addSuffix(result, ' - SkyHub Forum Social Network', ' - SkyHub', 150),
+            'facebook':addSuffix(result, ' - SkyHub Forum Social Network', ' - SkyHub', 110),
+            'twitter': addSuffix(result, ' - SkyHub Forum Social Network', ' - SkyHub', 116),
+        }
     }
 }
 
@@ -25,7 +29,7 @@ const serverDescriptionMixin = {
     created () {
         const description = getDescription(this);
         if (description)
-            this.$ssrContext.description = description
+            this.$ssrContext.SEOMixinDescription = description
     }
 }
 
@@ -33,7 +37,7 @@ const clientDescriptionMixin = {
     mounted () {
         const description = getDescription(this);
         if (description)
-            document.description = description
+            document.SEOMixinDescription = description
     }
 }
 

@@ -119,25 +119,42 @@ function render (req, res) {
   }
 
   //EXTRACTING THE IP
-   //let ip = req.headers['x-real-ip'] || req.connection.remoteAddress;
-   const requestIp = require('request-ip');
-   let ip = requestIp.getClientIp(req);
+   let ip = req.headers['x-real-ip'] || req.connection.remoteAddress;
+   //const requestIp = require('request-ip');
+   //let ip = requestIp.getClientIp(req);
    console.log('IP::'); console.log(ip);
 
   const context = {
-    title: 'SkyHub Forum 2.0 Social Network', // default title
-    description: 'SkyHub Forum Social Network',
-      
-    titleFacebook:   'SkyHub Forum 2.0 Social Network', // default title
-    descriptionFacebook:   'SkyHub Forum Social Network', // default title
-      
-    titleTwitter:   'SkyHub Forum 2.0 Social Network', // default title
-    descriptionTwitter:   'SkyHub Forum 2.0 Social Network', // default title
-      
-    keywords: 'social network, forum 2.0, forums, discussions, networks',
-    imagesMixinData: [{url:'/public/SkyHub-landing-image.jpg',alt:'SkyHub Forum 2.0 Social Network - Change the World'}],
-    copyright: 'SkyHub Social Network - Forum 2.0',
-    language: 'en-US',
+    SEOMixinTitle: {
+      title:'SkyHub Forum 2.0 Social Network',
+      facebook: 'SkyHub Forum 2.0 Social Network',
+      twitter: 'SkyHub Forum 2.0 Social Network',
+    }, // default title
+    SEOMixinDescription: {
+      description:'Change the world together!',
+      facebook:'Change the world together!',
+      twitter: 'Change the world together!', // default title
+    },
+    SEOMixinKeywords: 'social network, forum 2.0, forums, discussions, networks, communities',
+    SEOMixinImages:
+      '<meta property="og:image"  content="/public/SkyHub-landing-image.jpg"  /> ' +
+      '<meta property="og:image:alt" content="SkyHub Forum 2.0 Social Network - Change the World" />' +
+      '<meta property="twitter:image"  content="/public/SkyHub-landing-image.jpg" />'+
+      '<meta property="twitter:image:alt" content="SkyHub Forum 2.0 Social Network - Change the World"   />',
+    SEOMixinSchemaMarkup:
+      '"@context": "http://schema.org",'+
+      '"@type": "WebSite",'+
+      '"name": "SkyHub",'+
+      '"alternateName": "SkyHub Forum Social Network",'+
+      '"url": "http://skyub.me/",'+
+      '"potentialAction": {'+
+        '"@type": "SearchAction",'+
+        '"target": "http://skyhub.me/search/{query}",'+
+        '"query-input": "required"'+
+      '}',
+    SEOMixinWebPageType: 'website',
+    SEOMixinCopyright: 'SkyHub Forum 2.0 Social Network',
+    SEOMixinLanguage: 'en-US',
     pageType: 'article',
 
     cookies: req.cookies,   //signedCookies instead
