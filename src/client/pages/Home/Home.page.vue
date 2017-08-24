@@ -124,10 +124,18 @@
                     'Home'
         },
 
+        shortDescription: function() {
+            return (this.currentObject !== null)
+                ?
+                this.currentObject.shortDescription||this.currentObject.description||this.title
+                :
+                null
+        },
+
         description: function() {
             return (this.currentObject !== null)
                 ?
-                    this.currentObject.shortDescription||this.currentObject.description||this.title
+                    this.currentObject.description||this.currentObject.shortDescription||this.title
                 :
                 null
         },
@@ -171,6 +179,16 @@
                 case 'user':
                     return 'webpage';
             }
+        },
+
+        breadcrumbs: function(){
+            if ((this.currentObject === null)||(typeof this.currentObject.breadcrumbs === 'undefined')) return null;
+
+            return this.currentObject.breadcrumbs;
+        },
+
+        url: function (){
+            return "http://skyhub.me"+(this.$store.state.route.fullPath||"/");
         },
 
         dateCreation: function(){

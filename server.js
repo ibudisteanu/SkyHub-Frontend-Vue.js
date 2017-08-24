@@ -153,6 +153,19 @@ function render (req, res) {
             "query-input": "required"
         }
     },
+    SEOMixinBreadcrumbsSchemaMarkup:{
+        "@context": "http://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [{
+            "@type": "ListItem",
+            position: 1,
+            item: {
+                "@id": "https://skyhub.me/",
+                name: "Home",
+                image: "http://skyhub.me/public/SkyHub-logo-square.png"
+            }
+        }],
+    },
     SEOMixinWebPageType: 'website',
     SEOMixinCopyright: 'SkyHub Forum 2.0 Social Network',
     SEOMixinLanguage: 'en-US',

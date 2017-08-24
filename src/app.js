@@ -12,6 +12,7 @@ import DescriptionMixin from './modules/utils/SEO/DescriptionMixin';
 import KeywordsMixin from './modules/utils/SEO/KeywordsMixin';
 import ImagesMixin from './modules/utils/SEO/ImagesMixin';
 import SchemaMarkupMixin from './modules/utils/SEO/SchemaMarkupMixin';
+import BreadcrumbsSchemaMarkupMixin from './modules/utils/SEO/BreadcrumbsSchemaMarkupMixin';
 import WebPageTypeMixin from './modules/utils/SEO/WebPageTypeMixin';
 
 
@@ -25,6 +26,7 @@ Vue.mixin(DescriptionMixin);
 Vue.mixin(KeywordsMixin);
 Vue.mixin(ImagesMixin);
 Vue.mixin(SchemaMarkupMixin);
+Vue.mixin(BreadcrumbsSchemaMarkupMixin);
 Vue.mixin(WebPageTypeMixin);
 
 // register global utility helpers.

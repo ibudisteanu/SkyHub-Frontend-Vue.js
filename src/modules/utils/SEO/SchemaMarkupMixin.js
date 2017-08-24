@@ -4,10 +4,12 @@
 
 /*
  SCHEMA MARKUP basedo n https://jsonld.com/web-page/
+
+ EXAMPLE: https://search.google.com/structured-data/testing-tool/u/0/#url=https%3A%2F%2Fwww.joe-pagan.com%2Fblog%2Fgoogle-pagespeed-optimising-decorative-template-images
  */
 
 function getSchemaMarkup (vm) {
-    const { title, keywords, description, images, author, webPageType, dateCreation, dateLastActivity } = vm.$options
+    const { title, keywords, shortDescription, description, images, author, webPageType, dateCreation, dateLastActivity, url } = vm.$options
     if ((images) && (title) && (description)){
         let imagesData = typeof images === 'function'
             ? images.call(vm)
@@ -16,6 +18,10 @@ function getSchemaMarkup (vm) {
         let titleData = typeof images === 'function'
             ? title.call(vm)
             : title;
+
+        let shortDescriptionData = typeof shortDescription === 'function'
+            ? shortDescription.call(vm)
+            : shortDescription;
 
         let descriptionData = typeof description === 'function'
             ? description.call(vm)
@@ -41,13 +47,18 @@ function getSchemaMarkup (vm) {
             ? dateLastActivity.call(vm)
             : dateLastActivity;
 
-        if ((typeof imagesData === 'undefined')||(imagesData === null)||(imagesData.length === 0)) imagesData = [ {url: "/public/SkyHub-landing-image.jpg", alt:"SkyHub Forum 2.0 Social Network - Change the World"}];
+        let urlData = typeof url === 'function'
+            ? url.call(vm)
+            : url;
+
+        if ((typeof imagesData === 'undefined')||(imagesData === null)||(imagesData.length === 0)) imagesData = [ {url: "http://skyhub.me/public/SkyHub-landing-image.jpg", alt:"SkyHub Forum 2.0 Social Network - Change the World"}];
         if ((typeof titleData === 'undefined')||(titleData === '')) titleData = 'SkyHub Forum 2.0 Social Network';
         if ((typeof descriptionData === 'undefined')||(descriptionData === '')) descriptionData = 'Change the world together!';
         if ((typeof webPageTypeData === 'undefined')||(webPageTypeData === '')) webPageTypeData = 'website';
         if ((typeof keywordsData === 'undefined')||(keywordsData === null)||(keywordsData.length === 0)) keywordsData = ['social network, forum 2.0, forums, discussions, networks, communities'];
         if ((typeof dateCreationData === 'undefined')||(dateCreationData === '')) dateCreationData = '';
         if ((typeof dateLastActivityData === 'undefined')||(dateLastActivityData === '')) dateLastActivityData = '';
+        if ((typeof urlData === 'undefined')||(urlData==='')) urlData = "http://skyhub.me/";
 
         console.log(imagesData);
 
@@ -69,7 +80,7 @@ function getSchemaMarkup (vm) {
                     potentialAction:{
                         "@type": "SearchAction",
                         target: "http://skyhub.me/search/{query}",
-                        "query-input": "required name=search_term"
+                        "query-input": "required name=query"
                     }
                 };
                 return mixinSchemas;
@@ -79,19 +90,29 @@ function getSchemaMarkup (vm) {
                     "@type": "Article",
                     headline: titleData,
                     alternativeHeadline: descriptionData.substr(0,30),
-                    image: imagesData[0].url,
+                    image: {
+                        "@type":"ImageObjecT",
+                        url: imagesData[0].url,
+                    },
                     author: authorData,
                     editor: authorData,
                     //genre: "search engine optimization",
                     keywords: keywordsData.toString(),
                     //'wordcount: "1120",
-                    publisher: "SkyHub Forum 2.0 Social Network",
+                    publisher: {
+                        "@type":"Organization",
+                        name:"SkyHub Forum 2.0 Social Network"
+                    },
                     url: "http://skyhub.me",
                     datePublished: dateCreationData.toString(),
                     dateCreated: dateCreationData.toString(),
                     dateModified: dateLastActivityData.toString(),
-                    description: descriptionData.substr(0,100),
+                    description: shortDescriptionData.substr(0,100),
                     articleBody: descriptionData,
+                    mainEntityOfPage: {
+                        "@type": "WebPage",
+                        "@id": urlData.toString()
+                    },
                 };
 
                 return mixinSchemas;
