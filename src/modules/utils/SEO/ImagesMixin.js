@@ -25,7 +25,7 @@ function getImages (vm) {
         for (let i=0; i<imagesData.length; i++){
 
             let title = imagesData[i].title;
-            if (title.length < 2) title = titleData.toString();
+            if ((typeof title ==='undefined')||(title === null)||(title.length < 2)) title = titleData.toString();
             mixinImages += '<meta property="og:image"  content="'+imagesData[i].url+'"  />';
             mixinImages += '<meta property="og:image:alt" content="'+title+'" />';
             mixinImages += '<meta property="twitter:image"  content="'+imagesData[i].url+'" />';
