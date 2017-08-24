@@ -29,7 +29,7 @@
         },
 
         properties:{
-            'notFound': {default: ''}
+            'error': {default: ''}
         },
 
         computed:{

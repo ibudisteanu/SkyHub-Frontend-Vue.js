@@ -9,20 +9,27 @@ import {addSuffix} from './helpers/MixinHelpers';
  */
 
 function getImages (vm) {
-    const { images } = vm.$options
+    const { images, title } = vm.$options
     if (images) {
         let imagesData = typeof images === 'function'
             ? images.call(vm)
             : images;
 
+        let titleData = typeof title === 'function'
+            ? title.call(vm)
+            : title;
+
         if ((typeof imagesData === 'undefined')||(imagesData === null)||(imagesData.length === 0)) return '';
 
         let mixinImages = '';
-        for (let i=0; i<imagesData; i++){
+        for (let i=0; i<imagesData.length; i++){
+
+            let title = imagesData[i].title;
+            if (title.length < 2) title = titleData.toString();
             mixinImages += '<meta property="og:image"  content="'+imagesData[i].url+'"  />';
-            mixinImages += '<meta property="og:image:alt" content="'+imagesData[i].alt+'" />';
+            mixinImages += '<meta property="og:image:alt" content="'+title+'" />';
             mixinImages += '<meta property="twitter:image"  content="'+imagesData[i].url+'" />';
-            mixinImages += '<meta property="twitter:image:alt" content="'+imagesData[i].alt+'"   />';
+            mixinImages += '<meta property="twitter:image:alt" content="'+title+'"   />';
         }
 
         return mixinImages;

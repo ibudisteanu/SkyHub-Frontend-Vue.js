@@ -91,7 +91,7 @@ function getSchemaMarkup (vm) {
                     headline: titleData,
                     alternativeHeadline: descriptionData.substr(0,30),
                     image: {
-                        "@type":"ImageObjecT",
+                        "@type":"ImageObject",
                         url: imagesData[0].url,
                     },
                     author: authorData,
