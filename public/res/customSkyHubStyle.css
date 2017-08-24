@@ -477,6 +477,7 @@ div.filepicker {
   padding: 0 10px 10px 0;
   float: left;
   width: 40%;
+  max-width: 300px;
 }
 
 .topic-question  > .topic-question-body{
@@ -522,12 +523,26 @@ div.filepicker {
  */
 
 .reply-form{
-    overflow:  visible !important;
-    border-radius: 10px;
 
-    background-color: rgba(26, 144, 68, 0.03);
+    overflow:  visible !important;
+
+    /*border-radius: 21px;*/
+    /*box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.04);*/
+
     margin-right: 10px;
     padding-top: 2px;
+
+    border-left: #c4c1ea;
+    border-left-style: dotted;
+    border-left-width: 1px;
+}
+
+.reply-form-first-child{
+
+}
+.reply-form{
+    background: white;
+    /*background-color: rgba(26, 144, 68, 0.13);*/
 }
 
 .reply-form-content{
