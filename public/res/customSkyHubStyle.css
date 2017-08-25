@@ -526,7 +526,7 @@ div.filepicker {
 
     overflow:  visible !important;
 
-    /*border-radius: 21px;*/
+    border-radius: 20px;
     /*box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.04);*/
 
     margin-right: 10px;

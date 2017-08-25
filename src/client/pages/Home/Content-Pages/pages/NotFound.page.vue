@@ -28,7 +28,7 @@
             'HeaderCover': HeaderCover,
         },
 
-        properties:{
+        props:{
             'error': {default: ''}
         },
 

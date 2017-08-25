@@ -110,7 +110,7 @@ modules:
                 console.log('editor ready!', editor)
             },
             onEditorChange({ editor, html, text }) {
-                console.log('editor change!', editor, html, text);
+                //console.log('editor change!', editor, html, text);
                 this.content = html;
                 this.text = text;
 

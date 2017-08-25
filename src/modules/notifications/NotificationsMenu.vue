@@ -1,7 +1,7 @@
 <template>
   <li key="notificationMenu" class="dropdown">
 
-    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#" @click="this.resetNotificationsUnreadCounter">
+    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#" @click="this.openNotificationMenu">
         <i class="fa fa-bell"></i>
         <span v-if="unreadUserNotifications > 0" class="label label-warning">{{unreadUserNotifications}}</span>
     </a>
@@ -52,7 +52,25 @@
 
           resetNotificationsUnreadCounter(){
               return this.$store.dispatch('USER_NOTIFICATIONS_RESET_UNREAD_COUNTER', {});
-          }
+          },
+
+          openNotificationMenu(){
+              this.resetNotificationsUnreadCounter();
+
+              let notifications = this.notifications;
+              for (let i=0; i<notifications.length; i++){
+
+                  let userId = notifications[i].params.userSourceId||'';
+                  if (userId !== ''){
+                      this.$store.dispatch('CONTENT_USERS_GET', {userId: this.authorId});
+                  }
+
+              }
+          },
+
+          mounted(){
+
+          },
       }
 
   }
