@@ -20,7 +20,11 @@
                              <small class="pull-right">
                                  <ShowDate :date="notification.dtCreation" />
                              </small>
-                             <strong>{{this.title}}</strong> <br/>
+
+                             <div v-if="this.title !== ''">
+                                <strong>{{this.title}}</strong>
+                                 <br/>
+                             </div>
 
                             <small class="text-muted" v-html="this.body">
                             </small>
@@ -38,6 +42,7 @@
 <script>
     import ShowDate from 'client/components/util-components/UI/show-date/ShowDate.component.vue';
     import UserModel from 'models/User/User.model';
+    import ContentObjectService from 'store/helpers/ContentObject.service';
 
      export default{
          name: 'NotificationItem',
@@ -55,7 +60,14 @@
 
              title(){
 
-                 return this.notification.params.title||'';
+                 let result = this.notification.params.title||'';
+
+                 switch (this.notification.template){
+                     case 'new-vote':
+                         result = "You got voted UP";
+                 }
+
+                 return result;
 
              },
 
@@ -67,12 +79,17 @@
                      result += "<b>"+UserModel.getName(this.user)+"</b>";
                  }
 
+                 let objectType = this.objectType;
+
                  switch (this.notification.template){
                      case 'new-reply':
-                         result += " replied to your content: ";
+                         result += " replied to your "+objectType+':';
                          break;
                      case 'new-topic':
                          result += " created a new topic: ";
+                         break;
+                     case 'new-vote':
+                         result += " liked your "+objectType;
                          break;
                  }
 
@@ -93,6 +110,12 @@
 
              },
 
+             objectType(){
+                 if ( (this.notification.params.objectId || '') !== '')
+                     return ContentObjectService.extractObjectTypeFromId(this.notification.params.objectId);
+                 else
+                     return 'content';
+             },
 
              user(){
 
