@@ -128,7 +128,7 @@
                     :parentId = "this.getTopic.id"
                     parentReplyId = ""
                     :key = "'ViewReplies_'+this.getTopic.id+'_'"
-                    :showPreview="true"
+                    :showPreview="false"
 
             >
             </ViewAllReplies>

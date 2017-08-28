@@ -1,5 +1,19 @@
 import sanitizeHtml from 'sanitize-html';
 
+export function sanitizeStripAllTags(text, allowedTags, allowedAttributes){
+
+    if (text === null) return null;
+
+    if (typeof allowedTags === 'undefined') allowedTags = [];
+    if (typeof allowedAttributes === 'undefined') allowedAttributes = {};
+
+    return sanitizeHtml(text,
+        {
+            allowedTags: allowedTags,
+            allowedAttributes: allowedAttributes,
+        });
+}
+
 export function sanitizeAdvanced(text, enableAnchors) {
 
     if (typeof enableAnchors === 'undefined') enableAnchors = true;

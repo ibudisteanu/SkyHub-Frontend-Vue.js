@@ -20,6 +20,7 @@
     import Layout from 'client/components/Template/Layout/Layout.vue';
     import PageContent from './Content-Pages/PageContent.page.vue';
     import Topic from 'models/Topic/Topic.model';
+    import {sanitizeStripAllTags} from 'modules/utils/global-utilities/SanitizeAdvanced';
 
     function checkPageIndex(a, b){
         if ((b!=='')&&(!isNaN(b))) {
@@ -117,43 +118,43 @@
                         SEO
          */
         title: function() {
-            return (this.currentObject !== null)
+            return sanitizeStripAllTags((this.currentObject !== null)
                 ?
                     this.currentObject.title||this.currentObject.name
                 :
-                    'Home'
+                    'Home')
         },
 
         shortDescription: function() {
-            return (this.currentObject !== null)
+            return sanitizeStripAllTags((this.currentObject !== null)
                 ?
                 this.currentObject.shortDescription||this.currentObject.description||this.title
                 :
-                null
+                null)
         },
 
         description: function() {
-            return (this.currentObject !== null)
+            return sanitizeStripAllTags((this.currentObject !== null)
                 ?
                     this.currentObject.description||this.currentObject.shortDescription||this.title
                 :
-                null
+                null)
         },
 
         keywords: function() {
-            return (this.currentObject !== null)
+            return sanitizeStripAllTags((this.currentObject !== null)
                 ?
                 this.currentObject.keywords||[]
                 :
-                null
+                null)
         },
 
         author: function(){
-            return (this.currentObject !== null)
+            return sanitizeStripAllTags((this.currentObject !== null)
                 ?
                     this.currentObject.authorName||this.currentObject.authorId
                 :
-                    null
+                    null)
         },
 
         images: function() {
