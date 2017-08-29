@@ -46,7 +46,7 @@
 
                             <Voting :parentId = "getTopic.id" />
 
-                            <ViewUserForum :authorId="getTopic.authorId">
+                            <ViewUserForum :authorId="getTopic.authorId" :additionalInformation="getTopic.addInfo">
                                 <h3 class="reply-header-title"  slot="view-user-after-profile-pic">{{getTopic.title || '' }} </h3>
                             </ViewUserForum>
 
@@ -129,6 +129,8 @@
                     parentReplyId = ""
                     :key = "'ViewReplies_'+this.getTopic.id+'_'"
                     :showPreview="false"
+
+                    :reverse = "this.getTopic.addInfo.scraped||false"
 
             >
             </ViewAllReplies>

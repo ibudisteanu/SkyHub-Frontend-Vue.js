@@ -31,7 +31,8 @@
         name: 'ViewUserForum',
 
         props:{
-            authorId: {default: ''}
+            authorId: {default: ''},
+            additionalInformation: {default: ''},
         },
 
         mounted(){
@@ -44,14 +45,20 @@
             },
 
             getUserFullName(){
+                if ((this.additionalInformation.orgName||'') !== '') return this.additionalInformation.orgName;
+
                 return typeof this.user !== 'undefined' ? User.getName(this.user) :  this.authorId;
             },
 
             getUserBio(){
+                if ((this.additionalInformation.orgName||'') !== '') return this.additionalInformation.orgBio||'';
+
                 return typeof this.user !== 'undefined' ? this.user.shortBio :  'bio';
             },
 
             getUserProfilePic(){
+                if ((this.additionalInformation.orgName||'') !== '') return this.additionalInformation.orgAvatar||'';
+
                 return typeof this.user !== 'undefined' ? this.user.profilePic : 'https://forums.carm.org/vb5/core/images/default/default_avatar_medium.png';
             }
         }

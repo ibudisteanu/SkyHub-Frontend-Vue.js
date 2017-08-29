@@ -17,7 +17,7 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
                 <ShowDate className="date information" style="float:right; margin-right: 10px" :date="reply.dtCreation" />
             </div>
 
-            <ViewUserForum :authorId="this.reply.authorId">
+            <ViewUserForum :authorId="this.reply.authorId" :additionalInformation="this.reply.addInfo">
                 <h3 v-if="reply.title !== ''" class="reply-header-title" slot="view-user-after-profile-pic">{{reply.title || ' ' }} </h3>
             </ViewUserForum>
 

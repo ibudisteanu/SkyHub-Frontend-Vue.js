@@ -48,12 +48,17 @@
             parentReplyId :{default: null},
             parentId : {default: null},
             showPreview : {default: false},
+            reverse: {default: false}
         },
 
         computed:{
 
             repliesList(){
-                return this.$store.getters.getReplies;
+                let replies = this.$store.getters.getReplies;
+
+                if (this.reverse) replies = replies.reverse()
+
+                return  replies;
             },
 
             getChildReplies(){

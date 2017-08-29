@@ -40,6 +40,8 @@ export default class Forum {
         this.longitude = data.longitude || -666;
         this.latitude = data.latitude || -666;
 
+        this.addInfo = data.addInfo || {};
+
         //console.log('Forum Assigned', data);
     }
 
