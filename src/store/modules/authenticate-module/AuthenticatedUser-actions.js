@@ -49,7 +49,7 @@ export default {
         console.log('Fetching session', sessionId, state.user.lastName);
         let resData = await FetchService.sendRequestGetData("auth/login-session", {sessionId: sessionId });
 
-        console.log('Answer from Login sessionId Async', resData, state.user.lastName);
+        console.log('Answer from Login sessionId Async', resData.result, state.user.lastName);
 
         if (resData.result === true) {
            CookiesService.setCookie('sessionId', sessionId, 365*5, '/');

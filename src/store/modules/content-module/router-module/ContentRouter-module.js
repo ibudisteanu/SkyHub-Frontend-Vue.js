@@ -18,7 +18,8 @@ export default {
     },
 
     state:{
-
+        pageIndex: 1,
+        pageType: '',
     },
 
 

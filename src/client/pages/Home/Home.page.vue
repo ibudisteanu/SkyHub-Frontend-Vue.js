@@ -23,10 +23,13 @@
     import {sanitizeStripAllTags} from 'modules/utils/global-utilities/SanitizeAdvanced';
 
     function checkPageIndex(a, b){
-        if ((b!=='')&&(!isNaN(b))) {
+
+        if (!isNaN(b)) {
             let pageIndex = parseInt(b);
             let pageType = '';
             if ((a === 'forums'))
+                pageType = a;
+            if ((a === 'pages'))
                 pageType = a;
             return {
                 pageIndex: pageIndex,
@@ -35,6 +38,7 @@
         }
         return null;
     }
+
 
     export default {
 
@@ -47,6 +51,7 @@
         //  forum-name/topic-name
         //  forum-name/topic/3
         //  forum-name/forums/3
+        //  forum-name/all-pages/3
 
         async asyncData ({ store,  route: { params: { a,b, c, d }} }) {
 
@@ -70,9 +75,9 @@
                 if (pageInfo.pageIndex !== 0) b = '';
                 if (pageInfo.pageType !== '') a = '';
             }else
-            if (checkPageIndex('',a) !== null){
-                pageInfo = checkPageIndex('',a);
-                if (pageInfo.pageIndex !== 0) a = '';
+            if (checkPageIndex(a,'') !== null){
+                pageInfo = checkPageIndex(a, '');
+                a = '';
             }
 
             console.log(a,b,c,d);
@@ -94,6 +99,7 @@
 
             let pageIndex = pageInfo.pageIndex;
             let pageType = pageInfo.pageType;
+            await store.dispatch('CONTENT_SET_CURRENT_ROUTER_PARAMS', {pageIndex: pageIndex, pageType: pageType});
             await store.dispatch('CONTENT_FETCH_ROUTER_OBJECT_AND_CONTENT', {url, pageIndex, pageType} );
 
             return true;

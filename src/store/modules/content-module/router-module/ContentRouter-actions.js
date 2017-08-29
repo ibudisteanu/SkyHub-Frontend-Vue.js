@@ -19,6 +19,12 @@ export default{
 
     },
 
+    CONTENT_SET_CURRENT_ROUTER_PARAMS: async ( {commit, store, dispatch}, { pageIndex, pageType}) =>{
+
+        return commit('SET_CURRENT_ROUTER_PARAMS', {pageIndex, pageType});
+
+    },
+
     /*
             THE FETCHING IS THE SAME...
      */
