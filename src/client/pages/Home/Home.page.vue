@@ -24,6 +24,8 @@
 
     function checkPageIndex(a, b){
 
+        if (typeof b === 'undefined') b = '0';
+
         if (!isNaN(b)) {
             let pageIndex = parseInt(b);
             let pageType = '';
@@ -31,10 +33,12 @@
                 pageType = a;
             if ((a === 'pages'))
                 pageType = a;
-            return {
-                pageIndex: pageIndex,
-                pageType: pageType,
-            }
+
+            if (pageType !== '')
+                return {
+                    pageIndex: pageIndex,
+                    pageType: pageType,
+                }
         }
         return null;
     }
@@ -84,10 +88,10 @@
 
             //url = store.state.route.fullPath.toString();
             let url = '';
-            if (typeof a !== 'undefined') url += '/'+a;
-            if (typeof b !== 'undefined') url += '/'+b;
-            if (typeof c !== 'undefined') url += '/'+c;
-            if (typeof d !== 'undefined') url += '/'+d;
+            if ((typeof a === 'string')&&(a !=='')) url += '/'+a;
+            if ((typeof b === 'string')&&(b !== '')) url += '/'+b;
+            if ((typeof c === 'string')&&(c !== '')) url += '/'+c;
+            if ((typeof d === 'string')&&(d !== '')) url += '/'+d;
 
             if (url === '/index.htm') url = ''; //forward bug fix
 

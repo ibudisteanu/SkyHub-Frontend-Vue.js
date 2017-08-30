@@ -23,7 +23,6 @@ export default{
         state.pageIndex = pageIndex;
         state.pageType = pageType;
 
-        console.log('bbbbbbbbbbbbb', pageType)
     },
 
     SET_CURRENT_ROUTER_PARENT_OBJECT: (state, { routerObject, notFound, url }) => {

@@ -4,7 +4,7 @@
 
         <ul class="pagination">
             <li :class="'page-item '+ (this.pageIndex <= 1 ? 'disabled' : '')">
-                <router-link class="page-link" :to="getURL+(this.pageIndex-1)">
+                <router-link class="page-link" :to="this.pageIndex <= 1 ? '' : getURL+(this.pageIndex-1)">
                     <i class="fa fa-angle-double-left"></i>
                     Previous
                 </router-link>
@@ -27,8 +27,8 @@
                 </router-link>
             </li>
 
-            <li :class="'page-item' + (this.hasNext === false ? 'disabled' : '')">
-                <router-link class="page-link" :to="getURL+(this.pageIndex+1)">
+            <li :class="'page-item ' + (this.hasNext === false ? 'disabled' : '')">
+                <router-link class="page-link" :to="this.hasNext === false ? '' : getURL+(this.pageIndex+1)">
                     Next
                     <i class="fa fa-angle-double-right"></i>
                 </router-link>

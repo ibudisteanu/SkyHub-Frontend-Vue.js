@@ -5,37 +5,40 @@
 
 <template>
     <div>
-        <div v-if="pageType !== 'pages'" class="col-xl-6 col-xl-offset-3 col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12" style='padding:0; margin-bottom:0'>
+        <div class="col-xl-6 col-xl-offset-3 col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12" style='padding:0; margin-bottom:0'>
 
-            <div class="row">
-                <PreviewForums :forums="forums" :parentId="getForumId" :hasNext="this.forumsHasNext" />
-                <Pagination hidden="true" :url="this.getURL" :pageIndex="this.forumsPageIndex" :hasNext="forumsHasNext" prefix="forums" />
-            </div>
-
-            <div class="row" style='padding-bottom: 20px; padding-top:20px'>
-                <ContentButtons :enableAddReply="false" :parentId="getForumId" :parentName="getForumName" buttonsRowStyle="text-align: center; padding-bottom:20px" />
-            </div>
-
-            <div class="row" style='padding-bottom: 20px'>
-
-                <div class="text-center" style='padding-bottom: 40px'>
-                    <h4 style='font-size:30px'>What's hot on {{this.getForumTitle}}</h4>
+            <div v-if="pageType !== 'pages'">
+                <div class="row">
+                    <PreviewForums :forums="forums" :parentId="getForumId" :hasNext="this.forumsHasNext" />
+                    <Pagination hidden="true" :url="this.getURL" :pageIndex="this.forumsPageIndex" :hasNext="forumsHasNext" prefix="forums" />
                 </div>
 
-                <PreviewTopics :key="'PreviewForums_'+getForumId" :title="this.getForumTitle" :topics="this.contentTopics" :parentId="this.getForumId" :hasNext="this.topicsHasNext" />
+                <div class="row" style='padding-bottom: 20px; padding-top:20px'>
+                    <ContentButtons :enableAddReply="false" :parentId="getForumId" :parentName="getForumName" buttonsRowStyle="text-align: center; padding-bottom:20px" />
+                </div>
 
-                <Pagination hidden="true" :url="this.getURL" :pageIndex="this.topicsPageIndex" :hasNext="this.topicsHasNext" />
+                <div class="row" style='padding-bottom: 20px'>
+
+                    <div class="text-center" style='padding-bottom: 40px'>
+                        <h4 style='font-size:30px'>What's hot on {{this.getForumTitle}}</h4>
+                    </div>
+
+                    <PreviewTopics :key="'PreviewForums_'+getForumId" :title="this.getForumTitle" :topics="this.contentTopics" :parentId="this.getForumId" :hasNext="this.topicsHasNext" />
+
+                    <Pagination hidden="true" :url="this.getURL" :pageIndex="this.topicsPageIndex" :hasNext="this.topicsHasNext" />
 
 
-                <router-link class="page-link invizibil-element" :to="getURL+'pages'">
-                    View All Pages
-                </router-link>
+                    <router-link class="page-link invizibil-element" :to="getURL+'pages'">
+                        View All Pages
+                    </router-link>
 
+                </div>
             </div>
-        </div>
 
-        <div v-if="pageType === 'pages'">
-            <AllPages />
+            <div v-if="pageType === 'pages'">
+                <AllPages />
+            </div>
+
         </div>
 
     </div>
@@ -64,6 +67,16 @@
         },
 
         computed:{
+
+            getForum(){
+                return this.$store.state.content.contentRouter.currentObject;
+            },
+
+            getURL(){
+                return this.$store.state.content.contentRouter.currentObject.pageURL;
+            },
+
+
             contentTopics(){
                 return this.$store.getters.getTopics;
             },
@@ -93,10 +106,6 @@
             },
 
 
-            getForum(){
-                return this.$store.state.content.contentRouter.currentObject;
-            },
-
             getForumId(){
                 if (this.getForum.object === null) return '';
                 else return this.getForum.object.id;
@@ -111,10 +120,6 @@
                 if (this.getForum.object === null) return 'SkyHub';
                 else return this.getForum.object.name||this.getForum.object.title;
             },
-
-            getURL(){
-                return this.$store.state.content.contentRouter.currentObject.pageURL;
-            }
 
         }
     }
