@@ -12,7 +12,8 @@ export default{
         state.currentObject.object = ContentObjectService.createObject(routerObject);
 
         if (typeof url === 'undefined')
-            url = state.currentObject.object.URL||'';
+            if (state.currentObject.object  === null) url ='';
+            else url = state.currentObject.object.URL||'';
 
         if (url === '/') state.currentObject.type = "home";
         else state.currentObject.type = ContentObjectService.extractObjectTypeFromId(routerObject);
