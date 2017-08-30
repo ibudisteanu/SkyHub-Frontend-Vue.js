@@ -28,7 +28,7 @@
                     <Pagination hidden="true" :url="this.getURL" :pageIndex="this.topicsPageIndex" :hasNext="this.topicsHasNext" />
 
 
-                    <router-link class="page-link invizibil-element" :to="getURL+'pages'">
+                    <router-link class="page-link invizibil-element" :to="this.getURL+'pages'">
                         View All Pages
                     </router-link>
 
