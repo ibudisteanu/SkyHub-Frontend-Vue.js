@@ -51,6 +51,10 @@ export default class Topic {
 
         this.addInfo = data.addInfo || {};
 
+        if (typeof this.addInfo.dtCreation !== 'undefined'){
+            this.addInfo.dtCreation = ((typeof this.addInfo.dtCreation === "string")&&(this.addInfo.dtCreation !== '')) ? Date.parse(this.addInfo.dtCreation) : new Date(this.addInfo.dtCreation||new Date());
+        }
+
         //console.log('Topic Assigned', data);
     }
 

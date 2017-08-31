@@ -42,6 +42,10 @@ export default class Reply {
 
         this.addInfo = data.addInfo || {};
 
+        if (typeof this.addInfo.dtRealCreation !== 'undefined'){
+            this.addInfo.dtRealCreation = ((typeof this.addInfo.dtRealCreation === "string")&&(this.addInfo.dtRealCreation !== '')) ? Date.parse(this.addInfo.dtRealCreation) : new Date(this.addInfo.dtRealCreation||new Date());
+        }
+
         //console.log('Reply assigned ', data, data.title, data.parentReplyId);
     }
 

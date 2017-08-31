@@ -47,7 +47,7 @@
 
                 <ViewUserForum style='display: inline' :authorId="topic.authorId" :additionalInformation="topic.addInfo">
 
-                    <ShowDate :date="topic.dtCreation" slot="view-user-bottom"/>
+                    <ShowDate :date="topic.addInfo.dtRealCreation||topic.dtCreation" slot="view-user-bottom"/>
 
                 </ViewUserForum>
 

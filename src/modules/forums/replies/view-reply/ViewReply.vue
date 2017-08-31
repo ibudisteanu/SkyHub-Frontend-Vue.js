@@ -14,7 +14,7 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
             <Voting :parentId = "reply.id" :showPreview="this.showPreview" />
 
             <div>
-                <ShowDate className="date information" style="float:right; margin-right: 10px" :date="reply.dtCreation" />
+                <ShowDate className="date information" style="float:right; margin-right: 10px" :date="reply.addInfo.dtRealCreation||reply.dtCreation" />
             </div>
 
             <ViewUserForum :authorId="this.reply.authorId" :additionalInformation="this.reply.addInfo">
