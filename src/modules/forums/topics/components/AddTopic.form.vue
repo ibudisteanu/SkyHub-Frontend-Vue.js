@@ -164,6 +164,7 @@
 
     import PreviewNewTopic from 'modules/forums/topics/components/PreviewNewTopic.vue';
     import Topic from 'models/Topic/Topic.model';
+    import Attachments from 'models/Attachment/Attachments.model';
 
     export default{
         name: "AddTopic",
@@ -220,19 +221,19 @@
             },
 
             getTitle(){
-                return Topic.getTitle(this.$refs['refPreviewNewTopic'].topic);
+                return Attachments.getTitle(this.$refs['refPreviewNewTopic'].topic);
             },
 
             getImage(){
-                return Topic.getImage(this.$refs['refPreviewNewTopic'].topic);
+                return Attachments.getImage(this.$refs['refPreviewNewTopic'].topic);
             },
 
             getKeywords(){
-                return Topic.getKeywords(this.$refs['refPreviewNewTopic'].topic);
+                return Attachments.getKeywords(this.$refs['refPreviewNewTopic'].topic);
             },
 
             getDescription(){
-                return Topic.getDescription(this.$refs['refPreviewNewTopic'].topic);
+                return Attachments.getDescription(this.$refs['refPreviewNewTopic'].topic);
             },
 
         },

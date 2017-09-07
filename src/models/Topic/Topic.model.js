@@ -63,51 +63,6 @@ export default class Topic {
     }
 
 
-    static getTitle(Topic){
-
-      if (Topic.title !== '') return Topic.title;
-      if (Attachments.getLinkAttachment(Topic) !== null) return Attachments.getLinkAttachment(Topic).title;
-      if (Topic.attachments.length > 0 ) return Topic.attachments[0].title;
-
-      return '';
-    }
-
-    static getDescription(Topic){
-      if (Topic.description !== '') return Topic.description;
-      if (Attachments.getLinkAttachment(Topic) !== null) return Attachments.getLinkAttachment(Topic).description;
-      if (Topic.attachments.length > 0 ) return Topic.attachments[0].description;
-
-      return '';
-    }
-
-    static getShortDescription(Topic){
-        if (Topic.shortDescription !== '') return Topic.shortDescription;
-        if (Attachments.getLinkAttachment(Topic) !== null) return Attachments.getLinkAttachment(Topic).description;
-        if (Topic.attachments.length > 0 ) return Topic.attachments[0].description;
-
-        return '';
-    }
-
-    static getImage(Topic){
-      //if ((typeof Topic.image !== "undefined")&&(Topic.image !== '')) return Topic.image;
-
-      if (Topic.attachments.length > 0 ) //I have an uploaded image
-        for (let i=0; i<Topic.attachments.length; i++)
-          if ((Topic.attachments[i].type === "file")&&(Topic.attachments[i].typeFile.indexOf("image") >= 0 ))
-            return Topic.attachments[0];
-
-      if (Attachments.getLinkAttachment(Topic) !== null) return Attachments.getLinkAttachment(Topic);
-
-      return {url:'', alt:'', img:''};
-    }
-
-    static getKeywords(Topic){
-      if ((typeof Topic.keywords !== "undefined")&&(Topic.keywords !== '')) return Topic.keywords;
-      if (Attachments.getLinkAttachment(Topic) !== null) return Attachments.getLinkAttachment(Topic).keywords;
-      if (Topic.attachments.length > 0 ) return Topic.attachments[0].keywords;
-
-      return '';
-    }
 
 
 }

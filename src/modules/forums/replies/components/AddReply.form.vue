@@ -110,6 +110,7 @@
     import PreviewNewReply from 'modules/forums/replies/components/PreviewNewReply.vue';
 
     import Reply from 'models/Reply/Reply.model';
+    import Attachments from 'models/Attachment/Attachments.model'
 
     export default{
         name: "AddReply",
@@ -164,19 +165,19 @@
             },
 
             getTitle(){
-                return Reply.getTitle(this.$refs['refPreviewNewReply'].reply);
+                return Attachments.getTitle(this.$refs['refPreviewNewReply'].reply);
             },
 
             getImage(){
-                return Reply.getImage(this.$refs['refPreviewNewReply'].reply);
+                return Attachments.getImage(this.$refs['refPreviewNewReply'].reply);
             },
 
             getKeywords(){
-                return Reply.getKeywords(this.$refs['refPreviewNewReply'].reply);
+                return Attachments.getKeywords(this.$refs['refPreviewNewReply'].reply);
             },
 
             getDescription(){
-                return Reply.getDescription(this.$refs['refPreviewNewReply'].reply);
+                return Attachments.getDescription(this.$refs['refPreviewNewReply'].reply);
             },
 
         },

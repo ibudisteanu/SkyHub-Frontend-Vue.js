@@ -85,6 +85,8 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
     import ContentButtonsInline from 'modules/forums/components/ContentButtonsInline.component.vue';
     import ViewUserForum from 'modules/users/view-users/ViewUserForum.component.vue';
 
+    import Attachments from 'models/Attachment/Attachments.model'
+
     export default {
 
         name: 'ViewReply',
@@ -127,12 +129,12 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
 
             getDescription(){
                 if ((typeof (this.reply) === 'undefined')||(this.reply === null)) return '';
-                return Reply.getDescription(this.reply)||'';
+                return Attachments.getDescription(this.reply)||'';
             },
 
             getShortDescription(){
                 if ((typeof (this.reply) === 'undefined')||(this.reply === null)) return '';
-                return Reply.getShortDescription(this.reply)||'';
+                return Attachments.getShortDescription(this.reply)||'';
             },
 
             viewMore(){

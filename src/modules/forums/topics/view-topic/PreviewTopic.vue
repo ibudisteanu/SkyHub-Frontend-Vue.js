@@ -94,6 +94,8 @@
     import ViewUserForum from 'modules/users/view-users/ViewUserForum.component.vue';
     import {sanitizeAdvanced, sanitizeAdvancedShortDescription} from 'modules/utils/global-utilities/SanitizeAdvanced';
 
+    import Attachments from 'models/Attachment/Attachments.model'
+
     export default{
 
         name: '',
@@ -124,19 +126,19 @@
 
         computed: {
             getTopicImage(){
-                return Topic.getImage(this.topic) || "";
+                return Attachments.getImage(this.topic) || "";
             },
 
             getTopicTitle(){
-                return Topic.getTitle(this.topic)||'no title';
+                return Attachments.getTitle(this.topic)||'no title';
             },
 
             getDescription(){
-                return sanitizeAdvanced(Topic.getDescription(this.topic)||'',false);
+                return sanitizeAdvanced(Attachments.getDescription(this.topic)||'',false);
             },
 
             getShortDescription(){
-                return sanitizeAdvancedShortDescription(Topic.getShortDescription(this.topic)||'', 512, false);
+                return sanitizeAdvancedShortDescription(Attachments.getShortDescription(this.topic)||'', 512, false);
             },
 
             viewMore(){

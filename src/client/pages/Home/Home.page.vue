@@ -22,6 +22,8 @@
     import Topic from 'models/Topic/Topic.model';
     import {sanitizeStripAllTags} from 'modules/utils/global-utilities/SanitizeAdvanced';
 
+    import Attachments from 'models/Attachment/Attachments.model'
+
     function checkPageIndex(a, b){
 
         if (typeof b === 'undefined') b = '0';
@@ -171,7 +173,7 @@
 
             if ((this.currentObject === null)||(typeof this.currentObject.attachments === 'undefined')) return null;
 
-            return [Topic.getImage(this.currentObject)];
+            return [Attachments.getImage(this.currentObject)];
 
 //            let images = [];
 //            for(let i=0; i<this.currentObject.attachments.length; i++){

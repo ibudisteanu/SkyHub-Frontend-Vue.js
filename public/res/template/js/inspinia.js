@@ -184,6 +184,10 @@ $(document).ready(function () {
     $('.full-height-scroll').slimscroll({
         height: '100%'
     })
+
+    // Add slimscroll to element
+    $('.slim-scroll').slimscroll({
+    })
 });
 
 

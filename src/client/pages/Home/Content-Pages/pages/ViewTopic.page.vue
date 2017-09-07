@@ -155,6 +155,7 @@
     import ViewUserForum from 'modules/users/view-users/ViewUserForum.component.vue';
 
     import Topic from 'models/Topic/Topic.model';
+    import Attachments from 'models/Attachment/Attachments.model'
 
     export default{
 
@@ -200,19 +201,19 @@
             },
 
             getTitle(){
-                return Topic.getTitle(this.getTopic)||'no title';
+                return Attachments.getTitle(this.getTopic)||'no title';
             },
 
             getImage(){
-                return Topic.getImage(this.getTopic)||'';
+                return Attachments.getImage(this.getTopic)||'';
             },
 
             getDescription(){
-                return Topic.getDescription(this.getTopic)||'';
+                return Attachments.getDescription(this.getTopic)||'';
             },
 
             getShortDescription(){
-                return Topic.getShortDescription(this.getTopic)||'';
+                return Attachments.getShortDescription(this.getTopic)||'';
             },
 
             viewMore(){
