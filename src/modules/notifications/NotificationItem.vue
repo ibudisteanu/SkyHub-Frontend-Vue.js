@@ -7,7 +7,7 @@
 <template>
     <div v-if="this.notification !== null" :style="!notification.read ? 'background-color: #edf2fa' : '' ">
 
-         <li style="min-height: 32px">
+         <li style="min-height: 42px">
                <div class="dropdown-messages-box" @click="this.markNotificationAsRead">
 
                    <router-link :to="'/'+notification.params.anchor||''" style="display:block">

@@ -7,7 +7,8 @@
         DOCUMENTATION: https://developer.mozilla.org/ro/docs/Web/API/notification
  */
 
-import FetchService from 'services/communication/FetchService'
+import FetchService from 'services/communication/FetchService';
+import striptags from 'striptags';
 
 export default{
 
@@ -38,15 +39,17 @@ export default{
         if (!getters.areAvailable)
             return false;
 
-        var options = {
+        body = striptags(body);
+
+        let options = {
             body: body,
             icon: icon,
             timestamp: timestamp,
-        }
+        };
 
         if (Notification.permission === "granted") {                              // Let's check whether notification permissions have already been granted
 
-            var notification = new Notification(title, options);
+            let notification = new Notification(title, options);
 
             if (typeof notificationId !== 'undefined')
                 dispatch('USER_NOTIFICATIONS_MARK_SHOWN',{notificationId: notificationId});
@@ -56,7 +59,7 @@ export default{
             Notification.requestPermission(function (permission) {
                 // If the user accepts, let's create a notification
                 if (permission === "granted") {
-                    var notification = new Notification(title, options);
+                    let notification = new Notification(title, options);
 
                     if (typeof notificationId !== 'undefined')
                         dispatch('USER_NOTIFICATIONS_MARK_SHOWN',{notificationId: notificationId});
@@ -67,16 +70,28 @@ export default{
 
     },
 
-    SYSTEM_NOTIFICATIONS_SPAWN_NOTIFICATION: async ( {commit, dispatch}, {notification} ) => {
+    SYSTEM_NOTIFICATIONS_SPAWN_NOTIFICATION: async ( {commit, dispatch, getters}, {notification} ) => {
 
         console.log('### SYSTEM_NOTIFICATIONS_SPAWN_NOTIFICATION ',notification);
 
+        if (typeof notification === 'string') notification = getters.getNotification(notification);
+
+        let title = '', body='', icon='';
+
         switch (notification.template){
             default:
-                dispatch('SYSTEM_NOTIFICATIONS_SPAWN',{title: notification.params.title||'SkyHub Social Network', body: notification.params.body||'', icon: notification.params.icon||'/public/SkyHub-logo.png',
-                                                       timestamp: notification.dtCreation, notificationId:notification.id});
+                title = getters.getNotificationTitle(notification);
+                body = getters.getNotificationBody(notification);
+                icon = getters.getNotificationLeftImage(notification);
+
                 break;
         }
+
+
+        dispatch('SYSTEM_NOTIFICATIONS_SPAWN',{title: title||'SkyHub Social Network',
+                                              body: body||'',
+                                              icon: icon||'/public/SkyHub-logo.png',
+                                              timestamp: notification.dtCreation, notificationId:notification.id});
 
 
 

@@ -49,18 +49,17 @@ export default{
 
         let user = getters.getNotificationUserSource(notification);
         if (user !== null)
-            body += "<b>"+getters.getUserFullName(notification.user)+"</b>";
-
+            body += "<b>"+getters.getUserFullName(user)+"</b>";
 
 
         let objectType = getters.getNotificationObjectType(notification);
 
         switch (notification.template){
             case 'new-reply':
-                body += " replied to your "+objectType+':';
+                body += " : ";
                 break;
             case 'new-topic':
-                body += " created a new topic: ";
+                body += " created new topic: ";
                 break;
             case 'new-vote':
                 body += " liked your "+objectType;
@@ -79,10 +78,15 @@ export default{
 
         let title = notification.params.title||'';
 
-        switch (notification.template){
-            case 'new-vote':
-                title = "You got voted UP";
-        }
+        if (title.length < 3)
+            switch (notification.template){
+                case 'new-vote':
+                    title = "You got voted UP";
+                    break;
+                case 'new-reply':
+                    title = "New Reply";
+                    break;
+            }
 
         return title;
     }),

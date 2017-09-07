@@ -43,7 +43,13 @@ export default class Attachments {
     }
 
     static getImage(object){
-        if ((typeof object.image !== "undefined")&&(object.image !== '')) return object.image;
+        if (typeof object.image !== "undefined"){
+
+            if (typeof object.image === "string") return {url:object.image, alt:'', img:object.image};
+            else
+            if ((typeof object.image ==="object") && (object.image !== null)) return object;
+        }
+
 
         if (object.attachments.length > 0 ) //I have an uploaded image
             for (let i=0; i<object.attachments.length; i++)
@@ -52,7 +58,7 @@ export default class Attachments {
 
         if (Attachments.getLinkAttachment(object) !== null) return Attachments.getLinkAttachment(object).img;
 
-        return {url:'', alt:'', image:''};
+        return {url:'', alt:'', img:''};
     }
 
     static getKeywords(object){
