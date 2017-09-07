@@ -121,7 +121,7 @@
         methods: {
             voteUp() {
 
-                if (!this.$store.getters.isUserLoggedIn){
+                if (!this.$store.getters.isAuthenticatedUserLoggedIn){
 
                     if (this.$store.state.global.refAuthenticationModal !== null) {
                         this.$store.state.global.refAuthenticationModal.setOnSuccessEvent(this.voteUp);
@@ -135,7 +135,7 @@
             },
             voteDown() {
 
-                if (!this.$store.getters.isUserLoggedIn){
+                if (!this.$store.getters.isAuthenticatedUserLoggedIn){
 
                     if (this.$store.state.global.refAuthenticationModal !== null) {
                         this.$store.state.global.refAuthenticationModal.setOnSuccessEvent(this.voteDown);

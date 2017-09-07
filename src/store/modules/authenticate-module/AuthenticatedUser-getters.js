@@ -7,9 +7,9 @@ import User from 'models/User/User.model'
 
 export default {
 
-    isUserLoggedIn (state) {
+    isAuthenticatedUserLoggedIn (state, getters) {
 
-        return User.isLoggedIn(state.user);
+        return getters.isUserLoggedIn(state.user);
 
     }
 

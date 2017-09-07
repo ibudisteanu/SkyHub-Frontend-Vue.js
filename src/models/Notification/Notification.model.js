@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 
+import UserModel from 'models/User/User.model'
 
 export default class Notification {
 
@@ -27,6 +28,18 @@ export default class Notification {
         this.params = data.params || {};
 
     }
+
+    getUsersInvolved(){
+        let list = [];
+
+        if ((this.params.userSourceId||'') !== ''){
+            list.push(this.params.userSourceId);
+        }
+
+        return list;
+    }
+
+
 
 
 }

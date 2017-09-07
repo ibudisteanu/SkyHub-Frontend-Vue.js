@@ -43,7 +43,7 @@
 
       computed:{
           isLoggedIn(){
-              return this.$store.getters.isUserLoggedIn;
+              return this.$store.getters.isAuthenticatedUserLoggedIn;
           }
       }
 

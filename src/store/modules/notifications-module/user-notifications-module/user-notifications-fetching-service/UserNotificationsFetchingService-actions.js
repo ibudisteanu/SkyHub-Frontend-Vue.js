@@ -39,6 +39,12 @@ export default{
 
                     let notification = new Notification(resData.notifications[i]);
 
+                    let usersInvolved = notification.getUsersInvolved();
+                    for (let i=0; i<usersInvolved.length; i++){
+                        await dispatch('CONTENT_USERS_GET', {userId: usersInvolved[i]});
+                    }
+
+
                     commit('SET_USER_NOTIFICATION',{notification: notification});
 
                     if (notification.shown === false)

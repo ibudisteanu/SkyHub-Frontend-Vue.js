@@ -47,7 +47,7 @@
             getUserFullName(){
                 if ((this.additionalInformation.orgName||'') !== '') return this.additionalInformation.orgName;
 
-                return typeof this.user !== 'undefined' ? User.getName(this.user) :  this.authorId;
+                return typeof this.user !== 'undefined' ? this.$store.getters.getUserFullName(this.user) :  this.authorId;
             },
 
             getUserBio(){

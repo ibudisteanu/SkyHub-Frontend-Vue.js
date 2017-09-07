@@ -57,12 +57,12 @@
         computed:{
 
             isLoggedIn(){
-                return this.$store.getters.isUserLoggedIn;
+                return this.$store.getters.isAuthenticatedUserLoggedIn;
             },
 
 //            loggedInSuccessfullyEmitter(){
 //
-//                if ((this.loggedInEvent)&&(this.$store.getters.isUserLoggedIn)){
+//                if ((this.loggedInEvent)&&(this.$store.getters.isAuthenticatedUserLoggedIn)){
 //
 //                    this.loggedInEvent = false;
 //
@@ -75,7 +75,7 @@
 //                    this.close();
 //                }
 //
-//                return this.$store.getters.isUserLoggedIn;
+//                return this.$store.getters.isAuthenticatedUserLoggedIn;
 //            }
 
         },

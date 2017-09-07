@@ -15,7 +15,7 @@
                 <ImageCropUpload :enableFileUpload="enableChangeAvatar" ref="refIconImageCropUpload" @onImageChanged="avatarChanged" :width="150" :height="150" />
                 <div class="image-with-caption-link" style="display: inline-block"  @click="handleAvatarImageCropUploadModal"    @mouseover="imageAvatarActive=true; " @mouseout="imageAvatarActive=false">
                      <router-link :to="''" style="margin-bottom: 0">
-                        <img :alt="getName"  :class="'img-circle '+(showPicBorder ? 'profile-pic-white-border-circle' : '')"  :src="getProfilePic" style='width:135px; height: 135px; margin-left: auto; margin-right: auto; display: block' />
+                        <img :alt="this.getUserName"  :class="'img-circle '+(showPicBorder ? 'profile-pic-white-border-circle' : '')"  :src="getProfilePic" style='width:135px; height: 135px; margin-left: auto; margin-right: auto; display: block' />
                         <span v-if="enableChangeAvatar" :style="showPicBorder ? 'margin-left: 5px; margin-bottom: 5px; width: 90%;' : '' + 'color:white' + 'opacity: '+(imageAvatarActive ?  1 : 0.7)" ><i class="fa fa-picture-o"/> {{imageAvatarActive ? 'Change Avatar' : ''}}</span>
                      </router-link>
                 </div>
@@ -26,7 +26,7 @@
               <span class="clear" :style="{textAlign: 'center'}">
 
                 <span class="block m-t-xs">
-                    <strong class="font-bold" style="color: white">{{getName}}</strong>
+                    <strong class="font-bold" style="color: white">{{this.getUserName}}</strong>
                 </span>
 
                 <br/>
@@ -42,7 +42,7 @@
 
           </div>
           <div class="logo-element">
-              <img :alt="getName" class="img-circle" :src="getProfilePic" style='max-width:65px; max-height: 65px; padding-bottom: 15px; margin-left: auto; margin-right: auto; display: block' />
+              <img :alt="this.getUserName" class="img-circle" :src="getProfilePic" style='max-width:65px; max-height: 65px; padding-bottom: 15px; margin-left: auto; margin-right: auto; display: block' />
           </div>
         </li>
         <li class="active">
@@ -95,15 +95,15 @@
           },
 
           isLoggedIn(){
-              return this.$store.getters.isUserLoggedIn;
+              return this.$store.getters.isAuthenticatedUserLoggedIn;
           },
 
           getProfilePic(){
-              return User.getProfilePic(this.authenticatedUser.user);
+              return this.$store.getters.getUserProfilePic(this.authenticatedUser.user);
           },
 
-          getName(){
-              return User.getName(this.authenticatedUser.user);
+          getUserName(){
+              return this.$store.getters.getUserFullName(this.authenticatedUser.user);
           }
       },
 

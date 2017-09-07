@@ -12,11 +12,11 @@ export default {
     // ensure data for rendering given list type
 
 
-    AUTHENTICATE_USER_BY_LOGIN: async ({ commit, dispatch, state }, { sEmailUserName, sPassword }) => {
+    AUTHENTICATE_USER_BY_LOGIN: async ({ commit, dispatch, state, getters }, { sEmailUserName, sPassword }) => {
 
         await dispatch('AUTHENTICATE_LOGOUT_USER', {});
 
-        if (User.isLoggedIn(state.user) === true) { console.log("user already logged in"); return {result:true, user:state.user} }; //already logged in
+        if (getters.isUserLoggedIn(state.user) === true) { console.log("user already logged in"); return {result:true, user:state.user} }; //already logged in
 
         let resData = await FetchService.sendRequestGetData("auth/login",{emailUsername:sEmailUserName, password:sPassword});
 
@@ -31,9 +31,9 @@ export default {
 
     },
 
-    AUTHENTICATE_USER_BY_SESSION: async ({ commit, dispatch, state }, { sessionId }) => {
+    AUTHENTICATE_USER_BY_SESSION: async ({ commit, dispatch, state, getters }, { sessionId }) => {
 
-        if ((User.isLoggedIn(state.user) === true)&&((typeof sessionId === "undefined")||(sessionId.length < 5))) {   //Invalid Session ID
+        if ((getters.isUserLoggedIn(state.user) === true)&&((typeof sessionId === "undefined")||(sessionId.length < 5))) {   //Invalid Session ID
             await dispatch('AUTHENTICATE_LOGOUT_USER', {});
             return {result:false };
         }
@@ -42,7 +42,7 @@ export default {
             return {result:false, message: 'sessionId is empty'};
         }
 
-        // if (User.isLoggedIn(state.user) === true) {     //already logged in
+        // if (getters.isUserLoggedIn(state.user) === true) {     //already logged in
         //     return ( {result: true, user: state.user, sessionId: sessionId});
         // }
 

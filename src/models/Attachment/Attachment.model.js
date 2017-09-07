@@ -8,5 +8,5 @@ export default class Attachment {
     constructor( data ) {
 
     }
-    
+
 }

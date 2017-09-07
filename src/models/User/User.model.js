@@ -46,18 +46,4 @@ export default class User {
         //console.log('User assigned ', data, data.firstName, data.username);
     }
 
-    static getName(User) {
-        return User.firstName + ' ' + User.lastName;
-    }
-
-    static isLoggedIn(User){
-        return User.loggedIn || false;
-    }
-
-    static getProfilePic(User){
-
-        return User.profilePic||'';
-
-    }
-
 }

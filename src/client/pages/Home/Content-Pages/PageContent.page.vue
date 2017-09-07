@@ -43,7 +43,7 @@
             },
 
             isAuthenticated(){
-                return this.$store.getters.isUserLoggedIn;
+                return this.$store.getters.isAuthenticatedUserLoggedIn;
             }
         }
 
