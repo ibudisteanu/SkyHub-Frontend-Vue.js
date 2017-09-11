@@ -45,6 +45,7 @@ export function createRouter () {
       { path: '/hn/', redirect: '/hn/top' },
 
       { path: '/about', component: AboutPage },
+      { path: '/contact', component: AboutPage },
       { path: '/login', component: LoginPage },
       { path: '/signin', component: LoginPage },
 
