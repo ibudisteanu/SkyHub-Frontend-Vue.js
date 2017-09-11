@@ -8,7 +8,7 @@
  */
 
 import FetchService from 'services/communication/FetchService';
-import striptags from 'striptags';
+import {sanitizeStripAllTags} from 'modules/utils/global-utilities/SanitizeAdvanced';
 
 export default{
 
@@ -39,7 +39,7 @@ export default{
         if (!getters.areAvailable)
             return false;
 
-        body = striptags(body);
+        body = sanitizeStripAllTags(body);
 
         let options = {
             body: body,

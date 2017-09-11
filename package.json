@@ -38,7 +38,6 @@
     "sanitize-html": "^1.14.1",
     "serve-favicon": "^2.4.1",
     "socket.io-client": "^2.0.3",
-    "striptags": "^3.1.0",
     "transform-runtime": "0.0.0",
     "vue": "^2.3.2",
     "vue-facebook-signin-button": "^1.0.1",
