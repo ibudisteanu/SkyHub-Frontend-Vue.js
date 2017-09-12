@@ -1,67 +1,84 @@
 <template>
+    <div>
+        <form @submit="handleSubmitContact" autoComplete="on">
+            <label>Name</label>
+            <div :class="'input-group ' + showInputStatus(nameValidationStatus)" >
 
-    <form @submit="handleSubmitContact" autoComplete="on">
-        <label>Name</label>
-        <div :class="'input-group ' + showInputStatus(userEmailValidationStatus)" >
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
 
-            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input autoFocus type='text' class='form-control input-lg' placeholder='your name'  name="name" :value="this.userName"    @change="handleUserNameChange" />
 
-            <input autoFocus type='text' class='form-control input-lg' placeholder='your name'  name="username" :value="userEmail"    @change="handleUserEmailChange" />
+                <span :class="showInputFeedback(nameValidationStatus)"></span>
 
-            <span :class="showInputFeedback(userEmailValidationStatus)"></span>
+            </div>
+            <label class="error">{{nameValidationStatus[1]}}</label> <br/>
 
+
+            <label>Email Address</label>
+            <div :class="'input-group ' + showInputStatus(userEmailValidationStatus)" >
+
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+
+                <input autoFocus type='text' class='form-control input-lg' placeholder='email'  name="username" :value="this.userEmail"    @change="handleUserEmailChange" />
+
+                <span :class="showInputFeedback(userEmailValidationStatus)"></span>
+
+            </div>
+            <label class="error">{{userEmailValidationStatus[1]}}</label> <br/>
+
+
+
+            <label>Title</label>
+            <div :class="'input-group ' + showInputStatus(titleValidationStatus)" >
+
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+
+                <input autoFocus type='text' class='form-control input-lg' placeholder='message title'  name="name" :value="this.title"    @change="handleTitleChange" />
+
+                <span :class="showInputFeedback(titleValidationStatus)"></span>
+
+            </div>
+            <label class="error">{{titleValidationStatus[1]}}</label> <br/>
+
+
+            <strong>Description</strong>
+            <div :class="'input-group ' + this.showInputStatus(this.bodyValidationStatus)"  >
+
+                <span class="input-group-addon"><i class="fa fa-edit"></i></span>
+
+                <textarea type='text' class='form-control input' rows="5" placeholder='message body'  style="z-index:0" name="body" :value="this.body" @change="this.handleBodyChange"  />
+
+                <span :class="showInputFeedback(this.bodyValidationStatus)"></span>
+            </div>
+            <label class="error" >{{this.bodyValidationStatus[1]}}</label> <br />
+
+        </form>
+
+        <div class="panel-footer text-right" style='padding-top:20px; padding-bottom:20px; padding-right:20px'>
+            <LoadingButton class="btn-success" @onClick="handleSubmitContact" icon="fa fa-plus" text="Create Forum"  ref="refSubmitButton"  />
         </div>
-        <label class="error">{{userEmailValidationStatus[1]}}</label> <br/>
 
-
-        <label>Email Address</label>
-        <div :class="'input-group ' + showInputStatus(userEmailValidationStatus)" >
-
-            <span class="input-group-addon"><i class="fa fa-user"></i></span>
-
-            <input autoFocus type='text' class='form-control input-lg' placeholder='email'  name="username" :value="userEmail"    @change="handleUserEmailChange" />
-
-            <span :class="showInputFeedback(userEmailValidationStatus)"></span>
-
-        </div>
-        <label class="error">{{userEmailValidationStatus[1]}}</label> <br/>
-
-
-        <strong>Description</strong>
-        <div :class="'input-group ' + this.showInputStatus(this.descriptionValidationStatus)"  >
-
-            <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-
-            <textarea type='text' class='form-control input' rows="5" placeholder='description'  style="z-index:0" name="description" :value="this.description" @change="this.handleDescriptionChange"  />
-
-            <span :class="showInputFeedback(this.descriptionValidationStatus)"></span>
-        </div>
-        <label class="error" >{{this.descriptionValidationStatus[1]}}</label> <br />
-
-    </form>
-
-    <div class="panel-footer text-right" style='padding-top:20px; padding-bottom:20px; padding-right:20px'>
-        <LoadingButton class="btn-success" @onClick="handleSubmitContact" icon="fa fa-plus" text="Create Forum"  ref="refSubmitButton"  />
     </div>
 
 </template>
 
 
 <script>
-
+    import {showInputStatus, showInputFeedback, convertValidationErrorToString} from 'client/components/util-components/form-validation/formValidation';
     import LoadingButton from 'client/components/util-components/UI/buttons/LoadingButton.vue';
 
     export default{
         name: 'ContactForm',
 
-        components{
+        components: {
             "LoadingButton": LoadingButton,
         },
 
         data: function (){
             return {
-                name:'',
-                emailAddress : '',
+                userName:'',
+                userEmail: '',
+                title: '',
                 body : '',
 
                 error: '',
@@ -73,6 +90,7 @@
 
                 nameValidationStatus: [null,''],
                 emailAddressValidationStatus: [null,''],
+                titleValidationStatus: [null,''],
                 bodyValidationStatus: [null,''],
 
                 parentId:'', parentName:'',
@@ -80,7 +98,26 @@
             }
         },
 
+        props:{
+            parentIdProp: {default:''},
+            parentNameProp: {default:''},
+        },
+
+        //@onSuccess;
+        //@onError;
+
+        computed:{
+            localization(){
+                return this.$store.state.localization;
+            }
+        },
+
         methods:{
+            showInputStatus(status) {return showInputStatus(status)},
+            showInputFeedback(status) {return showInputFeedback(status)},
+            convertValidationErrorToString(error) {return convertValidationErrorToString(error)},
+
+
             async handleSubmitContact(e){
 
                 if ((typeof e !== "undefined")&&(e !== null)) {
@@ -99,9 +136,9 @@
 
                 if (!bValidationError)
                     try{
-                        let answer = await this.$store.dispatch('CONTENT_FORUMS_SUBMIT_ADD',{ parentId:this.parentId || this.parentId, name: this.name, title: this.title||this.name||'', description:this.description, keywords:this.keywords,
+                        let answer = await this.$store.dispatch('CONTACT_SEND_EMAIL',{ parentId:this.parentId || this.parentId, name: this.name, title: this.title||this.name||'', description:this.description, keywords:this.keywords,
                             country: this.countryCode || this.localization.countryCode, language:'',  city: this.city || this.localization.city, latitude: this.latitude || this.localization.latitude, longitude: this.longitude || this.localization.longitude,
-                            timezone: this.localization.longitude})
+                            timezone: this.localization.longitude});
 
                         this.$refs['refSubmitButton'].enableButton();
 
@@ -138,8 +175,32 @@
 
             },
 
-            handleNameChange(e){
-                this.handleNameChangeSelect(e.target.value);
+            handleUserNameChange(value){
+                if (typeof value === 'object') value = value.target.value;
+
+                this.name = value;
+                this.nameValidationStatus = [null, ''];
+            },
+
+            handleUserEmailChange(value){
+                if (typeof value === 'object') value = value.target.value;
+                this.name = value;
+                this.nameValidationStatus = [null, ''];
+            },
+
+
+            handleTitleChange(value){
+                if (typeof value === 'object') value = value.target.value;
+
+                this.title = value;
+                this.titleValidationStatus = [null, ''];
+            },
+
+            handleBodyChange(value){
+                if (typeof value === 'object') value = value.target.value;
+
+                this.body = value;
+                this.bodyValidationStatus = [null, ''];
             },
         }
 

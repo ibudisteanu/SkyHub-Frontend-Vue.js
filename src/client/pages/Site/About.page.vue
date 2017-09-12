@@ -53,8 +53,8 @@
         name: 'About',
 
         components: {
-            Layout,
-            ContactForm:'ContactForm'
+            "Layout": Layout,
+            "ContactForm":ContactForm
         },
 
 
