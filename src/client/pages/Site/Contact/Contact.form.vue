@@ -6,7 +6,7 @@
 
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
 
-                <input autoFocus type='text' class='form-control input-lg' placeholder='your name'  name="name" :value="this.userName"    @change="handleUserNameChange" />
+                <input autoFocus type='text' class='form-control input-lg' placeholder='your name'  name="name" :value="this.name"    @change="handleNameChange" />
 
                 <span :class="showInputFeedback(nameValidationStatus)"></span>
 
@@ -19,7 +19,7 @@
 
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
 
-                <input autoFocus type='text' class='form-control input-lg' placeholder='email'  name="username" :value="this.userEmail"    @change="handleUserEmailChange" />
+                <input autoFocus type='text' class='form-control input-lg' placeholder='email'  name="email" :value="this.email"    @change="handleEmailChange" />
 
                 <span :class="showInputFeedback(emailAddressValidationStatus)"></span>
 
@@ -76,8 +76,8 @@
 
         data: function (){
             return {
-                userName:'',
-                userEmail: '',
+                name:'',
+                email: '',
                 title: '',
                 body : '',
 
@@ -109,6 +109,10 @@
         computed:{
             localization(){
                 return this.$store.state.localization;
+            },
+
+            authorId(){
+                return this.$store.state.authenticatedUser.user.id||'';
             }
         },
 
@@ -129,20 +133,19 @@
                     return false;
 
                 let bValidationError=false;
-                this.error =  ''; this.nameValidationStatus =  [null, '']; this.titleValidationStatus = [null,'']; this.descriptionValidationStatus = [null,''];
-                this.keywordsValidationStatus = [null,'']; this.countryValidationStatus  = [null, '']; this.cityValidationStatus = [null, ''];
+                this.error =  ''; this.nameValidationStatus =  [null, '']; this.emailAddressValidationStatus = [null,'']; this.titleValidationStatus = [null,'']; this.bodyValidationStatus = [null,''];
 
                 console.log('Sending Contact Message... ');
 
                 if (!bValidationError)
                     try{
-                        let answer = await this.$store.dispatch('CONTACT_SEND_EMAIL',{ parentId:this.parentId || this.parentId, name: this.name, title: this.title||this.name||'', description:this.description, keywords:this.keywords,
+                        let answer = await this.$store.dispatch('CONTACT_SEND_EMAIL',{ parentId:this.parentId || this.parentId, name: this.name, authorId: this.authorId,  title: this.title||'', body:this.body,
                             country: this.countryCode || this.localization.countryCode, language:'',  city: this.city || this.localization.city, latitude: this.latitude || this.localization.latitude, longitude: this.longitude || this.localization.longitude,
-                            timezone: this.localization.longitude});
+                            timezone: this.localization.timeZone});
 
                         this.$refs['refSubmitButton'].enableButton();
 
-                        console.log("ANSWER FROM adding forum", answer);
+                        console.log("ANSWER FROM submit Contact Message", answer);
 
                         if (answer.result === true) {
                             this.$emit('onSuccess',answer);
@@ -152,11 +155,9 @@
                         else if (answer.result === false) {
 
                             if ((typeof answer.errors.name !== "undefined") && (Object.keys(answer.errors.name).length !== 0 )) this.nameValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.name[0])];
+                            if ((typeof answer.errors.email !== "undefined") && (Object.keys(answer.errors.email).length !== 0 )) this.emailAddressValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.email[0])];
                             if ((typeof answer.errors.title !== "undefined") && (Object.keys(answer.errors.title).length !== 0 )) this.titleValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.title[0])];
-                            if ((typeof answer.errors.description !== "undefined") && (Object.keys(answer.errors.description).length !== 0)) this.descriptionValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.description[0])];
-                            if ((typeof answer.errors.keywords !== "undefined") && (Object.keys(answer.errors.keywords).length !== 0)) this.keywordsValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.keywords[0])];
-                            if ((typeof answer.errors.country !== "undefined") && (Object.keys(answer.errors.country).length !== 0)) this.countryValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.country[0])];
-                            if ((typeof answer.errors.city !== "undefined") && (Object.keys(answer.errors.city).length !== 0)) this.cityValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.city[0])];
+                            if ((typeof answer.errors.body !== "undefined") && (Object.keys(answer.errors.body).length !== 0)) this.bodyValidationStatus = ["error", this.convertValidationErrorToString(answer.errors.body[0])];
 
                             //in case there are no other errors, except the fact that I am not logged In
                             if ((typeof answer.errors.authorId !== "undefined") && (Object.keys(answer.errors.authorId).length !== 0))
@@ -175,14 +176,14 @@
 
             },
 
-            handleUserNameChange(value){
+            handleNameChange(value){
                 if (typeof value === 'object') value = value.target.value;
 
                 this.name = value;
                 this.nameValidationStatus = [null, ''];
             },
 
-            handleUserEmailChange(value){
+            handleEmailChange(value){
                 if (typeof value === 'object') value = value.target.value;
                 this.name = value;
                 this.nameValidationStatus = [null, ''];
