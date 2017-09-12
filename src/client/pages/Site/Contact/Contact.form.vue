@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div style="text-align: left">
         <form @submit="handleSubmitContact" autoComplete="on">
-            <label>Name</label>
+            <strong>Name</strong>
             <div :class="'input-group ' + showInputStatus(nameValidationStatus)" >
 
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
@@ -14,21 +14,21 @@
             <label class="error">{{nameValidationStatus[1]}}</label> <br/>
 
 
-            <label>Email Address</label>
-            <div :class="'input-group ' + showInputStatus(userEmailValidationStatus)" >
+            <strong>Email Address</strong>
+            <div :class="'input-group ' + showInputStatus(emailAddressValidationStatus)" >
 
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
 
                 <input autoFocus type='text' class='form-control input-lg' placeholder='email'  name="username" :value="this.userEmail"    @change="handleUserEmailChange" />
 
-                <span :class="showInputFeedback(userEmailValidationStatus)"></span>
+                <span :class="showInputFeedback(emailAddressValidationStatus)"></span>
 
             </div>
-            <label class="error">{{userEmailValidationStatus[1]}}</label> <br/>
+            <label class="error">{{emailAddressValidationStatus[1]}}</label> <br/>
 
 
 
-            <label>Title</label>
+            <strong>Title</strong>
             <div :class="'input-group ' + showInputStatus(titleValidationStatus)" >
 
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
@@ -46,7 +46,7 @@
 
                 <span class="input-group-addon"><i class="fa fa-edit"></i></span>
 
-                <textarea type='text' class='form-control input' rows="5" placeholder='message body'  style="z-index:0" name="body" :value="this.body" @change="this.handleBodyChange"  />
+                <textarea type='text' class='form-control input' rows="5" placeholder='message body'  style="z-index:0; background-color: white !important;" name="body" :value="this.body" @change="this.handleBodyChange"  />
 
                 <span :class="showInputFeedback(this.bodyValidationStatus)"></span>
             </div>
@@ -54,8 +54,8 @@
 
         </form>
 
-        <div class="panel-footer text-right" style='padding-top:20px; padding-bottom:20px; padding-right:20px'>
-            <LoadingButton class="btn-success" @onClick="handleSubmitContact" icon="fa fa-plus" text="Create Forum"  ref="refSubmitButton"  />
+        <div class="text-right" style='padding-top:20px; padding-bottom:20px; padding-right:20px'>
+            <LoadingButton class="btn-success" @onClick="handleSubmitContact" icon="fa fa-envelope" text="Send Message"  ref="refSubmitButton"  />
         </div>
 
     </div>
@@ -132,7 +132,7 @@
                 this.error =  ''; this.nameValidationStatus =  [null, '']; this.titleValidationStatus = [null,'']; this.descriptionValidationStatus = [null,''];
                 this.keywordsValidationStatus = [null,'']; this.countryValidationStatus  = [null, '']; this.cityValidationStatus = [null, ''];
 
-                console.log('ADDing forum... ');
+                console.log('Sending Contact Message... ');
 
                 if (!bValidationError)
                     try{
@@ -169,7 +169,7 @@
                     }
                     catch(Exception){
                         this.$refs['refSubmitButton'].enableButton();
-                        this.error = "There was a internal problem publishing your forum... Try again <br/> <strong> "+Exception.toString()+" </strong>";
+                        this.error = "There was a internal problem sending your contact message ... Try again <br/> <strong> "+Exception.toString()+" </strong>";
                     }
 
 
