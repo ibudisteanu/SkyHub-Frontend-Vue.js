@@ -84,8 +84,6 @@
         mounted(){
             if (this.$isServer) return false;
 
-            let map;
-
             $(window).resize(function () {
                 let h = $(window).height(),
                     offsetTop = 105; // Calculate the top offset
@@ -93,27 +91,43 @@
                 $('#mapCanvas').css('height', 500);
             }).resize();
 
-            function googleMapsInitialize() {
+            let center;
+
+            /*
+            google.maps.event.addDomListener(map, 'idle', function() {
+                calculateCenter();
+            });
+            google.maps.event.addDomListener(window, 'resize', function() {
+                map.setPosition(location);
+                //map.setCenter(center);
+            });*/
+
+            google.maps.event.addDomListener(window, "load", this.googleMapsInitialize);
+
+        },
+
+        methods:{
+            googleMapsInitialize() {
                 let location = new google.maps.LatLng(44.446956, 26.054788);
                 let myOptions = {
                     zoom: 5,
-                    center: new google.maps.LatLng(44.446956, 26.054788),
+                    center: location,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 };
 
-                map = new google.maps.Map(document.getElementById("mapCanvas"),
+                let map = new google.maps.Map(document.getElementById("mapCanvas"),
                     myOptions);
 
                 let contentString =
                     '<div id="content">'+
-                        '<div id="siteNotice">'+
-                        '</div>'+
-                        '<h3 id="firstHeading" class="firstHeading" style="margin-top:0; text-align:center"><img src="/public/SkyHub-logo-square.png" alt="SkyHub Social Network" title="SkyHub"></h3>'+
-                        '<div id="bodyContent">'+
-                            '<p><b><?=WEBSITE_NAME?></b> is developed by <a href="http://bit-technologies.net/">BIT TECHNOLOGIES</a></b></p>'+
-                            '<p><b><?=WEBSITE_NAME?></b> is based in <b>Ramnicu Valcea, Romania</b></p>'+
-                            '<p>Regie, Inginer Nicolae Teodorescu 40, ROMANIA' +
-                        '</p>'+
+                    '<div id="siteNotice">'+
+                    '</div>'+
+                    '<h3 id="firstHeading" class="firstHeading" style="margin-top:0; text-align:center"><img src="/public/SkyHub-logo-square.png" alt="SkyHub Social Network" title="SkyHub"></h3>'+
+                    '<div id="bodyContent">'+
+                    '<p><b><?=WEBSITE_NAME?></b> is developed by <a href="http://bit-technologies.net/">BIT TECHNOLOGIES</a></b></p>'+
+                    '<p><b><?=WEBSITE_NAME?></b> is based in <b>Ramnicu Valcea, Romania</b></p>'+
+                    '<p>Regie, Inginer Nicolae Teodorescu 40, ROMANIA' +
+                    '</p>'+
                     '</div>';
 
                 let infowindow = new google.maps.InfoWindow({
@@ -132,24 +146,7 @@
                 infowindow.open(map, marker);
 
             }
-
-            let center;
-            function calculateCenter() {
-                center = map.getCenter();
-            }
-
-            /*
-            google.maps.event.addDomListener(map, 'idle', function() {
-                calculateCenter();
-            });
-            google.maps.event.addDomListener(window, 'resize', function() {
-                map.setPosition(location);
-                //map.setCenter(center);
-            });*/
-
-            google.maps.event.addDomListener(window, "load", googleMapsInitialize);
-
-        },
+        }
 
     }
 </script>
