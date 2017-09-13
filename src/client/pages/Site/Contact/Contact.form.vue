@@ -111,8 +111,8 @@
                 return this.$store.state.localization;
             },
 
-            authorId(){
-                return this.$store.state.authenticatedUser.user.id||'';
+            authenticatedUser(){
+                return this.$store.state.authenticatedUser.user;
             }
         },
 
@@ -137,11 +137,19 @@
 
                 console.log('Sending Contact Message... ');
 
+                let name = this.name;
+                let email = this.emailAddress;
+
+                if (this.$store.getters.isAuthenticatedUserLoggedIn){
+                    name = this.$store.getAuthenticatedUserFullName;
+                    email = this.$store.state.authenticatedUser.user.email;
+                }
+
                 if (!bValidationError)
                     try{
-                        let answer = await this.$store.dispatch('CONTACT_SEND_EMAIL',{ parentId:this.parentId || this.parentId, name: this.name, authorId: this.authorId,  title: this.title||'', body:this.body,
-                            country: this.countryCode || this.localization.countryCode, language:'',  city: this.city || this.localization.city, latitude: this.latitude || this.localization.latitude, longitude: this.longitude || this.localization.longitude,
-                            timezone: this.localization.timeZone});
+                        let answer = await this.$store.dispatch('CONTACT_SEND_EMAIL',{ parentId:this.parentId || this.parentId, name: name||'', emailAddress: email||'' , authorId: this.authenticatedUser.id||'',  title: this.title||'', body:this.body,
+                            country: this.countryCode || this.localization.countryCode, language:'',  city: this.city || this.localization.city||'', latitude: this.latitude || this.localization.latitude||0, longitude: this.longitude || this.localization.longitude||0,
+                            timezone: this.localization.timeZone||''});
 
                         this.$refs['refSubmitButton'].enableButton();
 

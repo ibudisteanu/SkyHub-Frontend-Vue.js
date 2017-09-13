@@ -99,11 +99,11 @@
           },
 
           getProfilePic(){
-              return this.$store.getters.getUserProfilePic(this.authenticatedUser.user);
+              return this.$store.getters.getAuthenticatedUserProfilePic;
           },
 
           getUserName(){
-              return this.$store.getters.getUserFullName(this.authenticatedUser.user);
+              return this.$store.getters.getAuthenticatedUserFullName;
           }
       },
 

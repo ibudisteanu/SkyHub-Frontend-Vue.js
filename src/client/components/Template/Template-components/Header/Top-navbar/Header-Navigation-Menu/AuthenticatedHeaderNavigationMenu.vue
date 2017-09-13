@@ -14,21 +14,39 @@
       </router-link>
     </li>
 
+
     <li>
       <router-link to="/" >
         <i class="fa fa-user"></i>
         <span class="m-r-sm text-muted welcome-message">Profile</span>
-      </router-link >
+      </router-link>
     </li>
 
 
     <NotificationsMenu/>
 
 
-    <li>
-      <router-link to="/logout"  :event="''" @click.native.prevent="handleLogout" >
-        <i class="fa fa-sign-out"></i> Log out
-      </router-link>
+    <li class="dropdown">
+      <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#" aria-expanded="false">
+        <i class="fa fa-chevron-down"></i>
+        <span class="m-r-sm text-muted welcome-message">Settings</span>
+      </a>
+
+      <ul class="dropdown-menu dropdown-alerts">
+        <li>
+          <router-link to="/contact#Contact"   >
+            <i class="fa fa-envelope-open"></i> Contact us
+          </router-link>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <router-link to="/logout"  :event="''" @click.native.prevent="handleLogout" >
+            <i class="fa fa-sign-out"></i> Log out
+          </router-link>
+        </li>
+
+      </ul>
+
     </li>
 
     <!--

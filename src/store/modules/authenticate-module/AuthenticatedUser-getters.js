@@ -11,7 +11,19 @@ export default {
 
         return getters.isUserLoggedIn(state.user);
 
-    }
+    },
+
+    getAuthenticatedUserFullName (state, getters) {
+
+        return getters.getUserFullName(state.user);
+
+    },
+
+    getAuthenticatedUserProfilePic (state, getters) {
+
+        return getters.getUserProfilePic(state.user);
+
+    },
 
 }
 

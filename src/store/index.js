@@ -13,6 +13,7 @@ import NotificationsModule from './modules/notifications-module/Notifications-mo
 import LocalizationModule from './modules/localization-module/Localization-module'
 import GlobalModule from './modules/global-module/Global-module'
 import ContentModule from './modules/content-module/Content-module'
+import WebsiteModule from './modules/website-module/Website-module'
 
 Vue.use(Vuex);
 
@@ -27,6 +28,8 @@ export function createStore () {
             global: GlobalModule,
 
             content: ContentModule,
+
+            website: WebsiteModule,
         }
     });
 }
