@@ -19,7 +19,7 @@
 
         <div class="attachment">
             <router-link :to="attachment.URL||''" >
-                <img class="attachment-img" :src="attachment.img||''"  :alt="attachment.title+' '+attachment.description" v-tooltip:top="attachment.title+' '+attachment.description" />
+                <img class="attachment-img" :src="attachment.img||''"  :alt="attachment.title||''+' '+attachment.description||''" v-tooltip:top="attachment.title||''+' '+attachment.description||'" />
             </router-link>
             <div class="word-wrap attachment-img-text">
                 <i v-if="attachment.type==='link'" class="fa fa-link"></i>

@@ -25,7 +25,6 @@ export default class Topic {
 
         this.URL = data.URL || '';
 
-        //this.image = data.image || '';
         this.coverPic = data.coverPic || '';
 
         this.keywords = data.keywords || [];
