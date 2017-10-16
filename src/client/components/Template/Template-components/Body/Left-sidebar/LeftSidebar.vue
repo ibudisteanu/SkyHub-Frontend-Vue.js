@@ -28,11 +28,13 @@
                 <span class="block m-t-xs">
                     <strong class="font-bold" style="color: white">{{this.getUserName}}</strong>
                 </span>
-
                 <br/>
-
                 <span class="text-muted text-xs block" :style="{align: 'center'}">
                     {{authenticatedUser.user.shortBio}}
+                </span>
+
+                <span class="block m-t-xs">
+                     <strong class="font-bold" style="color: white; font-size: 20px;">Wallets 0</strong>
                 </span>
 
               </span>
@@ -45,21 +47,19 @@
               <img :alt="this.getUserName" class="img-circle" :src="getProfilePic" style='max-width:65px; max-height: 65px; padding-bottom: 15px; margin-left: auto; margin-right: auto; display: block' />
           </div>
         </li>
+
         <li class="active">
-          <router-link to="/" >
-            <i class="fa fa-home"></i> <span class="nav-label">Home</span>
-          </router-link>
+            <router-link to="/" >
+                <i class="fa fa-home"></i> <span class="nav-label">WEB0033XXX</span>
+                <span class="fa arrow"></span>
+            </router-link>
+            <ul class="nav nav-second-level collapse in" style="height: 0px;">
+                <li class="active"><a href="index.html"><i class="fa fa-dollar"></i>0.0 WEB</a></li>
+                <li ><a href="index.html"><i class="fa fa-arrow-right"></i>Send Money</a></li>
+            </ul>
         </li>
-        <li>
-          <router-link to="/" >
-            <i class="fa fa-user"></i> <span class="nav-label">Profile</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/" >
-            <i class="fa fa-dollar"></i> <span class="nav-label">Income <strong>$0.0</strong></span>
-          </router-link>
-        </li>
+
+
       </ul>
     </div>
   </nav>
