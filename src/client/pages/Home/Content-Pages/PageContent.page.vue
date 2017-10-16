@@ -8,10 +8,6 @@
     <div>
         <ViewHome v-if="getCurrentRouterObjectType === 'home' " />
 
-        <ViewForum v-else-if="getCurrentRouterObjectType === 'forum'"/>
-
-        <ViewTopic v-else-if="getCurrentRouterObjectType === 'topic'"/>
-
         <NotFound v-else="" />
 
     </div>
@@ -20,8 +16,6 @@
 
 <script>
 
-    import ViewForum from './pages/ViewForum.page.vue';
-    import ViewTopic from './pages/ViewTopic.page.vue';
     import ViewHome from './pages/ViewHome.page.vue';
     import NotFound from './pages/NotFound.page.vue';
 
@@ -31,8 +25,6 @@
         name: 'PageContent',
 
         components:{
-            'ViewForum':ViewForum,
-            'ViewTopic':ViewTopic,
             'ViewHome':ViewHome,
             'NotFound': NotFound,
         },

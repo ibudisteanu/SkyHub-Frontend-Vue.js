@@ -12,8 +12,6 @@
                 subTitle="Change the world together"
         />
 
-        <DisplayForumContent />
-
     </div>
 
 </template>
@@ -22,14 +20,12 @@
 <script>
 
     import HeaderCover from 'client/components/Template/Template-components/Header/Cover/HeaderCover.component.vue';
-    import DisplayForumContent from 'modules/forums/forums/view-forum/DisplayForumContent.vue';
 
     export default{
         name: "ViewHome",
 
         components: {
             'HeaderCover': HeaderCover,
-            'DisplayForumContent' : DisplayForumContent,
         },
 
 
