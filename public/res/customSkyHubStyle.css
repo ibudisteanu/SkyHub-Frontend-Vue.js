@@ -54,19 +54,19 @@
 
 @media (min-width: 768px) {
     .navbar-static-side {
-        width: 180px;
+        width: 220px;
     }
 }
 
 @media (min-width: 768px) {
     #page-wrapper {
-        margin-left: 180px;
+        margin-left: 220px;
     }
 }
 
 .navbar-static-side
 {
-    width: 180px !important;
+    width: 220px !important;
 }
 
 /*

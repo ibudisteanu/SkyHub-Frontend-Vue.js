@@ -77,13 +77,6 @@
 
                 console.log("layout trying...");
 
-                if (typeof window !== "undefined")
-                    if (this.$store.getters.isAuthenticatedUserLoggedIn)
-                        document.body.className = document.body.className.replace("mini-navbar top-navigation","fixed-sidebar ");
-                    else {
-                        if (document.body.className.indexOf("mini-navbar top-navigation") < 0)
-                            document.body.className += " mini-navbar top-navigation ";
-                    }
 
                 console.log("layout finished...");
 

@@ -5,7 +5,7 @@
 
 <template>
   <div class="row border-bottom">
-    <nav class="navbar navbar-static-top white-bg" role="navigation" :style="{marginBottom: 0, textAlign: 'center'}">
+    <nav class="navbar navbar-fixed-top white-bg" role="navigation" :style="{marginBottom: 0, textAlign: 'center'}">
 
       <div class="navbar-header">
 
