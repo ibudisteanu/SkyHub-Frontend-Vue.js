@@ -48,7 +48,6 @@
 <script>
     import ShowDate from 'client/components/util-components/UI/show-date/ShowDate.component.vue';
     import UserModel from 'models/User/User.model';
-    import ContentObjectService from 'store/helpers/ContentObject.service';
 
     export default{
         name: 'NotificationItem',

@@ -3,20 +3,18 @@
  * (C) BIT TECHNOLOGIES
  */
 
-import ContentObjectService from 'store/helpers/ContentObject.service'
-
 export default{
 
     SET_CURRENT_ROUTER_OBJECT: (state, { routerObject, notFound, url }) => {
 
-        state.currentObject.object = ContentObjectService.createObject(routerObject);
+        state.currentObject.object = routerObject;
 
         if (typeof url === 'undefined')
             if (state.currentObject.object  === null) url ='';
             else url = state.currentObject.object.URL||'';
 
         if (url === '/') state.currentObject.type = "home";
-        else state.currentObject.type = ContentObjectService.extractObjectTypeFromId(routerObject);
+        else state.currentObject.type = "content";
 
         state.currentObject.pageURL = url;
         state.currentObject.notFound = notFound;
@@ -31,10 +29,10 @@ export default{
 
     SET_CURRENT_ROUTER_PARENT_OBJECT: (state, { routerObject, notFound, url }) => {
 
-        state.parentObject.object = ContentObjectService.createObject(routerObject);
+        state.parentObject.object = routerObject;
 
         if (url === '/') state.parentObject.type = "home";
-        else state.parentObject.type = ContentObjectService.extractObjectTypeFromId(routerObject);
+        else state.parentObject.type = "content";
 
         state.parentObject.notFound = notFound;
     },

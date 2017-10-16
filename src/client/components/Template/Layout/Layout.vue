@@ -40,9 +40,6 @@
     import AuthenticationModal from 'modules/users/authentication/modals/Authentication.modal.vue';
     import ModalComponent from 'client/components/util-components/UI/modals/Modal.component.vue';
 
-    import User from "models/User/User.model";
-    import Reply from "models/Reply/Reply.model";
-
     export default {
         name: 'Layout',
         components: {

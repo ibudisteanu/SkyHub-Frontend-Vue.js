@@ -19,7 +19,6 @@
 
     import Layout from 'client/components/Template/Layout/Layout.vue';
     import PageContent from './Content-Pages/PageContent.page.vue';
-    import Topic from 'models/Topic/Topic.model';
     import {sanitizeStripAllTags} from 'modules/utils/global-utilities/SanitizeAdvanced';
 
     export default {

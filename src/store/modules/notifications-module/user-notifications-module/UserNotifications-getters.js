@@ -3,8 +3,6 @@
  * (C) BIT TECHNOLOGIES
  */
 
-import ContentObjectService from 'store/helpers/ContentObject.service';
-
 export default{
     // items that should be currently displayed.
     // this Array may not be fully fetched.
@@ -117,10 +115,8 @@ export default{
 
         let notification = getters.getNotification(notificationId);
 
-        if ((notification !== null)&&( (notification.params.objectId || '') !== ''))
-            return ContentObjectService.extractObjectTypeFromId(notification.params.objectId);
-        else
-            return 'content';
+
+        return 'content';
     }),
 
 
