@@ -140,13 +140,14 @@ $(document).ready(function () {
             $('#page-wrapper').css("min-height", $(window).height() + "px");
         }
 
-        if ($('body').hasClass('fixed-nav')) {
-            if (navbarheight > wrapperHeight) {
-                $('#page-wrapper').css("min-height", navbarheight + "px");
-            } else {
-                $('#page-wrapper').css("min-height", $(window).height() - 60 + "px");
+        if (navbarheight != wrapperHeight)
+            if ($('body').hasClass('fixed-nav')) {
+                if (navbarheight > wrapperHeight) {
+                    $('#page-wrapper').css("min-height", navbarheight + "px");
+                } else {
+                    $('#page-wrapper').css("min-height", $(window).height() - 60 + "px");
+                }
             }
-        }
 
     }
 
