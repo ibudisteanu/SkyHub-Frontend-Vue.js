@@ -197,14 +197,14 @@ function timedCount() {
     let hash = Sha256.hash(makeRandom(32));
     hashesGenerated.push(hash);
 
-    let zeros = 0; i=0;
-    while ((i < hash.length)&&(hash[i] === '0')){
+    let zeros = 0; let j=0;
+    while ((j < hash.length)&&(hash[j] === '0')){
         zeros++;
-        i++;
+        j++;
     }
     if (hashBestZeros < zeros){
-        this.hashBest = hash;
-        this.hashBestZeros = zeros;
+        hashBest = hash;
+        hashBestZeros = zeros;
     }
 
     setTimeout("timedCount()",1);

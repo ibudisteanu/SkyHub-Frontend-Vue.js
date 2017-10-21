@@ -26,8 +26,12 @@
                         <h1 class="fg-white" style="display: inline; font-size: 60px; text-transform: none; color: #12428c; text-align: center; margin-bottom: 10px; padding-left: 0.5em; padding-right: 0.5em; ">{{this.statusMining||(this.hashesPerSecond.toString()+'h/s')}} </h1>
                     </div>
                     <div class="row">
+                        <h2 class="fg-white" style="display: inline; font-size: 14px; text-transform: none; color: #12428c; text-align: center; margin-bottom: 10px; padding-left: 0.5em; padding-right: 0.5em; ">best: {{this.hashesGeneratedBest}} </h2>
+                    </div>
+                    <div class="row">
                         <h2 class="fg-white" style="display: inline; font-size: 20px; text-transform: none; color: #12428c; text-align: center; margin-bottom: 10px; padding-left: 0.5em; padding-right: 0.5em; "><strong>{{ Math.round(this.reward * 10000000) / 10000000 }} WEBD</strong></h2>
                     </div>
+
                     <div class="row" style="padding-top: 12px">
                         <button class="btn btn-danger btn-circle " type="button" style="margin-right: 50px" @click="this.destroyOneMiningWorker"><i class="fa fa-minus"></i>
                         </button>
@@ -64,6 +68,9 @@
                 hashesPerSecondFuture: 0,
                 hashesPerSecond: 0,
 
+                hashesGeneratedBestFuture: '',
+                hashesGeneratedBest: '',
+
                 reward: 0,
 
                 hashesPerSecondClearInterval: null,
@@ -73,6 +80,8 @@
 
                 startedMining: false,
                 statusMining:'',
+
+
             }
         },
 
@@ -143,13 +152,14 @@
 
             hashesPerSecondClearTick(){
                 this.hashesPerSecond = this.hashesPerSecondFuture;
+                this.hashesGeneratedBest = this.hashesGeneratedBestFuture;
 
-                console.log(this.hashesPerSecond);
-                console.log(this.rewardPerHash);
+
                 this.reward += this.hashesPerSecond * this.rewardPerHash;
 
 
                 this.hashesPerSecondFuture = 0;
+                this.hashesGeneratedBestFuture = 'zzzzzz';
 
                 this.statusMining = '';
             },
@@ -162,8 +172,14 @@
 
             puzzleReceivedFromWorker(event) {
                 this.hashesPerSecondFuture += event.data.count;
-                this.hashesGenerated = event.data.hashesGenerated;
-                this.hashesGeneratedBest += event.data.hashesGeneratedBest;
+
+                console.log(this.hashesGeneratedBest, event.data.hashesGeneratedBest,this.hashesGeneratedBest > event.data.hashesGeneratedBest);
+
+                if (this.hashesGeneratedBestFuture > event.data.hashesGeneratedBest)
+                    this.hashesGeneratedBestFuture = event.data.hashesGeneratedBest;
+
+                this.hashesGeneratedBestZeros = event.data.hashesGeneratedBestZeros;
+
             },
 
         }
