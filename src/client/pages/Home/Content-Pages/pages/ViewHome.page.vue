@@ -7,10 +7,7 @@
 
     <div>
 
-        <HeaderCover
-                title="SkyHub Social Network"
-                subTitle="Change the world together"
-        />
+        <WebDollarHeaderCover />
 
     </div>
 
@@ -20,12 +17,15 @@
 <script>
 
     import HeaderCover from 'client/components/Template/Template-components/Header/Cover/HeaderCover.component.vue';
+    import WebDollarHeaderCover from 'client/components/Template/Template-components/Header/Cover/WebDollarHeaderCover.component.vue';
 
     export default{
+
         name: "ViewHome",
 
         components: {
             'HeaderCover': HeaderCover,
+            'WebDollarHeaderCover': WebDollarHeaderCover,
         },
 
 

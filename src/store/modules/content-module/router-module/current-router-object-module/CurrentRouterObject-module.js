@@ -12,7 +12,7 @@ export default {
             object: null,
             pageURL: '',
             notFound: false,
-            type: 'none',
+            type: 'home',
         },
 
     actions,

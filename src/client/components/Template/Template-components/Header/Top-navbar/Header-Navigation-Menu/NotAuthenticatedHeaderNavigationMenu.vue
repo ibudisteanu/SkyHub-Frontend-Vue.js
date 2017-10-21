@@ -29,6 +29,13 @@
       </router-link>
     </li>
 
+    <li>
+      <router-link to="/#mining"  :event="''" >
+        <i class="fa fa fa-wrench"></i>
+        <span class="m-r-sm text-muted">Mining</span>
+      </router-link>
+    </li>
+
 
   </ul>
 </template>

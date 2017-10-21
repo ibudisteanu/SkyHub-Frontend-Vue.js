@@ -4,26 +4,28 @@
 
 <template>
 
-    <HeaderCover :title="this.title||'SkyHub - Forum 2.0'"
-                 :subTitle="this.subTitle||'Discover, Connect and Change the world together'"
+    <HeaverCoverSimple :title="'WebDollar'"
+                 :subTitle="'Disrupting Crypto'"
                  :breadcrumbs="[]"
                  url="/"
     >
 
-    </HeaderCover>
+    </HeaverCoverSimple>
 
 </template>
 
 
 <script>
 
-    import HeaderCover from './HeaderCover.component.vue';
+    import HeaverCoverSimple from './HearCoverSimple.component.vue';
 
     export default{
 
         name: 'WebsiteHeaderCover',
 
-        components: ['HeaderCover'],
+        components: {
+            'HeaverCoverSimple': HeaverCoverSimple,
+        },
 
         params:{
             subTitle: {default: ''},

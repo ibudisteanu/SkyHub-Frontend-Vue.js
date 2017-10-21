@@ -6,9 +6,13 @@
 <template>
 
     <div>
-        <ViewHome v-if="getCurrentRouterObjectType === 'home' " />
+        <div v-if="getCurrentRouterObjectType === 'home' ">
+            <ViewHome  />
+        </div>
 
+        <!--
         <NotFound v-else="" />
+        -->
 
     </div>
 

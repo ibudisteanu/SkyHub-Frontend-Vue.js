@@ -33,8 +33,10 @@
                     {{authenticatedUser.user.shortBio}}
                 </span>
 
+                <img src="https://image.flaticon.com/icons/png/128/214/214362.png" alt="WebDollar Crypto">
+
                 <span class="block m-t-xs">
-                     <strong class="font-bold" style="color: white; font-size: 20px;">Wallets 0</strong>
+                     <strong class="font-bold" style="color: white; font-size: 20px;">Wallets 1</strong>
                 </span>
 
               </span>
@@ -48,30 +50,7 @@
           </div>
         </li>
 
-        <li class="active">
-            <router-link to="/" >
-                <i class="fa fa-home"></i> <span class="nav-label">WEB0033XXX</span>
-                <span class="fa arrow"></span>
-            </router-link>
-            <ul class="nav nav-second-level collapse in" style="height: 0px;">
-                <li class="active"><a href="index.html"><i class="fa fa-dollar"></i>0.0 WEB</a></li>
-                <li ><a href="index.html"><i class="fa fa-arrow-right"></i>Send Money</a></li>
-
-
-                <li class="">
-                    <a href="#" id="damian"><i class="fa fa-gears"></i> Settings <span class="fa arrow"></span></a>
-                    <ul class="nav nav-third-level collapse" style="height: 0px;">
-
-                        <li ><a href="index.html"><i class="fa fa-money"></i>Check Balance</a></li>
-                        <li ><a href="index.html"><i class="fa fa-times"></i>Remove</a></li>
-
-                    </ul>
-                </li>
-
-
-
-            </ul>
-        </li>
+        <ShowWallet :walletAddress="this.walletAddress"/>
 
 
       </ul>
@@ -83,12 +62,14 @@
 
   import User from 'models/User/User.model';
   import ImageCropUpload from 'client/components/util-components/file-upload/vue-image-crop-upload/ImageCropUpload.component.vue';
+  import ShowWallet from 'client/components/Template/Template-components/Body/Left-sidebar/Wallets/ShowWallet.vue';
 
   export default {
       name: 'Layout-Left-Sidebar-View',
 
       components:{
           'ImageCropUpload':ImageCropUpload,
+          'ShowWallet': ShowWallet,
       },
 
       data: function () {
@@ -101,6 +82,8 @@
           avatar: {default: ''},
           enableChangeAvatar : {default: true},
           showPicBorder: {default: true},
+
+          walletAddress: { default: 'WEBD_'+makeAddress(32) }
       },
 
       computed: {
@@ -118,7 +101,8 @@
 
           getUserName(){
               return this.$store.getters.getAuthenticatedUserFullName;
-          }
+          },
+
       },
 
       methods:{
@@ -138,6 +122,17 @@
       }
 
   }
+
+  function makeAddress(length) {
+      let text = "";
+      let possible = "ABCDEF0123456789";
+
+      for (let i = 0; i < length; i++)
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+      return text;
+  }
+
 </script>
 
 
