@@ -22,14 +22,14 @@
                 </div>
 
                 <div class="col-md-5" style="padding-bottom: 30px">
-                    <div class="row">
-                        <h1 class="fg-white" style="display: inline; font-size: 60px; text-transform: none; color: #12428c; text-align: center; margin-bottom: 10px; padding-left: 0.5em; padding-right: 0.5em; ">{{this.hashesPerSecondPrevious}} h/s</h1>
+                    <div class="row" style="padding-bottom: 10px">
+                        <h1 class="fg-white" style="display: inline; font-size: 60px; text-transform: none; color: #12428c; text-align: center; margin-bottom: 10px; padding-left: 0.5em; padding-right: 0.5em; ">{{this.statusMining||(this.hashesPerSecond.toString()+'h/s')}} </h1>
                     </div>
                     <div class="row">
-                        <h2 class="fg-white" style="display: inline; font-size: 20px; text-transform: none; color: #12428c; text-align: center; margin-bottom: 10px; padding-left: 0.5em; padding-right: 0.5em; "><strong>{{this.reward}} WEBD</strong></h2>
+                        <h2 class="fg-white" style="display: inline; font-size: 20px; text-transform: none; color: #12428c; text-align: center; margin-bottom: 10px; padding-left: 0.5em; padding-right: 0.5em; "><strong>{{ Math.round(this.reward * 10000000) / 10000000 }} WEBD</strong></h2>
                     </div>
                     <div class="row" style="padding-top: 12px">
-                        <button class="btn btn-danger btn-circle " type="button" style="margin-right: 50px" @click="this.stopOneMiningWorker"><i class="fa fa-minus"></i>
+                        <button class="btn btn-danger btn-circle " type="button" style="margin-right: 50px" @click="this.destroyOneMiningWorker"><i class="fa fa-minus"></i>
                         </button>
                         <strong>Threads: {{this.miningWorkersCount}}</strong>
                         <button class="btn btn-info btn-circle " type="button" style="margin-left: 50px" @click="this.createMiningWorker"><i class="fa fa-plus"></i>
@@ -61,8 +61,8 @@
 
         data: function () {
             return {
+                hashesPerSecondFuture: 0,
                 hashesPerSecond: 0,
-                hashesPerSecondPrevious: 0,
 
                 reward: 0,
 
@@ -71,12 +71,13 @@
                 miningWorkers: [],
                 miningWorkersCount: 0,
 
-                startedMining: false
+                startedMining: false,
+                statusMining:'',
             }
         },
 
-        mounted() {
-            this.initializeHashesPerSecondClearInterval();
+        props:{
+            rewardPerHash: {default: 0.0000052},
         },
 
         methods:{
@@ -89,9 +90,7 @@
                     let worker = new Worker("/public/WebDollar-dist/WebDollarMinerWorker.js");
 
                     let that = this;
-                    worker.onmessage = function(event) {
-                        that.hashesPerSecond += event.data; //to get the data returned
-                    };
+                    worker.onmessage = this.puzzleReceivedFromWorker;
 
                     this.miningWorkers.push(worker);
                     this.miningWorkersCount += 1;
@@ -100,10 +99,22 @@
                     alert("Sorry! No Web Worker support.");
                 }
 
+                if (this.miningWorkersCount === 1) {
+                    this.statusMining = 'starting...';
+                    this.initializeHashesPerSecondClearInterval();
+                }
+
                 this.startedMining = (this.miningWorkersCount > 0);
             },
 
-            stopOneMiningWorker(){
+            stopAllMiningWorkers(){
+
+                for (let i=this.miningWorkers.length-1; i>=0; i--)
+                    this.destroyOneMiningWorker();
+
+            },
+
+            destroyOneMiningWorker(){
 
                 if (this.miningWorkers.length > 0){
                     let minerWorker = this.miningWorkers.pop();
@@ -112,6 +123,9 @@
                     this.miningWorkersCount -= 1;
                 }
 
+                if (this.miningWorkersCount === 0){
+                    this.suspendHashesPerSecondClearInterval();
+                }
                 this.startedMining = (this.miningWorkersCount > 0);
             },
 
@@ -119,22 +133,37 @@
                 //Setting HashesPerSecond Clear Interval
 
                 let that = this;
-                this.hashesPerSecondClearInterval = setInterval( function(){ that.hashesPerSecondClear() }, 1000);
+                this.hashesPerSecondClearInterval = setInterval( function(){ that.hashesPerSecondClearTick() }, 1000);
             },
 
             suspendHashesPerSecondClearInterval(){
                 clearInterval(this.hashesPerSecondClearInterval);
+                this.statusMining = 'stopped';
             },
 
-            hashesPerSecondClear(){
-                this.hashesPerSecondPrevious = this.hashesPerSecond;
-                this.hashesPerSecond = 0;
+            hashesPerSecondClearTick(){
+                this.hashesPerSecond = this.hashesPerSecondFuture;
+
+                console.log(this.hashesPerSecond);
+                console.log(this.rewardPerHash);
+                this.reward += this.hashesPerSecond * this.rewardPerHash;
+
+
+                this.hashesPerSecondFuture = 0;
+
+                this.statusMining = '';
             },
 
             startStopMining(){
-                if (this.startedMining)
-                    this.stopOneMiningWorker();
+                if (this.startedMining)  this.stopAllMiningWorkers();
                 else this.createMiningWorker();
+            },
+
+
+            puzzleReceivedFromWorker(event) {
+                this.hashesPerSecondFuture += event.data.count;
+                this.hashesGenerated = event.data.hashesGenerated;
+                this.hashesGeneratedBest += event.data.hashesGeneratedBest;
             },
 
         }
