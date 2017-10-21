@@ -10,10 +10,6 @@
       <div class="navbar-header">
 
 
-        <router-link to="/" >
-            <img src="/public/SkyHub-logo.png" alt="SkyHub Social Network" height="44px" style="padding: 0 15px 0 5px; float:left" />
-        </router-link>
-
 
       </div>
 

@@ -31,8 +31,14 @@
 
     <li>
       <router-link to="/#mining"  :event="''" >
-        <i class="fa fa fa-wrench"></i>
+        <i class="fa fa-wrench"></i>
         <span class="m-r-sm text-muted">Mining</span>
+      </router-link>
+    </li>
+
+    <li>
+      <router-link to="https://www.facebook.com/Webdollar-109623506425748/"  >
+        <i class="fa fa-facebook-square"></i>
       </router-link>
     </li>
 

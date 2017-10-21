@@ -169,7 +169,7 @@
 
 .header-cover{
   min-height: 320px;
-
+  border-bottom: 0 !important;
   background-position: center;
   background-size: cover;
 }
@@ -185,7 +185,7 @@
 }
 
 .header-cover-description {
-  margin-top: 80px;
+  margin-top: 50px;
 }
 
 .header-cover-description > div > img,
