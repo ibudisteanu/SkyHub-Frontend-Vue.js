@@ -7,7 +7,7 @@
 
         <Layout>
             <div slot="layout-content">
-                <h1> Login to SkyHub now</h1>
+                <h1> Login to WebDollar now</h1>
 
                 <LoginForm @onSuccess="redirectSuccess" />
             </div>

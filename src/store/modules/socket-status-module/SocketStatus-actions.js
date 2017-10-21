@@ -8,7 +8,7 @@ export default {
     SOCKET_CONNECTING_ERROR: async ({ commit } , {error}) => {
 
         commit('SET_SOCKET_STATUS', { connectionOffline: true,  showOnlineStatus: false,
-                                      message: 'Error Connecting to the SkyHub Server. Check your internet connection or contact us at contact@skyhub.me',  icon: 'fa fa-warning' });
+                                      message: 'Error Connecting to WebDollar Blockchain',  icon: 'fa fa-warning' });
     },
 
     SOCKET_DISCONNECTED: async ({ commit } ) => {
@@ -18,7 +18,7 @@ export default {
 
     SOCKET_CONNECTION_SUCCESSFULLY: async ({ commit, dispatch } ) => {
 
-        commit('SET_SOCKET_STATUS', { connectionOffline: false, showOnlineStatus: true, message: 'Connection established to SkyHub',  icon: 'fa fa-check', });
+        commit('SET_SOCKET_STATUS', { connectionOffline: false, showOnlineStatus: true, message: 'Connection established to the WebDollar Blockchain',  icon: 'fa fa-check', });
 
         setTimeout(() => {
             dispatch('SOCKET_HIDE_STATUS_MESSAGE', {})

@@ -94,7 +94,7 @@
 
             setLogin(){
                 this.modalType = "login";
-                this.modalTitle = "Login to SkyHub";
+                this.modalTitle = "Login to WebDollar";
             },
 
             openLogin(){
@@ -104,7 +104,7 @@
 
             setRegistration(){
                 this.modalType = "registration";
-                this.modalTitle = "Register to SkyHub";
+                this.modalTitle = "Register to WebDollar";
             },
 
             openRegistration(){

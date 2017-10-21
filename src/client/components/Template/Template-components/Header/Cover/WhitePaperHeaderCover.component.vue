@@ -12,7 +12,7 @@
             <br/> <br/> <br/>
 
             <button type="button" class="btn btn-primary" style="padding: 10px ;  border-radius: 5px; font-size: 14px; background-color: #482cbd; color: #fff; text-shadow: none; background-image: none;">
-                <b>Get White Paper</b>
+                <i class="fa fa-download" style="margin-right: 10px" /> <b>Get White Paper</b>
             </button>
 
 
