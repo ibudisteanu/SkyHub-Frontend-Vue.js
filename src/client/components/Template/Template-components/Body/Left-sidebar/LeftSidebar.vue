@@ -40,7 +40,7 @@
                     <img style="max-width: 40px" src="https://image.flaticon.com/icons/png/128/214/214362.png" alt="WebDollar Crypto">
 
                     <span class="block m-t-xs">
-                         <strong class="font-bold" style="color: white; font-size: 20px;">WEBD Wallets: 1</strong>
+                         <strong class="font-bold" style="color: white; font-size: 20px;">WEBD Wallets: {{this.walletAddresses.length}}</strong>
                     </span>
 
                   </span>
@@ -52,7 +52,19 @@
 
         </li>
 
-        <ShowWallet :walletAddress="this.walletAddress"/>
+        <ShowWallet v-for="wallet in this.walletAddresses"
+                    :key="wallet"
+                    :id="wallet"
+                    :walletAddress="wallet"
+        >
+
+        </ShowWallet>
+
+        <a>
+            <span class="badge badge-success" style="margin-left: 10px; margin-top:10px" @click="this.addNewAddress"><i class="fa fa-plus"></i>
+                Add New Address
+            </span>
+        </a>
 
 
       </ul>
@@ -77,6 +89,7 @@
       data: function () {
           return {
               imageAvatarActive: false,
+              walletAddresses: ['WEBD_'+makeAddress(32)],
           }
       },
 
@@ -84,8 +97,6 @@
           avatar: {default: ''},
           enableChangeAvatar : {default: true},
           showPicBorder: {default: true},
-
-          walletAddress: { default: 'WEBD_'+makeAddress(32) }
       },
 
       computed: {
@@ -107,6 +118,11 @@
 
       },
 
+      mounted(){
+
+
+      },
+
       methods:{
           handleAvatarImageCropUploadModal(e){
               //e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation(); //stil not working...
@@ -120,6 +136,10 @@
               await this.$store.dispatch('CONTENT_USERS_CHANGE_PROFILE_PIC', {userId: this.$store.state.authenticatedUser.user.id||'', profilePic: imageURL} );
               this.$emit('onAvatarChanged', imageURL);
           },
+
+          addNewAddress(){
+              this.walletAddresses.push('WEBD_'+makeAddress(32));
+          }
 
       }
 

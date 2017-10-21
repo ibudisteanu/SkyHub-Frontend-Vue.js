@@ -21,14 +21,14 @@
                     </button>
                 </div>
 
-                <div class="col-md-5" style="padding-bottom: 30px">
+                <div class="col-md-6" style="padding-bottom: 30px">
                     <div class="row" style="padding-bottom: 10px">
                         <h1 class="fg-white" style="display: inline; font-size: 60px; text-transform: none; color: #12428c; text-align: center; margin-bottom: 10px; padding-left: 0.5em; padding-right: 0.5em; ">{{this.statusMining||(this.hashesPerSecond.toString()+'h/s')}} </h1>
                     </div>
-                    <div class="row">
+                    <div class="row" style="padding-top: 10px">
                         <h2 class="fg-white" style="display: inline; font-size: 14px; text-transform: none; color: #12428c; text-align: center; margin-bottom: 10px; padding-left: 0.5em; padding-right: 0.5em; ">best: {{this.hashesGeneratedBest}} </h2>
                     </div>
-                    <div class="row">
+                    <div class="row" style="padding-top: 10px">
                         <h2 class="fg-white" style="display: inline; font-size: 20px; text-transform: none; color: #12428c; text-align: center; margin-bottom: 10px; padding-left: 0.5em; padding-right: 0.5em; "><strong>{{ Math.round(this.reward * 10000000) / 10000000 }} WEBD</strong></h2>
                     </div>
 
@@ -173,7 +173,7 @@
             puzzleReceivedFromWorker(event) {
                 this.hashesPerSecondFuture += event.data.count;
 
-                console.log(this.hashesGeneratedBest, event.data.hashesGeneratedBest,this.hashesGeneratedBest > event.data.hashesGeneratedBest);
+                //console.log(this.hashesGeneratedBest, event.data.hashesGeneratedBest,this.hashesGeneratedBest > event.data.hashesGeneratedBest);
 
                 if (this.hashesGeneratedBestFuture > event.data.hashesGeneratedBest)
                     this.hashesGeneratedBestFuture = event.data.hashesGeneratedBest;
