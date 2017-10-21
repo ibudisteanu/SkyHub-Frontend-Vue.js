@@ -4,11 +4,18 @@
 
 <template>
 
-    <HeaverCoverSimple :title="'WebDollar'"
-                 :subTitle="'Disrupting Crypto'"
-                 :breadcrumbs="[]"
-                 url="/"
-    >
+    <HeaverCoverSimple url="/" cover="url('http://i.imgur.com/hqLGii9.jpg')" height="400px">
+
+        <div slot="header-content" style="text-align: center; margin-top: 100px;">
+
+            <h1 class='fg-white' style="display: inline; font-size: 80px; font-weight: bold; text-transform: none; color: #FFFFFF; text-align: center; margin-bottom: 10px; padding-left: 0.5em; padding-right: 0.5em; background-color: #000c; ">WebDollar.io</h1>
+            <br/> <br/> <br/>
+
+            <h2 class='fg-white' style='display: inline; font-size: 30px; font-weight: bold; text-transform: none; color: #FFFFFF; text-align: center; margin-bottom: 10px; padding-left: 0.5em; padding-right: 0.5em; background-color: #000c; '>
+                CRYPTO IN BROWSER
+            </h2>
+
+        </div>
 
     </HeaverCoverSimple>
 
@@ -28,9 +35,7 @@
         },
 
         params:{
-            subTitle: {default: ''},
-            title: {default: ''},
-            coverPic: {default:''},
+
         }
 
     }
