@@ -6,4 +6,4 @@ yarn-error.log
 .idea
 *.iml
 accounts.txt
-public/WebDollar-dist/
+public/WebDollar-dist/Node-WebDollar-bundle.js
