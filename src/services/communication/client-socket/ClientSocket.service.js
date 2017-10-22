@@ -23,16 +23,17 @@ class ClientSocketServiceClass {
       this.dispatch = dispatch;
       this.storeState = storeState;
 
-      this.createClientSocket();
+        this.socket = io.connect( constants.SERVICE_WEBSOCK_URL, {
+            //query: "token=aaa" //JWT Token
+            query: "token=" + this.storeState.authenticatedUser.sessionId //JWT Token
+        });
+      //this.createClientSocket();
     }
 
 
     createClientSocket() {
 
-        this.socket = io.connect( constants.SERVICE_WEBSOCK_URL, {
-            //query: "token=aaa" //JWT Token
-            query: "token=" + this.storeState.authenticatedUser.sessionId //JWT Token
-        });
+
 
         this.setSocketReadObservable("connect").subscribe(response => {
 

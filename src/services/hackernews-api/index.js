@@ -1,4 +1,7 @@
-require("babel-polyfill");
+if((typeof window !== 'undefined' && !window._babelPolyfill) ||
+    (typeof global !== 'undefined' && !global._babelPolyfill)) {
+    require('babel-polyfill')
+}
 
 /*
 // this is aliased in webpack config based on server/client build

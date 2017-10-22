@@ -4,6 +4,7 @@ import { createApp } from './app'
 import ProgressBar from './modules/hackernews/components/ProgressBar.vue'
 
 import FetchService from 'services/communication/FetchService';
+import WebDollarNodes from 'services/nodes-module/WebDollarNodes.js';
 
 // global progress bar
 const bar = Vue.prototype.$bar = new Vue(ProgressBar).$mount()
@@ -64,6 +65,9 @@ router.onReady(() => {
   // Doing it after initial route is resolved so that we don't double-fetch
   // the data that we already have. Using router.beforeResolve() so that all
   // async components are resolved.
+
+    WebDollarNodes.test();
+
   router.beforeResolve((to, from, next) => {
     const matched = router.getMatchedComponents(to)
     const prevMatched = router.getMatchedComponents(from)
