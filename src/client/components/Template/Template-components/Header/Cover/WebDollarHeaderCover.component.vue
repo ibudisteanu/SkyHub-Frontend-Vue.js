@@ -12,7 +12,7 @@
             <br/> <br/> <br/>
 
             <h2 class='fg-white' style='display: inline; font-size: 30px; font-weight: bold; text-transform: none; color: #FFFFFF; text-align: center; margin-bottom: 10px; padding-left: 0.5em; padding-right: 0.5em; background-color: rgba(0, 0, 12, 0.75); '>
-                CRYPTO IN BROWSER
+                BLOCKCHAIN DIRECTLY IN BROWSER
             </h2>
 
         </div>
