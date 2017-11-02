@@ -61,9 +61,9 @@
         methods:{
 
             googleMapsInitialize() {
-                NetworkMap.createMap('map');
-                NetworkMap.initialize(map);
-                NetworkMap.initializePolylines(map);
+                NodeWebDollar.NetworkMap.createMap('map');
+                NodeWebDollar.NetworkMap.initialize(map);
+                NodeWebDollar.NetworkMap.initializePolylines(map);
             }
 
         }

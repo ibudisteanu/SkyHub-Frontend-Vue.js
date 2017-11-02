@@ -7,15 +7,15 @@
 
     constructor(){
 
-        global.window.NodeWebDollar.NodeServer.startServer();
-        global.window.NodeWebDollar.NodeClientsService.startService();
+        NodeWebDollar.NodeServer.startServer();
+        NodeWebDollar.NodeClientsService.startService();
 
     }
 
     test(){
         console.log("########################");
-        console.log(global.window.NodeWebDollar.NodeServer);
-        console.log(global.window.NodeWebDollar.NodeClientsService);
+        console.log(NodeWebDollar.NodeServer);
+        console.log(NodeWebDollar.NodeClientsService);
     }
 
 }
