@@ -14,7 +14,6 @@
                 </h1>
 
                 <div id="map" style="height: 500px; margin-left: -35px; margin-right: -35px; margin-bottom: 0"></div>
-                <script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3RtAgqpzLTzj5zKs3z-83RUDZYmvlsCc"> </script>
 
             </div>
 
