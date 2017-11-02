@@ -4,7 +4,7 @@
 
 <template>
 
-    <HeaverCoverSimple url="/" cover="https://z.cash/theme/images/network-nodes.png" coverColor="f8f8f8" height="300px">
+    <HeroCoverSimple url="/" cover="https://z.cash/theme/images/network-nodes.png" coverColor="f8f8f8" height="300px">
 
         <div slot="header-content" style="text-align: center">
 
@@ -40,21 +40,21 @@
 
         </div>
 
-    </HeaverCoverSimple>
+    </HeroCoverSimple>
 
 </template>
 
 
 <script>
 
-    import HeaverCoverSimple from './HearCoverSimple.component.vue';
+    import HeroCoverSimple from './HeroCoverSimple.component.vue';
 
     export default{
 
         name: 'WhitePaperHeaderCover',
 
         components: {
-            'HeaverCoverSimple': HeaverCoverSimple,
+            'HeroCoverSimple': HeroCoverSimple,
         },
 
         params:{

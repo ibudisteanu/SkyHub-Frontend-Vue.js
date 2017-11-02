@@ -4,7 +4,7 @@
 
 <template>
 
-    <HeaverCoverSimple url="/" coverColor="EDEDED">
+    <HeroCoverSimple url="/" coverColor="EDEDED">
 
         <div slot="header-content" style="text-align: center">
 
@@ -42,21 +42,21 @@
 
         </div>
 
-    </HeaverCoverSimple>
+    </HeroCoverSimple>
 
 </template>
 
 
 <script>
 
-    import HeaverCoverSimple from './HearCoverSimple.component.vue';
+    import HeroCoverSimple from './HeroCoverSimple.component.vue';
 
     export default{
 
         name: 'WhatIsWebDollar',
 
         components: {
-            'HeaverCoverSimple': HeaverCoverSimple,
+            'HeroCoverSimple': HeroCoverSimple,
         },
 
         params:{

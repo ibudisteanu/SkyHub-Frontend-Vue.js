@@ -5,7 +5,7 @@
 <template>
 
 
-        <HeaverCoverSimple url="/" cover="url('https://lisk.io/i/hero.jpg')" height="400px">
+        <HeroCoverSimple url="/" cover="url('https://lisk.io/i/hero.jpg')" height="400px">
 
             <div slot="header-content" style="text-align: center; padding-top: 60px">
 
@@ -14,7 +14,7 @@
                 </h1>
                 <br/> <br/> <br/>
 
-                <h2 class='fg-white' style='display: inline; font-size: 30px; font-weight: bold; text-transform: none; color: #FFFFFF; text-align: center; margin-bottom: 10px; padding-left: 0.5em; padding-right: 0.5em; '>
+                <h2 class='fg-white' style='font-size: 30px; font-weight: bold; text-transform: none; color: #FFFFFF; text-align: center; margin-bottom: 10px; padding-left: 0.5em; padding-right: 0.5em; '>
                     YOUR WALLET IS STORED IN BROWSER
                 </h2>
 
@@ -22,21 +22,21 @@
 
             </div>
 
-        </HeaverCoverSimple>
+        </HeroCoverSimple>
 
 </template>
 
 
 <script>
 
-    import HeaverCoverSimple from './HearCoverSimple.component.vue';
+    import HeroCoverSimple from './HeroCoverSimple.component.vue';
 
     export default{
 
         name: 'WalletHeaderCover',
 
         components: {
-            'HeaverCoverSimple': HeaverCoverSimple,
+            'HeroCoverSimple': HeroCoverSimple,
         },
 
         params:{

@@ -11,6 +11,7 @@
         <WhitePaperHeaderCover />
         <WhatIsWebDollar />
         <WalletHeaderCover />
+        <NetworkMapHeaderCover />
         <MiningHeaderCover />
         <FooterHeaderCover />
 
@@ -27,7 +28,9 @@
     import WalletHeaderCover from 'client/components/Template/Template-components/Header/Cover/WalletHeaderCover.component.vue';
     import WhatIsWebDollar from 'client/components/Template/Template-components/Header/Cover/WhatIsWebDollarCover.component.vue';
     import FooterHeaderCover from 'client/components/Template/Template-components/Header/Cover/FooterHeaderCover.component.vue';
-    import MiningHeaderCover from 'client/components/Template/Template-components/Header/Cover/MiningHeaderCover.component.vue';
+
+    import MiningHeaderCover from 'client/components/Template/Template-components/Header/Cover/mining/MiningHeaderCover.component.vue';
+    import NetworkMapHeaderCover from 'client/components/Template/Template-components/Header/Cover/mining/NetworkMapHeaderCover.component.vue';
 
     export default{
 
@@ -40,7 +43,9 @@
             'WalletHeaderCover': WalletHeaderCover,
             'WhatIsWebDollar': WhatIsWebDollar,
             'FooterHeaderCover': FooterHeaderCover,
+
             'MiningHeaderCover': MiningHeaderCover,
+            'NetworkMapHeaderCover': NetworkMapHeaderCover,
         },
 
 

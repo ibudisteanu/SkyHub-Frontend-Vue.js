@@ -5,7 +5,7 @@
 <template>
 
 
-        <HeaverCoverSimple url="/" coverColor="EDEDED" height="300px">
+        <HeroCoverSimple url="/" coverColor="EDEDED" height="300px">
 
             <div slot="header-content" style="text-align: center">
 
@@ -35,7 +35,9 @@
                     <div class="row" style="padding-top: 12px">
                         <button class="btn btn-danger btn-circle " type="button" style="margin-right: 50px" @click="this.destroyOneMiningWorker"><i class="fa fa-minus"></i>
                         </button>
+
                         <strong>Threads: {{this.miningWorkersCount}}</strong>
+
                         <button class="btn btn-info btn-circle " type="button" style="margin-left: 50px" @click="this.createMiningWorker"><i class="fa fa-plus"></i>
                         </button>
 
@@ -44,7 +46,7 @@
 
             </div>
 
-        </HeaverCoverSimple>
+        </HeroCoverSimple>
 
 
 </template>
@@ -52,14 +54,14 @@
 
 <script>
 
-    import HeaverCoverSimple from './HearCoverSimple.component.vue';
+    import HeroCoverSimple from '../HeroCoverSimple.component.vue';
 
     export default{
 
         name: 'MiningHeaderCover',
 
         components: {
-            'HeaverCoverSimple': HeaverCoverSimple,
+            'HeroCoverSimple': HeroCoverSimple,
         },
 
 

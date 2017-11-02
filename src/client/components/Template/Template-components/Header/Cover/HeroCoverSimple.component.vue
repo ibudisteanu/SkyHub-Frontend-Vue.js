@@ -24,7 +24,7 @@
 
     export default{
 
-        name: 'HeadCoverSimple',
+        name: 'HeroCoverSimple',
 
         components:{
         },

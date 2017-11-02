@@ -4,7 +4,7 @@
 
 <template>
 
-    <HeaverCoverSimple url="/" cover="url('http://i.imgur.com/hqLGii9.jpg')" height="400px">
+    <HeroCoverSimple url="/" cover="url('http://i.imgur.com/hqLGii9.jpg')" height="400px">
 
         <div slot="header-content" style="text-align: center; margin-top: 100px;">
 
@@ -17,21 +17,21 @@
 
         </div>
 
-    </HeaverCoverSimple>
+    </HeroCoverSimple>
 
 </template>
 
 
 <script>
 
-    import HeaverCoverSimple from './HearCoverSimple.component.vue';
+    import HeroCoverSimple from './HeroCoverSimple.component.vue';
 
     export default{
 
         name: 'WebsiteHeaderCover',
 
         components: {
-            'HeaverCoverSimple': HeaverCoverSimple,
+            'HeroCoverSimple': HeroCoverSimple,
         },
 
         params:{

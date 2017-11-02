@@ -126,21 +126,21 @@ function render (req, res) {
 
   const context = {
     SEOMixinTitle: {
-      title:'SkyHub Forum 2.0 Social Network',
-      facebook: 'SkyHub Forum 2.0 Social Network',
-      twitter: 'SkyHub Forum 2.0 Social Network',
+      title:'WebDollar - First Blockchain in WEB',
+      facebook: 'WebDollar - First Blockchain in WEB',
+      twitter: 'WebDollar - First Blockchain in WEB',
     }, // default title
     SEOMixinDescription: {
-      description:'Change the world together!',
-      facebook:'Change the world together!',
-      twitter: 'Change the world together!', // default title
+      description:'WebDollar - disrupting Blockchain',
+      facebook:'WebDollar - disrupting Blockchain',
+      twitter: 'WebDollar - disrupting Blockchain', // default title
     },
-    SEOMixinKeywords: 'social network, forum 2.0, forums, discussions, networks, communities',
+    SEOMixinKeywords: 'webdollar, blockchain, bitcoin, blockchain in browser',
     SEOMixinImages:
       '<meta property="og:image"  content="/public/SkyHub-landing-image.jpg"  /> ' +
-      '<meta property="og:image:alt" content="SkyHub Forum 2.0 Social Network - Change the World" />' +
+      '<meta property="og:image:alt" content="WebDollar - First Blockchain WEB" />' +
       '<meta property="twitter:image"  content="/public/SkyHub-landing-image.jpg" />'+
-      '<meta property="twitter:image:alt" content="SkyHub Forum 2.0 Social Network - Change the World"   />',
+      '<meta property="twitter:image:alt" content="WebDollar - First Blockchain WEB"   />',
     SEOMixinSchemaMarkup:{
         "@context": "http://schema.org",
         "@type": "WebSite",
@@ -160,14 +160,14 @@ function render (req, res) {
             "@type": "ListItem",
             position: 1,
             item: {
-                "@id": "https://skyhub.me/",
+                "@id": "https://webolldar.io/",
                 name: "Home",
-                image: "http://skyhub.me/public/SkyHub-logo-square.png"
+                image: "http://webdollar.io/public/WebDollar-logo.jpg"
             }
         }],
     },
     SEOMixinWebPageType: 'website',
-    SEOMixinCopyright: 'SkyHub Forum 2.0 Social Network',
+    SEOMixinCopyright: 'WebDollar',
     SEOMixinLanguage: 'en-US',
     pageType: 'article',
 
@@ -194,7 +194,7 @@ app.get('*', isProd ? render : (req, res) => {
   readyPromise.then(() => render(req, res))
 })
 
-const port = process.env.PORT || 80
+const port = process.env.PORT || 8080
 app.listen(port, () => {
   console.log(`server started at localhost:${port}`)
 })

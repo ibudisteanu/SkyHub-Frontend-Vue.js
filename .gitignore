@@ -7,3 +7,5 @@ yarn-error.log
 *.iml
 accounts.txt
 public/WebDollar-dist/Node-WebDollar-bundle.js
+
+public/WebDollar-dist/Node-WebDollar-bundle2\.js
