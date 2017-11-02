@@ -30,7 +30,7 @@
 
     export default{
 
-        name: 'MiningHeaderCover',
+        name: 'NetworkMapHeaderCover',
 
         components: {
             'HeroCoverSimple': HeroCoverSimple,
