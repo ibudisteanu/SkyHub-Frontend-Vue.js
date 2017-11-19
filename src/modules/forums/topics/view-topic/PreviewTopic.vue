@@ -54,7 +54,12 @@
                 <br />
 
                 <div class="topic-question-footer" v-if="!this.showTablePreview">
-                    <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="this.topic.id" :parentName="this.topic.title" :isOwner="this.$store.state.authenticatedUser.user , this.topic | checkOwner" parentReplyId="" parentReplyName=""/>
+                    <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px"
+                                           :parentForumId="this.topic.parentId" parentForumTitle=""
+                                           :parentTopicId="this.topic.id" :parentTopicTitle="this.topic.title"
+                                           parentReplyId="" parentReplyTitle=""
+
+                                           :isOwner="this.$store.state.authenticatedUser.user , this.topic | checkOwner" />
                 </div>
 
                 <div class="clearfix" />

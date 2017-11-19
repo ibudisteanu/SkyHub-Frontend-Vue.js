@@ -6,10 +6,14 @@
 
 <template>
     <div class="row">
+
         <div class="col-xl-6 col-xl-offset-3 col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12" style='padding:0; margin-bottom:0'>
 
             <div class="row" style='padding-bottom: 20px; padding-top: 20px'>
-                <ContentButtons :enableAddForum="false" :parentId="getTopicId" :parentName="getForumName" buttonsRowStyle="text-align: center; padding-bottom:20px"/>
+                <ContentButtons :enableAddForum="false" :enableAddTopic="false"
+                                :parentForumId="getForumId" :parentForumName="getForumName"
+                                :parentTopicId="getTopicId" :parentTopicTitle="getTopicTitle"
+                                buttonsRowStyle="text-align: center; padding-bottom:20px"/>
             </div>
 
             <div class="row" style="padding-bottom: 20px">
@@ -58,19 +62,29 @@
                 else return this.$store.state.content.contentRouter.currentObject;
             },
 
+            getForum(){
+                if (this.topic !== null) return this.topic;
+                else return this.$store.state.content.contentRouter.parentObject;
+            },
+
             getTopicId(){
                 if (this.getTopic.object === null) return '';
-                else return this.getTopic.object.id;
+                return this.getTopic.object.id;
+            },
+
+            getTopicTitle(){
+                if (this.getTopic.object === null) return '';
+                return this.getTopic.object.name||this.getTopic.object.title;
+            },
+
+            getForumId(){
+                if (this.getForum.object === null) return '';
+                return this.getForum.object.id;
             },
 
             getForumName(){
-                if (this.getTopic.object === null) return '';
-                else return this.getTopic.object.name||this.getTopic.object.title;
-            },
-
-            getForumTitle(){
-                if (this.getTopic.object === null) return 'SkyHub';
-                else return this.getTopic.object.name||this.getTopic.object.title;
+                if (this.getForum.object === null) return 'SkyHub';
+                return this.getForum.object.name||this.getForum.object.title;
             },
 
         },

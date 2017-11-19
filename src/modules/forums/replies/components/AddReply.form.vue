@@ -9,10 +9,9 @@
         <div class="panel panel-success">
 
             <div class="panel-heading">
-                <h3 style='margin: 0'><strong>Reply</strong> to {{this.parentReplyName||this.parentName||'Home'}} </h3>
+                <h3 style='margin: 0'><strong>Reply</strong> to {{this.parentReplyTitle||this.parentTitle||'Home'}} </h3>
 
             </div>
-
 
 
             <div class="panel-body">
@@ -149,10 +148,10 @@
 
         props:{
             parentId: {default:''},
-            parentName: {default:''},
+            parentTitle: {default:''},
 
             parentReplyId : {default: ''},
-            parentReplyName : {default: ''},
+            parentReplyTitle : {default: ''},
         },
 
         //@onSuccess;

@@ -51,7 +51,10 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
             </div>
 
             <div class="reply-form-footer-buttons" v-if="!this.previewAddReply">
-                <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px" :parentId="reply.parentId" parentName="" :parentReplyId="reply.id" :parentReplyName="reply.title" :isOwner="this.$store.state.authenticatedUser.user , reply | checkOwner" />
+                <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px"
+                                       :parentTopicId="reply.parentId" parentTopicTitle=""
+                                       :parentReplyId="reply.id" :parentReplyTitle="reply.title"
+                                       :isOwner="this.$store.state.authenticatedUser.user , reply | checkOwner" />
             </div>
 
             <div  class="reply-form-footer-subReplies">

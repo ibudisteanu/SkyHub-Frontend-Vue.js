@@ -322,6 +322,7 @@
                     let newAttachments =  this.attachments||[];
 
                     console.log("handleLinkChange", answer);
+                    console.log("attachment URL", answer);
 
                     if (answer.result){
 

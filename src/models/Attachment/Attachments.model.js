@@ -3,14 +3,28 @@
  * (C) BIT TECHNOLOGIES
  */
 
+import Attachment from './Attachment.model.js';
+
 export default class Attachments {
 
-    static getLinkAttachment(object){
 
+    static createAttachments(attachments){
+
+        attachments = attachments || [];
+
+        let result = [];
+        for (let i=0; i<attachments.length; i++)
+            result.push(new Attachment(attachments[i]));
+
+        return result;
+    }
+
+    static getLinkAttachment(object){
 
         if ((typeof object === 'object') || (Array.isArray(object.attachments)))
             for (let i=0; i<object.attachments.length; i++)
                 if (object.attachments[i].type === "link"){
+
                     return object.attachments[i];
                 }
 
@@ -51,7 +65,7 @@ export default class Attachments {
         }
 
 
-        if (object.attachments.length > 0 ) //I have an uploaded image
+        if (typeof object.attachments !== 'undefined' && object.attachments.length > 0 ) //I have an uploaded image
             for (let i=0; i<object.attachments.length; i++)
                 if ((object.attachments[i].type === "file")&&(object.attachments[i].typeFile.indexOf("image") >= 0 ))
                     return object.attachments[0];

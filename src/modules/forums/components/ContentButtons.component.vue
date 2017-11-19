@@ -28,11 +28,11 @@
 
         <div class="col-md-8 col-md-offset-2" style='padding:0' >
 
-            <AddForumForm v-show="showAddForum" :parentIdProp="parentId" :parentNameProp="parentName" @onSuccess="forumSuccess" @onCancel="forumCancel"/>
+            <AddForumForm v-show="showAddForum" :parentIdProp="parentForumId" :parentNameProp="this.parentForumName" @onSuccess="forumSuccess" @onCancel="forumCancel"/>
 
-            <AddTopicForm v-show="showAddTopic" :parentIdProp="parentId" :parentNameProp="parentName" @onSuccess="topicSuccess" @onCancel="topicCancel"/>
+            <AddTopicForm v-show="showAddTopic" :parentIdProp="parentForumId" :parentNameProp="this.parentForumName" @onSuccess="topicSuccess" @onCancel="topicCancel"/>
 
-            <AddReplyForm v-show="showAddReply" :parentIdProp="parentId" :parentNameProp="parentName" @onSuccess="replySuccess" @onCancel="replyCancel"/>
+            <AddReplyForm v-show="showAddReply" :parentId="parentTopicId" :parentTitle="parentTopicTitle" :parentReplyId="parentReplyId" :parentReplyTitle="parentReplyTitle" @onSuccess="replySuccess" @onCancel="replyCancel"/>
 
         </div>
 
@@ -66,8 +66,14 @@
         },
 
         props:{
-            parentId : {default: '' },
-            parentName : {default: ''},
+            parentForumId : {default: '' },
+            parentForumName : {default: ''},
+
+            parentTopicId : {default: '' },
+            parentTopicTitle : {default: ''},
+
+            parentReplyId : {default: '' },
+            parentReplyTitle : {default: ''},
 
             enableAddForum : {default: true},
             enableAddTopic : {default: true},

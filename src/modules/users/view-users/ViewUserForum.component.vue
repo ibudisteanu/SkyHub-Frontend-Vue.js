@@ -32,7 +32,7 @@
 
         props:{
             authorId: {default: ''},
-            additionalInformation: {default: ''},
+            additionalInformation: {default: function (){return {} }},
         },
 
         mounted(){

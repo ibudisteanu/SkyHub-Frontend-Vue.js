@@ -17,7 +17,7 @@
 
         </div>
 
-        <AddReplyForm v-if="showAddReply" :parentId="parentId" :parentName="parentName" :parentReplyId="this.parentReplyId" :parentReplyName="this.parentReplyName" @onSuccess="replySuccess" @onCancel="replyCancel" />
+        <AddReplyForm v-if="showAddReply" :parentId="parentTopicId" :parentTitle="parentTopicTitle" :parentReplyId="this.parentReplyId" :parentReplyTitle="this.parentReplyName" @onSuccess="replySuccess" @onCancel="replyCancel" />
 
     </div>
 
@@ -44,9 +44,12 @@
         },
 
         props:{
-            parentId: {default: ''},
-            parentName : {default: ''},
+            parentForumId: {default: ''},
+            parentForumTitle : {default: ''},
             isOwner: {default: false},
+
+            parentTopicId: {default: ''},
+            parentTopicTitle: {default: ''},
 
             parentReplyId : {default: ''},
             parentReplyName : {default: ''},

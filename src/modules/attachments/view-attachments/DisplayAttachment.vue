@@ -18,15 +18,18 @@
 <template>
 
         <div class="attachment">
-            <router-link :to="attachment.URL||''" >
-                <img class="attachment-img" :src="attachment.img||''"  :alt="attachment.title+' '+attachment.description" v-tooltip:top="attachment.title+' '+attachment.description" />
-            </router-link>
+
+            <a :href="attachment.img||''" target="_blank" >
+                <img class="attachment-img" :src="attachment.img||''"  :alt="attachment.title||''+' '+attachment.description||''" v-tooltip:top="attachment.title||''+' '+attachment.description||''" />
+            </a>
+
             <div class="word-wrap attachment-img-text">
                 <i v-if="attachment.type==='link'" class="fa fa-link"></i>
                 <i v-else-if="attachment.type==='img'" class="fa fa-picture-o"></i>
                 <i v-else class="fa fa-file"></i>
                 {{(typeof attachment.title === 'string' && attachment.title.length > 50 ?  attachment.title.substr(0, 50)+'...' : attachment.title)}}
             </div>
+
         </div>
 
 </template>

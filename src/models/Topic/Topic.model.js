@@ -29,7 +29,10 @@ export default class Topic {
         this.coverPic = data.coverPic || '';
 
         this.keywords = data.keywords || [];
-        this.attachments = data.attachments || [];
+
+        this.attachments = Attachments.createAttachments (data.attachments||[]);
+
+
         this.breadcrumbs = data.breadcrumbs || [];
 
         this.authorId = data.authorId || '';

@@ -14,7 +14,9 @@
                 </div>
 
                 <div class="row" style='padding-bottom: 20px; padding-top:20px'>
-                    <ContentButtons :enableAddReply="false" :parentId="getForumId" :parentName="getForumName" buttonsRowStyle="text-align: center; padding-bottom:20px" />
+                    <ContentButtons :enableAddReply="false"
+                                    :parentForumId="getForumId" :parentForumName="getForumName"
+                                    buttonsRowStyle="text-align: center; padding-bottom:20px" />
                 </div>
 
                 <div class="row" style='padding-bottom: 20px'>
@@ -118,7 +120,7 @@
 
             getForumTitle(){
                 if (this.getForum.object === null) return 'SkyHub';
-                else return this.getForum.object.name||this.getForum.object.title;
+                else return this.getForum.object.title||this.getForum.object.name;
             },
 
         }
