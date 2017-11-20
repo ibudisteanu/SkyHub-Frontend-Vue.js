@@ -99,6 +99,8 @@
                                                        :parentTopicId="this.getTopic.id" :parentTopicTitle="this.getTopic.title"
                                                        parentReplyId="" parentReplyTitle=""
 
+                                                       :objectId="this.getTopic.id"
+
                                                        :isOwner="this.$store.state.authenticatedUser.user , this.getTopic | checkOwner "
                                                        />
                             </div>

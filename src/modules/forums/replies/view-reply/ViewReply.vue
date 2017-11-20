@@ -54,6 +54,9 @@ PreviewForum can also work with a prop id="1_frm_3333", and it fetch automatical
                 <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px"
                                        :parentTopicId="reply.parentId" parentTopicTitle=""
                                        :parentReplyId="reply.id" :parentReplyTitle="reply.title"
+
+                                       :objectId="reply.id"
+
                                        :isOwner="this.$store.state.authenticatedUser.user , reply | checkOwner" />
             </div>
 

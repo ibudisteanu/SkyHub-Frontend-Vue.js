@@ -56,6 +56,8 @@
 
             buttonsRowStyle : {default: ''},
 
+            objectId: {default: ''},
+
             enableAddReply : {default: true},
         },
 
@@ -72,7 +74,7 @@
                 if (this.$refs['refSubmitButtonDelete'].disabled === true) // avoid multiple post requests
                     return false;
 
-                let answer = await this.$store.dispatch('CONTENT_DELETE_OBJECT', { objectId: this.parentReplyId||this.parentId } );
+                let answer = await this.$store.dispatch('CONTENT_DELETE_OBJECT', { objectId: this.objectId } );
             },
 
             replySuccess(){
