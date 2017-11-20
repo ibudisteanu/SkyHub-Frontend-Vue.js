@@ -3,6 +3,9 @@
  * (C) BIT TECHNOLOGIES
  */
 
+import UserProperties from 'models/User/User.properties.js';
+import User from 'models/User/User.model.js';
+
 export default{
 
     getUsers (state, getters) {
@@ -14,7 +17,12 @@ export default{
 
     getUser : (state => (userId)=>{
 
-        if (typeof userId === 'object') return userId;
+        if (typeof userId === 'object'){
+            return userId;
+            //not working...
+            // if (userId !== null && userId instanceof User) return userId;
+            // else return null;
+        }
 
         if ((typeof userId === 'string')&&(typeof state.users[userId] !== 'undefined'))
             return state.users[userId];
@@ -37,6 +45,15 @@ export default{
         if (user === null) return false;
 
         return user.loggedIn || false;
+    }),
+
+    isUserAdmin: ((state, getters) => (userId) => {
+
+        let user = getters.getUser(userId);
+        if (user === null) return false;
+
+        return UserProperties.isAdmin(user.role);
+
     }),
 
     getUserProfilePic: ((state, getters) => (userId)=>{

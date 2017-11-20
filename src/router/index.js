@@ -16,6 +16,8 @@ const LoginPage = () => import('client/pages/Site/Login.page.vue');
 const RegistrationPage = () => import('client/pages/Site/Registration.page.vue');
 const AboutPage = () => import('client/pages/Site/About.page.vue');
 
+const AdminPage = () => import('client/pages/Admin/Admin.page.vue');
+
 export function createRouter () {
 
   return new Router({
@@ -43,6 +45,8 @@ export function createRouter () {
       { path: '/hn/item/:id(\\d+)', component: ItemView },
       { path: '/hn/user/:id', component: UserView },
       { path: '/hn/', redirect: '/hn/top' },
+
+      { path: '/admin', component: AdminPage },
 
       { path: '/about', component: AboutPage },
       { path: '/contact', component: AboutPage },

@@ -1,7 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 
 import UserProperties from './User.properties.js';
-//var UserProperties = require ('./User.properties.js');
 
 export default class User {
 

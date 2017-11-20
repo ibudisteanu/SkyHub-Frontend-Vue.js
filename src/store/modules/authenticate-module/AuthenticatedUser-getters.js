@@ -13,6 +13,12 @@ export default {
 
     },
 
+    isAuthenticatedUserAdmin (state, getters){
+
+        return getters.isUserAdmin(state.user);
+
+    },
+
     getAuthenticatedUserFullName (state, getters) {
 
         return getters.getUserFullName(state.user);

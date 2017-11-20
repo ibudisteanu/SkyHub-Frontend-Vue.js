@@ -24,6 +24,16 @@ module.exports = {
     UserGenderEnum: UserGenderEnum,
     UserRolesEnum : UserRolesEnum,
 
+    isAdmin(role){
+        if ((typeof role === 'undefined') || (role === null)) return false;
+        role = parseInt(role);
+
+        if ((role === UserRolesEnum.SYS_ADMIN) || (role === UserRolesEnum.ADMIN)) {
+            return true;
+
+        }
+    },
+
     convertGenderString (sGender){
 
         if (typeof sGender === 'undefined') sGender = '';
@@ -38,26 +48,28 @@ module.exports = {
         }
     },
 
-    convertRoleType (sUserRoleType){
+    convertToRoleType (sUserRoleType){
 
         if (typeof sUserRoleType === 'undefined') sUserRoleType = '';
         sUserRoleType = sUserRoleType.toLowerCase();
 
         switch (sUserRoleType){
             case 'user': return UserRolesEnum.USER;
+
             case 'admin':
             case 'administrator':
-
                 return UserRolesEnum.ADMIN;
+
             case 'moderator': return UserRolesEnum.MODERATOR;
             case 'sys admin':
             case 'system admin':
 
                 return UserRolesEnum.SYS_ADMIN;
+
             case 'not registered':
             case 'anonymous':
-
                 return UserRolesEnum.NOT_REGISTERED;
+
             default:
                 return UserRolesEnum.USER;
         }
