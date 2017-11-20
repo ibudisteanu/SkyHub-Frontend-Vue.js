@@ -45,7 +45,7 @@
                         </div>
                     </div>
 
-                    <pre>
+                    <pre style="height: 500px">
                         <div v-html="this.dataAnswer" />
                     </pre>
 
@@ -92,7 +92,7 @@
                     this.dataAnswer = "Exception raised... "+Exception.toString();
                 }
 
-                this.dataAnswer = answer.toString();
+                this.dataAnswer = JSON.stringify(answer);
 
                 button.enableButton();
             },
@@ -110,7 +110,7 @@
             },
 
             async handleCopyDB(e, button){
-                return await this.sendRequestAndWaitAnswer(button, 'admin/copy-DB/'+this.copyDBSource+'/'+this.copyDBDestination, {})
+                return await this.sendRequestAndWaitAnswer(button, 'admin/copy-DB', {dbSource: this.copyDBSource, dbDestination: this.copyDBDestination});
             },
 
 
