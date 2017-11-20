@@ -39,10 +39,12 @@
 
               this.loading = true;
 
-              this.$emit('onClick',e);
-
               if ((typeof this.canDisable === "undefined")||(this.canDisable === true))
                   this.disabled=true;
+
+              this.$emit('onClick',e, this);
+
+
           },
 
           enableButton(e){

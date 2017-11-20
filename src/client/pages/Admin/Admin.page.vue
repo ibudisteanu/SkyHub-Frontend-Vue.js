@@ -22,6 +22,11 @@
             </div>
             <div v-else>
 
+                <AdminDashboard>
+
+                </AdminDashboard>
+
+
             </div>
         </div>
     </Layout>
@@ -31,6 +36,7 @@
 <script>
 
     import Layout from 'client/components/Template/Layout/Layout.vue';
+    import AdminDashboard from 'client/pages/Admin/pages/AdminDashboard.page.vue';
     import {sanitizeStripAllTags} from 'modules/utils/global-utilities/SanitizeAdvanced';
 
 
@@ -38,7 +44,7 @@
 
         name: 'AdminPage',
 
-        components: { Layout },
+        components: { Layout, AdminDashboard },
 
         computed:{
             isLoggedIn(){
