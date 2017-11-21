@@ -7,17 +7,17 @@
 <template>
     <div>
 
-        <HeaderCover  v-if=" (routerObject.object !== null) && (routerObject.notFound === false)"
-                      :title="routerObject.object.title||''"
-                      :subTitle="routerObject.object.description||''"
-                      :icon="routerObject.object.iconPic||''"
-                      :cover="routerObject.object.coverPic||''"
-                      :coverColor="routerObject.object.coverColor||''"
-                      :breadcrumbs="routerObject.object.breadcrumbs||[]"
-                      :url="routerObject.object.URL"
+        <HeaderCover  v-if=" (forum !== null) && (notFound === false)"
+                      :title="forum.title||''"
+                      :subTitle="forum.description||''"
+                      :icon="forum.iconPic||''"
+                      :cover="forum.coverPic||''"
+                      :coverColor="forum.coverColor||''"
+                      :breadcrumbs="forum.breadcrumbs||[]"
+                      :url="forum.URL"
 
-                      :enableChangeIcon = "routerObject.object.isOwner"
-                      :enableChangeCover = "routerObject.object.isOwner"
+                      :enableChangeIcon = "forum.isOwner"
+                      :enableChangeCover = "forum.isOwner"
 
                       :buttons="[{class:'btn-danger', style:'width: 100%;', text:'delete',icon:'fa fa-times', onClick:handleDeleteForumButtonClick}]"
 
@@ -30,7 +30,7 @@
 
         <div style='position: relative; z-index: 2 '>
 
-              <div v-if="(routerObject.notFound === false)">
+              <div v-if="(notFound === false)">
 
               </div>
               <div v-else> <!-- ERROR -->
@@ -46,7 +46,10 @@
 
         </div>
 
-      <DisplayForumContent/>
+
+        <ViewKeywords :keywords="forum.keywords" />
+
+        <DisplayForumContent/>
 
     </div>
 </template>
@@ -58,6 +61,8 @@
     import HeaderCover from 'client/components/Template/Template-components/Header/Cover/HeaderCover.component.vue';
     import DisplayForumContent from 'modules/forums/forums/view-forum/DisplayForumContent.vue';
 
+    import ViewKeywords from 'modules/keywords/components/ViewKeywords.component.vue'
+
     export default{
 
 		name: 'ViewForum',
@@ -65,16 +70,21 @@
         components:{
 		    'HeaderCover' : HeaderCover,
             'DisplayForumContent' : DisplayForumContent,
+            'ViewKeywords': ViewKeywords,
         },
 
 		computed:{
 
-            routerObject(){
-				return this.$store.state.content.contentRouter.currentObject;
-			},
+            forum(){
+                return this.$store.state.content.contentRouter.currentObject.object;
+            },
 
-			routerObjectParent(){
-                return this.$store.state.content.contentRouter.parentObject;
+            notFound(){
+                return this.$store.state.content.contentRouter.currentObject.notFound;
+            },
+
+			forumParent(){
+                return this.$store.state.content.contentRouter.parentObject.object;
             },
 
 		},

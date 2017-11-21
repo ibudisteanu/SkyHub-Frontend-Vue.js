@@ -101,7 +101,7 @@
             showInputFeedback(status) {return showInputFeedback(status)},
             convertValidationErrorToString(error) {return convertValidationErrorToString(error)},
 
-            async handleCheckLogin(e){
+            async handleCheckLogin(e, button){
 
                 e.preventDefault(); e.stopPropagation();
 

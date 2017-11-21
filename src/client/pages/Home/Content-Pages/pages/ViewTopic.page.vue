@@ -143,6 +143,8 @@
             >
             </ViewAllReplies>
 
+            <ViewKeywords :keywords="this.getTopic.keywords"/>
+
         </div>
 
     </div>
@@ -165,6 +167,8 @@
     import Topic from 'models/Topic/Topic.model';
     import Attachments from 'models/Attachment/Attachments.model'
 
+    import ViewKeywords from 'modules/keywords/components/ViewKeywords.component.vue'
+
     export default{
 
         name: 'ViewTopic',
@@ -178,6 +182,7 @@
             'ViewAllReplies': ViewAllReplies,
             'Voting' : Voting,
             'ViewUserForum': ViewUserForum,
+            'ViewKeywords': ViewKeywords,
         },
 
         props: {

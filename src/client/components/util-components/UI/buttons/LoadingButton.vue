@@ -39,6 +39,10 @@
 
               this.loading = true;
 
+              if (this.canDisable  === true){
+                  return false;
+              }
+
               if ((typeof this.canDisable === "undefined")||(this.canDisable === true))
                   this.disabled=true;
 

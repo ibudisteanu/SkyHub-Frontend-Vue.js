@@ -690,7 +690,7 @@ div.filepicker {
   word-wrap: break-word;
 }
 .table-forums-topic-body{
-  white-space: pre-wrap;
+  /*white-space: pre-wrap;*/
 }
 
 .table-forums-icon {
