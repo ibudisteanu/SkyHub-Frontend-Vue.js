@@ -20,7 +20,7 @@
     import Layout from 'client/components/Template/Layout/Layout.vue';
     import PageContent from './Content-Pages/PageContent.page.vue';
     import Topic from 'models/Topic/Topic.model';
-    import {sanitizeStripAllTags} from 'modules/utils/global-utilities/SanitizeAdvanced';
+    import SanitizeAdvanced from 'modules/utils/global-utilities/SanitizeAdvanced'
 
     import Attachments from 'models/Attachment/Attachments.model'
 
@@ -130,7 +130,7 @@
                         SEO
          */
         title: function() {
-            return sanitizeStripAllTags((this.currentObject !== null)
+            return SanitizeAdvanced.sanitizeStripAllTags((this.currentObject !== null)
                 ?
                     this.currentObject.title||this.currentObject.name
                 :
@@ -138,7 +138,7 @@
         },
 
         shortDescription: function() {
-            return sanitizeStripAllTags((this.currentObject !== null)
+            return SanitizeAdvanced.sanitizeStripAllTags((this.currentObject !== null)
                 ?
                 this.currentObject.shortDescription||this.currentObject.description||this.title
                 :
@@ -146,7 +146,7 @@
         },
 
         description: function() {
-            return sanitizeStripAllTags((this.currentObject !== null)
+            return SanitizeAdvanced.sanitizeStripAllTags((this.currentObject !== null)
                 ?
                     this.currentObject.description||this.currentObject.shortDescription||this.title
                 :
@@ -154,7 +154,7 @@
         },
 
         keywords: function() {
-            return sanitizeStripAllTags((this.currentObject !== null)
+            return SanitizeAdvanced.sanitizeStripAllTags((this.currentObject !== null)
                 ?
                 this.currentObject.keywords||[]
                 :
@@ -162,7 +162,7 @@
         },
 
         author: function(){
-            return sanitizeStripAllTags((this.currentObject !== null)
+            return SanitizeAdvanced.sanitizeStripAllTags((this.currentObject !== null)
                 ?
                     this.currentObject.authorName||this.currentObject.authorId
                 :

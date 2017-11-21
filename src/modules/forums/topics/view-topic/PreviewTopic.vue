@@ -99,7 +99,7 @@
     import ContentButtonsInline from 'modules/forums/components/ContentButtonsInline.component.vue';
 
     import ViewUserForum from 'modules/users/view-users/ViewUserForum.component.vue';
-    import {sanitizeAdvanced, sanitizeAdvancedShortDescription} from 'modules/utils/global-utilities/SanitizeAdvanced';
+    import SanitizeAdvanced from 'modules/utils/global-utilities/SanitizeAdvanced'
 
     import Attachments from 'models/Attachment/Attachments.model'
 
@@ -141,11 +141,11 @@
             },
 
             getDescription(){
-                return sanitizeAdvanced(Attachments.getDescription(this.topic)||'',false);
+                return SanitizeAdvanced.sanitizeAdvanced(Attachments.getDescription(this.topic)||'',false);
             },
 
             getShortDescription(){
-                return sanitizeAdvancedShortDescription(Attachments.getShortDescription(this.topic)||'', 512, false);
+                return SanitizeAdvanced.sanitizeAdvancedShortDescription(Attachments.getShortDescription(this.topic)||'', 512, false);
             },
 
             viewMore(){

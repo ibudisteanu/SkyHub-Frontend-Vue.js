@@ -37,7 +37,7 @@
 
     import Layout from 'client/components/Template/Layout/Layout.vue';
     import AdminDashboard from 'client/pages/Admin/pages/AdminDashboard.page.vue';
-    import {sanitizeStripAllTags} from 'modules/utils/global-utilities/SanitizeAdvanced';
+    import SanitizeAdvanced from 'modules/utils/global-utilities/SanitizeAdvanced'
 
 
     export default {

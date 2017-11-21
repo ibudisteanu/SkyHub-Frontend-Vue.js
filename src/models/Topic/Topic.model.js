@@ -3,7 +3,7 @@
  */
 
 import Attachments from 'models/Attachment/Attachments.model';
-import {sanitizeAdvanced, sanitizeAdvancedShortDescription} from 'modules/utils/global-utilities/SanitizeAdvanced';
+import SanitizeAdvanced from 'modules/utils/global-utilities/SanitizeAdvanced'
 
 export default class Topic {
 
@@ -16,8 +16,8 @@ export default class Topic {
         this.description = data.description || '';
         this.shortDescription = data.shortDescription || '';
 
-        this.description = sanitizeAdvanced(this.description);
-        this.shortDescription = sanitizeAdvancedShortDescription(this.shortDescription||this.description, 512);
+        this.description = SanitizeAdvanced.sanitizeAdvanced(this.description);
+        this.shortDescription = SanitizeAdvanced.sanitizeAdvancedShortDescription(this.shortDescription||this.description, 512);
 
         this.viewMore = false;
         if (this.description !== this.shortDescription)
