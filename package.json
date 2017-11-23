@@ -1,7 +1,7 @@
 {
-  "name": "vue-hackernews-2.0",
-  "description": "A Vue.js project",
-  "author": "Evan You <yyx990803@gmail.com>",
+  "name": "skyhub-frontend-vue.js",
+  "description": "SkyHub-Frontend-Vue.js",
+  "author": "Ionut Budisteanu",
   "private": true,
   "scripts": {
     "dev": "node server",
