@@ -2,7 +2,7 @@
  * Created by BIT TECHNOLOGIES on 7/11/2017.
  */
 
-const FRONTEND_URL = '127.0.0.1:80';
+const FRONTEND_URL = process.env.PORT ? `127.0.0.1:${process.env.PORT}`  : '127.0.0.1:80';
 const BACKEND_URL = '127.0.0.1:4000';
 const FRONTEND_WEBSITE_URL = 'http://'+trimSlash(FRONTEND_URL)+'/';
 const BACKEND_WEBSITE_URL = 'http://'+trimSlash(BACKEND_URL)+'/';
