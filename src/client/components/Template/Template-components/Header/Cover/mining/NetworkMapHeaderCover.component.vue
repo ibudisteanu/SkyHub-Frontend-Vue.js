@@ -7,9 +7,9 @@
 
         <HeroCoverSimple url="/" coverColor="white" height="300px" style="padding-bottom: 0">
 
-            <div slot="header-content" style="text-align: center">
+            <div slot="header-content" style="text-align: center;">
 
-                <h1 class='fg-white' style="font-size: 60px; font-weight: bold; text-transform: none; color: #12428c; text-align: center; margin-bottom: 50px; padding-left: 0.5em; padding-right: 0.5em; ">
+                <h1 class='fg-white' style="font-size: 60px; font-weight: bold; text-transform: none; color: #12428c; text-align: center; margin-bottom: 50px; padding-left: 0.5em; padding-right: 0.5em;     margin-top: -20px;">
                     Peer-to-Peer Network
                 </h1>
 
@@ -63,6 +63,9 @@
                 NodeWebDollar.NetworkMap.createMap('map');
                 NodeWebDollar.NetworkMap.initialize(map);
                 NodeWebDollar.NetworkMap.initializePolylines(map);
+
+                // DEMO
+                // NodeWebDollar.NetworkMap.createTestConnections(map);
             }
 
         }

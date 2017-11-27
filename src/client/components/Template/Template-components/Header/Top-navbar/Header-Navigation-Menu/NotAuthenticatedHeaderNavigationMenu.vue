@@ -15,6 +15,7 @@
 
 
 
+<!--
     <li>
       <router-link to="/login" :event="''" @click.native.prevent="handleSignIn" >
         <i class="fa fa-sign-in"></i>
@@ -28,6 +29,7 @@
         <span class="m-r-sm text-muted">Register</span>
       </router-link>
     </li>
+-->
 
     <li>
       <router-link to="/#mining"  :event="''" >
