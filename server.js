@@ -137,10 +137,10 @@ function render (req, res) {
     },
     SEOMixinKeywords: 'webdollar, blockchain, bitcoin, blockchain in browser',
     SEOMixinImages:
-      '<meta property="og:image"  content="/public/images/WebDollar-Landing-image.png"  /> ' +
-      '<meta property="og:image:alt" content="WebDollar - Web Coin of Internet" />' +
-      '<meta property="twitter:image"  content="/public/images/WebDollar-Landing-image.png" />'+
-      '<meta property="twitter:image:alt" content="WebDollar - Web Coin of the Internet"   />',
+      '<meta property="og:image"  content="http://webdollar.io/public/images/WebDollar-Landing-image.png"  /> ' +
+      '<meta property="og:image:alt" content="WebDollar - Coin of Internet" />' +
+      '<meta property="twitter:image"  content="http://webdollar.io/public/images/WebDollar-Landing-image.png" />'+
+      '<meta property="twitter:image:alt" content="WebDollar - Coin of the Internet"   />',
     SEOMixinSchemaMarkup:{
         "@context": "http://schema.org",
         "@type": "WebSite",
