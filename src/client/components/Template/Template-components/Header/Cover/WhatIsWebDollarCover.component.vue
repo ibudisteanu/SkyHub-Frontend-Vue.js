@@ -15,21 +15,21 @@
 
             <div class="row" id="what-is-webdollar">
                 <div class="col-md-4">
-                    <img style="width: 160px; height:160px; background-color:white; border-radius: 100%; border:11px solid #fff" src="/public/WebDollar-ming.jpg">
+                    <img style="width: 160px; height:160px; background-color:white; border-radius: 100%; border:11px solid #fff" src="/public/images/res/WebDollar-ming.jpg">
                     <p style="padding-top: 20px">
                         <h3>Start <strong>Mining in Browser</strong> in <strong>5 sec</strong></h3>
                         You can start mining WebDollar in just <strong>5 seconds</strong>
                     </p>
                 </div>
                 <div class="col-md-4">
-                    <img style="width: 160px; height:160px; background-color:white; border-radius: 100%; border:11px solid #fff" src="/public/WebDollar-Browser.jpg">
+                    <img style="width: 160px; height:160px; background-color:white; border-radius: 100%; border:11px solid #fff" src="/public/images/res/WebDollar-Browser.jpg">
                     <p style="padding-top: 20px">
-                    <h3><strong>First Blockchain</strong> in <strong>Browser</strong></h3>
+                    <h3><strong>Web Coin of the Internet</strong> in <strong>Browser</strong></h3>
                     WebDollar is the first Blockchain running fully in the Browser <strong>5 seconds</strong>
                     </p>
                 </div>
                 <div class="col-md-4">
-                    <img style="width: 160px; height:160px; background-color:white; border-radius: 100%; border:11px solid #fff" src="/public/WebDollar-wallet.jpg">
+                    <img style="width: 160px; height:160px; background-color:white; border-radius: 100%; border:11px solid #fff" src="/public/images/res/WebDollar-wallet.jpg">
                     <p style="padding-top: 20px">
                         <h3><strong>Easiest Blockchain</strong> for <strong>Web Payments</strong></h3>
                         Easiest Blockchain Integration for <strong>Web Payments</strong>

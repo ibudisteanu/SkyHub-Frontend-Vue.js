@@ -126,9 +126,9 @@ function render (req, res) {
 
   const context = {
     SEOMixinTitle: {
-      title:'WebDollar - First Blockchain in WEB',
-      facebook: 'WebDollar - First Blockchain in WEB',
-      twitter: 'WebDollar - First Blockchain in WEB',
+      title:'WebDollar - Web Coin of the Internet',
+      facebook: 'WebDollar - Web Coin of the Internet',
+      twitter: 'WebDollar - Web Coin of the Internet',
     }, // default title
     SEOMixinDescription: {
       description:'WebDollar - disrupting Blockchain',
@@ -137,10 +137,10 @@ function render (req, res) {
     },
     SEOMixinKeywords: 'webdollar, blockchain, bitcoin, blockchain in browser',
     SEOMixinImages:
-      '<meta property="og:image"  content="/public/SkyHub-landing-image.jpg"  /> ' +
-      '<meta property="og:image:alt" content="WebDollar - First Blockchain WEB" />' +
-      '<meta property="twitter:image"  content="/public/SkyHub-landing-image.jpg" />'+
-      '<meta property="twitter:image:alt" content="WebDollar - First Blockchain WEB"   />',
+      '<meta property="og:image"  content="/public/images/WebDollar-Landing-image.png"  /> ' +
+      '<meta property="og:image:alt" content="WebDollar - Web Coin of Internet" />' +
+      '<meta property="twitter:image"  content="/public/images/WebDollar-Landing-image.png" />'+
+      '<meta property="twitter:image:alt" content="WebDollar - Web Coin of the Internet"   />',
     SEOMixinSchemaMarkup:{
         "@context": "http://schema.org",
         "@type": "WebSite",
@@ -194,7 +194,7 @@ app.get('*', isProd ? render : (req, res) => {
   readyPromise.then(() => render(req, res))
 })
 
-const port = process.env.PORT || 80
+const port = process.env.PORT || 8080
 app.listen(port, () => {
   console.log(`server started at localhost:${port}`)
 })

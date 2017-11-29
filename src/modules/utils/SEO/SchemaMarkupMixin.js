@@ -51,7 +51,7 @@ function getSchemaMarkup (vm) {
             ? url.call(vm)
             : url;
 
-        if ((typeof imagesData === 'undefined')||(imagesData === null)||(imagesData.length === 0)) imagesData = [ {url: "http://skyhub.me/public/SkyHub-landing-image.jpg", alt:"SkyHub Forum 2.0 Social Network - Change the World"}];
+        if ((typeof imagesData === 'undefined')||(imagesData === null)||(imagesData.length === 0)) imagesData = [ {url: "http://webdollar.io/public/images/WebDollar-Landing-image.png", alt:"SkyHub Forum 2.0 Social Network - Change the World"}];
         if ((typeof titleData === 'undefined')||(titleData === '')) titleData = 'SkyHub Forum 2.0 Social Network';
         if ((typeof descriptionData === 'undefined')||(descriptionData === '')) descriptionData = 'Change the world together!';
         if ((typeof webPageTypeData === 'undefined')||(webPageTypeData === '')) webPageTypeData = 'website';
