@@ -61,12 +61,12 @@
 
             googleMapsInitialize() {
 
-                WebDollar.NetworkMap.createMap('map');
-                WebDollar.NetworkMap.initialize(map);
-                WebDollar.NetworkMap.initializePolylines(map);
+                WebDollar.Applications.NetworkMap.createMap('map');
+                WebDollar.Applications.NetworkMap.initialize(map);
+                WebDollar.Applications.NetworkMap.initializePolylines(map);
 
                 // DEMO
-                // WebDollar.NetworkMap.createTestConnections(map);
+                // WebDollar.Applications.NetworkMap.createTestConnections(map);
             }
 
         }
