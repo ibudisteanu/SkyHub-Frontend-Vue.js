@@ -60,12 +60,13 @@
         methods:{
 
             googleMapsInitialize() {
-                NodeWebDollar.NetworkMap.createMap('map');
-                NodeWebDollar.NetworkMap.initialize(map);
-                NodeWebDollar.NetworkMap.initializePolylines(map);
+
+                WebDollar.NetworkMap.createMap('map');
+                WebDollar.NetworkMap.initialize(map);
+                WebDollar.NetworkMap.initializePolylines(map);
 
                 // DEMO
-                // NodeWebDollar.NetworkMap.createTestConnections(map);
+                // WebDollar.NetworkMap.createTestConnections(map);
             }
 
         }

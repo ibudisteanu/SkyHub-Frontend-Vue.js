@@ -7,15 +7,13 @@
 
     constructor(){
 
-        NodeWebDollar.NodeServer.startServer();
-        NodeWebDollar.NodeClientsService.startService();
+        WebDollar.Node.NodeClientsService.startService();
 
     }
 
     test(){
         console.log("########################");
-        console.log(NodeWebDollar.NodeServer);
-        console.log(NodeWebDollar.NodeClientsService);
+        console.log(WebDollar.Node.NodeClientsService);
     }
 
 }

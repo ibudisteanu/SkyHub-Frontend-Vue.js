@@ -89,7 +89,7 @@
       data: function () {
           return {
               imageAvatarActive: false,
-              walletAddresses: ['WEBD_'+makeAddress(32)],
+              walletAddresses: [  ],
           }
       },
 
@@ -120,6 +120,11 @@
 
       mounted(){
 
+          if (typeof window !== "undefined") { // On Client, in Browser
+
+              this.addNewAddress();
+
+          }
 
       },
 
@@ -138,21 +143,13 @@
           },
 
           addNewAddress(){
-              this.walletAddresses.push('WEBD_'+makeAddress(32));
+
+              let address = WebDollar.Blockchain.Wallets.createNewAddress();
+              this.walletAddresses.push( address.getAddressAndPrivateKey().address.toBase() );
           }
 
       }
 
-  }
-
-  function makeAddress(length) {
-      let text = "";
-      let possible = "ABCDEF0123456789";
-
-      for (let i = 0; i < length; i++)
-          text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-      return text;
   }
 
 </script>
