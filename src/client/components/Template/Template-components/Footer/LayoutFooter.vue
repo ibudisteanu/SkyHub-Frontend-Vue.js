@@ -5,8 +5,6 @@
         <div :style="{textAlign: 'right' }">
 
             <router-link to="/" class="item-footer-menu">Home</router-link>
-            <router-link to="/admin" class="item-footer-menu">Admin</router-link>
-            <router-link to="/privacy" class="item-footer-menu">Privacy</router-link>
             <router-link to="/about" class="item-footer-menu">About</router-link>
             <router-link to="/contact" class="item-footer-menu">Contact</router-link>
 
@@ -14,7 +12,7 @@
         </div>
 
         <div :style="{textAlign: 'center' }">
-            <strong>Copyright</strong> WebDollar
+            <strong>No Copyright</strong> WebDollar is a open-source - decentralized p2p protocol.
         </div>
 
         </div>
