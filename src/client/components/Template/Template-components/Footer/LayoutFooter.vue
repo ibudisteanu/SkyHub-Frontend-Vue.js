@@ -14,7 +14,7 @@
         </div>
 
         <div :style="{textAlign: 'center' }">
-            <strong>Copyright</strong> SkyHub 2016-2017 by <a href="http://bit-technologies.net/"> BIT TECHNOLOGIES </a>
+            <strong>Copyright</strong> WebDollar
         </div>
 
         </div>

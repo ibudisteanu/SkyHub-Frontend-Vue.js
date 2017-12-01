@@ -39,9 +39,19 @@
     </li>
 
     <li>
-      <router-link to="https://www.facebook.com/Webdollar-109623506425748/"  >
+      <a href="https://t.me/WebDollar" target="_blank" >
+        <i class="fa fa-telegram"></i>
+      </a>
+    </li>
+    <li>
+      <a href="https://facebook.com/webdollar.io/" target="_blank" >
         <i class="fa fa-facebook-square"></i>
-      </router-link>
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/WebDollar/" target="_blank" >
+        <i class="fa fa-github-square"></i>
+      </a>
     </li>
 
 
