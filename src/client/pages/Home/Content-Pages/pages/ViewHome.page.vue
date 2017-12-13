@@ -13,7 +13,9 @@
         <WalletHeaderCover />
         <NetworkMapHeaderCover />
         <MiningHeaderCover />
-        <FooterHeaderCover />
+
+        <CommunityCover />
+<!--        <FooterHeaderCover /> -->
 
     </div>
 
@@ -31,6 +33,7 @@
 
     import MiningHeaderCover from 'client/components/Template/Template-components/Header/Cover/mining/MiningHeaderCover.component.vue';
     import NetworkMapHeaderCover from 'client/components/Template/Template-components/Header/Cover/mining/NetworkMapHeaderCover.component.vue';
+    import CommunityCover from 'client/components/Template/Template-components/Header/Cover/CommunityCover.component.vue';
 
     export default{
 
@@ -46,6 +49,7 @@
 
             'MiningHeaderCover': MiningHeaderCover,
             'NetworkMapHeaderCover': NetworkMapHeaderCover,
+            'CommunityCover': CommunityCover,
         },
 
 
