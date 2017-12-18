@@ -39,13 +39,14 @@
 
               this.loading = true;
 
-              if (this.canDisable  === true){
+              if (this.disabled && this.canDisable  === true){
                   return false;
               }
 
-              if ((typeof this.canDisable === "undefined")||(this.canDisable === true))
+              if ( this.canDisable === undefined || this.canDisable === true)
                   this.disabled=true;
 
+              console.log("onClick emmitted");
               this.$emit('onClick',e, this);
 
 

@@ -25,7 +25,7 @@
                         <h4 style='font-size:30px'>What's hot on {{this.getForumTitle}}</h4>
                     </div>
 
-                    <PreviewTopics :key="'PreviewForums_'+getForumId" :title="this.getForumTitle" :topics="this.contentTopics" :parentId="this.getForumId" :hasNext="this.topicsHasNext" />
+                    <PreviewTopics :key="'PreviewForums_'+getForumId" :title="this.getForumTitle" :topics="this.contentTopics" :parentId="this.getForumId" :hasNext="this.topicsHasNext" :showTablePreview="false"  />
 
                     <Pagination hidden="true" :url="this.getURL" :pageIndex="this.topicsPageIndex" :hasNext="this.topicsHasNext" />
 

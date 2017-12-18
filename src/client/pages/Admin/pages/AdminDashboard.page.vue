@@ -20,17 +20,17 @@
                     <div class="row" style="padding-bottom: 40px">
                         <div class="col-sm-3" align="center">
                             <h5>Resort all objects (apply sorting algorithms)</h5>
-                            <LoadingButton class="btn-success" @onClick="this.handleSort" text="Resort" icon="fa fa-plus"    />
+                            <LoadingButton :canDisable="false" class="btn-success" @onClick="this.handleSort" text="Resort" icon="fa fa-plus"    />
 
                         </div>
                         <div class="col-sm-3">
                             <h4>expand-right</h4>
-                            <LoadingButton class="btn-warning" @onClick="this.handleReplaceUploadedFileSubstrings" text="Replace Uploaded Files Substring" icon="fa fa-plus"   />
+                            <LoadingButton :canDisable="false"class="btn-warning" @onClick="this.handleReplaceUploadedFileSubstrings" text="Replace Uploaded Files Substring" icon="fa fa-plus"   />
 
                         </div>
                         <div class="col-sm-3">
                             <h4>expand-up</h4>
-                            <LoadingButton class="btn-info" @onClick="this.handleBuildAllPagesList" text="Build All Pages Lists" icon="fa fa-plus"  />
+                            <LoadingButton :canDisable="false" class="btn-info" @onClick="this.handleBuildAllPagesList" text="Build All Pages Lists" icon="fa fa-plus"  />
 
                         </div>
                         <div class="col-sm-3">
@@ -40,7 +40,7 @@
                             <label >Copy DB Destination</label>
                             <input v-model="copyDBDestination" type="number" placeholder="ms" class="form-control" value="1">
 
-                            <LoadingButton class="btn-danger" @onClick="this.handleCopyDB" text="Copy DB" icon="fa fa-plus"  />
+                            <LoadingButton :canDisable="false" class="btn-danger" @onClick="this.handleCopyDB" text="Copy DB" icon="fa fa-plus"  />
 
                         </div>
                     </div>

@@ -105,8 +105,6 @@
 
                 e.preventDefault(); e.stopPropagation();
 
-                if (this.$refs['refLoadingButtonLogin'].disabled === true) // avoid multiple post requests
-                    return false;
 
                 this.error = '';
 

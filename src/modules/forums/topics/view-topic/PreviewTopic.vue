@@ -53,7 +53,8 @@
 
                 <br />
 
-                <div class="topic-question-footer" v-if="!this.showPreview">
+
+                <div class="topic-question-footer" v-if="!this.showTablePreview">
                     <ContentButtonsInline  buttonsRowStyle="paddingBottom: 10px"
                                            :parentForumId="this.topic.parentId" parentForumTitle=""
                                            :parentTopicId="this.topic.id" :parentTopicTitle="this.topic.title"

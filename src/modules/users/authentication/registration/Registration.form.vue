@@ -233,9 +233,6 @@
 
                 console.log(this.userName, this.emailAddress, this.firstName, this.lastName, this.password, this.retypePassword, this.latitude, this.longitude, this.city, this.country, this.ip);
 
-                if (this.$refs['refLoadingButtonRegistration'].disabled === true) // avoid multiple post requests
-                    return false;
-
                 this.userNameValidationStatus = [null, ''];  this.emailAddressValidationStatus = [null, ''];  this.firstNameValidationStatus = [null, '']; this.lastNameValidationStatus = [null, ''], this.passwordValidationStatus = [null,  ''];
                 this.retypePasswordValidationStatus = [null,  '']; this.countryValidationStatus = [null,  ''];  this.cityValidationStatus = [null,  ''];
                 this.error = '';
