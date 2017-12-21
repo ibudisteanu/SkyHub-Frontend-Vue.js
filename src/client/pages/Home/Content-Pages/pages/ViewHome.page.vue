@@ -10,9 +10,10 @@
         <WebDollarHero />
         <WhitePaperHero />
         <WhatIsWebDollarHero />
-        <WalletHero />
         <NetworkMapHero />
         <MiningHero />
+        <TimelineHero />
+        <WalletHero />
 
         <TeamHero />
         <CommunityHero />
@@ -32,6 +33,7 @@
     import WhatIsWebDollarHero from 'client/components/Template/Template-components/Heros/WhatIsWebDollar.hero.component.vue';
     import FooterHero from 'client/components/Template/Template-components/Heros/Footer.hero.component.vue';
     import TeamHero from 'client/components/Template/Template-components/Heros/Team.hero.component.vue';
+    import TimelineHero from 'client/components/Template/Template-components/Heros/Timeline.hero.component.vue';
 
     import MiningHero from 'client/components/Template/Template-components/Heros/mining/Mining.hero.component.vue';
     import NetworkMapHero from 'client/components/Template/Template-components/Heros/mining/NetworkMap.hero.component.vue';
@@ -49,6 +51,7 @@
             'WhatIsWebDollarHero': WhatIsWebDollarHero,
             'FooterHero': FooterHero,
             'TeamHero': TeamHero,
+            'TimelineHero': TimelineHero,
 
             'MiningHero': MiningHero,
             'NetworkMapHero': NetworkMapHero,

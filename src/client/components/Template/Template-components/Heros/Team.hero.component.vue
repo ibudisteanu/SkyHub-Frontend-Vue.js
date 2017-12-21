@@ -117,8 +117,8 @@
                                 <h3 class="title">Cosmin Oprea</h3>
                                 <span class="post">Developer</span>
                                 <p class="description">
-                                    Cosmin'23 is a Data Structures Teaching Assistant at Politehnica University of Bucharest, Software Engineer and has high knowledge in algorithms.
-                                    Cosmin alongisde with his team from Politehnica University of Bucharest won three Honorable Mentions at the ACM-ICPC 2014-2016, Southeastern Europe Regional Contest. In 2013, he won 2nd place at International Festival of Mathematics and Computer Science, Romania
+                                    Cosmin'23 is a Data Structures Teaching Assistant at Politehnica University of Bucharest, Software Engineer with lot of knowledge in algorithms.
+                                    Cosmin and his team from Politehnica University won three Honorable Mentions at the ACM-ICPC 2014-2016, Southeastern Europe Regional Contest. In 2013, he won 2nd place at International Festival of Mathematics and Computer Science, Romania
                                 </p>
                             </div>
                         </div>
