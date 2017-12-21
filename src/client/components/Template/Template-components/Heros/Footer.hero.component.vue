@@ -4,9 +4,9 @@
 
 <template>
 
-    <HeroCoverSimple url="/" cover="https://z.cash/theme/images/network-nodes.png" coverColor="f8f8f8" height="300px">
+    <SimpleHero url="/" cover="https://z.cash/theme/images/network-nodes.png" coverColor="f8f8f8" height="300px">
 
-        <div slot="header-content" style="text-align: center">
+        <div slot="hero-content" style="text-align: center">
 
             <h1 class='fg-white' style="display: inline; font-size: 40px; font-weight: bold; text-transform: none; color: #W12428c; text-align: center; margin-bottom: 10px; padding-left: 0.5em; padding-right: 0.5em; ">Contact us!</h1>
             <br/> <br/> <br/>
@@ -40,21 +40,21 @@
 
         </div>
 
-    </HeroCoverSimple>
+    </SimpleHero>
 
 </template>
 
 
 <script>
 
-    import HeroCoverSimple from './HeroCoverSimple.component.vue';
+    import SimpleHero from './styles/Simple.hero.component.vue';
 
     export default{
 
-        name: 'WhitePaperHeaderCover',
+        name: 'FooterHero',
 
         components: {
-            'HeroCoverSimple': HeroCoverSimple,
+            'SimpleHero': SimpleHero,
         },
 
         params:{

@@ -5,9 +5,9 @@
 <template>
 
 
-        <HeroCoverSimple url="/" coverColor="white" height="300px" style="padding-bottom: 0">
+        <SimpleHero url="/" coverColor="white" height="300px" style="padding-bottom: 0">
 
-            <div slot="header-content" style="text-align: center;">
+            <div slot="hero-content" style="text-align: center;">
 
                 <h1 class='fg-white' style="font-size: 60px; font-weight: bold; text-transform: none; color: #12428c; text-align: center; margin-bottom: 50px; padding-left: 0.5em; padding-right: 0.5em;     margin-top: -20px;">
                     Peer-to-Peer Network
@@ -17,7 +17,7 @@
 
             </div>
 
-        </HeroCoverSimple>
+        </SimpleHero>
 
 
 </template>
@@ -25,14 +25,14 @@
 
 <script>
 
-    import HeroCoverSimple from '../HeroCoverSimple.component.vue';
+    import SimpleHero from '../styles/Simple.hero.component.vue';
 
     export default{
 
         name: 'NetworkMapHeaderCover',
 
         components: {
-            'HeroCoverSimple': HeroCoverSimple,
+            'SimpleHero': SimpleHero,
         },
 
         mounted(){

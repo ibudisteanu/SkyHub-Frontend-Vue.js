@@ -19,7 +19,7 @@
 
 <script>
 
-    import HeaderCover from 'client/components/Template/Template-components/Header/Cover/HeaderCover.component.vue';
+    import HeaderCover from 'client/components/Template/Template-components/Heros/Header.hero.component.vue';
 
     export default{
         name: 'NotFound',

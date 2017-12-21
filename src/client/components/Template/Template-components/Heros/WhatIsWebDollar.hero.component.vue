@@ -4,9 +4,9 @@
 
 <template>
 
-    <HeroCoverSimple url="/" coverColor="EDEDED">
+    <SimpleHero url="/" coverColor="EDEDED">
 
-        <div slot="header-content" style="text-align: center">
+        <div slot="hero-content" style="text-align: center">
 
             <h1 class='fg-white' style="margin-top:-10px; display: inline; font-size: 40px; font-weight: bold; text-transform: none; color: #12428c; text-align: center; margin-bottom: 10px; padding-left: 0.5em; padding-right: 0.5em; ">What is WebDollar?</h1>
 
@@ -42,21 +42,21 @@
 
         </div>
 
-    </HeroCoverSimple>
+    </SimpleHero>
 
 </template>
 
 
 <script>
 
-    import HeroCoverSimple from './HeroCoverSimple.component.vue';
+    import SimpleHero from './styles/Simple.hero.component.vue';
 
     export default{
 
         name: 'WhatIsWebDollar',
 
         components: {
-            'HeroCoverSimple': HeroCoverSimple,
+            'SimpleHero': SimpleHero,
         },
 
         params:{

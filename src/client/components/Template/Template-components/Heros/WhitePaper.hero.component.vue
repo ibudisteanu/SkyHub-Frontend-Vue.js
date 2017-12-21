@@ -4,9 +4,9 @@
 
 <template>
 
-    <HeroCoverSimple url="/" coverColor="white" height="250px">
+    <SimpleHero url="/" coverColor="white" height="250px">
 
-        <div slot="header-content" style="text-align: center">
+        <div slot="hero-content" style="text-align: center">
 
             <h1 class='fg-white' style="display: inline; font-size: 40px; font-weight: bold; text-transform: none; color: #12428c; text-align: center; margin-bottom: 10px; padding-left: 0.5em; padding-right: 0.5em; ">White Paper</h1>
             <br/> <br/> <br/>
@@ -20,21 +20,21 @@
 
         </div>
 
-    </HeroCoverSimple>
+    </SimpleHero>
 
 </template>
 
 
 <script>
 
-    import HeroCoverSimple from './HeroCoverSimple.component.vue';
+    import SimpleHero from './styles/Simple.hero.component.vue';
 
     export default{
 
-        name: 'WhitePaperHeaderCover',
+        name: 'WhitePaperHero',
 
         components: {
-            'HeroCoverSimple': HeroCoverSimple,
+            'SimpleHero': SimpleHero,
         },
 
         params:{

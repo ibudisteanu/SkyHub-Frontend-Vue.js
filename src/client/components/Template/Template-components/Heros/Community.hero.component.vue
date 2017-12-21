@@ -4,29 +4,29 @@
 
 <template>
 
-    <HeroCoverSimple url="/" coverColor="white">
+    <SimpleHero url="/" coverColor="a757ff0f">
 
-        <div slot="header-content" style="text-align: center">
+        <div slot="hero-content" style="text-align: center">
 
             <h1 class='fg-white' style="margin-top:-10px; display: inline; font-size: 40px; font-weight: bold; text-transform: none; color: #12428c; text-align: center; margin-bottom: 10px; padding-left: 0.5em; padding-right: 0.5em; ">Join Our Communities</h1>
 
 
             <div style="margin-bottom: 60px"> </div>
 
-            <div class="row" id="what-is-webdollar">
-                <div class="col-md-4">
+            <div class="row" id="community" style="width: 100%">
+                <div class="col-md-offset-3 col-md-2">
                     <a href="https://t.me/WebDollar" target="_blank" >
                         <i class="fa fa-telegram" style="font-size: 8em"></i>
                         <h3>Telegram</h3>
                     </a>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <a href="https://facebook.com/webdollar.io" target="_blank" >
                         <i class="fa fa-facebook-square" style="font-size: 8em"></i>
                         <h3>Facebook</h3>
                     </a>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <a href="https://github.com/WebDollar" target="_blank" >
                         <i class="fa fa-github-square" style="font-size: 8em"></i>
                         <h3>GitHub</h3>
@@ -39,21 +39,21 @@
 
         </div>
 
-    </HeroCoverSimple>
+    </SimpleHero>
 
 </template>
 
 
 <script>
 
-    import HeroCoverSimple from './HeroCoverSimple.component.vue';
+    import SimpleHero from './styles/Simple.hero.component.vue';
 
     export default{
 
-        name: 'CommunityCover',
+        name: 'CommunityHero',
 
         components: {
-            'HeroCoverSimple': HeroCoverSimple,
+            'SimpleHero': SimpleHero,
         },
 
         params:{

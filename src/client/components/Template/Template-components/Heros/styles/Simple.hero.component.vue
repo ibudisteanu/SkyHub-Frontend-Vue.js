@@ -6,12 +6,12 @@
 
         <div class="header-cover row  border-bottom white-bg dashboard-header "  :style="{minHeight: this.height, backgroundImage: (this.cover||''), backgroundColor: (this.coverColor!=='' ? '#'+this.coverColor : 'darkblue') }">
 
-            <div v-if="showLayOver === true" class='header-cover-layover'>
+            <div v-if="showLayOver === true" class='hero-layover-class'>
             </div>
 
-            <div  v-if="showDescriptionMenu" class="col-xs-12 " >
+            <div  v-if="showContent" class="col-xs-12 " >
                 <div class='header-cover-description' >
-                    <slot name="header-content" />
+                    <slot name="hero-content" />
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
 
     export default{
 
-        name: 'HeroCoverSimple',
+        name: 'SimpleHero',
 
         components:{
         },
@@ -38,7 +38,7 @@
         props:{
             url: {default: ''},
 
-            showDescriptionMenu: {default: true},
+            showContent: {default: true},
 
             cover: {default: ''},
             coverColor: {default: ''},

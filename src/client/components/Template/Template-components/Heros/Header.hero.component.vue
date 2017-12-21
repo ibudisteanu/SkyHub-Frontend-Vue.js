@@ -9,7 +9,7 @@
 
             <ImageCropUpload :enableFileUpload="enableChangeCover" ref="refCoverImageCropUpload" @onImageChanged="coverChanged" :width="1500" :height="320"/>
 
-            <div v-if="showLayOver === true" class='header-cover-layover'>
+            <div v-if="showLayOver === true" class='hero-layover-class'>
             </div>
 
             <div v-if="enableChangeIcon" style="position: absolute; padding-left: 10px; padding-right: 10px" :style="{color: 'white', backgroundColor: imageCoverMouseOver ?  'rgba(0,0,0, 0.8)' : 'rgba(0,0,0, 1)'}">
@@ -18,7 +18,7 @@
             </div>
 
 
-            <div  v-if="showDescriptionMenu" class="col-xs-12 " >
+            <div  v-if="showContent" class="col-xs-12 " >
                 <div class='header-cover-description' >
                     <div>
 
@@ -64,7 +64,7 @@
             </div>
 
 
-            <!--{(this.props.showDescriptionMenu||true) == true ? this.renderDescriptionMenu() : 'NU AFISEZ NIMIC' }-->
+            <!--{(this.props.showContent||true) == true ? this.renderDescriptionMenu() : 'NU AFISEZ NIMIC' }-->
 
         </div>
 
@@ -107,7 +107,7 @@
             subTitle: {default: ''},
             breadcrumbs: {default: function (){return []}},
             buttons: {default: function() {return []}},
-            showDescriptionMenu: {default: true},
+            showContent: {default: true},
             //cover: {default: 'http://spitfiresocial.com/wp-content/uploads/2015/03/worldsocial.jpg'},
             cover: {default: 'http://i.imgur.com/hqLGii9.jpg'},
             coverColor: {default: ''},

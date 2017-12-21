@@ -7,14 +7,15 @@
 
     <div>
 
-        <WebDollarHeaderCover />
-        <WhitePaperHeaderCover />
-        <WhatIsWebDollar />
-        <WalletHeaderCover />
-        <NetworkMapHeaderCover />
-        <MiningHeaderCover />
+        <WebDollarHero />
+        <WhitePaperHero />
+        <WhatIsWebDollarHero />
+        <WalletHero />
+        <NetworkMapHero />
+        <MiningHero />
 
-        <CommunityCover />
+        <TeamHero />
+        <CommunityHero />
 <!--        <FooterHeaderCover /> -->
 
     </div>
@@ -24,32 +25,34 @@
 
 <script>
 
-    import HeaderCover from 'client/components/Template/Template-components/Header/Cover/HeaderCover.component.vue';
-    import WebDollarHeaderCover from 'client/components/Template/Template-components/Header/Cover/WebDollarHeaderCover.component.vue';
-    import WhitePaperHeaderCover from 'client/components/Template/Template-components/Header/Cover/WhitePaperHeaderCover.component.vue';
-    import WalletHeaderCover from 'client/components/Template/Template-components/Header/Cover/WalletHeaderCover.component.vue';
-    import WhatIsWebDollar from 'client/components/Template/Template-components/Header/Cover/WhatIsWebDollarCover.component.vue';
-    import FooterHeaderCover from 'client/components/Template/Template-components/Header/Cover/FooterHeaderCover.component.vue';
+    import HeaderHero from 'client/components/Template/Template-components/Heros/Header.hero.component.vue';
+    import WebDollarHero from 'client/components/Template/Template-components/Heros/WebDollar.hero.component.vue';
+    import WhitePaperHero from 'client/components/Template/Template-components/Heros/WhitePaper.hero.component.vue';
+    import WalletHero from 'client/components/Template/Template-components/Heros/Wallet.hero.component.vue';
+    import WhatIsWebDollarHero from 'client/components/Template/Template-components/Heros/WhatIsWebDollar.hero.component.vue';
+    import FooterHero from 'client/components/Template/Template-components/Heros/Footer.hero.component.vue';
+    import TeamHero from 'client/components/Template/Template-components/Heros/Team.hero.component.vue';
 
-    import MiningHeaderCover from 'client/components/Template/Template-components/Header/Cover/mining/MiningHeaderCover.component.vue';
-    import NetworkMapHeaderCover from 'client/components/Template/Template-components/Header/Cover/mining/NetworkMapHeaderCover.component.vue';
-    import CommunityCover from 'client/components/Template/Template-components/Header/Cover/CommunityCover.component.vue';
+    import MiningHero from 'client/components/Template/Template-components/Heros/mining/Mining.hero.component.vue';
+    import NetworkMapHero from 'client/components/Template/Template-components/Heros/mining/NetworkMap.hero.component.vue';
+    import CommunityHero from 'client/components/Template/Template-components/Heros/Community.hero.component.vue';
 
     export default{
 
         name: "ViewHome",
 
         components: {
-            'HeaderCover': HeaderCover,
-            'WebDollarHeaderCover': WebDollarHeaderCover,
-            'WhitePaperHeaderCover': WhitePaperHeaderCover,
-            'WalletHeaderCover': WalletHeaderCover,
-            'WhatIsWebDollar': WhatIsWebDollar,
-            'FooterHeaderCover': FooterHeaderCover,
+            'HeaderHero': HeaderHero,
+            'WebDollarHero': WebDollarHero,
+            'WhitePaperHero': WhitePaperHero,
+            'WalletHero': WalletHero,
+            'WhatIsWebDollarHero': WhatIsWebDollarHero,
+            'FooterHero': FooterHero,
+            'TeamHero': TeamHero,
 
-            'MiningHeaderCover': MiningHeaderCover,
-            'NetworkMapHeaderCover': NetworkMapHeaderCover,
-            'CommunityCover': CommunityCover,
+            'MiningHero': MiningHero,
+            'NetworkMapHero': NetworkMapHero,
+            'CommunityHero': CommunityHero,
         },
 
 
