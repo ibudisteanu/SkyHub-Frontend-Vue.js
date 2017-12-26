@@ -17,7 +17,7 @@
 
             <LayoutFooter />
 
-            <StickyButtons />
+            <!-- <StickyButtons /> -->
 
             <RightSidebar />
 

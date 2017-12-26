@@ -51,20 +51,19 @@
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="our-team">
                             <div class="pic">
-                                <img src="https://images.gr-assets.com/users/1486910632p6/41296247.jpg" alt="Adrian Stratulat">
+                                <img src="/public/images/res/team/Adrian-Stratulat.jpg" alt="Adrian Stratulat">
                                 <div class="over-layer">
                                     <ul class="social-link">
-                                        <li><a href="#" target="_blank" class="fa fa-facebook"></a></li>
-                                        <li><a href="#" target="_blank"  class="fa fa-google"></a></li>
-                                        <li><a href="#" target="_blank"  class="fa fa-twitter"></a></li>
+                                        <li><a href="https://www.linkedin.com/in/adrianstratulat/" target="_blank" class="fa fa-linkedin"></a></li>
+                                        <li><a href="https://www.facebook.com/Adrian.Stratulat" target="_blank"  class="fa fa-facebook"></a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="team-content">
-                                <h3 class="title">Adrian Stratulat</h3>
+                                <h3 class="title">PhD. (cand.) Adrian Stratulat</h3>
                                 <span class="post">Lead Evangelist</span>
                                 <p class="description">
-                                    Lorem ipsum
+                                    Adrian is a social innovator specialised in emerging energy technologies, he has a background in geopolitics and diplomacy, but is an entrepreneur at heart. Within WebDollar's core team, Adrian acts as the lead evangelist, coordinating the long term strategic development and the marketing plan.
                                 </p>
                             </div>
                         </div>
@@ -139,7 +138,42 @@
                                 <h3 class="title">Silviu Stroe</h3>
                                 <span class="post">Developer</span>
                                 <p class="description">
-                                    Lorem ipsum
+                                    <a href="https://silviu-s.com/">Silviu</a> is a full stack developer, entrepreneur, big 🍕 fan and ❄️ lover.
+                                    He is the founder of one of the first VPN services in Romania, <a href="https://rotunneling.net">RoTunneling</a> and is part of <a href="http://web.archive.org/web/20160122082559/http://bugbounty.yahoo.com/security_wall.html">Yahoo - Wall of Fame</a>.
+                                    He also loves bleeding edge technologies and new challenges.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div style="margin-bottom: 40px"> </div>
+
+            <h2 class='fg-white' style="text-align:left; margin-top:-10px; font-size: 30px; font-weight: bold; text-transform: none; color: #12428c; margin-bottom: 10px; padding-left: 0.5em; padding-right: 0.5em; background-color: transparent">
+                Management
+            </h2> <br/> <br/>
+            <div class="row" id="team" style="width: 100%">
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="our-team">
+                            <div class="pic">
+                                <img src="/public/images/res/team/Issam-Outaleb.jpg" alt="Issam Outaleb">
+                                <div class="over-layer">
+                                    <ul class="social-link">
+                                        <li> <a href="https://www.linkedin.com/in/issame-outaleb-phd-84442577/" target="_blank" class="fa fa-linkedin"></a> </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="team-content">
+                                <h3 class="title">PhD. Issam Outaleb</h3>
+                                <span class="post">Lead Strategic Management</span>
+                                <p class="description">
+                                    Dr Issam Outaleb is a Business Management Senior Consultant and Strategist who partners with top tier business managers, executives and marketers to grow business. After working in management consulting and marketing strategies for brands and mid-tier biotech, Issam knows what truly drives conversions, product launches, and successful strategic and operational planning.
+
+                                    Issam holds a PhD in Bioinformatics at Max-Planck Institute in collaboration with University of Freiburg, Germany
                                 </p>
                             </div>
                         </div>
@@ -159,10 +193,10 @@
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="our-team">
                             <div class="pic">
-                                <img src="https://scontent.fotp3-3.fna.fbcdn.net/v/t1.0-9/308472_412409525487364_1192814304_n.jpg?oh=2f858a11aca21e792633256a02779818&oe=5AD11B24" alt="Iulian Vasilescu">
+                                <img src="/public/images/res/team/Iulian-Vasilescu.jpg" alt="Iulian Vasilescu">
                                 <div class="over-layer">
                                     <ul class="social-link">
-                                        <li><a href="https://www.facebook.com/iulian.vasilescu.1" target="_blank" class="fa fa-facebook"></a></li>
+                                        <li> <a href="https://www.facebook.com/iulian.vasilescu.1" target="_blank" class="fa fa-facebook"></a> </li>
                                     </ul>
                                 </div>
                             </div>

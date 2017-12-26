@@ -12,7 +12,7 @@
         </div>
 
         <div :style="{textAlign: 'center' }">
-            <strong>No Copyright</strong> WebDollar is a open-source - decentralized p2p protocol.
+            <strong>No Copyright</strong> WebDollar is an <a target="_blank" href="http://github.com/WebDollar/">open-source</a> decentralized p2p protocol.
         </div>
 
         </div>
