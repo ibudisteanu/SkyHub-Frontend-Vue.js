@@ -7,7 +7,7 @@
             <ul>
                 <li>Home</li>
                 <li>About</li>
-                <li onclick="walletOpenHandler()">Wallet</li>
+                <li @click="handleWallet">Wallet</li>
                 <li>White Papper</li>
                 <li>Team</li>
                 <li>Network</li>
@@ -21,6 +21,16 @@
     export default {
 
         name: "Header",
+
+        methods:{
+
+            handleWallet(){
+
+                this.$store.dispatch('WALLET_MENU_INVERT', {})
+
+            }
+
+        }
 
     }
 </script>

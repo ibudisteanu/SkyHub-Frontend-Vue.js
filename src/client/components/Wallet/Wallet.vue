@@ -1,13 +1,13 @@
 <template>
 
     <div>
-        <div id="walletButton" @click="handleWallet" ref="walletButton">
+        <div id="walletButton" @click="handleWallet" ref="walletButton" :style="{marginBottom: this.walletOpened ? '100px' : 0}">
             <span id="miningButtonText">
                 {{this.walletText}}
             </span>
         </div>
 
-        <div id="walletMenu" ref="walletMenu">
+        <div id="walletMenu" ref="walletMenu" :style="{marginBottom: this.walletOpened ? 0 : '-100px'}">
         </div>
     </div>
 
@@ -21,34 +21,20 @@
         data() {
             return {
                 walletText: "Wallet: 0.0 WEBD",
-                walletOpened: false,
+            }
+        },
+
+        computed:{
+            walletOpened(){
+                return this.$store.state.wallet.walletMenuStatus;
             }
         },
 
         methods: {
 
-            openWallet() {
-
-                this.$refs["walletButton"].style.marginBottom = "100px";
-                this.$refs["walletMenu"].style.marginBottom = "0";
-
-            },
-
-            closeWallet() {
-
-                this.$refs["walletMenu"].style.marginBottom = "-100px";
-                this.$refs["walletButton"].style.marginBottom = "0";
-            },
-
             handleWallet(){
 
-                if(this.walletOpened)
-                    this.closeWallet();
-                else
-                    this.openWallet();
-
-
-                this.walletOpened = !this.walletOpened;
+                this.$store.dispatch('WALLET_MENU_INVERT', {})
             }
         }
 
