@@ -1,5 +1,5 @@
 import { createApp } from './app'
-import FetchService from 'services/communication/FetchService';
+
 
 const isDev = process.env.NODE_ENV !== 'production'
 
@@ -14,16 +14,16 @@ export default context => {
     const { app, router, store } = createApp()
 
     //send the store and dispatch to the FetchService (SocketClient needs store.socketStatus
-    FetchService.startService(store.dispatch, store.state);
+    //FetchService.startService(store.dispatch, store.state);
 
     //processing the AUTHENTICATION
     store.dispatch('LOCALIZATION_NEW_IP', { ip: context.ip } ); //Dispatching the Context IP
 
     let cookie =   context.cookies.sessionId || context.cookies.credential; //credential is the old SkyHub session Id
 
-    store.commit('SET_AUTHENTICATED_USER_SESSION', { sessionId: cookie } ); //Dispatching the Context IP
-    console.log("SERVERSIDE     AUTHENTICATE_USER_BY_SESSION", cookie ) ;
-    store.dispatch('AUTHENTICATE_USER_BY_SESSION', { sessionId: cookie } ).then( (answer)=>{ //my change
+    // store.commit('SET_AUTHENTICATED_USER_SESSION', { sessionId: cookie } ); //Dispatching the Context IP
+    // console.log("SERVERSIDE     AUTHENTICATE_USER_BY_SESSION", cookie ) ;
+    // store.dispatch('AUTHENTICATE_USER_BY_SESSION', { sessionId: cookie } ).then( (answer)=>{ //my change
 
         const { url } = context
         const fullPath = router.resolve(url).route.fullPath
@@ -61,8 +61,6 @@ export default context => {
                 resolve(app)
             }).catch(reject)
         }, reject)
-
-    });
 
 
   })
