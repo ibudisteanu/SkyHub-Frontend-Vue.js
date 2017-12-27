@@ -222,22 +222,6 @@ span{
   background: linear-gradient(rgba(32,32,32,1),rgba(32,32,32,1));
 }
 
-#wallet{
-  height: 100%;
-  background-color: #262626;
-  border-right: solid 1px #313131;
-  height: 100%;
-  width: 230px;
-  line-height: 150px;
-  display: block;
-  z-index: 900;
-  position: fixed;
-  float: left;
-  left: -230px;
-  top: 70px;
-  transition: all .5s linear;
-}
-
 #miningButton {
   margin: 0 auto;
   position: fixed;
@@ -271,11 +255,8 @@ span{
 }
 
 #miningButton:hover{
-  -webkit-box-shadow: 0px 0px 124px -6px rgba(255,255,255,1);
--moz-box-shadow: 0px 0px 124px -6px rgba(255,255,255,1);
-box-shadow: 0px 0px 124px -6px rgba(255,255,255,1);
   background-color: #fff;
-  border-bottom: solid 5px #fff;
+  border-bottom: solid 10px #fff;
   transition: all .3s linear;
 }
 
