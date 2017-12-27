@@ -6,10 +6,10 @@
         <div id="menu">
             <ul>
                 <li>Home</li>
-                <li>About</li>
+                <a href="/#what-is-WebDollar"><li>What is?</li></a>
                 <li @click="handleWallet">Wallet</li>
-                <li>White Papper</li>
-                <li>Team</li>
+                <a href="/public/doc/WebDollar-White-Paper.pdf" target="_blank" ><li>White Paper</li></a>
+                <a href="/#team"><li>Team</li></a>
                 <li>Network</li>
             </ul>
         </div>

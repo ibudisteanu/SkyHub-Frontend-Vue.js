@@ -3,7 +3,7 @@
     <div>
         <div id="walletButton" @click="handleWallet" ref="walletButton" :style="{marginBottom: this.walletOpened ? '100px' : 0}">
             <span id="miningButtonText">
-                {{this.walletText}}
+                <i :class="'fa fa-chevron-'+ (this.walletOpened ? 'down' : 'up')" style="padding-right: 10px"></i>{{this.walletText}}
             </span>
         </div>
 

@@ -4,8 +4,6 @@
 
 var screenHeight = window.innerHeight;
 var screenWidth = window.innerWidth;
-var walletOpened = false;
-var miningOpened = false;
 
 //-----------------------
 // Functions
