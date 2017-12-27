@@ -12,6 +12,8 @@
 
             <TeamHero/>
 
+            <Footer/>
+
 
         </div>
 
@@ -28,6 +30,7 @@
     import WebDollarHero from "client/components/heros/WebDollar.hero.vue"
     import WhatIsHero from "client/components/heros/WhatIs.hero.vue"
     import PeerToPeerHero from "client/components/heros/PeerToPeer.hero.vue"
+    import Footer from "client/components/layout/Footer.vue"
 
     export default {
 
