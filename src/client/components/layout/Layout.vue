@@ -16,16 +16,11 @@
 
         </div>
 
+        <Wallet/>
+
         <Footer/>
 
-        <div id="miningButton" onclick="walletOpenHandler()" >
-            <span id="miningButtonText">
-                Wallet 0.0 WEBD
-            </span>
-        </div>
 
-        <div id="miningMenu">
-        </div>
 
     </div>
 
@@ -36,6 +31,8 @@
     import Header from "client/components/layout/Header.vue"
     import Footer from "client/components/layout/Footer.vue"
 
+    import Wallet from "client/components/Wallet/Wallet.vue"
+
     export default{
 
         name: "Layout",
@@ -43,6 +40,7 @@
         components:{
             "Header": Header,
             "Footer": Footer,
+            "Wallet": Wallet,
         }
 
     }

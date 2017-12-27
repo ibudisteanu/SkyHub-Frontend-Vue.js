@@ -12,6 +12,7 @@
 
             <TeamHero/>
 
+            <Wallet />
 
         </div>
 

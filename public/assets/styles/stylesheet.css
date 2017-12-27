@@ -222,7 +222,7 @@ span{
   background: linear-gradient(rgba(32,32,32,1),rgba(32,32,32,1));
 }
 
-#miningButton {
+#walletButton {
   margin: 0 auto;
   position: fixed;
   width: 100px;
@@ -240,7 +240,7 @@ span{
   transition: all .3s linear;
 }
 
-#miningMenu{
+#walletMenu{
   margin: 0 auto;
   position: fixed;
   width: 100%;
@@ -254,13 +254,13 @@ span{
   border-top: solid 1px #bbb;
 }
 
-#miningButton:hover{
+#walletButton:hover{
   background-color: #fff;
   border-bottom: solid 10px #fff;
   transition: all .3s linear;
 }
 
-#miningButton span{
+#walletButton span{
   line-height: 56px;
   font-size: 20px;
   color: #565656;
