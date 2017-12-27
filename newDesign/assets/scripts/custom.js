@@ -33,18 +33,6 @@ function miningOpenHandler(){
 
 }
 
-function openMining() {
-  document.getElementById("miningMenu").style.marginBottom = "0";
-  document.getElementById("miningButtonText").innerHTML = "Minimize";
-  document.getElementById("miningButton").style.marginBottom = "100px";
-}
-
-function closeMining() {
-  document.getElementById("miningMenu").style.marginBottom = "-100px";
-  document.getElementById("miningButtonText").innerHTML = "GO Mining";
-  document.getElementById("miningButton").style.marginBottom = "0";
-}
-
 function walletOpenHandler(){
 
 	if(walletOpened==false) {
@@ -59,15 +47,15 @@ function walletOpenHandler(){
 }
 
 function openWallet() {
-  document.getElementById("logo").style.paddingLeft = "95px";
-  document.getElementById("wallet").style.left = "0px";
-  document.getElementById("websiteBody").style.paddingLeft = "230px";
+  document.getElementById("miningMenu").style.marginBottom = "0";
+  document.getElementById("miningButtonText").innerHTML = "Minimize";
+  document.getElementById("miningButton").style.marginBottom = "100px";
 }
 
 function closeWallet() {
-  document.getElementById("logo").style.paddingLeft = "30px";
-  document.getElementById("wallet").style.left = "-230px";
-  document.getElementById("websiteBody").style.paddingLeft = "0px";
+  document.getElementById("miningMenu").style.marginBottom = "-100px";
+  document.getElementById("miningButtonText").innerHTML = "Dashboard";
+  document.getElementById("miningButton").style.marginBottom = "0";
 }
 
 //-----------------------
