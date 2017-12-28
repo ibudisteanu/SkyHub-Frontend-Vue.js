@@ -14,9 +14,7 @@
             <ShowWallet v-for="wallet in this.wallets"
                     :key="wallet"
                     :id="wallet"
-                    :walletAddress="wallet"
-                >
-
+                    :walletAddress="wallet">
             </ShowWallet>
 
 

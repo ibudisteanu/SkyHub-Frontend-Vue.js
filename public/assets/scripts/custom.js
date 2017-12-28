@@ -18,6 +18,17 @@ function changeFullSectionHeight(){
 	}
 }
 
+function showMobileMenu() {
+    var x = document.getElementById("menu");
+    if (x.className === "topnav") {
+        document.getElementById('logoMenu').setAttribute('style', 'float:none !important');
+        x.className += " responsive";
+    } else {
+        x.className = "topnav";
+        document.getElementById('logoMenu').setAttribute('style', 'float:left !important');
+    }
+}
+
 
 //-----------------------
 // Screen size
@@ -48,3 +59,4 @@ addEvent(window, "resize", function(event) {
 //-----------------------
 
 changeFullSectionHeight();
+document.body.style.backgroundColor='#000';

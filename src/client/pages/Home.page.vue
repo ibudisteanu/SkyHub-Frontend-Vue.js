@@ -14,7 +14,7 @@
 
             <TeamHero/>
 
-            <Wallets />
+            <!--<Wallets />-->
 
         </div>
 

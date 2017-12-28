@@ -24,7 +24,7 @@
                         <img src="public/assets/images/team/PanaitAlexandru.jpg">
                         <h4>Alexandru IONUT Panait</h4>
                         <h5 class="teamRole">LEAD FRONTEND</h5>
-                        <p></p>
+                        <p>Alexandru is a young entrepreneur interested in technology business. General Manager and Founder of aipanait and aipsolution. In our team he's the lead of the platform's interface development.</p>
                     </div>
                     <div>
                         <img src="public/assets/images/team/AdrianRobescu.jpg">

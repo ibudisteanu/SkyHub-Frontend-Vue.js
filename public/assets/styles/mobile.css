@@ -1,17 +1,123 @@
-@media only screen and (max-width: 992px) {
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
     .mainLogo {
         width: 30%;
     }
+    .teamWrapper{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    #whatContainer{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    .main-timeline .timeline{ width: 100%; margin-left: 10px!important; }
+    .main-timeline .timeline:nth-child(even),
+    .main-timeline .timeline:nth-child(odd){
+        margin: 0;
+    }
+    .main-timeline .timeline:before,
+    .main-timeline .timeline:nth-child(2n):before{
+        width: 30px;
+        height: 100%;
+        left: 25px;
+    }
+    .main-timeline .timeline-icon,
+    .main-timeline .timeline:nth-child(2n) .timeline-icon{
+        left: 0;
+    }
+    .main-timeline .year,
+    .main-timeline .timeline:nth-child(2n) .year{
+        text-align: left;
+        padding: 0 30px 0 100px;
+    }
+    .main-timeline .year:before,
+    .main-timeline .timeline:nth-child(2n) .year:before{
+        left: auto;
+        right: 4px;
+    }
+    .main-timeline .year:after{
+        left: auto;
+        right: 50px;
+        border-right: 10px solid #303a3b;
+        border-left: none;
+    }
+    .main-timeline .timeline-content,
+    .main-timeline .timeline:nth-child(2n) .timeline-content{
+        text-align: left;
+        padding: 18px 40px 18px 100px;
+    }
+    .main-timeline .timeline-content:before,
+    .main-timeline .timeline-content:after{
+        width: 0;
+        height: 0;
+    }
+    .main-timeline .timeline:first-child, .main-timeline .timeline:last-child:nth-child(even){
+        margin-left: 10px!important;
+    }
+    #whatContainer div{
+        padding-bottom: 50px;
+    }
+    .main-timeline .year:before, .main-timeline .timeline .year:before{
+        display: none;
+    }
 }
 
-@media only screen and (max-width: 768px) {
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
     .mainLogo {
         width: 40%;
     }
+    .teamWrapper{
+        grid-template-columns: 1fr 1fr;
+    }
+    #whatContainer{
+        grid-template-columns: 1fr;
+    }
+    #aboutSection{
+        padding: 1px 0 60px 0;
+    }
+    #walletButton{
+        width: 100%!important;
+        border-radius: 0;
+        z-index: 1200;
+    }
+    #aboutSection{
+        padding: 100px 0;
+    }
+    #footer{
+        margin-bottom: 50px;
+    }
+    #copyright{
+        line-height: 5px;
+        margin-top: 15px;
+        margin-left: 10px;
+    }
+    .secondCopyRight{
+        font-size: 12px;
+        line-height: 5px;
+        margin-top: 10px;
+        margin-left: 0;
+        color: #e2e2e2;
+        width: auto;
+        display: block;
+    }
+
 }
 
-@media only screen and (max-width: 480px) {
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 480px) {
     .mainLogo {
         width: 50%;
     }
+    .teamWrapper{
+        grid-template-columns: 1fr;
+    }
+    .main-timeline .timeline:before{
+        top:10%!important;
+    }
+
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (max-width : 320px) {
+
 }
