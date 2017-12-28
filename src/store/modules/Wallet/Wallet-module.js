@@ -13,6 +13,9 @@ import getters from './Wallet-getters'
 export default {
     state:  {
         walletMenuStatus: false,
+
+        walletAddresses:  { /* [id: number]: Item */},
+
     },
     actions,
     mutations,

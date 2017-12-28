@@ -31,7 +31,7 @@
     import HeaderLayout from "client/components/layout/HeaderLayout.vue"
     import FooterLayout from "client/components/layout/FooterLayout.vue"
 
-    import Wallet from "client/components/Wallet/Wallet.vue"
+    import Wallet from "client/components/Wallet/Wallets.vue"
 
     export default{
 

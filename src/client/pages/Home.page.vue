@@ -14,7 +14,7 @@
 
             <TeamHero/>
 
-            <Wallet />
+            <Wallets />
 
         </div>
 
@@ -33,6 +33,8 @@
     import PeerToPeerHero from "client/components/heros/PeerToPeer.hero.vue"
     import TimelineHero from "client/components/heros/Timeline.hero.vue"
 
+    import Wallets from "client/components/Wallet/Wallets.vue"
+
     export default {
 
         name: "ViewHome",
@@ -44,6 +46,7 @@
             "WhatIsHero": WhatIsHero,
             "PeerToPeerHero": PeerToPeerHero,
             "TimelineHero": TimelineHero,
+            "Wallets": Wallets,
         }
 
     }
