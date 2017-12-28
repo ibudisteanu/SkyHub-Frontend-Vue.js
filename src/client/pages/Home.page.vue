@@ -10,6 +10,8 @@
 
             <PeerToPeerHero />
 
+            <MiningHero />
+
             <TimelineHero/>
 
             <TeamHero/>
@@ -31,6 +33,7 @@
     import WebDollarHero from "client/components/heros/WebDollar.hero.vue"
     import WhatIsHero from "client/components/heros/WhatIs.hero.vue"
     import PeerToPeerHero from "client/components/heros/PeerToPeer.hero.vue"
+    import MiningHero from "client/components/heros/Mining.hero.vue"
     import TimelineHero from "client/components/heros/Timeline.hero.vue"
 
     import Wallets from "client/components/Wallet/Wallets.vue"
@@ -45,6 +48,7 @@
             "WebDollarHero": WebDollarHero,
             "WhatIsHero": WhatIsHero,
             "PeerToPeerHero": PeerToPeerHero,
+            "MiningHero": MiningHero,
             "TimelineHero": TimelineHero,
             "Wallets": Wallets,
         }

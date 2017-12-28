@@ -11,13 +11,18 @@
 
             <button @click="this.handleAddWallet" >Create Wallet</button>
 
-            <ShowWallet v-for="wallet in this.wallets"
+            <div>
+                <ShowWallet v-for="wallet in this.wallets"
 
-                    :key="wallet"
-                    :id="wallet"
-                    :wallet="wallet">
+                        :key="wallet"
+                        :id="wallet"
+                        :wallet="wallet">
 
-            </ShowWallet>
+                </ShowWallet>
+
+                <Mining/>
+
+            </div>
 
 
         </div>
@@ -28,11 +33,13 @@
 <script>
 
     import ShowWallet from "./ShowWallet.vue"
+    import Mining from "client/components/Mining/Mining.vue"
 
     export default{
 
         components:{
-            "ShowWallet": ShowWallet
+            "ShowWallet": ShowWallet,
+            "Mining" : Mining,
         },
 
         data() {
