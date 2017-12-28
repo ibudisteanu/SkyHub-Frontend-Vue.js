@@ -17,7 +17,7 @@ export default {
 
 
         try {
-            
+
             let wallet = WebDollar.Blockchain.Wallets.createNewAddress();
             return commit("ADD_WALLETS_ADDRESS",{wallet: wallet });
 

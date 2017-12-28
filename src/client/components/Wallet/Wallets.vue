@@ -12,9 +12,10 @@
             <button @click="this.handleAddWallet" >Create Wallet</button>
 
             <ShowWallet v-for="wallet in this.wallets"
+
                     :key="wallet"
                     :id="wallet"
-                    :walletAddress="wallet">
+                    :wallet="wallet">
 
             </ShowWallet>
 
