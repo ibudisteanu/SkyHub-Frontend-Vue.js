@@ -10,7 +10,7 @@
 
 <template>
 
-    <div style="text-align: center">
+    <div id="timelineSection">
 
         <h1 class='alignCenter bigMarginTop'>Timeline</h1> <br/> <br/>
 
@@ -93,9 +93,6 @@
             </div>
         </div>
 
-        <b>This timeline is proposed</b>
-
-
     </div>
 
 </template>
@@ -142,7 +139,7 @@
         height: 90%;
         background: #727cb6;
         position: absolute;
-        top: 10%;
+        top: 40%;
         right: -20px;
     }
     .main-timeline .timeline:last-child:before{ height: 0; }
@@ -182,13 +179,13 @@
     }
     .main-timeline .year{
         display: block;
-        padding: 0 60px 0 30px;
-        font-size: 30px;
-        color: #303a3b;
+        padding: 0 60px 0 -20px;
+        color: #ffc12c;
         text-align: right;
-        border-bottom: 2px solid #9cc0e4;
+        border-bottom: 2px solid #545454;
         z-index: 2;
         position: relative;
+        font-size: 20px;
     }
     .main-timeline .year:before{
         content: "";
@@ -212,6 +209,7 @@
         position: absolute;
         bottom: -11px;
         left: 50px;
+        display: none;
     }
     .main-timeline .timeline-content{
         padding: 18px 60px 18px 40px;
@@ -225,9 +223,9 @@
         width: 80px;
         height: 150px;
         border-radius: 50%;
-        background: #fff;
+        background: #201f20;
         position: absolute;
-        top: -7%;
+        top: 0;
         right: 15px;
         z-index: -1;
     }
@@ -248,12 +246,12 @@
     }
     .main-timeline .description{
         font-size: 15px;
-        color: #7f8386;
+        color: #b3b3b3;
         line-height: 25px;
     }
     .main-timeline .timeline:nth-child(2){ margin-top: 140px; }
     .main-timeline .timeline:nth-child(even){ margin-bottom: 80px; }
-    .main-timeline .timeline:nth-child(odd){ margin: -140px 0 0 0; }
+    .main-timeline .timeline:nth-child(odd){ margin: -110px 0 0 0; }
     .main-timeline .timeline:first-child,
     .main-timeline .timeline:last-child:nth-child(even){
         margin: 0 !important;
@@ -265,7 +263,7 @@
     }
     .main-timeline .timeline:nth-child(2n) .timeline-icon{ left: -40px }
     .main-timeline .timeline:nth-child(2n) .year{
-        padding: 0 30px 0 60px;
+        padding: 0 30px 0 0;
         text-align: left;
     }
     .main-timeline .timeline:nth-child(2n) .year:before{
@@ -319,7 +317,7 @@
     }
     .main-timeline .timeline:nth-child(4n) .title{ color: #ed687c; }
     @media only screen and (max-width: 990px){
-        .main-timeline .timeline{ width: 100%; }
+        .main-timeline .timeline{ width: 90%; }
         .main-timeline .timeline:nth-child(even),
         .main-timeline .timeline:nth-child(odd){
             margin: 0;
