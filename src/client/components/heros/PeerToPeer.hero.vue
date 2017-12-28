@@ -6,7 +6,7 @@
 
                 <h1 class="alignCenter">Peer-to-Peer Network</h1> <br/>
 
-                <Map/>
+                <NativeMap/>
 
             </div>
         </div>
@@ -16,41 +16,17 @@
 
 <script>
 
-    import Map from "client/components/Map/Map.vue"
+    import NativeMap from "client/components/Map/NativeMap.vue"
 
     export default{
 
         components:{
-            "Map":Map,
+            "NativeMap":NativeMap,
         },
 
 
-        mounted(){
 
-            if (this.$isServer) return false;
 
-            window.onresize = function () {
-                document.getElementById("map").style.height= "500px";
-            };
-
-            window.dispatchEvent(new Event('resize'));
-
-            this.googleMapsInitialize();
-        },
-
-        methods: {
-
-            googleMapsInitialize() {
-//
-//                WebDollar.Applications.NetworkMap.createMap('map');
-//                WebDollar.Applications.NetworkMap.initialize(map);
-//
-//                WebDollar.Applications.NetworkMap.initializePolylines(map);
-                // DEMO
-                // WebDollar.Applications.NetworkMap.createTestConnections(map);
-            }
-
-        }
 
 
     }

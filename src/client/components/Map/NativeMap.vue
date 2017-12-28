@@ -2116,12 +2116,11 @@
 
             test(){
 
-                WebDollar.Applications.NetworkNativeMaps.createMap('map');
-                WebDollar.Applications.NetworkNativeMaps.initialize(map);
+                WebDollar.Applications.NetworkNativeMaps.createMap();
+                WebDollar.Applications.NetworkNativeMaps.initialize();
 
-                WebDollar.Applications.NetworkNativeMaps.initializePolylines(map);
                 // DEMO
-                // WebDollar.Applications.NetworkMap.createTestConnections(map);
+                 WebDollar.Applications.NetworkNativeMaps.createTestConnections();
 
             }
         }
