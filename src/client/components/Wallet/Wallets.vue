@@ -14,7 +14,7 @@
             <ShowWallet v-for="wallet in this.wallets"
                     :key="wallet"
                     :id="wallet"
-                    :walletAddress="wallet"
+                    :wallet="wallet"
                 >
 
             </ShowWallet>
@@ -67,6 +67,8 @@
 
 
             handleAddWallet(){
+
+                if (typeof window === "undefined") return;  // On Client, in Browser
 
                 this.$store.dispatch('WALLET_CREATE_NEW_ADDRESS', {})
 
