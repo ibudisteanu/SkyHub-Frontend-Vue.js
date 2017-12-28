@@ -66,6 +66,13 @@ span{
 
 a{
   cursor: pointer;
+  color:#f6cd69;
+  transition: all .5s linear;
+}
+
+a:hover{
+  color: #fff;
+  transition: all .5s linear;
 }
 
 #whatContainer{
@@ -248,6 +255,19 @@ a{
   transition: all .3s linear;
 }
 
+#walletButton:hover{
+  background-color: #3c3c3c;
+  transition: all .3s linear;
+}
+
+#walletButton span{
+  line-height: 56px;
+  font-size: 20px;
+  color: #d2d2d2;
+  font-weight: bolder;
+  transition: all .3s linear;
+}
+
 #walletMenu{
   margin: 0 auto;
   position: fixed;
@@ -262,19 +282,6 @@ a{
   transition: all .3s linear;
   border-top: solid 1px #bbb;
 }
-
-#walletButton:hover{
-  background-color: #fff;
-  transition: all .3s linear;
-}
-
-#walletButton span{
-  line-height: 56px;
-  font-size: 20px;
-  color: #d2d2d2;
-  font-weight: bolder;
-}
-
 
 .mainLogo{
   width: 20%;
