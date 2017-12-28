@@ -4,7 +4,7 @@
 
         <div id="teamSection" class="">
 
-            <div class=" fullHeight">
+            <div class="fullHeight">
                 <h1 class="alignCenter bigMarginTop" >WebDollar Team</h1>
 
                 <div class="teamWrapper">

@@ -20,7 +20,7 @@
 <script>
     export default {
 
-        name: "Header",
+        name: "HeaderLayout",
 
         methods:{
 

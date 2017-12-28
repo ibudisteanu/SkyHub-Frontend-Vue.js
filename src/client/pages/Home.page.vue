@@ -10,6 +10,8 @@
 
             <PeerToPeerHero />
 
+            <TimelineHero/>
+
             <TeamHero/>
 
             <Wallet />
@@ -29,6 +31,7 @@
     import WebDollarHero from "client/components/heros/WebDollar.hero.vue"
     import WhatIsHero from "client/components/heros/WhatIs.hero.vue"
     import PeerToPeerHero from "client/components/heros/PeerToPeer.hero.vue"
+    import TimelineHero from "client/components/heros/Timeline.hero.vue"
 
     export default {
 
@@ -40,6 +43,7 @@
             "WebDollarHero": WebDollarHero,
             "WhatIsHero": WhatIsHero,
             "PeerToPeerHero": PeerToPeerHero,
+            "TimelineHero": TimelineHero,
         }
 
     }

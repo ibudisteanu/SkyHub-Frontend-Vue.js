@@ -8,6 +8,8 @@
 
     export default{
 
+        name: "FooterLayout"
+
     }
 
 </script>
