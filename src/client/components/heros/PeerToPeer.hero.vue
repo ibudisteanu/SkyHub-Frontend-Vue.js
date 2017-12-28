@@ -6,7 +6,7 @@
 
                 <h1 class="alignCenter">Peer-to-Peer Network</h1> <br/>
 
-                <div id="map" style="height: 500px; margin-bottom: 0; margin-right: -16px"></div>
+                <Map/>
 
             </div>
         </div>
@@ -16,7 +16,13 @@
 
 <script>
 
+    import Map from "client/components/Map/Map.vue"
+
     export default{
+
+        components:{
+            "Map":Map,
+        },
 
 
         mounted(){
@@ -35,11 +41,11 @@
         methods: {
 
             googleMapsInitialize() {
-
-                WebDollar.Applications.NetworkMap.createMap('map');
-                WebDollar.Applications.NetworkMap.initialize(map);
-
-                WebDollar.Applications.NetworkMap.initializePolylines(map);
+//
+//                WebDollar.Applications.NetworkMap.createMap('map');
+//                WebDollar.Applications.NetworkMap.initialize(map);
+//
+//                WebDollar.Applications.NetworkMap.initializePolylines(map);
                 // DEMO
                 // WebDollar.Applications.NetworkMap.createTestConnections(map);
             }
