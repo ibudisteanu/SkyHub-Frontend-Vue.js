@@ -13,4 +13,13 @@ export default {
 
     },
 
+    WALLET_CREATE_NEW_ADDRESS: ({ commit, dispatch, state }, {  }) => {
+
+
+        let wallet = WebDollar.Blockchain.Wallets.createNewAddress();
+
+        return commit("ADD_WALLETS_ADDRESS",{wallet: wallet });
+
+    },
+
 }

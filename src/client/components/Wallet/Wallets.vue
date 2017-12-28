@@ -9,13 +9,15 @@
 
         <div id="walletMenu" ref="walletMenu" :style="{marginBottom: this.walletOpened ? 0 : '-100px'}">
 
-            <!--<ShowWallet v-for="wallet in this.walletAddresses"
+            <button @click="this.handleAddWallet" >Create Wallet</button>
+
+            <ShowWallet v-for="wallet in this.wallets"
                     :key="wallet"
                     :id="wallet"
                     :walletAddress="wallet"
                 >
 
-            </ShowWallet>-->
+            </ShowWallet>
 
 
         </div>
@@ -25,8 +27,13 @@
 
 <script>
 
+    import ShowWallet from "./ShowWallet.vue"
+
     export default{
 
+        components:{
+            "ShowWallet": ShowWallet
+        },
 
         data() {
             return {
@@ -37,12 +44,17 @@
         computed:{
             walletOpened(){
                 return this.$store.state.wallet.walletMenuStatus;
+            },
+
+            wallets(){
+                return this.$store.getters.getWallets;
             }
+
         },
 
         mounted(){
             if (typeof window !== "undefined")  // On Client, in Browser
-                this.addNewAddress();
+                this.handleAddWallet();
 
         },
 
@@ -54,10 +66,10 @@
             },
 
 
-            addNewAddress(){
+            handleAddWallet(){
 
-//                let address = WebDollar.Blockchain.Wallets.createNewAddress();
-//                this.walletAddresses.push( address.getAddressAndPrivateKey().address.toBase() );
+                this.$store.dispatch('WALLET_CREATE_NEW_ADDRESS', {})
+
             }
 
         }
