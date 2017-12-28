@@ -2,7 +2,7 @@
 
     <div>
 
-        <Header/>
+        <HeaderLayout/>
 
         <div class="backgroundVideoWrap">
             <video autoplay loop class="backgroundVideo">
@@ -16,16 +16,11 @@
 
         </div>
 
-        <Footer/>
+        <Wallet/>
 
-        <div id="miningButton" onclick="walletOpenHandler()" >
-            <span id="miningButtonText">
-                Wallet 0.0 WEBD
-            </span>
-        </div>
+        <FooterLayout/>
 
-        <div id="miningMenu">
-        </div>
+
 
     </div>
 
@@ -33,16 +28,19 @@
 
 <script>
 
-    import Header from "client/components/layout/Header.vue"
-    import Footer from "client/components/layout/Footer.vue"
+    import HeaderLayout from "client/components/layout/HeaderLayout.vue"
+    import FooterLayout from "client/components/layout/FooterLayout.vue"
+
+    import Wallet from "client/components/Wallet/Wallet.vue"
 
     export default{
 
         name: "Layout",
 
         components:{
-            "Header": Header,
-            "Footer": Footer,
+            "HeaderLayout": HeaderLayout,
+            "FooterLayout": FooterLayout,
+            "Wallet": Wallet,
         }
 
     }

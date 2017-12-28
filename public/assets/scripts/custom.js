@@ -4,8 +4,6 @@
 
 var screenHeight = window.innerHeight;
 var screenWidth = window.innerWidth;
-var walletOpened = false;
-var miningOpened = false;
 
 //-----------------------
 // Functions
@@ -20,43 +18,6 @@ function changeFullSectionHeight(){
 	}
 }
 
-function miningOpenHandler(){
-
-	if(miningOpened==false) {
-		openMining();
-		miningOpened = true;
-	}
-	else {
-		closeMining();
-		miningOpened = false;
-	}
-
-}
-
-function walletOpenHandler(){
-
-	if(walletOpened==false) {
-		openWallet();
-		walletOpened = true;
-	}
-	else {
-		closeWallet();
-		walletOpened = false;
-	}
-
-}
-
-function openWallet() {
-  document.getElementById("miningMenu").style.marginBottom = "0";
-  document.getElementById("miningButtonText").innerHTML = "Minimize";
-  document.getElementById("miningButton").style.marginBottom = "100px";
-}
-
-function closeWallet() {
-  document.getElementById("miningMenu").style.marginBottom = "-100px";
-  document.getElementById("miningButtonText").innerHTML = "Dashboard";
-  document.getElementById("miningButton").style.marginBottom = "0";
-}
 
 //-----------------------
 // Screen size

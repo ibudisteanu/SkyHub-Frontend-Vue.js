@@ -2,7 +2,7 @@ import Vue from 'vue'
 import 'es6-promise/auto'
 import { createApp } from './app'
 
-import ProgressBar from './modules/hackernews/components/ProgressBar.vue'
+import ProgressBar from './modules/components/ProgressBar.vue'
 import WebDollarNodes from 'services/nodes-module/WebDollarNodes.js';
 
 // global progress bar
