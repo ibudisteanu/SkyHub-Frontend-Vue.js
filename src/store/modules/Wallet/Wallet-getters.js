@@ -9,15 +9,11 @@ export default{
 
     getPrivateKey : (state => (wallet)=>{
 
-        if (typeof wallet=== 'object'){
-            return userId;
-            //not working...
-            // if (userId !== null && userId instanceof User) return userId;
-            // else return null;
-        }
-
-        if ((typeof userId === 'string')&&(typeof state.users[userId] !== 'undefined'))
-            return state.users[userId];
+        return Object.keys(state.walletAddresses).map(
+            (key)=>{
+                if (key === wallet || state.walletAddresses[key]===wallet || state.walletAddresses[key].address === wallet)
+                    return state.walletAddresses[key]
+            });
 
         return null;
     }),

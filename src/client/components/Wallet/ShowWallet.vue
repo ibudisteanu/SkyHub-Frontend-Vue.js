@@ -1,7 +1,9 @@
 <template>
 
-    <div>
-        Cool
+    <div v-if="this.wallet !== null">
+
+        <b>{{this.wallet.address.toString('hex')}}</b>
+
     </div>
 
 </template>
@@ -11,7 +13,7 @@
     export default{
 
         props:{
-            wallet: null,
+            wallet: {default: null},
         }
 
     }
