@@ -5,19 +5,22 @@
     -ms-animation: fadein 2s; /* Internet Explorer */
     -o-animation: fadein 2s; /* Opera < 12.1 */
     animation: fadein 2s;
-    
+
+    -webkit-animation-delay: 0.3s;
+    animation-delay: 0.3s;
+
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards;
 }
 
 .fadeIn2{
-    -webkit-animation-delay: 0.5s;
-    animation-delay: 0.5s;
+    -webkit-animation-delay: 0.8s;
+    animation-delay: 0.8s;
 }
 
 .fadeIn3{
-    -webkit-animation-delay: 1.0s;
-    animation-delay: 1.0s;
+    -webkit-animation-delay: 1.2s;
+    animation-delay: 1.2s;
 }
 
 @keyframes fadein {

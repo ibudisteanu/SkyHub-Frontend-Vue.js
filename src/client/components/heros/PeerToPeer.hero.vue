@@ -1,12 +1,14 @@
 <template>
 
-    <div id="networkSection" class="fullSection" >
-        <div class="verticalAlignMiddle fullHeight">
+    <div id="p2p-network">
+        <div id="networkSection" class="fullSection" >
+            <div class="verticalAlignMiddle fullHeight">
 
-            <h1 class="alignCenter">Peer-to-Peer Network</h1> <br/>
+                <h1 class="alignCenter">Peer-to-Peer Network</h1> <br/>
 
-            <div id="map" style="height: 500px; margin-bottom: 0; margin-right: -16px"></div>
+                <div id="map" style="height: 500px; margin-bottom: 0; margin-right: -16px"></div>
 
+            </div>
         </div>
     </div>
 
