@@ -1,8 +1,8 @@
 <template>
 
     <div id="p2p-network">
-        <div id="networkSection" class="fullSection" >
-            <div class="verticalAlignMiddle fullHeight">
+        <div id="networkSection">
+            <div>
 
                 <h1 class="alignCenter">Peer-to-Peer Network</h1> <br/>
 

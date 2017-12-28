@@ -1,7 +1,7 @@
 <template>
     <div id="footer">
 
-        <span id="copyright"><b class="yellowColor">No Copyright</b> WebDollar is <span class="secondCopyRight">an <a href="http://github.com/WebDollar/">open-source</a> decentralized p2p protocol.</span></span>
+        <span id="copyright"><b class="yellowColor">No Copyright</b> WebDollar is an<span class="secondCopyRight"> <a href="http://github.com/WebDollar/">open-source</a> decentralized p2p protocol.</span></span>
         <div id="socialLinks">
             <a href="https://facebook.com/webdollar.io">
                 <img class="socialImage" src="public/assets/images/facebook-logo.svg">

@@ -16,6 +16,8 @@ function changeFullSectionHeight(){
 	for (var i = 0; i < fullSection.length; i++){
 	    fullSection[i].style.height = fullSectionHeight + 'px';
 	}
+
+    fullHeightSectionOnMobile(document.getElementById("aboutSection"),768);
 }
 
 function showMobileMenu() {
@@ -29,6 +31,20 @@ function showMobileMenu() {
     }
 }
 
+function fullHeightSectionOnMobile(element,maxWidth){
+
+    if(screenWidth<=maxWidth){
+
+        element.firstChild.className += " fullHeight";
+        element.setAttribute('style', 'height:auto !important');
+
+    }else{
+
+        element.firstChild.className = element.firstChild.className.replace("fullHeight", "");
+
+    }
+
+}
 
 //-----------------------
 // Screen size
@@ -60,3 +76,4 @@ addEvent(window, "resize", function(event) {
 
 changeFullSectionHeight();
 document.body.style.backgroundColor='#000';
+fullHeightSectionOnMobile(document.getElementById("aboutSection"),768);

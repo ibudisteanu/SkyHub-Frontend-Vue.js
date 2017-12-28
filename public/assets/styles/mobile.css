@@ -132,7 +132,12 @@
     .main-timeline .timeline:before{
         top:10%!important;
     }
-
+    #copyright{
+        font-size: 10px;
+    }
+    .secondCopyRight{
+        font-size: 7px;
+    }
 }
 
 /* Custom, iPhone Retina */

@@ -103,7 +103,9 @@ a:hover{
   height: 100%;
   width: 100%;
   overflow-y: scroll;
-  padding-right: 17px; 
+  padding-right: 17px;
+  top: 0!important;
+  transform: none!important;
 }
 
 .backgroundVideoWrap{
@@ -144,7 +146,7 @@ a:hover{
   width: 100%;
   top:0;
   background-color: #1f1f1f;
-  border-bottom: solid 1px #1b1b1b;
+  border-bottom: solid 2px #000000;
   z-index: 1000;
 }
 
@@ -202,6 +204,9 @@ a:hover{
 
 .teamWrapper p{
   font-size: 15px;
+  background-color: #020102ad;
+  border-radius: 5px;
+  padding: 20px 5px;
 }
 
 .teamWrapper{
@@ -224,6 +229,7 @@ a:hover{
 
 .bigMarginTop{
   margin-top: 80px;
+  margin-bottom: 50px;
 }
 
 .teamWrapper img{
@@ -598,4 +604,12 @@ a:hover{
 
 #networkSection h1{
   margin-top: 20px;
+}
+
+#map{
+  width: 100%;
+}
+
+#p2p-network{
+  padding-top: 60px;
 }
