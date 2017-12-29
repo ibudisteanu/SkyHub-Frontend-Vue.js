@@ -17,8 +17,9 @@
 
             <div id="dashboardWallet" class="walletSection">
 
-                <button @click="this.handleAddWallet" >Create Wallet</button>
-
+                <div id="createWalletAdress" @click="this.handleAddWallet">
+                    <p>Create Wallet Adress</p>
+                </div>
                 <ShowAddress v-for="walletAddress in this.walletAddresses"
 
                              :key="walletAddress.address"

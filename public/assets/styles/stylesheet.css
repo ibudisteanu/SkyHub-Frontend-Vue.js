@@ -906,6 +906,7 @@ a:hover{
 
 .walletSection{
   padding: 15px;
+    border-right: solid 1px #7b7b7b;
 }
 
 .minningController p{
@@ -962,5 +963,30 @@ a:hover{
   padding-bottom: 0;
   margin-bottom: 15px;
   display: inline-block;
+}
+
+#createWalletAdress{
+    border: solid 1px #7b7b7b;
+    padding-bottom: 0;
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+#createWalletAdress p:hover{
+    background-color: #191919;
+    transition: all .3s linear;
+}
+
+#createWalletAdress p{
+    padding: 10px;
+    padding-top: 14px;
+    background-color: #353535;
+    color: #bbb;
+    border-right: solid 1px #7b7b7b;
+    display: inline-block;
+    width: 214px;
+    cursor: pointer;
+    text-align: center;
+    transition: all .3s linear;
 }
 

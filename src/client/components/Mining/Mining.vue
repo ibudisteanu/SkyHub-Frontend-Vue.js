@@ -2,7 +2,7 @@
 
     <div>
 
-        <div class="col-md-4 col-md-offset-2" id="minningController">
+        <div id="minningController">
             <div type="button" class="walletStartMining" @click="this.startStopMining">
                 {{this.startedMining === true ? 'STOP MINING' : 'START MINING'}}
             </div>
