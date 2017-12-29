@@ -58,7 +58,7 @@
                 return this.$store.state.wallet.walletMenuStatus;
             },
 
-            wallets(){
+            walletAddresses(){
                 return this.$store.getters.getWallets;
             }
 
