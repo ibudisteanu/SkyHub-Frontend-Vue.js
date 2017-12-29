@@ -479,7 +479,8 @@ a:hover{
   width: 80px;
   height: 150px;
   border-radius: 50%;
-  background: #201f20;
+  background: rgba(0,0,0,0);
+  <!--background: #201f20;-->
   position: absolute;
   top: 0;
   right: 15px;
