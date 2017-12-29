@@ -2,9 +2,6 @@
 
     <div>
 
-        <div ref="modalBackground" class="modalBackground" >
-        </div>
-
         <div class="modal" ref="modal">
             <div class="header">
                 <div class="title">
@@ -40,7 +37,7 @@
 
             closeModal(){
 
-                this.$refs['modalBackground'].setAttribute('style', 'display:none !important');
+                document.getElementById("modalBackground").setAttribute('style', 'display:none !important');
                 this.$refs['modal'].setAttribute('style', 'display:none !important');
 
             },
@@ -49,7 +46,7 @@
 
                 console.log("hello world");
 
-                this.$refs['modalBackground'].setAttribute('style', 'display:block !important');
+                document.getElementById("modalBackground").setAttribute('style', 'display:block !important');
                 this.$refs['modal'].setAttribute('style', 'display:block !important');
 
             }
