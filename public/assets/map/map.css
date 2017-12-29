@@ -54,7 +54,7 @@
 
 
 #map svg.hide-circles circle {
-    fill: #3a3939;
+    fill: #26292b;
 }
 
 .peer-own {
@@ -66,14 +66,14 @@
 
 .peer-connected-terminal {
     display: block !important;
-    fill: blue !important;
+    fill: #fec02c !important;
     -webkit-animation: connected 1800ms ease 10;
     animation: connected 1800ms ease 3;
 }
 
 .peer-connected-browser {
     display: block !important;
-    fill: red !important;
+    fill: #12428c !important;
     -webkit-animation: connected 1800ms ease 10;
     animation: connected 1800ms ease 3;
 }
@@ -86,7 +86,7 @@
 
 
 .link {
-    stroke: yellow;
+    stroke: #dedede;
     stroke-width: 1;
     stroke-dasharray: 5 5;
     opacity: 0.5;
@@ -136,6 +136,6 @@
 @media screen and (min-width: 1800px) {
     #map svg {
         box-sizing: border-box;
-        transform: scale(0.9);
+        transform: scale(1.0);
     }
 }
