@@ -12,7 +12,7 @@
             <a href="/public/doc/WebDollar-White-Paper.pdf" target="_blank">White Paper</a>
             <a href="#what-is-WebDollar">What is?</a>
 
-            <a href="javascript:void(0);" style="font-size:15px;" class="icon showMenu" onclick="showMobileMenu()">&#9776;</a>
+            <a style="font-size:15px;" class="icon showMenu" @click="this.showMobileMenu">&#9776;</a>
         </div>
 
         <div id="modalBackground" > </div>
@@ -31,6 +31,22 @@
             handleWallet(){
 
                 this.$store.dispatch('WALLET_MENU_INVERT', {})
+
+            },
+
+            methods:{
+
+                showMobileMenu() {
+                    let x = document.getElementById("menu");
+
+                    if (x.className === "topnav") {
+                        document.getElementById('logoMenu').setAttribute('style', 'float:none !important');
+                        x.className += " responsive";
+                    } else {
+                        x.className = "topnav";
+                        document.getElementById('logoMenu').setAttribute('style', 'float:left !important');
+                    }
+                },
 
             }
 

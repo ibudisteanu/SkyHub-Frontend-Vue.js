@@ -96,18 +96,6 @@
                 this.fullHeightSectionOnMobile(document.getElementById("aboutSection"),768);
             },
 
-            showMobileMenu() {
-                let x = document.getElementById("menu");
-
-                if (x.className === "topnav") {
-                    document.getElementById('logoMenu').setAttribute('style', 'float:none !important');
-                    x.className += " responsive";
-                } else {
-                    x.className = "topnav";
-                    document.getElementById('logoMenu').setAttribute('style', 'float:left !important');
-                }
-            },
-
             fullHeightSectionOnMobile(element,maxWidth){
 
                 if(this.screenWidth<=maxWidth){
