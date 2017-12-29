@@ -929,7 +929,8 @@ a:hover{
 }
 
 #allWalets{
-    border-top: solid 1px #7b7b7b;
+    /*border-top: solid 1px #7b7b7b;*/
+  display: -webkit-box;
     padding-top: 10px;
 }
 
