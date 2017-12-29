@@ -4,7 +4,7 @@
         <div id="networkSection">
             <div>
 
-                <h1 class="alignCenter">Mine NOW in Browser!</h1> <br/>
+                <h1 class="alignCenter">Start Mining!</h1> <br/>
 
                 <Mining/>
 

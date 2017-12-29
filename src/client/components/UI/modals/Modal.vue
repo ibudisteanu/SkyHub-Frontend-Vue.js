@@ -8,7 +8,7 @@
             </div>
             <div class="header">
                 <div class="title">
-                    <slot name="title"></slot>
+                    {{this.title}}
                 </div>
             </div>
             <div class="container">
@@ -46,6 +46,7 @@
 
         props:{
 
+            title: {default: 'Modal Title'},
             buttons: {default: ()=>{return [{text:"cancel"}]}}
 
         },

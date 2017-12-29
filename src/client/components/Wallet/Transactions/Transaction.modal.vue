@@ -2,7 +2,18 @@
 
     <Modal title="Send Funds" ref="modal">
         <div slot="content">
-            Let's send funds
+
+            <div class="row">
+                <div class="col-md-6">
+                    Hello World
+                </div>
+
+                <div class="col-md-6">
+                    Hello World2
+                </div>
+            </div>
+
+
         </div>
     </Modal>
 
