@@ -15,6 +15,22 @@
             <a href="javascript:void(0);" style="font-size:15px;" class="icon showMenu" onclick="showMobileMenu()">&#9776;</a>
         </div>
 
+        <div class="modalBackground">
+        </div>
+        <div class="modal">
+            <div class="header">
+                <div class="title">
+
+                </div>
+                <div class="close">
+                    x
+                </div>
+            </div>
+            <div class="container">
+                text sample
+            </div>
+        </div>
+
     </div>
 
 </template>
