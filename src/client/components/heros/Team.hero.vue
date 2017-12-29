@@ -2,7 +2,7 @@
 
     <div id="team">
 
-        <div id="teamSection" class="">
+        <div id="teamSection" >
 
             <div class="fullHeight">
                 <h1 class="alignCenter bigMarginTop" >WebDollar Team</h1>
