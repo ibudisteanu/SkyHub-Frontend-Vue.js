@@ -851,10 +851,10 @@ a:hover{
 }
 
 .modal .close{
-  display: block;
-  position: relative;
-  text-align: right;
-  border-bottom: solid 1px #fff;
+  position: fixed;
+  top: -50px;
+  font-size:50px;
+  right: inherit;
   cursor: pointer;
 }
 

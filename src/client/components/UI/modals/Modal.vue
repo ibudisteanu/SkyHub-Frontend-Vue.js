@@ -3,12 +3,12 @@
     <div>
 
         <div class="modal" ref="modal">
+            <div class="close" @click="this.closeModal">
+                x
+            </div>
             <div class="header">
                 <div class="title">
                     <slot name="title"></slot>
-                </div>
-                <div class="close" @click="this.closeModal">
-                    x
                 </div>
             </div>
             <div class="container">
