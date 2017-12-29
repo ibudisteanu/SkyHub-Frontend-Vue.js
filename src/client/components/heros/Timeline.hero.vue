@@ -14,7 +14,7 @@
 
         <h1 class='alignCenter bigMarginTop'>Timeline</h1> <br/> <br/>
 
-        <div class="row" id="timeline">
+        <div id="timeline">
             <div class="col-md-12">
                 <div class="main-timeline">
                     <div class="timeline">

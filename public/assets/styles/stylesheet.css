@@ -117,6 +117,7 @@ a:hover{
   padding-right: 17px;
   top: 0!important;
   transform: none!important;
+<!--overflow-y: scroll;-->
 }
 
 .backgroundVideoWrap{
@@ -232,6 +233,7 @@ a:hover{
   grid-gap: 30px;
   margin-left: 30px;
   margin-right: 30px;
+
 }
 
 .teamWrapper h4{
@@ -366,6 +368,7 @@ a:hover{
 }
 
 #teamSection{
+  display: inline-block;
   overflow-x: hidden;
 }
 
@@ -479,7 +482,8 @@ a:hover{
   width: 80px;
   height: 150px;
   border-radius: 50%;
-  background: #201f20;
+  background: rgba(0,0,0,0);
+  <!--background: #201f20;-->
   position: absolute;
   top: 0;
   right: 15px;
