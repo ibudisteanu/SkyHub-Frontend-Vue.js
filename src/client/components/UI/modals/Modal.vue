@@ -5,14 +5,14 @@
         <div class="modal" ref="modal">
             <div class="header">
                 <div class="title">
-
+                    <slot name="title"></slot>
                 </div>
                 <div class="close" @click="this.closeModal">
                     x
                 </div>
             </div>
             <div class="container">
-                text sample
+                <slot name="content"></slot>
             </div>
             <div class="modalSubmit">
                 Submit
@@ -44,9 +44,8 @@
 
             showModal(){
 
-                console.log("hello world");
-
                 document.getElementById("modalBackground").setAttribute('style', 'display:block !important');
+                document.getElementById("modalBackground").onclick=this.closeModal;
                 this.$refs['modal'].setAttribute('style', 'display:block !important');
 
             }
