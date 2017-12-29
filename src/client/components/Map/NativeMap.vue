@@ -6,8 +6,10 @@
         <div class="map-dialog">
             <div class="map-dialog-description">
                 <div>
-                    <img class="browser" src="http://icons.iconarchive.com/icons/dtafalonso/android-lollipop/48/Browser-icon.png">
-                    <img class="terminal" src="http://icons.iconarchive.com/icons/paomedia/small-n-flat/48/terminal-icon.png">
+                    <img class="icon-myself" src="https://forum.noxiousnet.com/plugins/nodebb-plugin-emoji-one/static/images/1f60e.png">
+                    <img class="icon-webPeer" src="http://icons.iconarchive.com/icons/dtafalonso/android-lollipop/48/Browser-icon.png">
+                    <img class="icon-clientSocket" src="https://www.panduit.com/etc/designs/panduit/images/languageicons/pdt-icon-globe.svg">
+                    <img class="icon-serverSocket" src="http://icons.iconarchive.com/icons/paomedia/small-n-flat/48/terminal-icon.png">
                 </div>
                 <div class="map-dialog-description-text"></div>
             </div>
@@ -2120,7 +2122,7 @@
                 WebDollar.Applications.NetworkNativeMaps.initialize();
 
                 // DEMO
-                 WebDollar.Applications.NetworkNativeMaps.createTestConnections();
+                WebDollar.Applications.NetworkNativeMaps.createTestConnections();
 
             }
         }

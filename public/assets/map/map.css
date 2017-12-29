@@ -57,39 +57,47 @@
     fill: #3a3939;
 }
 
-.own-peer {
+.peer-own {
     display: block !important;
-    fill: #ffffff !important;
+    fill: white !important;
     -webkit-animation: connected 1800ms ease 5;
     animation: connected 1800ms ease 8;
 }
 
-.connected-peer {
+.peer-connected {
     display: block !important;
-    fill: #f6ae2d !important;
+    fill: skyblue !important;
     -webkit-animation: connected 1800ms ease 10;
     animation: connected 1800ms ease 3;
 }
 
-.known-peer {
+.peer-connected-browser {
     display: block !important;
-    fill: #ff6739 !important;
+    fill: red !important;
+    -webkit-animation: connected 1800ms ease 10;
+    animation: connected 1800ms ease 3;
+}
+
+.peer-node {
+    display: block !important;
+    fill: green !important;
     -webkit-animation: connected 1800ms ease 1;
     animation: connected 1800ms ease 1;
 }
 
-.own-peer,
-.connected-peer,
-.known-peer {
+.peer-own,
+.peer-connected,
+.peer-connected-browser
+.peer-node {
     will-change: opacity;
 }
 
 
 .link {
     stroke: yellow;
-    stroke-width: 2;
+    stroke-width: 1;
     stroke-dasharray: 5 5;
-    opacity: 1;
+    opacity: 0.5;
 }
 
 
@@ -103,7 +111,7 @@
 @media   screen and  (max-width: 800px) {
 
     /* disable map animations when map is in background */
-    .own-peer, .connected-peer, .known-peer {
+    .peer-own, .peer-connected, .peer-connected-browser .peer-node {
         -webkit-animation: none;
         animation: none;
         will-change: initial;
