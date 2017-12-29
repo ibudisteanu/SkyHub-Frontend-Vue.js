@@ -23,6 +23,11 @@
     animation-delay: 1.2s;
 }
 
+.fadeIn4{
+    -webkit-animation-delay: 1.6s;
+    animation-delay: 1.6s;
+}
+
 @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
