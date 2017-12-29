@@ -1,45 +1,48 @@
 <template>
 
     <div>
-
-        <div id="walletButton" @click="handleWalletButton" ref="walletButton" :style="{marginBottom: this.walletOpened ? '100px' : 0}">
+        <div id="walletButton" @click="handleWalletButton" ref="walletButton" :style="{marginBottom: this.walletOpened ? '121px' : 0}">
             <span id="miningButtonText">
                 <i :class="'fa fa-chevron-'+ (this.walletOpened ? 'down' : 'up')" ></i>{{this.walletText}}
             </span>
         </div>
 
-        <div id="walletMenu" ref="walletMenu" :style="{marginBottom: this.walletOpened ? 0 : '-100px'}">
+        <div id="walletMenu" class="twoColums" ref="walletMenu" :style="{marginBottom: this.walletOpened ? 0 : '-121px'}">
 
-            <button @click="this.handleAddWallet" >Create Wallet</button>
-
-                <ShowAddress v-for="walletAddress in this.walletAddresses"
-
-                        :key="walletAddress.address"
-                        :id="'address'+walletAddress.address"
-                        :walletAddress="walletAddress">
-
-                </ShowAddress>
+            <div id="dashboardMining" class="walletSection">
 
                 <Mining/>
 
             </div>
 
+            <div id="dashboardWallet" class="walletSection">
+
+                <button @click="this.handleAddWallet" >Create Wallet</button>
+
+                <ShowAddress v-for="walletAddress in this.walletAddresses"
+
+                             :key="walletAddress.address"
+                             :id="'address'+walletAddress.address"
+                             :walletAddress="walletAddress">
+
+                </ShowAddress>
+
+            </div>
 
         </div>
-
     </div>
 
 </template>
 
 <script>
 
-    import ShowAddress from "./ShowAddress.vue"
+    import ShowWallet from "./ShowWallet.vue"
     import Mining from "client/components/Mining/Mining.vue"
 
     export default{
 
         components:{
-            "ShowAddress": ShowAddress,
+            "ShowWallet": ShowWallet,
             "Mining" : Mining,
         },
 
@@ -54,8 +57,8 @@
                 return this.$store.state.wallet.walletMenuStatus;
             },
 
-            walletAddresses(){
-                return this.$store.getters.getWalletAddresses;
+            wallets(){
+                return this.$store.getters.getWallets;
             }
 
         },
@@ -71,6 +74,7 @@
             handleWalletButton(){
 
                 this.$store.dispatch('WALLET_MENU_INVERT', {})
+
             },
 
 

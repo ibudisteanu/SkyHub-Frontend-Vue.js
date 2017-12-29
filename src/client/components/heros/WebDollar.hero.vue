@@ -1,7 +1,7 @@
 <template>
 
     <div id="mainSection" class="fullSection">
-        <div class="verticalAlignMiddle alignCenter modifyTop">
+        <div class="verticalAlignMiddle alignCenter modifyTop verticalAlignMiddleMobileFix">
 
             <img src="/public/WebDollar-logo-black.png" class="mainLogo fadeIn">
 

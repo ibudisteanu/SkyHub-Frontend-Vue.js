@@ -59,10 +59,26 @@
     .main-timeline .year:before, .main-timeline .timeline .year:before{
         display: none;
     }
+
+    .verticalAlignMiddleMobileFix{
+        top: 40%;
+    }
 }
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
+
+    h1{
+        line-height: 42px;
+        font-size: 26px;
+    }
+    h3{
+        letter-spacing: 2px;
+        font-size: 14px;
+    }
+    p{
+        font-size: 14px;
+    }
     .mainLogo {
         width: 40%;
     }

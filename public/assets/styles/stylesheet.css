@@ -52,6 +52,13 @@ h4{
   text-transform: uppercase!important;
 }
 
+h5{
+  text-align: center;
+  display: block;
+  padding: 10px 0;
+  font-size: 16px;
+}
+
 span{
   width: 80%;
   display: block;
@@ -82,6 +89,11 @@ a:hover{
   grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 40px;
   text-align: center;
+}
+
+.twoColums{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 #whatContainer img{
@@ -125,6 +137,10 @@ a:hover{
   position: relative;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.verticalAlignMiddleMap{
+    transform: translateY(-10%);
 }
 
 .alignCenter{
@@ -287,7 +303,7 @@ a:hover{
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #f5f5f5;
+  background-color: #1f1f1f;
   height: 100px;
   margin-bottom:-100px;
   z-index: 1500;
@@ -558,7 +574,7 @@ a:hover{
 .main-timeline .timeline:nth-child(4n) .title{ color: #ed687c; }
 
 #whatContainer h4{
-  color: #ad852a;
+  color: #ea9b1a;
 }
 
 .topnav {
@@ -607,10 +623,6 @@ a:hover{
 
 #map{
   width: 100%;
-}
-
-#p2p-network{
-  padding-top: 60px;
 }
 
 .btnPosition{
@@ -868,4 +880,24 @@ a:hover{
 
 .fa{
   padding-right: 10px
+}
+
+.walletStartMining{
+  padding: 10px;
+  background-color: #353535;
+  color: #bbb;
+  border: solid 1px #7b7b7b;
+  margin-bottom: 15px;
+}
+
+.walletSection{
+  padding: 15px;
+}
+
+.walletSection p{
+  font-size: 12px;
+}
+
+.miningDetails{
+  /*margin-top: 15px;*/
 }

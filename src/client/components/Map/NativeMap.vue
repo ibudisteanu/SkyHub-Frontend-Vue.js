@@ -3,7 +3,7 @@
     <div>
 
         <!-- Popup Description -->
-        <div class="map-dialog">
+        <div class="map-dialog ">
             <div class="map-dialog-description">
                 <div>
                     <img class="icon-myself" src="https://forum.noxiousnet.com/plugins/nodebb-plugin-emoji-one/static/images/1f60e.png">
@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        <div id="map">
+        <div id="map" class="verticalAlignMiddle verticalAlignMiddleMap">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1082 502" preserveAspectRatio="xMinYMin meet" xml:space="preserve" class="hide-circles">
                 <circle cx="909.4049999999999" cy="270.32666666666665" r="3.6" />
                 <circle cx="942.5949999999999" cy="309.0416666666667" r="3.6" />

@@ -3,29 +3,25 @@
     <div>
 
         <div class="col-md-4 col-md-offset-2">
-            <button class="btn btn-success  dim btn-large-dim" type="button" style="width: auto" @click="this.startStopMining">
-                <i class="fa fa-wrench"></i> {{this.startedMining === true ? 'STOP' : 'START'}}
+            <button type="button" class="walletStartMining" @click="this.startStopMining">
+                {{this.startedMining === true ? 'STOP MINING' : 'START MINING'}}
             </button>
         </div>
 
-        <div class="col-md-6" style="padding-bottom: 30px">
-            <div class="row" style="padding-bottom: 10px">
-                <h1 class="fg-white" style="display: inline; font-size: 60px; text-transform: none; color: #12428c; text-align: center; margin-bottom: 10px; padding-left: 0.5em; padding-right: 0.5em; ">{{this.statusMining||(this.hashesPerSecond.toString()+'h/s')}} </h1>
-            </div>
-            <div class="row" style="padding-top: 10px">
-                <h2 class="fg-white" style="display: inline; font-size: 14px; text-transform: none; color: #12428c; text-align: center; margin-bottom: 10px; padding-left: 0.5em; padding-right: 0.5em; ">best: {{this.hashesGeneratedBest}} </h2>
-            </div>
-            <div class="row" style="padding-top: 10px">
-                <h2 class="fg-white" style="display: inline; font-size: 20px; text-transform: none; color: #12428c; text-align: center; margin-bottom: 10px; padding-left: 0.5em; padding-right: 0.5em; "><strong>{{ Math.round(this.reward * 10000000) / 10000000 }} WEBD</strong></h2>
+        <div>
+            <div id="miningDetails">
+                <p class="">{{this.statusMining||(this.hashesPerSecond.toString()+' h/s')}} </p>
+                <p >Best: {{this.hashesGeneratedBest}} </p>
+                <p >{{ Math.round(this.reward * 10000000) / 10000000 }} WEBD</p>
             </div>
 
-            <div class="row" style="padding-top: 12px">
-                <button class="btn btn-danger btn-circle " type="button" style="margin-right: 50px" @click="this.destroyOneMiningWorker"><i class="fa fa-minus"></i>
+            <div >
+                <button type="button" @click="this.destroyOneMiningWorker"> -
                 </button>
 
                 <strong>Threads: {{this.miningWorkersCount}}</strong>
 
-                <button class="btn btn-info btn-circle " type="button" style="margin-left: 50px" @click="this.createMiningWorker"><i class="fa fa-plus"></i>
+                <button  type="button"  @click="this.createMiningWorker"> +
                 </button>
 
             </div>
