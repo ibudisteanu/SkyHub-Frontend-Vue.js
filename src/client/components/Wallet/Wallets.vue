@@ -20,6 +20,7 @@
                 <div id="createWalletAdress" @click="this.handleAddWallet">
                     <p>Create Wallet Adress</p>
                 </div>
+
                 <ShowAddress v-for="walletAddress in this.walletAddresses"
 
                              :key="walletAddress.address"
@@ -59,7 +60,7 @@
             },
 
             walletAddresses(){
-                return this.$store.getters.getWallets;
+                return this.$store.getters.getWalletAddresses;
             }
 
         },
