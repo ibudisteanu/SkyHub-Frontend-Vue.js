@@ -7,9 +7,8 @@
             <div class="map-dialog-description">
                 <div>
                     <img class="icon-myself" src="https://forum.noxiousnet.com/plugins/nodebb-plugin-emoji-one/static/images/1f60e.png">
-                    <img class="icon-peer-web" src="http://icons.iconarchive.com/icons/dtafalonso/android-lollipop/48/Browser-icon.png">
-                    <img class="icon-socket-client" src="https://www.panduit.com/etc/designs/panduit/images/languageicons/pdt-icon-globe.svg">
-                    <img class="icon-socket-server" src="http://icons.iconarchive.com/icons/paomedia/small-n-flat/48/terminal-icon.png">
+                    <img class="icon-browser" src="http://icons.iconarchive.com/icons/dtafalonso/android-lollipop/48/Browser-icon.png">
+                    <img class="icon-terminal" src="http://icons.iconarchive.com/icons/paomedia/small-n-flat/48/terminal-icon.png">
                 </div>
                 <div class="map-dialog-description-text"></div>
             </div>
