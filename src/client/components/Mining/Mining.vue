@@ -16,11 +16,11 @@
             </div>
         </div>
 
+        <p class="WEBD">{{ Math.round(this.reward * 10000000) / 10000000 }} WEBD</p>
+
         <div>
             <div id="miningDetails">
-                <p class="">{{this.statusMining||(this.hashesPerSecond.toString()+' h/s')}} </p>
-                <p >Best: {{this.hashesGeneratedBest}} </p>
-                <p >{{ Math.round(this.reward * 10000000) / 10000000 }} WEBD</p>
+                <p class="">{{this.statusMining||(this.hashesPerSecond.toString()+' hashes/sec')}} </p>
             </div>
 
         </div>

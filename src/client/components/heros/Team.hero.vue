@@ -8,11 +8,18 @@
                 <h1 class="alignCenter bigMarginTop" >WebDollar Team</h1>
 
                 <div class="teamWrapper">
+
                     <div>
                         <img src="public/assets/images/team/budisteanuIonutAlexandru.jpg">
                         <h4>ALEXANDRU IONUT BUDISTEANU</h4>
                         <h5 class="teamRole">LEAD DEVELOPER</h5>
                         <p>Alexandru'24 is a Forbes Europe 30 under 30 nominee in industry category. In 2013, he was nominated by Time Magazine as one of the most influential teens of the world. MIT Lincoln Laboratory named an asteroid with his name. </p>
+                    </div>
+                    <div>
+                        <img src="public/assets/images/team/PanaitAlexandru.jpg">
+                        <h4>Alexandru IONUT Panait</h4>
+                        <h5 class="teamRole">LEAD FRONTEND</h5>
+                        <p>Alexandru'22 is a young entrepreneur interested in technology business. General Manager and Founder of AIpanait and AIPsolution. In our team he's the lead of the platform's interface development.</p>
                     </div>
                     <div>
                         <img src="public/assets/images/team/Adrian-Stratulat.jpg">
@@ -21,16 +28,10 @@
                         <p>Adrian is a social innovator specialised in emerging energy technologies, he has a background in geopolitics and diplomacy, but is an entrepreneur at heart. Within WebDollar's core team, Adrian acts as the lead evangelist, coordinating the long term strategic development and the marketing plan.</p>
                     </div>
                     <div>
-                        <img src="public/assets/images/team/PanaitAlexandru.jpg">
-                        <h4>Alexandru IONUT Panait</h4>
-                        <h5 class="teamRole">LEAD FRONTEND</h5>
-                        <p>Alexandru is a young entrepreneur interested in technology business. General Manager and Founder of aipanait and aipsolution. In our team he's the lead of the platform's interface development.</p>
-                    </div>
-                    <div>
                         <img src="public/assets/images/team/AdrianRobescu.jpg">
                         <h4>ADRIAN ROBESCU</h4>
                         <h5 class="teamRole">LEAD </h5>
-                        <p>Adrian is a Business Analyst and Strategist, specialized in modeling business processes and ERP implementation. As a Webdollar enthusiast member is working on UX design and ecommerce dApp.</p>
+                        <p>Adrian'36 is a Business Analyst and Strategist, specialized in modeling business processes and ERP implementation. As a Webdollar enthusiast member is working on UX design and ecommerce dApp.</p>
                     </div>
                     <div>
                         <img src="public/assets/images/team/cosminOprea.jpg">

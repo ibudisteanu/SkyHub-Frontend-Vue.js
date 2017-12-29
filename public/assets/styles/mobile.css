@@ -67,6 +67,9 @@
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
+    #p2p-network{
+        padding-top: 20px;
+    }
 
     h1{
         line-height: 42px;
