@@ -2,7 +2,7 @@
 
     <div v-if="this.walletAddress !== null && this.walletAddress !== undefined">
 
-        <b>{{this.walletAddress.address.toString('hex')}}</b>
+        <b>{{ this.walletAddress.address.toString() }}</b>
 
 
         <TransactionModal ref="modalTransferFunds" :walletAddress="this.walletAddress" > </TransactionModal>

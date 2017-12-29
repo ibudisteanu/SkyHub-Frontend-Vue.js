@@ -9,7 +9,7 @@
 
                         <b style="color:gray">Address</b><br/>
                         <div style="word-wrap:break-word;">
-                            {{this.walletAddress.address}}
+                            {{this.walletAddress.address.toString()}}
                         </div>
                     </div>
 

@@ -12,7 +12,6 @@
 
             <button @click="this.handleAddWallet" >Create Wallet</button>
 
-                {{this.walletAddresses}}
                 <ShowAddress v-for="walletAddress in this.walletAddresses"
 
                         :key="walletAddress.address"

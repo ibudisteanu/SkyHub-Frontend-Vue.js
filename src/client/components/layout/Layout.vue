@@ -77,7 +77,6 @@
                 this.$store.dispatch('GLOBAL_SCREEN', {screenHeight : window.innerHeight, screenWidth : window.innerWidth});
 
                 this.changeFullSectionHeight();
-
             });
 
         },
@@ -116,11 +115,9 @@
                     element.firstChild.className += " fullHeight";
                     element.setAttribute('style', 'height:auto !important');
 
-                }else{
+                }else
 
                     element.firstChild.className = element.firstChild.className.replace("fullHeight", "");
-
-                }
 
             },
 
