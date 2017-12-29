@@ -128,6 +128,10 @@ a:hover{
   transform: translateY(-50%);
 }
 
+.modifyTop{
+  top:40%;
+}
+
 .alignCenter{
   margin: 0 auto;
   text-align: center;
@@ -612,4 +616,113 @@ a:hover{
 
 #p2p-network{
   padding-top: 60px;
+}
+
+.btn-cont {
+  text-align: center;
+  margin-top: 50px;
+  display: inline-block;
+  margin: 10px;
+  margin-top: 30px;
+}
+.btn-cont .btn {
+  position: relative;
+  padding: 10px 30px;
+  border: 2px solid white;
+  color: white;
+  text-decoration: none;
+  font-size: 1.125em;
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 2px;
+  -webkit-font-smoothing: antialiased;
+  background-color: rgba(0,0,0,0.5);
+  transition: all 0.2s ease;
+}
+.btn-cont .btn:hover {
+  border-color: #ffffff00;
+  background-color: rgba(0,0,0,0.2);
+  transition: all 0.2s ease;
+}
+.btn-cont .btn:hover .line-1 {
+  -webkit-animation: move1 1500ms infinite ease;
+  animation: move1 1500ms infinite ease;
+}
+.btn-cont .btn:hover .line-2 {
+  -webkit-animation: move2 1500ms infinite ease;
+  animation: move2 1500ms infinite ease;
+}
+.btn-cont .btn:hover .line-3 {
+  -webkit-animation: move3 1500ms infinite ease;
+  animation: move3 1500ms infinite ease;
+}
+.btn-cont .btn:hover .line-4 {
+  -webkit-animation: move4 1500ms infinite ease;
+  animation: move4 1500ms infinite ease;
+}
+.btn-cont .line-1 {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 2px;
+  background-color: white;
+  left: 0;
+  bottom: 0;
+}
+.btn-cont .line-2 {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 2px;
+  background-color: white;
+  left: 0;
+  top: 0;
+}
+.btn-cont .line-3 {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 2px;
+  background-color: white;
+  right: 0;
+  top: 0;
+}
+.btn-cont .line-4 {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 2px;
+  background-color: white;
+  right: 0;
+  bottom: 0;
+}
+
+.modal{
+  width: 50%;
+  height: auto;
+  position: fixed;
+  margin: 0 auto;
+  display: block;
+  left: 0;
+  right: 0;
+  text-align: center;
+  background-color: #1f1f1f;
+  padding: 20px;
+  z-index: 1600;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.modalBackground{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #757575e3;
+  z-index: 1500;
+}
+
+.modal .close{
+  display: block;
+  position: relative;
+  text-align: right;
+  border-bottom: solid 1px #fff;
 }

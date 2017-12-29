@@ -1,12 +1,21 @@
 <template>
 
     <div id="mainSection" class="fullSection">
-        <div class="verticalAlignMiddle alignCenter">
+        <div class="verticalAlignMiddle alignCenter modifyTop">
 
             <img src="/public/WebDollar-logo-black.png" class="mainLogo fadeIn">
 
             <h1 class="fadeIn fadeIn2">Web Dollar</h1>
             <h3 class="fadeIn fadeIn3">Currency of the Internet</h3>
+            <div class="btn-cont">
+                <a onclick="maximizeChat()" class="btn">
+                    Start Mining
+                    <span class="line-1"></span>
+                    <span class="line-2"></span>
+                    <span class="line-3"></span>
+                    <span class="line-4"></span>
+                </a>
+            </div>
 
         </div>
     </div>
