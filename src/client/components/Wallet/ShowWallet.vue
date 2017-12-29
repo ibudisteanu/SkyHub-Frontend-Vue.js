@@ -5,7 +5,7 @@
         <b>{{this.wallet.address.toString('hex')}}</b>
 
 
-        <Modal ref="modalTransferFunds" :wallet="this.wallet" />
+        <TransactionModal ref="modalTransferFunds" :wallet="this.wallet" > </TransactionModal>
 
         <a class="btn" @click="this.handleTransferFunds">
             <i class="fa fa-mail-forward" ></i> Transfer Funds
@@ -18,7 +18,7 @@
 
 <script>
 
-    import Modal from "client/components/UI/modals/Modal.vue"
+    import TransactionModal from "./Transactions/Transaction.modal.vue"
 
     export default{
 
@@ -27,7 +27,7 @@
         },
 
         components:{
-            "Modal":Modal,
+            "TransactionModal":TransactionModal,
         },
 
         methods: {

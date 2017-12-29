@@ -840,11 +840,11 @@ a:hover{
   transform: translateY(-50%);
 }
 
-.modalBackground{
+#modalBackground{
   position: fixed;
   width: 100%;
   height: 100%;
-  background-color: #000000e3;
+  background-color: rgba(0, 0, 0, 0.82);
   z-index: 1500;
   display: none;
   top:0;
@@ -855,6 +855,15 @@ a:hover{
   position: relative;
   text-align: right;
   border-bottom: solid 1px #fff;
+  cursor: pointer;
+}
+
+.modal .footer{
+
+}
+
+.modal .footer .button{
+  display: inline;
   cursor: pointer;
 }
 

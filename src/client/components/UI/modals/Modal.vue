@@ -14,9 +14,22 @@
             <div class="container">
                 <slot name="content"></slot>
             </div>
-            <div class="modalSubmit">
-                Submit
+
+            <div class="footer">
+
+                <div v-for="(button, index) in this.buttons"
+
+                            class="button"
+                            :key="'modalButton'+index"
+                            @click="(button.text === 'cancel' ? closeModal() : button.click() )">
+
+                    {{button.text}}
+
+                </div>
+
+
             </div>
+
         </div>
 
     </div>
@@ -30,6 +43,12 @@
     export default{
 
         name: "Modal",
+
+        props:{
+
+            buttons: {default: ()=>{return [{text:"cancel"}]}}
+
+        },
 
         methods:{
 
