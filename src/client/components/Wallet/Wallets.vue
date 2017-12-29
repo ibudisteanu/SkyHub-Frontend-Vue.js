@@ -18,11 +18,15 @@
                 <div id="" class="col-md-1 col-sm-1">
                     <a class="btn" @click="this.handleAddWallet">
                         <i class="fa fa-plus" ></i>
+                    </a> <br/>
+
+                    <a class="btn" >
+                        <i class="fa fa-unlock" ></i>
                     </a>
+
                 </div>
 
                 <div id="dashboardWallet" class="col-md-6 col-sm-11 " walletSection>
-
 
                     <div id="allWalets">
                      <ShowAddress v-for="walletAddress in this.walletAddresses"

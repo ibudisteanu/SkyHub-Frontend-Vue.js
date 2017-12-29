@@ -1,6 +1,6 @@
 <template>
 
-    <div class="walletAdress" v-if="this.walletAddress !== null && this.walletAddress !== undefined" @click="this.handleTransferFunds">
+    <div class="<!--walletAdress-->" v-if="this.walletAddress !== null && this.walletAddress !== undefined" @click="this.handleTransferFunds">
 
         <img :src="'https://www.gravatar.com/avatar/'+this.md5(this.walletAddress.address)+'?d=wavatar&f=y'" style="height: 50px"> <br/>
         <b>0.0 WEBD</b>
@@ -11,9 +11,6 @@
             <i class="fa fa-mail-forward" ></i>
         </a>
 
-        <a class="btn" >
-            <i class="fa fa-unlock" ></i>
-        </a>
 
 
     </div>
