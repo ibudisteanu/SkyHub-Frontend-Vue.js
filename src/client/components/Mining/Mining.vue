@@ -2,10 +2,18 @@
 
     <div>
 
-        <div class="col-md-4 col-md-offset-2">
-            <button type="button" class="walletStartMining" @click="this.startStopMining">
+        <div class="col-md-4 col-md-offset-2" id="minningController">
+            <div type="button" class="walletStartMining" @click="this.startStopMining">
                 {{this.startedMining === true ? 'STOP MINING' : 'START MINING'}}
-            </button>
+            </div>
+            <strong id="threadsNumber" :style="{background: this.miningWorkersCount ? 0 : '#d23c25'}">{{this.miningWorkersCount}}</strong>
+            <div id="threadsControll">
+                <div class="button" type="button" @click="this.destroyOneMiningWorker"> <p>-</p>
+                </div>
+
+                <div class="button" type="button"  @click="this.createMiningWorker"> <p>+</p>
+                </div>
+            </div>
         </div>
 
         <div>
@@ -15,16 +23,6 @@
                 <p >{{ Math.round(this.reward * 10000000) / 10000000 }} WEBD</p>
             </div>
 
-            <div >
-                <button type="button" @click="this.destroyOneMiningWorker"> -
-                </button>
-
-                <strong>Threads: {{this.miningWorkersCount}}</strong>
-
-                <button  type="button"  @click="this.createMiningWorker"> +
-                </button>
-
-            </div>
         </div>
 
     </div>

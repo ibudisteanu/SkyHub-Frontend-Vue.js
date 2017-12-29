@@ -1,13 +1,13 @@
 <template>
 
     <div>
-        <div id="walletButton" @click="handleWalletButton" ref="walletButton" :style="{marginBottom: this.walletOpened ? '121px' : 0}">
+        <div id="walletButton" @click="handleWalletButton" ref="walletButton" :style="{marginBottom: this.walletOpened ? '126px' : 0}">
             <span id="miningButtonText">
                 <i :class="'fa fa-chevron-'+ (this.walletOpened ? 'down' : 'up')" ></i>{{this.walletText}}
             </span>
         </div>
 
-        <div id="walletMenu" class="twoColums" ref="walletMenu" :style="{marginBottom: this.walletOpened ? 0 : '-121px'}">
+        <div id="walletMenu" class="twoColums" ref="walletMenu" :style="{marginBottom: this.walletOpened ? 0 : '-126px'}">
 
             <div id="dashboardMining" class="walletSection">
 

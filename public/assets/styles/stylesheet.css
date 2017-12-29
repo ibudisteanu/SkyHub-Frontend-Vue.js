@@ -304,7 +304,7 @@ a:hover{
   left: 0;
   right: 0;
   background-color: #1f1f1f;
-  height: 100px;
+  height: 125px;
   margin-bottom:-100px;
   z-index: 1500;
   transition: all .3s linear;
@@ -884,20 +884,79 @@ a:hover{
 
 .walletStartMining{
   padding: 10px;
+  padding-top: 14px;
   background-color: #353535;
   color: #bbb;
-  border: solid 1px #7b7b7b;
-  margin-bottom: 15px;
+  border-right: solid 1px #7b7b7b;
+  display: inline-block;
+  width: 120px;
+  cursor: pointer;
+  text-align: center;
+  transition: all .3s linear;
+}
+
+.walletStartMining:hover{
+  background-color: #191919;
+  transition: all .3s linear;
 }
 
 .walletSection{
   padding: 15px;
 }
 
-.walletSection p{
+.minningController p{
+  font-size: 20px;
+}
+
+#miningDetails p{
   font-size: 12px;
 }
 
-.miningDetails{
-  /*margin-top: 15px;*/
+#threadsControll{
+  display: inline-block;
+  vertical-align: top;
 }
+
+#threadsControll .button{
+  display: block;
+  background-color: #ffc12c;
+  color: #1f1f1f;
+  font-size: 18px;
+  width: 21px;
+  height: 21px;
+  border: none;
+  margin-top: 1px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .3s linear;
+}
+
+#threadsControll .button:hover{
+  background-color: #ffcd14;
+  transition: all .3s linear;
+}
+
+#threadsControll .button:first-child{
+  margin-top: 0;
+}
+
+#threadsNumber{
+  font-size: 20px;
+  padding: 0 10px;
+  width: 30px;
+  text-align: center;
+  line-height: 39px;
+  display: inline-block;
+  color: #fff;
+  background-color: #d23c25;
+  vertical-align: top;
+  padding-top: 4px;
+}
+
+#minningController{
+  border: solid 1px #7b7b7b;
+  padding-bottom: 0;
+  margin-bottom: 15px;
+  display: inline-block;
+}
+
