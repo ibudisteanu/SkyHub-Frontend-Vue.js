@@ -9,7 +9,7 @@
 
         <div id="walletMenu" class="twoColums" ref="walletMenu" :style="{marginBottom: this.walletOpened ? 0 : '-126px'}">
 
-            <div class="row">
+            <div id="dashboardMining" class="walletSection">
 
                 <div id="dashboardMining" class="col-md-5 col-sm-12 " walletSection>
                     <Mining/>
@@ -36,7 +36,6 @@
 
                         </ShowAddress>
                     </div>
-
                 </div>
 
             </div>

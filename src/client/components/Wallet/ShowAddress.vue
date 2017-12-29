@@ -1,10 +1,9 @@
 <template>
 
-    <div v-if="this.walletAddress !== null && this.walletAddress !== undefined">
+    <div class="walletAdress" v-if="this.walletAddress !== null && this.walletAddress !== undefined" @click="this.handleTransferFunds">
 
         <img :src="'https://www.gravatar.com/avatar/'+this.md5(this.walletAddress.address)+'?d=wavatar&f=y'" style="height: 50px"> <br/>
         <b>0.0 WEBD</b>
-
 
         <TransactionModal ref="modalTransferFunds" :walletAddress="this.walletAddress" > </TransactionModal>
 

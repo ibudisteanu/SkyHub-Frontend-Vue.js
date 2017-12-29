@@ -1,5 +1,12 @@
 /* Medium Devices, Desktops */
 @media only screen and (max-width : 992px) {
+    .twoColums{
+        grid-template-columns: 1fr;
+    }
+    #dashboardMining{
+        background-color: #424242;
+        border-bottom: solid 2px #000;
+    }
     .mainLogo {
         width: 30%;
     }
