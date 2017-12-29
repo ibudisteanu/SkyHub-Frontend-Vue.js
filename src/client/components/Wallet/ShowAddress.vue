@@ -1,16 +1,10 @@
 <template>
 
-    <div v-if="this.walletAddress !== null && this.walletAddress !== undefined">
+    <div class="walletAdress" v-if="this.walletAddress !== null && this.walletAddress !== undefined" @click="this.handleTransferFunds">
 
-        <b>{{ this.walletAddress.address.toString() }}</b>
-
+        <b>120 WBD</b>
 
         <TransactionModal ref="modalTransferFunds" :walletAddress="this.walletAddress" > </TransactionModal>
-
-        <a class="btn" @click="this.handleTransferFunds">
-            <i class="fa fa-mail-forward" ></i> Transfer Funds
-        </a>
-
 
     </div>
 

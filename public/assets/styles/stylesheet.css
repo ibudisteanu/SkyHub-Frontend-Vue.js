@@ -311,7 +311,7 @@ a:hover{
   margin-bottom:-100px;
   z-index: 1500;
   transition: all .3s linear;
-  border-top: solid 1px #7b7b7b;
+  border-top: solid 5px #e0e0e0;
 }
 
 .mainLogo{
@@ -867,11 +867,12 @@ a:hover{
 }
 
 .modal .close{
-  position: fixed;
-  top: -50px;
-  font-size:50px;
-  right: inherit;
-  cursor: pointer;
+    position: fixed;
+    top: -50px;
+    font-size: 40px;
+    right: inherit;
+    color: #ffc12c;
+    cursor: pointer;
 }
 
 .modal .footer{
@@ -967,6 +968,7 @@ a:hover{
   background-color: #d23c25;
   vertical-align: top;
   padding-top: 4px;
+    margin-right: 2px;
 }
 
 #minningController{
@@ -993,7 +995,6 @@ a:hover{
     padding-top: 14px;
     background-color: #353535;
     color: #bbb;
-    border-right: solid 1px #7b7b7b;
     display: inline-block;
     width: 214px;
     cursor: pointer;
@@ -1010,5 +1011,34 @@ a:hover{
 
 #p2p-network{
     padding-top: 40px;
+}
+
+.allWaletsContaier{
+
+}
+
+#allWalets .walletAdress{
+    height: 30px;
+    width: 80px;
+    margin-right: 10px;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    transition: all .3s linear;
+}
+
+#allWalets .walletAdress:hover{
+    background-color: #fec02c;
+    transition: all .3s linear;
+
+}
+
+.walletAdress b{
+    text-align: center;
+    display: block;
+    color: #020102;
+    line-height: 31px;
+    font-size: 12px;
 }
 

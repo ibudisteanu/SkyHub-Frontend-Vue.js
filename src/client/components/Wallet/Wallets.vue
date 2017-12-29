@@ -21,13 +21,15 @@
                     <p>Create Wallet Adress</p>
                 </div>
                 <div id="allWalets">
-                 <ShowAddress v-for="walletAddress in this.walletAddresses"
+                    <div class="allWaletsContaier">
+                        <ShowAddress v-for="walletAddress in this.walletAddresses"
 
-                                 :key="walletAddress.address"
-                                 :id="'address'+walletAddress.address"
-                                 :walletAddress="walletAddress">
+                                     :key="walletAddress.address"
+                                     :id="'address'+walletAddress.address"
+                                     :walletAddress="walletAddress">
 
-                    </ShowAddress>
+                        </ShowAddress>
+                    </div>
                 </div>
 
             </div>

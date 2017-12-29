@@ -53,8 +53,6 @@
 
         methods:{
 
-
-
             closeModal(){
 
                 document.getElementById("modalBackground").setAttribute('style', 'display:none !important');
