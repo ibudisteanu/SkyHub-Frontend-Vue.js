@@ -11,7 +11,7 @@
                     {{this.title}}
                 </div>
             </div>
-            <div class="container">
+            <div class="content">
                 <slot name="content"></slot>
             </div>
 

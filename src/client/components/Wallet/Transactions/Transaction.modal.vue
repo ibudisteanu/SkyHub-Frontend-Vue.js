@@ -3,14 +3,39 @@
     <Modal title="Send Funds" ref="modal">
         <div slot="content">
 
-            <div class="row">
+            <div class="row" style="padding-bottom: 50px">
                 <div class="col-md-6">
-                    Hello World
+
+                    <b style="color:gray">Address</b><br/>
+                    <div style="word-wrap:break-word;">
+                        {{this.walletAddress.address}}
+                    </div>
                 </div>
 
                 <div class="col-md-6">
-                    Hello World2
+                    <b style="color:gray">Balance</b> <br/>
+
+                    <div style="font-size: 20px">
+                        0.0 WEBD
+                    </div>
+
                 </div>
+            </div>
+
+            <div class="row">
+
+                Transfer To: <br/>
+
+                {{this.toAddress.toString() }}
+
+            </div>
+
+            <div class="row">
+
+                Amount: <br/>
+
+                {{this.toAmount.toString() }}
+
             </div>
 
 
@@ -27,7 +52,7 @@
 
         props:{
 
-            wallet: {default: null},
+            walletAddress: {default: null},
             toAddress: {default: null},
             toAmount: {default: 0.0},
 

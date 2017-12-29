@@ -1,6 +1,7 @@
 <template>
 
     <div>
+
         <div id="walletButton" @click="handleWalletButton" ref="walletButton" :style="{marginBottom: this.walletOpened ? '100px' : 0}">
             <span id="miningButtonText">
                 <i :class="'fa fa-chevron-'+ (this.walletOpened ? 'down' : 'up')" ></i>{{this.walletText}}
@@ -11,14 +12,14 @@
 
             <button @click="this.handleAddWallet" >Create Wallet</button>
 
-            <div>
-                <ShowWallet v-for="wallet in this.wallets"
+                {{this.walletAddresses}}
+                <ShowAddress v-for="walletAddress in this.walletAddresses"
 
-                        :key="wallet"
-                        :id="wallet.address"
-                        :wallet="wallet">
+                        :key="walletAddress.address"
+                        :id="'address'+walletAddress.address"
+                        :walletAddress="walletAddress">
 
-                </ShowWallet>
+                </ShowAddress>
 
                 <Mining/>
 
@@ -26,19 +27,20 @@
 
 
         </div>
+
     </div>
 
 </template>
 
 <script>
 
-    import ShowWallet from "./ShowWallet.vue"
+    import ShowAddress from "./ShowAddress.vue"
     import Mining from "client/components/Mining/Mining.vue"
 
     export default{
 
         components:{
-            "ShowWallet": ShowWallet,
+            "ShowAddress": ShowAddress,
             "Mining" : Mining,
         },
 
@@ -53,8 +55,8 @@
                 return this.$store.state.wallet.walletMenuStatus;
             },
 
-            wallets(){
-                return this.$store.getters.getWallets;
+            walletAddresses(){
+                return this.$store.getters.getWalletAddresses;
             }
 
         },

@@ -1,11 +1,11 @@
 <template>
 
-    <div v-if="this.wallet !== null">
+    <div v-if="this.walletAddress !== null && this.walletAddress !== undefined">
 
-        <b>{{this.wallet.address.toString('hex')}}</b>
+        <b>{{this.walletAddress.address.toString('hex')}}</b>
 
 
-        <TransactionModal ref="modalTransferFunds" :wallet="this.wallet" > </TransactionModal>
+        <TransactionModal ref="modalTransferFunds" :walletAddress="this.walletAddress" > </TransactionModal>
 
         <a class="btn" @click="this.handleTransferFunds">
             <i class="fa fa-mail-forward" ></i> Transfer Funds
@@ -23,7 +23,7 @@
     export default{
 
         props:{
-            wallet: {default: null},
+            walletAddress: {default: null},
         },
 
         components:{

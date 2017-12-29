@@ -6,6 +6,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import WalletModule from './modules/Wallet/Wallet-module'
+import GlobalModule from './modules/Global/Global-module'
 
 Vue.use(Vuex);
 
@@ -14,6 +15,7 @@ export function createStore () {
         modules: {
 
             wallet: WalletModule ,
+            global: GlobalModule,
 
 
         }

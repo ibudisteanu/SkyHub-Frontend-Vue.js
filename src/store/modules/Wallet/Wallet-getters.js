@@ -2,7 +2,7 @@ export default{
 
     // items that should be currently displayed.
     // this Array may not be fully fetched.
-    getWallets (state, getters) {
+    getWalletAddresses (state, getters) {
         return Object.keys(state.walletAddresses).map(function(key){return state.walletAddresses[key]});
     },
 
