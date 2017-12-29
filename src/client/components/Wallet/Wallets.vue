@@ -9,20 +9,19 @@
 
         <div id="walletMenu" class="twoColums" ref="walletMenu" :style="{marginBottom: this.walletOpened ? 0 : '-126px'}">
 
-            <div id="dashboardMining" class="walletSection">
+            <div class="row">
 
-                <Mining/>
-
-            </div>
-
-            <div id="dashboardWallet" class="walletSection">
-
-                <div id="createWalletAdress" @click="this.handleAddWallet">
-                    <p>Create Wallet Adress</p>
+                <div id="dashboardMining" class="col-md-6 col-sm-12 walletSection">
+                    <Mining/>
                 </div>
-                <div id="allWalets">
-                    <div class="allWaletsContaier">
-                        <ShowAddress v-for="walletAddress in this.walletAddresses"
+
+                <div id="dashboardWallet" class="col-md-6 col-sm-12 walletSection">
+
+                    <div id="createWalletAdress" @click="this.handleAddWallet">
+                        <p>Create Wallet Adress</p>
+                    </div>
+                    <div id="allWalets">
+                     <ShowAddress v-for="walletAddress in this.walletAddresses"
 
                                      :key="walletAddress.address"
                                      :id="'address'+walletAddress.address"
@@ -30,6 +29,7 @@
 
                         </ShowAddress>
                     </div>
+
                 </div>
 
             </div>
