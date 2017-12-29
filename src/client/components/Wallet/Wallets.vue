@@ -1,7 +1,7 @@
 <template>
 
     <div>
-        <div id="walletButton" @click="handleWalletButton" ref="walletButton" :style="{marginBottom: this.walletOpened ? '126px' : 0}">
+        <div id="walletButton" @click="handleWalletButton" ref="walletButton" :style="{marginBottom: this.walletOpened ? '125px' : 0}">
             <span id="miningButtonText">
                 <i :class="'fa fa-chevron-'+ (this.walletOpened ? 'down' : 'up')" ></i>{{this.walletText}}
             </span>
@@ -20,14 +20,15 @@
                 <div id="createWalletAdress" @click="this.handleAddWallet">
                     <p>Create Wallet Adress</p>
                 </div>
+                <div id="allWalets">
+                 <ShowAddress v-for="walletAddress in this.walletAddresses"
 
-                <ShowAddress v-for="walletAddress in this.walletAddresses"
+                                 :key="walletAddress.address"
+                                 :id="'address'+walletAddress.address"
+                                 :walletAddress="walletAddress">
 
-                             :key="walletAddress.address"
-                             :id="'address'+walletAddress.address"
-                             :walletAddress="walletAddress">
-
-                </ShowAddress>
+                    </ShowAddress>
+                </div>
 
             </div>
 

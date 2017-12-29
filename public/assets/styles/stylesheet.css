@@ -136,7 +136,7 @@ a:hover{
 .verticalAlignMiddle{
   width: 100%;
   position: relative;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%);
 }
 
@@ -196,6 +196,7 @@ a:hover{
 
 #timelineSection{
   padding: 1px 0 60px 0;
+    background-color: #1f1f1f;
 }
 
 #map {
@@ -310,7 +311,7 @@ a:hover{
   margin-bottom:-100px;
   z-index: 1500;
   transition: all .3s linear;
-  border-top: solid 1px #bbb;
+  border-top: solid 1px #7b7b7b;
 }
 
 .mainLogo{
@@ -398,7 +399,7 @@ a:hover{
   height: 90%;
   background: #727cb6;
   position: absolute;
-  top: 40%;
+  top: 10%;
   right: -20px;
 }
 .main-timeline .timeline:last-child:before{ height: 0; }
@@ -640,7 +641,7 @@ a:hover{
 .btn-cont .btn {
   position: relative;
   padding: 10px 30px;
-  border: 2px solid white;
+  border: 3px solid white;
   color: white;
   text-decoration: none;
   font-size: 1.125em;
@@ -702,10 +703,10 @@ a:hover{
   content: "";
   display: block;
   position: absolute;
-  height: 2px;
+  height: 3px;
   background-color: white;
   right: 0;
-  bottom: -2px;
+  bottom: -3px;
 }
 
 @-webkit-keyframes move1 {
@@ -913,6 +914,11 @@ a:hover{
   font-size: 20px;
 }
 
+#miningDetails{
+    border-top: solid 1px #7b7b7b;
+    padding-top: 18px;
+}
+
 #miningDetails p{
   font-size: 12px;
 }
@@ -920,6 +926,11 @@ a:hover{
 #threadsControll{
   display: inline-block;
   vertical-align: top;
+}
+
+#allWalets{
+    border-top: solid 1px #7b7b7b;
+    padding-top: 10px;
 }
 
 #threadsControll .button{
@@ -988,5 +999,16 @@ a:hover{
     cursor: pointer;
     text-align: center;
     transition: all .3s linear;
+}
+
+.WEBD{
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 20px;
+    color: #fec02c;
+}
+
+#p2p-network{
+    padding-top: 40px;
 }
 
