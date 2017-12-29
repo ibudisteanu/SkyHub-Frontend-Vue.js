@@ -15,7 +15,7 @@
             <a href="javascript:void(0);" style="font-size:15px;" class="icon showMenu" onclick="showMobileMenu()">&#9776;</a>
         </div>
 
-
+        <div id="modalBackground" class="modalBackground" > </div>
 
     </div>
 
