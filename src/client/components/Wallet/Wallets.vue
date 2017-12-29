@@ -36,13 +36,13 @@
 
 <script>
 
-    import ShowWallet from "./ShowWallet.vue"
+    import ShowAddress from "./ShowAddress.vue"
     import Mining from "client/components/Mining/Mining.vue"
 
     export default{
 
         components:{
-            "ShowWallet": ShowWallet,
+            "ShowAddress": ShowAddress,
             "Mining" : Mining,
         },
 
