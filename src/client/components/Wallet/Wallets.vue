@@ -3,7 +3,7 @@
     <div>
         <div id="walletButton" @click="handleWalletButton" ref="walletButton" :style="{marginBottom: this.walletOpened ? '100px' : 0}">
             <span id="miningButtonText">
-                <i :class="'fa fa-chevron-'+ (this.walletOpened ? 'down' : 'up')" style="padding-right: 10px"></i>{{this.walletText}}
+                <i :class="'fa fa-chevron-'+ (this.walletOpened ? 'down' : 'up')" ></i>{{this.walletText}}
             </span>
         </div>
 
@@ -15,7 +15,7 @@
                 <ShowWallet v-for="wallet in this.wallets"
 
                         :key="wallet"
-                        :id="wallet"
+                        :id="wallet.address"
                         :wallet="wallet">
 
                 </ShowWallet>

@@ -15,24 +15,7 @@
             <a href="javascript:void(0);" style="font-size:15px;" class="icon showMenu" onclick="showMobileMenu()">&#9776;</a>
         </div>
 
-        <div id="modalBackground">
-        </div>
-        <div id="transaction" class="modal">
-            <div class="header">
-                <div class="title">
 
-                </div>
-                <div class="close" onclick="closeModal('transaction')">
-                    x
-                </div>
-            </div>
-            <div class="container">
-                text sample
-            </div>
-            <div class="modalSubmit">
-                Submit
-            </div>
-        </div>
 
     </div>
 

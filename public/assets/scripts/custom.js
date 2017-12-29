@@ -46,20 +46,6 @@ function fullHeightSectionOnMobile(element,maxWidth){
 
 }
 
-function closeModal(id){
-
-    document.getElementById("modalBackground").setAttribute('style', 'display:none !important');
-    document.getElementById(id).setAttribute('style', 'display:none !important');
-
-}
-
-function showModal(id){
-
-    document.getElementById("modalBackground").setAttribute('style', 'display:block !important');
-    document.getElementById(id).setAttribute('style', 'display:block !important');
-
-}
-
 //-----------------------
 // Screen size
 //-----------------------
