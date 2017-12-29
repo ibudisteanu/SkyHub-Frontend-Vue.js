@@ -1,46 +1,48 @@
 <template>
 
-    <Modal title="Send Funds" ref="modal">
-        <div slot="content">
+    <div v-if="this.walletAddress !== null && this.walletAddress !== undefined">
+        <Modal title="Send Funds" ref="modal">
+            <div slot="content">
 
-            <div class="row" style="padding-bottom: 50px">
-                <div class="col-md-6">
+                <div class="row" style="padding-bottom: 50px">
+                    <div class="col-md-6">
 
-                    <b style="color:gray">Address</b><br/>
-                    <div style="word-wrap:break-word;">
-                        {{this.walletAddress.address}}
+                        <b style="color:gray">Address</b><br/>
+                        <div style="word-wrap:break-word;">
+                            {{this.walletAddress.address}}
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <b style="color:gray">Balance</b> <br/>
+
+                        <div style="font-size: 20px">
+                            0.0 WEBD
+                        </div>
+
                     </div>
                 </div>
 
-                <div class="col-md-6">
-                    <b style="color:gray">Balance</b> <br/>
+                <div class="row">
 
-                    <div style="font-size: 20px">
-                        0.0 WEBD
-                    </div>
+                    Transfer To: <br/>
+
+                    {{this.toAddress||''.toString() }}
 
                 </div>
-            </div>
 
-            <div class="row">
+                <div class="row">
 
-                Transfer To: <br/>
+                    Amount: <br/>
 
-                {{this.toAddress.toString() }}
+                    {{this.toAmount||0.0.toString() }}
 
-            </div>
+                </div>
 
-            <div class="row">
-
-                Amount: <br/>
-
-                {{this.toAmount.toString() }}
 
             </div>
-
-
-        </div>
-    </Modal>
+        </Modal>
+    </div>
 
 </template>
 
