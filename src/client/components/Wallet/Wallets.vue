@@ -21,7 +21,7 @@
                     <p>Create Wallet Adress</p>
                 </div>
                 <div id="allWalets">
-                    <ShowAddress v-for="walletAddress in this.walletAddresses"
+                 <ShowAddress v-for="walletAddress in this.walletAddresses"
 
                                  :key="walletAddress.address"
                                  :id="'address'+walletAddress.address"
@@ -60,8 +60,8 @@
                 return this.$store.state.wallet.walletMenuStatus;
             },
 
-            wallets(){
-                return this.$store.getters.getWallets;
+            walletAddresses(){
+                return this.$store.getters.getWalletAddresses;
             }
 
         },
