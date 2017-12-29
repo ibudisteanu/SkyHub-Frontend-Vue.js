@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?92uibu');
-  src:  url('fonts/icomoon.eot?92uibu#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?92uibu') format('truetype'),
-    url('fonts/icomoon.woff?92uibu') format('woff'),
-    url('fonts/icomoon.svg?92uibu#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?gjxk9i');
+  src:  url('fonts/icomoon.eot?gjxk9i#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?gjxk9i') format('truetype'),
+    url('fonts/icomoon.woff?gjxk9i') format('woff'),
+    url('fonts/icomoon.svg?gjxk9i#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -143,6 +143,15 @@
 }
 .fa-checkmark2:before {
   content: "\ea11";
+}
+.fa-play2:before {
+  content: "\ea15";
+}
+.fa-pause:before {
+  content: "\ea16";
+}
+.fa-stop:before {
+  content: "\ea17";
 }
 .fa-arrow-up:before {
   content: "\ea32";

@@ -10,10 +10,19 @@
         <div id="walletMenu" class="twoColums" ref="walletMenu" :style="{marginBottom: this.walletOpened ? 0 : '-126px'}">
 
                 <div id="dashboardMining" class="walletSection" >
+
+                    <div style="text-align: center">
+                        <b>Mining</b>
+                    </div>
+
                     <Mining/>
                 </div>
 
                 <div id="dashboardWallet" class="walletSection" >
+
+                    <div style="text-align: center">
+                        <b>Wallets</b>
+                    </div>
 
                     <div class="row">
 

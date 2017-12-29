@@ -889,13 +889,14 @@ a:hover{
 }
 
 .walletStartMining{
-  padding: 10px;
-  padding-top: 14px;
+  padding-top: 10px;
+  font-size:27px;
+
   background-color: #353535;
   color: #bbb;
   border-right: solid 1px #7b7b7b;
   display: inline-block;
-  width: 120px;
+  width: 70px;
   cursor: pointer;
   text-align: center;
   transition: all .3s linear;
@@ -908,7 +909,8 @@ a:hover{
 
 .walletSection{
   padding: 15px;
-    border-right: solid 1px #7b7b7b;
+  padding-top: 5px;
+  border-right: solid 1px #7b7b7b;
 }
 
 .minningController p{

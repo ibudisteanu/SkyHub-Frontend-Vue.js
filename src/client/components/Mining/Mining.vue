@@ -4,7 +4,9 @@
 
         <div id="minningController">
             <div type="button" class="walletStartMining" @click="this.startStopMining">
-                {{this.startedMining === true ? 'STOP MINING' : 'START MINING'}}
+                <a class="btn miningButton"  >
+                    <i :class="this.startedMining === true ? 'fa fa-stop' : 'fa fa-play2'" style="padding-right: 0;"></i>
+                </a>
             </div>
             <strong id="threadsNumber" :style="{background: this.miningWorkersCount ? 0 : '#d23c25'}">{{this.miningWorkersCount}}</strong>
             <div id="threadsControll">
@@ -165,3 +167,8 @@
 
     }
 </script>
+
+<style>
+
+
+</style>
