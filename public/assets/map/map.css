@@ -64,9 +64,16 @@
     animation: connected 1800ms ease 8;
 }
 
-.peer-connected {
+.peer-connected-socket-client {
     display: block !important;
     fill: skyblue !important;
+    -webkit-animation: connected 1800ms ease 10;
+    animation: connected 1800ms ease 3;
+}
+
+.peer-connected-socket-server {
+    display: block !important;
+    fill: blue !important;
     -webkit-animation: connected 1800ms ease 10;
     animation: connected 1800ms ease 3;
 }
@@ -86,8 +93,9 @@
 }
 
 .peer-own,
-.peer-connected,
-.peer-connected-browser
+.peer-connected-socket-client,
+.peer-connected-socket-server,
+.peer-connected-browser,
 .peer-node {
     will-change: opacity;
 }
@@ -111,7 +119,7 @@
 @media   screen and  (max-width: 800px) {
 
     /* disable map animations when map is in background */
-    .peer-own, .peer-connected, .peer-connected-browser .peer-node {
+    .peer-own, .peer-connected-socket-client, .peer-connect-socket-server, .peer-connected-browser .peer-node {
         -webkit-animation: none;
         animation: none;
         will-change: initial;
