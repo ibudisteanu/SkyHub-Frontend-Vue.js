@@ -98,6 +98,7 @@
                                     <li><a href="https://www.facebook.com/s1lviu/" target="_blank"  class="fa fa-facebook"></a></li>
                                     <li><a href="https://github.com/s1lviu" target="_blank"  class="fa fa-github"></a></li>
                                     <li><a href="https://silviu-s.com/" target="_blank"  class="fa fa-globe"></a></li>
+                                    <li> <a href="https://www.linkedin.com/in/silviustroe/" target="_blank" class="fa fa-linkedin2"></a> </li>
                                 </ul>
                             </div>
                         </div>
