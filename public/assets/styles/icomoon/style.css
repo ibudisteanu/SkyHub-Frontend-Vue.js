@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?gjxk9i');
-  src:  url('fonts/icomoon.eot?gjxk9i#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?gjxk9i') format('truetype'),
-    url('fonts/icomoon.woff?gjxk9i') format('woff'),
-    url('fonts/icomoon.svg?gjxk9i#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?rmvrpo');
+  src:  url('fonts/icomoon.eot?rmvrpo#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?rmvrpo') format('truetype'),
+    url('fonts/icomoon.woff?rmvrpo') format('woff'),
+    url('fonts/icomoon.svg?rmvrpo#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,50 +24,17 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.fa-key:before {
-  content: "\e90b";
+.fa-network:before {
+  content: "\e91c";
 }
-.fa-wallet2:before {
-  content: "\e909";
+.fa-globe2:before {
+  content: "\e91d";
 }
-.fa-edit:before {
-  content: "\e90c";
+.fa-globe:before {
+  content: "\e91a";
 }
-.fa-pencil2:before {
-  content: "\e90c";
-}
-.fa-write2:before {
-  content: "\e90c";
-}
-.fa-writing:before {
-  content: "\e90c";
-}
-.fa-save3:before {
-  content: "\e90c";
-}
-.fa-download2:before {
-  content: "\e90d";
-}
-.fa-store:before {
-  content: "\e90d";
-}
-.fa-save4:before {
-  content: "\e90d";
-}
-.fa-moneybag:before {
-  content: "\e905";
-}
-.fa-pig:before {
-  content: "\e906";
-}
-.fa-dollar:before {
-  content: "\e907";
-}
-.fa-dollar2:before {
-  content: "\e908";
-}
-.fa-wallet:before {
-  content: "\e902";
+.fa-earth2:before {
+  content: "\e91b";
 }
 .fa-blocked:before {
   content: "\e90e";
@@ -132,6 +99,9 @@
 .fa-key22:before {
   content: "\e98e";
 }
+.fa-earth:before {
+  content: "\e9ca";
+}
 .fa-eye-blocked:before {
   content: "\e9d1";
 }
@@ -158,6 +128,93 @@
 }
 .fa-arrow-down:before {
   content: "\ea36";
+}
+.fa-facebook:before {
+  content: "\ea90";
+}
+.fa-facebook2:before {
+  content: "\ea91";
+}
+.fa-telegram:before {
+  content: "\ea95";
+}
+.fa-twitter:before {
+  content: "\ea96";
+}
+.fa-youtube:before {
+  content: "\ea9d";
+}
+.fa-github:before {
+  content: "\eab0";
+}
+.fa-wikipedia:before {
+  content: "\eac8";
+}
+.fa-linkedin:before {
+  content: "\eac9";
+}
+.fa-linkedin2:before {
+  content: "\eaca";
+}
+.fa-key:before {
+  content: "\e90b";
+}
+.fa-wallet2:before {
+  content: "\e909";
+}
+.fa-edit:before {
+  content: "\e90c";
+}
+.fa-pencil2:before {
+  content: "\e90c";
+}
+.fa-write2:before {
+  content: "\e90c";
+}
+.fa-writing:before {
+  content: "\e90c";
+}
+.fa-save3:before {
+  content: "\e90c";
+}
+.fa-download2:before {
+  content: "\e90d";
+}
+.fa-store:before {
+  content: "\e90d";
+}
+.fa-save4:before {
+  content: "\e90d";
+}
+.fa-moneybag:before {
+  content: "\e905";
+}
+.fa-pig:before {
+  content: "\e906";
+}
+.fa-dollar:before {
+  content: "\e907";
+}
+.fa-dollar2:before {
+  content: "\e908";
+}
+.fa-wallet:before {
+  content: "\e902";
+}
+.fa-bitcoin:before {
+  content: "\e903";
+}
+.fa-credit-card:before {
+  content: "\e904";
+}
+.fa-chevron-down:before {
+  content: "\e900";
+}
+.fa-chevron-up:before {
+  content: "\e901";
+}
+.fa-globe3:before {
+  content: "\e91e";
 }
 .fa-unlock-alt:before {
   content: "\e912";

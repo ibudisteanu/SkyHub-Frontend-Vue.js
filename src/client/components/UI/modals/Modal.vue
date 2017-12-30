@@ -3,14 +3,17 @@
     <div>
 
         <div class="modal" ref="modal">
+
             <div class="close" @click="this.closeModal">
                 x
             </div>
+
             <div class="header">
                 <div class="title">
                     {{this.title}}
                 </div>
             </div>
+
             <div class="content">
                 <slot name="content"></slot>
             </div>
