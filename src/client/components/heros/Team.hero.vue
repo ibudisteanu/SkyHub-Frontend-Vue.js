@@ -12,7 +12,7 @@
                     <div class="our-team">
 
                         <div class="team-pic">
-                            <img src="public/assets/images/team/budisteanuIonutAlexandru.jpg">
+                            <img src="/public/assets/images/team/budisteanuIonutAlexandru.jpg">
 
                             <div class="over-layer">
                                 <ul class="social-link social-link-4">
@@ -34,7 +34,7 @@
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
-                            <img src="public/assets/images/team/PanaitAlexandru.jpg">
+                            <img src="/public/assets/images/team/PanaitAlexandru.jpg">
 
                             <div class="over-layer">
                                 <ul class="social-link">
@@ -49,7 +49,7 @@
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
-                            <img src="public/assets/images/team/Adrian-Stratulat.jpg">
+                            <img src="/public/assets/images/team/Adrian-Stratulat.jpg">
                             <div class="over-layer">
                                 <ul class="social-link">
                                     <li><a href="https://www.linkedin.com/in/adrianstratulat/" target="_blank" class="fa fa-linkedin2"></a></li>
@@ -63,7 +63,7 @@
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
-                            <img src="public/assets/images/team/cosminOprea.jpg">
+                            <img src="/public/assets/images/team/cosminOprea.jpg">
                             <div class="over-layer">
                                 <ul class="social-link">
                                     <li><a href="https://www.facebook.com/opreacosmind" class="fa fa-facebook"></a></li>
@@ -77,7 +77,7 @@
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
-                            <img src="public/assets/images/team/AdrianRobescu.jpg">
+                            <img src="/public/assets/images/team/AdrianRobescu.jpg">
                             <div class="over-layer">
                                 <ul class="social-link">
                                     <li><a href="https://www.linkedin.com/in/robescu/" target="_blank"  class="fa fa-linkedin2"></a></li>
@@ -86,12 +86,12 @@
                             </div>
                         </div>
                         <h4>ADRIAN ROBESCU</h4>
-                        <h5 class="teamRole">LEAD </h5>
+                        <h5 class="teamRole">LEAD MARKETING</h5>
                         <p>Adrian'36 is a Business Analyst and Strategist, specialized in modeling business processes and ERP implementation. As a Webdollar enthusiast member is working on UX design and ecommerce dApp.</p>
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
-                            <img src="public/assets/images/team/silviuStroe.jpg">
+                            <img src="/public/assets/images/team/silviuStroe.jpg">
                             <div class="over-layer">
                                 <ul class="social-link">
                                     <li><a href="https://www.facebook.com/s1lviu/" target="_blank"  class="fa fa-facebook"></a></li>
@@ -123,7 +123,7 @@
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
-                            <img src="public/assets/images/team/AdrianManea.jpg">
+                            <img src="/public/assets/images/team/AdrianManea.jpg">
                             <div class="over-layer">
                                 <ul class="social-link">
                                     <li><a href="https://www.facebook.com/aesteticsadrian" target="_blank" class="fa fa-facebook"></a></li>
@@ -138,7 +138,7 @@
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
-                            <img src="public/assets/images/team/Iulian-Vasilescu.jpg">
+                            <img src="/public/assets/images/team/Iulian-Vasilescu.jpg">
                             <div class="over-layer">
                                 <ul class="social-link">
                                     <li> <a href="https://www.facebook.com/iulian.vasilescu.1" target="_blank" class="fa fa-facebook"></a> </li>
