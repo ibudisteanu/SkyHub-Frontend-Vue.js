@@ -504,6 +504,7 @@ a:hover{
   right: 0;
 }
 .main-timeline .timeline-icon i{
+  padding-left: 13px;
   font-size: 35px;
   color: #303a3b;
   line-height: 80px;
@@ -627,7 +628,7 @@ a:hover{
 }
 .main-timeline .timeline:nth-child(2n) .title{ color: #e77e21; }
 .main-timeline .timeline:nth-child(3n):before,
-.main-timeline .timeline:nth-child(3n) .timeline-icon{ background: #008b8b; }
+.main-timeline .timeline:nth-child(3n) .timeline-icon{ background: #008b8b;  }
 .main-timeline .timeline:nth-child(3n) .timeline-icon:before{
   border-color: #008b8b;
   box-shadow: 0 0 0 4px #50b5b4;

@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?rmvrpo');
-  src:  url('fonts/icomoon.eot?rmvrpo#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?rmvrpo') format('truetype'),
-    url('fonts/icomoon.woff?rmvrpo') format('woff'),
-    url('fonts/icomoon.svg?rmvrpo#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?q25f1g');
+  src:  url('fonts/icomoon.eot?q25f1g#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?q25f1g') format('truetype'),
+    url('fonts/icomoon.woff?q25f1g') format('woff'),
+    url('fonts/icomoon.svg?q25f1g#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -25,7 +25,7 @@
 }
 
 .fa-network:before {
-  content: "\e91c";
+  content: "\e91f";
 }
 .fa-globe2:before {
   content: "\e91d";
@@ -87,6 +87,12 @@
 .fa-note:before {
   content: "\e911";
 }
+.fa-bullhorn:before {
+  content: "\e920";
+}
+.fa-file-text2:before {
+  content: "\e926";
+}
 .fa-download3:before {
   content: "\e960";
 }
@@ -99,6 +105,24 @@
 .fa-key22:before {
   content: "\e98e";
 }
+.fa-trophy:before {
+  content: "\e99e";
+}
+.fa-gift:before {
+  content: "\e99f";
+}
+.fa-rocket2:before {
+  content: "\e9a5";
+}
+.fa-bin2:before {
+  content: "\e9ad";
+}
+.fa-download22:before {
+  content: "\e9c5";
+}
+.fa-upload22:before {
+  content: "\e9c6";
+}
 .fa-earth:before {
   content: "\e9ca";
 }
@@ -107,6 +131,9 @@
 }
 .fa-blocked2:before {
   content: "\ea0e";
+}
+.fa-cross:before {
+  content: "\ea0f";
 }
 .fa-checkmark:before {
   content: "\ea10";
@@ -147,6 +174,9 @@
 .fa-github:before {
   content: "\eab0";
 }
+.fa-reddit:before {
+  content: "\eac6";
+}
 .fa-wikipedia:before {
   content: "\eac8";
 }
@@ -161,6 +191,15 @@
 }
 .fa-wallet2:before {
   content: "\e909";
+}
+.fa-rocket:before {
+  content: "\e921";
+}
+.fa-jet:before {
+  content: "\e921";
+}
+.fa-spaceship:before {
+  content: "\e921";
 }
 .fa-edit:before {
   content: "\e90c";
@@ -201,17 +240,8 @@
 .fa-wallet:before {
   content: "\e902";
 }
-.fa-bitcoin:before {
-  content: "\e903";
-}
-.fa-credit-card:before {
-  content: "\e904";
-}
-.fa-chevron-down:before {
-  content: "\e900";
-}
-.fa-chevron-up:before {
-  content: "\e901";
+.fa-flask:before {
+  content: "\e922";
 }
 .fa-globe3:before {
   content: "\e91e";
