@@ -17,7 +17,7 @@
         <div id="timeline">
         <div class="main-timeline">
                     <div class="timeline">
-                        <div class="timeline-icon"><i class="fa fa-pencil-square-o"></i></div>
+                        <div class="timeline-icon"><i class="fa fa-file-text2"></i></div>
                         <span class="year">10 OCT 2017</span>
                         <div class="timeline-content">
                             <h5 class="title">WHITE PAPER DRAFT</h5>
@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     <div class="timeline">
-                        <div class="timeline-icon"><i class="fa fa-users"></i></div>
+                        <div class="timeline-icon"><i class="fa fa-trophy"></i></div>
                         <span class="year">22 OCT 2017</span>
                         <div class="timeline-content">
                             <h5 class="title">TECH HUB JS HACKHTON</h5>
@@ -37,7 +37,7 @@
                         </div>
                     </div>
                     <div class="timeline">
-                        <div class="timeline-icon"><i class="fa fa-connectdevelop"></i></div>
+                        <div class="timeline-icon"><i class="fa fa-network"></i></div>
                         <span class="year">1 DEC 2017</span>
                         <div class="timeline-content">
                             <h5 class="title">P2P AND MINI-BLOCKCHAIN</h5>
@@ -67,7 +67,7 @@
                         </div>
                     </div>
                     <div class="timeline">
-                        <div class="timeline-icon"><i class="fa fa-btc"></i></div>
+                        <div class="timeline-icon"><i class="fa fa-pig"></i></div>
                         <span class="year">1 MAR 2018</span>
                         <div class="timeline-content">
                             <h5 class="title">ICO - INITIAL COIN OFFERING</h5>
@@ -77,7 +77,7 @@
                         </div>
                     </div>
                     <div class="timeline">
-                        <div class="timeline-icon"><i class="fa fa-rocket"></i></div>
+                        <div class="timeline-icon"><i class="fa fa-gift"></i></div>
                         <span class="year">15 MAY 2018</span>
                         <div class="timeline-content">
                             <h5 class="title">SMART CONTRACTS, ANONYMITY, EXCHANGE</h5>

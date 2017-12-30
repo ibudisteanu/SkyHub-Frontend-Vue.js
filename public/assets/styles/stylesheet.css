@@ -198,10 +198,6 @@ a:hover{
   padding: 1px 0 60px 0;
 }
 
-#map {
-  height: 100%;
-}
-
 .fullSection{
   overflow: auto;
   height: 100%;
@@ -505,6 +501,7 @@ a:hover{
   right: 0;
 }
 .main-timeline .timeline-icon i{
+  padding-left: 13px;
   font-size: 35px;
   color: #303a3b;
   line-height: 80px;
@@ -624,7 +621,7 @@ a:hover{
 }
 .main-timeline .timeline:nth-child(2n) .title{ color: #e77e21; }
 .main-timeline .timeline:nth-child(3n):before,
-.main-timeline .timeline:nth-child(3n) .timeline-icon{ background: #008b8b; }
+.main-timeline .timeline:nth-child(3n) .timeline-icon{ background: #008b8b;  }
 .main-timeline .timeline:nth-child(3n) .timeline-icon:before{
   border-color: #008b8b;
 }

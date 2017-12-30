@@ -129,13 +129,6 @@
 @media screen and (min-width: 1400px) {
     #map svg {
         box-sizing: border-box;
-        transform: scale(0.9);
-    }
-}
-
-@media screen and (min-width: 1800px) {
-    #map svg {
-        box-sizing: border-box;
-        transform: scale(1.0);
+        transform: scale(0.8);
     }
 }
