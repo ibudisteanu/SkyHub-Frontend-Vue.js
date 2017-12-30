@@ -28,8 +28,7 @@
                         <h4>ALEXANDRU IONUT BUDISTEANU</h4>
                         <h5 class="teamRole">LEAD DEVELOPER</h5>
                         <p class="description">
-                            Alexandru'24 is a Forbes Europe 30 under 30 nominee in industry category. In 2013, he was nominated by Time Magazine as one of the most influential teens of the world. MIT Lincoln Laboratory named an asteroid with his name.
-                            See Wikipedia </a>
+                            Alexandru'24 is a Forbes Europe 30 under 30 nominee in industry category. In 2013, he was nominated by Time Magazine as one of the most influential teens of the world. MIT Lincoln Laboratory named an asteroid with his name.</a>
                         </p>
                     </div>
                     <div class="our-team">
@@ -58,7 +57,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <h4>PHD. SCHOLAR ADRIAN STRATULAT</h4>
+                        <h4>SCHOLAR ADRIAN STRATULAT</h4>
                         <h5 class="teamRole">LEAD EVANGELIST</h5>
                         <p>Adrian is a social innovator specialised in emerging energy technologies, he has a background in geopolitics and diplomacy, but is an entrepreneur at heart. Within WebDollar's core team, Adrian acts as the lead evangelist, coordinating the long term strategic development and the marketing plan.</p>
                     </div>

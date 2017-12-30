@@ -28,6 +28,7 @@
 
 <script>
 
+
     import HeaderLayout from "client/components/layout/HeaderLayout.vue"
     import FooterLayout from "client/components/layout/FooterLayout.vue"
 

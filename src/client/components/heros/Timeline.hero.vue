@@ -15,8 +15,7 @@
         <h1 class='alignCenter bigMarginTop'>Timeline</h1> <br/> <br/>
 
         <div id="timeline">
-            <div class="col-md-12">
-                <div class="main-timeline">
+        <div class="main-timeline">
                     <div class="timeline">
                         <div class="timeline-icon"><i class="fa fa-pencil-square-o"></i></div>
                         <span class="year">10 OCT 2017</span>

@@ -53,7 +53,6 @@ h4{
 }
 
 h5{
-  text-align: center;
   display: block;
   padding: 10px 0;
   font-size: 16px;
@@ -497,9 +496,7 @@ a:hover{
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: #fff;
-  border: 2px solid #727cb6;
-  box-shadow: 0 0 0 4px #a5afe4;
+  background: #000;
   margin: auto;
   position: absolute;
   top: 0;
@@ -527,16 +524,14 @@ a:hover{
 .main-timeline .year:before{
   content: "";
   display: block;
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: #727cb6;
-  border: 5px solid #fff;
-  box-shadow: 0 0 0 4px #727cb6;
   margin: auto;
   position: absolute;
-  bottom: -15px;
-  left: 4px;
+  bottom: -10px;
+  left: -4px;
 }
 .main-timeline .year:after{
   content: "";
@@ -606,7 +601,7 @@ a:hover{
 }
 .main-timeline .timeline:nth-child(2n) .year:before{
   left: auto;
-  right: 3px;
+  right: -3px;
 }
 .main-timeline .timeline:nth-child(2n) .year:after{
   border-left: none;
@@ -623,22 +618,18 @@ a:hover{
 .main-timeline .timeline:nth-child(2n) .timeline-icon{ background: #e77e21; }
 .main-timeline .timeline:nth-child(2n) .timeline-icon:before{
   border-color: #e77e21;
-  box-shadow: 0 0 0 4px #f1a563;
 }
 .main-timeline .timeline:nth-child(2n) .year:before{
   background: #e77e21;
-  box-shadow: 0 0 0 4px #e77e21;
 }
 .main-timeline .timeline:nth-child(2n) .title{ color: #e77e21; }
 .main-timeline .timeline:nth-child(3n):before,
 .main-timeline .timeline:nth-child(3n) .timeline-icon{ background: #008b8b; }
 .main-timeline .timeline:nth-child(3n) .timeline-icon:before{
   border-color: #008b8b;
-  box-shadow: 0 0 0 4px #50b5b4;
 }
 .main-timeline .timeline:nth-child(3n) .year:before{
   background: #008b8b;
-  box-shadow: 0 0 0 4px #008b8b;
 }
 .main-timeline .timeline:nth-child(3n) .title{ color: #008b8b; }
 .main-timeline .timeline:nth-child(4n):before,
@@ -647,11 +638,9 @@ a:hover{
 }
 .main-timeline .timeline:nth-child(4n) .timeline-icon:before{
   border-color: #ed687c;
-  box-shadow: 0 0 0 4px #f798a8;
 }
 .main-timeline .timeline:nth-child(4n) .year:before{
   background: #ed687c;
-  box-shadow: 0 0 0 4px #ed687c;
 }
 .main-timeline .timeline:nth-child(4n) .title{ color: #ed687c; }
 
