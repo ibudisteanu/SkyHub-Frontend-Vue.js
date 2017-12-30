@@ -28,8 +28,8 @@
                         <h4>ALEXANDRU IONUT BUDISTEANU</h4>
                         <h5 class="teamRole">LEAD DEVELOPER</h5>
                         <p class="description">
-                            Alexandru'24 is a <a href="https://www.forbes.com/pictures/mfg45jmhm/ionut-budisteanu-22/#28f79a6e63c6">Forbes Europe 30 under 30 nominee</a> in industry category. In 2013, he was nominated by Time Magazine as <a href="http://time100.time.com/2013/11/12/the-16-most-influential-teens-of-2013/slide/ionut-budisteanu/">one of the most influential teens</a> of the world.  <a href="https://en.wikipedia.org/wiki/Ionu%C8%9B_Budi%C8%99teanu#Minor_Planet_28854_Budisteanu">MIT Lincoln Laboratory</a> named an asteroid with his name.
-                            See <a href="https://en.wikipedia.org/wiki/Ionu%C8%9B_Budi%C8%99teanu" class="fa fa-wikipedia">ikipedia </a>
+                            Alexandru'24 is a Forbes Europe 30 under 30 nominee in industry category. In 2013, he was nominated by Time Magazine as one of the most influential teens of the world. MIT Lincoln Laboratory named an asteroid with his name.
+                            See Wikipedia </a>
                         </p>
                     </div>
                     <div class="our-team">
@@ -38,8 +38,9 @@
 
                             <div class="over-layer">
                                 <ul class="social-link">
-                                    <li><a href="https://www.linkedin.com/in/adrianstratulat/" target="_blank" class="fa fa-linkedin2"></a></li>
-                                    <li><a href="https://www.facebook.com/Adrian.Stratulat" target="_blank"  class="fa fa-facebook"></a></li>
+                                    <li><a href="https://www.facebook.com/Ionut.Alex.Panait" target="_blank"  class="fa fa-facebook"></a></li>
+                                    <li><a href="https://www.linkedin.com/in/alexandru-ionut-panait-64181ba7/" target="_blank" class="fa fa-linkedin2"></a></li>
+                                    <li><a href="https://twitter.com/AlexandruPanai" target="_blank" class="fa fa-twitter"/></li>
                                 </ul>
                             </div>
                         </div>
@@ -102,8 +103,8 @@
                         </div>
                         <h4>SILVIU STROE</h4>
                         <h5 class="teamRole"5>DEVELOPER</h5>
-                        <p class="description"><a href="https://silviu-s.com/">Silviu</a> is a full stack developer, entrepreneur, big 🍕 fan and ❄️ lover.
-                            He is the founder of one of the first VPN services in Romania, <a href="https://rotunneling.net">RoTunneling</a> and is part of <a href="http://web.archive.org/web/20160122082559/http://bugbounty.yahoo.com/security_wall.html">Yahoo - Wall of Fame</a>.
+                            Silviu is a full stack developer, entrepreneur, big 🍕 fan and ❄️ lover.
+                            He is the founder of one of the first VPN services in Romania, RoTunneling and is part of Yahoo - Wall of Fame.
                             He also loves bleeding edge technologies and new challenges.
                         </p>
 
