@@ -9,17 +9,17 @@
                 <div id="whatContainer">
                     <div>
                         <img src="public/assets/images/WebDollar-ming.png">
-                        <h4>Start Mining in Browser in 5 sec</h4>
-                        <p>You can start mining WebDollar in just 5 seconds</p>
+                        <h4>Start Mining in 5 sec</h4>
+                        <p>You can start mining Web Dollars in your Browser immediately </p>
                     </div>
                     <div>
                         <img src="public/assets/images/WebDollar-Browser.png">
-                        <h4>Web Coin of the Internet in Browser</h4>
-                        <p>WebDollar is the first Blockchain running fully in the Browser</p>
+                        <h4>Currency of the Internet</h4>
+                        <p>The First Blockchain Running Fully in Your Browser</p>
                     </div>
                     <div>
                         <img src="public/assets/images/WebDollar-wallet.png">
-                        <h4>Easiest Blockchain for Web Payments</h4>
+                        <h4>Simple Blockchain for Web Payments</h4>
                         <p>Easiest Blockchain Integration for Web Payments</p>
                     </div>
                 </div>

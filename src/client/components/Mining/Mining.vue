@@ -59,11 +59,16 @@
                 miningWorkers: [],
                 miningWorkersCount: 0,
 
-                startedMining: false,
                 statusMining:'',
-
-
             }
+        },
+
+        computed:{
+
+            startedMining(){
+                return this.$store.state.mining.startedMining;
+            },
+
         },
 
         props:{
@@ -79,7 +84,6 @@
 
                     let worker = new Worker("/public/WebDollar-dist/WebDollarMinerWorker.js");
 
-                    let that = this;
                     worker.onmessage = this.puzzleReceivedFromWorker;
 
                     this.miningWorkers.push(worker);
@@ -94,7 +98,8 @@
                     this.initializeHashesPerSecondClearInterval();
                 }
 
-                this.startedMining = (this.miningWorkersCount > 0);
+                this.$store.dispatch('MINING_CHANGE_WORKERS', {workers: this.miningWorkersCount});
+
             },
 
             stopAllMiningWorkers(){
@@ -116,7 +121,8 @@
                 if (this.miningWorkersCount === 0){
                     this.suspendHashesPerSecondClearInterval();
                 }
-                this.startedMining = (this.miningWorkersCount > 0);
+
+                this.$store.dispatch('MINING_CHANGE_WORKERS', {workers: this.miningWorkersCount});
             },
 
             initializeHashesPerSecondClearInterval(){
@@ -146,6 +152,7 @@
             },
 
             startStopMining(){
+                console.log('this.startedMining',this.startedMining);
                 if (this.startedMining)  this.stopAllMiningWorkers();
                 else this.createMiningWorker();
             },
