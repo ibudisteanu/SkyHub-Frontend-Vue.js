@@ -14,9 +14,9 @@
  * This is an annotated direct implementation of FIPS 180-4, without any optimisations. It is
  * intended to aid understanding of the algorithm rather than for production use.
  *
- * While it could be used where performance is not critical, I would recommend using the ‘Web
- * Cryptography API’ (developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest) for the browser,
- * or the ‘crypto’ library (nodejs.org/api/crypto.html#crypto_class_hash) in Node.js.
+ * While it could be used where performance is not critical, I would recommend using the â€˜Web
+ * Cryptography APIâ€™ (developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest) for the browser,
+ * or the â€˜cryptoâ€™ library (nodejs.org/api/crypto.html#crypto_class_hash) in Node.js.
  *
  * See csrc.nist.gov/groups/ST/toolkit/secure_hashing.html
  *     csrc.nist.gov/groups/ST/toolkit/examples.html
@@ -29,7 +29,7 @@ class Sha256 {
      * @param   {string} msg - (Unicode) string to be hashed.
      * @param   {Object} [options]
      * @param   {string} [options.msgFormat=string] - Message format: 'string' for JavaScript string
-     *   (gets converted to UTF-8 for hashing); 'hex-bytes' for string of hex bytes ('616263' ≡ 'abc') .
+     *   (gets converted to UTF-8 for hashing); 'hex-bytes' for string of hex bytes ('616263' â‰¡ 'abc') .
      * @param   {string} [options.outFormat=hex] - Output format: 'hex' for string of contiguous
      *   hex bytes; 'hex-w' for grouping hex bytes into groups of (4 byte / 8 character) words.
      * @returns {string} Hash of msg as hex character string.
@@ -46,7 +46,7 @@ class Sha256 {
             case 'hex-bytes':msg = hexBytesToString(msg); break; // mostly for running tests
         }
 
-        // constants [§4.2.2]
+        // constants [Â§4.2.2]
         const K = [
             0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
             0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
@@ -57,18 +57,18 @@ class Sha256 {
             0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
             0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2 ];
 
-        // initial hash value [§5.3.3]
+        // initial hash value [Â§5.3.3]
         const H = [
             0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19 ];
 
-        // PREPROCESSING [§6.2.1]
+        // PREPROCESSING [Â§6.2.1]
 
-        msg += String.fromCharCode(0x80);  // add trailing '1' bit (+ 0's padding) to string [§5.1.1]
+        msg += String.fromCharCode(0x80);  // add trailing '1' bit (+ 0's padding) to string [Â§5.1.1]
 
-        // convert string msg into 512-bit blocks (array of 16 32-bit integers) [§5.2.1]
-        const l = msg.length/4 + 2; // length (in 32-bit integers) of msg + ‘1’ + appended length
+        // convert string msg into 512-bit blocks (array of 16 32-bit integers) [Â§5.2.1]
+        const l = msg.length/4 + 2; // length (in 32-bit integers) of msg + â€˜1â€™ + appended length
         const N = Math.ceil(l/16);  // number of 16-integer (512-bit) blocks required to hold 'l' ints
-        const M = new Array(N);     // message M is N×16 array of 32-bit integers
+        const M = new Array(N);     // message M is NÃ—16 array of 32-bit integers
 
         for (let i=0; i<N; i++) {
             M[i] = new Array(16);
@@ -77,7 +77,7 @@ class Sha256 {
                     | (msg.charCodeAt(i*64+j*4+2)<< 8) | (msg.charCodeAt(i*64+j*4+3)<< 0);
             } // note running off the end of msg is ok 'cos bitwise ops on NaN return 0
         }
-        // add length (in bits) into final pair of 32-bit integers (big-endian) [§5.1.1]
+        // add length (in bits) into final pair of 32-bit integers (big-endian) [Â§5.1.1]
         // note: most significant word would be (len-1)*8 >>> 32, but since JS converts
         // bitwise-op args to 32 bits, we need to simulate this by arithmetic operators
         const lenHi = ((msg.length-1)*8) / Math.pow(2, 32);
@@ -86,7 +86,7 @@ class Sha256 {
         M[N-1][15] = lenLo;
 
 
-        // HASH COMPUTATION [§6.2.2]
+        // HASH COMPUTATION [Â§6.2.2]
 
         for (let i=0; i<N; i++) {
             const W = new Array(64);
@@ -94,7 +94,7 @@ class Sha256 {
             // 1 - prepare message schedule 'W'
             for (let t=0;  t<16; t++) W[t] = M[i][t];
             for (let t=16; t<64; t++) {
-                W[t] = (Sha256.σ1(W[t-2]) + W[t-7] + Sha256.σ0(W[t-15]) + W[t-16]) >>> 0;
+                W[t] = (Sha256.Ïƒ1(W[t-2]) + W[t-7] + Sha256.Ïƒ0(W[t-15]) + W[t-16]) >>> 0;
             }
 
             // 2 - initialise working variables a, b, c, d, e, f, g, h with previous hash value
@@ -102,8 +102,8 @@ class Sha256 {
 
             // 3 - main loop (note '>>> 0' for 'addition modulo 2^32')
             for (let t=0; t<64; t++) {
-                const T1 = h + Sha256.Σ1(e) + Sha256.Ch(e, f, g) + K[t] + W[t];
-                const T2 =     Sha256.Σ0(a) + Sha256.Maj(a, b, c);
+                const T1 = h + Sha256.Î£1(e) + Sha256.Ch(e, f, g) + K[t] + W[t];
+                const T2 =     Sha256.Î£0(a) + Sha256.Maj(a, b, c);
                 h = g;
                 g = f;
                 f = e;
@@ -152,7 +152,7 @@ class Sha256 {
 
 
     /**
-     * Rotates right (circular right shift) value x by n positions [§3.2.4].
+     * Rotates right (circular right shift) value x by n positions [Â§3.2.4].
      * @private
      */
     static ROTR(n, x) {
@@ -161,13 +161,13 @@ class Sha256 {
 
 
     /**
-     * Logical functions [§4.1.2].
+     * Logical functions [Â§4.1.2].
      * @private
      */
-    static Σ0(x) { return Sha256.ROTR(2,  x) ^ Sha256.ROTR(13, x) ^ Sha256.ROTR(22, x); }
-    static Σ1(x) { return Sha256.ROTR(6,  x) ^ Sha256.ROTR(11, x) ^ Sha256.ROTR(25, x); }
-    static σ0(x) { return Sha256.ROTR(7,  x) ^ Sha256.ROTR(18, x) ^ (x>>>3);  }
-    static σ1(x) { return Sha256.ROTR(17, x) ^ Sha256.ROTR(19, x) ^ (x>>>10); }
+    static Î£0(x) { return Sha256.ROTR(2,  x) ^ Sha256.ROTR(13, x) ^ Sha256.ROTR(22, x); }
+    static Î£1(x) { return Sha256.ROTR(6,  x) ^ Sha256.ROTR(11, x) ^ Sha256.ROTR(25, x); }
+    static Ïƒ0(x) { return Sha256.ROTR(7,  x) ^ Sha256.ROTR(18, x) ^ (x>>>3);  }
+    static Ïƒ1(x) { return Sha256.ROTR(17, x) ^ Sha256.ROTR(19, x) ^ (x>>>10); }
     static Ch(x, y, z)  { return (x & y) ^ (~x & z); }          // 'choice'
     static Maj(x, y, z) { return (x & y) ^ (x & z) ^ (y & z); } // 'majority'
 

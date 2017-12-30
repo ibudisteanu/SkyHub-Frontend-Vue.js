@@ -16,7 +16,7 @@ body{
 }
 
 h1{
-  letter-spacing: 0.2em;
+  letter-spacing: 2px;
   margin: 0;
   padding: 0;
   border: 0;
@@ -49,7 +49,7 @@ h3{
 h4{
   margin-bottom: 20px;
   font-size: 20px;
-  text-transform: uppercase!important;
+  color: #fff;
 }
 
 h5{
@@ -271,7 +271,7 @@ a:hover{
   left:0;
   width:100%;
   height:100%;
-  background:rgba(147, 98, 143,0.9);
+  background: rgba(255, 255, 255, 0.69);
   opacity:0;
   transition: all 0.30s ease 0s;
 }
@@ -300,8 +300,8 @@ a:hover{
 }
 .teamWrapper .our-team .social-link li a{
 
-  color:#93628f;
-  background:#fff;
+  color:#fcd26c;
+  background: #4f4f4f;
   font-size:22px;
   border-radius:50%;
   text-align: center;
@@ -313,8 +313,8 @@ a:hover{
 }
 
 .teamWrapper .our-team .social-link li a:hover{
-  background: #303a3b;
-  color: yellow;
+  background: #1f1f1f;
+  color: #fcd26c;
 }
 
 .teamWrapper .our-team .social-link li:hover{
@@ -652,7 +652,16 @@ a:hover{
 .main-timeline .timeline:nth-child(4n) .title{ color: #ed687c; }
 
 #whatContainer h4{
-  color: #ea9b1a;
+  color: #fff;
+  font-size: 24px;
+}
+
+#team h4{
+  text-transform: uppercase;
+}
+
+#whatContainer p{
+  color: #8e8e8e;
 }
 
 .topnav {
