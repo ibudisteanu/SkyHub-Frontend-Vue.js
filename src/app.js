@@ -1,3 +1,5 @@
+import babel from './modules/utils/babel_require.js'
+
 import Vue from 'vue'
 //import VuexSaga from 'vuex-saga';
 import App from './App.vue'
@@ -16,7 +18,6 @@ import BreadcrumbsSchemaMarkupMixin from './modules/utils/SEO/BreadcrumbsSchemaM
 import WebPageTypeMixin from './modules/utils/SEO/WebPageTypeMixin';
 
 
-import * as filters from './modules/hackernews/util/filters'
 import * as UtilitiesFunctions from './modules/utils/global-utilities/UtilitiesFunctions';
 
 // mixin for handling title, description, etc...

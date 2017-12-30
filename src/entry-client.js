@@ -1,9 +1,8 @@
 import Vue from 'vue'
 import 'es6-promise/auto'
 import { createApp } from './app'
-import ProgressBar from './modules/hackernews/components/ProgressBar.vue'
 
-import FetchService from 'services/communication/FetchService';
+import ProgressBar from './modules/components/ProgressBar.vue'
 import WebDollarNodes from 'services/nodes-module/WebDollarNodes.js';
 
 // global progress bar
@@ -52,7 +51,7 @@ if (window.__INITIAL_STATE__) {
 }
 
 //send the store and dispatch to the FetchService (SocketClient needs store.socketStatus
-FetchService.startService(store.dispatch, store.state);
+
 store.dispatch('SYSTEM_NOTIFICATIONS_CHECK_PERMISSION',{});
 store.dispatch('USER_NOTIFICATIONS_FETCHING_SERVICE_START',{});
 

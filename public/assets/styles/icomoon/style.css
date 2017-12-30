@@ -1,0 +1,203 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?gjxk9i');
+  src:  url('fonts/icomoon.eot?gjxk9i#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?gjxk9i') format('truetype'),
+    url('fonts/icomoon.woff?gjxk9i') format('woff'),
+    url('fonts/icomoon.svg?gjxk9i#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="fa-"], [class*=" fa-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.fa-key:before {
+  content: "\e90b";
+}
+.fa-wallet2:before {
+  content: "\e909";
+}
+.fa-edit:before {
+  content: "\e90c";
+}
+.fa-pencil2:before {
+  content: "\e90c";
+}
+.fa-write2:before {
+  content: "\e90c";
+}
+.fa-writing:before {
+  content: "\e90c";
+}
+.fa-save3:before {
+  content: "\e90c";
+}
+.fa-download2:before {
+  content: "\e90d";
+}
+.fa-store:before {
+  content: "\e90d";
+}
+.fa-save4:before {
+  content: "\e90d";
+}
+.fa-moneybag:before {
+  content: "\e905";
+}
+.fa-pig:before {
+  content: "\e906";
+}
+.fa-dollar:before {
+  content: "\e907";
+}
+.fa-dollar2:before {
+  content: "\e908";
+}
+.fa-wallet:before {
+  content: "\e902";
+}
+.fa-blocked:before {
+  content: "\e90e";
+}
+.fa-denied:before {
+  content: "\e90e";
+}
+.fa-forbidden:before {
+  content: "\e90e";
+}
+.fa-key2:before {
+  content: "\e90f";
+}
+.fa-password:before {
+  content: "\e90f";
+}
+.fa-unlock2:before {
+  content: "\e90f";
+}
+.fa-login:before {
+  content: "\e90f";
+}
+.fa-log-in:before {
+  content: "\e90f";
+}
+.fa-locked:before {
+  content: "\e910";
+}
+.fa-encryption:before {
+  content: "\e910";
+}
+.fa-login2:before {
+  content: "\e910";
+}
+.fa-log-in2:before {
+  content: "\e910";
+}
+.fa-pencil:before {
+  content: "\e911";
+}
+.fa-write:before {
+  content: "\e911";
+}
+.fa-blog:before {
+  content: "\e911";
+}
+.fa-save2:before {
+  content: "\e911";
+}
+.fa-note:before {
+  content: "\e911";
+}
+.fa-download3:before {
+  content: "\e960";
+}
+.fa-upload2:before {
+  content: "\e961";
+}
+.fa-key3:before {
+  content: "\e98d";
+}
+.fa-key22:before {
+  content: "\e98e";
+}
+.fa-eye-blocked:before {
+  content: "\e9d1";
+}
+.fa-blocked2:before {
+  content: "\ea0e";
+}
+.fa-checkmark:before {
+  content: "\ea10";
+}
+.fa-checkmark2:before {
+  content: "\ea11";
+}
+.fa-play2:before {
+  content: "\ea15";
+}
+.fa-pause:before {
+  content: "\ea16";
+}
+.fa-stop:before {
+  content: "\ea17";
+}
+.fa-arrow-up:before {
+  content: "\ea32";
+}
+.fa-arrow-down:before {
+  content: "\ea36";
+}
+.fa-unlock-alt:before {
+  content: "\e912";
+}
+.fa-unlock:before {
+  content: "\e913";
+}
+.fa-lock:before {
+  content: "\e914";
+}
+.fa-upload:before {
+  content: "\e915";
+}
+.fa-download:before {
+  content: "\e916";
+}
+.fa-floppy-o:before {
+  content: "\e917";
+}
+.fa-save:before {
+  content: "\e917";
+}
+.fa-plus-circle:before {
+  content: "\e918";
+}
+.fa-plus:before {
+  content: "\e919";
+}
+.fa-mail-forward:before {
+  content: "\e90a";
+}
+.fa-bitcoin:before {
+  content: "\e903";
+}
+.fa-credit-card:before {
+  content: "\e904";
+}
+.fa-chevron-down:before {
+  content: "\e900";
+}
+.fa-chevron-up:before {
+  content: "\e901";
+}
