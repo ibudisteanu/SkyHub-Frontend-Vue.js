@@ -75,6 +75,7 @@ a{
   cursor: pointer;
   color:#f6cd69;
   transition: all .5s linear;
+  text-decoration: none;
 }
 
 a:hover{
@@ -249,16 +250,93 @@ a:hover{
   margin-bottom: 50px;
 }
 
-.teamWrapper img{
+.teamWrapper .our-team .team-pic{
+  position: relative;
+  overflow: hidden;
   width: 150px;
   height: 150px;
-  border-radius: 100%;
-  margin-bottom: 20px;
+  border-radius: 50%;
+  margin: 0 auto 25px;
 }
 
-.teamWrapper img:hover{
-  background: linear-gradient(rgba(32,32,32,1),rgba(32,32,32,1));
+
+.teamWrapper .our-team .team-pic img{
+  width: 150px;
+  height: 150px;
 }
+
+/*.teamWrapper .our-team .team-pic img:hover{*/
+  /*!*background: linear-gradient(rgba(32,32,32,1),rgba(32,32,32,1));*!*/
+/*}*/
+
+.teamWrapper .our-team .team-pic .over-layer{
+  position: absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(147, 98, 143,0.9);
+  opacity:0;
+  transition: all 0.30s ease 0s;
+}
+
+.teamWrapper .our-team:hover .over-layer{
+  opacity:1;
+}
+
+.teamWrapper .our-team .social-link{
+  margin:0;
+  padding:0;
+  position:relative;
+  top:65%;
+  left:0;
+  list-style:none;
+  transition:all 0.50s ease 0s;
+}
+.teamWrapper .our-team:hover .social-link{
+  top:45%;
+}
+.teamWrapper .our-team .social-link li{
+  display: inline-block;
+  margin-right:5px;
+  transition: all 0.40s linear 0s;
+  transform: translateY(0px);
+}
+.teamWrapper .our-team .social-link li a{
+
+  color:#93628f;
+  background:#fff;
+  font-size:22px;
+  border-radius:50%;
+  text-align: center;
+  padding:7px;
+  text-decoration: none;
+}
+.teamWrapper .our-team .social-link-4 li a {
+  font-size: 18px;
+}
+
+.teamWrapper .our-team .social-link li a:hover{
+  background: #303a3b;
+  color: yellow;
+}
+
+.teamWrapper .our-team .social-link li:hover{
+  transform: translateY(-13px);
+}
+/*
+
+.teamWrapper .our-team .social-link li a.fa-facebook:hover{
+  color:#5d82d1;
+}
+.teamWrapper .our-team .social-link li a.fa-google:hover{
+  color:#eb5e4c;
+}
+.teamWrapper .our-team .social-link li a.fa-twitter:hover{
+  color:#40bff5;
+}
+*/
+
 
 #walletButton {
   margin: 0 auto;

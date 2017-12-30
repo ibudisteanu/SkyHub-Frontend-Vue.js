@@ -9,12 +9,6 @@
 
         <TransactionModal ref="modalTransferFunds" :walletAddress="this.walletAddress" > </TransactionModal>
 
-        <!--<a class="btn" @click="this.handleTransferFunds">-->
-            <!--<i class="fa fa-mail-forward" ></i>-->
-        <!--</a>-->
-
-
-
     </div>
 
 </template>
