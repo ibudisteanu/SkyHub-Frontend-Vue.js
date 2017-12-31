@@ -1,6 +1,6 @@
 <template>
 
-    <div>
+    <div style="overflow-y: scroll;">
         <div id="walletButton" @click="handleWalletButton" ref="walletButton" :style="{marginBottom: this.walletOpened ? '375px' : '30px'}">
             <span id="miningButtonText">
                 <i :class="'fa fa-chevron-'+ (this.walletOpened ? 'down' : 'up')" ></i>{{this.walletText}}

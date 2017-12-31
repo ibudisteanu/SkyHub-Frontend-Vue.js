@@ -1,44 +1,39 @@
 <template>
 
-    <div>
+    <div class="modal" ref="modal">
 
-        <div class="modal" ref="modal">
+        <div class="close" @click="this.closeModal">
+            x
+        </div>
 
-            <div class="close" @click="this.closeModal">
-                x
+        <div class="header">
+            <div class="title">
+                {{this.title}}
             </div>
+        </div>
 
-            <div class="header">
-                <div class="title">
-                    {{this.title}}
-                </div>
-            </div>
+        <div class="content">
+            <slot name="content"></slot>
+        </div>
 
-            <div class="content">
-                <slot name="content"></slot>
-            </div>
+        <!--<div class="footer">-->
 
-            <!--<div class="footer">-->
+            <!--<div v-for="(button, index) in this.buttons"-->
 
-                <!--<div v-for="(button, index) in this.buttons"-->
+                        <!--class="button"-->
+                        <!--:key="'modalButton'+index"-->
+                        <!--@click="(button.text === 'cancel' ? closeModal() : button.click() )">-->
 
-                            <!--class="button"-->
-                            <!--:key="'modalButton'+index"-->
-                            <!--@click="(button.text === 'cancel' ? closeModal() : button.click() )">-->
-
-                    <!--{{button.text}}-->
-
-                <!--</div>-->
-
+                <!--{{button.text}}-->
 
             <!--</div>-->
 
-        </div>
+
+        <!--</div>-->
 
         <div id="modalBackground" > </div>
 
     </div>
-
 
 </template>
 

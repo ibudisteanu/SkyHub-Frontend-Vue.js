@@ -1,6 +1,6 @@
 <template>
 
-    <div>
+    <div style="overflow-y: scroll;">
 
         <HeaderLayout/>
 
@@ -19,8 +19,6 @@
         <Wallet/>
 
         <FooterLayout/>
-
-
 
     </div>
 

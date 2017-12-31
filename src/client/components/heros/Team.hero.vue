@@ -119,7 +119,7 @@
                         </div>
                         <h4>ISSAM OUTALEB</h4>
                         <h5 class="teamRole">LEAD STRATEGIC MANAGEMENT</h5>
-                        <p>Dr Issam Outaleb is a Business Management Senior Consultant and Strategist who partners with top tier executives and marketers. Issam knows what truly drives conversions, product launches, and successful strategic and operational planning.</p>
+                        <p>Dr Issam Outaleb'78 is a Business Management Senior Consultant and Strategist who partners with top tier executives and marketers. Issam knows what truly drives conversions, product launches, and successful strategic and operational planning.</p>
                     </div>
                     <div class="our-team">
                         <div class="team-pic">

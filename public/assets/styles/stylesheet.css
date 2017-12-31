@@ -3,30 +3,6 @@
   src: url(../fonts/avenir-light.woff);
 }
 
-/*::-webkit-scrollbar {*/
-  /*width:9px;*/
-/*}*/
-
-/*::-webkit-scrollbar-track {*/
-  /*-webkit-border-radius:5px;*/
-  /*border-radius:5px;*/
-  /*background:rgba(0,0,0,0.1);*/
-/*}*/
-
-/*::-webkit-scrollbar-thumb {*/
-  /*-webkit-border-radius:5px;*/
-  /*border-radius:5px;*/
-  /*background:rgba(0,0,0,0.2);*/
-/*}*/
-
-/*::-webkit-scrollbar-thumb:hover {*/
-  /*background:rgba(0,0,0,0.4);*/
-/*}*/
-
-/*::-webkit-scrollbar-thumb:window-inactive {*/
-  /*background:rgba(0,0,0,0.05);*/
-/*}*/
-
 * {
 	margin: 0;
 	padding: 0;
@@ -189,6 +165,7 @@ a:hover{
   position: fixed;
   display: block;
   width: 100%;
+  max-height: 100%;
   top:0;
   background-color: #1f1f1f;
   z-index: 1000;
@@ -1392,4 +1369,37 @@ a:hover{
   background-color: #fbdb8d;
   color: #000000;
   transition: all 0.5s ease
+}
+
+.adressActions{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-bottom: solid 1px #6d6d6d;
+}
+
+.adressActions .actionButton{
+  display: inline-block;
+  background-color: #333;
+  color: #ffc12c;
+  padding: 5px;
+  padding-top: 8px;
+  border-left: solid 1px #6d6d6d;
+  border-top: solid 3px #777777;
+  border-collapse: collapse;
+  transition: all 0.5s ease
+}
+
+.adressActions .actionButton:hover{
+  background-color: #232222;
+  color: #ffdd8c;
+  transition: all 0.5s ease
+}
+
+.adressActions .actionButton:first-child{
+  border-left:none;
+}
+
+.activeActionButton{
+  background-color: #ffc12c!important;
+  color: #000!important;
 }
