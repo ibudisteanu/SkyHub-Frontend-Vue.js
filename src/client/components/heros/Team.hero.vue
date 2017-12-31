@@ -28,7 +28,7 @@
                         <h4>ALEXANDRU IONUT BUDISTEANU</h4>
                         <h5 class="teamRole">LEAD PROTOCOL DEVELOPER</h5>
                         <p class="description">
-                            Alexandru'93 is a Forbes Europe 30 under 30 nominee in industry category. In 2013, he was nominated by Time Magazine as one of the most influential teens of the world. MIT Lincoln Laboratory named an asteroid with his name.</a>
+                            Alexandru'93 is a Forbes Europe 30 under 30 nominee in industry category. In 2013, he was nominated by Time Magazine as one of the most influential teens of the world. MIT named an asteroid with his name.</a>
                         </p>
                     </div>
                     <div class="our-team">
@@ -93,7 +93,7 @@
                         <div class="team-pic">
                             <img src="/public/assets/images/team/silviuStroe.jpg">
                             <div class="over-layer">
-                                <ul class="social-link">
+                                <ul class="social-link social-link-4">
                                     <li><a href="https://www.facebook.com/s1lviu/" target="_blank"  class="fa fa-facebook"></a></li>
                                     <li><a href="https://github.com/s1lviu" target="_blank"  class="fa fa-github"></a></li>
                                     <li><a href="https://silviu-s.com/" target="_blank"  class="fa fa-globe"></a></li>

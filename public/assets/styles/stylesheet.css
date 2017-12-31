@@ -335,24 +335,60 @@ a:hover{
 
 
 #walletButton {
-  display: none;
+  /*display: none;*/
   margin: 0 auto;
   position: fixed;
   z-index: 100;
   bottom: 0;
-  left: 0;
+  width: 300px!important;
   right: 0;
   text-align: center;
   width: 300px;
   height: 50px;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
+  border-top-left-radius: 60px;
   cursor: pointer;
   background-color: #fec02c;
   color: #fff;
   margin-bottom: 20px;
-  border: solid 1px #5d5d5d;
+  border: solid 1px #444444;
+  border-right: solid 1px #fec02c;
   transition: all .3s linear;
+}
+
+.walletSection{
+  display: inline-block;
+  vertical-align: top;
+  height: 310px;
+  margin-top: 27px;
+  overflow: scroll;
+  width: 100%;
+}
+
+.walletController{
+  position: fixed!important;
+  position: relative;
+  width: 100%;
+  border-bottom: solid 1px #545454;
+  background-color: #313131;
+}
+
+.walletController .btn{
+   display: inline-block;
+}
+
+.walletController .btn .fa{
+  display: block;
+  padding: 5px 10px;
+  border-right: solid 1px #545454;
+  background-color: #1f1f1f;
+}
+
+.walletController .btn .fa:hover{
+  background-color: #000000;
+}
+
+.allWallets div{
+  border: solid 1px #545454;
 }
 
 #walletButton:hover{
@@ -377,16 +413,16 @@ a:hover{
 #walletMenu{
   margin: 0 auto;
   position: fixed;
-  width: 100%;
   bottom: 0;
-  left: 0;
   right: 0;
+  width: 300px;
   background-color: #1f1f1f;
-  height: 125px;
+  height: 350px;
   margin-bottom:-100px;
-  z-index: 1500;
+  z-index: 900;
   transition: all .3s linear;
-  border-top: solid 5px #e0e0e0;
+  border-top: solid 1px #e0e0e0;
+  border-left: solid 1px #444;
 }
 
 .mainLogo{
@@ -1025,7 +1061,7 @@ a:hover{
 
 #allWalets{
     /*border-top: solid 1px #7b7b7b;*/
-  display: -webkit-box;
+  display: block;
   /*padding-top: 10px;*/
 }
 
@@ -1044,7 +1080,7 @@ a:hover{
 }
 
 #threadsControll .button:hover{
-  background-color: #ffcd14;
+  background-color: #000;
   transition: all .3s linear;
 }
 
@@ -1110,9 +1146,8 @@ a:hover{
   vertical-align: top;
   padding-top: 6px;
   float: right;
-  min-width: 25%;
+  min-width: 300px;
   text-align: center;
-  margin-right: 6px;
   border-left: solid 1px #444444;
 }
 
@@ -1125,28 +1160,34 @@ a:hover{
 }
 
 #allWalets .walletAdress{
-    height: 30px;
-    width: 80px;
-    margin-right: 10px;
-    display: inline-block;
-    cursor: pointer;
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    transition: all .3s linear;
+  padding: 0!important;
+  padding-right: 0;
+  background-color: #272626;
+  margin: 5px;
+  width: 100%;
+  cursor: pointer;
+}
+
+#allWalets .walletAdress img{
+  height: 40px;
+  display: inline-block;
+  vertical-align: top;
 }
 
 #allWalets .walletAdress:hover{
-    background-color: #fec02c;
-    transition: all .3s linear;
-
+  background-color: #000;
+  transition: all .3s linear;
 }
 
 .walletAdress b{
-    text-align: center;
-    display: block;
-    color: #020102;
-    line-height: 31px;
-    font-size: 12px;
+  text-align: center;
+  display: inline-block;
+  color: #fddb0c;
+  line-height: 40px;
+  padding-top: 1px;
+  margin-left: 10px;
+  font-size: 12px;
+  vertical-align: top;
 }
 
 #p2p-network h3,#timelineSection h3{

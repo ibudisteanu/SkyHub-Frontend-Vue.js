@@ -1,7 +1,7 @@
 <template>
 
     <div>
-        <div id="walletButton" @click="handleWalletButton" ref="walletButton" :style="{marginBottom: this.walletOpened ? '125px' : '30px'}">
+        <div id="walletButton" @click="handleWalletButton" ref="walletButton" :style="{marginBottom: this.walletOpened ? '375px' : '30px'}">
             <span id="miningButtonText">
                 <i :class="'fa fa-chevron-'+ (this.walletOpened ? 'down' : 'up')" ></i>{{this.walletText}}
             </span>
@@ -9,35 +9,33 @@
 
         <Mining/>
 
-        <div id="walletMenu" ref="walletMenu" :style="{marginBottom: this.walletOpened ? 0 : '-126px'}">
+        <div id="walletMenu" ref="walletMenu" :style="{marginBottom: this.walletOpened ? '26px' : '-320px'}">
 
-            <div id="dashboardWallet" class="walletSection" >
+            <div id="dashboardWallet">
 
-                <div class="row">
 
-                    <div class="col-md-2">
-                        <a class="btn" @click="this.handleAddWallet">
-                            <i class="fa fa-plus" ></i>
-                        </a> <br/>
+                <div class="walletController">
+                    <a class="btn" @click="this.handleAddWallet">
+                        <i class="fa fa-plus" ></i>
+                    </a>
 
-                        <a class="btn" >
-                            <i class="fa fa-unlock" ></i>
-                        </a>
-                    </div>
+                    <a class="btn" >
+                        <i class="fa fa-unlock" ></i>
+                    </a>
+                </div>
 
-                    <div class="col-md-10">
-                        <div id="allWalets">
-                            <ShowAddress v-for="walletAddress in this.walletAddresses"
+                <div class="walletSection walletsContainer">
+                    <div id="allWalets">
+                        <ShowAddress v-for="walletAddress in this.walletAddresses"
 
-                                         :key="walletAddress.address"
-                                         :id="'address'+walletAddress.address"
-                                         :walletAddress="walletAddress"
-                                         style="padding-right: 20px"
+                                     :key="walletAddress.address"
+                                     :id="'address'+walletAddress.address"
+                                     :walletAddress="walletAddress"
+                                     style="padding-right: 20px"
 
-                            >
+                        >
 
-                            </ShowAddress>
-                        </div>
+                        </ShowAddress>
                     </div>
                 </div>
 
