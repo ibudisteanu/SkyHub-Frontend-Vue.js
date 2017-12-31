@@ -31,7 +31,7 @@
                 </div>
 
             </div>
-
+            <div class="transfer">
                 <div >
 
                     Transfer To: <br/>
@@ -47,7 +47,7 @@
                     {{this.toAmount||0.0.toString() }}
 
                 </div>
-
+            </div>
 
         </Modal>
 

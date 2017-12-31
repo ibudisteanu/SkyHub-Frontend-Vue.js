@@ -18,20 +18,20 @@
                 <slot name="content"></slot>
             </div>
 
-            <div class="footer">
+            <!--<div class="footer">-->
 
-                <div v-for="(button, index) in this.buttons"
+                <!--<div v-for="(button, index) in this.buttons"-->
 
-                            class="button"
-                            :key="'modalButton'+index"
-                            @click="(button.text === 'cancel' ? closeModal() : button.click() )">
+                            <!--class="button"-->
+                            <!--:key="'modalButton'+index"-->
+                            <!--@click="(button.text === 'cancel' ? closeModal() : button.click() )">-->
 
-                    {{button.text}}
+                    <!--{{button.text}}-->
 
-                </div>
+                <!--</div>-->
 
 
-            </div>
+            <!--</div>-->
 
         </div>
 

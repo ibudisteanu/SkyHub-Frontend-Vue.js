@@ -1012,12 +1012,13 @@ a:hover{
 }
 
 .modal .close{
-    position: fixed;
-    top: -50px;
-    font-size: 40px;
-    right: inherit;
-    color: #ffc12c;
-    cursor: pointer;
+  position: fixed;
+  top: -5px;
+  right: 10px!important;
+  font-size: 40px;
+  display: block;
+  color: #ffc12c;
+  cursor: pointer;
 }
 
 .modal .footer{
@@ -1315,6 +1316,12 @@ a:hover{
   background-color: #313131;
   padding: 7px 0 5px 0;
   border: solid 1px #777;
+  transition: all 0.5s ease
+}
+
+.copyToClipboard:hover{
+  background-color: #000;
+  transition: all 0.5s ease
 }
 
 .modal .ballance{
