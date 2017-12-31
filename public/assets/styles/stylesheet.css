@@ -191,11 +191,11 @@ a:hover{
 }
 
 #aboutSection, #timelineSection{
-  background-color: #2b2b2bb8;
+  background-color: #1b1b1b;
 }
 
 #timelineSection{
-  padding: 1px 0 60px 0;
+  padding: 1px 0 0 0;
 }
 
 .fullSection{
@@ -204,11 +204,11 @@ a:hover{
   width: 100%;
   overflow: hidden;
   padding-top: 64px;
+  border-bottom: solid 1px #868a8c78;
 }
 
 .teamRole{
   color: #fcd26c;
-  margin-bottom: 20px;
   font-size: 11px;
   margin-top: 8px;
   letter-spacing: 2px;
@@ -241,8 +241,8 @@ a:hover{
 }
 
 .bigMarginTop{
-  margin-top: 80px;
-  margin-bottom: 50px;
+  margin-top: 50px;
+  margin-bottom: 20px;
 }
 
 .teamWrapper .our-team .team-pic{
@@ -270,7 +270,7 @@ a:hover{
   left:0;
   width:100%;
   height:100%;
-  background: rgba(255, 255, 255, 0.69);
+  background: rgba(0, 0, 0, 0.8);
   opacity:0;
   transition: all 0.30s ease 0s;
 }
@@ -348,6 +348,7 @@ a:hover{
   cursor: pointer;
   background-color: #fec02c;
   color: #fff;
+  margin-bottom: 20px;
   border: solid 1px #5d5d5d;
   transition: all .3s linear;
 }
@@ -400,6 +401,7 @@ a:hover{
   display: block;
   position: relative;
   z-index: 1000;
+  border-top: solid 1px #2b2b2b;
 }
 
 #copyright{
@@ -644,10 +646,13 @@ a:hover{
 #whatContainer h4{
   color: #fff;
   font-size: 24px;
+  margin-bottom: 30px;
+  height: 55px;
 }
 
 #team h4{
   text-transform: uppercase;
+  height: 30px;
 }
 
 #whatContainer p{
@@ -961,28 +966,36 @@ a:hover{
 }
 
 .walletStartMining{
-  padding-top: 10px;
-  font-size:27px;
-
-  background-color: #353535;
-  color: #bbb;
-  border-right: solid 1px #7b7b7b;
+  position: absolute;
+  display: block;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  font-size: 20px;
+  background-color: #ffffff;
+  color: #f20;
   display: inline-block;
-  width: 70px;
+  width: 300px;
   cursor: pointer;
   text-align: center;
+  border-right: solid 1px #7b7b7b;
+  border-left: solid 1px #7b7b7b;
   transition: all .3s linear;
+}
+
+.walletStartMining a{
+  padding-top: 5px;
+  display: block;
+  color: #000;
+}
+
+.walletStartMining a:hover{
+  color: #ffc12c;
 }
 
 .walletStartMining:hover{
   background-color: #191919;
   transition: all .3s linear;
-}
-
-.walletSection{
-  padding: 15px;
-  padding-top: 5px;
-  border-right: solid 1px #7b7b7b;
 }
 
 .minningController p{
@@ -1010,17 +1023,17 @@ a:hover{
 }
 
 #threadsControll .button{
-  display: block;
+  display: inline-block;
   background-color: #ffc12c;
   color: #1f1f1f;
-  font-size: 18px;
+  font-size: 26px;
   width: 21px;
-  height: 21px;
+  height: 29px;
   border: none;
-  margin-top: 1px;
   text-align: center;
   cursor: pointer;
   transition: all .3s linear;
+  margin-left: 3px;
 }
 
 #threadsControll .button:hover{
@@ -1035,19 +1048,18 @@ a:hover{
 #threadsNumber{
   font-size: 20px;
   padding: 0 10px;
-  width: 30px;
+  width: 40px;
   text-align: center;
-  line-height: 39px;
+  line-height: 26px;
   display: inline-block;
   color: #fff;
   background-color: #d23c25;
   vertical-align: top;
   padding-top: 4px;
-    margin-right: 1px;
 }
 
 #minningController{
-  border: solid 1px #7b7b7b;
+  border-top:none;
   padding-bottom: 0;
   margin-bottom: 15px;
   display: inline-block;
@@ -1078,10 +1090,17 @@ a:hover{
 }
 
 .WEBD{
-    display: inline-block;
-    margin-left: 20px;
-    font-size: 20px;
-    color: #fec02c;
+  display: inline-block;
+  margin-left: 20px;
+  font-size: 20px;
+  color: #fec02c;
+  vertical-align: top;
+  padding-top: 6px;
+  float: right;
+  min-width: 25%;
+  text-align: center;
+  margin-right: 6px;
+  border-left: solid 1px #7b7b7b;
 }
 
 #p2p-network{
@@ -1117,3 +1136,57 @@ a:hover{
     font-size: 12px;
 }
 
+#p2p-network h3,#timelineSection h3{
+  color: #f9dd9a;
+  text-align: center;
+  letter-spacing: 3px;
+  line-height: 0;
+  margin-top: 20px;
+  line-height: 24px;
+}
+
+#timeline{
+  margin-top: 70px;
+  border-top: solid 1px #2b2b2b;
+  background-color: #1f1f1f;
+  padding: 70px 0 60px 0;
+}
+
+#dashboardMining{
+  position: fixed;
+  bottom: 0px;
+  height: 30px;
+  background-color: #1f1f1f;
+  display: block;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  border-top: solid 1px #7b7b7b;
+}
+
+.miningPowerText{
+  font-size: 10px;
+  display: inline-block;
+  padding: 0 10px;
+  vertical-align: top;
+  padding-top: 5px;
+}
+
+.miningPowerThreads{
+  font-size: 14px;
+  display: inline-block;
+  padding: 0 10px;
+  vertical-align: top;
+  padding-top: 8px;
+  text-transform: uppercase;
+  padding-bottom: 5px;
+  border-left: solid 1px #7b7b7b;
+}
+
+.miningPowerText .secondWord{
+  letter-spacing: 1px;
+  height: auto;
+  line-height: 10px;
+  margin: 0;
+  color: #fff;
+}

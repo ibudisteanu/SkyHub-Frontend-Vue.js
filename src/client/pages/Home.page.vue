@@ -6,15 +6,13 @@
 
             <WebDollarHero/>
 
-            <WhatIsHero/>
-
             <PeerToPeerHero />
 
-            <TimelineHero/>
+            <WhatIsHero/>
 
             <TeamHero/>
 
-            <!--<Wallets />-->
+            <TimelineHero/>
 
         </div>
 

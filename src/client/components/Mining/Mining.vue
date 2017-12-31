@@ -1,14 +1,11 @@
 <template>
 
-    <div>
+    <div id="dashboardMining" class="walletSection" >
 
         <div id="minningController">
-            <div type="button" class="walletStartMining" @click="this.startStopMining">
-                <a class="btn miningButton"  >
-                    <i :class="this.startedMining === true ? 'fa fa-stop' : 'fa fa-play2'" style="padding-right: 0;"></i>
-                </a>
-            </div>
+            <p class="miningPowerText">Mining <br/> <span class="secondWord">Power</span></p>
             <strong id="threadsNumber" :style="{background: this.miningWorkersCount ? 0 : '#d23c25'}">{{this.miningWorkersCount}}</strong>
+            <p class="miningPowerThreads">Threads</p>
             <div id="threadsControll">
                 <div class="button" type="button" @click="this.destroyOneMiningWorker"> <p>-</p>
                 </div>
@@ -18,7 +15,13 @@
             </div>
         </div>
 
-        <p class="WEBD">{{ Math.round(this.reward * 10000000) / 10000000 }} WEBD</p>
+        <div type="button" class="walletStartMining" @click="this.startStopMining">
+            <a class="btn miningButton"  >
+                <p>{{ this.startedMining === true ? 'Stop Mining' : 'Start Mining'}}</p>
+            </a>
+        </div>
+
+        <p class="WEBD">{{ Math.round(this.reward * 10000000) / 10000000 }} WBD MINED</p>
 
         <div>
             <div id="miningDetails">
@@ -28,8 +31,6 @@
         </div>
 
     </div>
-
-
 
 </template>
 
