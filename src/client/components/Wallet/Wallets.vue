@@ -13,7 +13,6 @@
 
             <div id="dashboardWallet">
 
-
                 <div class="walletController">
                     <a class="btn" @click="this.handleAddWallet">
                         <i class="fa fa-plus" ></i>

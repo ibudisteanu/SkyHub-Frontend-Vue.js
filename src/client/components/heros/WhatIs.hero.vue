@@ -13,7 +13,7 @@
                         <p>You can start mining WBD in your Browser immediately because WebDollar is The First Blockchain Running Fully in Browser.</p>
                     </div>
                     <div>
-                        <img src="public/assets/images/WebDollar-Browser.png">
+                        <img src="public/assets/images/WebDollar-Security.png">
                         <h4>Instant Security and Privacy</h4>
                         <p></p>
                     </div>

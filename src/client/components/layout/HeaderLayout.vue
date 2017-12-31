@@ -11,12 +11,9 @@
             <a href="/public/doc/WebDollar-White-Paper.pdf" target="_blank">White Paper</a>
             <a href="#what-is-WebDollar">About</a>
             <a href="#p2p-network">Network</a>
-            <a @click="handleWalletButton" class="walletMenuItem">Wallet</a>
 
             <a href="javascript:void(0);" style="font-size:15px;" class="icon showMenu" @click="this.showMobileMenu">&#9776;</a>
         </div>
-
-        <div id="modalBackground" > </div>
 
     </div>
 

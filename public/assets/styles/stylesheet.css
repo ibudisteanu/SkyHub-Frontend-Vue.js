@@ -368,7 +368,7 @@ a:hover{
   position: fixed!important;
   position: relative;
   width: 100%;
-  border-bottom: solid 1px #545454;
+  border-bottom: solid 1px #737373;
   background-color: #313131;
 }
 
@@ -421,7 +421,7 @@ a:hover{
   margin-bottom:-100px;
   z-index: 900;
   transition: all .3s linear;
-  border-top: solid 1px #e0e0e0;
+  border-top: solid 1px #000000;
   border-left: solid 1px #444;
 }
 
@@ -442,7 +442,7 @@ a:hover{
   display: block;
   bottom: 30px;
   position: relative;
-  z-index: 1000;
+  z-index: 500;
   border-top: solid 1px #444444;
 }
 
@@ -975,7 +975,7 @@ a:hover{
   transform: translateY(-50%);
 }
 
-#modalBackground{
+.modalBackground{
   position: fixed;
   width: 100%;
   height: 100%;
@@ -1067,7 +1067,7 @@ a:hover{
 
 #threadsControll .button{
   display: inline-block;
-  background-color: #3a3939;
+  background-color: #1f1f1f;
   color: #fff;
   font-size: 26px;
   border: solid 1px #565656;
@@ -1252,14 +1252,4 @@ a:hover{
 
 #threadsControll .rightButton{
   float: right;
-}
-
-.walletMenuItem{
-  background-color: #ffc12c;
-  color: #1f1f1f!important;
-}
-
-.walletMenuItem:hover{
-  background-color: #a57b20!important;
-  color: #eaeaea!important
 }
