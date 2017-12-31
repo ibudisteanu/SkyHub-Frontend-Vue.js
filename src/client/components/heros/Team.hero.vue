@@ -93,7 +93,7 @@
                         <div class="team-pic">
                             <img src="/public/assets/images/team/silviuStroe.jpg">
                             <div class="over-layer">
-                                <ul class="social-link">
+                                <ul class="social-link social-link-4">
                                     <li><a href="https://www.facebook.com/s1lviu/" target="_blank"  class="fa fa-facebook"></a></li>
                                     <li><a href="https://github.com/s1lviu" target="_blank"  class="fa fa-github"></a></li>
                                     <li><a href="https://silviu-s.com/" target="_blank"  class="fa fa-globe"></a></li>
@@ -123,6 +123,32 @@
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
+                            <img src="/public/assets/images/team/Iulian-Vasilescu.jpg">
+                            <div class="over-layer">
+                                <ul class="social-link">
+                                    <li> <a href="https://www.facebook.com/iulian.vasilescu.1" target="_blank" class="fa fa-facebook"></a> </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <h4>IULIAN VASILESCU</h4>
+                        <h5 class="teamRole">DESIGNER - EXPERT</h5>
+                        <p></p>
+                    </div>
+                    <div class="our-team">
+                        <div class="team-pic">
+                            <img src="/public/assets/images/team/Patrick-McCullough.jpg">
+                            <div class="over-layer">
+                                <ul class="social-link">
+                                    <li> <a href="https://www.linkedin.com/in/patrick-mccullough-982643b/" target="_blank" class="fa fa-linkedin2"></a> </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <h4 style="text-transform: none; ">PATRICK McCULLOUGH</h4>
+                        <h5 class="teamRole">ADVISOR</h5>
+                        <p>Patrick is the presentation coach for Singularity University's SU Ventures in Silicon Valley. He recently joined the Unreasonable Group for their Project Literacy Lab with Pearson, and he coaches senior executives for GE in Europe.</p>
+                    </div>
+                    <div class="our-team">
+                        <div class="team-pic">
                             <img src="/public/assets/images/team/AdrianManea.jpg">
                             <div class="over-layer">
                                 <ul class="social-link">
@@ -136,20 +162,6 @@
                         <h5 class="teamRole">DESIGNER - EXPERT</h5>
                         <p>Adrian Manea is a Digital Product Designer and Developer at Focus Aesthetic Dynamics. He is focused on Aesthetic Dynamics.</p>
                     </div>
-                    <div class="our-team">
-                        <div class="team-pic">
-                            <img src="/public/assets/images/team/Iulian-Vasilescu.jpg">
-                            <div class="over-layer">
-                                <ul class="social-link">
-                                    <li> <a href="https://www.facebook.com/iulian.vasilescu.1" target="_blank" class="fa fa-facebook"></a> </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <h4>IULIAN VASILESCU</h4>
-                        <h5 class="teamRole">DESIGNER - EXPERT</h5>
-                        <p></p>
-                    </div>
-
                 </div>
             </div>
         </div>
