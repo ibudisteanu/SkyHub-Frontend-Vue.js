@@ -984,8 +984,6 @@ a:hover{
   width: 230px;
   cursor: pointer;
   text-align: center;
-  border-right: solid 1px #7b7b7b;
-  border-left: solid 1px #7b7b7b;
   transition: all .3s linear;
 }
 
@@ -1033,11 +1031,13 @@ a:hover{
 
 #threadsControll .button{
   display: inline-block;
-  background-color: #ffc12c;
-  color: #1f1f1f;
+  background-color: #3a3939;
+  color: #fff;
   font-size: 26px;
+  border: solid 1px #565656;
   width: 31px;
-  border: none;
+  border-top: none;
+  border-bottom: none;
   text-align: center;
   cursor: pointer;
   transition: all .3s linear;
@@ -1169,7 +1169,7 @@ a:hover{
   position: fixed;
   bottom: 0px;
   height: 30px;
-  background-color: #1f1f1f;
+  background-color: #262626;
   display: block;
   left: 0;
   right: 0;
