@@ -2,7 +2,7 @@
 
     <div v-if="this.walletAddress !== null && this.walletAddress !== undefined">
 
-        <Modal title="Wallet Adress" ref="modal">
+        <Modal title="Wallet Adres" ref="modal">
 
             <div slot="content">
 
@@ -11,7 +11,7 @@
                     <div class="section">
 
                         <div style="font-size: 20px">
-                            Adress
+                            Adres
                         </div>
 
                         <b style="color:gray" id="walletID">{{this.walletAddress.address.toString()}}</b>
@@ -38,7 +38,7 @@
 
                     <p class="title">Transfer WBD</p>
 
-                    <input class="adress" placeholder="Recipient Adress"/>
+                    <input class="adress" placeholder="Recipient Adres"/>
                     <!--{{this.toAddress||''.toString() }}-->
 
                     <input class="amount" placeholder="WBD Amount"/>
