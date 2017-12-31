@@ -28,7 +28,7 @@
                         <h4>ALEXANDRU IONUT BUDISTEANU</h4>
                         <h5 class="teamRole">LEAD PROTOCOL DEVELOPER</h5>
                         <p class="description">
-                            Alexandru'93 is a Forbes Europe 30 under 30 nominee in industry category. In 2013, he was nominated by Time Magazine as one of the most influential teens of the world. MIT Lincoln Laboratory named an asteroid with his name.</a>
+                            Alexandru'93 is a Forbes Europe 30 under 30 nominee in industry category. In 2013, he was nominated by Time Magazine as one of the most influential teens of the world. MIT named an asteroid with his name.</a>
                         </p>
                     </div>
                     <div class="our-team">
