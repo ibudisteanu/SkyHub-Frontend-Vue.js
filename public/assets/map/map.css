@@ -132,3 +132,16 @@
         transform: scale(0.8);
     }
 }
+
+.peer-connected-browser {
+    animation: pulse 5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        fill: #001F3F!important;
+    }
+    100% {
+        fill: #FF4136!important;
+    }
+}

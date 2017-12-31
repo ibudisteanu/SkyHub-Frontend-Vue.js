@@ -119,7 +119,7 @@
                         </div>
                         <h4>ISSAM OUTALEB</h4>
                         <h5 class="teamRole">LEAD STRATEGIC MANAGEMENT</h5>
-                        <p>Dr Issam Outaleb is a Business Management Senior Consultant and Strategist who partners with top tier business managers, executives and marketers to grow business. After working in management consulting and marketing strategies for brands and mid-tier biotech, Issam knows what truly drives conversions, product launches, and successful strategic and operational planning. Issam holds a PhD in Bioinformatics at Max-Planck Institute in collaboration with University of Freiburg, Germany</p>
+                        <p>Dr Issam Outaleb is a Business Management Senior Consultant and Strategist who partners with top tier executives and marketers. Issam knows what truly drives conversions, product launches, and successful strategic and operational planning.</p>
                     </div>
                     <div class="our-team">
                         <div class="team-pic">

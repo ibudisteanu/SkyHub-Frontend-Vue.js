@@ -3,6 +3,30 @@
   src: url(../fonts/avenir-light.woff);
 }
 
+/*::-webkit-scrollbar {*/
+  /*width:9px;*/
+/*}*/
+
+/*::-webkit-scrollbar-track {*/
+  /*-webkit-border-radius:5px;*/
+  /*border-radius:5px;*/
+  /*background:rgba(0,0,0,0.1);*/
+/*}*/
+
+/*::-webkit-scrollbar-thumb {*/
+  /*-webkit-border-radius:5px;*/
+  /*border-radius:5px;*/
+  /*background:rgba(0,0,0,0.2);*/
+/*}*/
+
+/*::-webkit-scrollbar-thumb:hover {*/
+  /*background:rgba(0,0,0,0.4);*/
+/*}*/
+
+/*::-webkit-scrollbar-thumb:window-inactive {*/
+  /*background:rgba(0,0,0,0.05);*/
+/*}*/
+
 * {
 	margin: 0;
 	padding: 0;
@@ -11,7 +35,6 @@
 body{
   background: #000;
   color: #D5D5D5;
-  padding-top: 60px;
   font-family: avenir;
 }
 
@@ -138,7 +161,7 @@ a:hover{
 .verticalAlignMiddle{
   width: 100%;
   position: relative;
-  top: 40%;
+  top: 50%;
   transform: translateY(-50%);
 }
 
@@ -204,8 +227,6 @@ a:hover{
   height: 100%;
   width: 100%;
   overflow: hidden;
-  padding-top: 64px;
-  border-bottom: solid 1px #868a8c78;
 }
 
 .teamRole{
@@ -358,14 +379,12 @@ a:hover{
 .walletSection{
   display: inline-block;
   vertical-align: top;
-  height: 310px;
-  margin-top: 27px;
+  height: 315px;
   overflow: scroll;
   width: 100%;
 }
 
 .walletController{
-  position: fixed!important;
   position: relative;
   width: 100%;
   border-bottom: solid 1px #737373;
@@ -1151,8 +1170,12 @@ a:hover{
   border-left: solid 1px #444444;
 }
 
-#p2p-network{
-    padding-top: 40px;
+#p2p-network,#what-is-WebDollar,#team,#timelineSection{
+    padding-top: 60px;
+}
+
+#mainSection{
+  margin-top: 60px;
 }
 
 .allWaletsContaier{
@@ -1166,6 +1189,10 @@ a:hover{
   margin: 5px;
   width: 100%;
   cursor: pointer;
+}
+
+#allWalets .walletAdress:last-child{
+  margin-bottom: 1px;
 }
 
 #allWalets .walletAdress img{
