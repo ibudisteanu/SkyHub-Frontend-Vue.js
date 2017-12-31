@@ -4,7 +4,7 @@
         <!--<img src="public/WebDollar-logo-black.png" id="logo"/>-->
 
         <div class="topnav" id="menu">
-            <a href="#mainSection" class="active" id="logoMenu"><img src="public/WebDollar-logo-black.png" id="logo"/></a>
+            <a href="#mainSection" class="active" id="logoMenu"><img src="public/WebDollar-logo-white.png" id="logo"/></a>
 
             <a href="#timelineSection">Timeline</a>
             <a href="#team">Team</a>

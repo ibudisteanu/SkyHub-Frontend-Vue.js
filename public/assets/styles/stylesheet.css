@@ -40,9 +40,11 @@ h2{
 
 h3{
   color: #8e8e8e;
-  letter-spacing: 5px;
+  letter-spacing: 4px;
   font-size: 18px;
+  margin-top: 30px;
   line-height: 50px;
+  color: #fff;
   transition: all .5s linear;
 }
 
@@ -162,7 +164,6 @@ a:hover{
   width: 100%;
   top:0;
   background-color: #1f1f1f;
-  border-bottom: solid 2px #000000;
   z-index: 1000;
 }
 
@@ -393,6 +394,9 @@ a:hover{
   max-width: 170px;
   height: auto;
   opacity: 0.8;
+  background-color: #ffc12c;
+  border-radius: 110px;
+  padding: 5px;
 }
 
 #footer{
@@ -663,7 +667,7 @@ a:hover{
 
 .topnav {
   overflow: hidden;
-  background-color: #1f1f1f;
+  background-color: #262626;
 }
 
 .topnav a {
@@ -671,7 +675,7 @@ a:hover{
   display: block;
   color: #f2f2f2;
   text-align: center;
-  padding: 22px 16px;
+  padding: 23px 16px;
   text-decoration: none;
   font-size: 14px;
   transition: all .3s linear;
@@ -710,7 +714,7 @@ a:hover{
 }
 
 .btnPosition{
-  margin-top: 50px!important;
+  margin-top: 20px!important;
 }
 
 .btn-cont {
