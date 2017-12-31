@@ -334,6 +334,7 @@ a:hover{
 
 
 #walletButton {
+  display: none;
   margin: 0 auto;
   position: fixed;
   z-index: 100;
@@ -399,9 +400,10 @@ a:hover{
   width: 100%;
   height: 52px;
   display: block;
+  bottom: 30px;
   position: relative;
   z-index: 1000;
-  border-top: solid 1px #2b2b2b;
+  border-top: solid 1px #444444;
 }
 
 #copyright{
@@ -671,13 +673,13 @@ a:hover{
   text-align: center;
   padding: 22px 16px;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 14px;
   transition: all .3s linear;
 }
 
 .topnav a:hover {
-  background-color: #fec02c;
-  color: black;
+  background-color: #424242;
+  color: #ffc12c;
   transition: all .3s linear;
 }
 
@@ -975,7 +977,7 @@ a:hover{
   background-color: #ffffff;
   color: #f20;
   display: inline-block;
-  width: 300px;
+  width: 230px;
   cursor: pointer;
   text-align: center;
   border-right: solid 1px #7b7b7b;
@@ -1003,8 +1005,9 @@ a:hover{
 }
 
 #miningDetails{
-    border-top: solid 1px #7b7b7b;
-    padding-top: 18px;
+  display: inline-block;
+  line-height: 32px;
+  margin-left: 10px;
 }
 
 #miningDetails p{
@@ -1014,6 +1017,8 @@ a:hover{
 #threadsControll{
   display: inline-block;
   vertical-align: top;
+  width: 100%;
+  background-color: #1f1f1f;
 }
 
 #allWalets{
@@ -1027,13 +1032,11 @@ a:hover{
   background-color: #ffc12c;
   color: #1f1f1f;
   font-size: 26px;
-  width: 21px;
-  height: 29px;
+  width: 31px;
   border: none;
   text-align: center;
   cursor: pointer;
   transition: all .3s linear;
-  margin-left: 3px;
 }
 
 #threadsControll .button:hover{
@@ -1056,6 +1059,12 @@ a:hover{
   background-color: #d23c25;
   vertical-align: top;
   padding-top: 4px;
+  border-right: solid 1px #444;
+}
+
+.whiteText{
+  color: #fff;
+  margin-left: 10px;
 }
 
 #minningController{
@@ -1100,7 +1109,7 @@ a:hover{
   min-width: 25%;
   text-align: center;
   margin-right: 6px;
-  border-left: solid 1px #7b7b7b;
+  border-left: solid 1px #444444;
 }
 
 #p2p-network{
@@ -1161,7 +1170,7 @@ a:hover{
   left: 0;
   right: 0;
   z-index: 1000;
-  border-top: solid 1px #7b7b7b;
+  border-top: solid 1px #444444;
 }
 
 .miningPowerText{
@@ -1180,7 +1189,8 @@ a:hover{
   padding-top: 8px;
   text-transform: uppercase;
   padding-bottom: 5px;
-  border-left: solid 1px #7b7b7b;
+  color: #fff;
+  letter-spacing: 5px;
 }
 
 .miningPowerText .secondWord{
@@ -1189,4 +1199,22 @@ a:hover{
   line-height: 10px;
   margin: 0;
   color: #fff;
+}
+
+#threadsControll .leftButton{
+  float: left;
+}
+
+#threadsControll .rightButton{
+  float: right;
+}
+
+.walletMenuItem{
+  background-color: #ffc12c;
+  color: #1f1f1f!important;
+}
+
+.walletMenuItem:hover{
+  background-color: #a57b20!important;
+  color: #eaeaea!important
 }

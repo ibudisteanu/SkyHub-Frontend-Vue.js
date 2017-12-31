@@ -5,30 +5,22 @@
         <div id="minningController">
             <p class="miningPowerText">Mining <br/> <span class="secondWord">Power</span></p>
             <strong id="threadsNumber" :style="{background: this.miningWorkersCount ? 0 : '#d23c25'}">{{this.miningWorkersCount}}</strong>
-            <p class="miningPowerThreads">Threads</p>
-            <div id="threadsControll">
-                <div class="button" type="button" @click="this.destroyOneMiningWorker"> <p>-</p>
-                </div>
-
-                <div class="button" type="button"  @click="this.createMiningWorker"> <p>+</p>
-                </div>
-            </div>
-        </div>
-
-        <div type="button" class="walletStartMining" @click="this.startStopMining">
-            <a class="btn miningButton"  >
-                <p>{{ this.startedMining === true ? 'Stop Mining' : 'Start Mining'}}</p>
-            </a>
-        </div>
-
-        <p class="WEBD">{{ Math.round(this.reward * 10000000) / 10000000 }} WBD MINED</p>
-
-        <div>
             <div id="miningDetails">
                 <p class="">{{this.statusMining||(this.hashesPerSecond.toString()+' hashes/sec')}} </p>
             </div>
-
         </div>
+
+        <div type="button" class="walletStartMining">
+            <div id="threadsControll">
+                <div class="button leftButton" type="button" @click="this.destroyOneMiningWorker"> <p>-</p>
+                </div>
+                <p class="miningPowerThreads">Threads</p>
+                <div class="button rightButton" type="button"  @click="this.createMiningWorker"> <p>+</p>
+                </div>
+            </div>
+        </div>
+
+        <p class="WEBD">{{ Math.round(this.reward * 10000000) / 10000000 }} <b class="whiteText">WBD MINED</b></p>
 
     </div>
 

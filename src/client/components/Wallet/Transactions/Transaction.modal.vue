@@ -17,7 +17,7 @@
                         <b style="color:gray">Balance</b> <br/>
 
                         <div style="font-size: 20px">
-                            0.0 WEBD
+                            0.0 WBD
                         </div>
 
                     </div>

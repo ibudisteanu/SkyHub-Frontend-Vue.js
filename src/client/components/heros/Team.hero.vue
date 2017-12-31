@@ -59,7 +59,7 @@
                         </div>
                         <h4>ADRIAN STRATULAT</h4>
                         <h5 class="teamRole">LEAD EVANGELIST</h5>
-                        <p>Adrian is a social innovator specialised in emerging energy technologies, he has a background in geopolitics and diplomacy, but is an entrepreneur at heart. Within WebDollar's core team</p>
+                        <p>Adrian'87 is a social innovator specialised in emerging energy technologies, he has a background in geopolitics and diplomacy, but is an entrepreneur at heart. Within WebDollar's core team</p>
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
