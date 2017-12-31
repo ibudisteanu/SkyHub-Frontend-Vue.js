@@ -4,50 +4,53 @@
 
         <Modal title="Wallet Adress" ref="modal">
 
-            <div slot="content" class="twoColums">
+            <div slot="content">
 
-                <div class="section">
+                <div class="twoColums">
 
-                    <div style="font-size: 20px">
-                        Adress
+                    <div class="section">
+
+                        <div style="font-size: 20px">
+                            Adress
+                        </div>
+
+                        <b style="color:gray" id="walletID">{{this.walletAddress.address.toString()}}</b>
+
+                        <div class="copyToClipboard" @click="this.copyToClipboard()">
+                            Copy to Clipboard
+                        </div>
+
                     </div>
 
-                    <b style="color:gray" id="walletID">{{this.walletAddress.address.toString()}}</b>
+                    <div class="section">
 
-                    <div class="copyToClipboard" @click="this.copyToClipboard()">
-                        Copy to Clipboard
+                        <div style="font-size: 20px">
+                            Balance
+                        </div>
+
+                        <b class="ballance" style="color:gray">0.0 WEBD</b>
+
                     </div>
 
                 </div>
 
-                <div class="section">
+                <form class="transfer">
 
-                    <div style="font-size: 20px">
-                        Balance
-                    </div>
+                    <p class="title">Transfer WBD</p>
 
-                    <b class="ballance" style="color:gray">0.0 WEBD</b>
+                    <input class="adress" placeholder="Recipient Adress"/>
+                    <!--{{this.toAddress||''.toString() }}-->
 
-                </div>
+                    <input class="amount" placeholder="WBD Amount"/>
+                    <!--{{this.toAmount||0.0.toString() }}-->
+
+                    <button type="submit" class="button">
+                        SEND WBD
+                    </button>
+                </form>
 
             </div>
-            <div class="transfer">
-                <div >
 
-                    Transfer To: <br/>
-
-                    {{this.toAddress||''.toString() }}
-
-                </div>
-
-                <div >
-
-                    Amount: <br/>
-
-                    {{this.toAmount||0.0.toString() }}
-
-                </div>
-            </div>
 
         </Modal>
 

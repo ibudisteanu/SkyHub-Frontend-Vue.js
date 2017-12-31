@@ -38,6 +38,10 @@ body{
   font-family: avenir;
 }
 
+input:focus, textarea:focus{
+  outline: none;
+}
+
 h1{
   letter-spacing: 2px;
   margin: 0;
@@ -1308,8 +1312,8 @@ a:hover{
 }
 
 .modal .twoColums{
-  margin-bottom: 20px;
   border-bottom: solid 1px #565656;
+  background-color: #151515;
 }
 
 .copyToClipboard{
@@ -1330,3 +1334,49 @@ a:hover{
   margin-top: 20px;
 }
 
+.modal .transfer{
+  padding: 0 10px;
+}
+
+.modal .transfer input{
+  border: none;
+  background-color: #333333;
+  padding: 10px 0 10px 10px;
+  margin: 10px 0;
+  color: #fff
+}
+
+.modal .transfer .adress{
+  width: 100%;
+  display: block;
+}
+
+.modal .transfer .amount {
+  width: 100%;
+}
+
+.modal .transfer .title{
+  background-color: #1f1f1f;
+  padding-top: 30px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  padding-bottom: 20px;
+}
+
+.modal .transfer .button{
+  margin-top: 10px;
+  background-color: #ffc12c;
+  color: #1f1f1f;
+  padding: 10px 0 10px 0;
+  margin-bottom: 15px;
+  width: 100%;
+  font-size: 14px;
+  border: none;
+  transition: all 0.5s ease;
+}
+
+.modal .transfer .button:hover{
+  background-color: #fbdb8d;
+  color: #000000;
+  transition: all 0.5s ease
+}
