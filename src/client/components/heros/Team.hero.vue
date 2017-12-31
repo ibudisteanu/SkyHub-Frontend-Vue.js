@@ -73,7 +73,7 @@
                         </div>
                         <h4>COSMIN-DUMITRU OPREA</h4>
                         <h5 class="teamRole">DEVELOPER</h5>
-                        <p>Cosmin'23 is a Data Structures Teaching Assistant at Politehnica University of Bucharest, Software Engineer with lot of knowledge in algorithms.</p>
+                        <p>Cosmin'94 is a Teaching Assistant at Politehnica University of Bucharest, Software Engineer with lot of knowledge in algorithms. Cosmin has won three Honorable Mentions at the ACM-ICPC SEERC.</p>
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
