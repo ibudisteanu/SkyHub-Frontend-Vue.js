@@ -26,7 +26,7 @@
                         </div>
 
                         <h4>ALEXANDRU IONUT BUDISTEANU</h4>
-                        <h5 class="teamRole">LEAD DEVELOPER</h5>
+                        <h5 class="teamRole">LEAD PROTOCOL DEVELOPER</h5>
                         <p class="description">
                             Alexandru'93 is a Forbes Europe 30 under 30 nominee in industry category. In 2013, he was nominated by Time Magazine as one of the most influential teens of the world. MIT Lincoln Laboratory named an asteroid with his name.</a>
                         </p>
@@ -44,7 +44,7 @@
                             </div>
                         </div>
                         <h4>Alexandru IONUT Panait</h4>
-                        <h5 class="teamRole">LEAD FRONTEND</h5>
+                        <h5 class="teamRole">LEAD FRONTEND DEVELOPER</h5>
                         <p>Alexandru'95 is a young entrepreneur interested in technology business. General Manager and Founder of AIpanait and AIPsolution. In our team he's the lead of the platform's interface development.</p>
                     </div>
                     <div class="our-team">
