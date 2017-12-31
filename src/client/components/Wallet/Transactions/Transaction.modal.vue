@@ -1,29 +1,38 @@
 <template>
 
     <div v-if="this.walletAddress !== null && this.walletAddress !== undefined">
-        <Modal title="Send Funds" ref="modal">
-            <div slot="content">
 
-                <div class="row" style="padding-bottom: 50px">
-                    <div class="col-md-6">
+        <Modal title="Wallet Adress" ref="modal">
 
-                        <b style="color:gray">Address</b><br/>
-                        <div style="word-wrap:break-word;">
-                            {{this.walletAddress.address.toString()}}
-                        </div>
+            <div slot="content" class="twoColums">
+
+                <div class="section">
+
+                    <div style="font-size: 20px">
+                        Adress
                     </div>
 
-                    <div class="col-md-6">
-                        <b style="color:gray">Balance</b> <br/>
+                    <b style="color:gray" id="walletID">{{this.walletAddress.address.toString()}}</b>
 
-                        <div style="font-size: 20px">
-                            0.0 WBD
-                        </div>
-
+                    <div class="copyToClipboard" @click="this.copyToClipboard()">
+                        Copy to Clipboard
                     </div>
+
                 </div>
 
-                <div class="row">
+                <div class="section">
+
+                    <div style="font-size: 20px">
+                        Balance
+                    </div>
+
+                    <b class="ballance" style="color:gray">0.0 WEBD</b>
+
+                </div>
+
+            </div>
+
+                <div >
 
                     Transfer To: <br/>
 
@@ -31,7 +40,7 @@
 
                 </div>
 
-                <div class="row">
+                <div >
 
                     Amount: <br/>
 
@@ -40,8 +49,8 @@
                 </div>
 
 
-            </div>
         </Modal>
+
     </div>
 
 </template>
@@ -75,6 +84,13 @@
             showModal(){
                 this.$refs['modal'].showModal();
             },
+
+            copyToClipboard(){
+                var copyText = document.getElementById("walletID").innerHTML;
+                copyText.select();
+                document.execCommand("Copy");
+                alert("Copied the text: " + copyText.value);
+            }
 
         }
 

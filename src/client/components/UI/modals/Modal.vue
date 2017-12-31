@@ -35,7 +35,7 @@
 
         </div>
 
-        <div class="modalBackground" > </div>
+        <div id="modalBackground" > </div>
 
     </div>
 

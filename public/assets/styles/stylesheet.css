@@ -987,14 +987,20 @@ a:hover{
   right: 0;
   text-align: center;
   background-color: #1f1f1f;
-  padding: 20px;
   display: none;
   z-index: 1600;
   top: 50%;
   transform: translateY(-50%);
 }
 
-.modalBackground{
+.modal #walletID{
+  word-wrap: break-word;
+  display: block;
+  line-height: 12px;
+  margin: 10px 0;
+}
+
+#modalBackground{
   position: fixed;
   width: 100%;
   height: 100%;
@@ -1002,6 +1008,7 @@ a:hover{
   z-index: 1500;
   display: none;
   top:0;
+  left: 0;
 }
 
 .modal .close{
@@ -1015,6 +1022,11 @@ a:hover{
 
 .modal .footer{
 
+}
+
+.modal .title{
+  background-color: #262626;
+  padding: 10px 0;
 }
 
 .modal .footer .button{
@@ -1217,6 +1229,10 @@ a:hover{
   vertical-align: top;
 }
 
+.modal b{
+  margin-left: 0;
+}
+
 #p2p-network h3,#timelineSection h3{
   color: #f9dd9a;
   text-align: center;
@@ -1280,3 +1296,30 @@ a:hover{
 #threadsControll .rightButton{
   float: right;
 }
+
+.twoColums .section{
+  overflow: hidden;
+  padding: 20px;
+}
+
+.twoColums .section:first-child{
+  border-right: solid 1px #565656;
+}
+
+.modal .twoColums{
+  margin-bottom: 20px;
+  border-bottom: solid 1px #565656;
+}
+
+.copyToClipboard{
+  background-color: #313131;
+  padding: 7px 0 5px 0;
+  border: solid 1px #777;
+}
+
+.modal .ballance{
+  color: #ffc12c!important;
+  font-size: 30px;
+  margin-top: 20px;
+}
+
