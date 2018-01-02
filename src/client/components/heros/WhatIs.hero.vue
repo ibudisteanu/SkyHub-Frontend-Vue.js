@@ -15,12 +15,12 @@
                     <div>
                         <img src="public/assets/images/WebDollar-Security.png">
                         <h4>Immediate Security and Privacy</h4>
-                        <p></p>
+                        <p>Built on the most advanced blockchain technology using PPOW consensus. Your Security is Our Focus.</p>
                     </div>
                     <div>
                         <img src="public/assets/images/WebDollar-wallet.png">
                         <h4>Simple Web Payments</h4>
-                        <p>Easiest Blockchain Integration for Web Payments</p>
+                        <p>Easiest Blockchain Integration for Web Payments, and easy to use</p>
                     </div>
                 </div>
 
