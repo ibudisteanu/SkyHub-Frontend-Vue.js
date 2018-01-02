@@ -430,9 +430,10 @@ a:hover{
   max-width: 170px;
   height: auto;
   opacity: 0.8;
-  background-color: #ffc12c;
   border-radius: 110px;
   padding: 5px;
+  -webkit-filter: drop-shadow(0px 2px 10px rgba(255, 255, 255, 0.84));
+  filter: drop-shadow(0px 2px 10px rgba(255, 255, 255, 0.84));
 }
 
 #footer{
@@ -1226,7 +1227,7 @@ a:hover{
   text-align: center;
   letter-spacing: 3px;
   line-height: 0;
-  margin-top: 20px;
+  margin-bottom: 40px;
   line-height: 24px;
 }
 
