@@ -147,13 +147,15 @@
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width : 480px) {
+    .socialImage{
+        padding: 13px 0px 14px 10px;
+    }
     .main-timeline .timeline-content, .main-timeline .timeline:nth-child(2n) .timeline-content {
         padding: 10px 20px 58px 80px;
     }
     .main-timeline .year, .main-timeline .timeline:nth-child(2n) .year {
          padding: 10px 0 0 60px;
     }
-
     #timeline {
         padding: 70px 0 60px 0;
     }

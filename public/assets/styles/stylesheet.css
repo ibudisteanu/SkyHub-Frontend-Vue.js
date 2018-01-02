@@ -388,9 +388,13 @@ a:hover{
   margin-right: 20px;
 }
 
+#socialLinks *{
+  -webkit-box-sizing:initial;
+}
+
 .socialImage{
-  width: 18px;
-  padding: 14px 10px;
+  width: 22px;
+  padding: 13px 0px 14px 20px;
   cursor: pointer;
 }
 
