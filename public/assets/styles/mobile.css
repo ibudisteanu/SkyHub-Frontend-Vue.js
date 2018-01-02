@@ -60,10 +60,21 @@
     .verticalAlignMiddleMobileFix{
         top: 40%;
     }
+    #timeline{
+        padding: 70px 0 60px 30px;
+    }
 }
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
+    #whatContainer h4{
+        margin-bottom: 0;
+        font-size: 18px;
+        line-height: 35px;
+    }
+    #networkSection h1{
+        margin-top: 90px;
+    }
     #p2p-network{
         padding-top: 20px;
     }
@@ -77,7 +88,7 @@
         font-size: 14px;
     }
     p{
-        font-size: 14px;
+        font-size: 16px;
     }
     .mainLogo {
         width: 40%;
@@ -136,6 +147,16 @@
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width : 480px) {
+    .main-timeline .timeline-content, .main-timeline .timeline:nth-child(2n) .timeline-content {
+        padding: 10px 20px 58px 80px;
+    }
+    .main-timeline .year, .main-timeline .timeline:nth-child(2n) .year {
+         padding: 10px 0 0 60px;
+    }
+
+    #timeline {
+        padding: 70px 0 60px 0;
+    }
     .mainLogo {
         width: 50%;
     }
