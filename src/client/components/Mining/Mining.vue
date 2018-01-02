@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <p class="WEBD">{{ Math.round(this.reward * 10000000) / 10000000 }} <b class="whiteText">WBD MINED</b></p>
+        <p class="WEBD">{{ Math.round(this.reward * 10000000) / 10000000 }} <b class="whiteText">WEBD MINED</b></p>
 
     </div>
 

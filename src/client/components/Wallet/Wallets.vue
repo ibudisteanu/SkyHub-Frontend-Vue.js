@@ -61,7 +61,7 @@
 
         data() {
             return {
-                walletText: "Wallet: 0.0 WBD",
+                walletText: "Wallet: 0.0 WEBD",
             }
         },
 
