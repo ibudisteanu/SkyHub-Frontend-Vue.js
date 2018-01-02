@@ -44,7 +44,7 @@
                             </div>
                         </div>
                         <h4>Alexandru IONUT Panait</h4>
-                        <h5 class="teamRole">LEAD FRONTEND DEVELOPER</h5>
+                        <h5 class="teamRole">LEAD PLATFORM DEVELOPER</h5>
                         <p>Alexandru'95 is a young entrepreneur interested in technology business. General Manager and Founder of AIpanait and AIPsolution. In our team he's the lead of the platform's interface development.</p>
                     </div>
                     <div class="our-team">
@@ -119,7 +119,7 @@
                         </div>
                         <h4>ISSAM OUTALEB</h4>
                         <h5 class="teamRole">LEAD STRATEGIC MANAGEMENT</h5>
-                        <p>Dr Issam Outaleb'78 is a Business Management Senior Consultant and Strategist who partners with top tier executives and marketers. Issam knows what truly drives conversions, product launches, and successful strategic and operational planning.</p>
+                        <p>Issam'78 is a Business Management Senior Consultant and Strategist who partners with top tier executives and marketers. Issam knows what truly drives conversions, product launches, and successful strategic and operational planning.</p>
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
@@ -160,7 +160,7 @@
                         </div>
                         <h4>ADRIAN MANEA</h4>
                         <h5 class="teamRole">DESIGNER - EXPERT</h5>
-                        <p>Adrian Manea is a Digital Product Designer and Developer at Focus Aesthetic Dynamics. He is focused on Aesthetic Dynamics.</p>
+                        <p>Adrian'93 Manea is a twenty-four-year-old designer & developer from Romania who began his career at the age of sixteen. He is currently the administrator of a contracting company.</p>
                     </div>
                 </div>
             </div>
