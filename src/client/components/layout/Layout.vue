@@ -16,8 +16,6 @@
 
         </div>
 
-        <Wallet/>
-
         <FooterLayout/>
 
     </div>
@@ -30,8 +28,6 @@
     import HeaderLayout from "client/components/layout/HeaderLayout.vue"
     import FooterLayout from "client/components/layout/FooterLayout.vue"
 
-    import Wallet from "client/components/Wallet/Wallets.vue"
-
     export default{
 
         name: "Layout",
@@ -39,7 +35,6 @@
         components:{
             "HeaderLayout": HeaderLayout,
             "FooterLayout": FooterLayout,
-            "Wallet": Wallet,
         },
 
         computed:{

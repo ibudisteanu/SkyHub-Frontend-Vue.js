@@ -7,7 +7,7 @@
                 <h1 class="alignCenter">Peer-to-Peer Network</h1>
                 <h3 >On the following map you can see all your mining group connections in real time</h3>
 
-                <NativeMap/>
+                <div id="webDollarMap"></div>
 
             </div>
         </div>
@@ -17,13 +17,8 @@
 
 <script>
 
-    import NativeMap from "client/components/Map/NativeMap.vue"
-
     export default{
 
-        components:{
-            "NativeMap":NativeMap,
-        },
 
     }
 
