@@ -45,7 +45,7 @@
                         </div>
                         <h4>Alexandru IONUT Panait</h4>
                         <h5 class="teamRole">LEAD PLATFORM DEVELOPER</h5>
-                        <p>Alexandru'95 is a young entrepreneur interested in technology business. General Manager and Founder of a platform where you can hire Artificial Intelligence (AIpanait) and a software agency (AIPsolution).</p>
+                        <p>Alexandru'95 is a young entrepreneur interested in technology business. General Manager and Founder of a hiring Artificial Intelligence platform (AIpanait) and a software agency (AIPsolution).</p>
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
