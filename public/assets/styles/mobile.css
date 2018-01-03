@@ -102,11 +102,6 @@
     #aboutSection{
         padding: 1px 0 60px 0;
     }
-    #walletButton{
-        width: 100%!important;
-        border-radius: 0;
-        z-index: 1200;
-    }
     #aboutSection{
         padding: 100px 0;
     }

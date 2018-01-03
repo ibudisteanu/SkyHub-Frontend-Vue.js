@@ -168,7 +168,7 @@ a:hover{
   max-height: 100%;
   top:0;
   background-color: #1f1f1f;
-  z-index: 80;
+  z-index: 10;
 }
 
 #menu{
@@ -340,7 +340,6 @@ a:hover{
   max-width: 170px;
   height: auto;
   opacity: 0.8;
-  border-radius: 110px;
   padding: 5px;
   -webkit-filter: drop-shadow(0px 2px 6px rgba(255, 255, 255, 0.84));
   filter: drop-shadow(0px 2px 6px rgba(255, 255, 255, 0.84));
@@ -351,6 +350,7 @@ a:hover{
   width: 100%;
   height: 52px;
   display: block;
+  bottom:29px;
   position: relative;
   z-index: 500;
   border-top: solid 1px #444444;
@@ -359,7 +359,7 @@ a:hover{
 #copyright{
   display: inline-block;
   font-size: 12px;
-  line-height: 54px;
+  line-height: 48px;
   margin-left: 20px;
   color: #e2e2e2;
   width: auto;
