@@ -104,7 +104,7 @@
                         <h4>SILVIU STROE</h4>
                         <h5 class="teamRole"5>DEVELOPER</h5>
                         <p>
-                        Silviu'94 is a full stack developer, entrepreneur. He is the founder of one of the first VPN services in Romania, RoTunneling and is part of Yahoo - Wall of Fame. He also loves bleeding edge technologies and new challenges.
+                        Silviu'94 is a full stack developer and entrepreneur. He is the founder of one of the first VPN services in Romania, RoTunneling and is part of Yahoo - Wall of Fame. He also loves bleeding edge technologies and new challenges.
                         </p>
 
                     </div>
