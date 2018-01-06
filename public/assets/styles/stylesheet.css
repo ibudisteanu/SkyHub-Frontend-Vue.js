@@ -975,3 +975,7 @@ a:hover{
   display: inline-block;
   text-align: center
 }
+
+#WebDollarMap{
+  padding: 30px 0;
+}

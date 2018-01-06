@@ -6,6 +6,7 @@ Vue.use(Router)
 // route-level code splitting
 
 const HomePage = () => import('client/pages/Home.page.vue');
+const transactionsPage = () => import('client/pages/transactions.page.vue');
 
 export function createRouter () {
 
@@ -38,6 +39,7 @@ export function createRouter () {
 
       // { path: '/:url*', component: HomePage },
 
+        { path: '/transactions', component: transactionsPage },
       { path: '/:a?/:b?/:c?/:d?', component: HomePage },
       { path: '/:a?/:b?/:c?', component: HomePage },
       { path: '/:a?/:b?', component: HomePage },

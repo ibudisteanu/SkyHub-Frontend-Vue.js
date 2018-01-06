@@ -6,11 +6,11 @@
 
             <WebDollarHero/>
 
+            <WhatIsHero/>
+
             <PeerToPeerHero />
 
             <knowUs/>
-
-            <WhatIsHero/>
 
             <TeamHero/>
 
