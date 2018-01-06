@@ -931,3 +931,47 @@ a:hover{
   padding-top: 0;
   display: block;
 }
+
+#transactionContainer{
+  width: 80%;
+  margin: 0 auto;
+  display: block;
+  position: relative;
+}
+
+.transactionInfo{
+  width: 100%;
+  display: block;
+  margin: 10px 0;
+  background-color: #ffffff21;
+}
+
+.transactionInfo .id{
+  width: 10%;
+  display: inline-block;
+  text-align: center;
+}
+
+.transactionInfo .time{
+  width: 15%;
+  display: inline-block;
+  text-align: center
+}
+
+.transactionInfo .transactions{
+  width: 15%;
+  display: inline-block;
+  text-align: center
+}
+
+.transactionInfo .minedBy{
+  width: 40%;
+  display: inline-block;
+  text-align: center
+}
+
+.transactionInfo .size{
+  width: 20%;
+  display: inline-block;
+  text-align: center
+}
