@@ -1002,3 +1002,7 @@ a:hover{
 .collapse .collapse-content-box{
   background-color: #1f1f1fe0!important;
 }
+
+.testnet{
+  color: #0f0;
+}
