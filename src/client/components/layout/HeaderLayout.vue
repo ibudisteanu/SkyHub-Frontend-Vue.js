@@ -7,6 +7,7 @@
             <a href="#mainSection" class="active" id="logoMenu"><img src="public/WebDollar-logo-white.png" id="logo"/></a>
 
             <a href="#timelineSection">Timeline</a>
+            <a href="#faqSection">FAQ</a>
             <a href="#team">Team</a>
             <a href="/public/doc/WebDollar-White-Paper.pdf" target="_blank">White Paper</a>
             <a href="#what-is-WebDollar">About</a>

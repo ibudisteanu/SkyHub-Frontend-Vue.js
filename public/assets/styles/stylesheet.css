@@ -976,6 +976,23 @@ a:hover{
   text-align: center
 }
 
-#WebDollarMap{
+#WebDollarMap {
   padding: 30px 0;
+}
+
+.collapse .collapse-header{
+  background: #1f1f1f!important;
+}
+
+.collapse .collapse-content-box{
+  border: none!important;
+}
+
+#faqSection h1{
+  padding-top: 90px;
+  margin-top:0;
+}
+
+#faqSection{
+  margin-bottom: 30px;
 }

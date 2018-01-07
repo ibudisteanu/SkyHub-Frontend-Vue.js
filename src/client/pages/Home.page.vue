@@ -16,6 +16,8 @@
 
             <TimelineHero/>
 
+            <faq/>
+
 
         </div>
 
@@ -34,6 +36,7 @@
     import PeerToPeerHero from "client/components/heros/PeerToPeer.hero.vue"
     import TimelineHero from "client/components/heros/Timeline.hero.vue"
     import knowUs from "client/components/heros/knowUs.hero.vue"
+    import faq from "client/components/heros/faq.hero.vue"
 
     export default {
 
@@ -47,6 +50,7 @@
             "PeerToPeerHero": PeerToPeerHero,
             "TimelineHero": TimelineHero,
             "knowUs": knowUs,
+            "faq": faq,
         }
 
     }
