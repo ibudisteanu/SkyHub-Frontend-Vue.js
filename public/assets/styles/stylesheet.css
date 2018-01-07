@@ -981,7 +981,7 @@ a:hover{
 }
 
 .collapse .collapse-header{
-  background: #1f1f1f!important;
+  background: #ffffff00!important;
 }
 
 .collapse .collapse-content-box{
@@ -994,5 +994,11 @@ a:hover{
 }
 
 #faqSection{
-  margin-bottom: 30px;
+  width: 90%;
+  margin: 0 auto;
+  margin-bottom: 60px;
+}
+
+.collapse .collapse-content-box{
+  background-color: #1f1f1fe0!important;
 }
