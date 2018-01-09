@@ -97,11 +97,11 @@
                                     <li><a href="https://www.facebook.com/s1lviu/" target="_blank"  class="fa fa-facebook"></a></li>
                                     <li><a href="https://github.com/s1lviu" target="_blank"  class="fa fa-github"></a></li>
                                     <li><a href="https://silviu-s.com/" target="_blank"  class="fa fa-globe"></a></li>
-                                    <li> <a href="https://www.linkedin.com/in/silviustroe/" target="_blank" class="fa fa-linkedin2"></a> </li>
+                                    <li><a href="https://www.linkedin.com/in/silviustroe/" target="_blank" class="fa fa-linkedin2"></a> </li>
                                 </ul>
                             </div>
                         </div>
-                        <h4>SILVIU STROE</h4>
+                        <h4>SILVIU BOGDAN STROE</h4>
                         <h5 class="teamRole"5>DEVELOPER</h5>
                         <p>
                         Silviu is a full stack developer and entrepreneur. He is the founder of one of the first VPN services in Romania, RoTunneling and is part of Yahoo - Wall of Fame. He also loves bleeding edge technologies and new challenges.
