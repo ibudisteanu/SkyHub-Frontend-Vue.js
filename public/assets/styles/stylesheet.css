@@ -1006,3 +1006,12 @@ a:hover{
 .testnet{
   color: #0f0;
 }
+
+svg path,
+svg rect{
+  fill: #fec02c;
+}
+
+.alreadyMining{
+  display: none;
+}
