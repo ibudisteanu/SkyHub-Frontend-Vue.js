@@ -16828,7 +16828,9 @@ exports.default = {
         });
 
         this.minerAddress = WebDollar.Blockchain.Mining.minerAddress;
+        console.log("mining/miner-address-changed", this.minerAddress);
         WebDollar.Blockchain.Mining.emitter.on("mining/miner-address-changed", function (minerAddress) {
+            console.log("mining/miner-address-changed", minerAddress);
             _this.minerAddress = minerAddress;
         });
     },
@@ -17414,6 +17416,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   }
 })()}
 },{"vue":338,"vue-hot-reload-api":336,"vueify/lib/insert-css":339}],355:[function(require,module,exports){
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".show-sum-balances{\n    display: inline;\n    color: #1f1f1f;\n}")
 ;(function(){
 'use strict';
 
@@ -17468,19 +17471,20 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',[_vm._v("\n    "+_vm._s(Math.round(this.sum * 100000)/100000)+"\n")])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{staticClass:"show-sum-balances"},[_vm._v("\n    "+_vm._s(Math.round(this.sum * 100000)/100000)+"\n")])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
+  module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-c5b9ce6a", __vue__options__)
   } else {
     hotAPI.reload("data-v-c5b9ce6a", __vue__options__)
   }
 })()}
-},{"vue":338,"vue-hot-reload-api":336}],356:[function(require,module,exports){
+},{"vue":338,"vue-hot-reload-api":336,"vueify/lib/insert-css":339}],356:[function(require,module,exports){
 ;(function(){
 "use strict";
 
