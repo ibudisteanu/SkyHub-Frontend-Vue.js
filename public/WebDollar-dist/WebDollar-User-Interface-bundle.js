@@ -17663,9 +17663,9 @@ exports.default = {
     mounted: function mounted() {
         var _this = this;
 
-        this.changeScreenBehavior();
-
         if (typeof window === "undefined") return false;
+
+        this.changeScreenBehavior();
 
         WebDollar.Blockchain.Wallet.emitter.on("wallet/address-changes", function (address) {
             console.log("wallet/address-changes", address);
@@ -17684,6 +17684,8 @@ exports.default = {
         _Browser2.default.addEvent(window, "resize", function (event) {
             _this.changeScreenBehavior();
         });
+
+        this.loadAllAddresses();
     },
 
 
