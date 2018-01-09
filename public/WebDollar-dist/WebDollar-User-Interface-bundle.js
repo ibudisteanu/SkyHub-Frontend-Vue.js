@@ -17668,14 +17668,12 @@ exports.default = {
         if (typeof window === "undefined") return false;
 
         WebDollar.Blockchain.Wallet.emitter.on("wallet/address-changes", function (address) {
-            _this.addNewAddress(address);
-        });
-
-        WebDollar.Blockchain.Wallet.emitter.on("wallet/address-changes", function (address) {
+            console.log("wallet/address-changes", address);
             _this.addNewAddress(address);
         });
 
         WebDollar.Blockchain.Wallet.emitter.on("wallet/changes", function () {
+            console.log("wallet/changes", address);
             _this.loadAllAddresses();
         });
 
