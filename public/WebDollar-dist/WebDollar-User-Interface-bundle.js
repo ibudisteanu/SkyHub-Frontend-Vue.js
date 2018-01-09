@@ -15900,7 +15900,7 @@ exports.insert = function (css) {
 }
 
 },{}],333:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("::-webkit-scrollbar {\n}\n\n/* Track */\n::-webkit-scrollbar-track {\n    -webkit-border-radius: 10px;\n    border-radius: 10px;\n}\n\n/* Handle */\n::-webkit-scrollbar-thumb {\n    opacity:0.1;\n    -webkit-border-radius: 10px;\n    border-radius: 10px;\n    background: rgba(0,0,0,0.5);\n    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);\n}\n\n#webDollar{\n    font-family: 'avenir',sans-serif;\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("::-webkit-scrollbar {\n    width: 0;\n}\n\n/* Track */\n::-webkit-scrollbar-track {\n    -webkit-border-radius: 10px;\n    border-radius: 10px;\n}\n\n/* Handle */\n::-webkit-scrollbar-thumb {\n    opacity:0.1;\n    -webkit-border-radius: 10px;\n    border-radius: 10px;\n    background: rgba(0,0,0,0.5);\n    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);\n}\n\n#webDollar{\n    font-family: 'avenir',sans-serif;\n}")
 ;(function(){
 "use strict";
 
@@ -16016,8 +16016,10 @@ exports.default = {
             _this.workers = WebDollar.Blockchain.Mining.workers;
         });
 
-        this.minerAddress = WebDollar.Blockchain.Mining.minerAddress;
+        this.minerAddress = WebDollar.Blockchain.Mining.minerAddressBase;
+        console.log("mining/miner-address-changed", this.minerAddress);
         WebDollar.Blockchain.Mining.emitter.on("mining/miner-address-changed", function (minerAddress) {
+            console.log("mining/miner-address-changed", minerAddress);
             _this.minerAddress = minerAddress;
         });
     },
@@ -16061,14 +16063,14 @@ exports.default = {
 
             if (value < this.workers) {
 
-                while (value != this.workers) {
+                while (value !== this.workers) {
 
                     this.workers--;
                     this.destroyOneMiningWorker();
                 }
             } else {
 
-                while (value != this.workers) {
+                while (value !== this.workers) {
 
                     this.workers++;
                     this.createOneMiningWorker();
@@ -16589,7 +16591,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"show-balance-span"},[_vm._v("\n    "+_vm._s((this.balances !== null && this.balances.hasOwnProperty(this.currency)) ? Math.round(this.balances[this.currency] * 100000)/100000 : 0)+"\n")])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"show-balance-span"},[_vm._v("\n    "+_vm._s((this.balances !== null && this.balances !== undefined && this.balances.hasOwnProperty(this.currency)) ? Math.round(this.balances[this.currency] * 100000)/100000 : 0)+"\n")])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -16603,6 +16605,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],348:[function(require,module,exports){
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".show-sum-balances{\n    display: inline;\n    color: #1f1f1f;\n}")
 ;(function(){
 'use strict';
 
@@ -16657,19 +16660,20 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',[_vm._v("\n    "+_vm._s(Math.round(this.sum * 100000)/100000)+"\n")])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{staticClass:"show-sum-balances"},[_vm._v("\n    "+_vm._s(Math.round(this.sum * 100000)/100000)+"\n")])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
+  module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-3df1093e", __vue__options__)
   } else {
     hotAPI.reload("data-v-3df1093e", __vue__options__)
   }
 })()}
-},{"vue":331,"vue-hot-reload-api":329}],349:[function(require,module,exports){
+},{"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],349:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -16840,15 +16844,12 @@ exports.default = {
     mounted: function mounted() {
         var _this = this;
 
-        this.changeScreenBehavior();
-
         if (typeof window === "undefined") return false;
 
-        WebDollar.Blockchain.Wallet.emitter.on("wallet/address-changes", function (address) {
-            _this.addNewAddress(address);
-        });
+        this.changeScreenBehavior();
 
         WebDollar.Blockchain.Wallet.emitter.on("wallet/address-changes", function (address) {
+            console.log("wallet/address-changes", address);
             _this.addNewAddress(address);
         });
 
@@ -16863,6 +16864,8 @@ exports.default = {
         _Browser2.default.addEvent(window, "resize", function (event) {
             _this.changeScreenBehavior();
         });
+
+        this.loadAllAddresses();
     },
 
 
