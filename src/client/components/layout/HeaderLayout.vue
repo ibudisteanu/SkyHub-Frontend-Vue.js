@@ -4,14 +4,14 @@
         <!--<img src="public/WebDollar-logo-black.png" id="logo"/>-->
 
         <div class="topnav" id="menu">
-            <a href="#mainSection" class="active" id="logoMenu"><img src="public/WebDollar-logo-white.png" id="logo"/></a>
+            <a @click="this.collapseMenuBack" href="#mainSection" class="active" id="logoMenu"><img src="public/WebDollar-logo-white.png" id="logo"/></a>
 
-            <a href="#timelineSection">Timeline</a>
-            <a href="#faqSection">FAQ</a>
-            <a href="#team">Team</a>
-            <a href="/public/doc/WebDollar-White-Paper.pdf" target="_blank">White Paper</a>
-            <a href="#what-is-WebDollar">About</a>
-            <a href="#p2p-network">Network</a>
+            <a @click="this.collapseMenuBack" href="#timelineSection">Timeline</a>
+            <a @click="this.collapseMenuBack" href="#faqSection">FAQ</a>
+            <a @click="this.collapseMenuBack" href="#team">Team</a>
+            <a @click="this.collapseMenuBack" href="/public/doc/WebDollar-White-Paper.pdf" target="_blank">White Paper</a>
+            <a @click="this.collapseMenuBack" href="#what-is-WebDollar">About</a>
+            <a @click="this.collapseMenuBack" href="#p2p-network">Network</a>
 
             <a href="javascript:void(0);" style="font-size:15px;" class="icon showMenu" @click="this.showMobileMenu">&#9776;</a>
         </div>
@@ -24,6 +24,12 @@
     export default {
 
         name: "HeaderLayout",
+
+        data () {
+            return {
+                screenWidth: 0,
+            }
+        },
 
         methods:{
 
@@ -44,6 +50,51 @@
                     document.getElementById('logoMenu').setAttribute('style', 'float:left !important');
                 }
             },
+
+            collapseMenuBack(){
+
+                if (this.screenWidth<768){
+
+                    this.showMobileMenu();
+
+                }
+
+            },
+
+            addEvent (object, type, callback) {
+                if (object === null || typeof(object) === 'undefined') return;
+                if (object.addEventListener) {
+                    object.addEventListener(type, callback, false);
+                } else if (object.attachEvent) {
+                    object.attachEvent("on" + type, callback);
+                } else {
+                    object["on"+type] = callback;
+                }
+            },
+
+            bringmenu() {
+                console.log("da");
+                if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
+                    document.getElementById("menu").style.bottom = "-100%";
+                } else {
+                    document.getElementById("menu").style.bottom = "0";
+                }
+            }
+
+        },
+        mounted(){
+
+            if(typeof window === 'undefined') return;
+
+            this.addEvent(window, "resize", (event) => {
+
+                this.screenWidth = window.innerWidth;
+
+            });
+
+            this.screenWidth = window.innerWidth;
+
+            this.bringmenu();
 
         }
 

@@ -28,7 +28,7 @@
                         <h4>ALEXANDRU IONUT BUDISTEANU</h4>
                         <h5 class="teamRole">LEAD PROTOCOL DEVELOPER</h5>
                         <p class="description">
-                            Alexandru'93 is a Forbes Europe 30 under 30 nominee in industry category. In 2013, he was nominated by Time Magazine as one of the most influential teens of the world. MIT named an asteroid with his name.</a>
+                            Alexandru is a Forbes Europe 30 under 30 nominee in industry category. In 2013, he was nominated by Time Magazine as one of the most influential teens of the world. MIT named an asteroid with his name.</a>
                         </p>
                     </div>
                     <div class="our-team">
@@ -45,7 +45,7 @@
                         </div>
                         <h4>Alexandru IONUT Panait</h4>
                         <h5 class="teamRole">LEAD PLATFORM DEVELOPER</h5>
-                        <p>Alexandru'95 is a young entrepreneur interested in technology business. General Manager and Founder of a hiring Artificial Intelligence platform (AIpanait) and a software agency (AIPsolution).</p>
+                        <p>Alexandru is a young entrepreneur interested in technology business. General Manager and Founder of a hiring Artificial Intelligence platform (AIpanait) and a software agency (AIPsolution).</p>
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
@@ -59,7 +59,7 @@
                         </div>
                         <h4>ADRIAN STRATULAT</h4>
                         <h5 class="teamRole">LEAD EVANGELIST</h5>
-                        <p>Adrian'87 is a social innovator specialised in emerging energy technologies, he has a background in geopolitics and diplomacy, but is an entrepreneur at heart. Within WebDollar's core team</p>
+                        <p>Adrian is a social innovator specialised in emerging energy technologies, he has a background in geopolitics and diplomacy, but is an entrepreneur at heart. Within WebDollar's core team</p>
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
@@ -73,7 +73,7 @@
                         </div>
                         <h4>COSMIN-DUMITRU OPREA</h4>
                         <h5 class="teamRole">DEVELOPER</h5>
-                        <p>Cosmin'94 is a Teaching Assistant at Politehnica University of Bucharest, Software Engineer with lot of knowledge in algorithms. Cosmin has won three Honorable Mentions at the ACM-ICPC SEERC.</p>
+                        <p>Cosmin is a Teaching Assistant at Politehnica University of Bucharest, Software Engineer with lot of knowledge in algorithms. Cosmin has won three Honorable Mentions at the ACM-ICPC SEERC.</p>
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
@@ -87,7 +87,7 @@
                         </div>
                         <h4>ADRIAN ROBESCU</h4>
                         <h5 class="teamRole">LEAD MARKETING</h5>
-                        <p>Adrian'81 is a Business Analyst and Strategist, specialized in modeling business processes and ERP solutions. With a strong background in marketing is working on WebDollar adoption, partnerships and communication.</p>
+                        <p>Adrian is a Business Analyst and Strategist, specialized in modeling business processes and ERP solutions. With a strong background in marketing is working on WebDollar adoption, partnerships and communication.</p>
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
@@ -104,7 +104,7 @@
                         <h4>SILVIU STROE</h4>
                         <h5 class="teamRole"5>DEVELOPER</h5>
                         <p>
-                        Silviu'94 is a full stack developer and entrepreneur. He is the founder of one of the first VPN services in Romania, RoTunneling and is part of Yahoo - Wall of Fame. He also loves bleeding edge technologies and new challenges.
+                        Silviu is a full stack developer and entrepreneur. He is the founder of one of the first VPN services in Romania, RoTunneling and is part of Yahoo - Wall of Fame. He also loves bleeding edge technologies and new challenges.
                         </p>
 
                     </div>
@@ -119,7 +119,7 @@
                         </div>
                         <h4>ISSAM OUTALEB</h4>
                         <h5 class="teamRole">LEAD STRATEGIC MANAGEMENT</h5>
-                        <p>Issam'78 is a Business Management Senior Consultant and Strategist who partners with top tier executives and marketers. Issam knows what truly drives conversions, product launches, and successful strategic and operational planning.</p>
+                        <p>Issam is a Business Management Senior Consultant and Strategist who partners with top tier executives and marketers. Issam knows what truly drives conversions, product launches, and successful strategic and operational planning.</p>
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
@@ -160,7 +160,7 @@
                         </div>
                         <h4>ADRIAN MANEA</h4>
                         <h5 class="teamRole">DESIGNER - EXPERT</h5>
-                        <p>Adrian'93 Manea is a twenty-four-year-old designer & developer from Romania who began his career at the age of sixteen. He is currently the administrator of a contracting company.</p>
+                        <p>Adrian Manea is a twenty-four-year-old designer & developer from Romania who began his career at the age of sixteen. He is currently the administrator of a contracting company.</p>
                     </div>
                 </div>
             </div>

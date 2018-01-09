@@ -5,7 +5,7 @@
 
             <img src="/public/WebDollar-logo-white.png" class="mainLogo fadeIn">
 
-            <h1 class="fadeIn fadeIn2">Web Dollar <b class="testnet">TEST NET#1</b></h1>
+            <h1 class="fadeIn fadeIn2">Web Dollar <b class="testnet">TEST NET#2</b></h1>
             <h3 class="fadeIn fadeIn3">Currency of the Internet</h3>
             <h5 class="fadeIn fadeIn3">You are already mining...</h5>
             <div class='btn-cont btnPosition fadeIn fadeIn4'>
