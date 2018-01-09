@@ -16827,7 +16827,7 @@ exports.default = {
             _this.workers = WebDollar.Blockchain.Mining.workers;
         });
 
-        this.minerAddress = WebDollar.Blockchain.Mining.minerAddress;
+        this.minerAddress = WebDollar.Blockchain.Mining.minerAddressBase;
         console.log("mining/miner-address-changed", this.minerAddress);
         WebDollar.Blockchain.Mining.emitter.on("mining/miner-address-changed", function (minerAddress) {
             console.log("mining/miner-address-changed", minerAddress);
