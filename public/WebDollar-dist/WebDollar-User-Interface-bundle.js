@@ -17673,7 +17673,6 @@ exports.default = {
         });
 
         WebDollar.Blockchain.Wallet.emitter.on("wallet/changes", function () {
-            console.log("wallet/changes", address);
             _this.loadAllAddresses();
         });
 
