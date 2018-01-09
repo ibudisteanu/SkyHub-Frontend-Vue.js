@@ -68,8 +68,21 @@
     }
 }
 
+@media only screen and (max-width : 831px) {
+
+    #footer{
+        padding-bottom: 160px;
+    }
+
+}
+
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
+
+    #socialLinks{
+        float: right;
+    }
+
     #mediaContainer{
         margin-left: 10px;
         margin-right: 10px;

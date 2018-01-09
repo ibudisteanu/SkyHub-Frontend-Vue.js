@@ -29,7 +29,7 @@ define(String.prototype, "padRight", "".padEnd);
   [][key] && define(Array, key, Function.call.bind([][key]));
 });
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"core-js/fn/regexp/escape":5,"core-js/shim":328,"regenerator-runtime/runtime":2}],2:[function(require,module,exports){
+},{"core-js/fn/regexp/escape":3,"core-js/shim":326,"regenerator-runtime/runtime":2}],2:[function(require,module,exports){
 (function (global){
 /**
  * Copyright (c) 2014, Facebook, Inc.
@@ -770,461 +770,23 @@ define(String.prototype, "padRight", "".padEnd);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],3:[function(require,module,exports){
-(function (global, factory) {
-    if (typeof define === "function" && define.amd) {
-        define(['module', 'select'], factory);
-    } else if (typeof exports !== "undefined") {
-        factory(module, require('select'));
-    } else {
-        var mod = {
-            exports: {}
-        };
-        factory(mod, global.select);
-        global.clipboardAction = mod.exports;
-    }
-})(this, function (module, _select) {
-    'use strict';
-
-    var _select2 = _interopRequireDefault(_select);
-
-    function _interopRequireDefault(obj) {
-        return obj && obj.__esModule ? obj : {
-            default: obj
-        };
-    }
-
-    var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-        return typeof obj;
-    } : function (obj) {
-        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-
-    function _classCallCheck(instance, Constructor) {
-        if (!(instance instanceof Constructor)) {
-            throw new TypeError("Cannot call a class as a function");
-        }
-    }
-
-    var _createClass = function () {
-        function defineProperties(target, props) {
-            for (var i = 0; i < props.length; i++) {
-                var descriptor = props[i];
-                descriptor.enumerable = descriptor.enumerable || false;
-                descriptor.configurable = true;
-                if ("value" in descriptor) descriptor.writable = true;
-                Object.defineProperty(target, descriptor.key, descriptor);
-            }
-        }
-
-        return function (Constructor, protoProps, staticProps) {
-            if (protoProps) defineProperties(Constructor.prototype, protoProps);
-            if (staticProps) defineProperties(Constructor, staticProps);
-            return Constructor;
-        };
-    }();
-
-    var ClipboardAction = function () {
-        /**
-         * @param {Object} options
-         */
-        function ClipboardAction(options) {
-            _classCallCheck(this, ClipboardAction);
-
-            this.resolveOptions(options);
-            this.initSelection();
-        }
-
-        /**
-         * Defines base properties passed from constructor.
-         * @param {Object} options
-         */
-
-
-        _createClass(ClipboardAction, [{
-            key: 'resolveOptions',
-            value: function resolveOptions() {
-                var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-                this.action = options.action;
-                this.container = options.container;
-                this.emitter = options.emitter;
-                this.target = options.target;
-                this.text = options.text;
-                this.trigger = options.trigger;
-
-                this.selectedText = '';
-            }
-        }, {
-            key: 'initSelection',
-            value: function initSelection() {
-                if (this.text) {
-                    this.selectFake();
-                } else if (this.target) {
-                    this.selectTarget();
-                }
-            }
-        }, {
-            key: 'selectFake',
-            value: function selectFake() {
-                var _this = this;
-
-                var isRTL = document.documentElement.getAttribute('dir') == 'rtl';
-
-                this.removeFake();
-
-                this.fakeHandlerCallback = function () {
-                    return _this.removeFake();
-                };
-                this.fakeHandler = this.container.addEventListener('click', this.fakeHandlerCallback) || true;
-
-                this.fakeElem = document.createElement('textarea');
-                // Prevent zooming on iOS
-                this.fakeElem.style.fontSize = '12pt';
-                // Reset box model
-                this.fakeElem.style.border = '0';
-                this.fakeElem.style.padding = '0';
-                this.fakeElem.style.margin = '0';
-                // Move element out of screen horizontally
-                this.fakeElem.style.position = 'absolute';
-                this.fakeElem.style[isRTL ? 'right' : 'left'] = '-9999px';
-                // Move element to the same position vertically
-                var yPosition = window.pageYOffset || document.documentElement.scrollTop;
-                this.fakeElem.style.top = yPosition + 'px';
-
-                this.fakeElem.setAttribute('readonly', '');
-                this.fakeElem.value = this.text;
-
-                this.container.appendChild(this.fakeElem);
-
-                this.selectedText = (0, _select2.default)(this.fakeElem);
-                this.copyText();
-            }
-        }, {
-            key: 'removeFake',
-            value: function removeFake() {
-                if (this.fakeHandler) {
-                    this.container.removeEventListener('click', this.fakeHandlerCallback);
-                    this.fakeHandler = null;
-                    this.fakeHandlerCallback = null;
-                }
-
-                if (this.fakeElem) {
-                    this.container.removeChild(this.fakeElem);
-                    this.fakeElem = null;
-                }
-            }
-        }, {
-            key: 'selectTarget',
-            value: function selectTarget() {
-                this.selectedText = (0, _select2.default)(this.target);
-                this.copyText();
-            }
-        }, {
-            key: 'copyText',
-            value: function copyText() {
-                var succeeded = void 0;
-
-                try {
-                    succeeded = document.execCommand(this.action);
-                } catch (err) {
-                    succeeded = false;
-                }
-
-                this.handleResult(succeeded);
-            }
-        }, {
-            key: 'handleResult',
-            value: function handleResult(succeeded) {
-                this.emitter.emit(succeeded ? 'success' : 'error', {
-                    action: this.action,
-                    text: this.selectedText,
-                    trigger: this.trigger,
-                    clearSelection: this.clearSelection.bind(this)
-                });
-            }
-        }, {
-            key: 'clearSelection',
-            value: function clearSelection() {
-                if (this.trigger) {
-                    this.trigger.focus();
-                }
-
-                window.getSelection().removeAllRanges();
-            }
-        }, {
-            key: 'destroy',
-            value: function destroy() {
-                this.removeFake();
-            }
-        }, {
-            key: 'action',
-            set: function set() {
-                var action = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'copy';
-
-                this._action = action;
-
-                if (this._action !== 'copy' && this._action !== 'cut') {
-                    throw new Error('Invalid "action" value, use either "copy" or "cut"');
-                }
-            },
-            get: function get() {
-                return this._action;
-            }
-        }, {
-            key: 'target',
-            set: function set(target) {
-                if (target !== undefined) {
-                    if (target && (typeof target === 'undefined' ? 'undefined' : _typeof(target)) === 'object' && target.nodeType === 1) {
-                        if (this.action === 'copy' && target.hasAttribute('disabled')) {
-                            throw new Error('Invalid "target" attribute. Please use "readonly" instead of "disabled" attribute');
-                        }
-
-                        if (this.action === 'cut' && (target.hasAttribute('readonly') || target.hasAttribute('disabled'))) {
-                            throw new Error('Invalid "target" attribute. You can\'t cut text from elements with "readonly" or "disabled" attributes');
-                        }
-
-                        this._target = target;
-                    } else {
-                        throw new Error('Invalid "target" value, use a valid Element');
-                    }
-                }
-            },
-            get: function get() {
-                return this._target;
-            }
-        }]);
-
-        return ClipboardAction;
-    }();
-
-    module.exports = ClipboardAction;
-});
-},{"select":334}],4:[function(require,module,exports){
-(function (global, factory) {
-    if (typeof define === "function" && define.amd) {
-        define(['module', './clipboard-action', 'tiny-emitter', 'good-listener'], factory);
-    } else if (typeof exports !== "undefined") {
-        factory(module, require('./clipboard-action'), require('tiny-emitter'), require('good-listener'));
-    } else {
-        var mod = {
-            exports: {}
-        };
-        factory(mod, global.clipboardAction, global.tinyEmitter, global.goodListener);
-        global.clipboard = mod.exports;
-    }
-})(this, function (module, _clipboardAction, _tinyEmitter, _goodListener) {
-    'use strict';
-
-    var _clipboardAction2 = _interopRequireDefault(_clipboardAction);
-
-    var _tinyEmitter2 = _interopRequireDefault(_tinyEmitter);
-
-    var _goodListener2 = _interopRequireDefault(_goodListener);
-
-    function _interopRequireDefault(obj) {
-        return obj && obj.__esModule ? obj : {
-            default: obj
-        };
-    }
-
-    var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-        return typeof obj;
-    } : function (obj) {
-        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-
-    function _classCallCheck(instance, Constructor) {
-        if (!(instance instanceof Constructor)) {
-            throw new TypeError("Cannot call a class as a function");
-        }
-    }
-
-    var _createClass = function () {
-        function defineProperties(target, props) {
-            for (var i = 0; i < props.length; i++) {
-                var descriptor = props[i];
-                descriptor.enumerable = descriptor.enumerable || false;
-                descriptor.configurable = true;
-                if ("value" in descriptor) descriptor.writable = true;
-                Object.defineProperty(target, descriptor.key, descriptor);
-            }
-        }
-
-        return function (Constructor, protoProps, staticProps) {
-            if (protoProps) defineProperties(Constructor.prototype, protoProps);
-            if (staticProps) defineProperties(Constructor, staticProps);
-            return Constructor;
-        };
-    }();
-
-    function _possibleConstructorReturn(self, call) {
-        if (!self) {
-            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-        }
-
-        return call && (typeof call === "object" || typeof call === "function") ? call : self;
-    }
-
-    function _inherits(subClass, superClass) {
-        if (typeof superClass !== "function" && superClass !== null) {
-            throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-        }
-
-        subClass.prototype = Object.create(superClass && superClass.prototype, {
-            constructor: {
-                value: subClass,
-                enumerable: false,
-                writable: true,
-                configurable: true
-            }
-        });
-        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-    }
-
-    var Clipboard = function (_Emitter) {
-        _inherits(Clipboard, _Emitter);
-
-        /**
-         * @param {String|HTMLElement|HTMLCollection|NodeList} trigger
-         * @param {Object} options
-         */
-        function Clipboard(trigger, options) {
-            _classCallCheck(this, Clipboard);
-
-            var _this = _possibleConstructorReturn(this, (Clipboard.__proto__ || Object.getPrototypeOf(Clipboard)).call(this));
-
-            _this.resolveOptions(options);
-            _this.listenClick(trigger);
-            return _this;
-        }
-
-        /**
-         * Defines if attributes would be resolved using internal setter functions
-         * or custom functions that were passed in the constructor.
-         * @param {Object} options
-         */
-
-
-        _createClass(Clipboard, [{
-            key: 'resolveOptions',
-            value: function resolveOptions() {
-                var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-                this.action = typeof options.action === 'function' ? options.action : this.defaultAction;
-                this.target = typeof options.target === 'function' ? options.target : this.defaultTarget;
-                this.text = typeof options.text === 'function' ? options.text : this.defaultText;
-                this.container = _typeof(options.container) === 'object' ? options.container : document.body;
-            }
-        }, {
-            key: 'listenClick',
-            value: function listenClick(trigger) {
-                var _this2 = this;
-
-                this.listener = (0, _goodListener2.default)(trigger, 'click', function (e) {
-                    return _this2.onClick(e);
-                });
-            }
-        }, {
-            key: 'onClick',
-            value: function onClick(e) {
-                var trigger = e.delegateTarget || e.currentTarget;
-
-                if (this.clipboardAction) {
-                    this.clipboardAction = null;
-                }
-
-                this.clipboardAction = new _clipboardAction2.default({
-                    action: this.action(trigger),
-                    target: this.target(trigger),
-                    text: this.text(trigger),
-                    container: this.container,
-                    trigger: trigger,
-                    emitter: this
-                });
-            }
-        }, {
-            key: 'defaultAction',
-            value: function defaultAction(trigger) {
-                return getAttributeValue('action', trigger);
-            }
-        }, {
-            key: 'defaultTarget',
-            value: function defaultTarget(trigger) {
-                var selector = getAttributeValue('target', trigger);
-
-                if (selector) {
-                    return document.querySelector(selector);
-                }
-            }
-        }, {
-            key: 'defaultText',
-            value: function defaultText(trigger) {
-                return getAttributeValue('text', trigger);
-            }
-        }, {
-            key: 'destroy',
-            value: function destroy() {
-                this.listener.destroy();
-
-                if (this.clipboardAction) {
-                    this.clipboardAction.destroy();
-                    this.clipboardAction = null;
-                }
-            }
-        }], [{
-            key: 'isSupported',
-            value: function isSupported() {
-                var action = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ['copy', 'cut'];
-
-                var actions = typeof action === 'string' ? [action] : action;
-                var support = !!document.queryCommandSupported;
-
-                actions.forEach(function (action) {
-                    support = support && !!document.queryCommandSupported(action);
-                });
-
-                return support;
-            }
-        }]);
-
-        return Clipboard;
-    }(_tinyEmitter2.default);
-
-    /**
-     * Helper function to retrieve attribute value.
-     * @param {String} suffix
-     * @param {Element} element
-     */
-    function getAttributeValue(suffix, element) {
-        var attribute = 'data-clipboard-' + suffix;
-
-        if (!element.hasAttribute(attribute)) {
-            return;
-        }
-
-        return element.getAttribute(attribute);
-    }
-
-    module.exports = Clipboard;
-});
-},{"./clipboard-action":3,"good-listener":332,"tiny-emitter":335}],5:[function(require,module,exports){
 require('../../modules/core.regexp.escape');
 module.exports = require('../../modules/_core').RegExp.escape;
 
-},{"../../modules/_core":26,"../../modules/core.regexp.escape":131}],6:[function(require,module,exports){
+},{"../../modules/_core":24,"../../modules/core.regexp.escape":129}],4:[function(require,module,exports){
 module.exports = function (it) {
   if (typeof it != 'function') throw TypeError(it + ' is not a function!');
   return it;
 };
 
-},{}],7:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 var cof = require('./_cof');
 module.exports = function (it, msg) {
   if (typeof it != 'number' && cof(it) != 'Number') throw TypeError(msg);
   return +it;
 };
 
-},{"./_cof":21}],8:[function(require,module,exports){
+},{"./_cof":19}],6:[function(require,module,exports){
 // 22.1.3.31 Array.prototype[@@unscopables]
 var UNSCOPABLES = require('./_wks')('unscopables');
 var ArrayProto = Array.prototype;
@@ -1233,21 +795,21 @@ module.exports = function (key) {
   ArrayProto[UNSCOPABLES][key] = true;
 };
 
-},{"./_hide":45,"./_wks":129}],9:[function(require,module,exports){
+},{"./_hide":43,"./_wks":127}],7:[function(require,module,exports){
 module.exports = function (it, Constructor, name, forbiddenField) {
   if (!(it instanceof Constructor) || (forbiddenField !== undefined && forbiddenField in it)) {
     throw TypeError(name + ': incorrect invocation!');
   } return it;
 };
 
-},{}],10:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 var isObject = require('./_is-object');
 module.exports = function (it) {
   if (!isObject(it)) throw TypeError(it + ' is not an object!');
   return it;
 };
 
-},{"./_is-object":54}],11:[function(require,module,exports){
+},{"./_is-object":52}],9:[function(require,module,exports){
 // 22.1.3.3 Array.prototype.copyWithin(target, start, end = this.length)
 'use strict';
 var toObject = require('./_to-object');
@@ -1275,7 +837,7 @@ module.exports = [].copyWithin || function copyWithin(target /* = 0 */, start /*
   } return O;
 };
 
-},{"./_to-absolute-index":114,"./_to-length":118,"./_to-object":119}],12:[function(require,module,exports){
+},{"./_to-absolute-index":112,"./_to-length":116,"./_to-object":117}],10:[function(require,module,exports){
 // 22.1.3.6 Array.prototype.fill(value, start = 0, end = this.length)
 'use strict';
 var toObject = require('./_to-object');
@@ -1292,7 +854,7 @@ module.exports = function fill(value /* , start = 0, end = @length */) {
   return O;
 };
 
-},{"./_to-absolute-index":114,"./_to-length":118,"./_to-object":119}],13:[function(require,module,exports){
+},{"./_to-absolute-index":112,"./_to-length":116,"./_to-object":117}],11:[function(require,module,exports){
 var forOf = require('./_for-of');
 
 module.exports = function (iter, ITERATOR) {
@@ -1301,7 +863,7 @@ module.exports = function (iter, ITERATOR) {
   return result;
 };
 
-},{"./_for-of":42}],14:[function(require,module,exports){
+},{"./_for-of":40}],12:[function(require,module,exports){
 // false -> Array#indexOf
 // true  -> Array#includes
 var toIObject = require('./_to-iobject');
@@ -1326,7 +888,7 @@ module.exports = function (IS_INCLUDES) {
   };
 };
 
-},{"./_to-absolute-index":114,"./_to-iobject":117,"./_to-length":118}],15:[function(require,module,exports){
+},{"./_to-absolute-index":112,"./_to-iobject":115,"./_to-length":116}],13:[function(require,module,exports){
 // 0 -> Array#forEach
 // 1 -> Array#map
 // 2 -> Array#filter
@@ -1372,7 +934,7 @@ module.exports = function (TYPE, $create) {
   };
 };
 
-},{"./_array-species-create":18,"./_ctx":28,"./_iobject":50,"./_to-length":118,"./_to-object":119}],16:[function(require,module,exports){
+},{"./_array-species-create":16,"./_ctx":26,"./_iobject":48,"./_to-length":116,"./_to-object":117}],14:[function(require,module,exports){
 var aFunction = require('./_a-function');
 var toObject = require('./_to-object');
 var IObject = require('./_iobject');
@@ -1402,7 +964,7 @@ module.exports = function (that, callbackfn, aLen, memo, isRight) {
   return memo;
 };
 
-},{"./_a-function":6,"./_iobject":50,"./_to-length":118,"./_to-object":119}],17:[function(require,module,exports){
+},{"./_a-function":4,"./_iobject":48,"./_to-length":116,"./_to-object":117}],15:[function(require,module,exports){
 var isObject = require('./_is-object');
 var isArray = require('./_is-array');
 var SPECIES = require('./_wks')('species');
@@ -1420,7 +982,7 @@ module.exports = function (original) {
   } return C === undefined ? Array : C;
 };
 
-},{"./_is-array":52,"./_is-object":54,"./_wks":129}],18:[function(require,module,exports){
+},{"./_is-array":50,"./_is-object":52,"./_wks":127}],16:[function(require,module,exports){
 // 9.4.2.3 ArraySpeciesCreate(originalArray, length)
 var speciesConstructor = require('./_array-species-constructor');
 
@@ -1428,7 +990,7 @@ module.exports = function (original, length) {
   return new (speciesConstructor(original))(length);
 };
 
-},{"./_array-species-constructor":17}],19:[function(require,module,exports){
+},{"./_array-species-constructor":15}],17:[function(require,module,exports){
 'use strict';
 var aFunction = require('./_a-function');
 var isObject = require('./_is-object');
@@ -1455,7 +1017,7 @@ module.exports = Function.bind || function bind(that /* , ...args */) {
   return bound;
 };
 
-},{"./_a-function":6,"./_invoke":49,"./_is-object":54}],20:[function(require,module,exports){
+},{"./_a-function":4,"./_invoke":47,"./_is-object":52}],18:[function(require,module,exports){
 // getting tag from 19.1.3.6 Object.prototype.toString()
 var cof = require('./_cof');
 var TAG = require('./_wks')('toStringTag');
@@ -1480,14 +1042,14 @@ module.exports = function (it) {
     : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
 };
 
-},{"./_cof":21,"./_wks":129}],21:[function(require,module,exports){
+},{"./_cof":19,"./_wks":127}],19:[function(require,module,exports){
 var toString = {}.toString;
 
 module.exports = function (it) {
   return toString.call(it).slice(8, -1);
 };
 
-},{}],22:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 var dP = require('./_object-dp').f;
 var create = require('./_object-create');
@@ -1633,7 +1195,7 @@ module.exports = {
   }
 };
 
-},{"./_an-instance":9,"./_ctx":28,"./_descriptors":32,"./_for-of":42,"./_iter-define":58,"./_iter-step":60,"./_meta":68,"./_object-create":73,"./_object-dp":74,"./_redefine-all":93,"./_set-species":100,"./_validate-collection":126}],23:[function(require,module,exports){
+},{"./_an-instance":7,"./_ctx":26,"./_descriptors":30,"./_for-of":40,"./_iter-define":56,"./_iter-step":58,"./_meta":66,"./_object-create":71,"./_object-dp":72,"./_redefine-all":91,"./_set-species":98,"./_validate-collection":124}],21:[function(require,module,exports){
 // https://github.com/DavidBruant/Map-Set.prototype.toJSON
 var classof = require('./_classof');
 var from = require('./_array-from-iterable');
@@ -1644,7 +1206,7 @@ module.exports = function (NAME) {
   };
 };
 
-},{"./_array-from-iterable":13,"./_classof":20}],24:[function(require,module,exports){
+},{"./_array-from-iterable":11,"./_classof":18}],22:[function(require,module,exports){
 'use strict';
 var redefineAll = require('./_redefine-all');
 var getWeak = require('./_meta').getWeak;
@@ -1731,7 +1293,7 @@ module.exports = {
   ufstore: uncaughtFrozenStore
 };
 
-},{"./_an-instance":9,"./_an-object":10,"./_array-methods":15,"./_for-of":42,"./_has":44,"./_is-object":54,"./_meta":68,"./_redefine-all":93,"./_validate-collection":126}],25:[function(require,module,exports){
+},{"./_an-instance":7,"./_an-object":8,"./_array-methods":13,"./_for-of":40,"./_has":42,"./_is-object":52,"./_meta":66,"./_redefine-all":91,"./_validate-collection":124}],23:[function(require,module,exports){
 'use strict';
 var global = require('./_global');
 var $export = require('./_export');
@@ -1818,11 +1380,11 @@ module.exports = function (NAME, wrapper, methods, common, IS_MAP, IS_WEAK) {
   return C;
 };
 
-},{"./_an-instance":9,"./_export":36,"./_fails":38,"./_for-of":42,"./_global":43,"./_inherit-if-required":48,"./_is-object":54,"./_iter-detect":59,"./_meta":68,"./_redefine":94,"./_redefine-all":93,"./_set-to-string-tag":101}],26:[function(require,module,exports){
+},{"./_an-instance":7,"./_export":34,"./_fails":36,"./_for-of":40,"./_global":41,"./_inherit-if-required":46,"./_is-object":52,"./_iter-detect":57,"./_meta":66,"./_redefine":92,"./_redefine-all":91,"./_set-to-string-tag":99}],24:[function(require,module,exports){
 var core = module.exports = { version: '2.5.3' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
-},{}],27:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 'use strict';
 var $defineProperty = require('./_object-dp');
 var createDesc = require('./_property-desc');
@@ -1832,7 +1394,7 @@ module.exports = function (object, index, value) {
   else object[index] = value;
 };
 
-},{"./_object-dp":74,"./_property-desc":92}],28:[function(require,module,exports){
+},{"./_object-dp":72,"./_property-desc":90}],26:[function(require,module,exports){
 // optional / simple context binding
 var aFunction = require('./_a-function');
 module.exports = function (fn, that, length) {
@@ -1854,7 +1416,7 @@ module.exports = function (fn, that, length) {
   };
 };
 
-},{"./_a-function":6}],29:[function(require,module,exports){
+},{"./_a-function":4}],27:[function(require,module,exports){
 'use strict';
 // 20.3.4.36 / 15.9.5.43 Date.prototype.toISOString()
 var fails = require('./_fails');
@@ -1882,7 +1444,7 @@ module.exports = (fails(function () {
     ':' + lz(d.getUTCSeconds()) + '.' + (m > 99 ? m : '0' + lz(m)) + 'Z';
 } : $toISOString;
 
-},{"./_fails":38}],30:[function(require,module,exports){
+},{"./_fails":36}],28:[function(require,module,exports){
 'use strict';
 var anObject = require('./_an-object');
 var toPrimitive = require('./_to-primitive');
@@ -1893,20 +1455,20 @@ module.exports = function (hint) {
   return toPrimitive(anObject(this), hint != NUMBER);
 };
 
-},{"./_an-object":10,"./_to-primitive":120}],31:[function(require,module,exports){
+},{"./_an-object":8,"./_to-primitive":118}],29:[function(require,module,exports){
 // 7.2.1 RequireObjectCoercible(argument)
 module.exports = function (it) {
   if (it == undefined) throw TypeError("Can't call method on  " + it);
   return it;
 };
 
-},{}],32:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 // Thank's IE8 for his funny defineProperty
 module.exports = !require('./_fails')(function () {
   return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
 });
 
-},{"./_fails":38}],33:[function(require,module,exports){
+},{"./_fails":36}],31:[function(require,module,exports){
 var isObject = require('./_is-object');
 var document = require('./_global').document;
 // typeof document.createElement is 'object' in old IE
@@ -1915,13 +1477,13 @@ module.exports = function (it) {
   return is ? document.createElement(it) : {};
 };
 
-},{"./_global":43,"./_is-object":54}],34:[function(require,module,exports){
+},{"./_global":41,"./_is-object":52}],32:[function(require,module,exports){
 // IE 8- don't enum bug keys
 module.exports = (
   'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
 ).split(',');
 
-},{}],35:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 // all enumerable object keys, includes symbols
 var getKeys = require('./_object-keys');
 var gOPS = require('./_object-gops');
@@ -1938,7 +1500,7 @@ module.exports = function (it) {
   } return result;
 };
 
-},{"./_object-gops":80,"./_object-keys":83,"./_object-pie":84}],36:[function(require,module,exports){
+},{"./_object-gops":78,"./_object-keys":81,"./_object-pie":82}],34:[function(require,module,exports){
 var global = require('./_global');
 var core = require('./_core');
 var hide = require('./_hide');
@@ -1983,7 +1545,7 @@ $export.U = 64;  // safe
 $export.R = 128; // real proto method for `library`
 module.exports = $export;
 
-},{"./_core":26,"./_ctx":28,"./_global":43,"./_hide":45,"./_redefine":94}],37:[function(require,module,exports){
+},{"./_core":24,"./_ctx":26,"./_global":41,"./_hide":43,"./_redefine":92}],35:[function(require,module,exports){
 var MATCH = require('./_wks')('match');
 module.exports = function (KEY) {
   var re = /./;
@@ -1997,7 +1559,7 @@ module.exports = function (KEY) {
   } return true;
 };
 
-},{"./_wks":129}],38:[function(require,module,exports){
+},{"./_wks":127}],36:[function(require,module,exports){
 module.exports = function (exec) {
   try {
     return !!exec();
@@ -2006,7 +1568,7 @@ module.exports = function (exec) {
   }
 };
 
-},{}],39:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 'use strict';
 var hide = require('./_hide');
 var redefine = require('./_redefine');
@@ -2036,7 +1598,7 @@ module.exports = function (KEY, length, exec) {
   }
 };
 
-},{"./_defined":31,"./_fails":38,"./_hide":45,"./_redefine":94,"./_wks":129}],40:[function(require,module,exports){
+},{"./_defined":29,"./_fails":36,"./_hide":43,"./_redefine":92,"./_wks":127}],38:[function(require,module,exports){
 'use strict';
 // 21.2.5.3 get RegExp.prototype.flags
 var anObject = require('./_an-object');
@@ -2051,7 +1613,7 @@ module.exports = function () {
   return result;
 };
 
-},{"./_an-object":10}],41:[function(require,module,exports){
+},{"./_an-object":8}],39:[function(require,module,exports){
 'use strict';
 // https://tc39.github.io/proposal-flatMap/#sec-FlattenIntoArray
 var isArray = require('./_is-array');
@@ -2092,7 +1654,7 @@ function flattenIntoArray(target, original, source, sourceLen, start, depth, map
 
 module.exports = flattenIntoArray;
 
-},{"./_ctx":28,"./_is-array":52,"./_is-object":54,"./_to-length":118,"./_wks":129}],42:[function(require,module,exports){
+},{"./_ctx":26,"./_is-array":50,"./_is-object":52,"./_to-length":116,"./_wks":127}],40:[function(require,module,exports){
 var ctx = require('./_ctx');
 var call = require('./_iter-call');
 var isArrayIter = require('./_is-array-iter');
@@ -2119,7 +1681,7 @@ var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) 
 exports.BREAK = BREAK;
 exports.RETURN = RETURN;
 
-},{"./_an-object":10,"./_ctx":28,"./_is-array-iter":51,"./_iter-call":56,"./_to-length":118,"./core.get-iterator-method":130}],43:[function(require,module,exports){
+},{"./_an-object":8,"./_ctx":26,"./_is-array-iter":49,"./_iter-call":54,"./_to-length":116,"./core.get-iterator-method":128}],41:[function(require,module,exports){
 // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
 var global = module.exports = typeof window != 'undefined' && window.Math == Math
   ? window : typeof self != 'undefined' && self.Math == Math ? self
@@ -2127,13 +1689,13 @@ var global = module.exports = typeof window != 'undefined' && window.Math == Mat
   : Function('return this')();
 if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 
-},{}],44:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 var hasOwnProperty = {}.hasOwnProperty;
 module.exports = function (it, key) {
   return hasOwnProperty.call(it, key);
 };
 
-},{}],45:[function(require,module,exports){
+},{}],43:[function(require,module,exports){
 var dP = require('./_object-dp');
 var createDesc = require('./_property-desc');
 module.exports = require('./_descriptors') ? function (object, key, value) {
@@ -2143,16 +1705,16 @@ module.exports = require('./_descriptors') ? function (object, key, value) {
   return object;
 };
 
-},{"./_descriptors":32,"./_object-dp":74,"./_property-desc":92}],46:[function(require,module,exports){
+},{"./_descriptors":30,"./_object-dp":72,"./_property-desc":90}],44:[function(require,module,exports){
 var document = require('./_global').document;
 module.exports = document && document.documentElement;
 
-},{"./_global":43}],47:[function(require,module,exports){
+},{"./_global":41}],45:[function(require,module,exports){
 module.exports = !require('./_descriptors') && !require('./_fails')(function () {
   return Object.defineProperty(require('./_dom-create')('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
-},{"./_descriptors":32,"./_dom-create":33,"./_fails":38}],48:[function(require,module,exports){
+},{"./_descriptors":30,"./_dom-create":31,"./_fails":36}],46:[function(require,module,exports){
 var isObject = require('./_is-object');
 var setPrototypeOf = require('./_set-proto').set;
 module.exports = function (that, target, C) {
@@ -2163,7 +1725,7 @@ module.exports = function (that, target, C) {
   } return that;
 };
 
-},{"./_is-object":54,"./_set-proto":99}],49:[function(require,module,exports){
+},{"./_is-object":52,"./_set-proto":97}],47:[function(require,module,exports){
 // fast apply, http://jsperf.lnkit.com/fast-apply/5
 module.exports = function (fn, args, that) {
   var un = that === undefined;
@@ -2181,7 +1743,7 @@ module.exports = function (fn, args, that) {
   } return fn.apply(that, args);
 };
 
-},{}],50:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 // fallback for non-array-like ES3 and non-enumerable old V8 strings
 var cof = require('./_cof');
 // eslint-disable-next-line no-prototype-builtins
@@ -2189,7 +1751,7 @@ module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
   return cof(it) == 'String' ? it.split('') : Object(it);
 };
 
-},{"./_cof":21}],51:[function(require,module,exports){
+},{"./_cof":19}],49:[function(require,module,exports){
 // check on default Array iterator
 var Iterators = require('./_iterators');
 var ITERATOR = require('./_wks')('iterator');
@@ -2199,14 +1761,14 @@ module.exports = function (it) {
   return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
 };
 
-},{"./_iterators":61,"./_wks":129}],52:[function(require,module,exports){
+},{"./_iterators":59,"./_wks":127}],50:[function(require,module,exports){
 // 7.2.2 IsArray(argument)
 var cof = require('./_cof');
 module.exports = Array.isArray || function isArray(arg) {
   return cof(arg) == 'Array';
 };
 
-},{"./_cof":21}],53:[function(require,module,exports){
+},{"./_cof":19}],51:[function(require,module,exports){
 // 20.1.2.3 Number.isInteger(number)
 var isObject = require('./_is-object');
 var floor = Math.floor;
@@ -2214,12 +1776,12 @@ module.exports = function isInteger(it) {
   return !isObject(it) && isFinite(it) && floor(it) === it;
 };
 
-},{"./_is-object":54}],54:[function(require,module,exports){
+},{"./_is-object":52}],52:[function(require,module,exports){
 module.exports = function (it) {
   return typeof it === 'object' ? it !== null : typeof it === 'function';
 };
 
-},{}],55:[function(require,module,exports){
+},{}],53:[function(require,module,exports){
 // 7.2.8 IsRegExp(argument)
 var isObject = require('./_is-object');
 var cof = require('./_cof');
@@ -2229,7 +1791,7 @@ module.exports = function (it) {
   return isObject(it) && ((isRegExp = it[MATCH]) !== undefined ? !!isRegExp : cof(it) == 'RegExp');
 };
 
-},{"./_cof":21,"./_is-object":54,"./_wks":129}],56:[function(require,module,exports){
+},{"./_cof":19,"./_is-object":52,"./_wks":127}],54:[function(require,module,exports){
 // call something on iterator step with safe closing on error
 var anObject = require('./_an-object');
 module.exports = function (iterator, fn, value, entries) {
@@ -2243,7 +1805,7 @@ module.exports = function (iterator, fn, value, entries) {
   }
 };
 
-},{"./_an-object":10}],57:[function(require,module,exports){
+},{"./_an-object":8}],55:[function(require,module,exports){
 'use strict';
 var create = require('./_object-create');
 var descriptor = require('./_property-desc');
@@ -2258,7 +1820,7 @@ module.exports = function (Constructor, NAME, next) {
   setToStringTag(Constructor, NAME + ' Iterator');
 };
 
-},{"./_hide":45,"./_object-create":73,"./_property-desc":92,"./_set-to-string-tag":101,"./_wks":129}],58:[function(require,module,exports){
+},{"./_hide":43,"./_object-create":71,"./_property-desc":90,"./_set-to-string-tag":99,"./_wks":127}],56:[function(require,module,exports){
 'use strict';
 var LIBRARY = require('./_library');
 var $export = require('./_export');
@@ -2330,7 +1892,7 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
   return methods;
 };
 
-},{"./_export":36,"./_has":44,"./_hide":45,"./_iter-create":57,"./_iterators":61,"./_library":62,"./_object-gpo":81,"./_redefine":94,"./_set-to-string-tag":101,"./_wks":129}],59:[function(require,module,exports){
+},{"./_export":34,"./_has":42,"./_hide":43,"./_iter-create":55,"./_iterators":59,"./_library":60,"./_object-gpo":79,"./_redefine":92,"./_set-to-string-tag":99,"./_wks":127}],57:[function(require,module,exports){
 var ITERATOR = require('./_wks')('iterator');
 var SAFE_CLOSING = false;
 
@@ -2354,18 +1916,18 @@ module.exports = function (exec, skipClosing) {
   return safe;
 };
 
-},{"./_wks":129}],60:[function(require,module,exports){
+},{"./_wks":127}],58:[function(require,module,exports){
 module.exports = function (done, value) {
   return { value: value, done: !!done };
 };
 
-},{}],61:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 module.exports = {};
 
-},{}],62:[function(require,module,exports){
+},{}],60:[function(require,module,exports){
 module.exports = false;
 
-},{}],63:[function(require,module,exports){
+},{}],61:[function(require,module,exports){
 // 20.2.2.14 Math.expm1(x)
 var $expm1 = Math.expm1;
 module.exports = (!$expm1
@@ -2377,7 +1939,7 @@ module.exports = (!$expm1
   return (x = +x) == 0 ? x : x > -1e-6 && x < 1e-6 ? x + x * x / 2 : Math.exp(x) - 1;
 } : $expm1;
 
-},{}],64:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 // 20.2.2.16 Math.fround(x)
 var sign = require('./_math-sign');
 var pow = Math.pow;
@@ -2402,13 +1964,13 @@ module.exports = Math.fround || function fround(x) {
   return $sign * result;
 };
 
-},{"./_math-sign":67}],65:[function(require,module,exports){
+},{"./_math-sign":65}],63:[function(require,module,exports){
 // 20.2.2.20 Math.log1p(x)
 module.exports = Math.log1p || function log1p(x) {
   return (x = +x) > -1e-8 && x < 1e-8 ? x - x * x / 2 : Math.log(1 + x);
 };
 
-},{}],66:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 // https://rwaldron.github.io/proposal-math-extensions/
 module.exports = Math.scale || function scale(x, inLow, inHigh, outLow, outHigh) {
   if (
@@ -2428,14 +1990,14 @@ module.exports = Math.scale || function scale(x, inLow, inHigh, outLow, outHigh)
   return (x - inLow) * (outHigh - outLow) / (inHigh - inLow) + outLow;
 };
 
-},{}],67:[function(require,module,exports){
+},{}],65:[function(require,module,exports){
 // 20.2.2.28 Math.sign(x)
 module.exports = Math.sign || function sign(x) {
   // eslint-disable-next-line no-self-compare
   return (x = +x) == 0 || x != x ? x : x < 0 ? -1 : 1;
 };
 
-},{}],68:[function(require,module,exports){
+},{}],66:[function(require,module,exports){
 var META = require('./_uid')('meta');
 var isObject = require('./_is-object');
 var has = require('./_has');
@@ -2490,7 +2052,7 @@ var meta = module.exports = {
   onFreeze: onFreeze
 };
 
-},{"./_fails":38,"./_has":44,"./_is-object":54,"./_object-dp":74,"./_uid":124}],69:[function(require,module,exports){
+},{"./_fails":36,"./_has":42,"./_is-object":52,"./_object-dp":72,"./_uid":122}],67:[function(require,module,exports){
 var Map = require('./es6.map');
 var $export = require('./_export');
 var shared = require('./_shared')('metadata');
@@ -2543,7 +2105,7 @@ module.exports = {
   exp: exp
 };
 
-},{"./_export":36,"./_shared":103,"./es6.map":161,"./es6.weak-map":267}],70:[function(require,module,exports){
+},{"./_export":34,"./_shared":101,"./es6.map":159,"./es6.weak-map":265}],68:[function(require,module,exports){
 var global = require('./_global');
 var macrotask = require('./_task').set;
 var Observer = global.MutationObserver || global.WebKitMutationObserver;
@@ -2613,7 +2175,7 @@ module.exports = function () {
   };
 };
 
-},{"./_cof":21,"./_global":43,"./_task":113}],71:[function(require,module,exports){
+},{"./_cof":19,"./_global":41,"./_task":111}],69:[function(require,module,exports){
 'use strict';
 // 25.4.1.5 NewPromiseCapability(C)
 var aFunction = require('./_a-function');
@@ -2633,7 +2195,7 @@ module.exports.f = function (C) {
   return new PromiseCapability(C);
 };
 
-},{"./_a-function":6}],72:[function(require,module,exports){
+},{"./_a-function":4}],70:[function(require,module,exports){
 'use strict';
 // 19.1.2.1 Object.assign(target, source, ...)
 var getKeys = require('./_object-keys');
@@ -2669,7 +2231,7 @@ module.exports = !$assign || require('./_fails')(function () {
   } return T;
 } : $assign;
 
-},{"./_fails":38,"./_iobject":50,"./_object-gops":80,"./_object-keys":83,"./_object-pie":84,"./_to-object":119}],73:[function(require,module,exports){
+},{"./_fails":36,"./_iobject":48,"./_object-gops":78,"./_object-keys":81,"./_object-pie":82,"./_to-object":117}],71:[function(require,module,exports){
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 var anObject = require('./_an-object');
 var dPs = require('./_object-dps');
@@ -2712,7 +2274,7 @@ module.exports = Object.create || function create(O, Properties) {
   return Properties === undefined ? result : dPs(result, Properties);
 };
 
-},{"./_an-object":10,"./_dom-create":33,"./_enum-bug-keys":34,"./_html":46,"./_object-dps":75,"./_shared-key":102}],74:[function(require,module,exports){
+},{"./_an-object":8,"./_dom-create":31,"./_enum-bug-keys":32,"./_html":44,"./_object-dps":73,"./_shared-key":100}],72:[function(require,module,exports){
 var anObject = require('./_an-object');
 var IE8_DOM_DEFINE = require('./_ie8-dom-define');
 var toPrimitive = require('./_to-primitive');
@@ -2730,7 +2292,7 @@ exports.f = require('./_descriptors') ? Object.defineProperty : function defineP
   return O;
 };
 
-},{"./_an-object":10,"./_descriptors":32,"./_ie8-dom-define":47,"./_to-primitive":120}],75:[function(require,module,exports){
+},{"./_an-object":8,"./_descriptors":30,"./_ie8-dom-define":45,"./_to-primitive":118}],73:[function(require,module,exports){
 var dP = require('./_object-dp');
 var anObject = require('./_an-object');
 var getKeys = require('./_object-keys');
@@ -2745,7 +2307,7 @@ module.exports = require('./_descriptors') ? Object.defineProperties : function 
   return O;
 };
 
-},{"./_an-object":10,"./_descriptors":32,"./_object-dp":74,"./_object-keys":83}],76:[function(require,module,exports){
+},{"./_an-object":8,"./_descriptors":30,"./_object-dp":72,"./_object-keys":81}],74:[function(require,module,exports){
 'use strict';
 // Forced replacement prototype accessors methods
 module.exports = require('./_library') || !require('./_fails')(function () {
@@ -2756,7 +2318,7 @@ module.exports = require('./_library') || !require('./_fails')(function () {
   delete require('./_global')[K];
 });
 
-},{"./_fails":38,"./_global":43,"./_library":62}],77:[function(require,module,exports){
+},{"./_fails":36,"./_global":41,"./_library":60}],75:[function(require,module,exports){
 var pIE = require('./_object-pie');
 var createDesc = require('./_property-desc');
 var toIObject = require('./_to-iobject');
@@ -2774,7 +2336,7 @@ exports.f = require('./_descriptors') ? gOPD : function getOwnPropertyDescriptor
   if (has(O, P)) return createDesc(!pIE.f.call(O, P), O[P]);
 };
 
-},{"./_descriptors":32,"./_has":44,"./_ie8-dom-define":47,"./_object-pie":84,"./_property-desc":92,"./_to-iobject":117,"./_to-primitive":120}],78:[function(require,module,exports){
+},{"./_descriptors":30,"./_has":42,"./_ie8-dom-define":45,"./_object-pie":82,"./_property-desc":90,"./_to-iobject":115,"./_to-primitive":118}],76:[function(require,module,exports){
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
 var toIObject = require('./_to-iobject');
 var gOPN = require('./_object-gopn').f;
@@ -2795,7 +2357,7 @@ module.exports.f = function getOwnPropertyNames(it) {
   return windowNames && toString.call(it) == '[object Window]' ? getWindowNames(it) : gOPN(toIObject(it));
 };
 
-},{"./_object-gopn":79,"./_to-iobject":117}],79:[function(require,module,exports){
+},{"./_object-gopn":77,"./_to-iobject":115}],77:[function(require,module,exports){
 // 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
 var $keys = require('./_object-keys-internal');
 var hiddenKeys = require('./_enum-bug-keys').concat('length', 'prototype');
@@ -2804,10 +2366,10 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
   return $keys(O, hiddenKeys);
 };
 
-},{"./_enum-bug-keys":34,"./_object-keys-internal":82}],80:[function(require,module,exports){
+},{"./_enum-bug-keys":32,"./_object-keys-internal":80}],78:[function(require,module,exports){
 exports.f = Object.getOwnPropertySymbols;
 
-},{}],81:[function(require,module,exports){
+},{}],79:[function(require,module,exports){
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
 var has = require('./_has');
 var toObject = require('./_to-object');
@@ -2822,7 +2384,7 @@ module.exports = Object.getPrototypeOf || function (O) {
   } return O instanceof Object ? ObjectProto : null;
 };
 
-},{"./_has":44,"./_shared-key":102,"./_to-object":119}],82:[function(require,module,exports){
+},{"./_has":42,"./_shared-key":100,"./_to-object":117}],80:[function(require,module,exports){
 var has = require('./_has');
 var toIObject = require('./_to-iobject');
 var arrayIndexOf = require('./_array-includes')(false);
@@ -2841,7 +2403,7 @@ module.exports = function (object, names) {
   return result;
 };
 
-},{"./_array-includes":14,"./_has":44,"./_shared-key":102,"./_to-iobject":117}],83:[function(require,module,exports){
+},{"./_array-includes":12,"./_has":42,"./_shared-key":100,"./_to-iobject":115}],81:[function(require,module,exports){
 // 19.1.2.14 / 15.2.3.14 Object.keys(O)
 var $keys = require('./_object-keys-internal');
 var enumBugKeys = require('./_enum-bug-keys');
@@ -2850,10 +2412,10 @@ module.exports = Object.keys || function keys(O) {
   return $keys(O, enumBugKeys);
 };
 
-},{"./_enum-bug-keys":34,"./_object-keys-internal":82}],84:[function(require,module,exports){
+},{"./_enum-bug-keys":32,"./_object-keys-internal":80}],82:[function(require,module,exports){
 exports.f = {}.propertyIsEnumerable;
 
-},{}],85:[function(require,module,exports){
+},{}],83:[function(require,module,exports){
 // most Object methods by ES6 should accept primitives
 var $export = require('./_export');
 var core = require('./_core');
@@ -2865,7 +2427,7 @@ module.exports = function (KEY, exec) {
   $export($export.S + $export.F * fails(function () { fn(1); }), 'Object', exp);
 };
 
-},{"./_core":26,"./_export":36,"./_fails":38}],86:[function(require,module,exports){
+},{"./_core":24,"./_export":34,"./_fails":36}],84:[function(require,module,exports){
 var getKeys = require('./_object-keys');
 var toIObject = require('./_to-iobject');
 var isEnum = require('./_object-pie').f;
@@ -2883,7 +2445,7 @@ module.exports = function (isEntries) {
   };
 };
 
-},{"./_object-keys":83,"./_object-pie":84,"./_to-iobject":117}],87:[function(require,module,exports){
+},{"./_object-keys":81,"./_object-pie":82,"./_to-iobject":115}],85:[function(require,module,exports){
 // all object keys, includes non-enumerable and symbols
 var gOPN = require('./_object-gopn');
 var gOPS = require('./_object-gops');
@@ -2895,7 +2457,7 @@ module.exports = Reflect && Reflect.ownKeys || function ownKeys(it) {
   return getSymbols ? keys.concat(getSymbols(it)) : keys;
 };
 
-},{"./_an-object":10,"./_global":43,"./_object-gopn":79,"./_object-gops":80}],88:[function(require,module,exports){
+},{"./_an-object":8,"./_global":41,"./_object-gopn":77,"./_object-gops":78}],86:[function(require,module,exports){
 var $parseFloat = require('./_global').parseFloat;
 var $trim = require('./_string-trim').trim;
 
@@ -2905,7 +2467,7 @@ module.exports = 1 / $parseFloat(require('./_string-ws') + '-0') !== -Infinity ?
   return result === 0 && string.charAt(0) == '-' ? -0 : result;
 } : $parseFloat;
 
-},{"./_global":43,"./_string-trim":111,"./_string-ws":112}],89:[function(require,module,exports){
+},{"./_global":41,"./_string-trim":109,"./_string-ws":110}],87:[function(require,module,exports){
 var $parseInt = require('./_global').parseInt;
 var $trim = require('./_string-trim').trim;
 var ws = require('./_string-ws');
@@ -2916,7 +2478,7 @@ module.exports = $parseInt(ws + '08') !== 8 || $parseInt(ws + '0x16') !== 22 ? f
   return $parseInt(string, (radix >>> 0) || (hex.test(string) ? 16 : 10));
 } : $parseInt;
 
-},{"./_global":43,"./_string-trim":111,"./_string-ws":112}],90:[function(require,module,exports){
+},{"./_global":41,"./_string-trim":109,"./_string-ws":110}],88:[function(require,module,exports){
 module.exports = function (exec) {
   try {
     return { e: false, v: exec() };
@@ -2925,7 +2487,7 @@ module.exports = function (exec) {
   }
 };
 
-},{}],91:[function(require,module,exports){
+},{}],89:[function(require,module,exports){
 var anObject = require('./_an-object');
 var isObject = require('./_is-object');
 var newPromiseCapability = require('./_new-promise-capability');
@@ -2939,7 +2501,7 @@ module.exports = function (C, x) {
   return promiseCapability.promise;
 };
 
-},{"./_an-object":10,"./_is-object":54,"./_new-promise-capability":71}],92:[function(require,module,exports){
+},{"./_an-object":8,"./_is-object":52,"./_new-promise-capability":69}],90:[function(require,module,exports){
 module.exports = function (bitmap, value) {
   return {
     enumerable: !(bitmap & 1),
@@ -2949,14 +2511,14 @@ module.exports = function (bitmap, value) {
   };
 };
 
-},{}],93:[function(require,module,exports){
+},{}],91:[function(require,module,exports){
 var redefine = require('./_redefine');
 module.exports = function (target, src, safe) {
   for (var key in src) redefine(target, key, src[key], safe);
   return target;
 };
 
-},{"./_redefine":94}],94:[function(require,module,exports){
+},{"./_redefine":92}],92:[function(require,module,exports){
 var global = require('./_global');
 var hide = require('./_hide');
 var has = require('./_has');
@@ -2989,7 +2551,7 @@ require('./_core').inspectSource = function (it) {
   return typeof this == 'function' && this[SRC] || $toString.call(this);
 });
 
-},{"./_core":26,"./_global":43,"./_has":44,"./_hide":45,"./_uid":124}],95:[function(require,module,exports){
+},{"./_core":24,"./_global":41,"./_has":42,"./_hide":43,"./_uid":122}],93:[function(require,module,exports){
 module.exports = function (regExp, replace) {
   var replacer = replace === Object(replace) ? function (part) {
     return replace[part];
@@ -2999,14 +2561,14 @@ module.exports = function (regExp, replace) {
   };
 };
 
-},{}],96:[function(require,module,exports){
+},{}],94:[function(require,module,exports){
 // 7.2.9 SameValue(x, y)
 module.exports = Object.is || function is(x, y) {
   // eslint-disable-next-line no-self-compare
   return x === y ? x !== 0 || 1 / x === 1 / y : x != x && y != y;
 };
 
-},{}],97:[function(require,module,exports){
+},{}],95:[function(require,module,exports){
 'use strict';
 // https://tc39.github.io/proposal-setmap-offrom/
 var $export = require('./_export');
@@ -3036,7 +2598,7 @@ module.exports = function (COLLECTION) {
   } });
 };
 
-},{"./_a-function":6,"./_ctx":28,"./_export":36,"./_for-of":42}],98:[function(require,module,exports){
+},{"./_a-function":4,"./_ctx":26,"./_export":34,"./_for-of":40}],96:[function(require,module,exports){
 'use strict';
 // https://tc39.github.io/proposal-setmap-offrom/
 var $export = require('./_export');
@@ -3050,7 +2612,7 @@ module.exports = function (COLLECTION) {
   } });
 };
 
-},{"./_export":36}],99:[function(require,module,exports){
+},{"./_export":34}],97:[function(require,module,exports){
 // Works with __proto__ only. Old v8 can't work with null proto objects.
 /* eslint-disable no-proto */
 var isObject = require('./_is-object');
@@ -3077,7 +2639,7 @@ module.exports = {
   check: check
 };
 
-},{"./_an-object":10,"./_ctx":28,"./_is-object":54,"./_object-gopd":77}],100:[function(require,module,exports){
+},{"./_an-object":8,"./_ctx":26,"./_is-object":52,"./_object-gopd":75}],98:[function(require,module,exports){
 'use strict';
 var global = require('./_global');
 var dP = require('./_object-dp');
@@ -3092,7 +2654,7 @@ module.exports = function (KEY) {
   });
 };
 
-},{"./_descriptors":32,"./_global":43,"./_object-dp":74,"./_wks":129}],101:[function(require,module,exports){
+},{"./_descriptors":30,"./_global":41,"./_object-dp":72,"./_wks":127}],99:[function(require,module,exports){
 var def = require('./_object-dp').f;
 var has = require('./_has');
 var TAG = require('./_wks')('toStringTag');
@@ -3101,14 +2663,14 @@ module.exports = function (it, tag, stat) {
   if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
 };
 
-},{"./_has":44,"./_object-dp":74,"./_wks":129}],102:[function(require,module,exports){
+},{"./_has":42,"./_object-dp":72,"./_wks":127}],100:[function(require,module,exports){
 var shared = require('./_shared')('keys');
 var uid = require('./_uid');
 module.exports = function (key) {
   return shared[key] || (shared[key] = uid(key));
 };
 
-},{"./_shared":103,"./_uid":124}],103:[function(require,module,exports){
+},{"./_shared":101,"./_uid":122}],101:[function(require,module,exports){
 var global = require('./_global');
 var SHARED = '__core-js_shared__';
 var store = global[SHARED] || (global[SHARED] = {});
@@ -3116,7 +2678,7 @@ module.exports = function (key) {
   return store[key] || (store[key] = {});
 };
 
-},{"./_global":43}],104:[function(require,module,exports){
+},{"./_global":41}],102:[function(require,module,exports){
 // 7.3.20 SpeciesConstructor(O, defaultConstructor)
 var anObject = require('./_an-object');
 var aFunction = require('./_a-function');
@@ -3127,7 +2689,7 @@ module.exports = function (O, D) {
   return C === undefined || (S = anObject(C)[SPECIES]) == undefined ? D : aFunction(S);
 };
 
-},{"./_a-function":6,"./_an-object":10,"./_wks":129}],105:[function(require,module,exports){
+},{"./_a-function":4,"./_an-object":8,"./_wks":127}],103:[function(require,module,exports){
 'use strict';
 var fails = require('./_fails');
 
@@ -3138,7 +2700,7 @@ module.exports = function (method, arg) {
   });
 };
 
-},{"./_fails":38}],106:[function(require,module,exports){
+},{"./_fails":36}],104:[function(require,module,exports){
 var toInteger = require('./_to-integer');
 var defined = require('./_defined');
 // true  -> String#at
@@ -3157,7 +2719,7 @@ module.exports = function (TO_STRING) {
   };
 };
 
-},{"./_defined":31,"./_to-integer":116}],107:[function(require,module,exports){
+},{"./_defined":29,"./_to-integer":114}],105:[function(require,module,exports){
 // helper for String#{startsWith, endsWith, includes}
 var isRegExp = require('./_is-regexp');
 var defined = require('./_defined');
@@ -3167,7 +2729,7 @@ module.exports = function (that, searchString, NAME) {
   return String(defined(that));
 };
 
-},{"./_defined":31,"./_is-regexp":55}],108:[function(require,module,exports){
+},{"./_defined":29,"./_is-regexp":53}],106:[function(require,module,exports){
 var $export = require('./_export');
 var fails = require('./_fails');
 var defined = require('./_defined');
@@ -3188,7 +2750,7 @@ module.exports = function (NAME, exec) {
   }), 'String', O);
 };
 
-},{"./_defined":31,"./_export":36,"./_fails":38}],109:[function(require,module,exports){
+},{"./_defined":29,"./_export":34,"./_fails":36}],107:[function(require,module,exports){
 // https://github.com/tc39/proposal-string-pad-start-end
 var toLength = require('./_to-length');
 var repeat = require('./_string-repeat');
@@ -3206,7 +2768,7 @@ module.exports = function (that, maxLength, fillString, left) {
   return left ? stringFiller + S : S + stringFiller;
 };
 
-},{"./_defined":31,"./_string-repeat":110,"./_to-length":118}],110:[function(require,module,exports){
+},{"./_defined":29,"./_string-repeat":108,"./_to-length":116}],108:[function(require,module,exports){
 'use strict';
 var toInteger = require('./_to-integer');
 var defined = require('./_defined');
@@ -3220,7 +2782,7 @@ module.exports = function repeat(count) {
   return res;
 };
 
-},{"./_defined":31,"./_to-integer":116}],111:[function(require,module,exports){
+},{"./_defined":29,"./_to-integer":114}],109:[function(require,module,exports){
 var $export = require('./_export');
 var defined = require('./_defined');
 var fails = require('./_fails');
@@ -3252,11 +2814,11 @@ var trim = exporter.trim = function (string, TYPE) {
 
 module.exports = exporter;
 
-},{"./_defined":31,"./_export":36,"./_fails":38,"./_string-ws":112}],112:[function(require,module,exports){
+},{"./_defined":29,"./_export":34,"./_fails":36,"./_string-ws":110}],110:[function(require,module,exports){
 module.exports = '\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u2003' +
   '\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF';
 
-},{}],113:[function(require,module,exports){
+},{}],111:[function(require,module,exports){
 var ctx = require('./_ctx');
 var invoke = require('./_invoke');
 var html = require('./_html');
@@ -3342,7 +2904,7 @@ module.exports = {
   clear: clearTask
 };
 
-},{"./_cof":21,"./_ctx":28,"./_dom-create":33,"./_global":43,"./_html":46,"./_invoke":49}],114:[function(require,module,exports){
+},{"./_cof":19,"./_ctx":26,"./_dom-create":31,"./_global":41,"./_html":44,"./_invoke":47}],112:[function(require,module,exports){
 var toInteger = require('./_to-integer');
 var max = Math.max;
 var min = Math.min;
@@ -3351,7 +2913,7 @@ module.exports = function (index, length) {
   return index < 0 ? max(index + length, 0) : min(index, length);
 };
 
-},{"./_to-integer":116}],115:[function(require,module,exports){
+},{"./_to-integer":114}],113:[function(require,module,exports){
 // https://tc39.github.io/ecma262/#sec-toindex
 var toInteger = require('./_to-integer');
 var toLength = require('./_to-length');
@@ -3363,7 +2925,7 @@ module.exports = function (it) {
   return length;
 };
 
-},{"./_to-integer":116,"./_to-length":118}],116:[function(require,module,exports){
+},{"./_to-integer":114,"./_to-length":116}],114:[function(require,module,exports){
 // 7.1.4 ToInteger
 var ceil = Math.ceil;
 var floor = Math.floor;
@@ -3371,7 +2933,7 @@ module.exports = function (it) {
   return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
 };
 
-},{}],117:[function(require,module,exports){
+},{}],115:[function(require,module,exports){
 // to indexed object, toObject with fallback for non-array-like ES3 strings
 var IObject = require('./_iobject');
 var defined = require('./_defined');
@@ -3379,7 +2941,7 @@ module.exports = function (it) {
   return IObject(defined(it));
 };
 
-},{"./_defined":31,"./_iobject":50}],118:[function(require,module,exports){
+},{"./_defined":29,"./_iobject":48}],116:[function(require,module,exports){
 // 7.1.15 ToLength
 var toInteger = require('./_to-integer');
 var min = Math.min;
@@ -3387,14 +2949,14 @@ module.exports = function (it) {
   return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
 };
 
-},{"./_to-integer":116}],119:[function(require,module,exports){
+},{"./_to-integer":114}],117:[function(require,module,exports){
 // 7.1.13 ToObject(argument)
 var defined = require('./_defined');
 module.exports = function (it) {
   return Object(defined(it));
 };
 
-},{"./_defined":31}],120:[function(require,module,exports){
+},{"./_defined":29}],118:[function(require,module,exports){
 // 7.1.1 ToPrimitive(input [, PreferredType])
 var isObject = require('./_is-object');
 // instead of the ES6 spec version, we didn't implement @@toPrimitive case
@@ -3408,7 +2970,7 @@ module.exports = function (it, S) {
   throw TypeError("Can't convert object to primitive value");
 };
 
-},{"./_is-object":54}],121:[function(require,module,exports){
+},{"./_is-object":52}],119:[function(require,module,exports){
 'use strict';
 if (require('./_descriptors')) {
   var LIBRARY = require('./_library');
@@ -3890,7 +3452,7 @@ if (require('./_descriptors')) {
   };
 } else module.exports = function () { /* empty */ };
 
-},{"./_an-instance":9,"./_array-copy-within":11,"./_array-fill":12,"./_array-includes":14,"./_array-methods":15,"./_classof":20,"./_ctx":28,"./_descriptors":32,"./_export":36,"./_fails":38,"./_global":43,"./_has":44,"./_hide":45,"./_is-array-iter":51,"./_is-object":54,"./_iter-detect":59,"./_iterators":61,"./_library":62,"./_object-create":73,"./_object-dp":74,"./_object-gopd":77,"./_object-gopn":79,"./_object-gpo":81,"./_property-desc":92,"./_redefine-all":93,"./_set-species":100,"./_species-constructor":104,"./_to-absolute-index":114,"./_to-index":115,"./_to-integer":116,"./_to-length":118,"./_to-object":119,"./_to-primitive":120,"./_typed":123,"./_typed-buffer":122,"./_uid":124,"./_wks":129,"./core.get-iterator-method":130,"./es6.array.iterator":142}],122:[function(require,module,exports){
+},{"./_an-instance":7,"./_array-copy-within":9,"./_array-fill":10,"./_array-includes":12,"./_array-methods":13,"./_classof":18,"./_ctx":26,"./_descriptors":30,"./_export":34,"./_fails":36,"./_global":41,"./_has":42,"./_hide":43,"./_is-array-iter":49,"./_is-object":52,"./_iter-detect":57,"./_iterators":59,"./_library":60,"./_object-create":71,"./_object-dp":72,"./_object-gopd":75,"./_object-gopn":77,"./_object-gpo":79,"./_property-desc":90,"./_redefine-all":91,"./_set-species":98,"./_species-constructor":102,"./_to-absolute-index":112,"./_to-index":113,"./_to-integer":114,"./_to-length":116,"./_to-object":117,"./_to-primitive":118,"./_typed":121,"./_typed-buffer":120,"./_uid":122,"./_wks":127,"./core.get-iterator-method":128,"./es6.array.iterator":140}],120:[function(require,module,exports){
 'use strict';
 var global = require('./_global');
 var DESCRIPTORS = require('./_descriptors');
@@ -4168,7 +3730,7 @@ hide($DataView[PROTOTYPE], $typed.VIEW, true);
 exports[ARRAY_BUFFER] = $ArrayBuffer;
 exports[DATA_VIEW] = $DataView;
 
-},{"./_an-instance":9,"./_array-fill":12,"./_descriptors":32,"./_fails":38,"./_global":43,"./_hide":45,"./_library":62,"./_object-dp":74,"./_object-gopn":79,"./_redefine-all":93,"./_set-to-string-tag":101,"./_to-index":115,"./_to-integer":116,"./_to-length":118,"./_typed":123}],123:[function(require,module,exports){
+},{"./_an-instance":7,"./_array-fill":10,"./_descriptors":30,"./_fails":36,"./_global":41,"./_hide":43,"./_library":60,"./_object-dp":72,"./_object-gopn":77,"./_redefine-all":91,"./_set-to-string-tag":99,"./_to-index":113,"./_to-integer":114,"./_to-length":116,"./_typed":121}],121:[function(require,module,exports){
 var global = require('./_global');
 var hide = require('./_hide');
 var uid = require('./_uid');
@@ -4198,27 +3760,27 @@ module.exports = {
   VIEW: VIEW
 };
 
-},{"./_global":43,"./_hide":45,"./_uid":124}],124:[function(require,module,exports){
+},{"./_global":41,"./_hide":43,"./_uid":122}],122:[function(require,module,exports){
 var id = 0;
 var px = Math.random();
 module.exports = function (key) {
   return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
 };
 
-},{}],125:[function(require,module,exports){
+},{}],123:[function(require,module,exports){
 var global = require('./_global');
 var navigator = global.navigator;
 
 module.exports = navigator && navigator.userAgent || '';
 
-},{"./_global":43}],126:[function(require,module,exports){
+},{"./_global":41}],124:[function(require,module,exports){
 var isObject = require('./_is-object');
 module.exports = function (it, TYPE) {
   if (!isObject(it) || it._t !== TYPE) throw TypeError('Incompatible receiver, ' + TYPE + ' required!');
   return it;
 };
 
-},{"./_is-object":54}],127:[function(require,module,exports){
+},{"./_is-object":52}],125:[function(require,module,exports){
 var global = require('./_global');
 var core = require('./_core');
 var LIBRARY = require('./_library');
@@ -4229,10 +3791,10 @@ module.exports = function (name) {
   if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty($Symbol, name, { value: wksExt.f(name) });
 };
 
-},{"./_core":26,"./_global":43,"./_library":62,"./_object-dp":74,"./_wks-ext":128}],128:[function(require,module,exports){
+},{"./_core":24,"./_global":41,"./_library":60,"./_object-dp":72,"./_wks-ext":126}],126:[function(require,module,exports){
 exports.f = require('./_wks');
 
-},{"./_wks":129}],129:[function(require,module,exports){
+},{"./_wks":127}],127:[function(require,module,exports){
 var store = require('./_shared')('wks');
 var uid = require('./_uid');
 var Symbol = require('./_global').Symbol;
@@ -4245,7 +3807,7 @@ var $exports = module.exports = function (name) {
 
 $exports.store = store;
 
-},{"./_global":43,"./_shared":103,"./_uid":124}],130:[function(require,module,exports){
+},{"./_global":41,"./_shared":101,"./_uid":122}],128:[function(require,module,exports){
 var classof = require('./_classof');
 var ITERATOR = require('./_wks')('iterator');
 var Iterators = require('./_iterators');
@@ -4255,14 +3817,14 @@ module.exports = require('./_core').getIteratorMethod = function (it) {
     || Iterators[classof(it)];
 };
 
-},{"./_classof":20,"./_core":26,"./_iterators":61,"./_wks":129}],131:[function(require,module,exports){
+},{"./_classof":18,"./_core":24,"./_iterators":59,"./_wks":127}],129:[function(require,module,exports){
 // https://github.com/benjamingr/RexExp.escape
 var $export = require('./_export');
 var $re = require('./_replacer')(/[\\^$*+?.()|[\]{}]/g, '\\$&');
 
 $export($export.S, 'RegExp', { escape: function escape(it) { return $re(it); } });
 
-},{"./_export":36,"./_replacer":95}],132:[function(require,module,exports){
+},{"./_export":34,"./_replacer":93}],130:[function(require,module,exports){
 // 22.1.3.3 Array.prototype.copyWithin(target, start, end = this.length)
 var $export = require('./_export');
 
@@ -4270,7 +3832,7 @@ $export($export.P, 'Array', { copyWithin: require('./_array-copy-within') });
 
 require('./_add-to-unscopables')('copyWithin');
 
-},{"./_add-to-unscopables":8,"./_array-copy-within":11,"./_export":36}],133:[function(require,module,exports){
+},{"./_add-to-unscopables":6,"./_array-copy-within":9,"./_export":34}],131:[function(require,module,exports){
 'use strict';
 var $export = require('./_export');
 var $every = require('./_array-methods')(4);
@@ -4282,7 +3844,7 @@ $export($export.P + $export.F * !require('./_strict-method')([].every, true), 'A
   }
 });
 
-},{"./_array-methods":15,"./_export":36,"./_strict-method":105}],134:[function(require,module,exports){
+},{"./_array-methods":13,"./_export":34,"./_strict-method":103}],132:[function(require,module,exports){
 // 22.1.3.6 Array.prototype.fill(value, start = 0, end = this.length)
 var $export = require('./_export');
 
@@ -4290,7 +3852,7 @@ $export($export.P, 'Array', { fill: require('./_array-fill') });
 
 require('./_add-to-unscopables')('fill');
 
-},{"./_add-to-unscopables":8,"./_array-fill":12,"./_export":36}],135:[function(require,module,exports){
+},{"./_add-to-unscopables":6,"./_array-fill":10,"./_export":34}],133:[function(require,module,exports){
 'use strict';
 var $export = require('./_export');
 var $filter = require('./_array-methods')(2);
@@ -4302,7 +3864,7 @@ $export($export.P + $export.F * !require('./_strict-method')([].filter, true), '
   }
 });
 
-},{"./_array-methods":15,"./_export":36,"./_strict-method":105}],136:[function(require,module,exports){
+},{"./_array-methods":13,"./_export":34,"./_strict-method":103}],134:[function(require,module,exports){
 'use strict';
 // 22.1.3.9 Array.prototype.findIndex(predicate, thisArg = undefined)
 var $export = require('./_export');
@@ -4318,7 +3880,7 @@ $export($export.P + $export.F * forced, 'Array', {
 });
 require('./_add-to-unscopables')(KEY);
 
-},{"./_add-to-unscopables":8,"./_array-methods":15,"./_export":36}],137:[function(require,module,exports){
+},{"./_add-to-unscopables":6,"./_array-methods":13,"./_export":34}],135:[function(require,module,exports){
 'use strict';
 // 22.1.3.8 Array.prototype.find(predicate, thisArg = undefined)
 var $export = require('./_export');
@@ -4334,7 +3896,7 @@ $export($export.P + $export.F * forced, 'Array', {
 });
 require('./_add-to-unscopables')(KEY);
 
-},{"./_add-to-unscopables":8,"./_array-methods":15,"./_export":36}],138:[function(require,module,exports){
+},{"./_add-to-unscopables":6,"./_array-methods":13,"./_export":34}],136:[function(require,module,exports){
 'use strict';
 var $export = require('./_export');
 var $forEach = require('./_array-methods')(0);
@@ -4347,7 +3909,7 @@ $export($export.P + $export.F * !STRICT, 'Array', {
   }
 });
 
-},{"./_array-methods":15,"./_export":36,"./_strict-method":105}],139:[function(require,module,exports){
+},{"./_array-methods":13,"./_export":34,"./_strict-method":103}],137:[function(require,module,exports){
 'use strict';
 var ctx = require('./_ctx');
 var $export = require('./_export');
@@ -4386,7 +3948,7 @@ $export($export.S + $export.F * !require('./_iter-detect')(function (iter) { Arr
   }
 });
 
-},{"./_create-property":27,"./_ctx":28,"./_export":36,"./_is-array-iter":51,"./_iter-call":56,"./_iter-detect":59,"./_to-length":118,"./_to-object":119,"./core.get-iterator-method":130}],140:[function(require,module,exports){
+},{"./_create-property":25,"./_ctx":26,"./_export":34,"./_is-array-iter":49,"./_iter-call":54,"./_iter-detect":57,"./_to-length":116,"./_to-object":117,"./core.get-iterator-method":128}],138:[function(require,module,exports){
 'use strict';
 var $export = require('./_export');
 var $indexOf = require('./_array-includes')(false);
@@ -4403,13 +3965,13 @@ $export($export.P + $export.F * (NEGATIVE_ZERO || !require('./_strict-method')($
   }
 });
 
-},{"./_array-includes":14,"./_export":36,"./_strict-method":105}],141:[function(require,module,exports){
+},{"./_array-includes":12,"./_export":34,"./_strict-method":103}],139:[function(require,module,exports){
 // 22.1.2.2 / 15.4.3.2 Array.isArray(arg)
 var $export = require('./_export');
 
 $export($export.S, 'Array', { isArray: require('./_is-array') });
 
-},{"./_export":36,"./_is-array":52}],142:[function(require,module,exports){
+},{"./_export":34,"./_is-array":50}],140:[function(require,module,exports){
 'use strict';
 var addToUnscopables = require('./_add-to-unscopables');
 var step = require('./_iter-step');
@@ -4445,7 +4007,7 @@ addToUnscopables('keys');
 addToUnscopables('values');
 addToUnscopables('entries');
 
-},{"./_add-to-unscopables":8,"./_iter-define":58,"./_iter-step":60,"./_iterators":61,"./_to-iobject":117}],143:[function(require,module,exports){
+},{"./_add-to-unscopables":6,"./_iter-define":56,"./_iter-step":58,"./_iterators":59,"./_to-iobject":115}],141:[function(require,module,exports){
 'use strict';
 // 22.1.3.13 Array.prototype.join(separator)
 var $export = require('./_export');
@@ -4459,7 +4021,7 @@ $export($export.P + $export.F * (require('./_iobject') != Object || !require('./
   }
 });
 
-},{"./_export":36,"./_iobject":50,"./_strict-method":105,"./_to-iobject":117}],144:[function(require,module,exports){
+},{"./_export":34,"./_iobject":48,"./_strict-method":103,"./_to-iobject":115}],142:[function(require,module,exports){
 'use strict';
 var $export = require('./_export');
 var toIObject = require('./_to-iobject');
@@ -4483,7 +4045,7 @@ $export($export.P + $export.F * (NEGATIVE_ZERO || !require('./_strict-method')($
   }
 });
 
-},{"./_export":36,"./_strict-method":105,"./_to-integer":116,"./_to-iobject":117,"./_to-length":118}],145:[function(require,module,exports){
+},{"./_export":34,"./_strict-method":103,"./_to-integer":114,"./_to-iobject":115,"./_to-length":116}],143:[function(require,module,exports){
 'use strict';
 var $export = require('./_export');
 var $map = require('./_array-methods')(1);
@@ -4495,7 +4057,7 @@ $export($export.P + $export.F * !require('./_strict-method')([].map, true), 'Arr
   }
 });
 
-},{"./_array-methods":15,"./_export":36,"./_strict-method":105}],146:[function(require,module,exports){
+},{"./_array-methods":13,"./_export":34,"./_strict-method":103}],144:[function(require,module,exports){
 'use strict';
 var $export = require('./_export');
 var createProperty = require('./_create-property');
@@ -4516,7 +4078,7 @@ $export($export.S + $export.F * require('./_fails')(function () {
   }
 });
 
-},{"./_create-property":27,"./_export":36,"./_fails":38}],147:[function(require,module,exports){
+},{"./_create-property":25,"./_export":34,"./_fails":36}],145:[function(require,module,exports){
 'use strict';
 var $export = require('./_export');
 var $reduce = require('./_array-reduce');
@@ -4528,7 +4090,7 @@ $export($export.P + $export.F * !require('./_strict-method')([].reduceRight, tru
   }
 });
 
-},{"./_array-reduce":16,"./_export":36,"./_strict-method":105}],148:[function(require,module,exports){
+},{"./_array-reduce":14,"./_export":34,"./_strict-method":103}],146:[function(require,module,exports){
 'use strict';
 var $export = require('./_export');
 var $reduce = require('./_array-reduce');
@@ -4540,7 +4102,7 @@ $export($export.P + $export.F * !require('./_strict-method')([].reduce, true), '
   }
 });
 
-},{"./_array-reduce":16,"./_export":36,"./_strict-method":105}],149:[function(require,module,exports){
+},{"./_array-reduce":14,"./_export":34,"./_strict-method":103}],147:[function(require,module,exports){
 'use strict';
 var $export = require('./_export');
 var html = require('./_html');
@@ -4570,7 +4132,7 @@ $export($export.P + $export.F * require('./_fails')(function () {
   }
 });
 
-},{"./_cof":21,"./_export":36,"./_fails":38,"./_html":46,"./_to-absolute-index":114,"./_to-length":118}],150:[function(require,module,exports){
+},{"./_cof":19,"./_export":34,"./_fails":36,"./_html":44,"./_to-absolute-index":112,"./_to-length":116}],148:[function(require,module,exports){
 'use strict';
 var $export = require('./_export');
 var $some = require('./_array-methods')(3);
@@ -4582,7 +4144,7 @@ $export($export.P + $export.F * !require('./_strict-method')([].some, true), 'Ar
   }
 });
 
-},{"./_array-methods":15,"./_export":36,"./_strict-method":105}],151:[function(require,module,exports){
+},{"./_array-methods":13,"./_export":34,"./_strict-method":103}],149:[function(require,module,exports){
 'use strict';
 var $export = require('./_export');
 var aFunction = require('./_a-function');
@@ -4607,16 +4169,16 @@ $export($export.P + $export.F * (fails(function () {
   }
 });
 
-},{"./_a-function":6,"./_export":36,"./_fails":38,"./_strict-method":105,"./_to-object":119}],152:[function(require,module,exports){
+},{"./_a-function":4,"./_export":34,"./_fails":36,"./_strict-method":103,"./_to-object":117}],150:[function(require,module,exports){
 require('./_set-species')('Array');
 
-},{"./_set-species":100}],153:[function(require,module,exports){
+},{"./_set-species":98}],151:[function(require,module,exports){
 // 20.3.3.1 / 15.9.4.4 Date.now()
 var $export = require('./_export');
 
 $export($export.S, 'Date', { now: function () { return new Date().getTime(); } });
 
-},{"./_export":36}],154:[function(require,module,exports){
+},{"./_export":34}],152:[function(require,module,exports){
 // 20.3.4.36 / 15.9.5.43 Date.prototype.toISOString()
 var $export = require('./_export');
 var toISOString = require('./_date-to-iso-string');
@@ -4626,7 +4188,7 @@ $export($export.P + $export.F * (Date.prototype.toISOString !== toISOString), 'D
   toISOString: toISOString
 });
 
-},{"./_date-to-iso-string":29,"./_export":36}],155:[function(require,module,exports){
+},{"./_date-to-iso-string":27,"./_export":34}],153:[function(require,module,exports){
 'use strict';
 var $export = require('./_export');
 var toObject = require('./_to-object');
@@ -4644,13 +4206,13 @@ $export($export.P + $export.F * require('./_fails')(function () {
   }
 });
 
-},{"./_export":36,"./_fails":38,"./_to-object":119,"./_to-primitive":120}],156:[function(require,module,exports){
+},{"./_export":34,"./_fails":36,"./_to-object":117,"./_to-primitive":118}],154:[function(require,module,exports){
 var TO_PRIMITIVE = require('./_wks')('toPrimitive');
 var proto = Date.prototype;
 
 if (!(TO_PRIMITIVE in proto)) require('./_hide')(proto, TO_PRIMITIVE, require('./_date-to-primitive'));
 
-},{"./_date-to-primitive":30,"./_hide":45,"./_wks":129}],157:[function(require,module,exports){
+},{"./_date-to-primitive":28,"./_hide":43,"./_wks":127}],155:[function(require,module,exports){
 var DateProto = Date.prototype;
 var INVALID_DATE = 'Invalid Date';
 var TO_STRING = 'toString';
@@ -4664,13 +4226,13 @@ if (new Date(NaN) + '' != INVALID_DATE) {
   });
 }
 
-},{"./_redefine":94}],158:[function(require,module,exports){
+},{"./_redefine":92}],156:[function(require,module,exports){
 // 19.2.3.2 / 15.3.4.5 Function.prototype.bind(thisArg, args...)
 var $export = require('./_export');
 
 $export($export.P, 'Function', { bind: require('./_bind') });
 
-},{"./_bind":19,"./_export":36}],159:[function(require,module,exports){
+},{"./_bind":17,"./_export":34}],157:[function(require,module,exports){
 'use strict';
 var isObject = require('./_is-object');
 var getPrototypeOf = require('./_object-gpo');
@@ -4685,7 +4247,7 @@ if (!(HAS_INSTANCE in FunctionProto)) require('./_object-dp').f(FunctionProto, H
   return false;
 } });
 
-},{"./_is-object":54,"./_object-dp":74,"./_object-gpo":81,"./_wks":129}],160:[function(require,module,exports){
+},{"./_is-object":52,"./_object-dp":72,"./_object-gpo":79,"./_wks":127}],158:[function(require,module,exports){
 var dP = require('./_object-dp').f;
 var FProto = Function.prototype;
 var nameRE = /^\s*function ([^ (]*)/;
@@ -4703,7 +4265,7 @@ NAME in FProto || require('./_descriptors') && dP(FProto, NAME, {
   }
 });
 
-},{"./_descriptors":32,"./_object-dp":74}],161:[function(require,module,exports){
+},{"./_descriptors":30,"./_object-dp":72}],159:[function(require,module,exports){
 'use strict';
 var strong = require('./_collection-strong');
 var validate = require('./_validate-collection');
@@ -4724,7 +4286,7 @@ module.exports = require('./_collection')(MAP, function (get) {
   }
 }, strong, true);
 
-},{"./_collection":25,"./_collection-strong":22,"./_validate-collection":126}],162:[function(require,module,exports){
+},{"./_collection":23,"./_collection-strong":20,"./_validate-collection":124}],160:[function(require,module,exports){
 // 20.2.2.3 Math.acosh(x)
 var $export = require('./_export');
 var log1p = require('./_math-log1p');
@@ -4744,7 +4306,7 @@ $export($export.S + $export.F * !($acosh
   }
 });
 
-},{"./_export":36,"./_math-log1p":65}],163:[function(require,module,exports){
+},{"./_export":34,"./_math-log1p":63}],161:[function(require,module,exports){
 // 20.2.2.5 Math.asinh(x)
 var $export = require('./_export');
 var $asinh = Math.asinh;
@@ -4756,7 +4318,7 @@ function asinh(x) {
 // Tor Browser bug: Math.asinh(0) -> -0
 $export($export.S + $export.F * !($asinh && 1 / $asinh(0) > 0), 'Math', { asinh: asinh });
 
-},{"./_export":36}],164:[function(require,module,exports){
+},{"./_export":34}],162:[function(require,module,exports){
 // 20.2.2.7 Math.atanh(x)
 var $export = require('./_export');
 var $atanh = Math.atanh;
@@ -4768,7 +4330,7 @@ $export($export.S + $export.F * !($atanh && 1 / $atanh(-0) < 0), 'Math', {
   }
 });
 
-},{"./_export":36}],165:[function(require,module,exports){
+},{"./_export":34}],163:[function(require,module,exports){
 // 20.2.2.9 Math.cbrt(x)
 var $export = require('./_export');
 var sign = require('./_math-sign');
@@ -4779,7 +4341,7 @@ $export($export.S, 'Math', {
   }
 });
 
-},{"./_export":36,"./_math-sign":67}],166:[function(require,module,exports){
+},{"./_export":34,"./_math-sign":65}],164:[function(require,module,exports){
 // 20.2.2.11 Math.clz32(x)
 var $export = require('./_export');
 
@@ -4789,7 +4351,7 @@ $export($export.S, 'Math', {
   }
 });
 
-},{"./_export":36}],167:[function(require,module,exports){
+},{"./_export":34}],165:[function(require,module,exports){
 // 20.2.2.12 Math.cosh(x)
 var $export = require('./_export');
 var exp = Math.exp;
@@ -4800,20 +4362,20 @@ $export($export.S, 'Math', {
   }
 });
 
-},{"./_export":36}],168:[function(require,module,exports){
+},{"./_export":34}],166:[function(require,module,exports){
 // 20.2.2.14 Math.expm1(x)
 var $export = require('./_export');
 var $expm1 = require('./_math-expm1');
 
 $export($export.S + $export.F * ($expm1 != Math.expm1), 'Math', { expm1: $expm1 });
 
-},{"./_export":36,"./_math-expm1":63}],169:[function(require,module,exports){
+},{"./_export":34,"./_math-expm1":61}],167:[function(require,module,exports){
 // 20.2.2.16 Math.fround(x)
 var $export = require('./_export');
 
 $export($export.S, 'Math', { fround: require('./_math-fround') });
 
-},{"./_export":36,"./_math-fround":64}],170:[function(require,module,exports){
+},{"./_export":34,"./_math-fround":62}],168:[function(require,module,exports){
 // 20.2.2.17 Math.hypot([value1[, value2[, … ]]])
 var $export = require('./_export');
 var abs = Math.abs;
@@ -4840,7 +4402,7 @@ $export($export.S, 'Math', {
   }
 });
 
-},{"./_export":36}],171:[function(require,module,exports){
+},{"./_export":34}],169:[function(require,module,exports){
 // 20.2.2.18 Math.imul(x, y)
 var $export = require('./_export');
 var $imul = Math.imul;
@@ -4859,7 +4421,7 @@ $export($export.S + $export.F * require('./_fails')(function () {
   }
 });
 
-},{"./_export":36,"./_fails":38}],172:[function(require,module,exports){
+},{"./_export":34,"./_fails":36}],170:[function(require,module,exports){
 // 20.2.2.21 Math.log10(x)
 var $export = require('./_export');
 
@@ -4869,13 +4431,13 @@ $export($export.S, 'Math', {
   }
 });
 
-},{"./_export":36}],173:[function(require,module,exports){
+},{"./_export":34}],171:[function(require,module,exports){
 // 20.2.2.20 Math.log1p(x)
 var $export = require('./_export');
 
 $export($export.S, 'Math', { log1p: require('./_math-log1p') });
 
-},{"./_export":36,"./_math-log1p":65}],174:[function(require,module,exports){
+},{"./_export":34,"./_math-log1p":63}],172:[function(require,module,exports){
 // 20.2.2.22 Math.log2(x)
 var $export = require('./_export');
 
@@ -4885,13 +4447,13 @@ $export($export.S, 'Math', {
   }
 });
 
-},{"./_export":36}],175:[function(require,module,exports){
+},{"./_export":34}],173:[function(require,module,exports){
 // 20.2.2.28 Math.sign(x)
 var $export = require('./_export');
 
 $export($export.S, 'Math', { sign: require('./_math-sign') });
 
-},{"./_export":36,"./_math-sign":67}],176:[function(require,module,exports){
+},{"./_export":34,"./_math-sign":65}],174:[function(require,module,exports){
 // 20.2.2.30 Math.sinh(x)
 var $export = require('./_export');
 var expm1 = require('./_math-expm1');
@@ -4908,7 +4470,7 @@ $export($export.S + $export.F * require('./_fails')(function () {
   }
 });
 
-},{"./_export":36,"./_fails":38,"./_math-expm1":63}],177:[function(require,module,exports){
+},{"./_export":34,"./_fails":36,"./_math-expm1":61}],175:[function(require,module,exports){
 // 20.2.2.33 Math.tanh(x)
 var $export = require('./_export');
 var expm1 = require('./_math-expm1');
@@ -4922,7 +4484,7 @@ $export($export.S, 'Math', {
   }
 });
 
-},{"./_export":36,"./_math-expm1":63}],178:[function(require,module,exports){
+},{"./_export":34,"./_math-expm1":61}],176:[function(require,module,exports){
 // 20.2.2.34 Math.trunc(x)
 var $export = require('./_export');
 
@@ -4932,7 +4494,7 @@ $export($export.S, 'Math', {
   }
 });
 
-},{"./_export":36}],179:[function(require,module,exports){
+},{"./_export":34}],177:[function(require,module,exports){
 'use strict';
 var global = require('./_global');
 var has = require('./_has');
@@ -5003,13 +4565,13 @@ if (!$Number(' 0o1') || !$Number('0b1') || $Number('+0x1')) {
   require('./_redefine')(global, NUMBER, $Number);
 }
 
-},{"./_cof":21,"./_descriptors":32,"./_fails":38,"./_global":43,"./_has":44,"./_inherit-if-required":48,"./_object-create":73,"./_object-dp":74,"./_object-gopd":77,"./_object-gopn":79,"./_redefine":94,"./_string-trim":111,"./_to-primitive":120}],180:[function(require,module,exports){
+},{"./_cof":19,"./_descriptors":30,"./_fails":36,"./_global":41,"./_has":42,"./_inherit-if-required":46,"./_object-create":71,"./_object-dp":72,"./_object-gopd":75,"./_object-gopn":77,"./_redefine":92,"./_string-trim":109,"./_to-primitive":118}],178:[function(require,module,exports){
 // 20.1.2.1 Number.EPSILON
 var $export = require('./_export');
 
 $export($export.S, 'Number', { EPSILON: Math.pow(2, -52) });
 
-},{"./_export":36}],181:[function(require,module,exports){
+},{"./_export":34}],179:[function(require,module,exports){
 // 20.1.2.2 Number.isFinite(number)
 var $export = require('./_export');
 var _isFinite = require('./_global').isFinite;
@@ -5020,13 +4582,13 @@ $export($export.S, 'Number', {
   }
 });
 
-},{"./_export":36,"./_global":43}],182:[function(require,module,exports){
+},{"./_export":34,"./_global":41}],180:[function(require,module,exports){
 // 20.1.2.3 Number.isInteger(number)
 var $export = require('./_export');
 
 $export($export.S, 'Number', { isInteger: require('./_is-integer') });
 
-},{"./_export":36,"./_is-integer":53}],183:[function(require,module,exports){
+},{"./_export":34,"./_is-integer":51}],181:[function(require,module,exports){
 // 20.1.2.4 Number.isNaN(number)
 var $export = require('./_export');
 
@@ -5037,7 +4599,7 @@ $export($export.S, 'Number', {
   }
 });
 
-},{"./_export":36}],184:[function(require,module,exports){
+},{"./_export":34}],182:[function(require,module,exports){
 // 20.1.2.5 Number.isSafeInteger(number)
 var $export = require('./_export');
 var isInteger = require('./_is-integer');
@@ -5049,31 +4611,31 @@ $export($export.S, 'Number', {
   }
 });
 
-},{"./_export":36,"./_is-integer":53}],185:[function(require,module,exports){
+},{"./_export":34,"./_is-integer":51}],183:[function(require,module,exports){
 // 20.1.2.6 Number.MAX_SAFE_INTEGER
 var $export = require('./_export');
 
 $export($export.S, 'Number', { MAX_SAFE_INTEGER: 0x1fffffffffffff });
 
-},{"./_export":36}],186:[function(require,module,exports){
+},{"./_export":34}],184:[function(require,module,exports){
 // 20.1.2.10 Number.MIN_SAFE_INTEGER
 var $export = require('./_export');
 
 $export($export.S, 'Number', { MIN_SAFE_INTEGER: -0x1fffffffffffff });
 
-},{"./_export":36}],187:[function(require,module,exports){
+},{"./_export":34}],185:[function(require,module,exports){
 var $export = require('./_export');
 var $parseFloat = require('./_parse-float');
 // 20.1.2.12 Number.parseFloat(string)
 $export($export.S + $export.F * (Number.parseFloat != $parseFloat), 'Number', { parseFloat: $parseFloat });
 
-},{"./_export":36,"./_parse-float":88}],188:[function(require,module,exports){
+},{"./_export":34,"./_parse-float":86}],186:[function(require,module,exports){
 var $export = require('./_export');
 var $parseInt = require('./_parse-int');
 // 20.1.2.13 Number.parseInt(string, radix)
 $export($export.S + $export.F * (Number.parseInt != $parseInt), 'Number', { parseInt: $parseInt });
 
-},{"./_export":36,"./_parse-int":89}],189:[function(require,module,exports){
+},{"./_export":34,"./_parse-int":87}],187:[function(require,module,exports){
 'use strict';
 var $export = require('./_export');
 var toInteger = require('./_to-integer');
@@ -5189,7 +4751,7 @@ $export($export.P + $export.F * (!!$toFixed && (
   }
 });
 
-},{"./_a-number-value":7,"./_export":36,"./_fails":38,"./_string-repeat":110,"./_to-integer":116}],190:[function(require,module,exports){
+},{"./_a-number-value":5,"./_export":34,"./_fails":36,"./_string-repeat":108,"./_to-integer":114}],188:[function(require,module,exports){
 'use strict';
 var $export = require('./_export');
 var $fails = require('./_fails');
@@ -5209,28 +4771,28 @@ $export($export.P + $export.F * ($fails(function () {
   }
 });
 
-},{"./_a-number-value":7,"./_export":36,"./_fails":38}],191:[function(require,module,exports){
+},{"./_a-number-value":5,"./_export":34,"./_fails":36}],189:[function(require,module,exports){
 // 19.1.3.1 Object.assign(target, source)
 var $export = require('./_export');
 
 $export($export.S + $export.F, 'Object', { assign: require('./_object-assign') });
 
-},{"./_export":36,"./_object-assign":72}],192:[function(require,module,exports){
+},{"./_export":34,"./_object-assign":70}],190:[function(require,module,exports){
 var $export = require('./_export');
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 $export($export.S, 'Object', { create: require('./_object-create') });
 
-},{"./_export":36,"./_object-create":73}],193:[function(require,module,exports){
+},{"./_export":34,"./_object-create":71}],191:[function(require,module,exports){
 var $export = require('./_export');
 // 19.1.2.3 / 15.2.3.7 Object.defineProperties(O, Properties)
 $export($export.S + $export.F * !require('./_descriptors'), 'Object', { defineProperties: require('./_object-dps') });
 
-},{"./_descriptors":32,"./_export":36,"./_object-dps":75}],194:[function(require,module,exports){
+},{"./_descriptors":30,"./_export":34,"./_object-dps":73}],192:[function(require,module,exports){
 var $export = require('./_export');
 // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
 $export($export.S + $export.F * !require('./_descriptors'), 'Object', { defineProperty: require('./_object-dp').f });
 
-},{"./_descriptors":32,"./_export":36,"./_object-dp":74}],195:[function(require,module,exports){
+},{"./_descriptors":30,"./_export":34,"./_object-dp":72}],193:[function(require,module,exports){
 // 19.1.2.5 Object.freeze(O)
 var isObject = require('./_is-object');
 var meta = require('./_meta').onFreeze;
@@ -5241,7 +4803,7 @@ require('./_object-sap')('freeze', function ($freeze) {
   };
 });
 
-},{"./_is-object":54,"./_meta":68,"./_object-sap":85}],196:[function(require,module,exports){
+},{"./_is-object":52,"./_meta":66,"./_object-sap":83}],194:[function(require,module,exports){
 // 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
 var toIObject = require('./_to-iobject');
 var $getOwnPropertyDescriptor = require('./_object-gopd').f;
@@ -5252,13 +4814,13 @@ require('./_object-sap')('getOwnPropertyDescriptor', function () {
   };
 });
 
-},{"./_object-gopd":77,"./_object-sap":85,"./_to-iobject":117}],197:[function(require,module,exports){
+},{"./_object-gopd":75,"./_object-sap":83,"./_to-iobject":115}],195:[function(require,module,exports){
 // 19.1.2.7 Object.getOwnPropertyNames(O)
 require('./_object-sap')('getOwnPropertyNames', function () {
   return require('./_object-gopn-ext').f;
 });
 
-},{"./_object-gopn-ext":78,"./_object-sap":85}],198:[function(require,module,exports){
+},{"./_object-gopn-ext":76,"./_object-sap":83}],196:[function(require,module,exports){
 // 19.1.2.9 Object.getPrototypeOf(O)
 var toObject = require('./_to-object');
 var $getPrototypeOf = require('./_object-gpo');
@@ -5269,7 +4831,7 @@ require('./_object-sap')('getPrototypeOf', function () {
   };
 });
 
-},{"./_object-gpo":81,"./_object-sap":85,"./_to-object":119}],199:[function(require,module,exports){
+},{"./_object-gpo":79,"./_object-sap":83,"./_to-object":117}],197:[function(require,module,exports){
 // 19.1.2.11 Object.isExtensible(O)
 var isObject = require('./_is-object');
 
@@ -5279,7 +4841,7 @@ require('./_object-sap')('isExtensible', function ($isExtensible) {
   };
 });
 
-},{"./_is-object":54,"./_object-sap":85}],200:[function(require,module,exports){
+},{"./_is-object":52,"./_object-sap":83}],198:[function(require,module,exports){
 // 19.1.2.12 Object.isFrozen(O)
 var isObject = require('./_is-object');
 
@@ -5289,7 +4851,7 @@ require('./_object-sap')('isFrozen', function ($isFrozen) {
   };
 });
 
-},{"./_is-object":54,"./_object-sap":85}],201:[function(require,module,exports){
+},{"./_is-object":52,"./_object-sap":83}],199:[function(require,module,exports){
 // 19.1.2.13 Object.isSealed(O)
 var isObject = require('./_is-object');
 
@@ -5299,12 +4861,12 @@ require('./_object-sap')('isSealed', function ($isSealed) {
   };
 });
 
-},{"./_is-object":54,"./_object-sap":85}],202:[function(require,module,exports){
+},{"./_is-object":52,"./_object-sap":83}],200:[function(require,module,exports){
 // 19.1.3.10 Object.is(value1, value2)
 var $export = require('./_export');
 $export($export.S, 'Object', { is: require('./_same-value') });
 
-},{"./_export":36,"./_same-value":96}],203:[function(require,module,exports){
+},{"./_export":34,"./_same-value":94}],201:[function(require,module,exports){
 // 19.1.2.14 Object.keys(O)
 var toObject = require('./_to-object');
 var $keys = require('./_object-keys');
@@ -5315,7 +4877,7 @@ require('./_object-sap')('keys', function () {
   };
 });
 
-},{"./_object-keys":83,"./_object-sap":85,"./_to-object":119}],204:[function(require,module,exports){
+},{"./_object-keys":81,"./_object-sap":83,"./_to-object":117}],202:[function(require,module,exports){
 // 19.1.2.15 Object.preventExtensions(O)
 var isObject = require('./_is-object');
 var meta = require('./_meta').onFreeze;
@@ -5326,7 +4888,7 @@ require('./_object-sap')('preventExtensions', function ($preventExtensions) {
   };
 });
 
-},{"./_is-object":54,"./_meta":68,"./_object-sap":85}],205:[function(require,module,exports){
+},{"./_is-object":52,"./_meta":66,"./_object-sap":83}],203:[function(require,module,exports){
 // 19.1.2.17 Object.seal(O)
 var isObject = require('./_is-object');
 var meta = require('./_meta').onFreeze;
@@ -5337,12 +4899,12 @@ require('./_object-sap')('seal', function ($seal) {
   };
 });
 
-},{"./_is-object":54,"./_meta":68,"./_object-sap":85}],206:[function(require,module,exports){
+},{"./_is-object":52,"./_meta":66,"./_object-sap":83}],204:[function(require,module,exports){
 // 19.1.3.19 Object.setPrototypeOf(O, proto)
 var $export = require('./_export');
 $export($export.S, 'Object', { setPrototypeOf: require('./_set-proto').set });
 
-},{"./_export":36,"./_set-proto":99}],207:[function(require,module,exports){
+},{"./_export":34,"./_set-proto":97}],205:[function(require,module,exports){
 'use strict';
 // 19.1.3.6 Object.prototype.toString()
 var classof = require('./_classof');
@@ -5354,19 +4916,19 @@ if (test + '' != '[object z]') {
   }, true);
 }
 
-},{"./_classof":20,"./_redefine":94,"./_wks":129}],208:[function(require,module,exports){
+},{"./_classof":18,"./_redefine":92,"./_wks":127}],206:[function(require,module,exports){
 var $export = require('./_export');
 var $parseFloat = require('./_parse-float');
 // 18.2.4 parseFloat(string)
 $export($export.G + $export.F * (parseFloat != $parseFloat), { parseFloat: $parseFloat });
 
-},{"./_export":36,"./_parse-float":88}],209:[function(require,module,exports){
+},{"./_export":34,"./_parse-float":86}],207:[function(require,module,exports){
 var $export = require('./_export');
 var $parseInt = require('./_parse-int');
 // 18.2.5 parseInt(string, radix)
 $export($export.G + $export.F * (parseInt != $parseInt), { parseInt: $parseInt });
 
-},{"./_export":36,"./_parse-int":89}],210:[function(require,module,exports){
+},{"./_export":34,"./_parse-int":87}],208:[function(require,module,exports){
 'use strict';
 var LIBRARY = require('./_library');
 var global = require('./_global');
@@ -5641,7 +5203,7 @@ $export($export.S + $export.F * !(USE_NATIVE && require('./_iter-detect')(functi
   }
 });
 
-},{"./_a-function":6,"./_an-instance":9,"./_classof":20,"./_core":26,"./_ctx":28,"./_export":36,"./_for-of":42,"./_global":43,"./_is-object":54,"./_iter-detect":59,"./_library":62,"./_microtask":70,"./_new-promise-capability":71,"./_perform":90,"./_promise-resolve":91,"./_redefine-all":93,"./_set-species":100,"./_set-to-string-tag":101,"./_species-constructor":104,"./_task":113,"./_wks":129}],211:[function(require,module,exports){
+},{"./_a-function":4,"./_an-instance":7,"./_classof":18,"./_core":24,"./_ctx":26,"./_export":34,"./_for-of":40,"./_global":41,"./_is-object":52,"./_iter-detect":57,"./_library":60,"./_microtask":68,"./_new-promise-capability":69,"./_perform":88,"./_promise-resolve":89,"./_redefine-all":91,"./_set-species":98,"./_set-to-string-tag":99,"./_species-constructor":102,"./_task":111,"./_wks":127}],209:[function(require,module,exports){
 // 26.1.1 Reflect.apply(target, thisArgument, argumentsList)
 var $export = require('./_export');
 var aFunction = require('./_a-function');
@@ -5659,7 +5221,7 @@ $export($export.S + $export.F * !require('./_fails')(function () {
   }
 });
 
-},{"./_a-function":6,"./_an-object":10,"./_export":36,"./_fails":38,"./_global":43}],212:[function(require,module,exports){
+},{"./_a-function":4,"./_an-object":8,"./_export":34,"./_fails":36,"./_global":41}],210:[function(require,module,exports){
 // 26.1.2 Reflect.construct(target, argumentsList [, newTarget])
 var $export = require('./_export');
 var create = require('./_object-create');
@@ -5708,7 +5270,7 @@ $export($export.S + $export.F * (NEW_TARGET_BUG || ARGS_BUG), 'Reflect', {
   }
 });
 
-},{"./_a-function":6,"./_an-object":10,"./_bind":19,"./_export":36,"./_fails":38,"./_global":43,"./_is-object":54,"./_object-create":73}],213:[function(require,module,exports){
+},{"./_a-function":4,"./_an-object":8,"./_bind":17,"./_export":34,"./_fails":36,"./_global":41,"./_is-object":52,"./_object-create":71}],211:[function(require,module,exports){
 // 26.1.3 Reflect.defineProperty(target, propertyKey, attributes)
 var dP = require('./_object-dp');
 var $export = require('./_export');
@@ -5733,7 +5295,7 @@ $export($export.S + $export.F * require('./_fails')(function () {
   }
 });
 
-},{"./_an-object":10,"./_export":36,"./_fails":38,"./_object-dp":74,"./_to-primitive":120}],214:[function(require,module,exports){
+},{"./_an-object":8,"./_export":34,"./_fails":36,"./_object-dp":72,"./_to-primitive":118}],212:[function(require,module,exports){
 // 26.1.4 Reflect.deleteProperty(target, propertyKey)
 var $export = require('./_export');
 var gOPD = require('./_object-gopd').f;
@@ -5746,7 +5308,7 @@ $export($export.S, 'Reflect', {
   }
 });
 
-},{"./_an-object":10,"./_export":36,"./_object-gopd":77}],215:[function(require,module,exports){
+},{"./_an-object":8,"./_export":34,"./_object-gopd":75}],213:[function(require,module,exports){
 'use strict';
 // 26.1.5 Reflect.enumerate(target)
 var $export = require('./_export');
@@ -5774,7 +5336,7 @@ $export($export.S, 'Reflect', {
   }
 });
 
-},{"./_an-object":10,"./_export":36,"./_iter-create":57}],216:[function(require,module,exports){
+},{"./_an-object":8,"./_export":34,"./_iter-create":55}],214:[function(require,module,exports){
 // 26.1.7 Reflect.getOwnPropertyDescriptor(target, propertyKey)
 var gOPD = require('./_object-gopd');
 var $export = require('./_export');
@@ -5786,7 +5348,7 @@ $export($export.S, 'Reflect', {
   }
 });
 
-},{"./_an-object":10,"./_export":36,"./_object-gopd":77}],217:[function(require,module,exports){
+},{"./_an-object":8,"./_export":34,"./_object-gopd":75}],215:[function(require,module,exports){
 // 26.1.8 Reflect.getPrototypeOf(target)
 var $export = require('./_export');
 var getProto = require('./_object-gpo');
@@ -5798,7 +5360,7 @@ $export($export.S, 'Reflect', {
   }
 });
 
-},{"./_an-object":10,"./_export":36,"./_object-gpo":81}],218:[function(require,module,exports){
+},{"./_an-object":8,"./_export":34,"./_object-gpo":79}],216:[function(require,module,exports){
 // 26.1.6 Reflect.get(target, propertyKey [, receiver])
 var gOPD = require('./_object-gopd');
 var getPrototypeOf = require('./_object-gpo');
@@ -5821,7 +5383,7 @@ function get(target, propertyKey /* , receiver */) {
 
 $export($export.S, 'Reflect', { get: get });
 
-},{"./_an-object":10,"./_export":36,"./_has":44,"./_is-object":54,"./_object-gopd":77,"./_object-gpo":81}],219:[function(require,module,exports){
+},{"./_an-object":8,"./_export":34,"./_has":42,"./_is-object":52,"./_object-gopd":75,"./_object-gpo":79}],217:[function(require,module,exports){
 // 26.1.9 Reflect.has(target, propertyKey)
 var $export = require('./_export');
 
@@ -5831,7 +5393,7 @@ $export($export.S, 'Reflect', {
   }
 });
 
-},{"./_export":36}],220:[function(require,module,exports){
+},{"./_export":34}],218:[function(require,module,exports){
 // 26.1.10 Reflect.isExtensible(target)
 var $export = require('./_export');
 var anObject = require('./_an-object');
@@ -5844,13 +5406,13 @@ $export($export.S, 'Reflect', {
   }
 });
 
-},{"./_an-object":10,"./_export":36}],221:[function(require,module,exports){
+},{"./_an-object":8,"./_export":34}],219:[function(require,module,exports){
 // 26.1.11 Reflect.ownKeys(target)
 var $export = require('./_export');
 
 $export($export.S, 'Reflect', { ownKeys: require('./_own-keys') });
 
-},{"./_export":36,"./_own-keys":87}],222:[function(require,module,exports){
+},{"./_export":34,"./_own-keys":85}],220:[function(require,module,exports){
 // 26.1.12 Reflect.preventExtensions(target)
 var $export = require('./_export');
 var anObject = require('./_an-object');
@@ -5868,7 +5430,7 @@ $export($export.S, 'Reflect', {
   }
 });
 
-},{"./_an-object":10,"./_export":36}],223:[function(require,module,exports){
+},{"./_an-object":8,"./_export":34}],221:[function(require,module,exports){
 // 26.1.14 Reflect.setPrototypeOf(target, proto)
 var $export = require('./_export');
 var setProto = require('./_set-proto');
@@ -5885,7 +5447,7 @@ if (setProto) $export($export.S, 'Reflect', {
   }
 });
 
-},{"./_export":36,"./_set-proto":99}],224:[function(require,module,exports){
+},{"./_export":34,"./_set-proto":97}],222:[function(require,module,exports){
 // 26.1.13 Reflect.set(target, propertyKey, V [, receiver])
 var dP = require('./_object-dp');
 var gOPD = require('./_object-gopd');
@@ -5918,7 +5480,7 @@ function set(target, propertyKey, V /* , receiver */) {
 
 $export($export.S, 'Reflect', { set: set });
 
-},{"./_an-object":10,"./_export":36,"./_has":44,"./_is-object":54,"./_object-dp":74,"./_object-gopd":77,"./_object-gpo":81,"./_property-desc":92}],225:[function(require,module,exports){
+},{"./_an-object":8,"./_export":34,"./_has":42,"./_is-object":52,"./_object-dp":72,"./_object-gopd":75,"./_object-gpo":79,"./_property-desc":90}],223:[function(require,module,exports){
 var global = require('./_global');
 var inheritIfRequired = require('./_inherit-if-required');
 var dP = require('./_object-dp').f;
@@ -5963,14 +5525,14 @@ if (require('./_descriptors') && (!CORRECT_NEW || require('./_fails')(function (
 
 require('./_set-species')('RegExp');
 
-},{"./_descriptors":32,"./_fails":38,"./_flags":40,"./_global":43,"./_inherit-if-required":48,"./_is-regexp":55,"./_object-dp":74,"./_object-gopn":79,"./_redefine":94,"./_set-species":100,"./_wks":129}],226:[function(require,module,exports){
+},{"./_descriptors":30,"./_fails":36,"./_flags":38,"./_global":41,"./_inherit-if-required":46,"./_is-regexp":53,"./_object-dp":72,"./_object-gopn":77,"./_redefine":92,"./_set-species":98,"./_wks":127}],224:[function(require,module,exports){
 // 21.2.5.3 get RegExp.prototype.flags()
 if (require('./_descriptors') && /./g.flags != 'g') require('./_object-dp').f(RegExp.prototype, 'flags', {
   configurable: true,
   get: require('./_flags')
 });
 
-},{"./_descriptors":32,"./_flags":40,"./_object-dp":74}],227:[function(require,module,exports){
+},{"./_descriptors":30,"./_flags":38,"./_object-dp":72}],225:[function(require,module,exports){
 // @@match logic
 require('./_fix-re-wks')('match', 1, function (defined, MATCH, $match) {
   // 21.1.3.11 String.prototype.match(regexp)
@@ -5982,7 +5544,7 @@ require('./_fix-re-wks')('match', 1, function (defined, MATCH, $match) {
   }, $match];
 });
 
-},{"./_fix-re-wks":39}],228:[function(require,module,exports){
+},{"./_fix-re-wks":37}],226:[function(require,module,exports){
 // @@replace logic
 require('./_fix-re-wks')('replace', 2, function (defined, REPLACE, $replace) {
   // 21.1.3.14 String.prototype.replace(searchValue, replaceValue)
@@ -5996,7 +5558,7 @@ require('./_fix-re-wks')('replace', 2, function (defined, REPLACE, $replace) {
   }, $replace];
 });
 
-},{"./_fix-re-wks":39}],229:[function(require,module,exports){
+},{"./_fix-re-wks":37}],227:[function(require,module,exports){
 // @@search logic
 require('./_fix-re-wks')('search', 1, function (defined, SEARCH, $search) {
   // 21.1.3.15 String.prototype.search(regexp)
@@ -6008,7 +5570,7 @@ require('./_fix-re-wks')('search', 1, function (defined, SEARCH, $search) {
   }, $search];
 });
 
-},{"./_fix-re-wks":39}],230:[function(require,module,exports){
+},{"./_fix-re-wks":37}],228:[function(require,module,exports){
 // @@split logic
 require('./_fix-re-wks')('split', 2, function (defined, SPLIT, $split) {
   'use strict';
@@ -6081,7 +5643,7 @@ require('./_fix-re-wks')('split', 2, function (defined, SPLIT, $split) {
   }, $split];
 });
 
-},{"./_fix-re-wks":39,"./_is-regexp":55}],231:[function(require,module,exports){
+},{"./_fix-re-wks":37,"./_is-regexp":53}],229:[function(require,module,exports){
 'use strict';
 require('./es6.regexp.flags');
 var anObject = require('./_an-object');
@@ -6108,7 +5670,7 @@ if (require('./_fails')(function () { return $toString.call({ source: 'a', flags
   });
 }
 
-},{"./_an-object":10,"./_descriptors":32,"./_fails":38,"./_flags":40,"./_redefine":94,"./es6.regexp.flags":226}],232:[function(require,module,exports){
+},{"./_an-object":8,"./_descriptors":30,"./_fails":36,"./_flags":38,"./_redefine":92,"./es6.regexp.flags":224}],230:[function(require,module,exports){
 'use strict';
 var strong = require('./_collection-strong');
 var validate = require('./_validate-collection');
@@ -6124,7 +5686,7 @@ module.exports = require('./_collection')(SET, function (get) {
   }
 }, strong);
 
-},{"./_collection":25,"./_collection-strong":22,"./_validate-collection":126}],233:[function(require,module,exports){
+},{"./_collection":23,"./_collection-strong":20,"./_validate-collection":124}],231:[function(require,module,exports){
 'use strict';
 // B.2.3.2 String.prototype.anchor(name)
 require('./_string-html')('anchor', function (createHTML) {
@@ -6133,7 +5695,7 @@ require('./_string-html')('anchor', function (createHTML) {
   };
 });
 
-},{"./_string-html":108}],234:[function(require,module,exports){
+},{"./_string-html":106}],232:[function(require,module,exports){
 'use strict';
 // B.2.3.3 String.prototype.big()
 require('./_string-html')('big', function (createHTML) {
@@ -6142,7 +5704,7 @@ require('./_string-html')('big', function (createHTML) {
   };
 });
 
-},{"./_string-html":108}],235:[function(require,module,exports){
+},{"./_string-html":106}],233:[function(require,module,exports){
 'use strict';
 // B.2.3.4 String.prototype.blink()
 require('./_string-html')('blink', function (createHTML) {
@@ -6151,7 +5713,7 @@ require('./_string-html')('blink', function (createHTML) {
   };
 });
 
-},{"./_string-html":108}],236:[function(require,module,exports){
+},{"./_string-html":106}],234:[function(require,module,exports){
 'use strict';
 // B.2.3.5 String.prototype.bold()
 require('./_string-html')('bold', function (createHTML) {
@@ -6160,7 +5722,7 @@ require('./_string-html')('bold', function (createHTML) {
   };
 });
 
-},{"./_string-html":108}],237:[function(require,module,exports){
+},{"./_string-html":106}],235:[function(require,module,exports){
 'use strict';
 var $export = require('./_export');
 var $at = require('./_string-at')(false);
@@ -6171,7 +5733,7 @@ $export($export.P, 'String', {
   }
 });
 
-},{"./_export":36,"./_string-at":106}],238:[function(require,module,exports){
+},{"./_export":34,"./_string-at":104}],236:[function(require,module,exports){
 // 21.1.3.6 String.prototype.endsWith(searchString [, endPosition])
 'use strict';
 var $export = require('./_export');
@@ -6193,7 +5755,7 @@ $export($export.P + $export.F * require('./_fails-is-regexp')(ENDS_WITH), 'Strin
   }
 });
 
-},{"./_export":36,"./_fails-is-regexp":37,"./_string-context":107,"./_to-length":118}],239:[function(require,module,exports){
+},{"./_export":34,"./_fails-is-regexp":35,"./_string-context":105,"./_to-length":116}],237:[function(require,module,exports){
 'use strict';
 // B.2.3.6 String.prototype.fixed()
 require('./_string-html')('fixed', function (createHTML) {
@@ -6202,7 +5764,7 @@ require('./_string-html')('fixed', function (createHTML) {
   };
 });
 
-},{"./_string-html":108}],240:[function(require,module,exports){
+},{"./_string-html":106}],238:[function(require,module,exports){
 'use strict';
 // B.2.3.7 String.prototype.fontcolor(color)
 require('./_string-html')('fontcolor', function (createHTML) {
@@ -6211,7 +5773,7 @@ require('./_string-html')('fontcolor', function (createHTML) {
   };
 });
 
-},{"./_string-html":108}],241:[function(require,module,exports){
+},{"./_string-html":106}],239:[function(require,module,exports){
 'use strict';
 // B.2.3.8 String.prototype.fontsize(size)
 require('./_string-html')('fontsize', function (createHTML) {
@@ -6220,7 +5782,7 @@ require('./_string-html')('fontsize', function (createHTML) {
   };
 });
 
-},{"./_string-html":108}],242:[function(require,module,exports){
+},{"./_string-html":106}],240:[function(require,module,exports){
 var $export = require('./_export');
 var toAbsoluteIndex = require('./_to-absolute-index');
 var fromCharCode = String.fromCharCode;
@@ -6245,7 +5807,7 @@ $export($export.S + $export.F * (!!$fromCodePoint && $fromCodePoint.length != 1)
   }
 });
 
-},{"./_export":36,"./_to-absolute-index":114}],243:[function(require,module,exports){
+},{"./_export":34,"./_to-absolute-index":112}],241:[function(require,module,exports){
 // 21.1.3.7 String.prototype.includes(searchString, position = 0)
 'use strict';
 var $export = require('./_export');
@@ -6259,7 +5821,7 @@ $export($export.P + $export.F * require('./_fails-is-regexp')(INCLUDES), 'String
   }
 });
 
-},{"./_export":36,"./_fails-is-regexp":37,"./_string-context":107}],244:[function(require,module,exports){
+},{"./_export":34,"./_fails-is-regexp":35,"./_string-context":105}],242:[function(require,module,exports){
 'use strict';
 // B.2.3.9 String.prototype.italics()
 require('./_string-html')('italics', function (createHTML) {
@@ -6268,7 +5830,7 @@ require('./_string-html')('italics', function (createHTML) {
   };
 });
 
-},{"./_string-html":108}],245:[function(require,module,exports){
+},{"./_string-html":106}],243:[function(require,module,exports){
 'use strict';
 var $at = require('./_string-at')(true);
 
@@ -6287,7 +5849,7 @@ require('./_iter-define')(String, 'String', function (iterated) {
   return { value: point, done: false };
 });
 
-},{"./_iter-define":58,"./_string-at":106}],246:[function(require,module,exports){
+},{"./_iter-define":56,"./_string-at":104}],244:[function(require,module,exports){
 'use strict';
 // B.2.3.10 String.prototype.link(url)
 require('./_string-html')('link', function (createHTML) {
@@ -6296,7 +5858,7 @@ require('./_string-html')('link', function (createHTML) {
   };
 });
 
-},{"./_string-html":108}],247:[function(require,module,exports){
+},{"./_string-html":106}],245:[function(require,module,exports){
 var $export = require('./_export');
 var toIObject = require('./_to-iobject');
 var toLength = require('./_to-length');
@@ -6316,7 +5878,7 @@ $export($export.S, 'String', {
   }
 });
 
-},{"./_export":36,"./_to-iobject":117,"./_to-length":118}],248:[function(require,module,exports){
+},{"./_export":34,"./_to-iobject":115,"./_to-length":116}],246:[function(require,module,exports){
 var $export = require('./_export');
 
 $export($export.P, 'String', {
@@ -6324,7 +5886,7 @@ $export($export.P, 'String', {
   repeat: require('./_string-repeat')
 });
 
-},{"./_export":36,"./_string-repeat":110}],249:[function(require,module,exports){
+},{"./_export":34,"./_string-repeat":108}],247:[function(require,module,exports){
 'use strict';
 // B.2.3.11 String.prototype.small()
 require('./_string-html')('small', function (createHTML) {
@@ -6333,7 +5895,7 @@ require('./_string-html')('small', function (createHTML) {
   };
 });
 
-},{"./_string-html":108}],250:[function(require,module,exports){
+},{"./_string-html":106}],248:[function(require,module,exports){
 // 21.1.3.18 String.prototype.startsWith(searchString [, position ])
 'use strict';
 var $export = require('./_export');
@@ -6353,7 +5915,7 @@ $export($export.P + $export.F * require('./_fails-is-regexp')(STARTS_WITH), 'Str
   }
 });
 
-},{"./_export":36,"./_fails-is-regexp":37,"./_string-context":107,"./_to-length":118}],251:[function(require,module,exports){
+},{"./_export":34,"./_fails-is-regexp":35,"./_string-context":105,"./_to-length":116}],249:[function(require,module,exports){
 'use strict';
 // B.2.3.12 String.prototype.strike()
 require('./_string-html')('strike', function (createHTML) {
@@ -6362,7 +5924,7 @@ require('./_string-html')('strike', function (createHTML) {
   };
 });
 
-},{"./_string-html":108}],252:[function(require,module,exports){
+},{"./_string-html":106}],250:[function(require,module,exports){
 'use strict';
 // B.2.3.13 String.prototype.sub()
 require('./_string-html')('sub', function (createHTML) {
@@ -6371,7 +5933,7 @@ require('./_string-html')('sub', function (createHTML) {
   };
 });
 
-},{"./_string-html":108}],253:[function(require,module,exports){
+},{"./_string-html":106}],251:[function(require,module,exports){
 'use strict';
 // B.2.3.14 String.prototype.sup()
 require('./_string-html')('sup', function (createHTML) {
@@ -6380,7 +5942,7 @@ require('./_string-html')('sup', function (createHTML) {
   };
 });
 
-},{"./_string-html":108}],254:[function(require,module,exports){
+},{"./_string-html":106}],252:[function(require,module,exports){
 'use strict';
 // 21.1.3.25 String.prototype.trim()
 require('./_string-trim')('trim', function ($trim) {
@@ -6389,7 +5951,7 @@ require('./_string-trim')('trim', function ($trim) {
   };
 });
 
-},{"./_string-trim":111}],255:[function(require,module,exports){
+},{"./_string-trim":109}],253:[function(require,module,exports){
 'use strict';
 // ECMAScript 6 symbols shim
 var global = require('./_global');
@@ -6625,7 +6187,7 @@ setToStringTag(Math, 'Math', true);
 // 24.3.3 JSON[@@toStringTag]
 setToStringTag(global.JSON, 'JSON', true);
 
-},{"./_an-object":10,"./_descriptors":32,"./_enum-keys":35,"./_export":36,"./_fails":38,"./_global":43,"./_has":44,"./_hide":45,"./_is-array":52,"./_is-object":54,"./_library":62,"./_meta":68,"./_object-create":73,"./_object-dp":74,"./_object-gopd":77,"./_object-gopn":79,"./_object-gopn-ext":78,"./_object-gops":80,"./_object-keys":83,"./_object-pie":84,"./_property-desc":92,"./_redefine":94,"./_set-to-string-tag":101,"./_shared":103,"./_to-iobject":117,"./_to-primitive":120,"./_uid":124,"./_wks":129,"./_wks-define":127,"./_wks-ext":128}],256:[function(require,module,exports){
+},{"./_an-object":8,"./_descriptors":30,"./_enum-keys":33,"./_export":34,"./_fails":36,"./_global":41,"./_has":42,"./_hide":43,"./_is-array":50,"./_is-object":52,"./_library":60,"./_meta":66,"./_object-create":71,"./_object-dp":72,"./_object-gopd":75,"./_object-gopn":77,"./_object-gopn-ext":76,"./_object-gops":78,"./_object-keys":81,"./_object-pie":82,"./_property-desc":90,"./_redefine":92,"./_set-to-string-tag":99,"./_shared":101,"./_to-iobject":115,"./_to-primitive":118,"./_uid":122,"./_wks":127,"./_wks-define":125,"./_wks-ext":126}],254:[function(require,module,exports){
 'use strict';
 var $export = require('./_export');
 var $typed = require('./_typed');
@@ -6673,76 +6235,76 @@ $export($export.P + $export.U + $export.F * require('./_fails')(function () {
 
 require('./_set-species')(ARRAY_BUFFER);
 
-},{"./_an-object":10,"./_export":36,"./_fails":38,"./_global":43,"./_is-object":54,"./_set-species":100,"./_species-constructor":104,"./_to-absolute-index":114,"./_to-length":118,"./_typed":123,"./_typed-buffer":122}],257:[function(require,module,exports){
+},{"./_an-object":8,"./_export":34,"./_fails":36,"./_global":41,"./_is-object":52,"./_set-species":98,"./_species-constructor":102,"./_to-absolute-index":112,"./_to-length":116,"./_typed":121,"./_typed-buffer":120}],255:[function(require,module,exports){
 var $export = require('./_export');
 $export($export.G + $export.W + $export.F * !require('./_typed').ABV, {
   DataView: require('./_typed-buffer').DataView
 });
 
-},{"./_export":36,"./_typed":123,"./_typed-buffer":122}],258:[function(require,module,exports){
+},{"./_export":34,"./_typed":121,"./_typed-buffer":120}],256:[function(require,module,exports){
 require('./_typed-array')('Float32', 4, function (init) {
   return function Float32Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
 });
 
-},{"./_typed-array":121}],259:[function(require,module,exports){
+},{"./_typed-array":119}],257:[function(require,module,exports){
 require('./_typed-array')('Float64', 8, function (init) {
   return function Float64Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
 });
 
-},{"./_typed-array":121}],260:[function(require,module,exports){
+},{"./_typed-array":119}],258:[function(require,module,exports){
 require('./_typed-array')('Int16', 2, function (init) {
   return function Int16Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
 });
 
-},{"./_typed-array":121}],261:[function(require,module,exports){
+},{"./_typed-array":119}],259:[function(require,module,exports){
 require('./_typed-array')('Int32', 4, function (init) {
   return function Int32Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
 });
 
-},{"./_typed-array":121}],262:[function(require,module,exports){
+},{"./_typed-array":119}],260:[function(require,module,exports){
 require('./_typed-array')('Int8', 1, function (init) {
   return function Int8Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
 });
 
-},{"./_typed-array":121}],263:[function(require,module,exports){
+},{"./_typed-array":119}],261:[function(require,module,exports){
 require('./_typed-array')('Uint16', 2, function (init) {
   return function Uint16Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
 });
 
-},{"./_typed-array":121}],264:[function(require,module,exports){
+},{"./_typed-array":119}],262:[function(require,module,exports){
 require('./_typed-array')('Uint32', 4, function (init) {
   return function Uint32Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
 });
 
-},{"./_typed-array":121}],265:[function(require,module,exports){
+},{"./_typed-array":119}],263:[function(require,module,exports){
 require('./_typed-array')('Uint8', 1, function (init) {
   return function Uint8Array(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
 });
 
-},{"./_typed-array":121}],266:[function(require,module,exports){
+},{"./_typed-array":119}],264:[function(require,module,exports){
 require('./_typed-array')('Uint8', 1, function (init) {
   return function Uint8ClampedArray(data, byteOffset, length) {
     return init(this, data, byteOffset, length);
   };
 }, true);
 
-},{"./_typed-array":121}],267:[function(require,module,exports){
+},{"./_typed-array":119}],265:[function(require,module,exports){
 'use strict';
 var each = require('./_array-methods')(0);
 var redefine = require('./_redefine');
@@ -6803,7 +6365,7 @@ if (fails(function () { return new $WeakMap().set((Object.freeze || Object)(tmp)
   });
 }
 
-},{"./_array-methods":15,"./_collection":25,"./_collection-weak":24,"./_fails":38,"./_is-object":54,"./_meta":68,"./_object-assign":72,"./_redefine":94,"./_validate-collection":126}],268:[function(require,module,exports){
+},{"./_array-methods":13,"./_collection":23,"./_collection-weak":22,"./_fails":36,"./_is-object":52,"./_meta":66,"./_object-assign":70,"./_redefine":92,"./_validate-collection":124}],266:[function(require,module,exports){
 'use strict';
 var weak = require('./_collection-weak');
 var validate = require('./_validate-collection');
@@ -6819,7 +6381,7 @@ require('./_collection')(WEAK_SET, function (get) {
   }
 }, weak, false, true);
 
-},{"./_collection":25,"./_collection-weak":24,"./_validate-collection":126}],269:[function(require,module,exports){
+},{"./_collection":23,"./_collection-weak":22,"./_validate-collection":124}],267:[function(require,module,exports){
 'use strict';
 // https://tc39.github.io/proposal-flatMap/#sec-Array.prototype.flatMap
 var $export = require('./_export');
@@ -6843,7 +6405,7 @@ $export($export.P, 'Array', {
 
 require('./_add-to-unscopables')('flatMap');
 
-},{"./_a-function":6,"./_add-to-unscopables":8,"./_array-species-create":18,"./_export":36,"./_flatten-into-array":41,"./_to-length":118,"./_to-object":119}],270:[function(require,module,exports){
+},{"./_a-function":4,"./_add-to-unscopables":6,"./_array-species-create":16,"./_export":34,"./_flatten-into-array":39,"./_to-length":116,"./_to-object":117}],268:[function(require,module,exports){
 'use strict';
 // https://tc39.github.io/proposal-flatMap/#sec-Array.prototype.flatten
 var $export = require('./_export');
@@ -6866,7 +6428,7 @@ $export($export.P, 'Array', {
 
 require('./_add-to-unscopables')('flatten');
 
-},{"./_add-to-unscopables":8,"./_array-species-create":18,"./_export":36,"./_flatten-into-array":41,"./_to-integer":116,"./_to-length":118,"./_to-object":119}],271:[function(require,module,exports){
+},{"./_add-to-unscopables":6,"./_array-species-create":16,"./_export":34,"./_flatten-into-array":39,"./_to-integer":114,"./_to-length":116,"./_to-object":117}],269:[function(require,module,exports){
 'use strict';
 // https://github.com/tc39/Array.prototype.includes
 var $export = require('./_export');
@@ -6880,7 +6442,7 @@ $export($export.P, 'Array', {
 
 require('./_add-to-unscopables')('includes');
 
-},{"./_add-to-unscopables":8,"./_array-includes":14,"./_export":36}],272:[function(require,module,exports){
+},{"./_add-to-unscopables":6,"./_array-includes":12,"./_export":34}],270:[function(require,module,exports){
 // https://github.com/rwaldron/tc39-notes/blob/master/es6/2014-09/sept-25.md#510-globalasap-for-enqueuing-a-microtask
 var $export = require('./_export');
 var microtask = require('./_microtask')();
@@ -6894,7 +6456,7 @@ $export($export.G, {
   }
 });
 
-},{"./_cof":21,"./_export":36,"./_global":43,"./_microtask":70}],273:[function(require,module,exports){
+},{"./_cof":19,"./_export":34,"./_global":41,"./_microtask":68}],271:[function(require,module,exports){
 // https://github.com/ljharb/proposal-is-error
 var $export = require('./_export');
 var cof = require('./_cof');
@@ -6905,27 +6467,27 @@ $export($export.S, 'Error', {
   }
 });
 
-},{"./_cof":21,"./_export":36}],274:[function(require,module,exports){
+},{"./_cof":19,"./_export":34}],272:[function(require,module,exports){
 // https://github.com/tc39/proposal-global
 var $export = require('./_export');
 
 $export($export.G, { global: require('./_global') });
 
-},{"./_export":36,"./_global":43}],275:[function(require,module,exports){
+},{"./_export":34,"./_global":41}],273:[function(require,module,exports){
 // https://tc39.github.io/proposal-setmap-offrom/#sec-map.from
 require('./_set-collection-from')('Map');
 
-},{"./_set-collection-from":97}],276:[function(require,module,exports){
+},{"./_set-collection-from":95}],274:[function(require,module,exports){
 // https://tc39.github.io/proposal-setmap-offrom/#sec-map.of
 require('./_set-collection-of')('Map');
 
-},{"./_set-collection-of":98}],277:[function(require,module,exports){
+},{"./_set-collection-of":96}],275:[function(require,module,exports){
 // https://github.com/DavidBruant/Map-Set.prototype.toJSON
 var $export = require('./_export');
 
 $export($export.P + $export.R, 'Map', { toJSON: require('./_collection-to-json')('Map') });
 
-},{"./_collection-to-json":23,"./_export":36}],278:[function(require,module,exports){
+},{"./_collection-to-json":21,"./_export":34}],276:[function(require,module,exports){
 // https://rwaldron.github.io/proposal-math-extensions/
 var $export = require('./_export');
 
@@ -6935,13 +6497,13 @@ $export($export.S, 'Math', {
   }
 });
 
-},{"./_export":36}],279:[function(require,module,exports){
+},{"./_export":34}],277:[function(require,module,exports){
 // https://rwaldron.github.io/proposal-math-extensions/
 var $export = require('./_export');
 
 $export($export.S, 'Math', { DEG_PER_RAD: Math.PI / 180 });
 
-},{"./_export":36}],280:[function(require,module,exports){
+},{"./_export":34}],278:[function(require,module,exports){
 // https://rwaldron.github.io/proposal-math-extensions/
 var $export = require('./_export');
 var RAD_PER_DEG = 180 / Math.PI;
@@ -6952,7 +6514,7 @@ $export($export.S, 'Math', {
   }
 });
 
-},{"./_export":36}],281:[function(require,module,exports){
+},{"./_export":34}],279:[function(require,module,exports){
 // https://rwaldron.github.io/proposal-math-extensions/
 var $export = require('./_export');
 var scale = require('./_math-scale');
@@ -6964,7 +6526,7 @@ $export($export.S, 'Math', {
   }
 });
 
-},{"./_export":36,"./_math-fround":64,"./_math-scale":66}],282:[function(require,module,exports){
+},{"./_export":34,"./_math-fround":62,"./_math-scale":64}],280:[function(require,module,exports){
 // https://gist.github.com/BrendanEich/4294d5c212a6d2254703
 var $export = require('./_export');
 
@@ -6977,7 +6539,7 @@ $export($export.S, 'Math', {
   }
 });
 
-},{"./_export":36}],283:[function(require,module,exports){
+},{"./_export":34}],281:[function(require,module,exports){
 // https://gist.github.com/BrendanEich/4294d5c212a6d2254703
 var $export = require('./_export');
 
@@ -6995,7 +6557,7 @@ $export($export.S, 'Math', {
   }
 });
 
-},{"./_export":36}],284:[function(require,module,exports){
+},{"./_export":34}],282:[function(require,module,exports){
 // https://gist.github.com/BrendanEich/4294d5c212a6d2254703
 var $export = require('./_export');
 
@@ -7008,13 +6570,13 @@ $export($export.S, 'Math', {
   }
 });
 
-},{"./_export":36}],285:[function(require,module,exports){
+},{"./_export":34}],283:[function(require,module,exports){
 // https://rwaldron.github.io/proposal-math-extensions/
 var $export = require('./_export');
 
 $export($export.S, 'Math', { RAD_PER_DEG: 180 / Math.PI });
 
-},{"./_export":36}],286:[function(require,module,exports){
+},{"./_export":34}],284:[function(require,module,exports){
 // https://rwaldron.github.io/proposal-math-extensions/
 var $export = require('./_export');
 var DEG_PER_RAD = Math.PI / 180;
@@ -7025,13 +6587,13 @@ $export($export.S, 'Math', {
   }
 });
 
-},{"./_export":36}],287:[function(require,module,exports){
+},{"./_export":34}],285:[function(require,module,exports){
 // https://rwaldron.github.io/proposal-math-extensions/
 var $export = require('./_export');
 
 $export($export.S, 'Math', { scale: require('./_math-scale') });
 
-},{"./_export":36,"./_math-scale":66}],288:[function(require,module,exports){
+},{"./_export":34,"./_math-scale":64}],286:[function(require,module,exports){
 // http://jfbastien.github.io/papers/Math.signbit.html
 var $export = require('./_export');
 
@@ -7040,7 +6602,7 @@ $export($export.S, 'Math', { signbit: function signbit(x) {
   return (x = +x) != x ? x : x == 0 ? 1 / x == Infinity : x > 0;
 } });
 
-},{"./_export":36}],289:[function(require,module,exports){
+},{"./_export":34}],287:[function(require,module,exports){
 // https://gist.github.com/BrendanEich/4294d5c212a6d2254703
 var $export = require('./_export');
 
@@ -7058,7 +6620,7 @@ $export($export.S, 'Math', {
   }
 });
 
-},{"./_export":36}],290:[function(require,module,exports){
+},{"./_export":34}],288:[function(require,module,exports){
 'use strict';
 var $export = require('./_export');
 var toObject = require('./_to-object');
@@ -7072,7 +6634,7 @@ require('./_descriptors') && $export($export.P + require('./_object-forced-pam')
   }
 });
 
-},{"./_a-function":6,"./_descriptors":32,"./_export":36,"./_object-dp":74,"./_object-forced-pam":76,"./_to-object":119}],291:[function(require,module,exports){
+},{"./_a-function":4,"./_descriptors":30,"./_export":34,"./_object-dp":72,"./_object-forced-pam":74,"./_to-object":117}],289:[function(require,module,exports){
 'use strict';
 var $export = require('./_export');
 var toObject = require('./_to-object');
@@ -7086,7 +6648,7 @@ require('./_descriptors') && $export($export.P + require('./_object-forced-pam')
   }
 });
 
-},{"./_a-function":6,"./_descriptors":32,"./_export":36,"./_object-dp":74,"./_object-forced-pam":76,"./_to-object":119}],292:[function(require,module,exports){
+},{"./_a-function":4,"./_descriptors":30,"./_export":34,"./_object-dp":72,"./_object-forced-pam":74,"./_to-object":117}],290:[function(require,module,exports){
 // https://github.com/tc39/proposal-object-values-entries
 var $export = require('./_export');
 var $entries = require('./_object-to-array')(true);
@@ -7097,7 +6659,7 @@ $export($export.S, 'Object', {
   }
 });
 
-},{"./_export":36,"./_object-to-array":86}],293:[function(require,module,exports){
+},{"./_export":34,"./_object-to-array":84}],291:[function(require,module,exports){
 // https://github.com/tc39/proposal-object-getownpropertydescriptors
 var $export = require('./_export');
 var ownKeys = require('./_own-keys');
@@ -7121,7 +6683,7 @@ $export($export.S, 'Object', {
   }
 });
 
-},{"./_create-property":27,"./_export":36,"./_object-gopd":77,"./_own-keys":87,"./_to-iobject":117}],294:[function(require,module,exports){
+},{"./_create-property":25,"./_export":34,"./_object-gopd":75,"./_own-keys":85,"./_to-iobject":115}],292:[function(require,module,exports){
 'use strict';
 var $export = require('./_export');
 var toObject = require('./_to-object');
@@ -7141,7 +6703,7 @@ require('./_descriptors') && $export($export.P + require('./_object-forced-pam')
   }
 });
 
-},{"./_descriptors":32,"./_export":36,"./_object-forced-pam":76,"./_object-gopd":77,"./_object-gpo":81,"./_to-object":119,"./_to-primitive":120}],295:[function(require,module,exports){
+},{"./_descriptors":30,"./_export":34,"./_object-forced-pam":74,"./_object-gopd":75,"./_object-gpo":79,"./_to-object":117,"./_to-primitive":118}],293:[function(require,module,exports){
 'use strict';
 var $export = require('./_export');
 var toObject = require('./_to-object');
@@ -7161,7 +6723,7 @@ require('./_descriptors') && $export($export.P + require('./_object-forced-pam')
   }
 });
 
-},{"./_descriptors":32,"./_export":36,"./_object-forced-pam":76,"./_object-gopd":77,"./_object-gpo":81,"./_to-object":119,"./_to-primitive":120}],296:[function(require,module,exports){
+},{"./_descriptors":30,"./_export":34,"./_object-forced-pam":74,"./_object-gopd":75,"./_object-gpo":79,"./_to-object":117,"./_to-primitive":118}],294:[function(require,module,exports){
 // https://github.com/tc39/proposal-object-values-entries
 var $export = require('./_export');
 var $values = require('./_object-to-array')(false);
@@ -7172,7 +6734,7 @@ $export($export.S, 'Object', {
   }
 });
 
-},{"./_export":36,"./_object-to-array":86}],297:[function(require,module,exports){
+},{"./_export":34,"./_object-to-array":84}],295:[function(require,module,exports){
 'use strict';
 // https://github.com/zenparsing/es-observable
 var $export = require('./_export');
@@ -7373,7 +6935,7 @@ $export($export.G, { Observable: $Observable });
 
 require('./_set-species')('Observable');
 
-},{"./_a-function":6,"./_an-instance":9,"./_an-object":10,"./_core":26,"./_export":36,"./_for-of":42,"./_global":43,"./_hide":45,"./_microtask":70,"./_redefine-all":93,"./_set-species":100,"./_wks":129}],298:[function(require,module,exports){
+},{"./_a-function":4,"./_an-instance":7,"./_an-object":8,"./_core":24,"./_export":34,"./_for-of":40,"./_global":41,"./_hide":43,"./_microtask":68,"./_redefine-all":91,"./_set-species":98,"./_wks":127}],296:[function(require,module,exports){
 // https://github.com/tc39/proposal-promise-finally
 'use strict';
 var $export = require('./_export');
@@ -7395,7 +6957,7 @@ $export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
   );
 } });
 
-},{"./_core":26,"./_export":36,"./_global":43,"./_promise-resolve":91,"./_species-constructor":104}],299:[function(require,module,exports){
+},{"./_core":24,"./_export":34,"./_global":41,"./_promise-resolve":89,"./_species-constructor":102}],297:[function(require,module,exports){
 'use strict';
 // https://github.com/tc39/proposal-promise-try
 var $export = require('./_export');
@@ -7409,7 +6971,7 @@ $export($export.S, 'Promise', { 'try': function (callbackfn) {
   return promiseCapability.promise;
 } });
 
-},{"./_export":36,"./_new-promise-capability":71,"./_perform":90}],300:[function(require,module,exports){
+},{"./_export":34,"./_new-promise-capability":69,"./_perform":88}],298:[function(require,module,exports){
 var metadata = require('./_metadata');
 var anObject = require('./_an-object');
 var toMetaKey = metadata.key;
@@ -7419,7 +6981,7 @@ metadata.exp({ defineMetadata: function defineMetadata(metadataKey, metadataValu
   ordinaryDefineOwnMetadata(metadataKey, metadataValue, anObject(target), toMetaKey(targetKey));
 } });
 
-},{"./_an-object":10,"./_metadata":69}],301:[function(require,module,exports){
+},{"./_an-object":8,"./_metadata":67}],299:[function(require,module,exports){
 var metadata = require('./_metadata');
 var anObject = require('./_an-object');
 var toMetaKey = metadata.key;
@@ -7436,7 +6998,7 @@ metadata.exp({ deleteMetadata: function deleteMetadata(metadataKey, target /* , 
   return !!targetMetadata.size || store['delete'](target);
 } });
 
-},{"./_an-object":10,"./_metadata":69}],302:[function(require,module,exports){
+},{"./_an-object":8,"./_metadata":67}],300:[function(require,module,exports){
 var Set = require('./es6.set');
 var from = require('./_array-from-iterable');
 var metadata = require('./_metadata');
@@ -7457,7 +7019,7 @@ metadata.exp({ getMetadataKeys: function getMetadataKeys(target /* , targetKey *
   return ordinaryMetadataKeys(anObject(target), arguments.length < 2 ? undefined : toMetaKey(arguments[1]));
 } });
 
-},{"./_an-object":10,"./_array-from-iterable":13,"./_metadata":69,"./_object-gpo":81,"./es6.set":232}],303:[function(require,module,exports){
+},{"./_an-object":8,"./_array-from-iterable":11,"./_metadata":67,"./_object-gpo":79,"./es6.set":230}],301:[function(require,module,exports){
 var metadata = require('./_metadata');
 var anObject = require('./_an-object');
 var getPrototypeOf = require('./_object-gpo');
@@ -7476,7 +7038,7 @@ metadata.exp({ getMetadata: function getMetadata(metadataKey, target /* , target
   return ordinaryGetMetadata(metadataKey, anObject(target), arguments.length < 3 ? undefined : toMetaKey(arguments[2]));
 } });
 
-},{"./_an-object":10,"./_metadata":69,"./_object-gpo":81}],304:[function(require,module,exports){
+},{"./_an-object":8,"./_metadata":67,"./_object-gpo":79}],302:[function(require,module,exports){
 var metadata = require('./_metadata');
 var anObject = require('./_an-object');
 var ordinaryOwnMetadataKeys = metadata.keys;
@@ -7486,7 +7048,7 @@ metadata.exp({ getOwnMetadataKeys: function getOwnMetadataKeys(target /* , targe
   return ordinaryOwnMetadataKeys(anObject(target), arguments.length < 2 ? undefined : toMetaKey(arguments[1]));
 } });
 
-},{"./_an-object":10,"./_metadata":69}],305:[function(require,module,exports){
+},{"./_an-object":8,"./_metadata":67}],303:[function(require,module,exports){
 var metadata = require('./_metadata');
 var anObject = require('./_an-object');
 var ordinaryGetOwnMetadata = metadata.get;
@@ -7497,7 +7059,7 @@ metadata.exp({ getOwnMetadata: function getOwnMetadata(metadataKey, target /* , 
     , arguments.length < 3 ? undefined : toMetaKey(arguments[2]));
 } });
 
-},{"./_an-object":10,"./_metadata":69}],306:[function(require,module,exports){
+},{"./_an-object":8,"./_metadata":67}],304:[function(require,module,exports){
 var metadata = require('./_metadata');
 var anObject = require('./_an-object');
 var getPrototypeOf = require('./_object-gpo');
@@ -7515,7 +7077,7 @@ metadata.exp({ hasMetadata: function hasMetadata(metadataKey, target /* , target
   return ordinaryHasMetadata(metadataKey, anObject(target), arguments.length < 3 ? undefined : toMetaKey(arguments[2]));
 } });
 
-},{"./_an-object":10,"./_metadata":69,"./_object-gpo":81}],307:[function(require,module,exports){
+},{"./_an-object":8,"./_metadata":67,"./_object-gpo":79}],305:[function(require,module,exports){
 var metadata = require('./_metadata');
 var anObject = require('./_an-object');
 var ordinaryHasOwnMetadata = metadata.has;
@@ -7526,7 +7088,7 @@ metadata.exp({ hasOwnMetadata: function hasOwnMetadata(metadataKey, target /* , 
     , arguments.length < 3 ? undefined : toMetaKey(arguments[2]));
 } });
 
-},{"./_an-object":10,"./_metadata":69}],308:[function(require,module,exports){
+},{"./_an-object":8,"./_metadata":67}],306:[function(require,module,exports){
 var $metadata = require('./_metadata');
 var anObject = require('./_an-object');
 var aFunction = require('./_a-function');
@@ -7543,21 +7105,21 @@ $metadata.exp({ metadata: function metadata(metadataKey, metadataValue) {
   };
 } });
 
-},{"./_a-function":6,"./_an-object":10,"./_metadata":69}],309:[function(require,module,exports){
+},{"./_a-function":4,"./_an-object":8,"./_metadata":67}],307:[function(require,module,exports){
 // https://tc39.github.io/proposal-setmap-offrom/#sec-set.from
 require('./_set-collection-from')('Set');
 
-},{"./_set-collection-from":97}],310:[function(require,module,exports){
+},{"./_set-collection-from":95}],308:[function(require,module,exports){
 // https://tc39.github.io/proposal-setmap-offrom/#sec-set.of
 require('./_set-collection-of')('Set');
 
-},{"./_set-collection-of":98}],311:[function(require,module,exports){
+},{"./_set-collection-of":96}],309:[function(require,module,exports){
 // https://github.com/DavidBruant/Map-Set.prototype.toJSON
 var $export = require('./_export');
 
 $export($export.P + $export.R, 'Set', { toJSON: require('./_collection-to-json')('Set') });
 
-},{"./_collection-to-json":23,"./_export":36}],312:[function(require,module,exports){
+},{"./_collection-to-json":21,"./_export":34}],310:[function(require,module,exports){
 'use strict';
 // https://github.com/mathiasbynens/String.prototype.at
 var $export = require('./_export');
@@ -7569,7 +7131,7 @@ $export($export.P, 'String', {
   }
 });
 
-},{"./_export":36,"./_string-at":106}],313:[function(require,module,exports){
+},{"./_export":34,"./_string-at":104}],311:[function(require,module,exports){
 'use strict';
 // https://tc39.github.io/String.prototype.matchAll/
 var $export = require('./_export');
@@ -7601,7 +7163,7 @@ $export($export.P, 'String', {
   }
 });
 
-},{"./_defined":31,"./_export":36,"./_flags":40,"./_is-regexp":55,"./_iter-create":57,"./_to-length":118}],314:[function(require,module,exports){
+},{"./_defined":29,"./_export":34,"./_flags":38,"./_is-regexp":53,"./_iter-create":55,"./_to-length":116}],312:[function(require,module,exports){
 'use strict';
 // https://github.com/tc39/proposal-string-pad-start-end
 var $export = require('./_export');
@@ -7615,7 +7177,7 @@ $export($export.P + $export.F * /Version\/10\.\d+(\.\d+)? Safari\//.test(userAge
   }
 });
 
-},{"./_export":36,"./_string-pad":109,"./_user-agent":125}],315:[function(require,module,exports){
+},{"./_export":34,"./_string-pad":107,"./_user-agent":123}],313:[function(require,module,exports){
 'use strict';
 // https://github.com/tc39/proposal-string-pad-start-end
 var $export = require('./_export');
@@ -7629,7 +7191,7 @@ $export($export.P + $export.F * /Version\/10\.\d+(\.\d+)? Safari\//.test(userAge
   }
 });
 
-},{"./_export":36,"./_string-pad":109,"./_user-agent":125}],316:[function(require,module,exports){
+},{"./_export":34,"./_string-pad":107,"./_user-agent":123}],314:[function(require,module,exports){
 'use strict';
 // https://github.com/sebmarkbage/ecmascript-string-left-right-trim
 require('./_string-trim')('trimLeft', function ($trim) {
@@ -7638,7 +7200,7 @@ require('./_string-trim')('trimLeft', function ($trim) {
   };
 }, 'trimStart');
 
-},{"./_string-trim":111}],317:[function(require,module,exports){
+},{"./_string-trim":109}],315:[function(require,module,exports){
 'use strict';
 // https://github.com/sebmarkbage/ecmascript-string-left-right-trim
 require('./_string-trim')('trimRight', function ($trim) {
@@ -7647,35 +7209,35 @@ require('./_string-trim')('trimRight', function ($trim) {
   };
 }, 'trimEnd');
 
-},{"./_string-trim":111}],318:[function(require,module,exports){
+},{"./_string-trim":109}],316:[function(require,module,exports){
 require('./_wks-define')('asyncIterator');
 
-},{"./_wks-define":127}],319:[function(require,module,exports){
+},{"./_wks-define":125}],317:[function(require,module,exports){
 require('./_wks-define')('observable');
 
-},{"./_wks-define":127}],320:[function(require,module,exports){
+},{"./_wks-define":125}],318:[function(require,module,exports){
 // https://github.com/tc39/proposal-global
 var $export = require('./_export');
 
 $export($export.S, 'System', { global: require('./_global') });
 
-},{"./_export":36,"./_global":43}],321:[function(require,module,exports){
+},{"./_export":34,"./_global":41}],319:[function(require,module,exports){
 // https://tc39.github.io/proposal-setmap-offrom/#sec-weakmap.from
 require('./_set-collection-from')('WeakMap');
 
-},{"./_set-collection-from":97}],322:[function(require,module,exports){
+},{"./_set-collection-from":95}],320:[function(require,module,exports){
 // https://tc39.github.io/proposal-setmap-offrom/#sec-weakmap.of
 require('./_set-collection-of')('WeakMap');
 
-},{"./_set-collection-of":98}],323:[function(require,module,exports){
+},{"./_set-collection-of":96}],321:[function(require,module,exports){
 // https://tc39.github.io/proposal-setmap-offrom/#sec-weakset.from
 require('./_set-collection-from')('WeakSet');
 
-},{"./_set-collection-from":97}],324:[function(require,module,exports){
+},{"./_set-collection-from":95}],322:[function(require,module,exports){
 // https://tc39.github.io/proposal-setmap-offrom/#sec-weakset.of
 require('./_set-collection-of')('WeakSet');
 
-},{"./_set-collection-of":98}],325:[function(require,module,exports){
+},{"./_set-collection-of":96}],323:[function(require,module,exports){
 var $iterators = require('./es6.array.iterator');
 var getKeys = require('./_object-keys');
 var redefine = require('./_redefine');
@@ -7735,7 +7297,7 @@ for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++
   }
 }
 
-},{"./_global":43,"./_hide":45,"./_iterators":61,"./_object-keys":83,"./_redefine":94,"./_wks":129,"./es6.array.iterator":142}],326:[function(require,module,exports){
+},{"./_global":41,"./_hide":43,"./_iterators":59,"./_object-keys":81,"./_redefine":92,"./_wks":127,"./es6.array.iterator":140}],324:[function(require,module,exports){
 var $export = require('./_export');
 var $task = require('./_task');
 $export($export.G + $export.B, {
@@ -7743,7 +7305,7 @@ $export($export.G + $export.B, {
   clearImmediate: $task.clear
 });
 
-},{"./_export":36,"./_task":113}],327:[function(require,module,exports){
+},{"./_export":34,"./_task":111}],325:[function(require,module,exports){
 // ie9- setTimeout & setInterval additional parameters fix
 var global = require('./_global');
 var $export = require('./_export');
@@ -7765,7 +7327,7 @@ $export($export.G + $export.B + $export.F * MSIE, {
   setInterval: wrap(global.setInterval)
 });
 
-},{"./_export":36,"./_global":43,"./_user-agent":125}],328:[function(require,module,exports){
+},{"./_export":34,"./_global":41,"./_user-agent":123}],326:[function(require,module,exports){
 require('./modules/es6.symbol');
 require('./modules/es6.object.create');
 require('./modules/es6.object.define-property');
@@ -7964,270 +7526,7 @@ require('./modules/web.immediate');
 require('./modules/web.dom.iterable');
 module.exports = require('./modules/_core');
 
-},{"./modules/_core":26,"./modules/es6.array.copy-within":132,"./modules/es6.array.every":133,"./modules/es6.array.fill":134,"./modules/es6.array.filter":135,"./modules/es6.array.find":137,"./modules/es6.array.find-index":136,"./modules/es6.array.for-each":138,"./modules/es6.array.from":139,"./modules/es6.array.index-of":140,"./modules/es6.array.is-array":141,"./modules/es6.array.iterator":142,"./modules/es6.array.join":143,"./modules/es6.array.last-index-of":144,"./modules/es6.array.map":145,"./modules/es6.array.of":146,"./modules/es6.array.reduce":148,"./modules/es6.array.reduce-right":147,"./modules/es6.array.slice":149,"./modules/es6.array.some":150,"./modules/es6.array.sort":151,"./modules/es6.array.species":152,"./modules/es6.date.now":153,"./modules/es6.date.to-iso-string":154,"./modules/es6.date.to-json":155,"./modules/es6.date.to-primitive":156,"./modules/es6.date.to-string":157,"./modules/es6.function.bind":158,"./modules/es6.function.has-instance":159,"./modules/es6.function.name":160,"./modules/es6.map":161,"./modules/es6.math.acosh":162,"./modules/es6.math.asinh":163,"./modules/es6.math.atanh":164,"./modules/es6.math.cbrt":165,"./modules/es6.math.clz32":166,"./modules/es6.math.cosh":167,"./modules/es6.math.expm1":168,"./modules/es6.math.fround":169,"./modules/es6.math.hypot":170,"./modules/es6.math.imul":171,"./modules/es6.math.log10":172,"./modules/es6.math.log1p":173,"./modules/es6.math.log2":174,"./modules/es6.math.sign":175,"./modules/es6.math.sinh":176,"./modules/es6.math.tanh":177,"./modules/es6.math.trunc":178,"./modules/es6.number.constructor":179,"./modules/es6.number.epsilon":180,"./modules/es6.number.is-finite":181,"./modules/es6.number.is-integer":182,"./modules/es6.number.is-nan":183,"./modules/es6.number.is-safe-integer":184,"./modules/es6.number.max-safe-integer":185,"./modules/es6.number.min-safe-integer":186,"./modules/es6.number.parse-float":187,"./modules/es6.number.parse-int":188,"./modules/es6.number.to-fixed":189,"./modules/es6.number.to-precision":190,"./modules/es6.object.assign":191,"./modules/es6.object.create":192,"./modules/es6.object.define-properties":193,"./modules/es6.object.define-property":194,"./modules/es6.object.freeze":195,"./modules/es6.object.get-own-property-descriptor":196,"./modules/es6.object.get-own-property-names":197,"./modules/es6.object.get-prototype-of":198,"./modules/es6.object.is":202,"./modules/es6.object.is-extensible":199,"./modules/es6.object.is-frozen":200,"./modules/es6.object.is-sealed":201,"./modules/es6.object.keys":203,"./modules/es6.object.prevent-extensions":204,"./modules/es6.object.seal":205,"./modules/es6.object.set-prototype-of":206,"./modules/es6.object.to-string":207,"./modules/es6.parse-float":208,"./modules/es6.parse-int":209,"./modules/es6.promise":210,"./modules/es6.reflect.apply":211,"./modules/es6.reflect.construct":212,"./modules/es6.reflect.define-property":213,"./modules/es6.reflect.delete-property":214,"./modules/es6.reflect.enumerate":215,"./modules/es6.reflect.get":218,"./modules/es6.reflect.get-own-property-descriptor":216,"./modules/es6.reflect.get-prototype-of":217,"./modules/es6.reflect.has":219,"./modules/es6.reflect.is-extensible":220,"./modules/es6.reflect.own-keys":221,"./modules/es6.reflect.prevent-extensions":222,"./modules/es6.reflect.set":224,"./modules/es6.reflect.set-prototype-of":223,"./modules/es6.regexp.constructor":225,"./modules/es6.regexp.flags":226,"./modules/es6.regexp.match":227,"./modules/es6.regexp.replace":228,"./modules/es6.regexp.search":229,"./modules/es6.regexp.split":230,"./modules/es6.regexp.to-string":231,"./modules/es6.set":232,"./modules/es6.string.anchor":233,"./modules/es6.string.big":234,"./modules/es6.string.blink":235,"./modules/es6.string.bold":236,"./modules/es6.string.code-point-at":237,"./modules/es6.string.ends-with":238,"./modules/es6.string.fixed":239,"./modules/es6.string.fontcolor":240,"./modules/es6.string.fontsize":241,"./modules/es6.string.from-code-point":242,"./modules/es6.string.includes":243,"./modules/es6.string.italics":244,"./modules/es6.string.iterator":245,"./modules/es6.string.link":246,"./modules/es6.string.raw":247,"./modules/es6.string.repeat":248,"./modules/es6.string.small":249,"./modules/es6.string.starts-with":250,"./modules/es6.string.strike":251,"./modules/es6.string.sub":252,"./modules/es6.string.sup":253,"./modules/es6.string.trim":254,"./modules/es6.symbol":255,"./modules/es6.typed.array-buffer":256,"./modules/es6.typed.data-view":257,"./modules/es6.typed.float32-array":258,"./modules/es6.typed.float64-array":259,"./modules/es6.typed.int16-array":260,"./modules/es6.typed.int32-array":261,"./modules/es6.typed.int8-array":262,"./modules/es6.typed.uint16-array":263,"./modules/es6.typed.uint32-array":264,"./modules/es6.typed.uint8-array":265,"./modules/es6.typed.uint8-clamped-array":266,"./modules/es6.weak-map":267,"./modules/es6.weak-set":268,"./modules/es7.array.flat-map":269,"./modules/es7.array.flatten":270,"./modules/es7.array.includes":271,"./modules/es7.asap":272,"./modules/es7.error.is-error":273,"./modules/es7.global":274,"./modules/es7.map.from":275,"./modules/es7.map.of":276,"./modules/es7.map.to-json":277,"./modules/es7.math.clamp":278,"./modules/es7.math.deg-per-rad":279,"./modules/es7.math.degrees":280,"./modules/es7.math.fscale":281,"./modules/es7.math.iaddh":282,"./modules/es7.math.imulh":283,"./modules/es7.math.isubh":284,"./modules/es7.math.rad-per-deg":285,"./modules/es7.math.radians":286,"./modules/es7.math.scale":287,"./modules/es7.math.signbit":288,"./modules/es7.math.umulh":289,"./modules/es7.object.define-getter":290,"./modules/es7.object.define-setter":291,"./modules/es7.object.entries":292,"./modules/es7.object.get-own-property-descriptors":293,"./modules/es7.object.lookup-getter":294,"./modules/es7.object.lookup-setter":295,"./modules/es7.object.values":296,"./modules/es7.observable":297,"./modules/es7.promise.finally":298,"./modules/es7.promise.try":299,"./modules/es7.reflect.define-metadata":300,"./modules/es7.reflect.delete-metadata":301,"./modules/es7.reflect.get-metadata":303,"./modules/es7.reflect.get-metadata-keys":302,"./modules/es7.reflect.get-own-metadata":305,"./modules/es7.reflect.get-own-metadata-keys":304,"./modules/es7.reflect.has-metadata":306,"./modules/es7.reflect.has-own-metadata":307,"./modules/es7.reflect.metadata":308,"./modules/es7.set.from":309,"./modules/es7.set.of":310,"./modules/es7.set.to-json":311,"./modules/es7.string.at":312,"./modules/es7.string.match-all":313,"./modules/es7.string.pad-end":314,"./modules/es7.string.pad-start":315,"./modules/es7.string.trim-left":316,"./modules/es7.string.trim-right":317,"./modules/es7.symbol.async-iterator":318,"./modules/es7.symbol.observable":319,"./modules/es7.system.global":320,"./modules/es7.weak-map.from":321,"./modules/es7.weak-map.of":322,"./modules/es7.weak-set.from":323,"./modules/es7.weak-set.of":324,"./modules/web.dom.iterable":325,"./modules/web.immediate":326,"./modules/web.timers":327}],329:[function(require,module,exports){
-var DOCUMENT_NODE_TYPE = 9;
-
-/**
- * A polyfill for Element.matches()
- */
-if (typeof Element !== 'undefined' && !Element.prototype.matches) {
-    var proto = Element.prototype;
-
-    proto.matches = proto.matchesSelector ||
-                    proto.mozMatchesSelector ||
-                    proto.msMatchesSelector ||
-                    proto.oMatchesSelector ||
-                    proto.webkitMatchesSelector;
-}
-
-/**
- * Finds the closest parent that matches a selector.
- *
- * @param {Element} element
- * @param {String} selector
- * @return {Function}
- */
-function closest (element, selector) {
-    while (element && element.nodeType !== DOCUMENT_NODE_TYPE) {
-        if (typeof element.matches === 'function' &&
-            element.matches(selector)) {
-          return element;
-        }
-        element = element.parentNode;
-    }
-}
-
-module.exports = closest;
-
-},{}],330:[function(require,module,exports){
-var closest = require('./closest');
-
-/**
- * Delegates event to a selector.
- *
- * @param {Element} element
- * @param {String} selector
- * @param {String} type
- * @param {Function} callback
- * @param {Boolean} useCapture
- * @return {Object}
- */
-function _delegate(element, selector, type, callback, useCapture) {
-    var listenerFn = listener.apply(this, arguments);
-
-    element.addEventListener(type, listenerFn, useCapture);
-
-    return {
-        destroy: function() {
-            element.removeEventListener(type, listenerFn, useCapture);
-        }
-    }
-}
-
-/**
- * Delegates event to a selector.
- *
- * @param {Element|String|Array} [elements]
- * @param {String} selector
- * @param {String} type
- * @param {Function} callback
- * @param {Boolean} useCapture
- * @return {Object}
- */
-function delegate(elements, selector, type, callback, useCapture) {
-    // Handle the regular Element usage
-    if (typeof elements.addEventListener === 'function') {
-        return _delegate.apply(null, arguments);
-    }
-
-    // Handle Element-less usage, it defaults to global delegation
-    if (typeof type === 'function') {
-        // Use `document` as the first parameter, then apply arguments
-        // This is a short way to .unshift `arguments` without running into deoptimizations
-        return _delegate.bind(null, document).apply(null, arguments);
-    }
-
-    // Handle Selector-based usage
-    if (typeof elements === 'string') {
-        elements = document.querySelectorAll(elements);
-    }
-
-    // Handle Array-like based usage
-    return Array.prototype.map.call(elements, function (element) {
-        return _delegate(element, selector, type, callback, useCapture);
-    });
-}
-
-/**
- * Finds closest match and invokes callback.
- *
- * @param {Element} element
- * @param {String} selector
- * @param {String} type
- * @param {Function} callback
- * @return {Function}
- */
-function listener(element, selector, type, callback) {
-    return function(e) {
-        e.delegateTarget = closest(e.target, selector);
-
-        if (e.delegateTarget) {
-            callback.call(element, e);
-        }
-    }
-}
-
-module.exports = delegate;
-
-},{"./closest":329}],331:[function(require,module,exports){
-/**
- * Check if argument is a HTML element.
- *
- * @param {Object} value
- * @return {Boolean}
- */
-exports.node = function(value) {
-    return value !== undefined
-        && value instanceof HTMLElement
-        && value.nodeType === 1;
-};
-
-/**
- * Check if argument is a list of HTML elements.
- *
- * @param {Object} value
- * @return {Boolean}
- */
-exports.nodeList = function(value) {
-    var type = Object.prototype.toString.call(value);
-
-    return value !== undefined
-        && (type === '[object NodeList]' || type === '[object HTMLCollection]')
-        && ('length' in value)
-        && (value.length === 0 || exports.node(value[0]));
-};
-
-/**
- * Check if argument is a string.
- *
- * @param {Object} value
- * @return {Boolean}
- */
-exports.string = function(value) {
-    return typeof value === 'string'
-        || value instanceof String;
-};
-
-/**
- * Check if argument is a function.
- *
- * @param {Object} value
- * @return {Boolean}
- */
-exports.fn = function(value) {
-    var type = Object.prototype.toString.call(value);
-
-    return type === '[object Function]';
-};
-
-},{}],332:[function(require,module,exports){
-var is = require('./is');
-var delegate = require('delegate');
-
-/**
- * Validates all params and calls the right
- * listener function based on its target type.
- *
- * @param {String|HTMLElement|HTMLCollection|NodeList} target
- * @param {String} type
- * @param {Function} callback
- * @return {Object}
- */
-function listen(target, type, callback) {
-    if (!target && !type && !callback) {
-        throw new Error('Missing required arguments');
-    }
-
-    if (!is.string(type)) {
-        throw new TypeError('Second argument must be a String');
-    }
-
-    if (!is.fn(callback)) {
-        throw new TypeError('Third argument must be a Function');
-    }
-
-    if (is.node(target)) {
-        return listenNode(target, type, callback);
-    }
-    else if (is.nodeList(target)) {
-        return listenNodeList(target, type, callback);
-    }
-    else if (is.string(target)) {
-        return listenSelector(target, type, callback);
-    }
-    else {
-        throw new TypeError('First argument must be a String, HTMLElement, HTMLCollection, or NodeList');
-    }
-}
-
-/**
- * Adds an event listener to a HTML element
- * and returns a remove listener function.
- *
- * @param {HTMLElement} node
- * @param {String} type
- * @param {Function} callback
- * @return {Object}
- */
-function listenNode(node, type, callback) {
-    node.addEventListener(type, callback);
-
-    return {
-        destroy: function() {
-            node.removeEventListener(type, callback);
-        }
-    }
-}
-
-/**
- * Add an event listener to a list of HTML elements
- * and returns a remove listener function.
- *
- * @param {NodeList|HTMLCollection} nodeList
- * @param {String} type
- * @param {Function} callback
- * @return {Object}
- */
-function listenNodeList(nodeList, type, callback) {
-    Array.prototype.forEach.call(nodeList, function(node) {
-        node.addEventListener(type, callback);
-    });
-
-    return {
-        destroy: function() {
-            Array.prototype.forEach.call(nodeList, function(node) {
-                node.removeEventListener(type, callback);
-            });
-        }
-    }
-}
-
-/**
- * Add an event listener to a selector
- * and returns a remove listener function.
- *
- * @param {String} selector
- * @param {String} type
- * @param {Function} callback
- * @return {Object}
- */
-function listenSelector(selector, type, callback) {
-    return delegate(document.body, selector, type, callback);
-}
-
-module.exports = listen;
-
-},{"./is":331,"delegate":330}],333:[function(require,module,exports){
+},{"./modules/_core":24,"./modules/es6.array.copy-within":130,"./modules/es6.array.every":131,"./modules/es6.array.fill":132,"./modules/es6.array.filter":133,"./modules/es6.array.find":135,"./modules/es6.array.find-index":134,"./modules/es6.array.for-each":136,"./modules/es6.array.from":137,"./modules/es6.array.index-of":138,"./modules/es6.array.is-array":139,"./modules/es6.array.iterator":140,"./modules/es6.array.join":141,"./modules/es6.array.last-index-of":142,"./modules/es6.array.map":143,"./modules/es6.array.of":144,"./modules/es6.array.reduce":146,"./modules/es6.array.reduce-right":145,"./modules/es6.array.slice":147,"./modules/es6.array.some":148,"./modules/es6.array.sort":149,"./modules/es6.array.species":150,"./modules/es6.date.now":151,"./modules/es6.date.to-iso-string":152,"./modules/es6.date.to-json":153,"./modules/es6.date.to-primitive":154,"./modules/es6.date.to-string":155,"./modules/es6.function.bind":156,"./modules/es6.function.has-instance":157,"./modules/es6.function.name":158,"./modules/es6.map":159,"./modules/es6.math.acosh":160,"./modules/es6.math.asinh":161,"./modules/es6.math.atanh":162,"./modules/es6.math.cbrt":163,"./modules/es6.math.clz32":164,"./modules/es6.math.cosh":165,"./modules/es6.math.expm1":166,"./modules/es6.math.fround":167,"./modules/es6.math.hypot":168,"./modules/es6.math.imul":169,"./modules/es6.math.log10":170,"./modules/es6.math.log1p":171,"./modules/es6.math.log2":172,"./modules/es6.math.sign":173,"./modules/es6.math.sinh":174,"./modules/es6.math.tanh":175,"./modules/es6.math.trunc":176,"./modules/es6.number.constructor":177,"./modules/es6.number.epsilon":178,"./modules/es6.number.is-finite":179,"./modules/es6.number.is-integer":180,"./modules/es6.number.is-nan":181,"./modules/es6.number.is-safe-integer":182,"./modules/es6.number.max-safe-integer":183,"./modules/es6.number.min-safe-integer":184,"./modules/es6.number.parse-float":185,"./modules/es6.number.parse-int":186,"./modules/es6.number.to-fixed":187,"./modules/es6.number.to-precision":188,"./modules/es6.object.assign":189,"./modules/es6.object.create":190,"./modules/es6.object.define-properties":191,"./modules/es6.object.define-property":192,"./modules/es6.object.freeze":193,"./modules/es6.object.get-own-property-descriptor":194,"./modules/es6.object.get-own-property-names":195,"./modules/es6.object.get-prototype-of":196,"./modules/es6.object.is":200,"./modules/es6.object.is-extensible":197,"./modules/es6.object.is-frozen":198,"./modules/es6.object.is-sealed":199,"./modules/es6.object.keys":201,"./modules/es6.object.prevent-extensions":202,"./modules/es6.object.seal":203,"./modules/es6.object.set-prototype-of":204,"./modules/es6.object.to-string":205,"./modules/es6.parse-float":206,"./modules/es6.parse-int":207,"./modules/es6.promise":208,"./modules/es6.reflect.apply":209,"./modules/es6.reflect.construct":210,"./modules/es6.reflect.define-property":211,"./modules/es6.reflect.delete-property":212,"./modules/es6.reflect.enumerate":213,"./modules/es6.reflect.get":216,"./modules/es6.reflect.get-own-property-descriptor":214,"./modules/es6.reflect.get-prototype-of":215,"./modules/es6.reflect.has":217,"./modules/es6.reflect.is-extensible":218,"./modules/es6.reflect.own-keys":219,"./modules/es6.reflect.prevent-extensions":220,"./modules/es6.reflect.set":222,"./modules/es6.reflect.set-prototype-of":221,"./modules/es6.regexp.constructor":223,"./modules/es6.regexp.flags":224,"./modules/es6.regexp.match":225,"./modules/es6.regexp.replace":226,"./modules/es6.regexp.search":227,"./modules/es6.regexp.split":228,"./modules/es6.regexp.to-string":229,"./modules/es6.set":230,"./modules/es6.string.anchor":231,"./modules/es6.string.big":232,"./modules/es6.string.blink":233,"./modules/es6.string.bold":234,"./modules/es6.string.code-point-at":235,"./modules/es6.string.ends-with":236,"./modules/es6.string.fixed":237,"./modules/es6.string.fontcolor":238,"./modules/es6.string.fontsize":239,"./modules/es6.string.from-code-point":240,"./modules/es6.string.includes":241,"./modules/es6.string.italics":242,"./modules/es6.string.iterator":243,"./modules/es6.string.link":244,"./modules/es6.string.raw":245,"./modules/es6.string.repeat":246,"./modules/es6.string.small":247,"./modules/es6.string.starts-with":248,"./modules/es6.string.strike":249,"./modules/es6.string.sub":250,"./modules/es6.string.sup":251,"./modules/es6.string.trim":252,"./modules/es6.symbol":253,"./modules/es6.typed.array-buffer":254,"./modules/es6.typed.data-view":255,"./modules/es6.typed.float32-array":256,"./modules/es6.typed.float64-array":257,"./modules/es6.typed.int16-array":258,"./modules/es6.typed.int32-array":259,"./modules/es6.typed.int8-array":260,"./modules/es6.typed.uint16-array":261,"./modules/es6.typed.uint32-array":262,"./modules/es6.typed.uint8-array":263,"./modules/es6.typed.uint8-clamped-array":264,"./modules/es6.weak-map":265,"./modules/es6.weak-set":266,"./modules/es7.array.flat-map":267,"./modules/es7.array.flatten":268,"./modules/es7.array.includes":269,"./modules/es7.asap":270,"./modules/es7.error.is-error":271,"./modules/es7.global":272,"./modules/es7.map.from":273,"./modules/es7.map.of":274,"./modules/es7.map.to-json":275,"./modules/es7.math.clamp":276,"./modules/es7.math.deg-per-rad":277,"./modules/es7.math.degrees":278,"./modules/es7.math.fscale":279,"./modules/es7.math.iaddh":280,"./modules/es7.math.imulh":281,"./modules/es7.math.isubh":282,"./modules/es7.math.rad-per-deg":283,"./modules/es7.math.radians":284,"./modules/es7.math.scale":285,"./modules/es7.math.signbit":286,"./modules/es7.math.umulh":287,"./modules/es7.object.define-getter":288,"./modules/es7.object.define-setter":289,"./modules/es7.object.entries":290,"./modules/es7.object.get-own-property-descriptors":291,"./modules/es7.object.lookup-getter":292,"./modules/es7.object.lookup-setter":293,"./modules/es7.object.values":294,"./modules/es7.observable":295,"./modules/es7.promise.finally":296,"./modules/es7.promise.try":297,"./modules/es7.reflect.define-metadata":298,"./modules/es7.reflect.delete-metadata":299,"./modules/es7.reflect.get-metadata":301,"./modules/es7.reflect.get-metadata-keys":300,"./modules/es7.reflect.get-own-metadata":303,"./modules/es7.reflect.get-own-metadata-keys":302,"./modules/es7.reflect.has-metadata":304,"./modules/es7.reflect.has-own-metadata":305,"./modules/es7.reflect.metadata":306,"./modules/es7.set.from":307,"./modules/es7.set.of":308,"./modules/es7.set.to-json":309,"./modules/es7.string.at":310,"./modules/es7.string.match-all":311,"./modules/es7.string.pad-end":312,"./modules/es7.string.pad-start":313,"./modules/es7.string.trim-left":314,"./modules/es7.string.trim-right":315,"./modules/es7.symbol.async-iterator":316,"./modules/es7.symbol.observable":317,"./modules/es7.system.global":318,"./modules/es7.weak-map.from":319,"./modules/es7.weak-map.of":320,"./modules/es7.weak-set.from":321,"./modules/es7.weak-set.of":322,"./modules/web.dom.iterable":323,"./modules/web.immediate":324,"./modules/web.timers":325}],327:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -8413,120 +7712,10 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],334:[function(require,module,exports){
-function select(element) {
-    var selectedText;
+},{}],328:[function(require,module,exports){
+!function(e,t){"object"==typeof exports&&"object"==typeof module?module.exports=t():"function"==typeof define&&define.amd?define([],t):"object"==typeof exports?exports["v-clipboard"]=t():e["v-clipboard"]=t()}(this,function(){return function(e){function t(o){if(n[o])return n[o].exports;var r=n[o]={i:o,l:!1,exports:{}};return e[o].call(r.exports,r,r.exports,t),r.l=!0,r.exports}var n={};return t.m=e,t.c=n,t.i=function(e){return e},t.d=function(e,n,o){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:o})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="/dist/",t(t.s=0)}([function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var o=function(e){var t=document.createElement("textarea"),n=!1;t.value=e,t.style.cssText="position:fixed;pointer-events:none;z-index:-9999;opacity:0;",document.body.appendChild(t),t.select();try{n=document.execCommand("copy")}catch(e){}return document.body.removeChild(t),n};t.default={install:function(e){e.prototype.$clipboard=o,e.directive("clipboard",{bind:function(e,t,n){e.addEventListener("click",function(e){if(t.hasOwnProperty("value")){var r=t.value,c={value:r,srcEvent:e},i=n.context;o(r)?i.$emit("copy",c):i.$emit("copyError",c)}})}})}}}])});
 
-    if (element.nodeName === 'SELECT') {
-        element.focus();
-
-        selectedText = element.value;
-    }
-    else if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
-        var isReadOnly = element.hasAttribute('readonly');
-
-        if (!isReadOnly) {
-            element.setAttribute('readonly', '');
-        }
-
-        element.select();
-        element.setSelectionRange(0, element.value.length);
-
-        if (!isReadOnly) {
-            element.removeAttribute('readonly');
-        }
-
-        selectedText = element.value;
-    }
-    else {
-        if (element.hasAttribute('contenteditable')) {
-            element.focus();
-        }
-
-        var selection = window.getSelection();
-        var range = document.createRange();
-
-        range.selectNodeContents(element);
-        selection.removeAllRanges();
-        selection.addRange(range);
-
-        selectedText = selection.toString();
-    }
-
-    return selectedText;
-}
-
-module.exports = select;
-
-},{}],335:[function(require,module,exports){
-function E () {
-  // Keep this empty so it's easier to inherit from
-  // (via https://github.com/lipsmack from https://github.com/scottcorgan/tiny-emitter/issues/3)
-}
-
-E.prototype = {
-  on: function (name, callback, ctx) {
-    var e = this.e || (this.e = {});
-
-    (e[name] || (e[name] = [])).push({
-      fn: callback,
-      ctx: ctx
-    });
-
-    return this;
-  },
-
-  once: function (name, callback, ctx) {
-    var self = this;
-    function listener () {
-      self.off(name, listener);
-      callback.apply(ctx, arguments);
-    };
-
-    listener._ = callback
-    return this.on(name, listener, ctx);
-  },
-
-  emit: function (name) {
-    var data = [].slice.call(arguments, 1);
-    var evtArr = ((this.e || (this.e = {}))[name] || []).slice();
-    var i = 0;
-    var len = evtArr.length;
-
-    for (i; i < len; i++) {
-      evtArr[i].fn.apply(evtArr[i].ctx, data);
-    }
-
-    return this;
-  },
-
-  off: function (name, callback) {
-    var e = this.e || (this.e = {});
-    var evts = e[name];
-    var liveEvents = [];
-
-    if (evts && callback) {
-      for (var i = 0, len = evts.length; i < len; i++) {
-        if (evts[i].fn !== callback && evts[i].fn._ !== callback)
-          liveEvents.push(evts[i]);
-      }
-    }
-
-    // Remove event from queue to prevent memory leak
-    // Suggested by https://github.com/lazd
-    // Ref: https://github.com/scottcorgan/tiny-emitter/commit/c6ebfaa9bc973b33d110a84a307742b7cf94c953#commitcomment-5024910
-
-    (liveEvents.length)
-      ? e[name] = liveEvents
-      : delete e[name];
-
-    return this;
-  }
-};
-
-module.exports = E;
-
-},{}],336:[function(require,module,exports){
+},{}],329:[function(require,module,exports){
 var Vue // late bind
 var version
 var map = (window.__VUE_HOT_MAP__ = Object.create(null))
@@ -8756,9 +7945,9 @@ exports.reload = tryWrap(function (id, options) {
   })
 })
 
-},{}],337:[function(require,module,exports){
+},{}],330:[function(require,module,exports){
 !function(t,e){"object"==typeof exports&&"object"==typeof module?module.exports=e():"function"==typeof define&&define.amd?define("vue-slider-component",[],e):"object"==typeof exports?exports["vue-slider-component"]=e():t["vue-slider-component"]=e()}(this,function(){return function(t){function e(s){if(i[s])return i[s].exports;var r=i[s]={i:s,l:!1,exports:{}};return t[s].call(r.exports,r,r.exports,e),r.l=!0,r.exports}var i={};return e.m=t,e.c=i,e.i=function(t){return t},e.d=function(t,i,s){e.o(t,i)||Object.defineProperty(t,i,{configurable:!1,enumerable:!0,get:s})},e.n=function(t){var i=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(i,"a",i),i},e.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},e.p="",e(e.s=2)}([function(t,e,i){i(7);var s=i(5)(i(1),i(6),null,null);t.exports=s.exports},function(t,e,i){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.default={name:"VueSliderComponent",data:function(){return{flag:!1,size:0,currentValue:0,currentSlider:0}},props:{width:{type:[Number,String],default:"auto"},height:{type:[Number,String],default:6},data:{type:Array,default:null},dotSize:{type:Number,default:16},dotWidth:{type:Number,required:!1},dotHeight:{type:Number,required:!1},min:{type:Number,default:0},max:{type:Number,default:100},interval:{type:Number,default:1},show:{type:Boolean,default:!0},disabled:{type:Boolean,default:!1},piecewise:{type:Boolean,default:!1},tooltip:{type:[String,Boolean],default:"always"},eventType:{type:String,default:"auto"},direction:{type:String,default:"horizontal"},reverse:{type:Boolean,default:!1},lazy:{type:Boolean,default:!1},clickable:{type:Boolean,default:!0},speed:{type:Number,default:.5},realTime:{type:Boolean,default:!1},stopPropagation:{type:Boolean,default:!1},value:{type:[String,Number,Array],default:0},piecewiseLabel:{type:Boolean,default:!1},sliderStyle:[Array,Object,Function],tooltipDir:[Array,String],formatter:[String,Function],piecewiseStyle:Object,piecewiseActiveStyle:Object,processStyle:Object,bgStyle:Object,tooltipStyle:[Array,Object,Function],labelStyle:Object,labelActiveStyle:Object},computed:{dotWidthVal:function(){return"number"==typeof this.dotWidth?this.dotWidth:this.dotSize},dotHeightVal:function(){return"number"==typeof this.dotHeight?this.dotHeight:this.dotSize},flowDirection:function(){return"vue-slider-"+this.direction+(this.reverse?"-reverse":"")},tooltipDirection:function(){var t=this.tooltipDir||("vertical"===this.direction?"left":"top");return Array.isArray(t)?this.isRange?t:t[1]:this.isRange?[t,t]:t},tooltipStatus:function(){return"hover"===this.tooltip&&this.flag?"vue-slider-always":this.tooltip?"vue-slider-"+this.tooltip:""},tooltipClass:function(){return["vue-slider-tooltip-"+this.tooltipDirection,"vue-slider-tooltip"]},isDisabled:function(){return"none"===this.eventType||this.disabled},disabledClass:function(){return this.disabled?"vue-slider-disabled":""},isRange:function(){return Array.isArray(this.value)},slider:function(){return this.isRange?[this.$refs.dot0,this.$refs.dot1]:this.$refs.dot},minimum:function(){return this.data?0:this.min},val:{get:function(){return this.data?this.isRange?[this.data[this.currentValue[0]],this.data[this.currentValue[1]]]:this.data[this.currentValue]:this.currentValue},set:function(t){if(this.data)if(this.isRange){var e=this.data.indexOf(t[0]),i=this.data.indexOf(t[1]);e>-1&&i>-1&&(this.currentValue=[e,i])}else{var s=this.data.indexOf(t);s>-1&&(this.currentValue=s)}else this.currentValue=t}},currentIndex:function(){return this.isRange?this.data?this.currentValue:[(this.currentValue[0]-this.minimum)/this.spacing,(this.currentValue[1]-this.minimum)/this.spacing]:(this.currentValue-this.minimum)/this.spacing},indexRange:function(){return this.isRange?this.currentIndex:[0,this.currentIndex]},maximum:function(){return this.data?this.data.length-1:this.max},multiple:function(){var t=(""+this.interval).split(".")[1];return t?Math.pow(10,t.length):1},spacing:function(){return this.data?1:this.interval},total:function(){return this.data?this.data.length-1:(~~((this.maximum-this.minimum)*this.multiple)%(this.interval*this.multiple)!=0&&console.error("[Vue-slider warn]: Prop[interval] is illegal, Please make sure that the interval can be divisible"),(this.maximum-this.minimum)/this.interval)},gap:function(){return this.size/this.total},position:function(){return this.isRange?[(this.currentValue[0]-this.minimum)/this.spacing*this.gap,(this.currentValue[1]-this.minimum)/this.spacing*this.gap]:(this.currentValue-this.minimum)/this.spacing*this.gap},limit:function(){return this.isRange?[[0,this.position[1]],[this.position[0],this.size]]:[0,this.size]},valueLimit:function(){return this.isRange?[[this.minimum,this.currentValue[1]],[this.currentValue[0],this.maximum]]:[this.minimum,this.maximum]},wrapStyles:function(){return"vertical"===this.direction?{height:"number"==typeof this.height?this.height+"px":this.height,padding:this.dotHeightVal/2+"px "+this.dotWidthVal/2+"px"}:{width:"number"==typeof this.width?this.width+"px":this.width,padding:this.dotHeightVal/2+"px "+this.dotWidthVal/2+"px"}},sliderStyles:function(){return Array.isArray(this.sliderStyle)?this.isRange?this.sliderStyle:this.sliderStyle[1]:"function"==typeof this.sliderStyle?this.sliderStyle(this.val,this.currentIndex):this.isRange?[this.sliderStyle,this.sliderStyle]:this.sliderStyle},tooltipStyles:function(){return Array.isArray(this.tooltipStyle)?this.isRange?this.tooltipStyle:this.tooltipStyle[1]:"function"==typeof this.tooltipStyle?this.tooltipStyle(this.val,this.currentIndex):this.isRange?[this.tooltipStyle,this.tooltipStyle]:this.tooltipStyle},elemStyles:function(){return"vertical"===this.direction?{width:this.width+"px",height:"100%"}:{height:this.height+"px"}},dotStyles:function(){return"vertical"===this.direction?{width:this.dotWidthVal+"px",height:this.dotHeightVal+"px",left:-(this.dotWidthVal-this.width)/2+"px"}:{width:this.dotWidthVal+"px",height:this.dotHeightVal+"px",top:-(this.dotHeightVal-this.height)/2+"px"}},piecewiseDotStyle:function(){return"vertical"===this.direction?{width:this.width+"px",height:this.width+"px"}:{width:this.height+"px",height:this.height+"px"}},piecewiseDotWrap:function(){if(!this.piecewise&&!this.piecewiseLabel)return!1;for(var t=[],e=0;e<=this.total;e++){var i="vertical"===this.direction?{bottom:this.gap*e-this.width/2+"px",left:0}:{left:this.gap*e-this.height/2+"px",top:0},s=this.reverse?this.total-e:e,r=this.data?this.data[s]:this.spacing*s+this.min;t.push({style:i,label:this.formatter?this.formatting(r):r,inRange:s>=this.indexRange[0]&&s<=this.indexRange[1]})}return t}},watch:{value:function(t){this.flag||this.setValue(t,!0)},max:function(t){var e=this.limitValue(this.val);!1!==e&&this.setValue(e),this.refresh()},min:function(t){var e=this.limitValue(this.val);!1!==e&&this.setValue(e),this.refresh()},show:function(t){var e=this;t&&!this.size&&this.$nextTick(function(){e.refresh()})}},methods:{bindEvents:function(){document.addEventListener("touchmove",this.moving,{passive:!1}),document.addEventListener("touchend",this.moveEnd,{passive:!1}),document.addEventListener("mousemove",this.moving),document.addEventListener("mouseup",this.moveEnd),document.addEventListener("mouseleave",this.moveEnd),window.addEventListener("resize",this.refresh)},unbindEvents:function(){window.removeEventListener("resize",this.refresh),document.removeEventListener("touchmove",this.moving),document.removeEventListener("touchend",this.moveEnd),document.removeEventListener("mousemove",this.moving),document.removeEventListener("mouseup",this.moveEnd),document.removeEventListener("mouseleave",this.moveEnd)},formatting:function(t){return"string"==typeof this.formatter?this.formatter.replace(/\{value\}/,t):this.formatter(t)},getPos:function(t){return this.realTime&&this.getStaticData(),"vertical"===this.direction?this.reverse?t.pageY-this.offset:this.size-(t.pageY-this.offset):this.reverse?this.size-(t.clientX-this.offset):t.clientX-this.offset},wrapClick:function(t){if(this.isDisabled||!this.clickable)return!1;var e=this.getPos(t);this.isRange&&(this.currentSlider=e>(this.position[1]-this.position[0])/2+this.position[0]?1:0),this.setValueOnPos(e)},moveStart:function(t,e){if(this.stopPropagation&&t.stopPropagation(),this.isDisabled)return!1;this.isRange&&(this.currentSlider=e),this.flag=!0,this.$emit("drag-start",this)},moving:function(t){if(this.stopPropagation&&t.stopPropagation(),!this.flag)return!1;t.preventDefault(),t.targetTouches&&t.targetTouches[0]&&(t=t.targetTouches[0]),this.setValueOnPos(this.getPos(t),!0)},moveEnd:function(t){if(this.stopPropagation&&t.stopPropagation(),!this.flag)return!1;this.$emit("drag-end",this),this.lazy&&this.isDiff(this.val,this.value)&&this.syncValue(),this.flag=!1,this.setPosition()},setValueOnPos:function(t,e){var i=this.isRange?this.limit[this.currentSlider]:this.limit,s=this.isRange?this.valueLimit[this.currentSlider]:this.valueLimit;if(t>=i[0]&&t<=i[1]){this.setTransform(t);var r=(Math.round(t/this.gap)*(this.spacing*this.multiple)+this.minimum*this.multiple)/this.multiple;this.setCurrentValue(r,e)}else t<i[0]?(this.setTransform(i[0]),this.setCurrentValue(s[0]),1===this.currentSlider&&(this.currentSlider=0)):(this.setTransform(i[1]),this.setCurrentValue(s[1]),0===this.currentSlider&&(this.currentSlider=1))},isDiff:function(t,e){return Object.prototype.toString.call(t)!==Object.prototype.toString.call(e)||(Array.isArray(t)&&t.length===e.length?t.some(function(t,i){return t!==e[i]}):t!==e)},setCurrentValue:function(t,e){if(t<this.minimum||t>this.maximum)return!1;this.isRange?this.isDiff(this.currentValue[this.currentSlider],t)&&(this.currentValue.splice(this.currentSlider,1,t),this.lazy&&this.flag||this.syncValue()):this.isDiff(this.currentValue,t)&&(this.currentValue=t,this.lazy&&this.flag||this.syncValue()),e||this.setPosition()},setIndex:function(t){if(Array.isArray(t)&&this.isRange){var e=void 0;e=this.data?[this.data[t[0]],this.data[t[1]]]:[this.spacing*t[0]+this.minimum,this.spacing*t[1]+this.minimum],this.setValue(e)}else t=this.spacing*t+this.minimum,this.isRange&&(this.currentSlider=t>(this.currentValue[1]-this.currentValue[0])/2+this.currentValue[0]?1:0),this.setCurrentValue(t)},setValue:function(t,e,i){var s=this;if(this.isDiff(this.val,t)){var r=this.limitValue(t);this.val=!1!==r?this.isRange?r.concat():r:this.isRange?t.concat():t,this.syncValue(e)}this.$nextTick(function(){return s.setPosition(i)})},setPosition:function(t){this.flag||this.setTransitionTime(void 0===t?this.speed:t),this.isRange?(this.currentSlider=0,this.setTransform(this.position[this.currentSlider]),this.currentSlider=1,this.setTransform(this.position[this.currentSlider])):this.setTransform(this.position),this.flag||this.setTransitionTime(0)},setTransform:function(t){var e=("vertical"===this.direction?this.dotHeightVal/2-t:t-this.dotWidthVal/2)*(this.reverse?-1:1),i="vertical"===this.direction?"translateY("+e+"px)":"translateX("+e+"px)",s=(0===this.currentSlider?this.position[1]-t:t-this.position[0])+"px",r=(0===this.currentSlider?t:this.position[0])+"px";this.isRange?(this.slider[this.currentSlider].style.transform=i,this.slider[this.currentSlider].style.WebkitTransform=i,this.slider[this.currentSlider].style.msTransform=i,"vertical"===this.direction?(this.$refs.process.style.height=s,this.$refs.process.style[this.reverse?"top":"bottom"]=r):(this.$refs.process.style.width=s,this.$refs.process.style[this.reverse?"right":"left"]=r)):(this.slider.style.transform=i,this.slider.style.WebkitTransform=i,this.slider.style.msTransform=i,"vertical"===this.direction?(this.$refs.process.style.height=t+"px",this.$refs.process.style[this.reverse?"top":"bottom"]=0):(this.$refs.process.style.width=t+"px",this.$refs.process.style[this.reverse?"right":"left"]=0))},setTransitionTime:function(t){if(t||this.$refs.process.offsetWidth,this.isRange){for(var e=0;e<this.slider.length;e++)this.slider[e].style.transitionDuration=t+"s",this.slider[e].style.WebkitTransitionDuration=t+"s";this.$refs.process.style.transitionDuration=t+"s",this.$refs.process.style.WebkitTransitionDuration=t+"s"}else this.slider.style.transitionDuration=t+"s",this.slider.style.WebkitTransitionDuration=t+"s",this.$refs.process.style.transitionDuration=t+"s",this.$refs.process.style.WebkitTransitionDuration=t+"s"},limitValue:function(t){var e=this;if(this.data)return t;var i=!1;return this.isRange?t=t.map(function(t){return t<e.min?(i=!0,e.min):t>e.max?(i=!0,e.max):t}):t>this.max?(i=!0,t=this.max):t<this.min&&(i=!0,t=this.min),i&&t},syncValue:function(t){t||this.$emit("callback",this.val),this.$emit("input",this.isRange?this.val.concat():this.val)},getValue:function(){return this.val},getIndex:function(){return this.currentIndex},getStaticData:function(){this.$refs.elem&&(this.size="vertical"===this.direction?this.$refs.elem.offsetHeight:this.$refs.elem.offsetWidth,this.offset="vertical"===this.direction?this.$refs.elem.getBoundingClientRect().top+window.pageYOffset||document.documentElement.scrollTop:this.$refs.elem.getBoundingClientRect().left)},refresh:function(){this.$refs.elem&&(this.getStaticData(),this.setPosition())}},mounted:function(){var t=this;"undefined"!=typeof window&&"undefined"!=typeof document&&this.$nextTick(function(){t.getStaticData(),t.setValue(t.value,!0,0),t.bindEvents()})},beforeDestroy:function(){this.unbindEvents()}}},function(t,e,i){"use strict";var s=i(0);t.exports=s},function(t,e,i){e=t.exports=i(4)(),e.push([t.i,'.vue-slider-component{position:relative;box-sizing:border-box;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.vue-slider-component.vue-slider-disabled{opacity:.5;cursor:not-allowed}.vue-slider-component.vue-slider-has-label{margin-bottom:15px}.vue-slider-component.vue-slider-disabled .vue-slider-dot{cursor:not-allowed}.vue-slider-component .vue-slider{position:relative;display:block;border-radius:15px;background-color:#ccc}.vue-slider-component .vue-slider:after{content:"";position:absolute;left:0;top:0;width:100%;height:100%;z-index:2}.vue-slider-component .vue-slider-process{position:absolute;border-radius:15px;background-color:#3498db;transition:all 0s;z-index:1}.vue-slider-component.vue-slider-horizontal .vue-slider-process{width:0;height:100%;top:0;left:0;will-change:width}.vue-slider-component.vue-slider-vertical .vue-slider-process{width:100%;height:0;bottom:0;left:0;will-change:height}.vue-slider-component.vue-slider-horizontal-reverse .vue-slider-process{width:0;height:100%;top:0;right:0}.vue-slider-component.vue-slider-vertical-reverse .vue-slider-process{width:100%;height:0;top:0;left:0}.vue-slider-component .vue-slider-dot{position:absolute;border-radius:50%;background-color:#fff;box-shadow:.5px .5px 2px 1px rgba(0,0,0,.32);transition:all 0s;will-change:transform;cursor:pointer;z-index:3}.vue-slider-component.vue-slider-horizontal .vue-slider-dot{left:0}.vue-slider-component.vue-slider-vertical .vue-slider-dot{bottom:0}.vue-slider-component.vue-slider-horizontal-reverse .vue-slider-dot{right:0}.vue-slider-component.vue-slider-vertical-reverse .vue-slider-dot{top:0}.vue-slider-component .vue-slider-tooltip-wrap{display:none;position:absolute;z-index:9}.vue-slider-component .vue-slider-tooltip{display:block;font-size:14px;white-space:nowrap;padding:2px 5px;min-width:20px;text-align:center;color:#fff;border-radius:5px;border:1px solid #3498db;background-color:#3498db}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-top{top:-9px;left:50%;-webkit-transform:translate(-50%,-100%);transform:translate(-50%,-100%)}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-bottom{bottom:-9px;left:50%;-webkit-transform:translate(-50%,100%);transform:translate(-50%,100%)}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-left{top:50%;left:-9px;-webkit-transform:translate(-100%,-50%);transform:translate(-100%,-50%)}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-right{top:50%;right:-9px;-webkit-transform:translate(100%,-50%);transform:translate(100%,-50%)}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-top .vue-slider-tooltip:before{content:"";position:absolute;bottom:-10px;left:50%;width:0;height:0;border:5px solid transparent;border:6px solid transparent\\0;border-top-color:inherit;-webkit-transform:translate(-50%);transform:translate(-50%)}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-bottom .vue-slider-tooltip:before{content:"";position:absolute;top:-10px;left:50%;width:0;height:0;border:5px solid transparent;border:6px solid transparent\\0;border-bottom-color:inherit;-webkit-transform:translate(-50%);transform:translate(-50%)}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-left .vue-slider-tooltip:before{content:"";position:absolute;top:50%;right:-10px;width:0;height:0;border:5px solid transparent;border:6px solid transparent\\0;border-left-color:inherit;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-right .vue-slider-tooltip:before{content:"";position:absolute;top:50%;left:-10px;width:0;height:0;border:5px solid transparent;border:6px solid transparent\\0;border-right-color:inherit;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.vue-slider-component .vue-slider-dot.vue-slider-hover:hover .vue-slider-tooltip-wrap{display:block}.vue-slider-component .vue-slider-dot.vue-slider-always .vue-slider-tooltip-wrap{display:block!important}.vue-slider-component .vue-slider-piecewise{position:absolute;width:100%;padding:0;margin:0;left:0;top:0;height:100%;list-style:none}.vue-slider-component .vue-slider-piecewise-item{position:absolute;width:8px;height:8px}.vue-slider-component .vue-slider-piecewise-dot{position:absolute;left:50%;top:50%;width:100%;height:100%;display:inline-block;background-color:rgba(0,0,0,.16);border-radius:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);z-index:2;transition:all .3s}.vue-slider-component .vue-slider-piecewise-item:first-child .vue-slider-piecewise-dot,.vue-slider-component .vue-slider-piecewise-item:last-child .vue-slider-piecewise-dot{visibility:hidden}.vue-slider-component.vue-slider-horizontal-reverse .vue-slider-piecewise-label,.vue-slider-component.vue-slider-horizontal .vue-slider-piecewise-label{position:absolute;display:inline-block;top:100%;left:50%;white-space:nowrap;font-size:12px;color:#333;-webkit-transform:translate(-50%,8px);transform:translate(-50%,8px);visibility:visible}.vue-slider-component.vue-slider-vertical-reverse .vue-slider-piecewise-label,.vue-slider-component.vue-slider-vertical .vue-slider-piecewise-label{position:absolute;display:inline-block;top:50%;left:100%;white-space:nowrap;font-size:12px;color:#333;-webkit-transform:translate(8px,-50%);transform:translate(8px,-50%);visibility:visible}.vue-slider-component .vue-slider-sr-only{clip:rect(1px,1px,1px,1px);height:1px;width:1px;overflow:hidden;position:absolute!important}',""])},function(t,e){t.exports=function(){var t=[];return t.toString=function(){for(var t=[],e=0;e<this.length;e++){var i=this[e];i[2]?t.push("@media "+i[2]+"{"+i[1]+"}"):t.push(i[1])}return t.join("")},t.i=function(e,i){"string"==typeof e&&(e=[[null,e,""]]);for(var s={},r=0;r<this.length;r++){var n=this[r][0];"number"==typeof n&&(s[n]=!0)}for(r=0;r<e.length;r++){var o=e[r];"number"==typeof o[0]&&s[o[0]]||(i&&!o[2]?o[2]=i:i&&(o[2]="("+o[2]+") and ("+i+")"),t.push(o))}},t}},function(t,e){t.exports=function(t,e,i,s){var r,n=t=t||{},o=typeof t.default;"object"!==o&&"function"!==o||(r=t,n=t.default);var l="function"==typeof n?n.options:n;if(e&&(l.render=e.render,l.staticRenderFns=e.staticRenderFns),i&&(l._scopeId=i),s){var a=Object.create(l.computed||null);Object.keys(s).forEach(function(t){var e=s[t];a[t]=function(){return e}}),l.computed=a}return{esModule:r,exports:n,options:l}}},function(t,e){t.exports={render:function(){var t=this,e=t.$createElement,i=t._self._c||e;return i("div",{directives:[{name:"show",rawName:"v-show",value:t.show,expression:"show"}],ref:"wrap",class:["vue-slider-component",t.flowDirection,t.disabledClass,{"vue-slider-has-label":t.piecewiseLabel}],style:t.wrapStyles,on:{click:t.wrapClick}},[i("div",{ref:"elem",staticClass:"vue-slider",style:[t.elemStyles,t.bgStyle],attrs:{"aria-hidden":"true"}},[t.isRange?[i("div",{ref:"dot0",class:[t.tooltipStatus,"vue-slider-dot"],style:[t.dotStyles,t.sliderStyles[0]],on:{mousedown:function(e){t.moveStart(e,0)},touchstart:function(e){t.moveStart(e,0)}}},[i("span",{class:["vue-slider-tooltip-"+t.tooltipDirection[0],"vue-slider-tooltip-wrap"]},[t._t("tooltip",[i("span",{staticClass:"vue-slider-tooltip",style:t.tooltipStyles[0]},[t._v(t._s(t.formatter?t.formatting(t.val[0]):t.val[0]))])],{value:t.val[0],index:0})],2)]),t._v(" "),i("div",{ref:"dot1",class:[t.tooltipStatus,"vue-slider-dot"],style:[t.dotStyles,t.sliderStyles[1]],on:{mousedown:function(e){t.moveStart(e,1)},touchstart:function(e){t.moveStart(e,1)}}},[i("span",{class:["vue-slider-tooltip-"+t.tooltipDirection[1],"vue-slider-tooltip-wrap"]},[t._t("tooltip",[i("span",{staticClass:"vue-slider-tooltip",style:t.tooltipStyles[1]},[t._v(t._s(t.formatter?t.formatting(t.val[1]):t.val[1]))])],{value:t.val[1],index:1})],2)])]:[i("div",{ref:"dot",class:[t.tooltipStatus,"vue-slider-dot"],style:[t.dotStyles,t.sliderStyles],on:{mousedown:t.moveStart,touchstart:t.moveStart}},[i("span",{class:["vue-slider-tooltip-"+t.tooltipDirection,"vue-slider-tooltip-wrap"]},[t._t("tooltip",[i("span",{staticClass:"vue-slider-tooltip",style:t.tooltipStyles},[t._v(t._s(t.formatter?t.formatting(t.val):t.val))])],{value:t.val})],2)])],t._v(" "),i("ul",{staticClass:"vue-slider-piecewise"},t._l(t.piecewiseDotWrap,function(e,s){return i("li",{key:s,staticClass:"vue-slider-piecewise-item",style:[t.piecewiseDotStyle,e.style]},[t._t("piecewise",[t.piecewise?i("span",{staticClass:"vue-slider-piecewise-dot",style:[t.piecewiseStyle,e.inRange?t.piecewiseActiveStyle:null]}):t._e()],{label:e.label,index:s,first:0===s,last:s===t.piecewiseDotWrap.length-1,active:e.inRange}),t._v(" "),t._t("label",[t.piecewiseLabel?i("span",{staticClass:"vue-slider-piecewise-label",style:[t.labelStyle,e.inRange?t.labelActiveStyle:null]},[t._v("\n            "+t._s(e.label)+"\n          ")]):t._e()],{label:e.label,index:s,first:0===s,last:s===t.piecewiseDotWrap.length-1,active:e.inRange})],2)})),t._v(" "),i("div",{ref:"process",staticClass:"vue-slider-process",style:t.processStyle})],2),t._v(" "),t.isRange||t.data?t._e():i("input",{directives:[{name:"model",rawName:"v-model",value:t.val,expression:"val"}],staticClass:"vue-slider-sr-only",attrs:{type:"range",min:t.min,max:t.max},domProps:{value:t.val},on:{__r:function(e){t.val=e.target.value}}})])},staticRenderFns:[]}},function(t,e,i){var s=i(3);"string"==typeof s&&(s=[[t.i,s,""]]),s.locals&&(t.exports=s.locals);i(8)("743d98f5",s,!0)},function(t,e,i){function s(t){for(var e=0;e<t.length;e++){var i=t[e],s=h[i.id];if(s){s.refs++;for(var r=0;r<s.parts.length;r++)s.parts[r](i.parts[r]);for(;r<i.parts.length;r++)s.parts.push(n(i.parts[r]));s.parts.length>i.parts.length&&(s.parts.length=i.parts.length)}else{for(var o=[],r=0;r<i.parts.length;r++)o.push(n(i.parts[r]));h[i.id]={id:i.id,refs:1,parts:o}}}}function r(){var t=document.createElement("style");return t.type="text/css",d.appendChild(t),t}function n(t){var e,i,s=document.querySelector('style[data-vue-ssr-id~="'+t.id+'"]');if(s){if(f)return v;s.parentNode.removeChild(s)}if(m){var n=c++;s=p||(p=r()),e=o.bind(null,s,n,!1),i=o.bind(null,s,n,!0)}else s=r(),e=l.bind(null,s),i=function(){s.parentNode.removeChild(s)};return e(t),function(s){if(s){if(s.css===t.css&&s.media===t.media&&s.sourceMap===t.sourceMap)return;e(t=s)}else i()}}function o(t,e,i,s){var r=i?"":s.css;if(t.styleSheet)t.styleSheet.cssText=g(e,r);else{var n=document.createTextNode(r),o=t.childNodes;o[e]&&t.removeChild(o[e]),o.length?t.insertBefore(n,o[e]):t.appendChild(n)}}function l(t,e){var i=e.css,s=e.media,r=e.sourceMap;if(s&&t.setAttribute("media",s),r&&(i+="\n/*# sourceURL="+r.sources[0]+" */",i+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(r))))+" */"),t.styleSheet)t.styleSheet.cssText=i;else{for(;t.firstChild;)t.removeChild(t.firstChild);t.appendChild(document.createTextNode(i))}}var a="undefined"!=typeof document;if("undefined"!=typeof DEBUG&&DEBUG&&!a)throw new Error("vue-style-loader cannot be used in a non-browser environment. Use { target: 'node' } in your Webpack config to indicate a server-rendering environment.");var u=i(9),h={},d=a&&(document.head||document.getElementsByTagName("head")[0]),p=null,c=0,f=!1,v=function(){},m="undefined"!=typeof navigator&&/msie [6-9]\b/.test(navigator.userAgent.toLowerCase());t.exports=function(t,e,i){f=i;var r=u(t,e);return s(r),function(e){for(var i=[],n=0;n<r.length;n++){var o=r[n],l=h[o.id];l.refs--,i.push(l)}e?(r=u(t,e),s(r)):r=[];for(var n=0;n<i.length;n++){var l=i[n];if(0===l.refs){for(var a=0;a<l.parts.length;a++)l.parts[a]();delete h[l.id]}}}};var g=function(){var t=[];return function(e,i){return t[e]=i,t.filter(Boolean).join("\n")}}()},function(t,e){t.exports=function(t,e){for(var i=[],s={},r=0;r<e.length;r++){var n=e[r],o=n[0],l=n[1],a=n[2],u=n[3],h={id:t+":"+r,css:l,media:a,sourceMap:u};s[o]?s[o].parts.push(h):i.push(s[o]={id:o,parts:[h]})}return i}}])});
-},{}],338:[function(require,module,exports){
+},{}],331:[function(require,module,exports){
 (function (process,global){
 /*!
  * Vue.js v2.5.13
@@ -16685,7 +15874,7 @@ Vue$3.nextTick(function () {
 module.exports = Vue$3;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":333}],339:[function(require,module,exports){
+},{"_process":327}],332:[function(require,module,exports){
 var inserted = exports.cache = {}
 
 function noop () {}
@@ -16710,8 +15899,8 @@ exports.insert = function (css) {
   }
 }
 
-},{}],340:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("#webDollar{\n    font-family: 'avenir',sans-serif;\n}")
+},{}],333:[function(require,module,exports){
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("::-webkit-scrollbar {\n}\n\n/* Track */\n::-webkit-scrollbar-track {\n    -webkit-border-radius: 10px;\n    border-radius: 10px;\n}\n\n/* Handle */\n::-webkit-scrollbar-thumb {\n    opacity:0.1;\n    -webkit-border-radius: 10px;\n    border-radius: 10px;\n    background: rgba(0,0,0,0.5);\n    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);\n}\n\n#webDollar{\n    font-family: 'avenir',sans-serif;\n}")
 ;(function(){
 "use strict";
 
@@ -16754,13 +15943,13 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0b73f08c", __vue__options__)
+    hotAPI.createRecord("data-v-78f88538", __vue__options__)
   } else {
-    hotAPI.reload("data-v-0b73f08c", __vue__options__)
+    hotAPI.reload("data-v-78f88538", __vue__options__)
   }
 })()}
-},{"./Mining/Mining.vue":341,"./Wallet/Wallet.vue":357,"vue":338,"vue-hot-reload-api":336,"vueify/lib/insert-css":339}],341:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("#dashboardMining{\n    overflow: hidden;\n    position: fixed;\n    bottom: 0px;\n    height: 33px;\n    background-color: #262626;\n    display: block;\n    left: 0;\n    padding-bottom: 3px;\n    right: 0;\n    z-index: 95;\n    border-top: solid 1px #444444;\n}\n\n.miningPowerThreads{\n    font-size: 14px;\n    display: inline-block;\n    padding: 0 10px;\n    vertical-align: top;\n    padding-top: 8px;\n    text-transform: uppercase;\n    padding-bottom: 5px;\n    color: #fff;\n    letter-spacing: 5px;\n    margin: 0;\n}\n\n\n.walletStartMining{\n    position: relative;\n    display: inline-block!important;\n    vertical-align: top;\n    left: 0;\n    right: 0;\n    font-size: 20px;\n    color: #f20;\n    display: inline-block;\n    cursor: pointer;\n    text-align: center;\n    transition: all .3s linear;\n}\n\n.walletStartMining a{\n    padding-top: 5px;\n    display: block;\n    color: #000;\n}\n\n.walletStartMining a:hover{\n    color: #ffc12c;\n}\n\n.walletStartMining:hover{\n    background-color: #191919;\n    transition: all .3s linear;\n}\n\n.minningController p{\n    font-size: 20px;\n    margin-right: -4px;\n}\n\n#miningDetails{\n    display: inline-block;\n    line-height: 32px;\n    margin-top: 2px;\n}\n\n#miningDetails p{\n    margin-top: 0;\n    font-size: 12px;\n    color: #D5D5D5;\n}\n\n#threadsControll{\n    display: inline-block;\n    vertical-align: top;\n    width: 100%;\n    background-color: #1f1f1f;\n}\n\n#threadsControll .leftButton {\n    float: left;\n}\n\n#threadsControll .rightButton {\n    float: right;\n}\n\n#threadsControll .button p{\n    padding-top: 3px;\n    padding-bottom: 4px;\n    line-height: 27px;\n    margin: 0;\n}\n\n#allWalets{\n    /*border-top: solid 1px #7b7b7b;*/\n    display: block;\n    /*padding-top: 10px;*/\n}\n\n\n.miningPowerText{\n    font-size: 10px;\n    display: inline-block;\n    padding: 0 10px;\n    vertical-align: top;\n    padding-top: 5px;\n    margin: 0;\n    color: #fff;\n}\n\n\n.miningPowerText .secondWord{\n    height: auto;\n    line-height: 10px;\n    margin: 0;\n    font-weight: bold;\n    color: #fff;\n    margin-right: -4px;\n}\n\n\n#threadsControll .button{\n    display: inline-block;\n    background-color: #1f1f1f;\n    color: #fff;\n    font-size: 26px;\n    border: solid 1px #565656;\n    width: 31px;\n    border-top: none;\n    border-bottom: none;\n    text-align: center;\n    cursor: pointer;\n    transition: all .3s linear;\n}\n\n#threadsControll .button:hover{\n    background-color: #000;\n    transition: all .3s linear;\n}\n\n#threadsControll .button:first-child{\n    margin-top: 0;\n}\n\n#threadsNumber{\n    font-size: 20px;\n    padding: 0 10px;\n    text-align: center;\n    padding-bottom: 8px;\n    line-height: 25px;\n    display: inline-block;\n    color: #fff;\n    background-color: #d23c25;\n    vertical-align: top;\n    padding-top: 6px;\n    border-right: solid 1px #444;\n    width: 40px;\n    padding-left: 0;\n    padding-right:0;\n}\n\n.whiteText{\n    color: #c5c5c5;\n    font-weight: 100;\n}\n\n#minningController{\n    border-top:none;\n    padding-bottom: 0;\n    margin-bottom: 15px;\n    display: inline-block;\n    vertical-align: top;\n}\n\n#createWalletAddress{\n    border: solid 1px #7b7b7b;\n    padding-bottom: 0;\n    margin-bottom: 15px;\n    display: inline-block;\n}\n\n#createWalletAddress p:hover{\n    background-color: #191919;\n    transition: all .3s linear;\n}\n\n#createWalletAddress p{\n    padding: 10px;\n    padding-top: 14px;\n    background-color: #353535;\n    color: #bbb;\n    display: inline-block;\n    width: 214px;\n    cursor: pointer;\n    text-align: center;\n    transition: all .3s linear;\n}\n\n.WEBD{\n    display: inline-block;\n    margin-left: 20px;\n    font-size: 20px;\n    color: #fec02c;\n    vertical-align: top;\n    margin-top: 0;\n    float: right;\n    min-width: 300px;\n    text-align: center;\n    border-left: solid 1px #444444;\n    padding-top: 6px;\n}\n\n#miningDetails p{\n    display: inline-block;\n}\n\n@media only screen and (max-width : 831px) {\n\n    .show-balance-span{\n        font-size: 20px;\n    }\n\n    #dashboardMining{\n        height: 45px!important;\n        margin-bottom: 0;\n    }\n    #minningController, .walletStartMining, .WEBD{\n        display: block;\n        width: 100%;\n    }\n    #minningController{\n        background-color: #0000;\n        margin-bottom: 0;\n        height: 33px;\n        width: 400px;\n        border-top: none;\n        margin-top: 50px;\n    }\n    .walletStartMining{\n        margin-top: -86px;\n    }\n    #threadsControll .button p{\n        line-height: 43px;\n    }\n    #threadsControll .button{\n        width: 80px;\n    }\n    .miningPowerThreads{\n        line-height: 38px;\n        font-size: 16px;\n        margin-right: -4px;\n    }\n    #miningDetails{\n        display: none;\n    }\n    .miningPowerText{\n        display: none;\n    }\n    #threadsNumber{\n        margin: 0 auto;\n        text-align: center;\n        float:left;\n        position: relative;\n        display: block;\n        line-height: 34px;\n        width: 35px;\n        padding-top: 6px;\n        padding-left: 0;\n    }\n    .WEBD{\n        margin-top: -43px;\n        text-align: right;\n        margin-right: 10px;\n    }\n    .miningPowerThreads{\n        display:none;\n    }\n    #threadsControll .button{\n        float:left;\n    }\n    .walletStartMining{\n        margin-top:-42px;\n        margin-left:40px;\n    }\n    #threadsControll{\n        background-color: #f200;\n    }\n    #threadsControll .button p {\n        line-height: 35px;\n        font-size: 35px;\n        padding-top: 7px;\n    }\n    #threadsControll .button:first-child{\n        border:none;\n    }\n    #minningController{\n        margin-top:0\n    }\n    #dashboardMining{\n        height:40px;\n    }\n    .walletStartMining:hover{\n        background-color: #f200;\n    }\n\n}\n\n@media only screen and (max-width : 451px) {\n\n    .whiteText{\n        display: none;\n    }\n\n    #threadsControll .button{\n        width: 50px;\n    }\n\n    .WEBD{\n        margin-top: -43px;\n        font-size:14px;\n    }\n\n}")
+},{"./Mining/Mining.vue":334,"./Wallet/Wallet.vue":350,"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],334:[function(require,module,exports){
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("#miningLoader{\n    vertical-align: top;\n    width: 30px;\n    height: 30px;\n}\n\n#dashboardMining{\n    overflow: hidden;\n    position: fixed;\n    bottom: 0px;\n    height: 33px;\n    background-color: #262626;\n    display: block;\n    left: 0;\n    padding-bottom: 3px;\n    right: 0;\n    z-index: 95;\n    border-top: solid 1px #444444;\n}\n\n.miningPowerThreads{\n    font-size: 14px;\n    display: inline-block;\n    padding: 0 10px;\n    vertical-align: top;\n    padding-top: 8px;\n    text-transform: uppercase;\n    padding-bottom: 5px;\n    color: #fff;\n    letter-spacing: 5px;\n    margin: 0;\n}\n\n\n.walletStartMining{\n    position: relative;\n    display: inline-block!important;\n    vertical-align: top;\n    left: 0;\n    right: 0;\n    font-size: 20px;\n    color: #f20;\n    display: inline-block;\n    cursor: pointer;\n    text-align: center;\n    transition: all .3s linear;\n}\n\n.walletStartMining a{\n    padding-top: 5px;\n    display: block;\n    color: #000;\n}\n\n.walletStartMining a:hover{\n    color: #ffc12c;\n}\n\n.walletStartMining:hover{\n    background-color: #191919;\n    transition: all .3s linear;\n}\n\n.minningController p{\n    font-size: 20px;\n    margin-right: -4px;\n}\n\n#miningDetails{\n    vertical-align: top;\n    display: inline-block;\n    line-height: 32px;\n    margin-top: 1;\n}\n\n#miningDetails p{\n    margin-top: 0;\n    font-size: 12px;\n    color: #D5D5D5;\n}\n\n#threadsControll{\n    display: inline-block;\n    vertical-align: top;\n    width: 100%;\n    background-color: #1f1f1f;\n}\n\n#threadsControll .leftButton {\n    float: left;\n}\n\n#threadsControll .rightButton {\n    float: right;\n}\n\n#threadsControll .button p{\n    padding-top: 3px;\n    padding-bottom: 4px;\n    line-height: 27px;\n    margin: 0;\n}\n\n#allWalets{\n    /*border-top: solid 1px #7b7b7b;*/\n    display: block;\n    /*padding-top: 10px;*/\n}\n\n\n.miningPowerText{\n    font-size: 10px;\n    display: inline-block;\n    padding: 0 10px;\n    vertical-align: top;\n    padding-top: 5px;\n    margin: 0;\n    color: #fff;\n}\n\n\n.miningPowerText .secondWord{\n    height: auto;\n    line-height: 10px;\n    margin: 0;\n    font-weight: bold;\n    color: #fff;\n    margin-right: -4px;\n}\n\n\n#threadsControll .button{\n    display: inline-block;\n    background-color: #1f1f1f;\n    color: #fff;\n    font-size: 26px;\n    border: solid 1px #565656;\n    width: 31px;\n    border-top: none;\n    border-bottom: none;\n    text-align: center;\n    cursor: pointer;\n    transition: all .3s linear;\n}\n\n#threadsControll .button:hover{\n    background-color: #000;\n    transition: all .3s linear;\n}\n\n#threadsControll .button:first-child{\n    margin-top: 0;\n}\n\n#threadsNumber{\n    font-size: 20px;\n    padding: 0 10px;\n    text-align: center;\n    padding-bottom: 8px;\n    line-height: 25px;\n    display: inline-block;\n    color: #fff;\n    background-color: #d23c25;\n    vertical-align: top;\n    padding-top: 6px;\n    border-right: solid 1px #444;\n    width: 40px;\n    padding-left: 0;\n    padding-right:0;\n}\n\n.whiteText{\n    color: #c5c5c5;\n    font-weight: 100;\n}\n\n#minningController{\n    border-top:none;\n    padding-bottom: 0;\n    margin-bottom: 15px;\n    display: inline-block;\n    vertical-align: top;\n}\n\n#createWalletAddress{\n    border: solid 1px #7b7b7b;\n    padding-bottom: 0;\n    margin-bottom: 15px;\n    display: inline-block;\n}\n\n#createWalletAddress p:hover{\n    background-color: #191919;\n    transition: all .3s linear;\n}\n\n#createWalletAddress p{\n    padding: 10px;\n    padding-top: 14px;\n    background-color: #353535;\n    color: #bbb;\n    display: inline-block;\n    width: 214px;\n    cursor: pointer;\n    text-align: center;\n    transition: all .3s linear;\n}\n\n.WEBD{\n    display: inline-block;\n    margin-left: 20px;\n    font-size: 20px;\n    color: #fec02c;\n    vertical-align: top;\n    margin-top: 0;\n    float: right;\n    min-width: 300px;\n    text-align: center;\n    border-left: solid 1px #444444;\n    padding-top: 6px;\n}\n\n#miningDetails p{\n    display: inline-block;\n}\n\n@media only screen and (max-width : 831px) {\n\n    .show-balance-span{\n        font-size: 20px;\n    }\n\n    #dashboardMining{\n        margin-bottom: 0;\n    }\n    #minningController, .walletStartMining, .WEBD{\n        display: inline-block;\n        width: 100%;\n    }\n    #minningController{\n        background-color: #0000;\n        margin-bottom: 0;\n        height: 33px;\n        width: 400px;\n        border-top: none;\n        margin-top: 50px;\n    }\n    .walletStartMining{\n        margin-top: -86px;\n    }\n    #threadsControll .button p{\n        line-height: 43px;\n    }\n    #threadsControll .button{\n        width: 80px;\n    }\n    .miningPowerThreads{\n        line-height: 38px;\n        font-size: 16px;\n        margin-right: -4px;\n    }\n    #miningDetails{\n        display: none;\n    }\n    .miningPowerText{\n        display: none;\n    }\n    #threadsNumber{\n        margin: 0 auto;\n        text-align: center;\n        float:left;\n        position: relative;\n        display: block;\n        line-height: 34px;\n        width: 35px;\n        padding-top: 6px;\n        padding-left: 0;\n    }\n    .WEBD{\n        margin-top: -38px;\n        text-align: right;\n        margin-right: 10px;\n    }\n    .miningPowerThreads{\n        display:none;\n    }\n    #threadsControll .button{\n        float:left;\n    }\n    .walletStartMining{\n        margin-top:-29px;\n        margin-left:40px;\n    }\n    #threadsControll{\n        background-color: #f200;\n    }\n    #threadsControll .button p {\n        line-height: 35px;\n        font-size: 35px;\n        padding-top: 7px;\n    }\n    #threadsControll .button:first-child{\n        border:none;\n    }\n    #minningController{\n        margin-top:0\n    }\n    #dashboardMining{\n        height:40px;\n    }\n    .walletStartMining:hover{\n        background-color: #f200;\n    }\n\n}\n\n@media only screen and (max-width : 451px) {\n\n    .whiteText{\n        display: none;\n    }\n\n    #threadsControll .button{\n        width: 50px;\n    }\n\n    .WEBD{\n        margin-top: -38px;\n        font-size:14px;\n    }\n\n}")
 ;(function(){
 "use strict";
 
@@ -16827,10 +16016,8 @@ exports.default = {
             _this.workers = WebDollar.Blockchain.Mining.workers;
         });
 
-        this.minerAddress = WebDollar.Blockchain.Mining.minerAddressBase;
-        console.log("mining/miner-address-changed", this.minerAddress);
+        this.minerAddress = WebDollar.Blockchain.Mining.minerAddress;
         WebDollar.Blockchain.Mining.emitter.on("mining/miner-address-changed", function (minerAddress) {
-            console.log("mining/miner-address-changed", minerAddress);
             _this.minerAddress = minerAddress;
         });
     },
@@ -16874,14 +16061,14 @@ exports.default = {
 
             if (value < this.workers) {
 
-                while (value !== this.workers) {
+                while (value != this.workers) {
 
                     this.workers--;
                     this.destroyOneMiningWorker();
                 }
             } else {
 
-                while (value !== this.workers) {
+                while (value != this.workers) {
 
                     this.workers++;
                     this.createOneMiningWorker();
@@ -16895,7 +16082,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"walletSection",attrs:{"id":"dashboardMining"}},[_c('div',{attrs:{"id":"minningController"}},[_vm._m(0),_vm._v(" "),_c('strong',{style:({background: this.workers ? 0 : '#d23c25'}),attrs:{"id":"threadsNumber"}},[_vm._v(_vm._s(this.workers))])]),_vm._v(" "),_c('div',{staticClass:"walletStartMining",attrs:{"type":"button"}},[_c('slider',{on:{"sliderChanged":this.changeWorkers}})],1),_vm._v(" "),_c('div',{attrs:{"id":"miningDetails"}},[_c('p',{},[_vm._v(_vm._s(this.started ? this.hashesPerSecond + ' hashes/sec' : 'not started')+" ")])]),_vm._v(" "),_c('p',{staticClass:"WEBD"},[_c('ShowBalance',{attrs:{"address":this.minerAddress,"currency":"0x01"}}),_vm._v(" "),_c('b',{staticClass:"whiteText"},[_vm._v("WBD MINED")])],1)])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"walletSection",attrs:{"id":"dashboardMining"}},[_c('div',{attrs:{"id":"minningController"}},[_vm._m(0),_vm._v(" "),_c('strong',{style:({background: this.workers ? 0 : '#d23c25'}),attrs:{"id":"threadsNumber"}},[_vm._v(_vm._s(this.workers))])]),_vm._v(" "),_c('div',{staticClass:"walletStartMining",attrs:{"type":"button"}},[_c('slider',{on:{"sliderChanged":this.changeWorkers}})],1),_vm._v(" "),_c('div',{attrs:{"id":"miningDetails"}},[_c('p',{style:({display: this.hashesPerSecond==0 && this.started==true ? 'none' : 'inline-block'})},[_vm._v(_vm._s(this.started ? this.hashesPerSecond + ' hashes/sec' : 'not started')+" ")]),_vm._v(" "),_c('svg',{staticStyle:{"enable-background":"new 0 0 50 50"},style:({display: this.hashesPerSecond==0 && this.started==true ? 'inline-block' : 'none'}),attrs:{"version":"1.1","id":"miningLoader","xmlns":"http://www.w3.org/2000/svg","xmlns:xlink":"http://www.w3.org/1999/xlink","x":"0px","y":"0px","width":"40px","height":"40px","viewBox":"0 0 50 50","xml:space":"preserve"}},[_c('path',{attrs:{"fill":"#fec02c","d":"M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"}},[_c('animateTransform',{attrs:{"attributeType":"xml","attributeName":"transform","type":"rotate","from":"0 25 25","to":"360 25 25","dur":"0.6s","repeatCount":"indefinite"}})],1)])]),_vm._v(" "),_c('p',{staticClass:"WEBD"},[_c('ShowBalance',{attrs:{"address":this.minerAddress,"currency":"0x01"}}),_vm._v(" "),_c('b',{staticClass:"whiteText"},[_vm._v("WBD MINED")])],1)])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',{staticClass:"miningPowerText"},[_vm._v("Mining "),_c('br'),_vm._v(" "),_c('span',{staticClass:"secondWord"},[_vm._v("Power")])])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -16903,12 +16090,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-f2777896", __vue__options__)
+    hotAPI.createRecord("data-v-697b145f", __vue__options__)
   } else {
-    hotAPI.reload("data-v-f2777896", __vue__options__)
+    hotAPI.reload("data-v-697b145f", __vue__options__)
   }
 })()}
-},{"../Wallet/Address/Balance/ShowBalance.vue":354,"./slider.vue":342,"vue":338,"vue-hot-reload-api":336,"vueify/lib/insert-css":339}],342:[function(require,module,exports){
+},{"../Wallet/Address/Balance/ShowBalance.vue":347,"./slider.vue":335,"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],335:[function(require,module,exports){
 var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".miningSlider{\n    padding-top: 15px!important;\n    padding-bottom: 15px!important;\n    padding-left: 20px!important;\n    background-color: #262626;\n}\n\n.vue-slider-component .vue-slider-piecewise{\n    background-color: #424242!important;\n}\n\n.vue-slider-component .vue-slider-process{\n    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fec02c+29,bc0505+100 */\n    background: #fec02c!important; /* Old browsers */\n    background: -moz-linear-gradient(left, #fec02c 29%, #bc0505 100%)!important; /* FF3.6-15 */\n    background: -webkit-linear-gradient(left, #fec02c 29%,#bc0505 100%)!important; /* Chrome10-25,Safari5.1-6 */\n    background: linear-gradient(to right, #fec02c 29%,#bc0505 100%)!important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\n    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fec02c', endColorstr='#bc0505',GradientType=1 )!important; /* IE6-9 */\n}")
 ;(function(){
 'use strict';
@@ -16977,12 +16164,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-67d2b7a6", __vue__options__)
+    hotAPI.createRecord("data-v-4a898850", __vue__options__)
   } else {
-    hotAPI.reload("data-v-67d2b7a6", __vue__options__)
+    hotAPI.reload("data-v-4a898850", __vue__options__)
   }
 })()}
-},{"./../../../node_modules/vue-slider-component":337,"vue":338,"vue-hot-reload-api":336,"vueify/lib/insert-css":339}],343:[function(require,module,exports){
+},{"./../../../node_modules/vue-slider-component":330,"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],336:[function(require,module,exports){
 var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".webdollarFont{\n    cursor: pointer;\n    color: #f6cd69;\n    transition: all .5s linear;\n    text-decoration: none;\n    width: 14px;\n}\n\n.webdollarFont path{\n    fill: #f6cd69;\n}")
 ;(function(){
 "use strict";
@@ -17061,12 +16248,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7083df22", __vue__options__)
+    hotAPI.createRecord("data-v-ab163dce", __vue__options__)
   } else {
-    hotAPI.reload("data-v-7083df22", __vue__options__)
+    hotAPI.reload("data-v-ab163dce", __vue__options__)
   }
 })()}
-},{"./res/svg-chevron-down.vue":344,"./res/svg-chevron-up.vue":345,"./res/svg-key.vue":346,"./res/svg-lock-closed.vue":347,"./res/svg-lock-open.vue":348,"./res/svg-plus-square.vue":349,"./res/svg-plus.vue":350,"./res/svg-x.vue":351,"vue":338,"vue-hot-reload-api":336,"vueify/lib/insert-css":339}],344:[function(require,module,exports){
+},{"./res/svg-chevron-down.vue":337,"./res/svg-chevron-up.vue":338,"./res/svg-key.vue":339,"./res/svg-lock-closed.vue":340,"./res/svg-lock-open.vue":341,"./res/svg-plus-square.vue":342,"./res/svg-plus.vue":343,"./res/svg-x.vue":344,"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],337:[function(require,module,exports){
 ;(function(){
 "use strict";
 
@@ -17085,12 +16272,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-801f3c7c", __vue__options__)
+    hotAPI.createRecord("data-v-0bd49e6c", __vue__options__)
   } else {
-    hotAPI.reload("data-v-801f3c7c", __vue__options__)
+    hotAPI.reload("data-v-0bd49e6c", __vue__options__)
   }
 })()}
-},{"vue":338,"vue-hot-reload-api":336}],345:[function(require,module,exports){
+},{"vue":331,"vue-hot-reload-api":329}],338:[function(require,module,exports){
 ;(function(){
 "use strict";
 
@@ -17109,12 +16296,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-ca422d8a", __vue__options__)
+    hotAPI.createRecord("data-v-791e4865", __vue__options__)
   } else {
-    hotAPI.reload("data-v-ca422d8a", __vue__options__)
+    hotAPI.reload("data-v-791e4865", __vue__options__)
   }
 })()}
-},{"vue":338,"vue-hot-reload-api":336}],346:[function(require,module,exports){
+},{"vue":331,"vue-hot-reload-api":329}],339:[function(require,module,exports){
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{staticClass:"webdollarFont",attrs:{"width":"24","height":"24","xmlns":"http://www.w3.org/2000/svg","fill-rule":"evenodd","clip-rule":"evenodd"}},[_c('path',{attrs:{"d":"M12.804 9c1.038-1.793 2.977-3 5.196-3 3.311 0 6 2.689 6 6s-2.689 6-6 6c-2.219 0-4.158-1.207-5.196-3h-3.804l-1.506-1.503-1.494 1.503-1.48-1.503-1.52 1.503-3-3.032 2.53-2.968h10.274zm7.696 1.5c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5z"}})])}
@@ -17124,12 +16311,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-bc9d1efe", __vue__options__)
+    hotAPI.createRecord("data-v-56386c97", __vue__options__)
   } else {
-    hotAPI.reload("data-v-bc9d1efe", __vue__options__)
+    hotAPI.reload("data-v-56386c97", __vue__options__)
   }
 })()}
-},{"vue":338,"vue-hot-reload-api":336}],347:[function(require,module,exports){
+},{"vue":331,"vue-hot-reload-api":329}],340:[function(require,module,exports){
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{staticClass:"webdollarFont",attrs:{"xmlns":"http://www.w3.org/2000/svg","width":"24","height":"24","viewBox":"0 0 24 24"}},[_c('path',{attrs:{"d":"M18 10v-4c0-3.313-2.687-6-6-6s-6 2.687-6 6v4h-3v14h18v-14h-3zm-5 7.723v2.277h-2v-2.277c-.595-.347-1-.984-1-1.723 0-1.104.896-2 2-2s2 .896 2 2c0 .738-.404 1.376-1 1.723zm-5-7.723v-4c0-2.206 1.794-4 4-4 2.205 0 4 1.794 4 4v4h-8z"}})])}
@@ -17139,12 +16326,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-75d308f0", __vue__options__)
+    hotAPI.createRecord("data-v-5f7f8f06", __vue__options__)
   } else {
-    hotAPI.reload("data-v-75d308f0", __vue__options__)
+    hotAPI.reload("data-v-5f7f8f06", __vue__options__)
   }
 })()}
-},{"vue":338,"vue-hot-reload-api":336}],348:[function(require,module,exports){
+},{"vue":331,"vue-hot-reload-api":329}],341:[function(require,module,exports){
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{staticClass:"webdollarFont",attrs:{"xmlns":"http://www.w3.org/2000/svg","width":"24","height":"24","viewBox":"0 0 24 24"}},[_c('path',{attrs:{"d":"M12 10v-4c0-3.313-2.687-6-6-6s-6 2.687-6 6v3h2v-3c0-2.206 1.794-4 4-4s4 1.794 4 4v4h-4v14h18v-14h-12z"}})])}
@@ -17154,12 +16341,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-21c579ce", __vue__options__)
+    hotAPI.createRecord("data-v-07e88d64", __vue__options__)
   } else {
-    hotAPI.reload("data-v-21c579ce", __vue__options__)
+    hotAPI.reload("data-v-07e88d64", __vue__options__)
   }
 })()}
-},{"vue":338,"vue-hot-reload-api":336}],349:[function(require,module,exports){
+},{"vue":331,"vue-hot-reload-api":329}],342:[function(require,module,exports){
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{staticClass:"webdollarFont",attrs:{"xmlns":"http://www.w3.org/2000/svg","width":"24","height":"24","viewBox":"0 0 24 24"}},[_c('path',{attrs:{"d":"M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7 14h-5v5h-4v-5h-5v-4h5v-5h4v5h5v4z"}})])}
@@ -17169,12 +16356,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-31ac2c52", __vue__options__)
+    hotAPI.createRecord("data-v-1b58b268", __vue__options__)
   } else {
-    hotAPI.reload("data-v-31ac2c52", __vue__options__)
+    hotAPI.reload("data-v-1b58b268", __vue__options__)
   }
 })()}
-},{"vue":338,"vue-hot-reload-api":336}],350:[function(require,module,exports){
+},{"vue":331,"vue-hot-reload-api":329}],343:[function(require,module,exports){
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{staticClass:"webdollarFont",attrs:{"xmlns":"http://www.w3.org/2000/svg","width":"24","height":"24","viewBox":"0 0 24 24"}},[_c('path',{attrs:{"d":"M24 9h-9v-9h-6v9h-9v6h9v9h6v-9h9z"}})])}
@@ -17184,12 +16371,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0b065d68", __vue__options__)
+    hotAPI.createRecord("data-v-314237dc", __vue__options__)
   } else {
-    hotAPI.reload("data-v-0b065d68", __vue__options__)
+    hotAPI.reload("data-v-314237dc", __vue__options__)
   }
 })()}
-},{"vue":338,"vue-hot-reload-api":336}],351:[function(require,module,exports){
+},{"vue":331,"vue-hot-reload-api":329}],344:[function(require,module,exports){
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{staticClass:"webdollarFont",attrs:{"xmlns":"http://www.w3.org/2000/svg","width":"24","height":"24","viewBox":"0 0 24 24"}},[_c('path',{attrs:{"d":"M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"}})])}
@@ -17199,12 +16386,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6b1d4ecc", __vue__options__)
+    hotAPI.createRecord("data-v-3b946230", __vue__options__)
   } else {
-    hotAPI.reload("data-v-6b1d4ecc", __vue__options__)
+    hotAPI.reload("data-v-3b946230", __vue__options__)
   }
 })()}
-},{"vue":338,"vue-hot-reload-api":336}],352:[function(require,module,exports){
+},{"vue":331,"vue-hot-reload-api":329}],345:[function(require,module,exports){
 var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".modal input:focus, .modal textarea:focus{\n    outline: none;\n}\n\n.modal{\n    width: 50%;\n    height: auto;\n    border-radius: 5px;\n    max-width: 550px;\n    min-width: 450px;\n    position: fixed;\n    margin: 0 auto;\n    border: solid 1px #313131;\n    left: 0;\n    right: 0;\n    text-align: center;\n    background-color: #1f1f1f;\n    z-index: 1600;\n    top: 50%;\n    transform: translateY(-50%);\n}\n\n.modal #walletID{\n    word-wrap: break-word;\n    display: block;\n    line-height: 12px;\n    margin: 10px 0;\n    font-weight: 100;\n}\n\n.modalBackground{\n    position: fixed;\n    height: 100%;\n    width: 100%;\n    display: block;\n    z-index: 1000;\n    top:0;\n    left: 0;\n    background-color: rgba(0, 0, 0, 0.83);\n}\n\n.modal .close{\n    position: fixed;\n    top: -10px;\n    right: 10px!important;\n    font-size: 40px;\n    display: block;\n    color: #ffc12c;\n    cursor: pointer;\n}\n\n.modal .title{\n    background-color: #262626;\n    padding: 10px 0;\n    text-transform: uppercase;\n    letter-spacing: 4px;\n    line-height: 22px;\n    color: #ffc12c;\n}\n\n.modal .footer .button{\n    display: inline;\n    cursor: pointer;\n}\n\n.modal b{\n    margin-left: 0;\n}\n\n.modal .twoColums{\n    border-bottom: solid 1px #313131;\n    background-color: #151515;\n}\n\n.modal .ballance{\n    color: #ffc12c!important;\n    font-size: 24px;\n    margin-top: 20px;\n}\n\n.modal .transfer{\n    padding: 0 10px;\n}\n\n.modal .transfer input{\n    border: none;\n    background-color: #333333;\n    padding: 10px 0 10px 10px;\n    margin: 10px 0;\n    color: #fff\n}\n\n.modal .transfer .adress{\n    width: 100%;\n    display: block;\n}\n\n.modal .transfer .amount {\n    width: 100%;\n}\n\n.modal .transfer .title{\n    background-color: #1f1f1f;\n    padding-top: 30px;\n    text-transform: uppercase;\n    letter-spacing: 4px;\n    padding-bottom: 20px;\n    color: #d4d4d4;\n}\n\n.modal .transfer .button{\n    margin-top: 10px;\n    background-color: #ffc12c;\n    color: #1f1f1f;\n    margin-bottom: 15px;\n    width: 100%;\n    font-size: 14px;\n    border: none;\n    padding: 15px 0 15px 0;\n    border-radius: 5px;\n    transition: all 0.5s ease;\n}\n\n.modal .transfer .button:hover{\n    background-color: #fbdb8d;\n    color: #000000;\n    transition: all 0.5s ease\n}\n\n.twoColums{\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n.adressActions{\n    display: grid;\n    grid-template-columns: 1fr 1fr 1fr 1fr;\n    border-bottom: solid 1px #313131;\n    border-top: solid 3px #000;\n}\n\n.adressActions .actionButton{\n    display: inline-block;\n    background-color: #333;\n    color: #ffc12c;\n    padding: 5px;\n    padding-top: 8px;\n    border-left: solid 1px #6d6d6d;\n    border-collapse: collapse;\n    transition: all 0.5s ease\n}\n\n.adressActions .actionButton:hover{\n    background-color: #232222;\n    color: #ffdd8c;\n    transition: all 0.5s ease\n}\n\n.adressActions .actionButton:first-child{\n    border-left:none;\n}\n\n.activeActionButton{\n    background-color: #ffc12c!important;\n    color: #000!important;\n}\n\n.twoColums .section{\n    overflow: hidden;\n    padding: 20px;\n    color: #D5D5D5;\n}\n\n.twoColums .section:first-child{\n    border-right: solid 1px #313131;\n}\n\n.copyToClipboard{\n    background-color: #353535;\n    border-radius: 5px;\n    padding: 7px 0 5px 0;\n    border: solid 1px #777;\n    font-size: 12px;\n    padding: 7px 0 5px 0;\n    width: 150px;\n    margin: 0 auto;\n    transition: all 0.5s ease\n}\n\n.copyToClipboard:hover{\n    background-color: #000;\n    transition: all 0.5s ease\n}\n\n.copyToClipboardSuccess{\n    color: #149008;\n    font-size: 14px;\n}\n\n.transferListContainer{\n    list-style: none;\n    padding: 0;\n    max-height: 200px;\n    overflow: scroll;\n}\n\n.transferListElement{\n    font-size: 12px;\n    color: #fff;\n    list-style: none;\n    display: grid;\n    grid-template-columns: 1fr 2fr;\n    grid-column-gap: 15px;\n    white-space: nowrap ;\n    text-align: left;\n    background-color: #151515;\n    padding: 5px 10px;\n}\n\n.destinations{\n    list-style: none;\n    padding: 0;\n}\n\n.money, .destinationAdress{\n    display: inline-block;\n}\n\n.destinationAdress{\n    width: 70%;\n    overflow: hidden;\n}\n\n.money{\n    width: 20%;\n    padding-left: 10px;\n    display: inline-block;\n    float: right;\n    text-align: right;\n}\n\n.currency{\n    margin-left: 5px;\n}\n\n.pairListElement{\n    background-color: #333333;\n}\n\n.transferListContainer .money{\n    color:#ffc12c;\n}\n\n.transferListContainer .source{\n    color: #c5c5c5;\n}\n\n.transferList .header{\n    display: grid;\n    grid-template-columns: 1fr 1fr 1fr;\n}\n\n.headerElement{\n    display: inline-block;\n    text-align: center;\n    color: #d4d4d4;\n    margin-top: 15px;\n    font-size: 14px;\n}\n\n@media (max-width:831px){\n\n    #walletID{\n        font-size: 12px!important;\n        line-height: 14px!important;\n    }\n\n}\n\n@media (max-width:600px)  {\n\n    .modal{\n        width: 100%;\n        max-width: none;\n        min-width: none;\n        max-height: 100%;\n        overflow-y: auto;\n    }\n    .twoColums{\n        display: inline-block;\n    }\n    .twoColums .section:first-child {\n        border-bottom: solid 1px #313131;\n        border-right: none;\n    }\n    .modal .ballance{\n        margin-top: 0;\n    }\n    .adressActions .actionButton{\n        line-height: 50px;\n        font-size: 20px;\n    }\n    .modal .transfer input{\n        padding: 15px 0 15px 10px;\n        font-size: 16px;\n    }\n    .modal .transfer .button{\n        line-height: 26px;\n        font-size: 20px;\n        margin-bottom: 50px;\n    }\n    .modal .title{\n        padding: 20px 0;\n    }\n    .modal .close{\n        top:0;\n        right: 30px!important;\n    }\n    .modal .twoColums{\n        width: 100%;\n        grid-template-columns: 1fr;\n    }\n    .modal{\n        min-width: auto;\n    }\n}")
 ;(function(){
 "use strict";
@@ -17261,12 +16448,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-73921f4c", __vue__options__)
+    hotAPI.createRecord("data-v-3a5a34f0", __vue__options__)
   } else {
-    hotAPI.reload("data-v-73921f4c", __vue__options__)
+    hotAPI.reload("data-v-3a5a34f0", __vue__options__)
   }
 })()}
-},{"vue":338,"vue-hot-reload-api":336,"vueify/lib/insert-css":339}],353:[function(require,module,exports){
+},{"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],346:[function(require,module,exports){
 var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("#allWalets .walletAddress{\n    padding: 0!important;\n    padding-right: 0;\n    width: 100%;\n    cursor: pointer;\n    border-top-left-radius: 50px;\n    border-bottom-left-radius: 50px;\n    margin: 15px 10px;\n    transition: all .3s linear;\n}\n\n#allWalets .walletAddress:last-child{\n    margin-bottom: 1px;\n}\n\n#allWalets .walletAddress img{\n    height: 40px;\n    display: inline-block;\n    vertical-align: top;\n    border-radius: 100%;\n}\n\n#allWalets .walletAddress:hover{\n    margin: 15px 20px;\n    background-color: #313131;\n    transition: all .3s linear;\n}\n\n.walletAddress b{\n    text-align: center;\n    display: inline-block;\n    color: #fddb0c;\n    line-height: 40px;\n    padding-top: 1px;\n    margin-left: 7px;\n    font-size: 12px;\n    vertical-align: top;\n}")
 ;(function(){
 "use strict";
@@ -17322,12 +16509,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0c05c9cd", __vue__options__)
+    hotAPI.createRecord("data-v-8a83cf3a", __vue__options__)
   } else {
-    hotAPI.reload("data-v-0c05c9cd", __vue__options__)
+    hotAPI.reload("data-v-8a83cf3a", __vue__options__)
   }
 })()}
-},{"./Balance/ShowBalance.vue":354,"./Transactions/Transaction.modal.vue":356,"vue":338,"vue-hot-reload-api":336,"vueify/lib/insert-css":339}],354:[function(require,module,exports){
+},{"./Balance/ShowBalance.vue":347,"./Transactions/Transaction.modal.vue":349,"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],347:[function(require,module,exports){
 var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".show-balance-span{\n    display: inline-block;\n    margin-right: 4px;\n    color: #fec02c;\n    vertical-align: top;\n    margin-top: 0;\n    text-align: center;\n}")
 ;(function(){
 'use strict';
@@ -17402,7 +16589,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"show-balance-span"},[_vm._v("\n    "+_vm._s((this.balances !== null && this.balances !== undefined && this.balances.hasOwnProperty(this.currency)) ? Math.round(this.balances[this.currency] * 100000)/100000 : 0)+"\n")])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"show-balance-span"},[_vm._v("\n    "+_vm._s((this.balances !== null && this.balances.hasOwnProperty(this.currency)) ? Math.round(this.balances[this.currency] * 100000)/100000 : 0)+"\n")])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -17410,13 +16597,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-cf6c92b6", __vue__options__)
+    hotAPI.createRecord("data-v-c07a578a", __vue__options__)
   } else {
-    hotAPI.reload("data-v-cf6c92b6", __vue__options__)
+    hotAPI.reload("data-v-c07a578a", __vue__options__)
   }
 })()}
-},{"vue":338,"vue-hot-reload-api":336,"vueify/lib/insert-css":339}],355:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".show-sum-balances{\n    display: inline;\n    color: #1f1f1f;\n}")
+},{"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],348:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -17471,38 +16657,44 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{staticClass:"show-sum-balances"},[_vm._v("\n    "+_vm._s(Math.round(this.sum * 100000)/100000)+"\n")])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',[_vm._v("\n    "+_vm._s(Math.round(this.sum * 100000)/100000)+"\n")])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
-  module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-c5b9ce6a", __vue__options__)
+    hotAPI.createRecord("data-v-3df1093e", __vue__options__)
   } else {
-    hotAPI.reload("data-v-c5b9ce6a", __vue__options__)
+    hotAPI.reload("data-v-3df1093e", __vue__options__)
   }
 })()}
-},{"vue":338,"vue-hot-reload-api":336,"vueify/lib/insert-css":339}],356:[function(require,module,exports){
+},{"vue":331,"vue-hot-reload-api":329}],349:[function(require,module,exports){
 ;(function(){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _Modal = require("../../../UI/modal/Modal.vue");
+var _Modal = require('../../../UI/modal/Modal.vue');
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
-var _ShowBalance = require("../Balance/ShowBalance.vue");
+var _vClipboard = require('./../../../../../node_modules/v-clipboard');
+
+var _vClipboard2 = _interopRequireDefault(_vClipboard);
+
+var _ShowBalance = require('../Balance/ShowBalance.vue');
 
 var _ShowBalance2 = _interopRequireDefault(_ShowBalance);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Clipboard = require('clipboard');
+var Vue = require('vue');
+
+Vue.use(_vClipboard2.default);
+
 exports.default = {
 
     props: {
@@ -17560,55 +16752,36 @@ exports.default = {
                 this.$refs['refModal'].showModal();
             }
         },
-        addressClipboardCopiedSuccessfully: function addressClipboardCopiedSuccessfully(e) {
+        copyToClipboard: function copyToClipboard() {
             this.clipboardText = 'Copied';
-            console.log(e);
-        },
-        addressClipboardCopiedError: function addressClipboardCopiedError(e) {
-            this.clipboardText = "Copy didn't work";
-            console.log(e);
+            this.$clipboard(this.address);
         }
     },
 
     mounted: function mounted() {
-        var _this = this;
 
         this.clipboardText = 'Copy to Clipboard';
 
         if (typeof window === 'undefined') return;
-
-        var clipboard = new Clipboard('#refClipboardCopyAddress', {
-            text: function text() {
-                return _this.address;
-            }
-        });
-
-        clipboard.on('success', function (e) {
-            _this.addressClipboardCopiedSuccessfully(e);
-        });
-
-        clipboard.on('error', function (e) {
-            _this.addressClipboardCopiedError(e);
-        });
     }
 };
 })()
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (this.address !== null && this.address !== undefined)?_c('div',[_c('Modal',{ref:"refModal",attrs:{"title":"Wallet Address"}},[_c('div',{attrs:{"slot":"content"},slot:"content"},[_c('div',{staticClass:"twoColums"},[_c('div',{staticClass:"section"},[_c('div',{staticStyle:{"font-size":"20px"}},[_vm._v("\n                        Address\n                    ")]),_vm._v(" "),_c('b',{staticStyle:{"color":"gray"},attrs:{"id":"walletID"}},[_vm._v(_vm._s(this.address.toString()))]),_vm._v(" "),_c('div',{ref:"refClipboardCopyAddress",class:this.clipboardText!='Copied' ? 'copyToClipboard' : 'copyToClipboardSuccess',attrs:{"id":"refClipboardCopyAddress"}},[_vm._v("\n                        "+_vm._s(this.clipboardText)+"\n                    ")])]),_vm._v(" "),_c('div',{staticClass:"section"},[_c('div',{staticStyle:{"font-size":"20px"}},[_vm._v("\n                        Balance\n                    ")]),_vm._v(" "),_c('b',{staticClass:"ballance",staticStyle:{"color":"gray"}},[_c('ShowBalance',{attrs:{"address":this.address,"currency":"0x01"}}),_vm._v("WEBD")],1)])]),_vm._v(" "),_c('div',{staticClass:"adressActions"},[_c('div',{class:[ this.isTransfer ? 'actionButton activeActionButton' : 'actionButton' ],on:{"click":this.showTransfer}},[_vm._v("\n                    Transfer\n                ")]),_vm._v(" "),_c('div',{class:[ this.isBuy ? 'actionButton activeActionButton' : 'actionButton' ],on:{"click":this.showBuy}},[_vm._v("\n                    Buy\n                ")]),_vm._v(" "),_c('div',{class:[ this.isSell ? 'actionButton activeActionButton' : 'actionButton' ],on:{"click":this.showSell}},[_vm._v("\n                    Sell\n                ")]),_vm._v(" "),_c('div',{class:[ this.isTransactionList ? 'actionButton activeActionButton' : 'actionButton' ],on:{"click":this.showTransactions}},[_vm._v("\n                    Transactions\n                ")])]),_vm._v(" "),_c('form',{staticClass:"transfer",style:({display: this.isTransfer ? 'block': 'none'})},[_c('p',{staticClass:"title"},[_vm._v("Transfer WBD")]),_vm._v(" "),_c('input',{staticClass:"adress",attrs:{"placeholder":"Recipient Adress"}}),_vm._v(" "),_c('input',{staticClass:"amount",attrs:{"placeholder":"WBD Amount"}}),_vm._v(" "),_c('button',{staticClass:"button",attrs:{"type":"submit"}},[_vm._v("\n                    SEND WBD\n                ")])]),_vm._v(" "),_c('div',{staticClass:"transferList",style:({display: this.isTransactionList ? 'block': 'none'})},[_c('ul',{staticClass:"transferListContainer"},[_c('li',{staticClass:"transferListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement pairListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement pairListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement pairListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])])])]),_vm._v(" "),_c('form',{staticClass:"buy",style:({display: this.isBuy ? 'block': 'none'})},[_c('p',{staticClass:"title"},[_vm._v("Temporary unavailable")])]),_vm._v(" "),_c('form',{staticClass:"sell",style:({display: this.isSell ? 'block': 'none'})},[_c('p',{staticClass:"title"},[_vm._v("Temporary unavailable")])])])])],1):_vm._e()}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (this.address !== null && this.address !== undefined)?_c('div',[_c('Modal',{ref:"refModal",attrs:{"title":"Wallet Address"}},[_c('div',{attrs:{"slot":"content"},slot:"content"},[_c('div',{staticClass:"twoColums"},[_c('div',{staticClass:"section"},[_c('div',{staticStyle:{"font-size":"20px"}},[_vm._v("\n                        Address\n                    ")]),_vm._v(" "),_c('b',{staticStyle:{"color":"gray"},attrs:{"id":"walletID"}},[_vm._v(_vm._s(this.address.toString()))]),_vm._v(" "),_c('div',{class:this.clipboardText!='Copied' ? 'copyToClipboard' : 'copyToClipboardSuccess',on:{"click":_vm.copyToClipboard}},[_vm._v("\n                        "+_vm._s(this.clipboardText)+"\n                    ")])]),_vm._v(" "),_c('div',{staticClass:"section"},[_c('div',{staticStyle:{"font-size":"20px"}},[_vm._v("\n                        Balance\n                    ")]),_vm._v(" "),_c('b',{staticClass:"ballance",staticStyle:{"color":"gray"}},[_c('ShowBalance',{attrs:{"address":this.address,"currency":"0x01"}}),_vm._v("WEBD")],1)])]),_vm._v(" "),_c('div',{staticClass:"adressActions"},[_c('div',{class:[ this.isTransfer ? 'actionButton activeActionButton' : 'actionButton' ],on:{"click":this.showTransfer}},[_vm._v("\n                    Transfer\n                ")]),_vm._v(" "),_c('div',{class:[ this.isBuy ? 'actionButton activeActionButton' : 'actionButton' ],on:{"click":this.showBuy}},[_vm._v("\n                    Buy\n                ")]),_vm._v(" "),_c('div',{class:[ this.isSell ? 'actionButton activeActionButton' : 'actionButton' ],on:{"click":this.showSell}},[_vm._v("\n                    Sell\n                ")]),_vm._v(" "),_c('div',{class:[ this.isTransactionList ? 'actionButton activeActionButton' : 'actionButton' ],on:{"click":this.showTransactions}},[_vm._v("\n                    Transactions\n                ")])]),_vm._v(" "),_c('form',{staticClass:"transfer",style:({display: this.isTransfer ? 'block': 'none'})},[_c('p',{staticClass:"title"},[_vm._v("Transfer WBD")]),_vm._v(" "),_c('input',{staticClass:"adress",attrs:{"placeholder":"Recipient Adress"}}),_vm._v(" "),_c('input',{staticClass:"amount",attrs:{"placeholder":"WBD Amount"}}),_vm._v(" "),_c('button',{staticClass:"button",attrs:{"type":"submit"}},[_vm._v("\n                    SEND WBD\n                ")])]),_vm._v(" "),_c('div',{staticClass:"transferList",style:({display: this.isTransactionList ? 'block': 'none'})},[_c('ul',{staticClass:"transferListContainer"},[_c('li',{staticClass:"transferListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement pairListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement pairListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement pairListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])])])]),_vm._v(" "),_c('form',{staticClass:"buy",style:({display: this.isBuy ? 'block': 'none'})},[_c('p',{staticClass:"title"},[_vm._v("Temporary unavailable")])]),_vm._v(" "),_c('form',{staticClass:"sell",style:({display: this.isSell ? 'block': 'none'})},[_c('p',{staticClass:"title"},[_vm._v("Temporary unavailable")])])])])],1):_vm._e()}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3a4d87fa", __vue__options__)
+    hotAPI.createRecord("data-v-c1f19eb8", __vue__options__)
   } else {
-    hotAPI.reload("data-v-3a4d87fa", __vue__options__)
+    hotAPI.reload("data-v-c1f19eb8", __vue__options__)
   }
 })()}
-},{"../../../UI/modal/Modal.vue":352,"../Balance/ShowBalance.vue":354,"clipboard":4,"vue":338,"vue-hot-reload-api":336}],357:[function(require,module,exports){
+},{"../../../UI/modal/Modal.vue":345,"../Balance/ShowBalance.vue":347,"./../../../../../node_modules/v-clipboard":328,"vue":331,"vue-hot-reload-api":329}],350:[function(require,module,exports){
 var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("#walletButtonText{\n    color: #1f1f1f;\n}\n\n#walletButton {\n    margin: 0 auto;\n    position: fixed;\n    z-index: 85;\n    bottom: 0;\n    width: 299px!important;\n    right: 0;\n    text-align: center;\n    height: 50px;\n    border-top-left-radius: 60px;\n    cursor: pointer;\n    background-color: #fec02c;\n    color: #1f1f1f;\n    margin-bottom: 20px;\n    border: solid 1px #444444;\n    border-right: solid 1px #fec02c;\n    transition: all .3s linear;\n}\n\n#walletButton:hover{\n    background-color: #fec02c;\n    transition: all .3s linear;\n}\n\n.walletSection{\n    display: inline-block;\n    vertical-align: top;\n    height: 315px;\n    overflow-y: auto;\n    overflow-x: hidden;\n    width: 100%;\n}\n\n.walletController{\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    position: relative;\n    width: 100%;\n    border-bottom: solid 1px #333333;\n    background-color: #313131;\n}\n\n.walletController .btn{\n    text-align: center;\n    color: #b5b5b5;\n    padding: 5px 0;\n    cursor: pointer;\n}\n\n.walletController .btn:hover{\n    background-color: #44403f;\n    transition: all .3s linear;\n}\n\n.walletController .btn:first-child{\n    border-right: solid 1px #3c3b3b;\n}\n\n.allWallets div{\n    border: solid 1px #545454;\n}\n\n#walletButton:hover{\n    transition: all .3s linear;\n}\n\n#walletButton span{\n    width: 100%;\n    line-height: 50px;\n    font-size: 20px;\n    font-weight: bolder;\n    transition: all .3s linear;\n}\n\n#walletButton span:hover{\n    transition: all .3s linear;\n}\n\n#walletMenu{\n    margin: 0 auto;\n    position: fixed;\n    bottom: 0;\n    right: 0;\n    width: 300px;\n    background-color: #1f1f1f;\n    height: 358px;\n    margin-bottom:-100px;\n    z-index: 90;\n    border-top: solid 1px #3d3d3d;\n    border-left: solid 1px #444;\n    transition: all .3s linear;\n}\n\n.buttonIcon{\n    display: inline-block;\n    margin-right: 10px;\n}\n\n#walletButton .buttonIcon{\n    fill: #000;\n    transition: all .3s linear;\n}\n\n.walletAddress b{\n    font-weight:100;\n}\n\n/* Small Devices, Tablets */\n@media only screen and (max-width : 831px) {\n    #walletMenu{\n        width: 100%;\n        margin-top: 64px!important;\n    }\n    #walletButton{\n        width: 100%!important;\n        border-radius: 0;\n        border:0;\n        height: 65px;\n        margin-bottom: 90px;\n    }\n    #walletButton span{\n        line-height: 65px;\n        font-size: 26px;\n    }\n    .walletController .btn{\n        padding: 16px 19px 16px 19px!important;\n        margin-left: 10px;\n    }\n    .webdollarFont{\n        width: 24px!important;\n    }\n    #allWalets .walletAddress{\n        margin: 15px 0 0 10px!important;\n    }\n    #allWalets .walletAddress img{\n        height: 60px!important;\n    }\n    .walletAddress b{\n        font-size: 22px!important;\n        line-height: 60px!important;\n    }\n    .walletController{\n        position: relative;\n        width: 100%;\n        border-bottom: solid 5px #333333;\n        background-color: #313131;\n        border-top: solid 5px #313131;\n    }\n}")
 ;(function(){
 "use strict";
@@ -17667,12 +16840,15 @@ exports.default = {
     mounted: function mounted() {
         var _this = this;
 
-        if (typeof window === "undefined") return false;
-
         this.changeScreenBehavior();
 
+        if (typeof window === "undefined") return false;
+
         WebDollar.Blockchain.Wallet.emitter.on("wallet/address-changes", function (address) {
-            console.log("wallet/address-changes", address);
+            _this.addNewAddress(address);
+        });
+
+        WebDollar.Blockchain.Wallet.emitter.on("wallet/address-changes", function (address) {
             _this.addNewAddress(address);
         });
 
@@ -17687,8 +16863,6 @@ exports.default = {
         _Browser2.default.addEvent(window, "resize", function (event) {
             _this.changeScreenBehavior();
         });
-
-        this.loadAllAddresses();
     },
 
 
@@ -17829,12 +17003,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3d2b9395", __vue__options__)
+    hotAPI.createRecord("data-v-1fe2643f", __vue__options__)
   } else {
-    hotAPI.reload("data-v-3d2b9395", __vue__options__)
+    hotAPI.reload("data-v-1fe2643f", __vue__options__)
   }
 })()}
-},{"../../helpers/Browser.helpers":358,"../UI/icons/icon.vue":343,"./Address/Address.vue":353,"./Address/Balance/ShowSumBalances.vue":355,"vue":338,"vue-hot-reload-api":336,"vueify/lib/insert-css":339}],358:[function(require,module,exports){
+},{"../../helpers/Browser.helpers":351,"../UI/icons/icon.vue":336,"./Address/Address.vue":346,"./Address/Balance/ShowSumBalances.vue":348,"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],351:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -17869,7 +17043,7 @@ var BrowserHelpers = function () {
 
 exports.default = BrowserHelpers;
 
-},{}],359:[function(require,module,exports){
+},{}],352:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18006,7 +17180,7 @@ var InitializeParams = function () {
 
 exports.default = new InitializeParams();
 
-},{"../helpers/Browser.helpers":358,"../maps/Google-Maps/Network-Google-Maps.js":363,"../maps/Native-Map/Network-Native-Map":367,"../maps/Native-Map/Network-Native-Map-DOM":366,"./global-initialize/Global-Initialization":360}],360:[function(require,module,exports){
+},{"../helpers/Browser.helpers":351,"../maps/Google-Maps/Network-Google-Maps.js":356,"../maps/Native-Map/Network-Native-Map":360,"../maps/Native-Map/Network-Native-Map-DOM":359,"./global-initialize/Global-Initialization":353}],353:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18055,7 +17229,7 @@ var GlobalInitialization = function () {
 
 exports.default = new GlobalInitialization();
 
-},{"../../helpers/Browser.helpers":358}],361:[function(require,module,exports){
+},{"../../helpers/Browser.helpers":351}],354:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -18084,7 +17258,7 @@ window.onload = function () {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./components/Dashboard.vue":340,"babel-polyfill":1,"vue":338}],362:[function(require,module,exports){
+},{"./components/Dashboard.vue":333,"babel-polyfill":1,"vue":331}],355:[function(require,module,exports){
 (function (global){
 "use strict";
 
@@ -18139,7 +17313,7 @@ if (typeof global.window !== 'undefined') global.window.WebDollarUserInterface =
 if (typeof window !== 'undefined') window.WebDollarUserInterface = exportObject;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./helpers/Browser.helpers":358,"./initialize-params/Initialize-Params":359,"./main-vue":361,"./maps/Google-Maps/Network-Google-Maps.js":363,"./maps/Native-Map/Network-Native-Map":367,"./mining/Mining":375,"./wallet/Wallet":376}],363:[function(require,module,exports){
+},{"./helpers/Browser.helpers":351,"./initialize-params/Initialize-Params":352,"./main-vue":354,"./maps/Google-Maps/Network-Google-Maps.js":356,"./maps/Native-Map/Network-Native-Map":360,"./mining/Mining":368,"./wallet/Wallet":369}],356:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18558,7 +17732,7 @@ var NetworkGoogleMaps = function () {
 
 exports.default = new NetworkGoogleMaps();
 
-},{"./../Maps.tester":365,"./styles/network-map-style-light":364}],364:[function(require,module,exports){
+},{"./../Maps.tester":358,"./styles/network-map-style-light":357}],357:[function(require,module,exports){
 "use strict";
 
 exports.style = [{
@@ -18662,7 +17836,7 @@ exports.style = [{
     }]
 }];
 
-},{}],365:[function(require,module,exports){
+},{}],358:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -18721,7 +17895,7 @@ var MapsTester = function () {
 
 exports.default = MapsTester;
 
-},{}],366:[function(require,module,exports){
+},{}],359:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18771,7 +17945,7 @@ var NetworkNativeMapDOM = function () {
 
 exports.default = new NetworkNativeMapDOM();
 
-},{"./res/network-native-map-dialog.html":372,"./res/network-native-map.html":373,"./res/network-native.css":374}],367:[function(require,module,exports){
+},{"./res/network-native-map-dialog.html":365,"./res/network-native-map.html":366,"./res/network-native.css":367}],360:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19217,7 +18391,7 @@ var NetworkNativeMaps = function () {
 
 exports.default = new NetworkNativeMaps();
 
-},{"./../Maps.tester":365,"./helpers/Cell-Counter":368,"./helpers/Circle-Map":369,"./helpers/Map-Modal":370}],368:[function(require,module,exports){
+},{"./../Maps.tester":358,"./helpers/Cell-Counter":361,"./helpers/Circle-Map":362,"./helpers/Map-Modal":363}],361:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19266,7 +18440,7 @@ var CellCounter = function () {
 
 exports.default = CellCounter;
 
-},{}],369:[function(require,module,exports){
+},{}],362:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19468,7 +18642,7 @@ CircleMap.MAX_CELL_DISTANCE = 12; // in terms of cells
 
 exports.default = CircleMap;
 
-},{"./RobinsonProjection":371}],370:[function(require,module,exports){
+},{"./RobinsonProjection":364}],363:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19530,7 +18704,7 @@ var MapModal = function () {
 
 exports.default = MapModal;
 
-},{}],371:[function(require,module,exports){
+},{}],364:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19597,19 +18771,19 @@ RobinsonProjection.degrees = 180 / RobinsonProjection.pi;
 
 exports.default = RobinsonProjection;
 
-},{}],372:[function(require,module,exports){
+},{}],365:[function(require,module,exports){
 module.exports = "<!-- Popup Description -->\n<div class=\"map-dialog \">\n    <div class=\"map-dialog-description\">\n        <div>\n            <img class=\"icon-myself\" src=\"https://forum.noxiousnet.com/plugins/nodebb-plugin-emoji-one/static/images/1f60e.png\">\n            <img class=\"icon-browser\" src=\"http://icons.iconarchive.com/icons/dtafalonso/android-lollipop/48/Browser-icon.png\">\n            <img class=\"icon-terminal\" src=\"http://icons.iconarchive.com/icons/paomedia/small-n-flat/48/terminal-icon.png\">\n        </div>\n        <div class=\"map-dialog-description-text\"></div>\n    </div>\n</div>";
 
-},{}],373:[function(require,module,exports){
+},{}],366:[function(require,module,exports){
 module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1082 502\" preserveAspectRatio=\"xMinYMin meet\" xml:space=\"preserve\" class=\"hide-circles\">\n    <circle cx=\"909.4049999999999\" cy=\"270.32666666666665\" r=\"3.6\" />\n    <circle cx=\"942.5949999999999\" cy=\"309.0416666666667\" r=\"3.6\" />\n    <circle cx=\"950.9049999999999\" cy=\"304.16833333333335\" r=\"3.6\" />\n    <circle cx=\"13.805\" cy=\"222.02166666666668\" r=\"3.6\" />\n    <circle cx=\"5.45\" cy=\"217.17833333333337\" r=\"3.6\" />\n    <circle cx=\"46.903333333333336\" cy=\"105.98666666666666\" r=\"3.6\" />\n    <circle cx=\"55.245000000000005\" cy=\"101.14333333333332\" r=\"3.6\" />\n    <circle cx=\"271.06166666666667\" cy=\"23.80666666666667\" r=\"3.6\" />\n    <circle cx=\"279.38500000000005\" cy=\"18.933333333333334\" r=\"3.6\" />\n    <circle cx=\"262.75499999999994\" cy=\"18.93666666666667\" r=\"3.6\" />\n    <circle cx=\"246.21833333333333\" cy=\"212.3283333333333\" r=\"3.6\" />\n    <circle cx=\"254.57500000000002\" cy=\"217.1716666666667\" r=\"3.6\" />\n    <circle cx=\"279.49999999999994\" cy=\"221.98333333333332\" r=\"3.6\" />\n    <circle cx=\"271.14500000000004\" cy=\"226.83833333333334\" r=\"3.6\" />\n    <circle cx=\"304.39\" cy=\"236.50333333333333\" r=\"3.6\" />\n    <circle cx=\"345.76666666666665\" cy=\"9.238333333333332\" r=\"3.6\" />\n    <circle cx=\"337.4366666666666\" cy=\"14.103333333333332\" r=\"3.6\" />\n    <circle cx=\"345.7616666666667\" cy=\"18.965\" r=\"3.6\" />\n    <circle cx=\"370.66\" cy=\"14.141666666666667\" r=\"3.6\" />\n    <circle cx=\"378.97499999999997\" cy=\"9.268333333333333\" r=\"3.6\" />\n    <circle cx=\"387.32500000000005\" cy=\"4.428333333333333\" r=\"3.6\" />\n    <circle cx=\"362.365\" cy=\"9.261666666666665\" r=\"3.6\" />\n    <circle cx=\"354.0783333333333\" cy=\"14.121666666666668\" r=\"3.6\" />\n    <circle cx=\"345.98499999999996\" cy=\"483.0466666666667\" r=\"3.6\" />\n    <circle cx=\"279.53\" cy=\"260.6666666666667\" r=\"3.6\" />\n    <circle cx=\"204.725\" cy=\"188.17500000000004\" r=\"3.6\" />\n    <circle cx=\"204.71\" cy=\"178.50333333333333\" r=\"3.6\" />\n    <circle cx=\"279.4983333333334\" cy=\"270.33666666666664\" r=\"3.6\" />\n    <circle cx=\"296.09333333333336\" cy=\"309.0083333333333\" r=\"3.6\" />\n    <circle cx=\"287.77\" cy=\"294.50333333333333\" r=\"3.6\" />\n    <circle cx=\"287.79333333333335\" cy=\"304.17499999999995\" r=\"3.6\" />\n    <circle cx=\"287.77\" cy=\"275.16333333333336\" r=\"3.6\" />\n    <circle cx=\"204.71\" cy=\"168.83333333333331\" r=\"3.6\" />\n    <circle cx=\"287.77\" cy=\"284.8333333333333\" r=\"3.6\" />\n    <circle cx=\"196.41666666666666\" cy=\"163.98833333333334\" r=\"3.6\" />\n    <circle cx=\"171.47\" cy=\"120.49333333333334\" r=\"3.6\" />\n    <circle cx=\"179.76\" cy=\"134.98666666666665\" r=\"3.6\" />\n    <circle cx=\"163.135\" cy=\"115.65666666666665\" r=\"3.6\" />\n    <circle cx=\"179.76\" cy=\"125.31666666666666\" r=\"3.6\" />\n    <circle cx=\"188.1\" cy=\"159.15333333333334\" r=\"3.6\" />\n    <circle cx=\"179.76\" cy=\"144.65333333333334\" r=\"3.6\" />\n    <circle cx=\"179.77999999999997\" cy=\"154.32\" r=\"3.6\" />\n    <circle cx=\"296.11333333333334\" cy=\"318.6766666666667\" r=\"3.6\" />\n    <circle cx=\"320.93\" cy=\"101.13666666666667\" r=\"3.6\" />\n    <circle cx=\"320.97499999999997\" cy=\"304.18833333333333\" r=\"3.6\" />\n    <circle cx=\"321.00666666666666\" cy=\"323.5216666666667\" r=\"3.6\" />\n    <circle cx=\"337.595\" cy=\"333.1766666666667\" r=\"3.6\" />\n    <circle cx=\"329.3\" cy=\"328.34666666666664\" r=\"3.6\" />\n    <circle cx=\"329.27000000000004\" cy=\"279.9916666666667\" r=\"3.6\" />\n    <circle cx=\"320.965\" cy=\"294.5133333333333\" r=\"3.6\" />\n    <circle cx=\"320.94\" cy=\"110.81\" r=\"3.6\" />\n    <circle cx=\"320.965\" cy=\"284.8433333333333\" r=\"3.6\" />\n    <circle cx=\"312.66666666666663\" cy=\"328.3566666666666\" r=\"3.6\" />\n    <circle cx=\"163.14\" cy=\"105.99\" r=\"3.6\" />\n    <circle cx=\"321.00666666666666\" cy=\"333.19166666666666\" r=\"3.6\" />\n    <circle cx=\"304.4083333333333\" cy=\"323.5216666666667\" r=\"3.6\" />\n    <circle cx=\"337.605\" cy=\"342.84499999999997\" r=\"3.6\" />\n    <circle cx=\"329.3\" cy=\"338.01666666666665\" r=\"3.6\" />\n    <circle cx=\"329.31\" cy=\"347.68333333333334\" r=\"3.6\" />\n    <circle cx=\"321.0133333333334\" cy=\"342.8633333333333\" r=\"3.6\" />\n    <circle cx=\"321.0233333333333\" cy=\"352.52666666666664\" r=\"3.6\" />\n    <circle cx=\"320.99666666666667\" cy=\"313.84666666666664\" r=\"3.6\" />\n    <circle cx=\"312.645\" cy=\"309.02500000000003\" r=\"3.6\" />\n    <circle cx=\"312.66666666666663\" cy=\"318.69\" r=\"3.6\" />\n    <circle cx=\"304.3983333333333\" cy=\"313.8583333333333\" r=\"3.6\" />\n    <circle cx=\"296.0733333333333\" cy=\"299.3383333333333\" r=\"3.6\" />\n    <circle cx=\"304.37833333333333\" cy=\"304.17833333333334\" r=\"3.6\" />\n    <circle cx=\"312.625\" cy=\"299.3533333333333\" r=\"3.6\" />\n    <circle cx=\"312.625\" cy=\"280.0133333333334\" r=\"3.6\" />\n    <circle cx=\"320.9833333333333\" cy=\"275.18333333333334\" r=\"3.6\" />\n    <circle cx=\"312.625\" cy=\"289.68333333333334\" r=\"3.6\" />\n    <circle cx=\"287.85\" cy=\"255.8016666666667\" r=\"3.6\" />\n    <circle cx=\"254.55333333333337\" cy=\"188.165\" r=\"3.6\" />\n    <circle cx=\"246.21833333333333\" cy=\"183.34333333333336\" r=\"3.6\" />\n    <circle cx=\"254.56499999999997\" cy=\"197.82666666666668\" r=\"3.6\" />\n    <circle cx=\"237.905\" cy=\"178.49833333333333\" r=\"3.6\" />\n    <circle cx=\"320.9266666666667\" cy=\"120.47166666666668\" r=\"3.6\" />\n    <circle cx=\"296.07166666666666\" cy=\"289.66833333333335\" r=\"3.6\" />\n    <circle cx=\"296.07166666666666\" cy=\"279.99833333333333\" r=\"3.6\" />\n    <circle cx=\"296.10166666666663\" cy=\"270.33333333333337\" r=\"3.6\" />\n    <circle cx=\"254.50333333333333\" cy=\"81.81\" r=\"3.6\" />\n    <circle cx=\"237.885\" cy=\"91.47333333333334\" r=\"3.6\" />\n    <circle cx=\"212.955\" cy=\"96.32333333333332\" r=\"3.6\" />\n    <circle cx=\"229.58833333333334\" cy=\"96.30833333333334\" r=\"3.6\" />\n    <circle cx=\"204.67999999999998\" cy=\"91.48333333333333\" r=\"3.6\" />\n    <circle cx=\"221.29333333333332\" cy=\"91.48333333333333\" r=\"3.6\" />\n    <circle cx=\"312.58500000000004\" cy=\"115.64333333333332\" r=\"3.6\" />\n    <circle cx=\"196.38666666666668\" cy=\"96.30833333333334\" r=\"3.6\" />\n    <circle cx=\"179.76999999999998\" cy=\"96.30833333333334\" r=\"3.6\" />\n    <circle cx=\"188.06999999999996\" cy=\"91.47333333333334\" r=\"3.6\" />\n    <circle cx=\"171.48000000000002\" cy=\"91.48333333333333\" r=\"3.6\" />\n    <circle cx=\"312.58000000000004\" cy=\"86.63\" r=\"3.6\" />\n    <circle cx=\"312.59000000000003\" cy=\"96.30666666666666\" r=\"3.6\" />\n    <circle cx=\"312.59000000000003\" cy=\"105.97333333333334\" r=\"3.6\" />\n    <circle cx=\"312.54\" cy=\"76.97166666666666\" r=\"3.6\" />\n    <circle cx=\"320.875\" cy=\"72.11666666666667\" r=\"3.6\" />\n    <circle cx=\"163.14\" cy=\"96.32333333333332\" r=\"3.6\" />\n    <circle cx=\"262.835\" cy=\"86.61833333333333\" r=\"3.6\" />\n    <circle cx=\"246.21666666666667\" cy=\"86.63666666666666\" r=\"3.6\" />\n    <circle cx=\"171.47833333333335\" cy=\"149.50666666666666\" r=\"3.6\" />\n    <circle cx=\"329.3\" cy=\"318.6766666666667\" r=\"3.6\" />\n    <circle cx=\"337.595\" cy=\"323.50666666666666\" r=\"3.6\" />\n    <circle cx=\"329.28000000000003\" cy=\"309.0083333333333\" r=\"3.6\" />\n    <circle cx=\"345.91333333333324\" cy=\"338.0166666666667\" r=\"3.6\" />\n    <circle cx=\"345.91333333333324\" cy=\"328.34666666666664\" r=\"3.6\" />\n    <circle cx=\"337.615\" cy=\"284.8333333333333\" r=\"3.6\" />\n    <circle cx=\"329.22166666666664\" cy=\"96.29\" r=\"3.6\" />\n    <circle cx=\"329.23\" cy=\"105.96333333333332\" r=\"3.6\" />\n    <circle cx=\"329.26\" cy=\"289.66833333333335\" r=\"3.6\" />\n    <circle cx=\"329.26\" cy=\"299.3383333333333\" r=\"3.6\" />\n    <circle cx=\"312.67833333333334\" cy=\"347.695\" r=\"3.6\" />\n    <circle cx=\"312.69\" cy=\"357.3666666666666\" r=\"3.6\" />\n    <circle cx=\"321.02833333333336\" cy=\"362.19666666666666\" r=\"3.6\" />\n    <circle cx=\"312.66666666666663\" cy=\"338.02666666666664\" r=\"3.6\" />\n    <circle cx=\"329.32\" cy=\"357.34999999999997\" r=\"3.6\" />\n    <circle cx=\"329.32\" cy=\"367.0183333333334\" r=\"3.6\" />\n    <circle cx=\"337.6166666666667\" cy=\"352.5133333333333\" r=\"3.6\" />\n    <circle cx=\"320.93\" cy=\"91.47000000000001\" r=\"3.6\" />\n    <circle cx=\"337.52\" cy=\"81.78666666666668\" r=\"3.6\" />\n    <circle cx=\"212.93500000000003\" cy=\"76.985\" r=\"3.6\" />\n    <circle cx=\"229.56666666666663\" cy=\"76.96833333333333\" r=\"3.6\" />\n    <circle cx=\"221.26\" cy=\"72.15\" r=\"3.6\" />\n    <circle cx=\"196.365\" cy=\"76.96833333333333\" r=\"3.6\" />\n    <circle cx=\"204.64666666666665\" cy=\"72.13833333333334\" r=\"3.6\" />\n    <circle cx=\"171.4483333333333\" cy=\"72.15\" r=\"3.6\" />\n    <circle cx=\"163.12\" cy=\"76.985\" r=\"3.6\" />\n    <circle cx=\"179.75\" cy=\"76.96833333333333\" r=\"3.6\" />\n    <circle cx=\"188.04833333333332\" cy=\"72.135\" r=\"3.6\" />\n    <circle cx=\"345.845\" cy=\"76.93666666666668\" r=\"3.6\" />\n    <circle cx=\"329.22166666666664\" cy=\"86.62333333333333\" r=\"3.6\" />\n    <circle cx=\"337.5\" cy=\"62.468333333333334\" r=\"3.6\" />\n    <circle cx=\"329.16499999999996\" cy=\"57.613333333333344\" r=\"3.6\" />\n    <circle cx=\"304.4083333333333\" cy=\"333.19166666666666\" r=\"3.6\" />\n    <circle cx=\"262.795\" cy=\"67.31333333333332\" r=\"3.6\" />\n    <circle cx=\"237.865\" cy=\"72.135\" r=\"3.6\" />\n    <circle cx=\"246.17666666666665\" cy=\"67.29666666666667\" r=\"3.6\" />\n    <circle cx=\"254.47000000000003\" cy=\"62.46333333333333\" r=\"3.6\" />\n    <circle cx=\"345.92333333333335\" cy=\"347.6816666666667\" r=\"3.6\" />\n    <circle cx=\"188.06999999999996\" cy=\"81.80333333333333\" r=\"3.6\" />\n    <circle cx=\"196.38666666666668\" cy=\"86.63833333333332\" r=\"3.6\" />\n    <circle cx=\"154.815\" cy=\"81.82166666666667\" r=\"3.6\" />\n    <circle cx=\"179.76999999999998\" cy=\"86.63833333333332\" r=\"3.6\" />\n    <circle cx=\"212.955\" cy=\"86.65333333333335\" r=\"3.6\" />\n    <circle cx=\"154.85166666666666\" cy=\"101.17\" r=\"3.6\" />\n    <circle cx=\"154.81833333333333\" cy=\"120.49333333333334\" r=\"3.6\" />\n    <circle cx=\"171.47000000000003\" cy=\"81.80666666666667\" r=\"3.6\" />\n    <circle cx=\"163.14\" cy=\"86.65333333333335\" r=\"3.6\" />\n    <circle cx=\"320.91999999999996\" cy=\"81.79666666666667\" r=\"3.6\" />\n    <circle cx=\"329.21999999999997\" cy=\"76.94500000000001\" r=\"3.6\" />\n    <circle cx=\"296.11333333333334\" cy=\"328.34666666666664\" r=\"3.6\" />\n    <circle cx=\"221.28166666666667\" cy=\"81.80666666666667\" r=\"3.6\" />\n    <circle cx=\"163.13\" cy=\"125.32666666666667\" r=\"3.6\" />\n    <circle cx=\"254.48166666666665\" cy=\"72.12833333333333\" r=\"3.6\" />\n    <circle cx=\"246.1966666666667\" cy=\"76.965\" r=\"3.6\" />\n    <circle cx=\"229.58833333333334\" cy=\"86.63833333333332\" r=\"3.6\" />\n    <circle cx=\"237.885\" cy=\"81.80333333333333\" r=\"3.6\" />\n    <circle cx=\"262.835\" cy=\"76.96\" r=\"3.6\" />\n    <circle cx=\"271.215\" cy=\"255.8216666666667\" r=\"3.6\" />\n    <circle cx=\"271.195\" cy=\"275.185\" r=\"3.6\" />\n    <circle cx=\"271.22499999999997\" cy=\"265.5033333333334\" r=\"3.6\" />\n    <circle cx=\"171.46833333333333\" cy=\"130.16166666666666\" r=\"3.6\" />\n    <circle cx=\"279.4733333333333\" cy=\"279.99833333333333\" r=\"3.6\" />\n    <circle cx=\"279.4733333333333\" cy=\"299.33833333333337\" r=\"3.6\" />\n    <circle cx=\"287.815\" cy=\"323.50666666666666\" r=\"3.6\" />\n    <circle cx=\"287.815\" cy=\"313.84\" r=\"3.6\" />\n    <circle cx=\"279.49499999999995\" cy=\"309.0083333333333\" r=\"3.6\" />\n    <circle cx=\"279.4733333333333\" cy=\"289.66833333333335\" r=\"3.6\" />\n    <circle cx=\"179.80166666666665\" cy=\"163.98833333333334\" r=\"3.6\" />\n    <circle cx=\"229.61833333333334\" cy=\"173.6583333333333\" r=\"3.6\" />\n    <circle cx=\"171.5\" cy=\"159.16\" r=\"3.6\" />\n    <circle cx=\"171.46833333333333\" cy=\"139.83166666666668\" r=\"3.6\" />\n    <circle cx=\"196.41666666666666\" cy=\"173.6583333333333\" r=\"3.6\" />\n    <circle cx=\"196.41666666666666\" cy=\"183.32833333333335\" r=\"3.6\" />\n    <circle cx=\"196.4433333333333\" cy=\"193.00666666666666\" r=\"3.6\" />\n    <circle cx=\"188.1\" cy=\"168.82333333333332\" r=\"3.6\" />\n    <circle cx=\"204.66833333333332\" cy=\"81.81833333333334\" r=\"3.6\" />\n    <circle cx=\"221.28333333333333\" cy=\"130.16166666666666\" r=\"3.6\" />\n    <circle cx=\"229.57500000000002\" cy=\"134.98666666666665\" r=\"3.6\" />\n    <circle cx=\"254.50666666666666\" cy=\"120.47500000000001\" r=\"3.6\" />\n    <circle cx=\"246.20666666666668\" cy=\"125.31333333333335\" r=\"3.6\" />\n    <circle cx=\"237.875\" cy=\"130.14666666666668\" r=\"3.6\" />\n    <circle cx=\"229.57499999999996\" cy=\"144.65333333333334\" r=\"3.6\" />\n    <circle cx=\"237.89499999999998\" cy=\"149.48499999999999\" r=\"3.6\" />\n    <circle cx=\"212.94500000000002\" cy=\"134.99666666666667\" r=\"3.6\" />\n    <circle cx=\"221.28333333333333\" cy=\"139.83166666666668\" r=\"3.6\" />\n    <circle cx=\"254.50333333333333\" cy=\"139.81666666666666\" r=\"3.6\" />\n    <circle cx=\"271.135\" cy=\"130.14333333333335\" r=\"3.6\" />\n    <circle cx=\"254.50333333333333\" cy=\"130.14666666666668\" r=\"3.6\" />\n    <circle cx=\"246.20666666666668\" cy=\"134.98333333333332\" r=\"3.6\" />\n    <circle cx=\"279.43\" cy=\"134.96666666666667\" r=\"3.6\" />\n    <circle cx=\"262.795\" cy=\"134.98333333333332\" r=\"3.6\" />\n    <circle cx=\"262.795\" cy=\"125.31333333333335\" r=\"3.6\" />\n    <circle cx=\"246.22833333333332\" cy=\"154.315\" r=\"3.6\" />\n    <circle cx=\"246.20666666666668\" cy=\"144.65\" r=\"3.6\" />\n    <circle cx=\"237.875\" cy=\"139.81666666666663\" r=\"3.6\" />\n    <circle cx=\"237.875\" cy=\"120.47666666666667\" r=\"3.6\" />\n    <circle cx=\"246.21\" cy=\"115.64333333333332\" r=\"3.6\" />\n    <circle cx=\"262.8\" cy=\"115.64333333333332\" r=\"3.6\" />\n    <circle cx=\"229.57500000000002\" cy=\"125.31666666666668\" r=\"3.6\" />\n    <circle cx=\"254.51166666666668\" cy=\"110.80833333333334\" r=\"3.6\" />\n    <circle cx=\"204.67166666666665\" cy=\"120.49166666666666\" r=\"3.6\" />\n    <circle cx=\"204.67\" cy=\"130.16166666666666\" r=\"3.6\" />\n    <circle cx=\"221.28666666666666\" cy=\"120.49333333333333\" r=\"3.6\" />\n    <circle cx=\"212.94500000000002\" cy=\"125.32666666666667\" r=\"3.6\" />\n    <circle cx=\"287.72499999999997\" cy=\"130.13\" r=\"3.6\" />\n    <circle cx=\"287.755\" cy=\"139.81333333333333\" r=\"3.6\" />\n    <circle cx=\"271.135\" cy=\"139.81333333333333\" r=\"3.6\" />\n    <circle cx=\"279.44\" cy=\"144.64333333333335\" r=\"3.6\" />\n    <circle cx=\"262.795\" cy=\"144.65\" r=\"3.6\" />\n    <circle cx=\"279.43\" cy=\"125.29833333333333\" r=\"3.6\" />\n    <circle cx=\"296.0516666666667\" cy=\"134.98\" r=\"3.6\" />\n    <circle cx=\"271.1383333333333\" cy=\"120.47500000000001\" r=\"3.6\" />\n    <circle cx=\"254.51333333333332\" cy=\"149.47833333333332\" r=\"3.6\" />\n    <circle cx=\"121.65333333333332\" cy=\"62.47666666666666\" r=\"3.6\" />\n    <circle cx=\"246.13500000000002\" cy=\"28.60166666666667\" r=\"3.6\" />\n    <circle cx=\"204.63\" cy=\"43.126666666666665\" r=\"3.6\" />\n    <circle cx=\"171.41333333333333\" cy=\"43.12166666666667\" r=\"3.6\" />\n    <circle cx=\"188.04666666666665\" cy=\"43.10166666666667\" r=\"3.6\" />\n    <circle cx=\"129.945\" cy=\"57.633333333333326\" r=\"3.6\" />\n    <circle cx=\"370.76500000000004\" cy=\"304.1683333333333\" r=\"3.6\" />\n    <circle cx=\"154.91\" cy=\"178.50333333333333\" r=\"3.6\" />\n    <circle cx=\"295.99499999999995\" cy=\"28.588333333333335\" r=\"3.6\" />\n    <circle cx=\"312.53999999999996\" cy=\"18.93666666666667\" r=\"3.6\" />\n    <circle cx=\"221.225\" cy=\"43.12166666666667\" r=\"3.6\" />\n    <circle cx=\"105.07333333333334\" cy=\"81.82166666666667\" r=\"3.6\" />\n    <circle cx=\"121.63166666666666\" cy=\"72.16833333333334\" r=\"3.6\" />\n    <circle cx=\"146.54333333333332\" cy=\"38.263333333333335\" r=\"3.6\" />\n    <circle cx=\"321.08\" cy=\"497.58500000000004\" r=\"3.6\" />\n    <circle cx=\"154.92166666666665\" cy=\"197.86\" r=\"3.6\" />\n    <circle cx=\"105.01333333333334\" cy=\"52.80833333333333\" r=\"3.6\" />\n    <circle cx=\"80.14833333333333\" cy=\"86.63833333333334\" r=\"3.6\" />\n    <circle cx=\"71.80166666666666\" cy=\"91.49000000000001\" r=\"3.6\" />\n    <circle cx=\"312.725\" cy=\"425.0466666666667\" r=\"3.6\" />\n    <circle cx=\"154.85666666666665\" cy=\"91.46999999999998\" r=\"3.6\" />\n    <circle cx=\"204.67\" cy=\"139.83166666666668\" r=\"3.6\" />\n    <circle cx=\"287.805\" cy=\"265.49333333333334\" r=\"3.6\" />\n    <circle cx=\"154.82666666666665\" cy=\"110.82333333333332\" r=\"3.6\" />\n    <circle cx=\"304.3066666666667\" cy=\"91.45666666666666\" r=\"3.6\" />\n    <circle cx=\"304.375\" cy=\"275.1716666666667\" r=\"3.6\" />\n    <circle cx=\"304.365\" cy=\"284.8433333333333\" r=\"3.6\" />\n    <circle cx=\"196.38\" cy=\"115.64666666666666\" r=\"3.6\" />\n    <circle cx=\"304.3666666666667\" cy=\"294.5133333333334\" r=\"3.6\" />\n    <circle cx=\"221.335\" cy=\"178.51\" r=\"3.6\" />\n    <circle cx=\"154.83833333333334\" cy=\"62.47666666666667\" r=\"3.6\" />\n    <circle cx=\"171.47\" cy=\"197.84333333333333\" r=\"3.6\" />\n    <circle cx=\"321.02833333333336\" cy=\"371.8633333333333\" r=\"3.6\" />\n    <circle cx=\"146.545\" cy=\"57.63333333333333\" r=\"3.6\" />\n    <circle cx=\"320.84166666666664\" cy=\"33.43833333333333\" r=\"3.6\" />\n    <circle cx=\"312.72\" cy=\"434.7166666666667\" r=\"3.6\" />\n    <circle cx=\"321.03833333333336\" cy=\"381.53999999999996\" r=\"3.6\" />\n    <circle cx=\"188.06499999999997\" cy=\"110.80666666666667\" r=\"3.6\" />\n    <circle cx=\"204.67666666666665\" cy=\"110.82333333333334\" r=\"3.6\" />\n    <circle cx=\"237.885\" cy=\"101.13999999999999\" r=\"3.6\" />\n    <circle cx=\"279.45\" cy=\"105.95166666666667\" r=\"3.6\" />\n    <circle cx=\"287.72999999999996\" cy=\"110.79333333333334\" r=\"3.6\" />\n    <circle cx=\"296.0066666666667\" cy=\"105.94\" r=\"3.6\" />\n    <circle cx=\"295.97499999999997\" cy=\"96.29\" r=\"3.6\" />\n    <circle cx=\"246.21666666666667\" cy=\"96.30666666666667\" r=\"3.6\" />\n    <circle cx=\"254.51333333333332\" cy=\"91.47333333333334\" r=\"3.6\" />\n    <circle cx=\"262.805\" cy=\"96.30666666666667\" r=\"3.6\" />\n    <circle cx=\"271.15\" cy=\"91.46833333333335\" r=\"3.6\" />\n    <circle cx=\"279.46\" cy=\"96.29\" r=\"3.6\" />\n    <circle cx=\"320.9\" cy=\"130.165\" r=\"3.6\" />\n    <circle cx=\"312.69\" cy=\"270.325\" r=\"3.6\" />\n    <circle cx=\"329.22999999999996\" cy=\"125.29833333333333\" r=\"3.6\" />\n    <circle cx=\"304.4166666666667\" cy=\"265.5133333333333\" r=\"3.6\" />\n    <circle cx=\"304.33000000000004\" cy=\"101.13666666666667\" r=\"3.6\" />\n    <circle cx=\"304.3283333333334\" cy=\"110.80499999999999\" r=\"3.6\" />\n    <circle cx=\"304.32166666666666\" cy=\"120.47166666666665\" r=\"3.6\" />\n    <circle cx=\"312.58000000000004\" cy=\"125.31333333333335\" r=\"3.6\" />\n    <circle cx=\"221.29333333333332\" cy=\"101.15333333333332\" r=\"3.6\" />\n    <circle cx=\"188.06000000000003\" cy=\"130.14666666666668\" r=\"3.6\" />\n    <circle cx=\"229.58833333333334\" cy=\"105.97666666666667\" r=\"3.6\" />\n    <circle cx=\"188.06000000000003\" cy=\"139.8166666666667\" r=\"3.6\" />\n    <circle cx=\"188.06000000000003\" cy=\"120.47666666666665\" r=\"3.6\" />\n    <circle cx=\"212.98499999999999\" cy=\"173.67333333333332\" r=\"3.6\" />\n    <circle cx=\"212.98499999999999\" cy=\"164.00333333333333\" r=\"3.6\" />\n    <circle cx=\"196.39666666666665\" cy=\"154.31833333333333\" r=\"3.6\" />\n    <circle cx=\"179.765\" cy=\"115.64666666666666\" r=\"3.6\" />\n    <circle cx=\"204.69999999999996\" cy=\"159.17333333333335\" r=\"3.6\" />\n    <circle cx=\"188.08\" cy=\"149.48499999999999\" r=\"3.6\" />\n    <circle cx=\"204.67999999999998\" cy=\"101.15333333333335\" r=\"3.6\" />\n    <circle cx=\"196.38666666666668\" cy=\"105.97666666666667\" r=\"3.6\" />\n    <circle cx=\"212.955\" cy=\"105.99\" r=\"3.6\" />\n    <circle cx=\"296.13\" cy=\"260.6666666666667\" r=\"3.6\" />\n    <circle cx=\"171.4766666666667\" cy=\"110.82000000000001\" r=\"3.6\" />\n    <circle cx=\"171.48000000000002\" cy=\"101.15333333333332\" r=\"3.6\" />\n    <circle cx=\"179.76999999999998\" cy=\"105.97666666666667\" r=\"3.6\" />\n    <circle cx=\"188.06999999999996\" cy=\"101.13999999999999\" r=\"3.6\" />\n    <circle cx=\"296.02833333333336\" cy=\"125.29833333333333\" r=\"3.6\" />\n    <circle cx=\"287.72499999999997\" cy=\"120.46333333333332\" r=\"3.6\" />\n    <circle cx=\"279.43499999999995\" cy=\"115.62833333333333\" r=\"3.6\" />\n    <circle cx=\"296.035\" cy=\"115.62833333333333\" r=\"3.6\" />\n    <circle cx=\"304.33\" cy=\"130.1483333333333\" r=\"3.6\" />\n    <circle cx=\"212.94499999999996\" cy=\"144.66666666666666\" r=\"3.6\" />\n    <circle cx=\"254.51333333333332\" cy=\"101.13999999999999\" r=\"3.6\" />\n    <circle cx=\"271.14166666666665\" cy=\"110.80166666666668\" r=\"3.6\" />\n    <circle cx=\"262.805\" cy=\"105.97333333333334\" r=\"3.6\" />\n    <circle cx=\"271.145\" cy=\"101.13666666666667\" r=\"3.6\" />\n    <circle cx=\"229.59666666666666\" cy=\"154.31833333333333\" r=\"3.6\" />\n    <circle cx=\"246.21666666666667\" cy=\"105.97333333333334\" r=\"3.6\" />\n    <circle cx=\"237.915\" cy=\"159.15333333333334\" r=\"3.6\" />\n    <circle cx=\"246.25\" cy=\"163.98666666666668\" r=\"3.6\" />\n    <circle cx=\"221.29333333333332\" cy=\"149.50666666666666\" r=\"3.6\" />\n    <circle cx=\"254.5333333333334\" cy=\"159.16\" r=\"3.6\" />\n    <circle cx=\"271.145\" cy=\"149.48666666666668\" r=\"3.6\" />\n    <circle cx=\"262.81500000000005\" cy=\"154.315\" r=\"3.6\" />\n    <circle cx=\"304.41833333333335\" cy=\"255.82666666666668\" r=\"3.6\" />\n    <circle cx=\"254.5533333333333\" cy=\"168.83\" r=\"3.6\" />\n    <circle cx=\"221.32500000000002\" cy=\"168.83333333333334\" r=\"3.6\" />\n    <circle cx=\"212.965\" cy=\"154.33499999999998\" r=\"3.6\" />\n    <circle cx=\"229.61833333333334\" cy=\"163.98833333333334\" r=\"3.6\" />\n    <circle cx=\"221.31500000000003\" cy=\"159.16\" r=\"3.6\" />\n    <circle cx=\"237.915\" cy=\"168.82333333333332\" r=\"3.6\" />\n    <circle cx=\"262.8666666666667\" cy=\"164.00333333333333\" r=\"3.6\" />\n    <circle cx=\"271.18\" cy=\"159.14833333333334\" r=\"3.6\" />\n    <circle cx=\"237.88\" cy=\"110.80666666666667\" r=\"3.6\" />\n    <circle cx=\"254.56333333333336\" cy=\"178.49333333333334\" r=\"3.6\" />\n    <circle cx=\"246.25\" cy=\"173.65666666666667\" r=\"3.6\" />\n    <circle cx=\"221.29166666666666\" cy=\"110.82\" r=\"3.6\" />\n    <circle cx=\"213.01500000000001\" cy=\"183.36166666666665\" r=\"3.6\" />\n    <circle cx=\"212.95000000000002\" cy=\"115.65666666666668\" r=\"3.6\" />\n    <circle cx=\"229.58166666666668\" cy=\"115.64666666666669\" r=\"3.6\" />\n    <circle cx=\"196.37666666666667\" cy=\"144.65333333333334\" r=\"3.6\" />\n    <circle cx=\"196.37666666666667\" cy=\"125.31666666666668\" r=\"3.6\" />\n    <circle cx=\"204.67999999999998\" cy=\"149.49499999999998\" r=\"3.6\" />\n    <circle cx=\"196.37666666666667\" cy=\"134.98666666666665\" r=\"3.6\" />\n    <circle cx=\"154.81000000000003\" cy=\"72.16000000000001\" r=\"3.6\" />\n    <circle cx=\"296.1566666666667\" cy=\"386.35833333333335\" r=\"3.6\" />\n    <circle cx=\"287.82500000000005\" cy=\"362.19000000000005\" r=\"3.6\" />\n    <circle cx=\"296.135\" cy=\"376.68833333333333\" r=\"3.6\" />\n    <circle cx=\"287.81500000000005\" cy=\"371.8533333333333\" r=\"3.6\" />\n    <circle cx=\"287.855\" cy=\"391.1933333333333\" r=\"3.6\" />\n    <circle cx=\"304.46999999999997\" cy=\"458.87833333333333\" r=\"3.6\" />\n    <circle cx=\"304.46000000000004\" cy=\"449.21666666666664\" r=\"3.6\" />\n    <circle cx=\"296.16833333333335\" cy=\"434.70666666666665\" r=\"3.6\" />\n    <circle cx=\"287.845\" cy=\"429.8666666666666\" r=\"3.6\" />\n    <circle cx=\"254.55666666666664\" cy=\"304.18\" r=\"3.6\" />\n    <circle cx=\"262.885\" cy=\"328.3566666666666\" r=\"3.6\" />\n    <circle cx=\"287.83500000000004\" cy=\"352.5133333333333\" r=\"3.6\" />\n    <circle cx=\"254.5816666666667\" cy=\"323.53000000000003\" r=\"3.6\" />\n    <circle cx=\"246.225\" cy=\"309.03000000000003\" r=\"3.6\" />\n    <circle cx=\"254.57833333333338\" cy=\"313.8616666666667\" r=\"3.6\" />\n    <circle cx=\"279.52500000000003\" cy=\"347.68333333333334\" r=\"3.6\" />\n    <circle cx=\"271.22499999999997\" cy=\"342.8633333333333\" r=\"3.6\" />\n    <circle cx=\"262.875\" cy=\"338.0316666666667\" r=\"3.6\" />\n    <circle cx=\"296.13666666666666\" cy=\"444.39166666666665\" r=\"3.6\" />\n    <circle cx=\"354.24666666666667\" cy=\"381.53333333333336\" r=\"3.6\" />\n    <circle cx=\"362.50500000000005\" cy=\"367.0333333333333\" r=\"3.6\" />\n    <circle cx=\"354.2266666666667\" cy=\"371.8633333333333\" r=\"3.6\" />\n    <circle cx=\"345.9549999999999\" cy=\"386.35833333333335\" r=\"3.6\" />\n    <circle cx=\"379.115\" cy=\"328.34666666666664\" r=\"3.6\" />\n    <circle cx=\"379.125\" cy=\"338.02333333333337\" r=\"3.6\" />\n    <circle cx=\"370.82500000000005\" cy=\"342.8633333333333\" r=\"3.6\" />\n    <circle cx=\"370.83500000000004\" cy=\"352.52666666666664\" r=\"3.6\" />\n    <circle cx=\"370.84\" cy=\"362.19666666666666\" r=\"3.6\" />\n    <circle cx=\"337.69\" cy=\"410.54333333333335\" r=\"3.6\" />\n    <circle cx=\"337.65999999999997\" cy=\"400.86000000000007\" r=\"3.6\" />\n    <circle cx=\"329.36999999999995\" cy=\"434.70666666666665\" r=\"3.6\" />\n    <circle cx=\"304.47166666666664\" cy=\"478.23999999999995\" r=\"3.6\" />\n    <circle cx=\"304.49\" cy=\"468.55833333333334\" r=\"3.6\" />\n    <circle cx=\"312.8233333333333\" cy=\"483.06333333333333\" r=\"3.6\" />\n    <circle cx=\"329.36499999999995\" cy=\"425.0433333333333\" r=\"3.6\" />\n    <circle cx=\"296.13666666666666\" cy=\"463.715\" r=\"3.6\" />\n    <circle cx=\"329.36\" cy=\"415.36666666666673\" r=\"3.6\" />\n    <circle cx=\"345.9766666666667\" cy=\"396.02833333333336\" r=\"3.6\" />\n    <circle cx=\"188.025\" cy=\"52.79666666666666\" r=\"3.6\" />\n    <circle cx=\"179.73\" cy=\"57.63333333333333\" r=\"3.6\" />\n    <circle cx=\"138.245\" cy=\"62.46333333333333\" r=\"3.6\" />\n    <circle cx=\"196.34333333333333\" cy=\"57.63333333333333\" r=\"3.6\" />\n    <circle cx=\"171.4383333333333\" cy=\"52.81166666666667\" r=\"3.6\" />\n    <circle cx=\"138.245\" cy=\"52.79666666666666\" r=\"3.6\" />\n    <circle cx=\"146.545\" cy=\"47.96666666666667\" r=\"3.6\" />\n    <circle cx=\"163.10000000000002\" cy=\"57.64666666666667\" r=\"3.6\" />\n    <circle cx=\"154.83833333333334\" cy=\"52.81166666666667\" r=\"3.6\" />\n    <circle cx=\"204.63666666666666\" cy=\"52.81166666666667\" r=\"3.6\" />\n    <circle cx=\"262.76500000000004\" cy=\"47.96333333333334\" r=\"3.6\" />\n    <circle cx=\"254.465\" cy=\"43.12833333333334\" r=\"3.6\" />\n    <circle cx=\"246.13666666666666\" cy=\"38.31166666666667\" r=\"3.6\" />\n    <circle cx=\"212.915\" cy=\"57.64666666666667\" r=\"3.6\" />\n    <circle cx=\"271.105\" cy=\"52.79333333333332\" r=\"3.6\" />\n    <circle cx=\"237.84333333333333\" cy=\"52.796666666666674\" r=\"3.6\" />\n    <circle cx=\"221.25\" cy=\"52.81166666666667\" r=\"3.6\" />\n    <circle cx=\"229.545\" cy=\"57.63333333333333\" r=\"3.6\" />\n    <circle cx=\"171.47\" cy=\"207.51166666666666\" r=\"3.6\" />\n    <circle cx=\"196.45833333333334\" cy=\"221.99499999999998\" r=\"3.6\" />\n    <circle cx=\"204.75\" cy=\"226.84\" r=\"3.6\" />\n    <circle cx=\"188.12\" cy=\"217.16666666666666\" r=\"3.6\" />\n    <circle cx=\"179.82166666666663\" cy=\"212.33666666666667\" r=\"3.6\" />\n    <circle cx=\"254.53833333333333\" cy=\"294.5116666666667\" r=\"3.6\" />\n    <circle cx=\"229.69000000000003\" cy=\"241.34500000000003\" r=\"3.6\" />\n    <circle cx=\"246.29000000000005\" cy=\"260.68833333333333\" r=\"3.6\" />\n    <circle cx=\"213.025\" cy=\"231.68500000000003\" r=\"3.6\" />\n    <circle cx=\"146.545\" cy=\"67.29833333333333\" r=\"3.6\" />\n    <circle cx=\"221.38\" cy=\"236.51166666666668\" r=\"3.6\" />\n    <circle cx=\"171.48499999999999\" cy=\"188.1933333333333\" r=\"3.6\" />\n    <circle cx=\"146.59833333333333\" cy=\"154.31833333333333\" r=\"3.6\" />\n    <circle cx=\"138.295\" cy=\"159.15333333333334\" r=\"3.6\" />\n    <circle cx=\"138.255\" cy=\"139.81666666666666\" r=\"3.6\" />\n    <circle cx=\"146.57833333333335\" cy=\"144.65333333333334\" r=\"3.6\" />\n    <circle cx=\"146.61833333333334\" cy=\"163.98833333333334\" r=\"3.6\" />\n    <circle cx=\"163.16\" cy=\"183.35\" r=\"3.6\" />\n    <circle cx=\"146.58666666666667\" cy=\"173.67499999999998\" r=\"3.6\" />\n    <circle cx=\"179.8166666666667\" cy=\"222.01\" r=\"3.6\" />\n    <circle cx=\"229.68500000000003\" cy=\"251.005\" r=\"3.6\" />\n    <circle cx=\"246.19333333333336\" cy=\"299.3533333333333\" r=\"3.6\" />\n    <circle cx=\"213.035\" cy=\"241.36166666666668\" r=\"3.6\" />\n    <circle cx=\"221.35500000000002\" cy=\"246.205\" r=\"3.6\" />\n    <circle cx=\"237.995\" cy=\"255.83333333333337\" r=\"3.6\" />\n    <circle cx=\"262.87\" cy=\"347.6983333333333\" r=\"3.6\" />\n    <circle cx=\"271.205\" cy=\"352.545\" r=\"3.6\" />\n    <circle cx=\"254.57333333333335\" cy=\"333.1933333333333\" r=\"3.6\" />\n    <circle cx=\"246.23499999999999\" cy=\"318.69\" r=\"3.6\" />\n    <circle cx=\"171.47\" cy=\"217.18166666666664\" r=\"3.6\" />\n    <circle cx=\"146.57833333333332\" cy=\"183.34166666666667\" r=\"3.6\" />\n    <circle cx=\"146.60666666666665\" cy=\"192.98\" r=\"3.6\" />\n    <circle cx=\"138.29500000000002\" cy=\"168.82333333333332\" r=\"3.6\" />\n    <circle cx=\"279.53\" cy=\"357.35166666666663\" r=\"3.6\" />\n    <circle cx=\"204.74\" cy=\"236.53999999999996\" r=\"3.6\" />\n    <circle cx=\"196.42666666666665\" cy=\"231.69000000000003\" r=\"3.6\" />\n    <circle cx=\"279.4083333333333\" cy=\"57.623333333333335\" r=\"3.6\" />\n    <circle cx=\"188.12\" cy=\"226.84666666666666\" r=\"3.6\" />\n    <circle cx=\"379.155\" cy=\"367.0183333333334\" r=\"3.6\" />\n    <circle cx=\"370.84999999999997\" cy=\"371.86999999999995\" r=\"3.6\" />\n    <circle cx=\"138.26500000000001\" cy=\"149.49\" r=\"3.6\" />\n    <circle cx=\"362.535\" cy=\"376.72166666666664\" r=\"3.6\" />\n    <circle cx=\"354.28999999999996\" cy=\"391.2033333333333\" r=\"3.6\" />\n    <circle cx=\"354.29\" cy=\"400.8733333333333\" r=\"3.6\" />\n    <circle cx=\"379.15500000000003\" cy=\"357.3500000000001\" r=\"3.6\" />\n    <circle cx=\"387.47333333333336\" cy=\"333.1766666666667\" r=\"3.6\" />\n    <circle cx=\"387.47333333333336\" cy=\"323.50666666666666\" r=\"3.6\" />\n    <circle cx=\"379.15000000000003\" cy=\"347.68\" r=\"3.6\" />\n    <circle cx=\"329.40000000000003\" cy=\"492.71166666666664\" r=\"3.6\" />\n    <circle cx=\"304.44666666666666\" cy=\"487.8966666666667\" r=\"3.6\" />\n    <circle cx=\"296.14666666666665\" cy=\"473.37833333333333\" r=\"3.6\" />\n    <circle cx=\"296.105\" cy=\"454.03833333333336\" r=\"3.6\" />\n    <circle cx=\"287.845\" cy=\"439.5366666666667\" r=\"3.6\" />\n    <circle cx=\"287.82500000000005\" cy=\"381.53000000000003\" r=\"3.6\" />\n    <circle cx=\"312.78166666666664\" cy=\"492.7183333333333\" r=\"3.6\" />\n    <circle cx=\"337.7183333333333\" cy=\"420.19833333333327\" r=\"3.6\" />\n    <circle cx=\"345.9933333333334\" cy=\"405.70666666666665\" r=\"3.6\" />\n    <circle cx=\"105.01833333333333\" cy=\"62.471666666666664\" r=\"3.6\" />\n    <circle cx=\"296.01000000000005\" cy=\"38.29\" r=\"3.6\" />\n    <circle cx=\"312.51500000000004\" cy=\"38.29666666666667\" r=\"3.6\" />\n    <circle cx=\"320.8433333333333\" cy=\"23.796666666666667\" r=\"3.6\" />\n    <circle cx=\"287.65999999999997\" cy=\"33.446666666666665\" r=\"3.6\" />\n    <circle cx=\"271.105\" cy=\"43.116666666666674\" r=\"3.6\" />\n    <circle cx=\"262.785\" cy=\"38.275\" r=\"3.6\" />\n    <circle cx=\"254.465\" cy=\"33.446666666666665\" r=\"3.6\" />\n    <circle cx=\"138.265\" cy=\"72.15833333333335\" r=\"3.6\" />\n    <circle cx=\"237.80833333333337\" cy=\"33.46\" r=\"3.6\" />\n    <circle cx=\"329.17\" cy=\"28.60166666666667\" r=\"3.6\" />\n    <circle cx=\"354.18666666666667\" cy=\"304.1716666666666\" r=\"3.6\" />\n    <circle cx=\"362.46166666666664\" cy=\"309.02500000000003\" r=\"3.6\" />\n    <circle cx=\"337.4983333333334\" cy=\"33.425000000000004\" r=\"3.6\" />\n    <circle cx=\"387.47333333333336\" cy=\"313.84\" r=\"3.6\" />\n    <circle cx=\"379.1133333333333\" cy=\"308.99666666666667\" r=\"3.6\" />\n    <circle cx=\"345.81333333333333\" cy=\"38.26333333333333\" r=\"3.6\" />\n    <circle cx=\"354.10666666666674\" cy=\"43.123333333333335\" r=\"3.6\" />\n    <circle cx=\"354.15000000000003\" cy=\"101.13666666666666\" r=\"3.6\" />\n    <circle cx=\"279.4083333333333\" cy=\"47.94166666666666\" r=\"3.6\" />\n    <circle cx=\"96.70166666666667\" cy=\"67.27999999999999\" r=\"3.6\" />\n    <circle cx=\"88.395\" cy=\"72.14\" r=\"3.6\" />\n    <circle cx=\"379.1133333333334\" cy=\"318.6766666666667\" r=\"3.6\" />\n    <circle cx=\"88.46499999999999\" cy=\"81.81666666666666\" r=\"3.6\" />\n    <circle cx=\"113.31500000000001\" cy=\"57.64666666666667\" r=\"3.6\" />\n    <circle cx=\"129.945\" cy=\"67.29833333333333\" r=\"3.6\" />\n    <circle cx=\"113.31500000000001\" cy=\"67.31333333333333\" r=\"3.6\" />\n    <circle cx=\"105.04833333333333\" cy=\"72.14333333333333\" r=\"3.6\" />\n    <circle cx=\"96.75333333333333\" cy=\"76.96833333333333\" r=\"3.6\" />\n    <circle cx=\"196.34333333333333\" cy=\"47.96666666666667\" r=\"3.6\" />\n    <circle cx=\"179.73\" cy=\"47.96666666666667\" r=\"3.6\" />\n    <circle cx=\"163.10000000000002\" cy=\"47.97666666666667\" r=\"3.6\" />\n    <circle cx=\"229.55499999999998\" cy=\"47.961666666666666\" r=\"3.6\" />\n    <circle cx=\"121.62166666666666\" cy=\"52.79500000000001\" r=\"3.6\" />\n    <circle cx=\"212.915\" cy=\"47.97666666666667\" r=\"3.6\" />\n    <circle cx=\"129.935\" cy=\"47.96000000000001\" r=\"3.6\" />\n    <circle cx=\"138.235\" cy=\"43.120000000000005\" r=\"3.6\" />\n    <circle cx=\"154.84833333333333\" cy=\"43.13666666666666\" r=\"3.6\" />\n    <circle cx=\"370.82\" cy=\"333.19166666666666\" r=\"3.6\" />\n    <circle cx=\"345.91333333333336\" cy=\"318.6766666666667\" r=\"3.6\" />\n    <circle cx=\"337.595\" cy=\"313.84\" r=\"3.6\" />\n    <circle cx=\"354.2066666666667\" cy=\"323.5216666666667\" r=\"3.6\" />\n    <circle cx=\"362.48499999999996\" cy=\"328.3566666666666\" r=\"3.6\" />\n    <circle cx=\"337.58500000000004\" cy=\"294.4866666666667\" r=\"3.6\" />\n    <circle cx=\"337.52\" cy=\"101.12333333333333\" r=\"3.6\" />\n    <circle cx=\"345.7833333333333\" cy=\"115.63666666666666\" r=\"3.6\" />\n    <circle cx=\"321.07\" cy=\"400.8733333333333\" r=\"3.6\" />\n    <circle cx=\"337.52\" cy=\"91.45333333333333\" r=\"3.6\" />\n    <circle cx=\"337.575\" cy=\"304.175\" r=\"3.6\" />\n    <circle cx=\"337.6166666666667\" cy=\"371.8533333333333\" r=\"3.6\" />\n    <circle cx=\"329.32\" cy=\"376.68833333333333\" r=\"3.6\" />\n    <circle cx=\"329.34000000000003\" cy=\"386.3583333333333\" r=\"3.6\" />\n    <circle cx=\"321.06\" cy=\"391.19666666666666\" r=\"3.6\" />\n    <circle cx=\"354.22166666666664\" cy=\"352.53333333333336\" r=\"3.6\" />\n    <circle cx=\"354.21166666666664\" cy=\"342.85833333333335\" r=\"3.6\" />\n    <circle cx=\"345.935\" cy=\"357.34999999999997\" r=\"3.6\" />\n    <circle cx=\"337.6166666666667\" cy=\"362.18333333333334\" r=\"3.6\" />\n    <circle cx=\"354.20666666666665\" cy=\"333.19166666666666\" r=\"3.6\" />\n    <circle cx=\"229.545\" cy=\"67.29833333333333\" r=\"3.6\" />\n    <circle cx=\"221.25\" cy=\"62.47666666666666\" r=\"3.6\" />\n    <circle cx=\"212.915\" cy=\"67.31333333333335\" r=\"3.6\" />\n    <circle cx=\"237.84333333333336\" cy=\"62.46333333333333\" r=\"3.6\" />\n    <circle cx=\"246.17666666666665\" cy=\"57.63\" r=\"3.6\" />\n    <circle cx=\"204.63666666666666\" cy=\"62.47666666666667\" r=\"3.6\" />\n    <circle cx=\"179.73\" cy=\"67.29833333333333\" r=\"3.6\" />\n    <circle cx=\"188.025\" cy=\"62.46333333333333\" r=\"3.6\" />\n    <circle cx=\"196.34333333333333\" cy=\"67.29833333333333\" r=\"3.6\" />\n    <circle cx=\"345.875\" cy=\"86.62\" r=\"3.6\" />\n    <circle cx=\"246.14666666666665\" cy=\"47.94666666666668\" r=\"3.6\" />\n    <circle cx=\"337.47\" cy=\"52.771666666666675\" r=\"3.6\" />\n    <circle cx=\"295.96666666666664\" cy=\"57.63499999999999\" r=\"3.6\" />\n    <circle cx=\"345.81333333333333\" cy=\"57.626666666666665\" r=\"3.6\" />\n    <circle cx=\"304.28000000000003\" cy=\"62.47833333333333\" r=\"3.6\" />\n    <circle cx=\"171.4383333333333\" cy=\"62.47666666666666\" r=\"3.6\" />\n    <circle cx=\"271.115\" cy=\"62.46666666666667\" r=\"3.6\" />\n    <circle cx=\"262.76500000000004\" cy=\"57.63\" r=\"3.6\" />\n    <circle cx=\"254.47000000000003\" cy=\"52.79666666666666\" r=\"3.6\" />\n    <circle cx=\"262.89\" cy=\"260.66999999999996\" r=\"3.6\" />\n    <circle cx=\"221.29666666666665\" cy=\"217.18333333333337\" r=\"3.6\" />\n    <circle cx=\"196.47500000000002\" cy=\"202.66333333333333\" r=\"3.6\" />\n    <circle cx=\"188.12\" cy=\"197.82666666666668\" r=\"3.6\" />\n    <circle cx=\"271.17999999999995\" cy=\"284.84333333333336\" r=\"3.6\" />\n    <circle cx=\"271.18\" cy=\"294.5133333333334\" r=\"3.6\" />\n    <circle cx=\"262.87666666666667\" cy=\"270.3433333333333\" r=\"3.6\" />\n    <circle cx=\"188.11\" cy=\"188.16\" r=\"3.6\" />\n    <circle cx=\"262.83500000000004\" cy=\"280.0083333333334\" r=\"3.6\" />\n    <circle cx=\"188.1\" cy=\"178.49333333333334\" r=\"3.6\" />\n    <circle cx=\"163.15\" cy=\"154.335\" r=\"3.6\" />\n    <circle cx=\"271.19\" cy=\"304.19\" r=\"3.6\" />\n    <circle cx=\"163.13\" cy=\"134.99666666666667\" r=\"3.6\" />\n    <circle cx=\"154.84666666666666\" cy=\"130.14666666666665\" r=\"3.6\" />\n    <circle cx=\"163.13\" cy=\"144.66666666666666\" r=\"3.6\" />\n    <circle cx=\"179.80166666666665\" cy=\"173.6583333333333\" r=\"3.6\" />\n    <circle cx=\"163.17\" cy=\"164.00333333333333\" r=\"3.6\" />\n    <circle cx=\"171.51\" cy=\"168.83333333333334\" r=\"3.6\" />\n    <circle cx=\"287.815\" cy=\"333.1766666666667\" r=\"3.6\" />\n    <circle cx=\"312.73\" cy=\"396.04333333333335\" r=\"3.6\" />\n    <circle cx=\"312.69\" cy=\"376.7033333333333\" r=\"3.6\" />\n    <circle cx=\"312.71\" cy=\"386.375\" r=\"3.6\" />\n    <circle cx=\"304.46999999999997\" cy=\"410.5433333333333\" r=\"3.6\" />\n    <circle cx=\"304.47\" cy=\"400.8733333333334\" r=\"3.6\" />\n    <circle cx=\"312.73\" cy=\"415.38000000000005\" r=\"3.6\" />\n    <circle cx=\"296.17833333333334\" cy=\"405.69666666666666\" r=\"3.6\" />\n    <circle cx=\"304.4683333333333\" cy=\"420.21333333333337\" r=\"3.6\" />\n    <circle cx=\"296.17833333333334\" cy=\"415.36666666666673\" r=\"3.6\" />\n    <circle cx=\"279.51500000000004\" cy=\"328.34666666666664\" r=\"3.6\" />\n    <circle cx=\"296.11333333333334\" cy=\"338.01666666666665\" r=\"3.6\" />\n    <circle cx=\"312.73\" cy=\"405.7133333333333\" r=\"3.6\" />\n    <circle cx=\"271.21\" cy=\"313.84666666666664\" r=\"3.6\" />\n    <circle cx=\"279.51499999999993\" cy=\"318.6766666666667\" r=\"3.6\" />\n    <circle cx=\"304.42333333333335\" cy=\"352.5333333333333\" r=\"3.6\" />\n    <circle cx=\"304.4133333333333\" cy=\"342.8583333333333\" r=\"3.6\" />\n    <circle cx=\"304.42833333333334\" cy=\"362.19666666666666\" r=\"3.6\" />\n    <circle cx=\"312.69\" cy=\"367.0333333333333\" r=\"3.6\" />\n    <circle cx=\"304.43833333333333\" cy=\"381.52833333333336\" r=\"3.6\" />\n    <circle cx=\"337.6383333333333\" cy=\"381.52500000000003\" r=\"3.6\" />\n    <circle cx=\"345.935\" cy=\"376.68833333333333\" r=\"3.6\" />\n    <circle cx=\"337.65999999999997\" cy=\"391.1933333333333\" r=\"3.6\" />\n    <circle cx=\"329.36\" cy=\"396.02833333333336\" r=\"3.6\" />\n    <circle cx=\"345.93499999999995\" cy=\"367.01833333333326\" r=\"3.6\" />\n    <circle cx=\"362.50500000000005\" cy=\"357.3666666666666\" r=\"3.6\" />\n    <circle cx=\"329.36\" cy=\"405.6966666666667\" r=\"3.6\" />\n    <circle cx=\"362.49499999999995\" cy=\"347.695\" r=\"3.6\" />\n    <circle cx=\"354.2266666666667\" cy=\"362.19666666666666\" r=\"3.6\" />\n    <circle cx=\"321.07000000000005\" cy=\"410.54333333333335\" r=\"3.6\" />\n    <circle cx=\"312.78\" cy=\"454.05333333333334\" r=\"3.6\" />\n    <circle cx=\"312.74999999999994\" cy=\"444.40333333333336\" r=\"3.6\" />\n    <circle cx=\"321.105\" cy=\"468.54999999999995\" r=\"3.6\" />\n    <circle cx=\"312.7916666666667\" cy=\"473.41166666666663\" r=\"3.6\" />\n    <circle cx=\"312.77\" cy=\"463.70666666666665\" r=\"3.6\" />\n    <circle cx=\"321.0683333333334\" cy=\"420.21000000000004\" r=\"3.6\" />\n    <circle cx=\"321.0683333333333\" cy=\"439.5566666666667\" r=\"3.6\" />\n    <circle cx=\"321.06\" cy=\"429.8833333333334\" r=\"3.6\" />\n    <circle cx=\"362.48499999999996\" cy=\"338.0266666666667\" r=\"3.6\" />\n    <circle cx=\"329.16999999999996\" cy=\"38.276666666666664\" r=\"3.6\" />\n    <circle cx=\"337.47\" cy=\"43.11500000000001\" r=\"3.6\" />\n    <circle cx=\"345.7966666666667\" cy=\"47.946666666666665\" r=\"3.6\" />\n    <circle cx=\"345.85833333333335\" cy=\"96.27666666666666\" r=\"3.6\" />\n    <circle cx=\"354.10666666666674\" cy=\"52.79333333333333\" r=\"3.6\" />\n    <circle cx=\"304.29833333333335\" cy=\"52.798333333333325\" r=\"3.6\" />\n    <circle cx=\"295.995\" cy=\"47.913333333333334\" r=\"3.6\" />\n    <circle cx=\"312.57\" cy=\"47.97666666666667\" r=\"3.6\" />\n    <circle cx=\"320.895\" cy=\"43.125\" r=\"3.6\" />\n    <circle cx=\"362.48499999999996\" cy=\"318.69\" r=\"3.6\" />\n    <circle cx=\"345.8066666666667\" cy=\"105.97500000000001\" r=\"3.6\" />\n    <circle cx=\"146.525\" cy=\"96.30833333333334\" r=\"3.6\" />\n    <circle cx=\"370.82\" cy=\"323.52166666666665\" r=\"3.6\" />\n    <circle cx=\"354.1966666666667\" cy=\"313.85833333333335\" r=\"3.6\" />\n    <circle cx=\"370.81\" cy=\"313.84666666666664\" r=\"3.6\" />\n    <circle cx=\"354.1466666666667\" cy=\"110.80499999999999\" r=\"3.6\" />\n    <circle cx=\"163.10000000000002\" cy=\"67.31333333333335\" r=\"3.6\" />\n    <circle cx=\"345.89333333333326\" cy=\"299.32666666666665\" r=\"3.6\" />\n    <circle cx=\"345.89333333333326\" cy=\"309.0083333333333\" r=\"3.6\" />\n    <circle cx=\"196.47500000000002\" cy=\"212.33333333333334\" r=\"3.6\" />\n    <circle cx=\"188.12\" cy=\"207.49666666666667\" r=\"3.6\" />\n    <circle cx=\"179.82166666666663\" cy=\"202.66666666666666\" r=\"3.6\" />\n    <circle cx=\"179.8116666666667\" cy=\"192.99666666666667\" r=\"3.6\" />\n    <circle cx=\"221.32833333333335\" cy=\"226.83666666666667\" r=\"3.6\" />\n    <circle cx=\"238.02666666666667\" cy=\"236.4983333333333\" r=\"3.6\" />\n    <circle cx=\"254.53\" cy=\"284.8466666666667\" r=\"3.6\" />\n    <circle cx=\"262.845\" cy=\"289.68333333333334\" r=\"3.6\" />\n    <circle cx=\"254.59500000000003\" cy=\"265.5183333333334\" r=\"3.6\" />\n    <circle cx=\"179.80166666666665\" cy=\"183.32833333333335\" r=\"3.6\" />\n    <circle cx=\"154.87\" cy=\"139.83166666666665\" r=\"3.6\" />\n    <circle cx=\"154.88\" cy=\"149.495\" r=\"3.6\" />\n    <circle cx=\"154.9\" cy=\"159.17333333333335\" r=\"3.6\" />\n    <circle cx=\"304.46\" cy=\"439.5516666666667\" r=\"3.6\" />\n    <circle cx=\"171.51\" cy=\"178.50333333333333\" r=\"3.6\" />\n    <circle cx=\"262.845\" cy=\"299.3533333333333\" r=\"3.6\" />\n    <circle cx=\"163.17\" cy=\"173.67333333333332\" r=\"3.6\" />\n    <circle cx=\"154.91\" cy=\"168.83333333333334\" r=\"3.6\" />\n    <circle cx=\"146.54666666666665\" cy=\"134.97\" r=\"3.6\" />\n    <circle cx=\"296.17833333333334\" cy=\"396.02833333333336\" r=\"3.6\" />\n    <circle cx=\"304.4283333333333\" cy=\"371.8633333333333\" r=\"3.6\" />\n    <circle cx=\"304.4583333333333\" cy=\"391.2083333333333\" r=\"3.6\" />\n    <circle cx=\"287.695\" cy=\"52.776666666666664\" r=\"3.6\" />\n    <circle cx=\"287.855\" cy=\"400.85999999999996\" r=\"3.6\" />\n    <circle cx=\"287.855\" cy=\"410.52666666666664\" r=\"3.6\" />\n    <circle cx=\"304.46166666666664\" cy=\"429.87999999999994\" r=\"3.6\" />\n    <circle cx=\"296.175\" cy=\"425.0366666666667\" r=\"3.6\" />\n    <circle cx=\"287.85333333333335\" cy=\"420.195\" r=\"3.6\" />\n    <circle cx=\"271.21999999999997\" cy=\"333.19166666666666\" r=\"3.6\" />\n    <circle cx=\"262.865\" cy=\"309.02500000000003\" r=\"3.6\" />\n    <circle cx=\"271.22\" cy=\"323.5216666666667\" r=\"3.6\" />\n    <circle cx=\"279.51499999999993\" cy=\"338.01666666666665\" r=\"3.6\" />\n    <circle cx=\"262.885\" cy=\"318.69000000000005\" r=\"3.6\" />\n    <circle cx=\"296.135\" cy=\"367.0183333333334\" r=\"3.6\" />\n    <circle cx=\"296.135\" cy=\"357.34999999999997\" r=\"3.6\" />\n    <circle cx=\"296.125\" cy=\"347.6816666666667\" r=\"3.6\" />\n    <circle cx=\"287.82500000000005\" cy=\"342.84499999999997\" r=\"3.6\" />\n    <circle cx=\"412.455\" cy=\"492.73\" r=\"3.6\" />\n    <circle cx=\"420.52500000000003\" cy=\"33.45666666666667\" r=\"3.6\" />\n    <circle cx=\"428.81500000000005\" cy=\"28.60833333333333\" r=\"3.6\" />\n    <circle cx=\"403.91499999999996\" cy=\"52.79333333333333\" r=\"3.6\" />\n    <circle cx=\"403.91\" cy=\"43.12499999999999\" r=\"3.6\" />\n    <circle cx=\"428.8149999999999\" cy=\"18.93833333333333\" r=\"3.6\" />\n    <circle cx=\"412.195\" cy=\"38.29333333333334\" r=\"3.6\" />\n    <circle cx=\"387.27500000000003\" cy=\"52.776666666666664\" r=\"3.6\" />\n    <circle cx=\"395.57\" cy=\"28.625\" r=\"3.6\" />\n    <circle cx=\"420.52\" cy=\"23.78333333333333\" r=\"3.6\" />\n    <circle cx=\"403.8933333333334\" cy=\"23.78333333333333\" r=\"3.6\" />\n    <circle cx=\"412.185\" cy=\"18.953333333333337\" r=\"3.6\" />\n    <circle cx=\"395.59\" cy=\"47.93000000000001\" r=\"3.6\" />\n    <circle cx=\"412.205\" cy=\"9.261666666666668\" r=\"3.6\" />\n    <circle cx=\"428.81333333333333\" cy=\"9.258333333333333\" r=\"3.6\" />\n    <circle cx=\"445.41166666666663\" cy=\"9.235\" r=\"3.6\" />\n    <circle cx=\"461.9866666666667\" cy=\"9.261666666666668\" r=\"3.6\" />\n    <circle cx=\"395.6000000000001\" cy=\"67.31\" r=\"3.6\" />\n    <circle cx=\"453.7033333333334\" cy=\"43.14833333333333\" r=\"3.6\" />\n    <circle cx=\"395.555\" cy=\"38.281666666666666\" r=\"3.6\" />\n    <circle cx=\"412.185\" cy=\"28.623333333333335\" r=\"3.6\" />\n    <circle cx=\"403.90000000000003\" cy=\"33.45\" r=\"3.6\" />\n    <circle cx=\"445.4116666666667\" cy=\"18.938333333333333\" r=\"3.6\" />\n    <circle cx=\"437.1133333333333\" cy=\"23.77333333333333\" r=\"3.6\" />\n    <circle cx=\"453.7050000000001\" cy=\"23.78333333333333\" r=\"3.6\" />\n    <circle cx=\"395.62000000000006\" cy=\"57.61666666666667\" r=\"3.6\" />\n    <circle cx=\"403.925\" cy=\"62.468333333333334\" r=\"3.6\" />\n    <circle cx=\"428.845\" cy=\"47.95333333333334\" r=\"3.6\" />\n    <circle cx=\"420.55\" cy=\"52.79833333333334\" r=\"3.6\" />\n    <circle cx=\"412.23499999999996\" cy=\"57.64666666666667\" r=\"3.6\" />\n    <circle cx=\"387.27500000000003\" cy=\"62.44666666666668\" r=\"3.6\" />\n    <circle cx=\"387.25500000000005\" cy=\"23.77333333333333\" r=\"3.6\" />\n    <circle cx=\"445.4216666666666\" cy=\"38.278333333333336\" r=\"3.6\" />\n    <circle cx=\"470.3200000000001\" cy=\"23.786666666666665\" r=\"3.6\" />\n    <circle cx=\"478.60999999999996\" cy=\"9.263333333333334\" r=\"3.6\" />\n    <circle cx=\"395.57\" cy=\"18.919999999999998\" r=\"3.6\" />\n    <circle cx=\"437.165\" cy=\"43.12833333333333\" r=\"3.6\" />\n    <circle cx=\"462.0316666666667\" cy=\"38.29\" r=\"3.6\" />\n    <circle cx=\"428.825\" cy=\"38.27666666666667\" r=\"3.6\" />\n    <circle cx=\"445.41166666666663\" cy=\"28.60833333333333\" r=\"3.6\" />\n    <circle cx=\"437.1233333333333\" cy=\"33.443333333333335\" r=\"3.6\" />\n    <circle cx=\"453.71166666666676\" cy=\"33.45\" r=\"3.6\" />\n    <circle cx=\"461.99666666666667\" cy=\"28.641666666666666\" r=\"3.6\" />\n    <circle cx=\"412.205\" cy=\"47.96333333333333\" r=\"3.6\" />\n    <circle cx=\"420.535\" cy=\"43.12\" r=\"3.6\" />\n    <circle cx=\"420.52\" cy=\"14.116666666666665\" r=\"3.6\" />\n    <circle cx=\"437.1133333333333\" cy=\"14.103333333333332\" r=\"3.6\" />\n    <circle cx=\"403.8833333333334\" cy=\"14.11166666666667\" r=\"3.6\" />\n    <circle cx=\"453.705\" cy=\"14.116666666666669\" r=\"3.6\" />\n    <circle cx=\"461.965\" cy=\"18.95333333333333\" r=\"3.6\" />\n    <circle cx=\"470.31500000000005\" cy=\"14.123333333333335\" r=\"3.6\" />\n    <circle cx=\"470.305\" cy=\"62.48500000000001\" r=\"3.6\" />\n    <circle cx=\"461.99666666666667\" cy=\"57.61166666666667\" r=\"3.6\" />\n    <circle cx=\"478.62999999999994\" cy=\"57.61166666666667\" r=\"3.6\" />\n    <circle cx=\"486.99999999999994\" cy=\"101.12333333333333\" r=\"3.6\" />\n    <circle cx=\"503.54999999999995\" cy=\"81.80333333333333\" r=\"3.6\" />\n    <circle cx=\"503.5416666666667\" cy=\"101.145\" r=\"3.6\" />\n    <circle cx=\"511.905\" cy=\"96.30666666666667\" r=\"3.6\" />\n    <circle cx=\"503.5416666666667\" cy=\"91.46833333333332\" r=\"3.6\" />\n    <circle cx=\"544.4785714285714\" cy=\"18.662857142857142\" r=\"3.6\" />\n    <circle cx=\"560.6916666666666\" cy=\"18.958333333333332\" r=\"3.6\" />\n    <circle cx=\"552.3666666666667\" cy=\"14.098333333333331\" r=\"3.6\" />\n    <circle cx=\"568.995\" cy=\"14.086666666666666\" r=\"3.6\" />\n    <circle cx=\"552.4699999999999\" cy=\"159.13666666666668\" r=\"3.6\" />\n    <circle cx=\"610.495\" cy=\"9.266666666666666\" r=\"3.6\" />\n    <circle cx=\"627.0899999999999\" cy=\"9.253333333333332\" r=\"3.6\" />\n    <circle cx=\"643.7216666666667\" cy=\"38.275\" r=\"3.6\" />\n    <circle cx=\"635.37\" cy=\"33.428333333333335\" r=\"3.6\" />\n    <circle cx=\"651.9716666666667\" cy=\"23.776666666666667\" r=\"3.6\" />\n    <circle cx=\"643.685\" cy=\"28.58666666666667\" r=\"3.6\" />\n    <circle cx=\"660.2633333333334\" cy=\"18.908333333333335\" r=\"3.6\" />\n    <circle cx=\"660.4133333333333\" cy=\"357.325\" r=\"3.6\" />\n    <circle cx=\"652.11\" cy=\"381.5383333333334\" r=\"3.6\" />\n    <circle cx=\"652.08\" cy=\"362.1816666666667\" r=\"3.6\" />\n    <circle cx=\"668.7133333333333\" cy=\"342.83\" r=\"3.6\" />\n    <circle cx=\"668.745\" cy=\"352.4916666666666\" r=\"3.6\" />\n    <circle cx=\"652.08\" cy=\"371.8516666666667\" r=\"3.6\" />\n    <circle cx=\"660.4533333333334\" cy=\"367.00666666666666\" r=\"3.6\" />\n    <circle cx=\"660.4533333333334\" cy=\"376.6766666666667\" r=\"3.6\" />\n    <circle cx=\"710.5749999999999\" cy=\"9.26\" r=\"3.6\" />\n    <circle cx=\"718.4266666666667\" cy=\"14.11\" r=\"3.6\" />\n    <circle cx=\"818.0166666666668\" cy=\"23.773333333333337\" r=\"3.6\" />\n    <circle cx=\"859.58\" cy=\"105.95833333333336\" r=\"3.6\" />\n    <circle cx=\"859.58\" cy=\"96.29\" r=\"3.6\" />\n    <circle cx=\"859.5749999999999\" cy=\"115.62833333333334\" r=\"3.6\" />\n    <circle cx=\"859.58\" cy=\"86.62333333333333\" r=\"3.6\" />\n    <circle cx=\"842.9350000000001\" cy=\"144.65\" r=\"3.6\" />\n    <circle cx=\"851.2783333333333\" cy=\"120.47500000000001\" r=\"3.6\" />\n    <circle cx=\"834.6599999999999\" cy=\"149.475\" r=\"3.6\" />\n    <circle cx=\"851.275\" cy=\"139.81333333333333\" r=\"3.6\" />\n    <circle cx=\"851.275\" cy=\"130.14333333333335\" r=\"3.6\" />\n    <circle cx=\"851.2866666666667\" cy=\"91.47000000000001\" r=\"3.6\" />\n    <circle cx=\"793.11\" cy=\"86.63666666666666\" r=\"3.6\" />\n    <circle cx=\"801.4383333333334\" cy=\"81.79666666666667\" r=\"3.6\" />\n    <circle cx=\"809.7400000000001\" cy=\"86.62333333333333\" r=\"3.6\" />\n    <circle cx=\"528.5283333333334\" cy=\"221.98833333333334\" r=\"3.6\" />\n    <circle cx=\"834.66\" cy=\"91.46999999999998\" r=\"3.6\" />\n    <circle cx=\"818.0366666666667\" cy=\"91.45333333333333\" r=\"3.6\" />\n    <circle cx=\"842.9466666666666\" cy=\"86.63666666666666\" r=\"3.6\" />\n    <circle cx=\"826.3683333333333\" cy=\"86.62333333333333\" r=\"3.6\" />\n    <circle cx=\"784.8216666666667\" cy=\"81.80833333333334\" r=\"3.6\" />\n    <circle cx=\"751.6533333333333\" cy=\"159.14666666666668\" r=\"3.6\" />\n    <circle cx=\"743.305\" cy=\"154.315\" r=\"3.6\" />\n    <circle cx=\"735.035\" cy=\"149.475\" r=\"3.6\" />\n    <circle cx=\"759.9583333333334\" cy=\"163.97666666666666\" r=\"3.6\" />\n    <circle cx=\"726.7283333333334\" cy=\"144.63666666666668\" r=\"3.6\" />\n    <circle cx=\"768.255\" cy=\"159.13666666666668\" r=\"3.6\" />\n    <circle cx=\"709.7887499999999\" cy=\"134.96375\" r=\"3.6\" />\n    <circle cx=\"718.4266666666666\" cy=\"139.79666666666668\" r=\"3.6\" />\n    <circle cx=\"776.5499999999998\" cy=\"154.30666666666667\" r=\"3.6\" />\n    <circle cx=\"818.07\" cy=\"159.13666666666668\" r=\"3.6\" />\n    <circle cx=\"809.75\" cy=\"154.30666666666667\" r=\"3.6\" />\n    <circle cx=\"826.4\" cy=\"163.97666666666666\" r=\"3.6\" />\n    <circle cx=\"834.69\" cy=\"168.82166666666666\" r=\"3.6\" />\n    <circle cx=\"801.4466666666667\" cy=\"149.48666666666668\" r=\"3.6\" />\n    <circle cx=\"834.68\" cy=\"159.15833333333333\" r=\"3.6\" />\n    <circle cx=\"784.8333333333334\" cy=\"149.475\" r=\"3.6\" />\n    <circle cx=\"793.1183333333333\" cy=\"154.315\" r=\"3.6\" />\n    <circle cx=\"560.7333333333333\" cy=\"105.95666666666666\" r=\"3.6\" />\n    <circle cx=\"560.7283333333334\" cy=\"115.62666666666667\" r=\"3.6\" />\n    <circle cx=\"702.13875\" cy=\"139.7975\" r=\"3.6\" />\n    <circle cx=\"552.4266666666666\" cy=\"139.79666666666665\" r=\"3.6\" />\n    <circle cx=\"560.725\" cy=\"96.28166666666668\" r=\"3.6\" />\n    <circle cx=\"560.7133333333334\" cy=\"125.30166666666668\" r=\"3.6\" />\n    <circle cx=\"602.255\" cy=\"101.12166666666667\" r=\"3.6\" />\n    <circle cx=\"577.3516666666666\" cy=\"86.60166666666667\" r=\"3.6\" />\n    <circle cx=\"593.9633333333334\" cy=\"96.27666666666669\" r=\"3.6\" />\n    <circle cx=\"585.66\" cy=\"91.43666666666667\" r=\"3.6\" />\n    <circle cx=\"520.2133333333334\" cy=\"168.8216666666667\" r=\"3.6\" />\n    <circle cx=\"520.235\" cy=\"207.49333333333334\" r=\"3.6\" />\n    <circle cx=\"511.895\" cy=\"212.33333333333334\" r=\"3.6\" />\n    <circle cx=\"520.235\" cy=\"217.16333333333333\" r=\"3.6\" />\n    <circle cx=\"520.1883333333334\" cy=\"159.13166666666666\" r=\"3.6\" />\n    <circle cx=\"520.23\" cy=\"197.82000000000002\" r=\"3.6\" />\n    <circle cx=\"610.515\" cy=\"96.28666666666668\" r=\"3.6\" />\n    <circle cx=\"520.2133333333334\" cy=\"178.49\" r=\"3.6\" />\n    <circle cx=\"520.22\" cy=\"188.16\" r=\"3.6\" />\n    <circle cx=\"718.44\" cy=\"81.78666666666668\" r=\"3.6\" />\n    <circle cx=\"768.225\" cy=\"81.78666666666668\" r=\"3.6\" />\n    <circle cx=\"726.7199999999999\" cy=\"76.95666666666668\" r=\"3.6\" />\n    <circle cx=\"710.1442857142857\" cy=\"77.23285714285716\" r=\"3.6\" />\n    <circle cx=\"702.14125\" cy=\"81.78125\" r=\"3.6\" />\n    <circle cx=\"743.275\" cy=\"76.965\" r=\"3.6\" />\n    <circle cx=\"759.9050000000001\" cy=\"76.95666666666668\" r=\"3.6\" />\n    <circle cx=\"735.0016666666667\" cy=\"72.125\" r=\"3.6\" />\n    <circle cx=\"751.6\" cy=\"72.13666666666667\" r=\"3.6\" />\n    <circle cx=\"693.48\" cy=\"86.62\" r=\"3.6\" />\n    <circle cx=\"685.2033333333334\" cy=\"91.45166666666667\" r=\"3.6\" />\n    <circle cx=\"635.4449999999999\" cy=\"101.10666666666667\" r=\"3.6\" />\n    <circle cx=\"826.3566666666667\" cy=\"144.63666666666668\" r=\"3.6\" />\n    <circle cx=\"618.855\" cy=\"101.12166666666667\" r=\"3.6\" />\n    <circle cx=\"627.1483333333333\" cy=\"105.94666666666666\" r=\"3.6\" />\n    <circle cx=\"643.7633333333333\" cy=\"105.94666666666667\" r=\"3.6\" />\n    <circle cx=\"676.91\" cy=\"96.27666666666669\" r=\"3.6\" />\n    <circle cx=\"660.3383333333334\" cy=\"96.27666666666669\" r=\"3.6\" />\n    <circle cx=\"668.595\" cy=\"101.10666666666667\" r=\"3.6\" />\n    <circle cx=\"776.54\" cy=\"86.62333333333333\" r=\"3.6\" />\n    <circle cx=\"685.2033333333334\" cy=\"101.12166666666667\" r=\"3.6\" />\n    <circle cx=\"702.1487500000001\" cy=\"91.45375000000001\" r=\"3.6\" />\n    <circle cx=\"693.48\" cy=\"96.28666666666668\" r=\"3.6\" />\n    <circle cx=\"676.91\" cy=\"105.94666666666667\" r=\"3.6\" />\n    <circle cx=\"735.0233333333332\" cy=\"81.80833333333334\" r=\"3.6\" />\n    <circle cx=\"668.59\" cy=\"110.77500000000002\" r=\"3.6\" />\n    <circle cx=\"726.7416666666667\" cy=\"86.62333333333333\" r=\"3.6\" />\n    <circle cx=\"743.295\" cy=\"86.63666666666666\" r=\"3.6\" />\n    <circle cx=\"709.7987499999999\" cy=\"86.62\" r=\"3.6\" />\n    <circle cx=\"718.44\" cy=\"91.45333333333333\" r=\"3.6\" />\n    <circle cx=\"618.8516666666666\" cy=\"110.79\" r=\"3.6\" />\n    <circle cx=\"627.14\" cy=\"115.61833333333333\" r=\"3.6\" />\n    <circle cx=\"610.515\" cy=\"105.95666666666666\" r=\"3.6\" />\n    <circle cx=\"602.2516666666667\" cy=\"110.79333333333334\" r=\"3.6\" />\n    <circle cx=\"593.9616666666667\" cy=\"105.94666666666667\" r=\"3.6\" />\n    <circle cx=\"635.4399999999999\" cy=\"110.77666666666669\" r=\"3.6\" />\n    <circle cx=\"660.3383333333334\" cy=\"105.94666666666666\" r=\"3.6\" />\n    <circle cx=\"643.76\" cy=\"115.61666666666667\" r=\"3.6\" />\n    <circle cx=\"652.015\" cy=\"110.79\" r=\"3.6\" />\n    <circle cx=\"851.2866666666667\" cy=\"101.13666666666667\" r=\"3.6\" />\n    <circle cx=\"842.9466666666666\" cy=\"96.30666666666667\" r=\"3.6\" />\n    <circle cx=\"834.66\" cy=\"101.13666666666666\" r=\"3.6\" />\n    <circle cx=\"851.2816666666666\" cy=\"110.80166666666668\" r=\"3.6\" />\n    <circle cx=\"826.3683333333333\" cy=\"96.29\" r=\"3.6\" />\n    <circle cx=\"842.9350000000001\" cy=\"134.98333333333332\" r=\"3.6\" />\n    <circle cx=\"834.65\" cy=\"139.81333333333333\" r=\"3.6\" />\n    <circle cx=\"842.935\" cy=\"125.31333333333332\" r=\"3.6\" />\n    <circle cx=\"842.9416666666666\" cy=\"115.64333333333333\" r=\"3.6\" />\n    <circle cx=\"793.11\" cy=\"96.30666666666667\" r=\"3.6\" />\n    <circle cx=\"768.225\" cy=\"91.45333333333333\" r=\"3.6\" />\n    <circle cx=\"818.0366666666667\" cy=\"101.12333333333333\" r=\"3.6\" />\n    <circle cx=\"776.54\" cy=\"96.29\" r=\"3.6\" />\n    <circle cx=\"759.9250000000001\" cy=\"86.62333333333333\" r=\"3.6\" />\n    <circle cx=\"784.8316666666666\" cy=\"91.46999999999998\" r=\"3.6\" />\n    <circle cx=\"809.7400000000001\" cy=\"96.29\" r=\"3.6\" />\n    <circle cx=\"801.4483333333333\" cy=\"91.47000000000001\" r=\"3.6\" />\n    <circle cx=\"751.62\" cy=\"81.79666666666667\" r=\"3.6\" />\n    <circle cx=\"577.3616666666667\" cy=\"96.27666666666669\" r=\"3.6\" />\n    <circle cx=\"602.3483333333334\" cy=\"255.82333333333335\" r=\"3.6\" />\n    <circle cx=\"618.9499999999999\" cy=\"246.15333333333334\" r=\"3.6\" />\n    <circle cx=\"610.61\" cy=\"250.99333333333334\" r=\"3.6\" />\n    <circle cx=\"627.25\" cy=\"241.30166666666665\" r=\"3.6\" />\n    <circle cx=\"635.485\" cy=\"197.80166666666665\" r=\"3.6\" />\n    <circle cx=\"577.4583333333333\" cy=\"250.97833333333335\" r=\"3.6\" />\n    <circle cx=\"577.4583333333333\" cy=\"260.6466666666667\" r=\"3.6\" />\n    <circle cx=\"594.055\" cy=\"260.6466666666667\" r=\"3.6\" />\n    <circle cx=\"585.7299999999999\" cy=\"265.4733333333333\" r=\"3.6\" />\n    <circle cx=\"652.0516666666666\" cy=\"168.79999999999998\" r=\"3.6\" />\n    <circle cx=\"676.9200000000001\" cy=\"154.28833333333333\" r=\"3.6\" />\n    <circle cx=\"643.8033333333333\" cy=\"192.96666666666667\" r=\"3.6\" />\n    <circle cx=\"685.2033333333334\" cy=\"149.45833333333334\" r=\"3.6\" />\n    <circle cx=\"660.3683333333333\" cy=\"163.95833333333334\" r=\"3.6\" />\n    <circle cx=\"668.625\" cy=\"159.12333333333333\" r=\"3.6\" />\n    <circle cx=\"652.0616666666666\" cy=\"188.14\" r=\"3.6\" />\n    <circle cx=\"577.4583333333334\" cy=\"241.3083333333333\" r=\"3.6\" />\n    <circle cx=\"652.0516666666666\" cy=\"178.47\" r=\"3.6\" />\n    <circle cx=\"528.5083333333334\" cy=\"173.64333333333332\" r=\"3.6\" />\n    <circle cx=\"569.0616666666666\" cy=\"120.46333333333332\" r=\"3.6\" />\n    <circle cx=\"569.0683333333333\" cy=\"110.78999999999998\" r=\"3.6\" />\n    <circle cx=\"569.0300000000001\" cy=\"130.145\" r=\"3.6\" />\n    <circle cx=\"528.5083333333334\" cy=\"163.97666666666666\" r=\"3.6\" />\n    <circle cx=\"585.66\" cy=\"101.10666666666667\" r=\"3.6\" />\n    <circle cx=\"569.07\" cy=\"101.12166666666667\" r=\"3.6\" />\n    <circle cx=\"693.4699999999999\" cy=\"144.63333333333335\" r=\"3.6\" />\n    <circle cx=\"569.1533333333333\" cy=\"236.47666666666666\" r=\"3.6\" />\n    <circle cx=\"569.04\" cy=\"91.435\" r=\"3.6\" />\n    <circle cx=\"552.4833333333333\" cy=\"226.81333333333336\" r=\"3.6\" />\n    <circle cx=\"536.825\" cy=\"217.15333333333334\" r=\"3.6\" />\n    <circle cx=\"544.995\" cy=\"221.98625\" r=\"3.6\" />\n    <circle cx=\"560.8050000000001\" cy=\"231.655\" r=\"3.6\" />\n    <circle cx=\"528.5083333333334\" cy=\"183.30999999999997\" r=\"3.6\" />\n    <circle cx=\"528.5183333333333\" cy=\"192.98\" r=\"3.6\" />\n    <circle cx=\"528.5283333333334\" cy=\"202.64833333333334\" r=\"3.6\" />\n    <circle cx=\"528.5283333333334\" cy=\"212.3183333333333\" r=\"3.6\" />\n    <circle cx=\"652.0200000000001\" cy=\"101.12\" r=\"3.6\" />\n    <circle cx=\"552.4200000000001\" cy=\"101.12333333333333\" r=\"3.6\" />\n    <circle cx=\"577.3366666666667\" cy=\"76.94166666666666\" r=\"3.6\" />\n    <circle cx=\"552.4200000000001\" cy=\"110.79333333333334\" r=\"3.6\" />\n    <circle cx=\"585.66\" cy=\"81.77\" r=\"3.6\" />\n    <circle cx=\"610.515\" cy=\"86.62\" r=\"3.6\" />\n    <circle cx=\"618.855\" cy=\"91.45166666666667\" r=\"3.6\" />\n    <circle cx=\"593.9616666666667\" cy=\"86.60666666666667\" r=\"3.6\" />\n    <circle cx=\"551.9371428571429\" cy=\"120.73571428571428\" r=\"3.6\" />\n    <circle cx=\"602.255\" cy=\"91.45166666666667\" r=\"3.6\" />\n    <circle cx=\"627.1483333333333\" cy=\"96.27666666666669\" r=\"3.6\" />\n    <circle cx=\"511.895\" cy=\"202.66333333333333\" r=\"3.6\" />\n    <circle cx=\"544.5557142857143\" cy=\"135.25285714285715\" r=\"3.6\" />\n    <circle cx=\"511.88499999999993\" cy=\"192.995\" r=\"3.6\" />\n    <circle cx=\"503.61999999999995\" cy=\"217.16333333333333\" r=\"3.6\" />\n    <circle cx=\"503.62000000000006\" cy=\"207.49333333333337\" r=\"3.6\" />\n    <circle cx=\"511.875\" cy=\"183.32666666666668\" r=\"3.6\" />\n    <circle cx=\"511.86499999999995\" cy=\"163.98\" r=\"3.6\" />\n    <circle cx=\"511.875\" cy=\"173.65666666666667\" r=\"3.6\" />\n    <circle cx=\"660.3383333333334\" cy=\"86.60666666666667\" r=\"3.6\" />\n    <circle cx=\"734.9916666666667\" cy=\"62.461666666666666\" r=\"3.6\" />\n    <circle cx=\"743.255\" cy=\"67.29666666666667\" r=\"3.6\" />\n    <circle cx=\"726.6983333333333\" cy=\"67.28666666666668\" r=\"3.6\" />\n    <circle cx=\"718.4183333333334\" cy=\"72.115\" r=\"3.6\" />\n    <circle cx=\"759.8833333333332\" cy=\"67.28666666666666\" r=\"3.6\" />\n    <circle cx=\"768.2049999999999\" cy=\"72.115\" r=\"3.6\" />\n    <circle cx=\"635.4449999999999\" cy=\"91.43666666666667\" r=\"3.6\" />\n    <circle cx=\"776.52\" cy=\"76.95666666666668\" r=\"3.6\" />\n    <circle cx=\"709.75875\" cy=\"67.28375000000001\" r=\"3.6\" />\n    <circle cx=\"751.5900000000001\" cy=\"62.461666666666666\" r=\"3.6\" />\n    <circle cx=\"668.595\" cy=\"91.43666666666667\" r=\"3.6\" />\n    <circle cx=\"652.0200000000001\" cy=\"91.45\" r=\"3.6\" />\n    <circle cx=\"495.32666666666665\" cy=\"221.98833333333334\" r=\"3.6\" />\n    <circle cx=\"643.7633333333333\" cy=\"96.27666666666669\" r=\"3.6\" />\n    <circle cx=\"693.4583333333334\" cy=\"76.95500000000001\" r=\"3.6\" />\n    <circle cx=\"701.7585714285715\" cy=\"71.84285714285714\" r=\"3.6\" />\n    <circle cx=\"685.1916666666666\" cy=\"81.78833333333334\" r=\"3.6\" />\n    <circle cx=\"676.91\" cy=\"86.60666666666667\" r=\"3.6\" />\n    <circle cx=\"610.5533333333334\" cy=\"289.6666666666667\" r=\"3.6\" />\n    <circle cx=\"618.92\" cy=\"313.83\" r=\"3.6\" />\n    <circle cx=\"610.595\" cy=\"328.3433333333333\" r=\"3.6\" />\n    <circle cx=\"577.44\" cy=\"337.99833333333333\" r=\"3.6\" />\n    <circle cx=\"610.575\" cy=\"309.005\" r=\"3.6\" />\n    <circle cx=\"610.595\" cy=\"318.67333333333335\" r=\"3.6\" />\n    <circle cx=\"577.4499999999999\" cy=\"347.6666666666667\" r=\"3.6\" />\n    <circle cx=\"594.0516666666667\" cy=\"347.6683333333333\" r=\"3.6\" />\n    <circle cx=\"594.0416666666667\" cy=\"337.99833333333333\" r=\"3.6\" />\n    <circle cx=\"495.34666666666664\" cy=\"231.6583333333333\" r=\"3.6\" />\n    <circle cx=\"610.5533333333334\" cy=\"299.33666666666664\" r=\"3.6\" />\n    <circle cx=\"643.895\" cy=\"250.97666666666666\" r=\"3.6\" />\n    <circle cx=\"627.2399999999999\" cy=\"260.6466666666667\" r=\"3.6\" />\n    <circle cx=\"635.5366666666667\" cy=\"255.81000000000003\" r=\"3.6\" />\n    <circle cx=\"643.7833333333333\" cy=\"231.645\" r=\"3.6\" />\n    <circle cx=\"784.8016666666666\" cy=\"72.125\" r=\"3.6\" />\n    <circle cx=\"618.935\" cy=\"265.485\" r=\"3.6\" />\n    <circle cx=\"610.5533333333334\" cy=\"279.99666666666667\" r=\"3.6\" />\n    <circle cx=\"610.5866666666667\" cy=\"270.32666666666665\" r=\"3.6\" />\n    <circle cx=\"602.335\" cy=\"333.17333333333335\" r=\"3.6\" />\n    <circle cx=\"569.15\" cy=\"333.17333333333335\" r=\"3.6\" />\n    <circle cx=\"545.035\" cy=\"241.32375\" r=\"3.6\" />\n    <circle cx=\"536.865\" cy=\"236.48666666666665\" r=\"3.6\" />\n    <circle cx=\"552.5133333333334\" cy=\"246.15666666666667\" r=\"3.6\" />\n    <circle cx=\"511.915\" cy=\"231.67\" r=\"3.6\" />\n    <circle cx=\"503.6499999999999\" cy=\"236.50833333333333\" r=\"3.6\" />\n    <circle cx=\"520.245\" cy=\"226.83833333333334\" r=\"3.6\" />\n    <circle cx=\"560.825\" cy=\"250.99333333333334\" r=\"3.6\" />\n    <circle cx=\"528.5500000000001\" cy=\"231.65833333333333\" r=\"3.6\" />\n    <circle cx=\"536.845\" cy=\"226.82000000000002\" r=\"3.6\" />\n    <circle cx=\"577.4399999999999\" cy=\"318.65833333333336\" r=\"3.6\" />\n    <circle cx=\"577.4399999999999\" cy=\"328.3283333333333\" r=\"3.6\" />\n    <circle cx=\"560.825\" cy=\"260.66333333333336\" r=\"3.6\" />\n    <circle cx=\"577.4\" cy=\"299.3233333333333\" r=\"3.6\" />\n    <circle cx=\"577.4\" cy=\"289.6566666666667\" r=\"3.6\" />\n    <circle cx=\"569.1216666666668\" cy=\"275.17\" r=\"3.6\" />\n    <circle cx=\"577.4\" cy=\"279.9866666666666\" r=\"3.6\" />\n    <circle cx=\"577.42\" cy=\"308.9883333333333\" r=\"3.6\" />\n    <circle cx=\"643.8133333333334\" cy=\"202.63666666666666\" r=\"3.6\" />\n    <circle cx=\"793.0883333333335\" cy=\"76.965\" r=\"3.6\" />\n    <circle cx=\"627.2399999999999\" cy=\"250.97833333333332\" r=\"3.6\" />\n    <circle cx=\"635.475\" cy=\"207.46666666666667\" r=\"3.6\" />\n    <circle cx=\"635.475\" cy=\"217.13333333333335\" r=\"3.6\" />\n    <circle cx=\"602.3333333333334\" cy=\"265.50166666666667\" r=\"3.6\" />\n    <circle cx=\"618.9499999999999\" cy=\"255.82333333333335\" r=\"3.6\" />\n    <circle cx=\"602.3016666666666\" cy=\"275.1566666666667\" r=\"3.6\" />\n    <circle cx=\"602.2916666666666\" cy=\"284.83166666666665\" r=\"3.6\" />\n    <circle cx=\"610.61\" cy=\"260.66333333333336\" r=\"3.6\" />\n    <circle cx=\"668.625\" cy=\"168.79\" r=\"3.6\" />\n    <circle cx=\"676.94\" cy=\"163.95833333333334\" r=\"3.6\" />\n    <circle cx=\"685.2233333333334\" cy=\"159.13833333333335\" r=\"3.6\" />\n    <circle cx=\"652.0716666666667\" cy=\"197.81000000000003\" r=\"3.6\" />\n    <circle cx=\"693.4899999999999\" cy=\"154.305\" r=\"3.6\" />\n    <circle cx=\"660.4033333333333\" cy=\"192.96333333333334\" r=\"3.6\" />\n    <circle cx=\"660.3783333333334\" cy=\"183.3033333333333\" r=\"3.6\" />\n    <circle cx=\"660.3683333333333\" cy=\"173.6266666666667\" r=\"3.6\" />\n    <circle cx=\"569.165\" cy=\"246.15333333333334\" r=\"3.6\" />\n    <circle cx=\"585.6949999999999\" cy=\"284.81666666666666\" r=\"3.6\" />\n    <circle cx=\"569.1516666666665\" cy=\"265.485\" r=\"3.6\" />\n    <circle cx=\"577.425\" cy=\"270.32\" r=\"3.6\" />\n    <circle cx=\"585.6949999999999\" cy=\"275.1466666666667\" r=\"3.6\" />\n    <circle cx=\"569.1649999999998\" cy=\"255.82333333333335\" r=\"3.6\" />\n    <circle cx=\"544.6685714285715\" cy=\"231.9285714285714\" r=\"3.6\" />\n    <circle cx=\"701.7900000000001\" cy=\"149.19285714285715\" r=\"3.6\" />\n    <circle cx=\"552.5033333333334\" cy=\"236.49166666666667\" r=\"3.6\" />\n    <circle cx=\"560.825\" cy=\"241.32333333333335\" r=\"3.6\" />\n    <circle cx=\"602.3233333333334\" cy=\"313.8433333333333\" r=\"3.6\" />\n    <circle cx=\"602.335\" cy=\"323.50333333333333\" r=\"3.6\" />\n    <circle cx=\"594.0416666666666\" cy=\"328.3283333333333\" r=\"3.6\" />\n    <circle cx=\"602.2916666666666\" cy=\"294.50166666666667\" r=\"3.6\" />\n    <circle cx=\"602.3016666666666\" cy=\"304.165\" r=\"3.6\" />\n    <circle cx=\"585.6949999999999\" cy=\"294.4866666666666\" r=\"3.6\" />\n    <circle cx=\"585.7183333333334\" cy=\"304.155\" r=\"3.6\" />\n    <circle cx=\"585.74\" cy=\"323.49333333333334\" r=\"3.6\" />\n    <circle cx=\"585.74\" cy=\"313.8233333333333\" r=\"3.6\" />\n    <circle cx=\"635.5666666666667\" cy=\"246.12666666666664\" r=\"3.6\" />\n    <circle cx=\"867.875\" cy=\"101.12333333333333\" r=\"3.6\" />\n    <circle cx=\"709.7887499999999\" cy=\"144.63375000000002\" r=\"3.6\" />\n    <circle cx=\"867.87\" cy=\"110.79333333333334\" r=\"3.6\" />\n    <circle cx=\"876.1816666666667\" cy=\"76.97166666666668\" r=\"3.6\" />\n    <circle cx=\"867.8750000000001\" cy=\"81.78666666666668\" r=\"3.6\" />\n    <circle cx=\"859.57\" cy=\"134.96666666666667\" r=\"3.6\" />\n    <circle cx=\"851.2866666666667\" cy=\"149.48666666666668\" r=\"3.6\" />\n    <circle cx=\"859.57\" cy=\"125.29833333333333\" r=\"3.6\" />\n    <circle cx=\"842.9583333333334\" cy=\"154.315\" r=\"3.6\" />\n    <circle cx=\"867.8650000000001\" cy=\"120.46333333333332\" r=\"3.6\" />\n    <circle cx=\"818.0366666666667\" cy=\"81.78666666666668\" r=\"3.6\" />\n    <circle cx=\"826.3466666666667\" cy=\"76.95666666666668\" r=\"3.6\" />\n    <circle cx=\"809.7199999999999\" cy=\"76.95666666666668\" r=\"3.6\" />\n    <circle cx=\"801.4150000000001\" cy=\"72.13666666666667\" r=\"3.6\" />\n    <circle cx=\"834.6500000000001\" cy=\"81.80833333333334\" r=\"3.6\" />\n    <circle cx=\"851.2766666666668\" cy=\"81.79666666666667\" r=\"3.6\" />\n    <circle cx=\"859.56\" cy=\"76.95666666666668\" r=\"3.6\" />\n    <circle cx=\"842.9250000000001\" cy=\"76.965\" r=\"3.6\" />\n    <circle cx=\"876.2066666666666\" cy=\"96.27333333333333\" r=\"3.6\" />\n    <circle cx=\"751.6633333333333\" cy=\"168.82166666666666\" r=\"3.6\" />\n    <circle cx=\"776.5699999999998\" cy=\"163.97666666666666\" r=\"3.6\" />\n    <circle cx=\"842.98\" cy=\"163.98666666666668\" r=\"3.6\" />\n    <circle cx=\"768.255\" cy=\"168.80666666666667\" r=\"3.6\" />\n    <circle cx=\"759.9583333333334\" cy=\"173.64333333333332\" r=\"3.6\" />\n    <circle cx=\"718.4483333333333\" cy=\"149.465\" r=\"3.6\" />\n    <circle cx=\"726.7516666666667\" cy=\"154.30833333333334\" r=\"3.6\" />\n    <circle cx=\"735.055\" cy=\"159.15833333333333\" r=\"3.6\" />\n    <circle cx=\"743.3250000000002\" cy=\"163.98666666666668\" r=\"3.6\" />\n    <circle cx=\"834.69\" cy=\"178.49\" r=\"3.6\" />\n    <circle cx=\"826.4\" cy=\"173.64333333333332\" r=\"3.6\" />\n    <circle cx=\"842.98\" cy=\"173.65666666666667\" r=\"3.6\" />\n    <circle cx=\"784.8533333333334\" cy=\"159.15833333333333\" r=\"3.6\" />\n    <circle cx=\"818.07\" cy=\"168.80666666666667\" r=\"3.6\" />\n    <circle cx=\"793.14\" cy=\"163.98666666666668\" r=\"3.6\" />\n    <circle cx=\"809.7700000000001\" cy=\"163.97666666666666\" r=\"3.6\" />\n    <circle cx=\"801.4699999999999\" cy=\"159.14666666666668\" r=\"3.6\" />\n    <circle cx=\"710.147142857143\" cy=\"115.89999999999999\" r=\"3.6\" />\n    <circle cx=\"743.295\" cy=\"105.97333333333334\" r=\"3.6\" />\n    <circle cx=\"735.035\" cy=\"101.13666666666666\" r=\"3.6\" />\n    <circle cx=\"726.7416666666667\" cy=\"105.95833333333333\" r=\"3.6\" />\n    <circle cx=\"718.4333333333333\" cy=\"110.79333333333334\" r=\"3.6\" />\n    <circle cx=\"759.9250000000001\" cy=\"105.95833333333333\" r=\"3.6\" />\n    <circle cx=\"776.5333333333333\" cy=\"115.62833333333333\" r=\"3.6\" />\n    <circle cx=\"768.2199999999999\" cy=\"110.79333333333334\" r=\"3.6\" />\n    <circle cx=\"709.7987499999999\" cy=\"105.9575\" r=\"3.6\" />\n    <circle cx=\"751.6300000000001\" cy=\"101.13666666666666\" r=\"3.6\" />\n    <circle cx=\"676.9\" cy=\"125.28333333333335\" r=\"3.6\" />\n    <circle cx=\"618.855\" cy=\"149.47\" r=\"3.6\" />\n    <circle cx=\"602.3083333333333\" cy=\"207.48166666666665\" r=\"3.6\" />\n    <circle cx=\"618.92\" cy=\"207.48333333333335\" r=\"3.6\" />\n    <circle cx=\"594.015\" cy=\"202.63666666666666\" r=\"3.6\" />\n    <circle cx=\"685.1966666666666\" cy=\"120.46\" r=\"3.6\" />\n    <circle cx=\"693.475\" cy=\"115.62666666666667\" r=\"3.6\" />\n    <circle cx=\"701.7971428571428\" cy=\"110.51857142857143\" r=\"3.6\" />\n    <circle cx=\"784.8299999999999\" cy=\"110.80499999999999\" r=\"3.6\" />\n    <circle cx=\"826.3800000000001\" cy=\"154.30666666666667\" r=\"3.6\" />\n    <circle cx=\"776.5299999999999\" cy=\"125.29833333333333\" r=\"3.6\" />\n    <circle cx=\"768.215\" cy=\"130.13000000000002\" r=\"3.6\" />\n    <circle cx=\"759.915\" cy=\"134.96666666666667\" r=\"3.6\" />\n    <circle cx=\"784.8249999999999\" cy=\"120.47166666666665\" r=\"3.6\" />\n    <circle cx=\"751.6199999999999\" cy=\"130.14333333333335\" r=\"3.6\" />\n    <circle cx=\"726.735\" cy=\"115.62833333333333\" r=\"3.6\" />\n    <circle cx=\"793.1033333333334\" cy=\"115.64333333333332\" r=\"3.6\" />\n    <circle cx=\"735.0266666666666\" cy=\"120.47166666666665\" r=\"3.6\" />\n    <circle cx=\"743.285\" cy=\"125.31333333333333\" r=\"3.6\" />\n    <circle cx=\"793.0966666666667\" cy=\"125.31333333333333\" r=\"3.6\" />\n    <circle cx=\"818.025\" cy=\"120.46333333333332\" r=\"3.6\" />\n    <circle cx=\"809.735\" cy=\"115.62833333333333\" r=\"3.6\" />\n    <circle cx=\"801.445\" cy=\"110.80166666666668\" r=\"3.6\" />\n    <circle cx=\"826.3616666666667\" cy=\"115.62833333333333\" r=\"3.6\" />\n    <circle cx=\"801.44\" cy=\"120.47499999999998\" r=\"3.6\" />\n    <circle cx=\"809.73\" cy=\"125.29833333333333\" r=\"3.6\" />\n    <circle cx=\"826.3566666666666\" cy=\"125.29833333333333\" r=\"3.6\" />\n    <circle cx=\"818.0250000000001\" cy=\"130.13000000000002\" r=\"3.6\" />\n    <circle cx=\"569.105\" cy=\"188.14499999999998\" r=\"3.6\" />\n    <circle cx=\"602.2916666666666\" cy=\"188.13833333333332\" r=\"3.6\" />\n    <circle cx=\"602.3033333333333\" cy=\"197.81499999999997\" r=\"3.6\" />\n    <circle cx=\"602.2716666666666\" cy=\"178.45333333333335\" r=\"3.6\" />\n    <circle cx=\"618.8266666666667\" cy=\"168.80333333333334\" r=\"3.6\" />\n    <circle cx=\"585.7149999999999\" cy=\"207.46666666666667\" r=\"3.6\" />\n    <circle cx=\"602.3083333333333\" cy=\"217.14999999999998\" r=\"3.6\" />\n    <circle cx=\"594.015\" cy=\"212.30333333333337\" r=\"3.6\" />\n    <circle cx=\"610.5966666666667\" cy=\"202.62833333333333\" r=\"3.6\" />\n    <circle cx=\"610.5666666666667\" cy=\"212.3166666666667\" r=\"3.6\" />\n    <circle cx=\"593.9216666666666\" cy=\"154.295\" r=\"3.6\" />\n    <circle cx=\"552.4683333333334\" cy=\"197.8166666666667\" r=\"3.6\" />\n    <circle cx=\"552.4583333333334\" cy=\"188.14166666666665\" r=\"3.6\" />\n    <circle cx=\"627.13\" cy=\"144.61333333333334\" r=\"3.6\" />\n    <circle cx=\"560.765\" cy=\"183.30666666666664\" r=\"3.6\" />\n    <circle cx=\"560.785\" cy=\"202.64666666666665\" r=\"3.6\" />\n    <circle cx=\"635.4250000000001\" cy=\"139.77833333333334\" r=\"3.6\" />\n    <circle cx=\"577.4\" cy=\"154.28666666666666\" r=\"3.6\" />\n    <circle cx=\"569.07\" cy=\"178.455\" r=\"3.6\" />\n    <circle cx=\"618.8466666666667\" cy=\"159.145\" r=\"3.6\" />\n    <circle cx=\"585.705\" cy=\"188.12666666666667\" r=\"3.6\" />\n    <circle cx=\"577.4150000000001\" cy=\"202.63666666666666\" r=\"3.6\" />\n    <circle cx=\"585.7233333333332\" cy=\"178.4383333333333\" r=\"3.6\" />\n    <circle cx=\"577.4033333333334\" cy=\"192.9666666666667\" r=\"3.6\" />\n    <circle cx=\"602.2316666666667\" cy=\"149.44333333333336\" r=\"3.6\" />\n    <circle cx=\"602.2566666666667\" cy=\"159.16166666666666\" r=\"3.6\" />\n    <circle cx=\"585.7149999999999\" cy=\"197.7966666666667\" r=\"3.6\" />\n    <circle cx=\"602.2033333333334\" cy=\"139.79000000000002\" r=\"3.6\" />\n    <circle cx=\"610.535\" cy=\"144.61666666666667\" r=\"3.6\" />\n    <circle cx=\"560.775\" cy=\"192.9766666666667\" r=\"3.6\" />\n    <circle cx=\"735.0316666666666\" cy=\"110.80499999999999\" r=\"3.6\" />\n    <circle cx=\"569.115\" cy=\"197.80833333333337\" r=\"3.6\" />\n    <circle cx=\"577.3933333333334\" cy=\"183.29666666666665\" r=\"3.6\" />\n    <circle cx=\"610.525\" cy=\"154.305\" r=\"3.6\" />\n    <circle cx=\"593.9933333333332\" cy=\"183.29666666666665\" r=\"3.6\" />\n    <circle cx=\"594.005\" cy=\"192.96666666666667\" r=\"3.6\" />\n    <circle cx=\"577.3950000000001\" cy=\"173.61666666666667\" r=\"3.6\" />\n    <circle cx=\"594.0416666666667\" cy=\"318.65833333333336\" r=\"3.6\" />\n    <circle cx=\"901.005\" cy=\"43.10166666666666\" r=\"3.6\" />\n    <circle cx=\"917.64\" cy=\"43.086666666666666\" r=\"3.6\" />\n    <circle cx=\"876.1350000000001\" cy=\"38.24333333333333\" r=\"3.6\" />\n    <circle cx=\"934.225\" cy=\"43.10666666666666\" r=\"3.6\" />\n    <circle cx=\"826.3083333333334\" cy=\"38.251666666666665\" r=\"3.6\" />\n    <circle cx=\"784.77\" cy=\"33.435\" r=\"3.6\" />\n    <circle cx=\"859.5400000000001\" cy=\"38.266666666666666\" r=\"3.6\" />\n    <circle cx=\"959.1383333333333\" cy=\"47.93666666666667\" r=\"3.6\" />\n    <circle cx=\"842.9149999999998\" cy=\"38.27\" r=\"3.6\" />\n    <circle cx=\"801.3650000000001\" cy=\"33.434999999999995\" r=\"3.6\" />\n    <circle cx=\"743.29\" cy=\"115.64333333333332\" r=\"3.6\" />\n    <circle cx=\"917.62\" cy=\"52.77666666666667\" r=\"3.6\" />\n    <circle cx=\"934.23\" cy=\"52.79333333333333\" r=\"3.6\" />\n    <circle cx=\"909.3216666666667\" cy=\"57.616666666666674\" r=\"3.6\" />\n    <circle cx=\"942.5050000000001\" cy=\"57.629999999999995\" r=\"3.6\" />\n    <circle cx=\"942.5050000000001\" cy=\"67.29666666666667\" r=\"3.6\" />\n    <circle cx=\"934.23\" cy=\"62.461666666666666\" r=\"3.6\" />\n    <circle cx=\"950.8449999999999\" cy=\"52.79333333333332\" r=\"3.6\" />\n    <circle cx=\"901.0750000000002\" cy=\"159.165\" r=\"3.6\" />\n    <circle cx=\"751.5450000000001\" cy=\"23.76166666666667\" r=\"3.6\" />\n    <circle cx=\"503.60166666666674\" cy=\"275.19\" r=\"3.6\" />\n    <circle cx=\"793.1816666666665\" cy=\"212.35833333333335\" r=\"3.6\" />\n    <circle cx=\"569.16\" cy=\"420.2\" r=\"3.6\" />\n    <circle cx=\"768.3649999999999\" cy=\"265.5\" r=\"3.6\" />\n    <circle cx=\"950.8699999999999\" cy=\"101.15833333333335\" r=\"3.6\" />\n    <circle cx=\"975.7583333333332\" cy=\"57.63166666666667\" r=\"3.6\" />\n    <circle cx=\"842.995\" cy=\"309.0416666666667\" r=\"3.6\" />\n    <circle cx=\"892.7533333333332\" cy=\"135.00166666666667\" r=\"3.6\" />\n    <circle cx=\"585.8216666666666\" cy=\"420.20666666666665\" r=\"3.6\" />\n    <circle cx=\"660.2750000000001\" cy=\"47.905\" r=\"3.6\" />\n    <circle cx=\"710.1014285714285\" cy=\"28.874285714285715\" r=\"3.6\" />\n    <circle cx=\"487.01499999999993\" cy=\"275.18833333333333\" r=\"3.6\" />\n    <circle cx=\"734.9583333333334\" cy=\"23.763333333333335\" r=\"3.6\" />\n    <circle cx=\"676.8283333333334\" cy=\"38.25\" r=\"3.6\" />\n    <circle cx=\"577.3216666666666\" cy=\"38.25166666666667\" r=\"3.6\" />\n    <circle cx=\"635.425\" cy=\"52.741666666666674\" r=\"3.6\" />\n    <circle cx=\"610.495\" cy=\"47.92166666666666\" r=\"3.6\" />\n    <circle cx=\"925.9366666666666\" cy=\"57.616666666666674\" r=\"3.6\" />\n    <circle cx=\"594.0183333333333\" cy=\"308.9883333333333\" r=\"3.6\" />\n    <circle cx=\"569.12\" cy=\"207.48166666666665\" r=\"3.6\" />\n    <circle cx=\"593.9983333333333\" cy=\"299.3233333333333\" r=\"3.6\" />\n    <circle cx=\"585.75\" cy=\"342.83\" r=\"3.6\" />\n    <circle cx=\"593.9983333333333\" cy=\"279.9866666666666\" r=\"3.6\" />\n    <circle cx=\"503.62999999999994\" cy=\"226.82666666666663\" r=\"3.6\" />\n    <circle cx=\"511.895\" cy=\"222.0033333333333\" r=\"3.6\" />\n    <circle cx=\"876.23\" cy=\"86.62\" r=\"3.6\" />\n    <circle cx=\"867.8750000000001\" cy=\"91.45333333333333\" r=\"3.6\" />\n    <circle cx=\"593.9983333333333\" cy=\"289.6566666666667\" r=\"3.6\" />\n    <circle cx=\"751.6233333333333\" cy=\"120.47500000000001\" r=\"3.6\" />\n    <circle cx=\"759.9200000000001\" cy=\"115.62833333333333\" r=\"3.6\" />\n    <circle cx=\"594.0266666666668\" cy=\"270.31666666666666\" r=\"3.6\" />\n    <circle cx=\"751.6283333333334\" cy=\"110.80166666666668\" r=\"3.6\" />\n    <circle cx=\"768.215\" cy=\"120.46333333333332\" r=\"3.6\" />\n    <circle cx=\"834.6566666666666\" cy=\"110.80499999999999\" r=\"3.6\" />\n    <circle cx=\"842.9466666666667\" cy=\"105.97333333333331\" r=\"3.6\" />\n    <circle cx=\"759.915\" cy=\"125.29833333333333\" r=\"3.6\" />\n    <circle cx=\"585.74\" cy=\"333.16333333333336\" r=\"3.6\" />\n    <circle cx=\"826.415\" cy=\"260.655\" r=\"3.6\" />\n    <circle cx=\"909.3666666666667\" cy=\"76.95333333333333\" r=\"3.6\" />\n    <circle cx=\"826.4000000000001\" cy=\"241.32666666666663\" r=\"3.6\" />\n    <circle cx=\"826.41\" cy=\"251.0016666666667\" r=\"3.6\" />\n    <circle cx=\"843.045\" cy=\"280.0133333333334\" r=\"3.6\" />\n    <circle cx=\"760.04\" cy=\"241.32666666666668\" r=\"3.6\" />\n    <circle cx=\"759.9783333333334\" cy=\"221.98833333333332\" r=\"3.6\" />\n    <circle cx=\"760.0099999999999\" cy=\"231.66166666666666\" r=\"3.6\" />\n    <circle cx=\"834.7516666666667\" cy=\"246.1716666666667\" r=\"3.6\" />\n    <circle cx=\"560.8000000000001\" cy=\"270.3266666666667\" r=\"3.6\" />\n    <circle cx=\"585.76\" cy=\"362.1666666666667\" r=\"3.6\" />\n    <circle cx=\"585.76\" cy=\"352.49666666666667\" r=\"3.6\" />\n    <circle cx=\"859.5799999999999\" cy=\"144.64333333333335\" r=\"3.6\" />\n    <circle cx=\"834.7416666666667\" cy=\"236.50833333333333\" r=\"3.6\" />\n    <circle cx=\"834.7216666666667\" cy=\"226.82666666666663\" r=\"3.6\" />\n    <circle cx=\"552.5133333333334\" cy=\"265.49666666666667\" r=\"3.6\" />\n    <circle cx=\"478.73333333333335\" cy=\"231.65833333333333\" r=\"3.6\" />\n    <circle cx=\"668.585\" cy=\"130.11333333333332\" r=\"3.6\" />\n    <circle cx=\"577.3583333333332\" cy=\"115.61666666666666\" r=\"3.6\" />\n    <circle cx=\"577.3533333333332\" cy=\"125.28333333333332\" r=\"3.6\" />\n    <circle cx=\"569\" cy=\"139.79333333333332\" r=\"3.6\" />\n    <circle cx=\"577.3616666666667\" cy=\"105.94666666666666\" r=\"3.6\" />\n    <circle cx=\"577.3533333333332\" cy=\"134.94833333333335\" r=\"3.6\" />\n    <circle cx=\"610.5416666666666\" cy=\"115.64499999999998\" r=\"3.6\" />\n    <circle cx=\"602.2483333333333\" cy=\"120.46\" r=\"3.6\" />\n    <circle cx=\"627.1233333333333\" cy=\"125.28000000000002\" r=\"3.6\" />\n    <circle cx=\"593.9549999999999\" cy=\"115.61666666666667\" r=\"3.6\" />\n    <circle cx=\"585.6566666666666\" cy=\"110.77666666666669\" r=\"3.6\" />\n    <circle cx=\"536.825\" cy=\"207.48333333333335\" r=\"3.6\" />\n    <circle cx=\"544.995\" cy=\"212.31625\" r=\"3.6\" />\n    <circle cx=\"536.825\" cy=\"197.81333333333336\" r=\"3.6\" />\n    <circle cx=\"552.4733333333334\" cy=\"217.15333333333334\" r=\"3.6\" />\n    <circle cx=\"536.855\" cy=\"159.13000000000002\" r=\"3.6\" />\n    <circle cx=\"536.835\" cy=\"168.78833333333333\" r=\"3.6\" />\n    <circle cx=\"536.815\" cy=\"188.14499999999998\" r=\"3.6\" />\n    <circle cx=\"536.8050000000001\" cy=\"178.47333333333333\" r=\"3.6\" />\n    <circle cx=\"709.7987499999999\" cy=\"96.2875\" r=\"3.6\" />\n    <circle cx=\"735.035\" cy=\"91.46999999999998\" r=\"3.6\" />\n    <circle cx=\"743.295\" cy=\"96.30666666666667\" r=\"3.6\" />\n    <circle cx=\"726.7416666666667\" cy=\"96.29\" r=\"3.6\" />\n    <circle cx=\"560.785\" cy=\"221.98666666666665\" r=\"3.6\" />\n    <circle cx=\"718.44\" cy=\"101.12333333333333\" r=\"3.6\" />\n    <circle cx=\"768.225\" cy=\"101.12333333333333\" r=\"3.6\" />\n    <circle cx=\"635.4350000000001\" cy=\"120.44666666666667\" r=\"3.6\" />\n    <circle cx=\"776.54\" cy=\"105.95833333333333\" r=\"3.6\" />\n    <circle cx=\"759.9250000000001\" cy=\"96.29\" r=\"3.6\" />\n    <circle cx=\"751.6300000000001\" cy=\"91.47000000000001\" r=\"3.6\" />\n    <circle cx=\"660.3316666666666\" cy=\"115.61666666666666\" r=\"3.6\" />\n    <circle cx=\"652.0083333333333\" cy=\"120.46\" r=\"3.6\" />\n    <circle cx=\"643.7533333333333\" cy=\"125.28333333333335\" r=\"3.6\" />\n    <circle cx=\"668.585\" cy=\"120.44666666666667\" r=\"3.6\" />\n    <circle cx=\"676.9066666666666\" cy=\"115.61666666666667\" r=\"3.6\" />\n    <circle cx=\"693.48\" cy=\"105.95666666666666\" r=\"3.6\" />\n    <circle cx=\"702.1487500000001\" cy=\"101.12375\" r=\"3.6\" />\n    <circle cx=\"685.2016666666667\" cy=\"110.79166666666667\" r=\"3.6\" />\n    <circle cx=\"660.3466666666667\" cy=\"154.28833333333333\" r=\"3.6\" />\n    <circle cx=\"726.7283333333334\" cy=\"134.96666666666667\" r=\"3.6\" />\n    <circle cx=\"735.025\" cy=\"139.81333333333333\" r=\"3.6\" />\n    <circle cx=\"743.285\" cy=\"144.65\" r=\"3.6\" />\n    <circle cx=\"718.4266666666666\" cy=\"130.13000000000002\" r=\"3.6\" />\n    <circle cx=\"709.7887499999999\" cy=\"125.29625\" r=\"3.6\" />\n    <circle cx=\"751.6300000000001\" cy=\"149.48666666666668\" r=\"3.6\" />\n    <circle cx=\"693.4699999999999\" cy=\"134.96333333333334\" r=\"3.6\" />\n    <circle cx=\"685.1933333333333\" cy=\"139.79333333333332\" r=\"3.6\" />\n    <circle cx=\"569.13\" cy=\"226.82333333333335\" r=\"3.6\" />\n    <circle cx=\"793.0966666666667\" cy=\"144.65\" r=\"3.6\" />\n    <circle cx=\"801.4366666666666\" cy=\"139.81333333333333\" r=\"3.6\" />\n    <circle cx=\"676.9000000000001\" cy=\"144.61833333333334\" r=\"3.6\" />\n    <circle cx=\"809.73\" cy=\"144.63666666666668\" r=\"3.6\" />\n    <circle cx=\"818.0483333333332\" cy=\"149.465\" r=\"3.6\" />\n    <circle cx=\"776.5299999999999\" cy=\"144.63666666666668\" r=\"3.6\" />\n    <circle cx=\"768.235\" cy=\"149.465\" r=\"3.6\" />\n    <circle cx=\"759.9366666666666\" cy=\"154.30666666666667\" r=\"3.6\" />\n    <circle cx=\"784.8216666666667\" cy=\"139.81333333333333\" r=\"3.6\" />\n    <circle cx=\"702.13875\" cy=\"130.13\" r=\"3.6\" />\n    <circle cx=\"585.755\" cy=\"255.80999999999997\" r=\"3.6\" />\n    <circle cx=\"668.605\" cy=\"149.45499999999998\" r=\"3.6\" />\n    <circle cx=\"602.3483333333334\" cy=\"246.1533333333333\" r=\"3.6\" />\n    <circle cx=\"618.9399999999999\" cy=\"236.47666666666666\" r=\"3.6\" />\n    <circle cx=\"610.61\" cy=\"241.32333333333335\" r=\"3.6\" />\n    <circle cx=\"577.4366666666666\" cy=\"231.63833333333335\" r=\"3.6\" />\n    <circle cx=\"585.755\" cy=\"246.1433333333333\" r=\"3.6\" />\n    <circle cx=\"585.755\" cy=\"236.47333333333333\" r=\"3.6\" />\n    <circle cx=\"594.055\" cy=\"250.97833333333332\" r=\"3.6\" />\n    <circle cx=\"643.7933333333333\" cy=\"173.6266666666667\" r=\"3.6\" />\n    <circle cx=\"643.7933333333333\" cy=\"163.95833333333334\" r=\"3.6\" />\n    <circle cx=\"652.0516666666666\" cy=\"159.13000000000002\" r=\"3.6\" />\n    <circle cx=\"784.8316666666666\" cy=\"101.13666666666666\" r=\"3.6\" />\n    <circle cx=\"635.485\" cy=\"188.12666666666667\" r=\"3.6\" />\n    <circle cx=\"627.185\" cy=\"192.97\" r=\"3.6\" />\n    <circle cx=\"643.7933333333333\" cy=\"183.29666666666665\" r=\"3.6\" />\n    <circle cx=\"627.25\" cy=\"231.63333333333333\" r=\"3.6\" />\n    <circle cx=\"643.7533333333333\" cy=\"134.94833333333335\" r=\"3.6\" />\n    <circle cx=\"544.97125\" cy=\"183.30749999999998\" r=\"3.6\" />\n    <circle cx=\"577.3566666666667\" cy=\"144.62666666666664\" r=\"3.6\" />\n    <circle cx=\"544.6214285714285\" cy=\"173.91428571428574\" r=\"3.6\" />\n    <circle cx=\"585.7133333333333\" cy=\"139.78333333333333\" r=\"3.6\" />\n    <circle cx=\"552.4616666666666\" cy=\"178.46833333333333\" r=\"3.6\" />\n    <circle cx=\"610.5566666666667\" cy=\"125.30166666666666\" r=\"3.6\" />\n    <circle cx=\"594.055\" cy=\"241.3083333333333\" r=\"3.6\" />\n    <circle cx=\"585.6533333333333\" cy=\"120.44666666666667\" r=\"3.6\" />\n    <circle cx=\"585.6833333333333\" cy=\"130.13166666666666\" r=\"3.6\" />\n    <circle cx=\"569.12\" cy=\"217.15\" r=\"3.6\" />\n    <circle cx=\"585.735\" cy=\"226.80499999999998\" r=\"3.6\" />\n    <circle cx=\"635.425\" cy=\"130.11999999999998\" r=\"3.6\" />\n    <circle cx=\"577.4150000000001\" cy=\"221.97\" r=\"3.6\" />\n    <circle cx=\"544.6357142857142\" cy=\"193.25142857142856\" r=\"3.6\" />\n    <circle cx=\"594.035\" cy=\"231.63833333333332\" r=\"3.6\" />\n    <circle cx=\"544.9950000000001\" cy=\"202.64625\" r=\"3.6\" />\n    <circle cx=\"560.785\" cy=\"212.3166666666667\" r=\"3.6\" />\n    <circle cx=\"552.4733333333334\" cy=\"207.48333333333332\" r=\"3.6\" />\n    <circle cx=\"593.975\" cy=\"125.29666666666668\" r=\"3.6\" />\n    <circle cx=\"618.92\" cy=\"217.15333333333334\" r=\"3.6\" />\n    <circle cx=\"627.18\" cy=\"173.62666666666667\" r=\"3.6\" />\n    <circle cx=\"610.5466666666666\" cy=\"183.30666666666664\" r=\"3.6\" />\n    <circle cx=\"577.4150000000001\" cy=\"212.30333333333337\" r=\"3.6\" />\n    <circle cx=\"610.5816666666666\" cy=\"192.99\" r=\"3.6\" />\n    <circle cx=\"594.015\" cy=\"221.97\" r=\"3.6\" />\n    <circle cx=\"585.7149999999999\" cy=\"217.13333333333333\" r=\"3.6\" />\n    <circle cx=\"602.3183333333335\" cy=\"226.8116666666667\" r=\"3.6\" />\n    <circle cx=\"610.5666666666667\" cy=\"221.98666666666665\" r=\"3.6\" />\n    <circle cx=\"618.8566666666667\" cy=\"178.455\" r=\"3.6\" />\n    <circle cx=\"652.0083333333333\" cy=\"139.79\" r=\"3.6\" />\n    <circle cx=\"660.3249999999999\" cy=\"125.28333333333335\" r=\"3.6\" />\n    <circle cx=\"660.325\" cy=\"134.94833333333335\" r=\"3.6\" />\n    <circle cx=\"627.18\" cy=\"163.95833333333334\" r=\"3.6\" />\n    <circle cx=\"652.0083333333333\" cy=\"130.12333333333333\" r=\"3.6\" />\n    <circle cx=\"627.16\" cy=\"154.28833333333333\" r=\"3.6\" />\n    <circle cx=\"635.455\" cy=\"149.45499999999998\" r=\"3.6\" />\n    <circle cx=\"643.7533333333333\" cy=\"144.61833333333334\" r=\"3.6\" />\n    <circle cx=\"635.475\" cy=\"178.45666666666668\" r=\"3.6\" />\n    <circle cx=\"768.215\" cy=\"139.79666666666668\" r=\"3.6\" />\n    <circle cx=\"776.5299999999999\" cy=\"134.96666666666667\" r=\"3.6\" />\n    <circle cx=\"784.8216666666667\" cy=\"130.14333333333335\" r=\"3.6\" />\n    <circle cx=\"793.0966666666667\" cy=\"134.98333333333332\" r=\"3.6\" />\n    <circle cx=\"726.7283333333334\" cy=\"125.29833333333333\" r=\"3.6\" />\n    <circle cx=\"743.285\" cy=\"134.98333333333332\" r=\"3.6\" />\n    <circle cx=\"735.025\" cy=\"130.14333333333335\" r=\"3.6\" />\n    <circle cx=\"751.6199999999999\" cy=\"139.81333333333333\" r=\"3.6\" />\n    <circle cx=\"759.915\" cy=\"144.63666666666668\" r=\"3.6\" />\n    <circle cx=\"801.4366666666666\" cy=\"130.14333333333335\" r=\"3.6\" />\n    <circle cx=\"818.0299999999999\" cy=\"110.79333333333334\" r=\"3.6\" />\n    <circle cx=\"602.3383333333335\" cy=\"236.48833333333332\" r=\"3.6\" />\n    <circle cx=\"826.3683333333333\" cy=\"105.95833333333333\" r=\"3.6\" />\n    <circle cx=\"801.4483333333333\" cy=\"101.13666666666666\" r=\"3.6\" />\n    <circle cx=\"826.3566666666666\" cy=\"134.96666666666667\" r=\"3.6\" />\n    <circle cx=\"834.65\" cy=\"130.14333333333335\" r=\"3.6\" />\n    <circle cx=\"818.0250000000001\" cy=\"139.79666666666668\" r=\"3.6\" />\n    <circle cx=\"809.73\" cy=\"134.96666666666667\" r=\"3.6\" />\n    <circle cx=\"834.6533333333333\" cy=\"120.47166666666668\" r=\"3.6\" />\n    <circle cx=\"718.4266666666666\" cy=\"120.46333333333332\" r=\"3.6\" />\n    <circle cx=\"627.18\" cy=\"183.2966666666667\" r=\"3.6\" />\n    <circle cx=\"793.11\" cy=\"105.97333333333334\" r=\"3.6\" />\n    <circle cx=\"635.475\" cy=\"159.12333333333333\" r=\"3.6\" />\n    <circle cx=\"610.5883333333334\" cy=\"231.655\" r=\"3.6\" />\n    <circle cx=\"643.7733333333333\" cy=\"154.28833333333333\" r=\"3.6\" />\n    <circle cx=\"618.92\" cy=\"226.82000000000002\" r=\"3.6\" />\n    <circle cx=\"618.8916666666667\" cy=\"188.145\" r=\"3.6\" />\n    <circle cx=\"635.475\" cy=\"168.79\" r=\"3.6\" />\n    <circle cx=\"693.4699999999999\" cy=\"125.29666666666667\" r=\"3.6\" />\n    <circle cx=\"652.0300000000001\" cy=\"149.46166666666667\" r=\"3.6\" />\n    <circle cx=\"643.7833333333333\" cy=\"221.98666666666665\" r=\"3.6\" />\n    <circle cx=\"685.1933333333333\" cy=\"130.1266666666667\" r=\"3.6\" />\n    <circle cx=\"702.14\" cy=\"120.46374999999999\" r=\"3.6\" />\n    <circle cx=\"676.9000000000001\" cy=\"134.94833333333335\" r=\"3.6\" />\n    <circle cx=\"660.325\" cy=\"144.61833333333334\" r=\"3.6\" />\n    <circle cx=\"668.585\" cy=\"139.78333333333333\" r=\"3.6\" />\n    <circle cx=\"809.7400000000001\" cy=\"105.95833333333333\" r=\"3.6\" />\n    <circle cx=\"544.9325\" cy=\"289.66625\" r=\"3.6\" />\n    <circle cx=\"544.9549999999999\" cy=\"280.01\" r=\"3.6\" />\n    <circle cx=\"552.455\" cy=\"294.50333333333333\" r=\"3.6\" />\n    <circle cx=\"552.465\" cy=\"304.1683333333333\" r=\"3.6\" />\n    <circle cx=\"544.6414285714287\" cy=\"270.6114285714286\" r=\"3.6\" />\n    <circle cx=\"552.0157142857142\" cy=\"313.57142857142856\" r=\"3.6\" />\n    <circle cx=\"520.275\" cy=\"255.84166666666667\" r=\"3.6\" />\n    <circle cx=\"528.57\" cy=\"260.6666666666667\" r=\"3.6\" />\n    <circle cx=\"536.84\" cy=\"265.49333333333334\" r=\"3.6\" />\n    <circle cx=\"511.9350000000001\" cy=\"260.6766666666667\" r=\"3.6\" />\n    <circle cx=\"569.2100000000002\" cy=\"400.8566666666666\" r=\"3.6\" />\n    <circle cx=\"569.1800000000002\" cy=\"381.5266666666667\" r=\"3.6\" />\n    <circle cx=\"569.1999999999999\" cy=\"391.185\" r=\"3.6\" />\n    <circle cx=\"560.8516666666668\" cy=\"396.02666666666664\" r=\"3.6\" />\n    <circle cx=\"560.83\" cy=\"367.01666666666665\" r=\"3.6\" />\n    <circle cx=\"544.6342857142856\" cy=\"347.95714285714286\" r=\"3.6\" />\n    <circle cx=\"552.0414285714287\" cy=\"352.79\" r=\"3.6\" />\n    <circle cx=\"503.5566666666667\" cy=\"139.81333333333336\" r=\"3.6\" />\n    <circle cx=\"560.82\" cy=\"376.6916666666666\" r=\"3.6\" />\n    <circle cx=\"478.71000000000004\" cy=\"202.64833333333334\" r=\"3.6\" />\n    <circle cx=\"503.6466666666667\" cy=\"265.5183333333334\" r=\"3.6\" />\n    <circle cx=\"487\" cy=\"188.14499999999998\" r=\"3.6\" />\n    <circle cx=\"470.42\" cy=\"207.49333333333334\" r=\"3.6\" />\n    <circle cx=\"495.2716666666666\" cy=\"154.33333333333334\" r=\"3.6\" />\n    <circle cx=\"495.2633333333333\" cy=\"144.63666666666666\" r=\"3.6\" />\n    <circle cx=\"470.42\" cy=\"217.16333333333333\" r=\"3.6\" />\n    <circle cx=\"486.98\" cy=\"178.46833333333333\" r=\"3.6\" />\n    <circle cx=\"487\" cy=\"168.78833333333333\" r=\"3.6\" />\n    <circle cx=\"478.695\" cy=\"192.9766666666667\" r=\"3.6\" />\n    <circle cx=\"478.75333333333333\" cy=\"260.6666666666667\" r=\"3.6\" />\n    <circle cx=\"487.0266666666667\" cy=\"265.49333333333334\" r=\"3.6\" />\n    <circle cx=\"495.36666666666673\" cy=\"260.6666666666667\" r=\"3.6\" />\n    <circle cx=\"470.43\" cy=\"226.83833333333334\" r=\"3.6\" />\n    <circle cx=\"470.43000000000006\" cy=\"255.86\" r=\"3.6\" />\n    <circle cx=\"462.09\" cy=\"231.665\" r=\"3.6\" />\n    <circle cx=\"462.11999999999995\" cy=\"241.33666666666662\" r=\"3.6\" />\n    <circle cx=\"470.46000000000004\" cy=\"246.17166666666665\" r=\"3.6\" />\n    <circle cx=\"552.5166666666668\" cy=\"362.18333333333334\" r=\"3.6\" />\n    <circle cx=\"718.48\" cy=\"188.14499999999998\" r=\"3.6\" />\n    <circle cx=\"660.4000000000001\" cy=\"260.63000000000005\" r=\"3.6\" />\n    <circle cx=\"685.2483333333333\" cy=\"207.46666666666667\" r=\"3.6\" />\n    <circle cx=\"709.8325\" cy=\"183.3075\" r=\"3.6\" />\n    <circle cx=\"693.505\" cy=\"192.98499999999999\" r=\"3.6\" />\n    <circle cx=\"668.715\" cy=\"236.49166666666665\" r=\"3.6\" />\n    <circle cx=\"685.265\" cy=\"217.155\" r=\"3.6\" />\n    <circle cx=\"668.665\" cy=\"226.80499999999998\" r=\"3.6\" />\n    <circle cx=\"676.9633333333334\" cy=\"221.97\" r=\"3.6\" />\n    <circle cx=\"701.83\" cy=\"187.87000000000003\" r=\"3.6\" />\n    <circle cx=\"751.685\" cy=\"236.51333333333332\" r=\"3.6\" />\n    <circle cx=\"743.335\" cy=\"222.01\" r=\"3.6\" />\n    <circle cx=\"751.695\" cy=\"226.83833333333334\" r=\"3.6\" />\n    <circle cx=\"751.6650000000001\" cy=\"246.17166666666665\" r=\"3.6\" />\n    <circle cx=\"726.7616666666667\" cy=\"202.665\" r=\"3.6\" />\n    <circle cx=\"743.3449999999999\" cy=\"212.33333333333334\" r=\"3.6\" />\n    <circle cx=\"726.7816666666668\" cy=\"192.97833333333335\" r=\"3.6\" />\n    <circle cx=\"735.085\" cy=\"207.4933333333333\" r=\"3.6\" />\n    <circle cx=\"660.4050000000001\" cy=\"270.32500000000005\" r=\"3.6\" />\n    <circle cx=\"610.655\" cy=\"386.3666666666666\" r=\"3.6\" />\n    <circle cx=\"610.615\" cy=\"376.68666666666667\" r=\"3.6\" />\n    <circle cx=\"610.615\" cy=\"367.01666666666665\" r=\"3.6\" />\n    <circle cx=\"602.3850000000001\" cy=\"391.1966666666667\" r=\"3.6\" />\n    <circle cx=\"577.5016666666667\" cy=\"405.6783333333333\" r=\"3.6\" />\n    <circle cx=\"618.9633333333334\" cy=\"362.18666666666667\" r=\"3.6\" />\n    <circle cx=\"585.8000000000001\" cy=\"410.5133333333333\" r=\"3.6\" />\n    <circle cx=\"594.1016666666667\" cy=\"396.0133333333333\" r=\"3.6\" />\n    <circle cx=\"569.18\" cy=\"410.54\" r=\"3.6\" />\n    <circle cx=\"594.125\" cy=\"405.6933333333333\" r=\"3.6\" />\n    <circle cx=\"635.4833333333332\" cy=\"284.81666666666666\" r=\"3.6\" />\n    <circle cx=\"643.7983333333333\" cy=\"279.9866666666666\" r=\"3.6\" />\n    <circle cx=\"635.5133333333332\" cy=\"294.50333333333333\" r=\"3.6\" />\n    <circle cx=\"652.0550000000001\" cy=\"275.16\" r=\"3.6\" />\n    <circle cx=\"635.59\" cy=\"342.82666666666665\" r=\"3.6\" />\n    <circle cx=\"635.5849999999999\" cy=\"333.16333333333336\" r=\"3.6\" />\n    <circle cx=\"627.2383333333333\" cy=\"347.6666666666667\" r=\"3.6\" />\n    <circle cx=\"618.9483333333334\" cy=\"352.51\" r=\"3.6\" />\n    <circle cx=\"826.42\" cy=\"212.3183333333333\" r=\"3.6\" />\n    <circle cx=\"892.6899999999999\" cy=\"57.63\" r=\"3.6\" />\n    <circle cx=\"884.4616666666666\" cy=\"139.8133333333333\" r=\"3.6\" />\n    <circle cx=\"901.0300000000001\" cy=\"52.79333333333332\" r=\"3.6\" />\n    <circle cx=\"884.43\" cy=\"52.79333333333333\" r=\"3.6\" />\n    <circle cx=\"909.3316666666666\" cy=\"67.29333333333334\" r=\"3.6\" />\n    <circle cx=\"901.0750000000002\" cy=\"101.135\" r=\"3.6\" />\n    <circle cx=\"892.7233333333334\" cy=\"125.31333333333332\" r=\"3.6\" />\n    <circle cx=\"892.7283333333334\" cy=\"115.64333333333333\" r=\"3.6\" />\n    <circle cx=\"901.0683333333333\" cy=\"110.80166666666668\" r=\"3.6\" />\n    <circle cx=\"876.1383333333333\" cy=\"47.946666666666665\" r=\"3.6\" />\n    <circle cx=\"826.3250000000002\" cy=\"47.946666666666665\" r=\"3.6\" />\n    <circle cx=\"867.8350000000002\" cy=\"52.77666666666667\" r=\"3.6\" />\n    <circle cx=\"834.62\" cy=\"52.79333333333333\" r=\"3.6\" />\n    <circle cx=\"809.6999999999999\" cy=\"47.946666666666665\" r=\"3.6\" />\n    <circle cx=\"817.995\" cy=\"52.77666666666667\" r=\"3.6\" />\n    <circle cx=\"842.9049999999999\" cy=\"47.96333333333334\" r=\"3.6\" />\n    <circle cx=\"859.5400000000001\" cy=\"47.946666666666665\" r=\"3.6\" />\n    <circle cx=\"851.245\" cy=\"52.79333333333332\" r=\"3.6\" />\n    <circle cx=\"867.9166666666666\" cy=\"188.14499999999998\" r=\"3.6\" />\n    <circle cx=\"876.2599999999999\" cy=\"163.97333333333333\" r=\"3.6\" />\n    <circle cx=\"826.42\" cy=\"221.98833333333334\" r=\"3.6\" />\n    <circle cx=\"826.41\" cy=\"231.67499999999998\" r=\"3.6\" />\n    <circle cx=\"834.7566666666667\" cy=\"265.52\" r=\"3.6\" />\n    <circle cx=\"809.7800000000001\" cy=\"192.98000000000002\" r=\"3.6\" />\n    <circle cx=\"826.42\" cy=\"202.6483333333333\" r=\"3.6\" />\n    <circle cx=\"843.0300000000001\" cy=\"251.01166666666666\" r=\"3.6\" />\n    <circle cx=\"801.485\" cy=\"188.16\" r=\"3.6\" />\n    <circle cx=\"818.09\" cy=\"197.81333333333336\" r=\"3.6\" />\n    <circle cx=\"760.0400000000001\" cy=\"250.99666666666667\" r=\"3.6\" />\n    <circle cx=\"801.4000000000001\" cy=\"43.120000000000005\" r=\"3.6\" />\n    <circle cx=\"859.6199999999999\" cy=\"192.98000000000002\" r=\"3.6\" />\n    <circle cx=\"867.9066666666668\" cy=\"178.47333333333333\" r=\"3.6\" />\n    <circle cx=\"867.9066666666668\" cy=\"168.80666666666664\" r=\"3.6\" />\n    <circle cx=\"851.335\" cy=\"197.81999999999996\" r=\"3.6\" />\n    <circle cx=\"843.0500000000001\" cy=\"231.65166666666664\" r=\"3.6\" />\n    <circle cx=\"843.04\" cy=\"241.33666666666667\" r=\"3.6\" />\n    <circle cx=\"851.3400000000001\" cy=\"207.49333333333334\" r=\"3.6\" />\n    <circle cx=\"528.47\" cy=\"115.62833333333333\" r=\"3.6\" />\n    <circle cx=\"593.9216666666666\" cy=\"57.59833333333333\" r=\"3.6\" />\n    <circle cx=\"569.03\" cy=\"52.77333333333333\" r=\"3.6\" />\n    <circle cx=\"577.3216666666667\" cy=\"47.928333333333335\" r=\"3.6\" />\n    <circle cx=\"602.215\" cy=\"62.443333333333335\" r=\"3.6\" />\n    <circle cx=\"585.62\" cy=\"52.76333333333333\" r=\"3.6\" />\n    <circle cx=\"627.1083333333333\" cy=\"67.26833333333333\" r=\"3.6\" />\n    <circle cx=\"635.405\" cy=\"62.43333333333334\" r=\"3.6\" />\n    <circle cx=\"618.8149999999999\" cy=\"62.443333333333335\" r=\"3.6\" />\n    <circle cx=\"610.475\" cy=\"57.613333333333344\" r=\"3.6\" />\n    <circle cx=\"528.4599999999999\" cy=\"76.965\" r=\"3.6\" />\n    <circle cx=\"643.7233333333334\" cy=\"67.26833333333333\" r=\"3.6\" />\n    <circle cx=\"511.825\" cy=\"125.32000000000001\" r=\"3.6\" />\n    <circle cx=\"560.7233333333332\" cy=\"57.63166666666666\" r=\"3.6\" />\n    <circle cx=\"520.1733333333333\" cy=\"120.47500000000001\" r=\"3.6\" />\n    <circle cx=\"528.465\" cy=\"105.95333333333333\" r=\"3.6\" />\n    <circle cx=\"552.3866666666667\" cy=\"62.451666666666675\" r=\"3.6\" />\n    <circle cx=\"536.7516666666667\" cy=\"72.115\" r=\"3.6\" />\n    <circle cx=\"544.9012500000001\" cy=\"67.28375\" r=\"3.6\" />\n    <circle cx=\"718.3949999999999\" cy=\"43.10999999999999\" r=\"3.6\" />\n    <circle cx=\"751.5749999999999\" cy=\"33.45666666666667\" r=\"3.6\" />\n    <circle cx=\"743.2433333333333\" cy=\"38.29333333333334\" r=\"3.6\" />\n    <circle cx=\"734.9766666666666\" cy=\"33.45\" r=\"3.6\" />\n    <circle cx=\"759.8733333333333\" cy=\"38.276666666666664\" r=\"3.6\" />\n    <circle cx=\"768.1833333333334\" cy=\"43.10999999999999\" r=\"3.6\" />\n    <circle cx=\"784.785\" cy=\"43.12500000000001\" r=\"3.6\" />\n    <circle cx=\"726.6883333333334\" cy=\"38.27833333333333\" r=\"3.6\" />\n    <circle cx=\"776.4983333333333\" cy=\"47.946666666666665\" r=\"3.6\" />\n    <circle cx=\"702.10375\" cy=\"43.1075\" r=\"3.6\" />\n    <circle cx=\"676.8683333333332\" cy=\"57.59833333333333\" r=\"3.6\" />\n    <circle cx=\"668.5533333333334\" cy=\"62.43333333333334\" r=\"3.6\" />\n    <circle cx=\"660.295\" cy=\"57.598333333333336\" r=\"3.6\" />\n    <circle cx=\"793.0649999999999\" cy=\"47.96333333333334\" r=\"3.6\" />\n    <circle cx=\"685.1616666666667\" cy=\"52.77333333333334\" r=\"3.6\" />\n    <circle cx=\"710.1085714285715\" cy=\"38.55142857142857\" r=\"3.6\" />\n    <circle cx=\"651.9783333333334\" cy=\"62.44\" r=\"3.6\" />\n    <circle cx=\"693.4366666666666\" cy=\"47.94333333333333\" r=\"3.6\" />\n    <circle cx=\"818.09\" cy=\"217.15333333333334\" r=\"3.6\" />\n    <circle cx=\"602.405\" cy=\"400.8616666666667\" r=\"3.6\" />\n    <circle cx=\"594.155\" cy=\"415.34666666666664\" r=\"3.6\" />\n    <circle cx=\"610.715\" cy=\"396.02666666666664\" r=\"3.6\" />\n    <circle cx=\"577.5016666666667\" cy=\"415.3483333333333\" r=\"3.6\" />\n    <circle cx=\"544.6385714285715\" cy=\"357.62142857142857\" r=\"3.6\" />\n    <circle cx=\"618.97\" cy=\"381.52333333333337\" r=\"3.6\" />\n    <circle cx=\"560.8516666666666\" cy=\"405.6933333333333\" r=\"3.6\" />\n    <circle cx=\"676.9983333333333\" cy=\"231.64833333333334\" r=\"3.6\" />\n    <circle cx=\"560.82\" cy=\"386.3616666666667\" r=\"3.6\" />\n    <circle cx=\"635.605\" cy=\"352.49666666666667\" r=\"3.6\" />\n    <circle cx=\"668.7366666666666\" cy=\"265.4816666666666\" r=\"3.6\" />\n    <circle cx=\"660.39\" cy=\"279.9866666666666\" r=\"3.6\" />\n    <circle cx=\"668.7366666666666\" cy=\"255.80499999999998\" r=\"3.6\" />\n    <circle cx=\"618.97\" cy=\"371.8533333333333\" r=\"3.6\" />\n    <circle cx=\"652.0849999999999\" cy=\"284.8466666666667\" r=\"3.6\" />\n    <circle cx=\"643.8149999999999\" cy=\"289.665\" r=\"3.6\" />\n    <circle cx=\"627.2566666666667\" cy=\"357.3433333333333\" r=\"3.6\" />\n    <circle cx=\"544.135\" cy=\"309.01166666666666\" r=\"3.6\" />\n    <circle cx=\"552.5166666666668\" cy=\"371.8533333333333\" r=\"3.6\" />\n    <circle cx=\"544.9325\" cy=\"299.33625\" r=\"3.6\" />\n    <circle cx=\"462.05999999999995\" cy=\"222.0033333333333\" r=\"3.6\" />\n    <circle cx=\"462.06\" cy=\"202.66333333333333\" r=\"3.6\" />\n    <circle cx=\"453.7966666666667\" cy=\"236.51\" r=\"3.6\" />\n    <circle cx=\"486.94000000000005\" cy=\"149.47166666666666\" r=\"3.6\" />\n    <circle cx=\"453.8066666666667\" cy=\"246.17333333333332\" r=\"3.6\" />\n    <circle cx=\"486.9283333333333\" cy=\"139.79666666666665\" r=\"3.6\" />\n    <circle cx=\"470.39000000000004\" cy=\"197.80499999999998\" r=\"3.6\" />\n    <circle cx=\"478.675\" cy=\"183.30666666666664\" r=\"3.6\" />\n    <circle cx=\"462.05999999999995\" cy=\"212.33333333333334\" r=\"3.6\" />\n    <circle cx=\"528.5300000000001\" cy=\"270.33833333333337\" r=\"3.6\" />\n    <circle cx=\"511.9550000000001\" cy=\"270.3683333333334\" r=\"3.6\" />\n    <circle cx=\"520.2616666666667\" cy=\"265.50333333333333\" r=\"3.6\" />\n    <circle cx=\"536.8\" cy=\"275.17\" r=\"3.6\" />\n    <circle cx=\"470.385\" cy=\"265.50333333333333\" r=\"3.6\" />\n    <circle cx=\"462.1116666666667\" cy=\"251.01166666666666\" r=\"3.6\" />\n    <circle cx=\"478.7166666666667\" cy=\"270.33833333333337\" r=\"3.6\" />\n    <circle cx=\"495.34\" cy=\"270.33333333333337\" r=\"3.6\" />\n    <circle cx=\"851.335\" cy=\"304.18666666666667\" r=\"3.6\" />\n    <circle cx=\"876.285\" cy=\"202.64666666666665\" r=\"3.6\" />\n    <circle cx=\"884.5266666666666\" cy=\"188.155\" r=\"3.6\" />\n    <circle cx=\"867.9566666666666\" cy=\"207.50166666666664\" r=\"3.6\" />\n    <circle cx=\"685.285\" cy=\"226.8116666666667\" r=\"3.6\" />\n    <circle cx=\"834.6733333333335\" cy=\"294.51666666666665\" r=\"3.6\" />\n    <circle cx=\"495.25499999999994\" cy=\"134.93833333333333\" r=\"3.6\" />\n    <circle cx=\"892.7433333333333\" cy=\"154.305\" r=\"3.6\" />\n    <circle cx=\"859.69\" cy=\"241.32666666666668\" r=\"3.6\" />\n    <circle cx=\"859.69\" cy=\"250.99666666666667\" r=\"3.6\" />\n    <circle cx=\"942.535\" cy=\"96.31166666666667\" r=\"3.6\" />\n    <circle cx=\"959.1483333333332\" cy=\"57.623333333333335\" r=\"3.6\" />\n    <circle cx=\"959.1583333333332\" cy=\"67.28666666666668\" r=\"3.6\" />\n    <circle cx=\"950.9000000000001\" cy=\"91.47333333333334\" r=\"3.6\" />\n    <circle cx=\"967.4650000000001\" cy=\"52.75833333333333\" r=\"3.6\" />\n    <circle cx=\"826.3716666666666\" cy=\"280.01500000000004\" r=\"3.6\" />\n    <circle cx=\"917.7216666666667\" cy=\"110.795\" r=\"3.6\" />\n    <circle cx=\"909.3716666666666\" cy=\"125.29833333333333\" r=\"3.6\" />\n    <circle cx=\"934.235\" cy=\"91.47333333333331\" r=\"3.6\" />\n    <circle cx=\"884.5216666666666\" cy=\"178.49\" r=\"3.6\" />\n    <circle cx=\"726.7316666666667\" cy=\"212.31833333333336\" r=\"3.6\" />\n    <circle cx=\"735.0566666666667\" cy=\"217.17999999999998\" r=\"3.6\" />\n    <circle cx=\"718.48\" cy=\"197.82000000000002\" r=\"3.6\" />\n    <circle cx=\"751.6650000000001\" cy=\"255.84166666666667\" r=\"3.6\" />\n    <circle cx=\"743.335\" cy=\"231.6766666666667\" r=\"3.6\" />\n    <circle cx=\"693.5933333333332\" cy=\"212.31666666666663\" r=\"3.6\" />\n    <circle cx=\"710.2014285714286\" cy=\"193.25428571428571\" r=\"3.6\" />\n    <circle cx=\"701.8199999999999\" cy=\"197.55285714285714\" r=\"3.6\" />\n    <circle cx=\"784.8850000000001\" cy=\"207.4933333333333\" r=\"3.6\" />\n    <circle cx=\"809.775\" cy=\"221.98666666666665\" r=\"3.6\" />\n    <circle cx=\"809.785\" cy=\"212.3216666666667\" r=\"3.6\" />\n    <circle cx=\"801.5\" cy=\"207.49333333333334\" r=\"3.6\" />\n    <circle cx=\"768.315\" cy=\"226.83166666666668\" r=\"3.6\" />\n    <circle cx=\"809.8166666666666\" cy=\"231.665\" r=\"3.6\" />\n    <circle cx=\"776.63\" cy=\"221.98666666666665\" r=\"3.6\" />\n    <circle cx=\"818.085\" cy=\"275.14666666666665\" r=\"3.6\" />\n    <circle cx=\"776.6083333333332\" cy=\"212.3283333333333\" r=\"3.6\" />\n    <circle cx=\"760.0233333333332\" cy=\"260.6616666666667\" r=\"3.6\" />\n    <circle cx=\"901.07\" cy=\"130.14833333333334\" r=\"3.6\" />\n    <circle cx=\"892.7733333333334\" cy=\"144.655\" r=\"3.6\" />\n    <circle cx=\"901.0616666666666\" cy=\"120.47500000000001\" r=\"3.6\" />\n    <circle cx=\"876.2366666666667\" cy=\"173.62666666666667\" r=\"3.6\" />\n    <circle cx=\"859.6300000000001\" cy=\"202.64833333333334\" r=\"3.6\" />\n    <circle cx=\"909.3666666666667\" cy=\"115.63333333333334\" r=\"3.6\" />\n    <circle cx=\"867.9266666666666\" cy=\"197.81333333333336\" r=\"3.6\" />\n    <circle cx=\"876.2433333333333\" cy=\"192.99166666666667\" r=\"3.6\" />\n    <circle cx=\"876.2083333333334\" cy=\"183.30999999999997\" r=\"3.6\" />\n    <circle cx=\"942.5766666666665\" cy=\"86.61833333333334\" r=\"3.6\" />\n    <circle cx=\"934.245\" cy=\"81.79833333333333\" r=\"3.6\" />\n    <circle cx=\"859.6349999999999\" cy=\"212.32666666666668\" r=\"3.6\" />\n    <circle cx=\"950.8233333333333\" cy=\"72.155\" r=\"3.6\" />\n    <circle cx=\"950.8449999999999\" cy=\"62.461666666666666\" r=\"3.6\" />\n    <circle cx=\"934.2199999999999\" cy=\"72.14999999999999\" r=\"3.6\" />\n    <circle cx=\"909.3716666666666\" cy=\"105.95166666666667\" r=\"3.6\" />\n    <circle cx=\"917.62\" cy=\"62.446666666666665\" r=\"3.6\" />\n    <circle cx=\"925.9066666666666\" cy=\"67.30499999999999\" r=\"3.6\" />\n    <circle cx=\"768.275\" cy=\"207.48333333333332\" r=\"3.6\" />\n    <circle cx=\"793.15\" cy=\"192.995\" r=\"3.6\" />\n    <circle cx=\"801.495\" cy=\"197.82000000000002\" r=\"3.6\" />\n    <circle cx=\"818.09\" cy=\"207.48333333333332\" r=\"3.6\" />\n    <circle cx=\"793.16\" cy=\"202.66333333333333\" r=\"3.6\" />\n    <circle cx=\"809.79\" cy=\"202.6483333333333\" r=\"3.6\" />\n    <circle cx=\"784.88\" cy=\"197.82666666666668\" r=\"3.6\" />\n    <circle cx=\"768.275\" cy=\"217.15333333333334\" r=\"3.6\" />\n    <circle cx=\"942.535\" cy=\"47.945\" r=\"3.6\" />\n    <circle cx=\"776.5933333333332\" cy=\"202.6483333333333\" r=\"3.6\" />\n    <circle cx=\"834.6833333333333\" cy=\"284.8516666666667\" r=\"3.6\" />\n    <circle cx=\"843.005\" cy=\"299.3433333333333\" r=\"3.6\" />\n    <circle cx=\"851.36\" cy=\"255.86499999999998\" r=\"3.6\" />\n    <circle cx=\"851.3800000000001\" cy=\"246.17166666666665\" r=\"3.6\" />\n    <circle cx=\"851.375\" cy=\"236.49333333333334\" r=\"3.6\" />\n    <circle cx=\"859.6350000000001\" cy=\"221.98666666666668\" r=\"3.6\" />\n    <circle cx=\"834.6983333333333\" cy=\"275.1666666666667\" r=\"3.6\" />\n    <circle cx=\"818.1100000000001\" cy=\"226.82000000000002\" r=\"3.6\" />\n    <circle cx=\"843.0450000000001\" cy=\"289.68333333333334\" r=\"3.6\" />\n    <circle cx=\"693.415\" cy=\"38.26833333333333\" r=\"3.6\" />\n    <circle cx=\"627.1083333333333\" cy=\"57.598333333333336\" r=\"3.6\" />\n    <circle cx=\"602.215\" cy=\"52.77333333333334\" r=\"3.6\" />\n    <circle cx=\"618.8199999999999\" cy=\"52.77\" r=\"3.6\" />\n    <circle cx=\"593.9499999999999\" cy=\"47.913333333333334\" r=\"3.6\" />\n    <circle cx=\"925.9366666666666\" cy=\"47.946666666666665\" r=\"3.6\" />\n    <circle cx=\"676.8383333333334\" cy=\"47.91\" r=\"3.6\" />\n    <circle cx=\"643.7233333333334\" cy=\"57.59833333333333\" r=\"3.6\" />\n    <circle cx=\"585.6516666666666\" cy=\"43.076666666666675\" r=\"3.6\" />\n    <circle cx=\"685.1566666666668\" cy=\"43.10999999999999\" r=\"3.6\" />\n    <circle cx=\"651.9616666666667\" cy=\"52.76166666666666\" r=\"3.6\" />\n    <circle cx=\"520.1483333333333\" cy=\"110.78333333333335\" r=\"3.6\" />\n    <circle cx=\"536.72\" cy=\"62.440000000000005\" r=\"3.6\" />\n    <circle cx=\"528.4166666666666\" cy=\"67.28333333333333\" r=\"3.6\" />\n    <circle cx=\"511.83\" cy=\"115.63833333333332\" r=\"3.6\" />\n    <circle cx=\"544.8787500000001\" cy=\"57.60125\" r=\"3.6\" />\n    <circle cx=\"560.6833333333333\" cy=\"47.93833333333333\" r=\"3.6\" />\n    <circle cx=\"568.9999999999999\" cy=\"43.089999999999996\" r=\"3.6\" />\n    <circle cx=\"552.3766666666667\" cy=\"52.77666666666667\" r=\"3.6\" />\n    <circle cx=\"668.5533333333334\" cy=\"52.76333333333333\" r=\"3.6\" />\n    <circle cx=\"867.8350000000002\" cy=\"43.10999999999999\" r=\"3.6\" />\n    <circle cx=\"851.2400000000001\" cy=\"43.120000000000005\" r=\"3.6\" />\n    <circle cx=\"503.5233333333333\" cy=\"120.47500000000001\" r=\"3.6\" />\n    <circle cx=\"817.995\" cy=\"43.10999999999999\" r=\"3.6\" />\n    <circle cx=\"892.6899999999999\" cy=\"47.96333333333334\" r=\"3.6\" />\n    <circle cx=\"884.4399999999999\" cy=\"43.116666666666674\" r=\"3.6\" />\n    <circle cx=\"909.3216666666667\" cy=\"47.946666666666665\" r=\"3.6\" />\n    <circle cx=\"809.7049999999999\" cy=\"38.26833333333334\" r=\"3.6\" />\n    <circle cx=\"834.6150000000001\" cy=\"43.12500000000001\" r=\"3.6\" />\n    <circle cx=\"726.6483333333332\" cy=\"28.59\" r=\"3.6\" />\n    <circle cx=\"743.2333333333332\" cy=\"28.623333333333335\" r=\"3.6\" />\n    <circle cx=\"718.3849999999999\" cy=\"33.443333333333335\" r=\"3.6\" />\n    <circle cx=\"793.055\" cy=\"38.29333333333334\" r=\"3.6\" />\n    <circle cx=\"701.71\" cy=\"33.15428571428571\" r=\"3.6\" />\n    <circle cx=\"759.8716666666666\" cy=\"28.60166666666667\" r=\"3.6\" />\n    <circle cx=\"776.4883333333333\" cy=\"38.27833333333333\" r=\"3.6\" />\n    <circle cx=\"768.2033333333333\" cy=\"33.425000000000004\" r=\"3.6\" />\n    <circle cx=\"801.48\" cy=\"168.82166666666666\" r=\"3.6\" />\n    <circle cx=\"577.4616666666667\" cy=\"367.00666666666666\" r=\"3.6\" />\n    <circle cx=\"569.1166666666667\" cy=\"304.1766666666667\" r=\"3.6\" />\n    <circle cx=\"569.1066666666667\" cy=\"284.83166666666665\" r=\"3.6\" />\n    <circle cx=\"569.1066666666667\" cy=\"294.50166666666667\" r=\"3.6\" />\n    <circle cx=\"560.7666666666668\" cy=\"279.99666666666667\" r=\"3.6\" />\n    <circle cx=\"528.57\" cy=\"241.32666666666668\" r=\"3.6\" />\n    <circle cx=\"759.9683333333332\" cy=\"192.98000000000002\" r=\"3.6\" />\n    <circle cx=\"545.035\" cy=\"250.9925\" r=\"3.6\" />\n    <circle cx=\"536.865\" cy=\"246.15666666666667\" r=\"3.6\" />\n    <circle cx=\"552.5133333333334\" cy=\"255.82666666666668\" r=\"3.6\" />\n    <circle cx=\"569.1650000000001\" cy=\"352.51000000000005\" r=\"3.6\" />\n    <circle cx=\"569.1550000000001\" cy=\"342.84666666666664\" r=\"3.6\" />\n    <circle cx=\"569.14\" cy=\"313.83\" r=\"3.6\" />\n    <circle cx=\"577.4616666666667\" cy=\"357.33666666666664\" r=\"3.6\" />\n    <circle cx=\"560.81\" cy=\"338.0133333333333\" r=\"3.6\" />\n    <circle cx=\"569.1500000000001\" cy=\"323.50333333333333\" r=\"3.6\" />\n    <circle cx=\"560.81\" cy=\"328.3433333333333\" r=\"3.6\" />\n    <circle cx=\"552.495\" cy=\"333.1766666666667\" r=\"3.6\" />\n    <circle cx=\"511.9350000000001\" cy=\"241.33666666666667\" r=\"3.6\" />\n    <circle cx=\"503.585\" cy=\"168.81166666666667\" r=\"3.6\" />\n    <circle cx=\"528.4699999999999\" cy=\"134.97666666666666\" r=\"3.6\" />\n    <circle cx=\"503.605\" cy=\"188.155\" r=\"3.6\" />\n    <circle cx=\"503.59999999999997\" cy=\"178.49\" r=\"3.6\" />\n    <circle cx=\"536.765\" cy=\"130.13\" r=\"3.6\" />\n    <circle cx=\"544.5914285714287\" cy=\"96.56142857142856\" r=\"3.6\" />\n    <circle cx=\"544.9412500000001\" cy=\"105.95750000000001\" r=\"3.6\" />\n    <circle cx=\"544.5828571428572\" cy=\"115.90142857142857\" r=\"3.6\" />\n    <circle cx=\"544.115\" cy=\"125.29666666666667\" r=\"3.6\" />\n    <circle cx=\"495.32666666666665\" cy=\"202.64833333333334\" r=\"3.6\" />\n    <circle cx=\"487.04999999999995\" cy=\"246.15666666666667\" r=\"3.6\" />\n    <circle cx=\"487.03\" cy=\"226.82000000000002\" r=\"3.6\" />\n    <circle cx=\"487.05\" cy=\"236.48666666666665\" r=\"3.6\" />\n    <circle cx=\"503.615\" cy=\"197.82666666666668\" r=\"3.6\" />\n    <circle cx=\"495.36666666666673\" cy=\"241.32666666666668\" r=\"3.6\" />\n    <circle cx=\"487.01\" cy=\"217.15333333333334\" r=\"3.6\" />\n    <circle cx=\"503.66\" cy=\"246.17166666666665\" r=\"3.6\" />\n    <circle cx=\"495.32666666666665\" cy=\"212.3183333333333\" r=\"3.6\" />\n    <circle cx=\"627.2083333333334\" cy=\"270.32\" r=\"3.6\" />\n    <circle cx=\"668.6750000000001\" cy=\"207.4483333333333\" r=\"3.6\" />\n    <circle cx=\"676.91\" cy=\"192.97833333333332\" r=\"3.6\" />\n    <circle cx=\"676.91\" cy=\"183.31500000000003\" r=\"3.6\" />\n    <circle cx=\"693.5099999999999\" cy=\"173.64\" r=\"3.6\" />\n    <circle cx=\"685.235\" cy=\"178.47166666666666\" r=\"3.6\" />\n    <circle cx=\"652.0916666666667\" cy=\"236.49166666666667\" r=\"3.6\" />\n    <circle cx=\"660.39\" cy=\"212.30333333333337\" r=\"3.6\" />\n    <circle cx=\"652.0916666666666\" cy=\"226.81499999999997\" r=\"3.6\" />\n    <circle cx=\"652.0716666666666\" cy=\"217.14666666666668\" r=\"3.6\" />\n    <circle cx=\"702.1787499999999\" cy=\"168.80625000000003\" r=\"3.6\" />\n    <circle cx=\"743.3250000000002\" cy=\"183.32666666666668\" r=\"3.6\" />\n    <circle cx=\"735.065\" cy=\"178.49\" r=\"3.6\" />\n    <circle cx=\"743.335\" cy=\"192.995\" r=\"3.6\" />\n    <circle cx=\"751.68\" cy=\"197.82000000000002\" r=\"3.6\" />\n    <circle cx=\"718.4699999999999\" cy=\"168.80666666666667\" r=\"3.6\" />\n    <circle cx=\"726.7716666666666\" cy=\"173.64333333333332\" r=\"3.6\" />\n    <circle cx=\"709.8325\" cy=\"163.97250000000003\" r=\"3.6\" />\n    <circle cx=\"643.8783333333332\" cy=\"260.635\" r=\"3.6\" />\n    <circle cx=\"585.76\" cy=\"371.83666666666664\" r=\"3.6\" />\n    <circle cx=\"602.35\" cy=\"352.51500000000004\" r=\"3.6\" />\n    <circle cx=\"602.34\" cy=\"342.84\" r=\"3.6\" />\n    <circle cx=\"594.0616666666667\" cy=\"357.33666666666664\" r=\"3.6\" />\n    <circle cx=\"618.93\" cy=\"333.17333333333335\" r=\"3.6\" />\n    <circle cx=\"610.595\" cy=\"338.0133333333333\" r=\"3.6\" />\n    <circle cx=\"585.78\" cy=\"381.50500000000005\" r=\"3.6\" />\n    <circle cx=\"594.0616666666667\" cy=\"367.00666666666666\" r=\"3.6\" />\n    <circle cx=\"594.0616666666666\" cy=\"376.6766666666667\" r=\"3.6\" />\n    <circle cx=\"618.89\" cy=\"284.83166666666665\" r=\"3.6\" />\n    <circle cx=\"618.93\" cy=\"323.50333333333333\" r=\"3.6\" />\n    <circle cx=\"618.9050000000001\" cy=\"275.17\" r=\"3.6\" />\n    <circle cx=\"618.89\" cy=\"294.50166666666667\" r=\"3.6\" />\n    <circle cx=\"536.785\" cy=\"91.43666666666667\" r=\"3.6\" />\n    <circle cx=\"635.515\" cy=\"265.4733333333333\" r=\"3.6\" />\n    <circle cx=\"627.245\" cy=\"318.65833333333336\" r=\"3.6\" />\n    <circle cx=\"618.9\" cy=\"304.1766666666667\" r=\"3.6\" />\n    <circle cx=\"626.8042857142857\" cy=\"308.6142857142857\" r=\"3.6\" />\n    <circle cx=\"520.265\" cy=\"236.49666666666664\" r=\"3.6\" />\n    <circle cx=\"834.695\" cy=\"188.155\" r=\"3.6\" />\n    <circle cx=\"851.3100000000001\" cy=\"159.14666666666668\" r=\"3.6\" />\n    <circle cx=\"842.98\" cy=\"183.32666666666668\" r=\"3.6\" />\n    <circle cx=\"851.32\" cy=\"168.8216666666667\" r=\"3.6\" />\n    <circle cx=\"793.14\" cy=\"173.65666666666667\" r=\"3.6\" />\n    <circle cx=\"643.8133333333334\" cy=\"212.3033333333333\" r=\"3.6\" />\n    <circle cx=\"826.4\" cy=\"183.31000000000003\" r=\"3.6\" />\n    <circle cx=\"876.1383333333333\" cy=\"67.28666666666668\" r=\"3.6\" />\n    <circle cx=\"818.07\" cy=\"178.47333333333333\" r=\"3.6\" />\n    <circle cx=\"851.32\" cy=\"178.49\" r=\"3.6\" />\n    <circle cx=\"884.4716666666668\" cy=\"101.13666666666667\" r=\"3.6\" />\n    <circle cx=\"876.1783333333333\" cy=\"105.95833333333333\" r=\"3.6\" />\n    <circle cx=\"552.4399999999999\" cy=\"81.78666666666668\" r=\"3.6\" />\n    <circle cx=\"876.1750000000001\" cy=\"115.62833333333333\" r=\"3.6\" />\n    <circle cx=\"867.8649999999999\" cy=\"130.13000000000002\" r=\"3.6\" />\n    <circle cx=\"867.8649999999999\" cy=\"139.79666666666665\" r=\"3.6\" />\n    <circle cx=\"859.61\" cy=\"154.295\" r=\"3.6\" />\n    <circle cx=\"876.1683333333334\" cy=\"125.29833333333333\" r=\"3.6\" />\n    <circle cx=\"809.7700000000001\" cy=\"173.64333333333332\" r=\"3.6\" />\n    <circle cx=\"718.4699999999999\" cy=\"159.13666666666668\" r=\"3.6\" />\n    <circle cx=\"702.17125\" cy=\"159.13125\" r=\"3.6\" />\n    <circle cx=\"685.235\" cy=\"168.8033333333333\" r=\"3.6\" />\n    <circle cx=\"710.1757142857142\" cy=\"154.58285714285716\" r=\"3.6\" />\n    <circle cx=\"693.5099999999999\" cy=\"163.97333333333333\" r=\"3.6\" />\n    <circle cx=\"660.4\" cy=\"202.63166666666666\" r=\"3.6\" />\n    <circle cx=\"676.94\" cy=\"173.62666666666667\" r=\"3.6\" />\n    <circle cx=\"652.0716666666667\" cy=\"207.48\" r=\"3.6\" />\n    <circle cx=\"668.625\" cy=\"178.45666666666668\" r=\"3.6\" />\n    <circle cx=\"751.665\" cy=\"178.49\" r=\"3.6\" />\n    <circle cx=\"759.9583333333334\" cy=\"183.31000000000003\" r=\"3.6\" />\n    <circle cx=\"768.255\" cy=\"178.47333333333333\" r=\"3.6\" />\n    <circle cx=\"726.7716666666666\" cy=\"163.97666666666666\" r=\"3.6\" />\n    <circle cx=\"751.6700000000001\" cy=\"188.16\" r=\"3.6\" />\n    <circle cx=\"776.5699999999998\" cy=\"173.64333333333332\" r=\"3.6\" />\n    <circle cx=\"735.065\" cy=\"168.82166666666666\" r=\"3.6\" />\n    <circle cx=\"784.8633333333333\" cy=\"168.82166666666666\" r=\"3.6\" />\n    <circle cx=\"743.3250000000002\" cy=\"173.65666666666667\" r=\"3.6\" />\n    <circle cx=\"884.4516666666667\" cy=\"72.13166666666667\" r=\"3.6\" />\n    <circle cx=\"867.855\" cy=\"72.115\" r=\"3.6\" />\n    <circle cx=\"676.89\" cy=\"76.93833333333333\" r=\"3.6\" />\n    <circle cx=\"660.3166666666667\" cy=\"76.93833333333333\" r=\"3.6\" />\n    <circle cx=\"652.0200000000001\" cy=\"81.78\" r=\"3.6\" />\n    <circle cx=\"685.1716666666666\" cy=\"72.10833333333333\" r=\"3.6\" />\n    <circle cx=\"643.7633333333333\" cy=\"86.60666666666667\" r=\"3.6\" />\n    <circle cx=\"709.75875\" cy=\"57.613749999999996\" r=\"3.6\" />\n    <circle cx=\"702.1075000000001\" cy=\"62.447500000000005\" r=\"3.6\" />\n    <circle cx=\"693.4366666666666\" cy=\"67.28333333333333\" r=\"3.6\" />\n    <circle cx=\"668.595\" cy=\"81.77\" r=\"3.6\" />\n    <circle cx=\"602.245\" cy=\"81.78833333333334\" r=\"3.6\" />\n    <circle cx=\"593.9416666666667\" cy=\"76.93833333333333\" r=\"3.6\" />\n    <circle cx=\"585.64\" cy=\"72.10333333333332\" r=\"3.6\" />\n    <circle cx=\"577.3066666666667\" cy=\"67.26666666666667\" r=\"3.6\" />\n    <circle cx=\"618.8449999999999\" cy=\"81.77666666666666\" r=\"3.6\" />\n    <circle cx=\"627.1483333333333\" cy=\"86.60666666666667\" r=\"3.6\" />\n    <circle cx=\"610.495\" cy=\"76.95500000000001\" r=\"3.6\" />\n    <circle cx=\"635.4449999999999\" cy=\"81.77\" r=\"3.6\" />\n    <circle cx=\"718.3949999999999\" cy=\"62.446666666666665\" r=\"3.6\" />\n    <circle cx=\"818.015\" cy=\"72.115\" r=\"3.6\" />\n    <circle cx=\"826.3250000000002\" cy=\"67.28666666666668\" r=\"3.6\" />\n    <circle cx=\"809.6999999999999\" cy=\"67.28666666666666\" r=\"3.6\" />\n    <circle cx=\"834.63\" cy=\"72.125\" r=\"3.6\" />\n    <circle cx=\"859.5400000000001\" cy=\"67.28666666666666\" r=\"3.6\" />\n    <circle cx=\"801.4050000000001\" cy=\"62.461666666666666\" r=\"3.6\" />\n    <circle cx=\"842.9049999999999\" cy=\"67.29666666666667\" r=\"3.6\" />\n    <circle cx=\"851.2550000000001\" cy=\"72.13666666666667\" r=\"3.6\" />\n    <circle cx=\"743.255\" cy=\"57.63\" r=\"3.6\" />\n    <circle cx=\"751.5900000000001\" cy=\"52.79333333333332\" r=\"3.6\" />\n    <circle cx=\"726.6983333333333\" cy=\"57.616666666666674\" r=\"3.6\" />\n    <circle cx=\"793.0649999999999\" cy=\"67.29666666666667\" r=\"3.6\" />\n    <circle cx=\"759.8833333333332\" cy=\"57.616666666666674\" r=\"3.6\" />\n    <circle cx=\"734.9916666666667\" cy=\"52.79333333333333\" r=\"3.6\" />\n    <circle cx=\"784.7916666666666\" cy=\"62.461666666666666\" r=\"3.6\" />\n    <circle cx=\"776.4983333333333\" cy=\"67.28666666666668\" r=\"3.6\" />\n    <circle cx=\"768.1833333333334\" cy=\"62.446666666666665\" r=\"3.6\" />\n    <circle cx=\"536.765\" cy=\"120.46333333333332\" r=\"3.6\" />\n    <circle cx=\"560.7666666666668\" cy=\"299.33666666666664\" r=\"3.6\" />\n    <circle cx=\"560.7883333333333\" cy=\"309.00500000000005\" r=\"3.6\" />\n    <circle cx=\"560.81\" cy=\"318.67333333333335\" r=\"3.6\" />\n    <circle cx=\"552.495\" cy=\"323.50666666666666\" r=\"3.6\" />\n    <circle cx=\"536.865\" cy=\"255.82666666666668\" r=\"3.6\" />\n    <circle cx=\"552.465\" cy=\"275.15833333333336\" r=\"3.6\" />\n    <circle cx=\"560.7666666666668\" cy=\"289.6666666666667\" r=\"3.6\" />\n    <circle cx=\"545.035\" cy=\"260.6625\" r=\"3.6\" />\n    <circle cx=\"552.455\" cy=\"284.8333333333333\" r=\"3.6\" />\n    <circle cx=\"552.5\" cy=\"342.8433333333333\" r=\"3.6\" />\n    <circle cx=\"577.4816666666667\" cy=\"386.34666666666664\" r=\"3.6\" />\n    <circle cx=\"560.82\" cy=\"347.68\" r=\"3.6\" />\n    <circle cx=\"577.5016666666667\" cy=\"396.0133333333333\" r=\"3.6\" />\n    <circle cx=\"511.855\" cy=\"134.99666666666667\" r=\"3.6\" />\n    <circle cx=\"577.4616666666667\" cy=\"376.6766666666667\" r=\"3.6\" />\n    <circle cx=\"569.17\" cy=\"371.8516666666667\" r=\"3.6\" />\n    <circle cx=\"560.83\" cy=\"357.34666666666664\" r=\"3.6\" />\n    <circle cx=\"569.1700000000001\" cy=\"362.1816666666667\" r=\"3.6\" />\n    <circle cx=\"470.45\" cy=\"236.49666666666667\" r=\"3.6\" />\n    <circle cx=\"487.01\" cy=\"207.48333333333335\" r=\"3.6\" />\n    <circle cx=\"768.265\" cy=\"188.14499999999998\" r=\"3.6\" />\n    <circle cx=\"487.01\" cy=\"197.8133333333333\" r=\"3.6\" />\n    <circle cx=\"478.71\" cy=\"212.31833333333336\" r=\"3.6\" />\n    <circle cx=\"478.71000000000004\" cy=\"221.98833333333334\" r=\"3.6\" />\n    <circle cx=\"503.57666666666665\" cy=\"149.48166666666665\" r=\"3.6\" />\n    <circle cx=\"495.3066666666667\" cy=\"183.31000000000003\" r=\"3.6\" />\n    <circle cx=\"511.895\" cy=\"144.65\" r=\"3.6\" />\n    <circle cx=\"495.3066666666667\" cy=\"173.64333333333335\" r=\"3.6\" />\n    <circle cx=\"495.36666666666673\" cy=\"250.99666666666667\" r=\"3.6\" />\n    <circle cx=\"503.66\" cy=\"255.84166666666667\" r=\"3.6\" />\n    <circle cx=\"528.57\" cy=\"250.99666666666667\" r=\"3.6\" />\n    <circle cx=\"585.8\" cy=\"391.17333333333335\" r=\"3.6\" />\n    <circle cx=\"520.275\" cy=\"246.17166666666665\" r=\"3.6\" />\n    <circle cx=\"511.9350000000001\" cy=\"251.00666666666663\" r=\"3.6\" />\n    <circle cx=\"478.75333333333333\" cy=\"241.32666666666668\" r=\"3.6\" />\n    <circle cx=\"478.7533333333334\" cy=\"250.99666666666667\" r=\"3.6\" />\n    <circle cx=\"487.05\" cy=\"255.82666666666668\" r=\"3.6\" />\n    <circle cx=\"585.8000000000001\" cy=\"400.8433333333333\" r=\"3.6\" />\n    <circle cx=\"709.8325\" cy=\"173.64\" r=\"3.6\" />\n    <circle cx=\"718.4699999999999\" cy=\"178.47333333333333\" r=\"3.6\" />\n    <circle cx=\"726.7716666666666\" cy=\"183.31000000000003\" r=\"3.6\" />\n    <circle cx=\"702.1787499999999\" cy=\"178.47375\" r=\"3.6\" />\n    <circle cx=\"594.0816666666667\" cy=\"386.34499999999997\" r=\"3.6\" />\n    <circle cx=\"660.3899999999999\" cy=\"221.97\" r=\"3.6\" />\n    <circle cx=\"693.5099999999999\" cy=\"183.3066666666667\" r=\"3.6\" />\n    <circle cx=\"676.9633333333334\" cy=\"212.30333333333337\" r=\"3.6\" />\n    <circle cx=\"685.2399999999999\" cy=\"188.13833333333332\" r=\"3.6\" />\n    <circle cx=\"668.645\" cy=\"217.13333333333333\" r=\"3.6\" />\n    <circle cx=\"759.9783333333334\" cy=\"202.64833333333334\" r=\"3.6\" />\n    <circle cx=\"768.275\" cy=\"197.81333333333336\" r=\"3.6\" />\n    <circle cx=\"776.5816666666666\" cy=\"192.97833333333335\" r=\"3.6\" />\n    <circle cx=\"759.9783333333334\" cy=\"212.3183333333333\" r=\"3.6\" />\n    <circle cx=\"751.685\" cy=\"207.49333333333334\" r=\"3.6\" />\n    <circle cx=\"743.3449999999999\" cy=\"202.66333333333333\" r=\"3.6\" />\n    <circle cx=\"735.0799999999999\" cy=\"197.82666666666668\" r=\"3.6\" />\n    <circle cx=\"751.685\" cy=\"217.16333333333333\" r=\"3.6\" />\n    <circle cx=\"735.07\" cy=\"188.155\" r=\"3.6\" />\n    <circle cx=\"660.41\" cy=\"231.63833333333335\" r=\"3.6\" />\n    <circle cx=\"610.615\" cy=\"357.34666666666664\" r=\"3.6\" />\n    <circle cx=\"618.935\" cy=\"342.84666666666664\" r=\"3.6\" />\n    <circle cx=\"627.2283333333334\" cy=\"337.99833333333333\" r=\"3.6\" />\n    <circle cx=\"610.605\" cy=\"347.68\" r=\"3.6\" />\n    <circle cx=\"602.3649999999999\" cy=\"381.51500000000004\" r=\"3.6\" />\n    <circle cx=\"602.355\" cy=\"371.8516666666667\" r=\"3.6\" />\n    <circle cx=\"602.355\" cy=\"362.1816666666667\" r=\"3.6\" />\n    <circle cx=\"627.2366666666666\" cy=\"328.32166666666666\" r=\"3.6\" />\n    <circle cx=\"643.8266666666666\" cy=\"270.31666666666666\" r=\"3.6\" />\n    <circle cx=\"652.0833333333334\" cy=\"265.49\" r=\"3.6\" />\n    <circle cx=\"635.4833333333333\" cy=\"275.1466666666667\" r=\"3.6\" />\n    <circle cx=\"660.4150000000001\" cy=\"241.32833333333335\" r=\"3.6\" />\n    <circle cx=\"627.1850000000001\" cy=\"289.6566666666667\" r=\"3.6\" />\n    <circle cx=\"627.1850000000001\" cy=\"299.3233333333333\" r=\"3.6\" />\n    <circle cx=\"635.555\" cy=\"304.14833333333337\" r=\"3.6\" />\n    <circle cx=\"627.1850000000001\" cy=\"279.9866666666666\" r=\"3.6\" />\n    <circle cx=\"495.3166666666666\" cy=\"192.97833333333332\" r=\"3.6\" />\n    <circle cx=\"892.7550000000001\" cy=\"96.28166666666665\" r=\"3.6\" />\n    <circle cx=\"892.7333333333335\" cy=\"105.97333333333331\" r=\"3.6\" />\n    <circle cx=\"901.0099999999999\" cy=\"72.155\" r=\"3.6\" />\n    <circle cx=\"884.4683333333332\" cy=\"110.80499999999999\" r=\"3.6\" />\n    <circle cx=\"876.1616666666667\" cy=\"144.66833333333332\" r=\"3.6\" />\n    <circle cx=\"884.4633333333333\" cy=\"120.47166666666668\" r=\"3.6\" />\n    <circle cx=\"901.0300000000001\" cy=\"62.461666666666666\" r=\"3.6\" />\n    <circle cx=\"876.1683333333334\" cy=\"134.96666666666667\" r=\"3.6\" />\n    <circle cx=\"884.4616666666666\" cy=\"130.14333333333335\" r=\"3.6\" />\n    <circle cx=\"892.6899999999999\" cy=\"67.29666666666667\" r=\"3.6\" />\n    <circle cx=\"851.245\" cy=\"62.461666666666666\" r=\"3.6\" />\n    <circle cx=\"867.9366666666668\" cy=\"159.11833333333334\" r=\"3.6\" />\n    <circle cx=\"859.5400000000001\" cy=\"57.616666666666674\" r=\"3.6\" />\n    <circle cx=\"834.62\" cy=\"62.461666666666666\" r=\"3.6\" />\n    <circle cx=\"842.9049999999999\" cy=\"57.63\" r=\"3.6\" />\n    <circle cx=\"520.17\" cy=\"130.14333333333335\" r=\"3.6\" />\n    <circle cx=\"876.1383333333333\" cy=\"57.616666666666674\" r=\"3.6\" />\n    <circle cx=\"867.8350000000002\" cy=\"62.446666666666665\" r=\"3.6\" />\n    <circle cx=\"809.7700000000001\" cy=\"183.31000000000003\" r=\"3.6\" />\n    <circle cx=\"818.08\" cy=\"188.14499999999998\" r=\"3.6\" />\n    <circle cx=\"826.3250000000002\" cy=\"57.616666666666674\" r=\"3.6\" />\n    <circle cx=\"859.61\" cy=\"163.97666666666666\" r=\"3.6\" />\n    <circle cx=\"834.7066666666666\" cy=\"197.82666666666668\" r=\"3.6\" />\n    <circle cx=\"784.8633333333333\" cy=\"178.49\" r=\"3.6\" />\n    <circle cx=\"801.48\" cy=\"178.49\" r=\"3.6\" />\n    <circle cx=\"776.5699999999998\" cy=\"183.31000000000003\" r=\"3.6\" />\n    <circle cx=\"834.7116666666666\" cy=\"207.49333333333334\" r=\"3.6\" />\n    <circle cx=\"793.14\" cy=\"183.32666666666668\" r=\"3.6\" />\n    <circle cx=\"826.41\" cy=\"192.97833333333335\" r=\"3.6\" />\n    <circle cx=\"859.61\" cy=\"183.31000000000003\" r=\"3.6\" />\n    <circle cx=\"851.3249999999999\" cy=\"188.16\" r=\"3.6\" />\n    <circle cx=\"834.7116666666666\" cy=\"217.16333333333333\" r=\"3.6\" />\n    <circle cx=\"859.61\" cy=\"173.64333333333335\" r=\"3.6\" />\n    <circle cx=\"842.9899999999999\" cy=\"192.995\" r=\"3.6\" />\n    <circle cx=\"843.06\" cy=\"222.0033333333333\" r=\"3.6\" />\n    <circle cx=\"843\" cy=\"202.66333333333333\" r=\"3.6\" />\n    <circle cx=\"843.0300000000001\" cy=\"212.35166666666666\" r=\"3.6\" />\n    <circle cx=\"884.43\" cy=\"62.461666666666666\" r=\"3.6\" />\n    <circle cx=\"618.8249999999999\" cy=\"72.12\" r=\"3.6\" />\n    <circle cx=\"627.1283333333333\" cy=\"76.93833333333333\" r=\"3.6\" />\n    <circle cx=\"610.475\" cy=\"67.28333333333333\" r=\"3.6\" />\n    <circle cx=\"593.9216666666666\" cy=\"67.26833333333333\" r=\"3.6\" />\n    <circle cx=\"602.225\" cy=\"72.10666666666667\" r=\"3.6\" />\n    <circle cx=\"635.425\" cy=\"72.10333333333332\" r=\"3.6\" />\n    <circle cx=\"651.9983333333333\" cy=\"72.11\" r=\"3.6\" />\n    <circle cx=\"660.295\" cy=\"67.26833333333333\" r=\"3.6\" />\n    <circle cx=\"643.7433333333333\" cy=\"76.93833333333333\" r=\"3.6\" />\n    <circle cx=\"536.7683333333333\" cy=\"110.79333333333331\" r=\"3.6\" />\n    <circle cx=\"668.575\" cy=\"72.10499999999999\" r=\"3.6\" />\n    <circle cx=\"784.8683333333333\" cy=\"188.155\" r=\"3.6\" />\n    <circle cx=\"536.765\" cy=\"101.11833333333334\" r=\"3.6\" />\n    <circle cx=\"585.62\" cy=\"62.43333333333334\" r=\"3.6\" />\n    <circle cx=\"528.465\" cy=\"125.29833333333333\" r=\"3.6\" />\n    <circle cx=\"577.3166666666666\" cy=\"57.60166666666667\" r=\"3.6\" />\n    <circle cx=\"817.995\" cy=\"62.446666666666665\" r=\"3.6\" />\n    <circle cx=\"544.5485714285713\" cy=\"77.24285714285715\" r=\"3.6\" />\n    <circle cx=\"552.4083333333334\" cy=\"72.11\" r=\"3.6\" />\n    <circle cx=\"676.8683333333332\" cy=\"67.26833333333333\" r=\"3.6\" />\n    <circle cx=\"768.1833333333334\" cy=\"52.77666666666667\" r=\"3.6\" />\n    <circle cx=\"751.585\" cy=\"43.120000000000005\" r=\"3.6\" />\n    <circle cx=\"759.8833333333332\" cy=\"47.946666666666665\" r=\"3.6\" />\n    <circle cx=\"784.7916666666666\" cy=\"52.79333333333333\" r=\"3.6\" />\n    <circle cx=\"793.0649999999999\" cy=\"57.63\" r=\"3.6\" />\n    <circle cx=\"809.6999999999999\" cy=\"57.616666666666674\" r=\"3.6\" />\n    <circle cx=\"801.4050000000001\" cy=\"52.79333333333332\" r=\"3.6\" />\n    <circle cx=\"776.4983333333333\" cy=\"57.616666666666674\" r=\"3.6\" />\n    <circle cx=\"743.255\" cy=\"47.96333333333334\" r=\"3.6\" />\n    <circle cx=\"702.1075000000001\" cy=\"52.7775\" r=\"3.6\" />\n    <circle cx=\"685.1616666666667\" cy=\"62.443333333333335\" r=\"3.6\" />\n    <circle cx=\"709.75875\" cy=\"47.94375\" r=\"3.6\" />\n    <circle cx=\"693.4366666666666\" cy=\"57.613333333333344\" r=\"3.6\" />\n    <circle cx=\"718.3949999999999\" cy=\"52.77666666666667\" r=\"3.6\" />\n    <circle cx=\"734.9866666666667\" cy=\"43.12500000000001\" r=\"3.6\" />\n    <circle cx=\"726.6983333333333\" cy=\"47.946666666666665\" r=\"3.6\" />\n    <circle cx=\"876.1850000000001\" cy=\"289.65\" r=\"3.6\" />\n    <circle cx=\"876.1550000000001\" cy=\"279.99833333333333\" r=\"3.6\" />\n    <circle cx=\"884.5033333333334\" cy=\"275.16333333333336\" r=\"3.6\" />\n    <circle cx=\"884.4983333333333\" cy=\"304.2\" r=\"3.6\" />\n    <circle cx=\"867.9249999999998\" cy=\"304.19166666666666\" r=\"3.6\" />\n    <circle cx=\"884.5283333333333\" cy=\"284.84333333333336\" r=\"3.6\" />\n    <circle cx=\"867.895\" cy=\"294.50333333333333\" r=\"3.6\" />\n    <circle cx=\"884.5283333333333\" cy=\"294.5133333333334\" r=\"3.6\" />\n    <circle cx=\"876.215\" cy=\"299.3383333333333\" r=\"3.6\" />\n    <circle cx=\"859.6583333333333\" cy=\"318.6666666666667\" r=\"3.6\" />\n    <circle cx=\"868.0050000000001\" cy=\"323.51166666666666\" r=\"3.6\" />\n    <circle cx=\"851.3116666666666\" cy=\"323.52666666666664\" r=\"3.6\" />\n    <circle cx=\"892.8250000000002\" cy=\"212.33333333333334\" r=\"3.6\" />\n    <circle cx=\"892.8249999999999\" cy=\"202.66333333333333\" r=\"3.6\" />\n    <circle cx=\"892.805\" cy=\"231.65833333333333\" r=\"3.6\" />\n    <circle cx=\"909.4733333333334\" cy=\"251\" r=\"3.6\" />\n    <circle cx=\"901.1066666666666\" cy=\"246.16833333333332\" r=\"3.6\" />\n    <circle cx=\"901.1366666666667\" cy=\"236.51500000000001\" r=\"3.6\" />\n    <circle cx=\"892.8650000000001\" cy=\"260.6766666666667\" r=\"3.6\" />\n    <circle cx=\"901.0566666666667\" cy=\"294.52000000000004\" r=\"3.6\" />\n    <circle cx=\"901.0633333333334\" cy=\"304.18666666666667\" r=\"3.6\" />\n    <circle cx=\"909.41\" cy=\"289.66333333333336\" r=\"3.6\" />\n    <circle cx=\"892.8533333333334\" cy=\"328.3566666666666\" r=\"3.6\" />\n    <circle cx=\"925.9233333333333\" cy=\"134.97666666666666\" r=\"3.6\" />\n    <circle cx=\"934.2800000000001\" cy=\"130.14333333333335\" r=\"3.6\" />\n    <circle cx=\"925.9283333333333\" cy=\"125.28666666666665\" r=\"3.6\" />\n    <circle cx=\"917.7133333333335\" cy=\"168.81666666666666\" r=\"3.6\" />\n    <circle cx=\"909.39\" cy=\"173.645\" r=\"3.6\" />\n    <circle cx=\"925.9933333333335\" cy=\"163.96833333333333\" r=\"3.6\" />\n    <circle cx=\"934.2449999999999\" cy=\"149.48333333333332\" r=\"3.6\" />\n    <circle cx=\"934.305\" cy=\"159.14166666666668\" r=\"3.6\" />\n    <circle cx=\"917.7950000000001\" cy=\"265.49333333333334\" r=\"3.6\" />\n    <circle cx=\"917.7366666666667\" cy=\"304.17333333333335\" r=\"3.6\" />\n    <circle cx=\"909.4350000000001\" cy=\"328.34999999999997\" r=\"3.6\" />\n    <circle cx=\"917.79\" cy=\"323.5\" r=\"3.6\" />\n    <circle cx=\"934.2900000000001\" cy=\"294.51666666666665\" r=\"3.6\" />\n    <circle cx=\"942.685\" cy=\"454.07166666666666\" r=\"3.6\" />\n    <circle cx=\"950.9983333333333\" cy=\"449.2033333333333\" r=\"3.6\" />\n    <circle cx=\"967.5749999999999\" cy=\"323.52833333333336\" r=\"3.6\" />\n    <circle cx=\"959.2516666666667\" cy=\"309\" r=\"3.6\" />\n    <circle cx=\"992.5649999999999\" cy=\"328.34999999999997\" r=\"3.6\" />\n    <circle cx=\"976.3714285714285\" cy=\"318.94714285714286\" r=\"3.6\" />\n    <circle cx=\"983.7371428571429\" cy=\"323.2271428571429\" r=\"3.6\" />\n    <circle cx=\"967.585\" cy=\"313.82166666666666\" r=\"3.6\" />\n    <circle cx=\"959.2433333333333\" cy=\"318.67333333333335\" r=\"3.6\" />\n    <circle cx=\"1000.805\" cy=\"313.84\" r=\"3.6\" />\n    <circle cx=\"951.025\" cy=\"410.54333333333335\" r=\"3.6\" />\n    <circle cx=\"934.41\" cy=\"400.8733333333333\" r=\"3.6\" />\n    <circle cx=\"917.8000000000001\" cy=\"391.1933333333333\" r=\"3.6\" />\n    <circle cx=\"942.685\" cy=\"415.38000000000005\" r=\"3.6\" />\n    <circle cx=\"942.6850000000001\" cy=\"405.71333333333337\" r=\"3.6\" />\n    <circle cx=\"909.4816666666666\" cy=\"386.3583333333333\" r=\"3.6\" />\n    <circle cx=\"926.1166666666667\" cy=\"396.02833333333336\" r=\"3.6\" />\n    <circle cx=\"892.85\" cy=\"386.375\" r=\"3.6\" />\n    <circle cx=\"909.46\" cy=\"376.68833333333333\" r=\"3.6\" />\n    <circle cx=\"884.6\" cy=\"391.2083333333333\" r=\"3.6\" />\n    <circle cx=\"892.8699999999999\" cy=\"396.04333333333335\" r=\"3.6\" />\n    <circle cx=\"884.61\" cy=\"400.8733333333333\" r=\"3.6\" />\n    <circle cx=\"901.1999999999999\" cy=\"391.19666666666666\" r=\"3.6\" />\n    <circle cx=\"901.1783333333333\" cy=\"381.53999999999996\" r=\"3.6\" />\n    <circle cx=\"959.2783333333333\" cy=\"376.68833333333333\" r=\"3.6\" />\n    <circle cx=\"967.5749999999999\" cy=\"371.8533333333333\" r=\"3.6\" />\n    <circle cx=\"950.985\" cy=\"371.8633333333334\" r=\"3.6\" />\n    <circle cx=\"942.6750000000001\" cy=\"357.34833333333336\" r=\"3.6\" />\n    <circle cx=\"975.9249999999998\" cy=\"367.01666666666665\" r=\"3.6\" />\n    <circle cx=\"942.69\" cy=\"347.6933333333333\" r=\"3.6\" />\n    <circle cx=\"967.6150000000001\" cy=\"400.85999999999996\" r=\"3.6\" />\n    <circle cx=\"976.3914285714287\" cy=\"376.96000000000004\" r=\"3.6\" />\n    <circle cx=\"959.3183333333333\" cy=\"415.3666666666666\" r=\"3.6\" />\n    <circle cx=\"959.3183333333335\" cy=\"405.69666666666666\" r=\"3.6\" />\n    <circle cx=\"967.6149999999999\" cy=\"391.1933333333333\" r=\"3.6\" />\n    <circle cx=\"976.4171428571428\" cy=\"386.62857142857143\" r=\"3.6\" />\n    <circle cx=\"884.5916666666666\" cy=\"420.23499999999996\" r=\"3.6\" />\n    <circle cx=\"959.3000000000001\" cy=\"386.35833333333335\" r=\"3.6\" />\n    <circle cx=\"867.9949999999999\" cy=\"400.85999999999996\" r=\"3.6\" />\n    <circle cx=\"967.5949999999999\" cy=\"381.52500000000003\" r=\"3.6\" />\n    <circle cx=\"951.015\" cy=\"391.19666666666666\" r=\"3.6\" />\n    <circle cx=\"942.665\" cy=\"386.375\" r=\"3.6\" />\n    <circle cx=\"876.3183333333333\" cy=\"396.02833333333336\" r=\"3.6\" />\n    <circle cx=\"967.5949999999999\" cy=\"342.84666666666664\" r=\"3.6\" />\n    <circle cx=\"917.7600000000001\" cy=\"371.8533333333333\" r=\"3.6\" />\n    <circle cx=\"934.3650000000001\" cy=\"352.5333333333333\" r=\"3.6\" />\n    <circle cx=\"934.38\" cy=\"381.52833333333325\" r=\"3.6\" />\n    <circle cx=\"959.3133333333334\" cy=\"434.715\" r=\"3.6\" />\n    <circle cx=\"868.025\" cy=\"420.21333333333337\" r=\"3.6\" />\n    <circle cx=\"942.6750000000001\" cy=\"338.02000000000004\" r=\"3.6\" />\n    <circle cx=\"942.695\" cy=\"434.7383333333334\" r=\"3.6\" />\n    <circle cx=\"934.3699999999999\" cy=\"371.8633333333334\" r=\"3.6\" />\n    <circle cx=\"942.6449999999999\" cy=\"376.7033333333333\" r=\"3.6\" />\n    <circle cx=\"950.995\" cy=\"381.53999999999996\" r=\"3.6\" />\n    <circle cx=\"926.0766666666667\" cy=\"367.0183333333334\" r=\"3.6\" />\n    <circle cx=\"959.3183333333333\" cy=\"396.02833333333336\" r=\"3.6\" />\n    <circle cx=\"934.3699999999999\" cy=\"362.19666666666666\" r=\"3.6\" />\n    <circle cx=\"917.7800000000001\" cy=\"381.52500000000003\" r=\"3.6\" />\n    <circle cx=\"951.025\" cy=\"400.8733333333333\" r=\"3.6\" />\n    <circle cx=\"926.0766666666667\" cy=\"376.68833333333333\" r=\"3.6\" />\n    <circle cx=\"926.0966666666667\" cy=\"386.3583333333333\" r=\"3.6\" />\n    <circle cx=\"934.4\" cy=\"391.2083333333333\" r=\"3.6\" />\n    <circle cx=\"942.6850000000001\" cy=\"396.04333333333335\" r=\"3.6\" />\n    <circle cx=\"942.6449999999999\" cy=\"367.0333333333333\" r=\"3.6\" />\n    <circle cx=\"917.75\" cy=\"352.5083333333334\" r=\"3.6\" />\n    <circle cx=\"901.1383333333333\" cy=\"362.17833333333334\" r=\"3.6\" />\n    <circle cx=\"975.9249999999998\" cy=\"357.34666666666664\" r=\"3.6\" />\n    <circle cx=\"892.82\" cy=\"367.02833333333336\" r=\"3.6\" />\n    <circle cx=\"867.9649999999998\" cy=\"381.53000000000003\" r=\"3.6\" />\n    <circle cx=\"876.2466666666666\" cy=\"376.67\" r=\"3.6\" />\n    <circle cx=\"884.5466666666667\" cy=\"371.8500000000001\" r=\"3.6\" />\n    <circle cx=\"926.0416666666666\" cy=\"347.66833333333335\" r=\"3.6\" />\n    <circle cx=\"967.585\" cy=\"352.49666666666667\" r=\"3.6\" />\n    <circle cx=\"959.2783333333333\" cy=\"367.01833333333326\" r=\"3.6\" />\n    <circle cx=\"967.5650000000002\" cy=\"362.17833333333334\" r=\"3.6\" />\n    <circle cx=\"950.9899999999999\" cy=\"362.195\" r=\"3.6\" />\n    <circle cx=\"934.3400000000001\" cy=\"342.84833333333336\" r=\"3.6\" />\n    <circle cx=\"909.4499999999999\" cy=\"357.3433333333334\" r=\"3.6\" />\n    <circle cx=\"976.4357142857143\" cy=\"415.09\" r=\"3.6\" />\n    <circle cx=\"967.6650000000001\" cy=\"429.8666666666666\" r=\"3.6\" />\n    <circle cx=\"951.0183333333333\" cy=\"429.8833333333334\" r=\"3.6\" />\n    <circle cx=\"983.4525\" cy=\"400.86\" r=\"3.6\" />\n    <circle cx=\"934.3666666666667\" cy=\"429.88166666666666\" r=\"3.6\" />\n    <circle cx=\"983.4525000000001\" cy=\"410.52750000000003\" r=\"3.6\" />\n    <circle cx=\"926.0866666666666\" cy=\"415.38499999999993\" r=\"3.6\" />\n    <circle cx=\"892.9016666666666\" cy=\"415.3983333333333\" r=\"3.6\" />\n    <circle cx=\"901.2199999999999\" cy=\"410.5483333333334\" r=\"3.6\" />\n    <circle cx=\"876.3183333333333\" cy=\"415.3666666666666\" r=\"3.6\" />\n    <circle cx=\"909.5016666666667\" cy=\"405.6966666666667\" r=\"3.6\" />\n    <circle cx=\"917.79\" cy=\"410.5316666666667\" r=\"3.6\" />\n    <circle cx=\"967.6416666666668\" cy=\"420.215\" r=\"3.6\" />\n    <circle cx=\"876.3183333333333\" cy=\"405.6966666666667\" r=\"3.6\" />\n    <circle cx=\"909.5016666666667\" cy=\"396.02833333333336\" r=\"3.6\" />\n    <circle cx=\"884.61\" cy=\"410.54333333333335\" r=\"3.6\" />\n    <circle cx=\"867.995\" cy=\"410.5266666666667\" r=\"3.6\" />\n    <circle cx=\"892.8699999999999\" cy=\"405.71333333333337\" r=\"3.6\" />\n    <circle cx=\"901.21\" cy=\"400.8733333333333\" r=\"3.6\" />\n    <circle cx=\"867.9949999999999\" cy=\"391.1933333333333\" r=\"3.6\" />\n    <circle cx=\"909.46\" cy=\"367.01833333333326\" r=\"3.6\" />\n    <circle cx=\"876.2983333333333\" cy=\"386.35833333333335\" r=\"3.6\" />\n    <circle cx=\"917.7600000000001\" cy=\"362.18333333333334\" r=\"3.6\" />\n    <circle cx=\"901.1683333333334\" cy=\"371.8633333333334\" r=\"3.6\" />\n    <circle cx=\"884.58\" cy=\"381.52833333333325\" r=\"3.6\" />\n    <circle cx=\"892.83\" cy=\"376.7033333333333\" r=\"3.6\" />\n    <circle cx=\"959.3149999999999\" cy=\"425.03666666666663\" r=\"3.6\" />\n    <circle cx=\"967.6149999999999\" cy=\"410.52666666666664\" r=\"3.6\" />\n    <circle cx=\"926.0766666666667\" cy=\"357.3500000000001\" r=\"3.6\" />\n    <circle cx=\"976.785\" cy=\"405.69375\" r=\"3.6\" />\n    <circle cx=\"983.7742857142857\" cy=\"381.2442857142857\" r=\"3.6\" />\n    <circle cx=\"976.7850000000001\" cy=\"396.02625\" r=\"3.6\" />\n    <circle cx=\"983.4525000000001\" cy=\"391.19250000000005\" r=\"3.6\" />\n    <circle cx=\"917.8000000000001\" cy=\"400.85999999999996\" r=\"3.6\" />\n    <circle cx=\"934.41\" cy=\"410.54333333333335\" r=\"3.6\" />\n    <circle cx=\"926.1166666666667\" cy=\"405.6966666666667\" r=\"3.6\" />\n    <circle cx=\"934.39\" cy=\"420.22333333333336\" r=\"3.6\" />\n    <circle cx=\"951.0216666666666\" cy=\"420.21000000000004\" r=\"3.6\" />\n    <circle cx=\"942.68\" cy=\"425.0466666666667\" r=\"3.6\" />\n    <circle cx=\"1017.485\" cy=\"323.49333333333334\" r=\"3.6\" />\n    <circle cx=\"1009.2283333333334\" cy=\"463.70166666666665\" r=\"3.6\" />\n    <circle cx=\"1000.8916666666665\" cy=\"468.5466666666667\" r=\"3.6\" />\n    <circle cx=\"1017.525\" cy=\"458.8616666666667\" r=\"3.6\" />\n    <circle cx=\"1025.8149999999998\" cy=\"454.00666666666666\" r=\"3.6\" />\n    <circle cx=\"1034.0249999999999\" cy=\"371.8533333333333\" r=\"3.6\" />\n    <circle cx=\"1034.0449999999998\" cy=\"439.5416666666667\" r=\"3.6\" />\n    <circle cx=\"1042.4\" cy=\"434.6983333333333\" r=\"3.6\" />\n    <circle cx=\"1042.4\" cy=\"425.0333333333333\" r=\"3.6\" />\n    <circle cx=\"1075.54\" cy=\"357.3333333333333\" r=\"3.6\" />\n</svg>";
 
-},{}],374:[function(require,module,exports){
+},{}],367:[function(require,module,exports){
 module.exports = "\n/* map styling */\n\n.map-dialog-description {\n    color: #ffc107;\n    height: 100px;\n    width: 200px;\n    margin: 0;\n    background-color: rgba(38, 41, 43, 0.66);\n    border-radius: 3px;\n    display: block;\n    padding: 8px;\n    opacity: 0;\n    will-change: opacity;\n    transition: 0.3s opacity;\n    text-align: center;\n    pointer-events: none;\n    position: relative;\n    margin-left: -100px;\n    left: 50%;\n    top: 100px;\n    z-index: 100;\n}\n\n@media (max-height: 800px) {\n    .map-dialog-description {\n        top: 40px;\n    }\n}\n\n.map-dialog {\n    position: fixed;\n    top: 50%;\n    transform: translateY(-50%);\n    width: 100%;\n    text-align: center;\n    pointer-events: none;\n}\n\n.map-dialog-description img {\n    width: 24px;\n    display: inline-block;\n}\n\n#WebDollarMap svg {\n\n    margin: auto;\n    opacity: 1;\n    transition: 1s opacity;\n\n    /* we have the map as background image such that we can display:none the hexagons\n    in the svg which greatly improves performance on firefox */\n    background-image: url(public/assets/map/map.svg);\n}\n\n\n#WebDollarMap svg.hide-circles circle {\n    fill: #26292b;\n}\n\n.peer-own {\n    display: block !important;\n    fill: white !important;\n    -webkit-animation: connected 1800ms ease 5;\n    animation: connected 1800ms ease 8;\n}\n\n.peer-connected-terminal {\n    display: block !important;\n    fill: #fec02c !important;\n    -webkit-animation: connected 1800ms ease 10;\n    animation: connected 1800ms ease 3;\n}\n\n.peer-connected-browser {\n    display: block !important;\n    fill: #12428c !important;\n    -webkit-animation: connected 1800ms ease 10;\n    animation: connected 1800ms ease 3;\n}\n\n.peer-own,\n.peer-connected-terminal,\n.peer-connected-browser {\n    will-change: opacity;\n}\n\n\n.link {\n    stroke: #dedede;\n    stroke-width: 1;\n    stroke-dasharray: 5 5;\n    opacity: 0.5;\n}\n\n\n@media  screen and  (max-width: 480px) {\n    #WebDollarMap svg{\n        box-sizing: border-box;\n        transform: scale(1.15);\n    }\n}\n\n@media   screen and  (max-width: 800px) {\n\n    /* disable map animations when map is in background */\n    .peer-own,  .peer-connected-browser, .peer-connected-terminal {\n        -webkit-animation: none;\n        animation: none;\n        will-change: initial;\n    }\n\n    #WebDollarMap svg{\n        box-sizing: border-box;\n        transform: scale(1.05);\n    }\n\n}\n\n\n/* Large Screen */\n\n@media screen and (min-width: 1080px) {\n    #WebDollarMap svg {\n        box-sizing: border-box;\n        transform: scale(0.9);\n    }\n}\n\n@media screen and (min-width: 1400px) {\n    #WebDollarMap svg {\n        box-sizing: border-box;\n        transform: scale(0.8);\n    }\n}\n";
 
-},{}],375:[function(require,module,exports){
+},{}],368:[function(require,module,exports){
 "use strict";
 
-},{}],376:[function(require,module,exports){
+},{}],369:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19624,4 +18798,4 @@ var Wallet = function Wallet() {
 
 exports.default = new Wallet();
 
-},{}]},{},[362]);
+},{}]},{},[355]);
