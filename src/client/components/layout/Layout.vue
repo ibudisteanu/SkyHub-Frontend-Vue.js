@@ -1,6 +1,6 @@
 <template>
 
-    <div style="overflow-y: scroll;">
+    <div style="overflow-y: auto;">
 
         <HeaderLayout/>
 

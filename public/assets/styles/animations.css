@@ -28,6 +28,11 @@
     animation-delay: 1.6s;
 }
 
+.fadeIn5{
+    -webkit-animation-delay: 2s;
+    animation-delay: 2s;
+}
+
 @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
