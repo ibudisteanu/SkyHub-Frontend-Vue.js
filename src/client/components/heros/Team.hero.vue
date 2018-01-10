@@ -86,7 +86,7 @@
                             </div>
                         </div>
                         <h4>ADRIAN ROBESCU</h4>
-                        <h5 class="teamRole">LEAD MARKETING</h5>
+                        <h5 class="teamRole">Blockchain business developer</h5>
                         <p>Adrian is a Business Analyst and Strategist, specialized in modeling business processes and ERP solutions. With a strong background in marketing is working on WebDollar adoption, partnerships and communication.</p>
                     </div>
                     <div class="our-team">
