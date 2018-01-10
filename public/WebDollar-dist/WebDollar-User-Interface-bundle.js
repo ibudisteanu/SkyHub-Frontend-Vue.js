@@ -16108,14 +16108,22 @@ exports.default = {
     data: function data() {
         return {
             value: 0,
-            screenWidth: window.innerWidth
+            screenWidth: window.innerWidth,
+            logicalProcessors: 0
         };
     },
 
 
     methods: {
         change: function change(value) {
-            console.log("value", value, this.value);
+
+            if (value > (this.value || 1) * 3) {
+
+                value = (this.value || 1) * 3;
+                this.$refs['slider'].setValue(value);
+                return;
+            }
+
             this.$emit('sliderChanged', value);
         },
         addEvent: function addEvent(object, type, callback) {
@@ -16133,6 +16141,8 @@ exports.default = {
     mounted: function mounted() {
         var _this = this;
 
+        if (typeof window === "undefined") return false;
+
         this.addEvent(window, "resize", function (event) {
 
             _this.screenWidth = window.innerWidth;
@@ -16147,7 +16157,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('vue-slider',{staticClass:"miningSlider",attrs:{"piecewise":true,"width":this.screenWidth < 750 ? 180 : 330,"tooltip":false,"min":0,"max":this.logicalProcessors},on:{"callback":this.change},model:{value:(_vm.value),callback:function ($$v) {_vm.value=$$v},expression:"value"}})],1)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('vue-slider',{ref:"slider",staticClass:"miningSlider",attrs:{"piecewise":true,"width":this.screenWidth < 750 ? 180 : 330,"tooltip":false,"min":0,"max":this.logicalProcessors},on:{"callback":this.change},model:{value:(_vm.value),callback:function ($$v) {_vm.value=$$v},expression:"value"}})],1)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
