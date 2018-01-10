@@ -242,6 +242,7 @@ a:hover{
   font-size: 12px;
   margin-top: 8px;
   letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 .teamWrapper p{
