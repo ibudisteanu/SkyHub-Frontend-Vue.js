@@ -12,7 +12,7 @@
             <a href="https://github.com/WebDollar">
                 <img class="socialImage" src="public/assets/images/github-logo.svg">
             </a>
-        </div>
+        </div> 
 
     </div>
 </template>
