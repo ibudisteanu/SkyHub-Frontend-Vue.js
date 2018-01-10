@@ -126,9 +126,9 @@ function render (req, res) {
 
   const context = {
     SEOMixinTitle: {
-      title:'WebDollar - Web Coin of the Internet',
-      facebook: 'WebDollar - Web Coin of the Internet',
-      twitter: 'WebDollar - Web Coin of the Internet',
+      title:'WebDollar - Currency of the Internet',
+      facebook: 'WebDollar - Currency of the Internet',
+      twitter: 'WebDollar - Currency of the Internet',
     }, // default title
     SEOMixinDescription: {
       description:'WebDollar - disrupting Blockchain',

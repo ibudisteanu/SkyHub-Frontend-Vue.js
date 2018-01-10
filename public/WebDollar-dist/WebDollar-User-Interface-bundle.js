@@ -16014,13 +16014,17 @@ exports.default = {
         WebDollar.Blockchain.Mining.emitter.on("mining/workers-changed", function (workers) {
 
             _this.workers = workers;
+            if (_this.workers !== _this.$refs['refMiningSlider'].data) _this.$refs['refMiningSlider'].$refs['slider'].setValue(_this.workers);
         });
 
         this.minerAddress = WebDollar.Blockchain.Mining.minerAddressBase;
-        console.log("mining/miner-address-changed", this.minerAddress);
         WebDollar.Blockchain.Mining.emitter.on("mining/miner-address-changed", function (minerAddress) {
-            console.log("mining/miner-address-changed", minerAddress);
             _this.minerAddress = minerAddress;
+        });
+
+        WebDollar.Blockchain.emitter.on("blockchain/status-webdollar", function (data) {
+
+            if (data.message === "Ready") _this.$refs['refMiningSlider'].disabled = false;
         });
     },
 
@@ -16070,7 +16074,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"walletSection",attrs:{"id":"dashboardMining"}},[_c('div',{attrs:{"id":"minningController"}},[_vm._m(0),_vm._v(" "),_c('strong',{style:({background: this.workers ? 0 : '#d23c25'}),attrs:{"id":"threadsNumber"}},[_vm._v(_vm._s(this.workers))])]),_vm._v(" "),_c('div',{staticClass:"walletStartMining",attrs:{"type":"button"}},[_c('slider',{on:{"sliderChanged":this.changeWorkers}})],1),_vm._v(" "),_c('div',{attrs:{"id":"miningDetails"}},[_c('p',{style:({display: this.hashesPerSecond==0 && this.started==true ? 'none' : 'inline-block'})},[_vm._v(_vm._s(this.started ? this.hashesPerSecond + ' hashes/sec' : 'not started')+" ")]),_vm._v(" "),_c('svg',{staticStyle:{"enable-background":"new 0 0 50 50"},style:({display: this.hashesPerSecond==0 && this.started==true ? 'inline-block' : 'none'}),attrs:{"version":"1.1","id":"miningLoader","xmlns":"http://www.w3.org/2000/svg","xmlns:xlink":"http://www.w3.org/1999/xlink","x":"0px","y":"0px","width":"40px","height":"40px","viewBox":"0 0 50 50","xml:space":"preserve"}},[_c('path',{attrs:{"fill":"#fec02c","d":"M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"}},[_c('animateTransform',{attrs:{"attributeType":"xml","attributeName":"transform","type":"rotate","from":"0 25 25","to":"360 25 25","dur":"0.6s","repeatCount":"indefinite"}})],1)])]),_vm._v(" "),_c('p',{staticClass:"WEBD"},[_c('ShowBalance',{attrs:{"address":this.minerAddress,"currency":"0x01"}}),_vm._v(" "),_c('b',{staticClass:"whiteText"},[_vm._v("WBD MINED")])],1)])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"walletSection",attrs:{"id":"dashboardMining"}},[_c('div',{attrs:{"id":"minningController"}},[_vm._m(0),_vm._v(" "),_c('strong',{style:({background: this.workers ? 0 : '#d23c25'}),attrs:{"id":"threadsNumber"}},[_vm._v(_vm._s(this.workers))])]),_vm._v(" "),_c('div',{staticClass:"walletStartMining",attrs:{"type":"button"}},[_c('slider',{ref:"refMiningSlider",on:{"sliderChanged":this.changeWorkers}})],1),_vm._v(" "),_c('div',{attrs:{"id":"miningDetails"}},[_c('p',{style:({display: this.hashesPerSecond==0 && this.started==true ? 'none' : 'inline-block'})},[_vm._v(_vm._s(this.started ? this.hashesPerSecond + ' hashes/sec' : 'not started')+" ")]),_vm._v(" "),_c('svg',{staticStyle:{"enable-background":"new 0 0 50 50"},style:({display: this.hashesPerSecond==0 && this.started==true ? 'inline-block' : 'none'}),attrs:{"version":"1.1","id":"miningLoader","xmlns":"http://www.w3.org/2000/svg","xmlns:xlink":"http://www.w3.org/1999/xlink","x":"0px","y":"0px","width":"40px","height":"40px","viewBox":"0 0 50 50","xml:space":"preserve"}},[_c('path',{attrs:{"fill":"#fec02c","d":"M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"}},[_c('animateTransform',{attrs:{"attributeType":"xml","attributeName":"transform","type":"rotate","from":"0 25 25","to":"360 25 25","dur":"0.6s","repeatCount":"indefinite"}})],1)])]),_vm._v(" "),_c('p',{staticClass:"WEBD"},[_c('ShowBalance',{attrs:{"address":this.minerAddress,"currency":"0x01"}}),_vm._v(" "),_c('b',{staticClass:"whiteText"},[_vm._v("WBD MINED")])],1)])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',{staticClass:"miningPowerText"},[_vm._v("Mining "),_c('br'),_vm._v(" "),_c('span',{staticClass:"secondWord"},[_vm._v("Power")])])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -16108,6 +16112,7 @@ exports.default = {
     data: function data() {
         return {
             value: 0,
+            disabled: true,
             screenWidth: window.innerWidth,
             logicalProcessors: 8
         };
@@ -16159,7 +16164,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('vue-slider',{ref:"slider",staticClass:"miningSlider",attrs:{"piecewise":true,"width":this.screenWidth < 750 ? 180 : 330,"tooltip":false,"min":0,"max":this.logicalProcessors},on:{"callback":this.change},model:{value:(_vm.value),callback:function ($$v) {_vm.value=$$v},expression:"value"}})],1)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('vue-slider',{ref:"slider",staticClass:"miningSlider",attrs:{"id":"miningWorkersSlider","piecewise":true,"width":this.screenWidth < 750 ? 180 : 330,"tooltip":false,"min":0,"max":this.logicalProcessors,"disabled":this.disabled},on:{"callback":this.change},model:{value:(_vm.value),callback:function ($$v) {_vm.value=$$v},expression:"value"}})],1)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
