@@ -79,6 +79,14 @@
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
 
+    .distributionContainer{
+        grid-template-columns: 1fr;
+    }
+
+    #newCryptoSection .featuresContainer{
+        grid-template-columns: 1fr;
+    }
+
     #socialLinks{
         float: right;
     }
@@ -165,6 +173,15 @@
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width : 480px) {
+
+    .textContainer{
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    .checkItem{
+        margin-left: 0;
+    }
     #mediaContainer{
         grid-template-columns: 1fr 1fr;
         grid-column-gap: 20px;

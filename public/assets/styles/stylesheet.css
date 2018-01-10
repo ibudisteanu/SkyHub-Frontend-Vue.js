@@ -213,8 +213,12 @@ a:hover{
   transition: all .5s linear;
 }
 
-#aboutSection, #timelineSection{
+#aboutSection, #timelineSection, #newCryptoSection{
   background-color: #1b1b1b;
+}
+
+#newCryptoSection{
+  padding: 1px 0 80px 0;
 }
 
 #knowUsSection{
@@ -1006,6 +1010,31 @@ a:hover{
   color: #0f0;
 }
 
+.newCryptoText{
+  display: inline-block;
+  margin-top: 2px;
+  vertical-align: top;
+  margin-left: 5px;
+}
+
+.textContainer{
+  width: 80%;
+  display: block;
+  margin: 0 auto;
+}
+
+.checkItem{
+  margin-left: 30px;
+}
+
+.textContainer h2{
+  color: #bfbfbf;
+  letter-spacing: 1px;
+  border-bottom: solid 1px #444;
+  line-height: 45px;
+  margin-bottom: 20px;
+}
+
 svg path,
 svg rect{
   fill: #fec02c;
@@ -1013,4 +1042,107 @@ svg rect{
 
 .alreadyMining{
   display: none;
+}
+
+#myProgress {
+  width: 100%;
+  background-color: #292929;
+  border-radius: 30px;
+}
+#myBar {
+  width: 70%;
+  height: 25px;
+  background-color: #fec02c;
+  border-radius: 30px;
+}
+
+.webdCoin{
+  background-color: #fec02c;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+}
+
+.coinLogo{
+  width: 160px;
+  margin: 21px;
+}
+
+.distributionContainer{
+  padding-top: 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 40px;
+}
+
+.spin {
+  cursor: pointer;
+  transform-style: preserve-3d;
+}
+.spin {
+  animation: spin 5s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+.box-1 {
+  transform: scaleX(.5);
+}
+.box-2 {
+  transform: scaleY(1.15);
+}
+.box-3 {
+  transform: scale(.5, 1.15);
+}
+
+.distributionContainer .minValue{
+  display: inline-block;
+  float: left;
+  position: relative;
+  width: auto;
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+.distributionContainer .maxValue{
+  display: inline-block;
+  float: right;
+  position: relative;
+  width: auto;
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+.distributionContainer .stats{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-bottom: 50px;
+  padding-top: 20px;
+}
+
+.distributionContainer .stats .value{
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bolder;
+  padding-bottom: 10px;
+}
+
+.distributionContainer .stats .description{
+  color: #636262;
+  text-align: center;
+  font-size: 12px;
+}
+
+#newCryptoSection .featuresContainer{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 40px;
+  margin-bottom: 40px;
 }

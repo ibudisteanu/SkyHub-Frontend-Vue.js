@@ -18,6 +18,9 @@
 
             <faq/>
 
+            <newCryptoGeneration/>
+
+            <blockChainDistribution/>
 
         </div>
 
@@ -37,6 +40,8 @@
     import TimelineHero from "client/components/heros/Timeline.hero.vue"
     import knowUs from "client/components/heros/knowUs.hero.vue"
     import faq from "client/components/heros/faq.hero.vue"
+    import newCryptoGeneration from "client/components/heros/newCryptoGeneration.hero.vue"
+    import blockChainDistribution from "client/components/heros/blockChainDistribution.hero.vue"
 
     export default {
 
@@ -51,6 +56,8 @@
             "TimelineHero": TimelineHero,
             "knowUs": knowUs,
             "faq": faq,
+            "newCryptoGeneration":newCryptoGeneration,
+            "blockChainDistribution":blockChainDistribution
         }
 
     }
