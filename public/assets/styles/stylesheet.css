@@ -1146,3 +1146,11 @@ svg rect{
   grid-column-gap: 40px;
   margin-bottom: 40px;
 }
+
+.unfinishedMilestones{
+  background: #545454!important;
+}
+
+.main-timeline .timelineUnfinishedMilestones:before{
+  background: #909090!important;
+}
