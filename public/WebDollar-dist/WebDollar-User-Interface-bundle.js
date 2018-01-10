@@ -16109,13 +16109,15 @@ exports.default = {
         return {
             value: 0,
             screenWidth: window.innerWidth,
-            logicalProcessors: 0
+            logicalProcessors: 8
         };
     },
 
 
     methods: {
         change: function change(value) {
+
+            console.log("value", value);
 
             if (value > (this.value || 1) * 3) {
 
