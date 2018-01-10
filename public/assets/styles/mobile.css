@@ -81,6 +81,7 @@
 
     .distributionContainer{
         grid-template-columns: 1fr;
+
     }
 
     #newCryptoSection .featuresContainer{
