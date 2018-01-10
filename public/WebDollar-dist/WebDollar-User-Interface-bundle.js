@@ -16115,7 +16115,7 @@ exports.default = {
 
     methods: {
         change: function change(value) {
-
+            console.log("value", value, this.value);
             this.$emit('sliderChanged', value);
         },
         addEvent: function addEvent(object, type, callback) {
