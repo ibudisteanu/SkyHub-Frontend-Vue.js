@@ -5,7 +5,7 @@
             <div>
 
                 <h1 class="alignCenter">Peer-to-Peer Network</h1>
-                <h3 >On the following map you can see all your mining group connections in real time</h3>
+                <h3 >See all your Mining Group Connections in Real-Time </h3>
 
                 <div id="WebDollarMap"></div>
 

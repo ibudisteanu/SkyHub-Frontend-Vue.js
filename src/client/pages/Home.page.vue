@@ -10,17 +10,19 @@
 
             <PeerToPeerHero />
 
-            <knowUs/>
+            <yourNetwork/>
 
-            <TeamHero/>
+            <newCryptoGeneration/>
+
+            <blockChainDistribution/>
 
             <TimelineHero/>
 
             <faq/>
 
-            <newCryptoGeneration/>
+            <knowUs/>
 
-            <blockChainDistribution/>
+            <TeamHero/>
 
         </div>
 
@@ -42,6 +44,7 @@
     import faq from "client/components/heros/faq.hero.vue"
     import newCryptoGeneration from "client/components/heros/newCryptoGeneration.hero.vue"
     import blockChainDistribution from "client/components/heros/blockChainDistribution.hero.vue"
+    import yourNetwork from "client/components/heros/yourNetwork.hero.vue"
 
     export default {
 
@@ -57,7 +60,8 @@
             "knowUs": knowUs,
             "faq": faq,
             "newCryptoGeneration":newCryptoGeneration,
-            "blockChainDistribution":blockChainDistribution
+            "blockChainDistribution":blockChainDistribution,
+            "yourNetwork":yourNetwork
         }
 
     }

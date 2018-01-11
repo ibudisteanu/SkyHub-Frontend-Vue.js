@@ -12,7 +12,7 @@
 
     <div id="timelineSection">
 
-        <h1 class='alignCenter bigMarginTop'>Timeline</h1>
+        <h1 class='alignCenter'>Timeline</h1>
         <h3>Fastes development of a cryptocurrency in the world</h3>
 
         <div id="timeline">
