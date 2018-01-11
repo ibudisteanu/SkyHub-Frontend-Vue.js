@@ -1,21 +1,21 @@
 <template>
     <div>
-        <!--<vue-slider id="miningWorkersSlider" class="miningSlider" ref="slider" @callback="this.change" :piecewise="true"-->
-                    <!--:width="this.screenWidth < 750 ? 180 : 330" :tooltip="false" :min="0" :max="this.logicalProcessors"-->
-                    <!--v-model="value" :disabled="this.disabled"></vue-slider>-->
+        <vue-slider id="miningWorkersSlider" class="miningSlider" ref="slider" @callback="this.change" :piecewise="true"
+                    :width="this.screenWidth < 750 ? 180 : 330" :tooltip="false" :min="0" :max="this.logicalProcessors"
+                    v-model="value" :disabled="this.disabled"></vue-slider>
     </div>
 </template>
 
 
 <script>
 
-//    import vueSlider from './../../../../../node_modules/vue-slider-component/src/vue2-slider.vue';
+    import vueSlider from './../../../../../node_modules/vue-slider-component/src/vue2-slider.vue';
 
     export default {
         name: 'slider',
 
         components: {
-//            "vueSlider": vueSlider
+            "vueSlider": vueSlider
         },
 
         data() {

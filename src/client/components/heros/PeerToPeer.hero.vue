@@ -32,7 +32,9 @@
                         You can mine WEBD with your friends! You can create your own pool just using the follow link. You will be able to see stats about miners and to add and remove miners in your pool everytime you want. You will also being albe to set a reward commission for your miners.
 
                         <no-ssr>
+
                             <slider ref="refMiningSlider" @sliderChanged="this.changeCommission"/>
+
                         </no-ssr>
 
                     </div>

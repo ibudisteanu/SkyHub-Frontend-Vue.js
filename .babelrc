@@ -2,10 +2,11 @@
   "presets": [
     ["env", { "modules": false }],
 //    ["es2017"],
-//    ["stage-3"],
+//    ["stage-3"]
   ],
   "plugins": [
     "syntax-dynamic-import",
     "transform-regenerator",
+    "transform-runtime"
   ]
 }
