@@ -199,5 +199,8 @@
 
 <script>
 
+    export default{
+
+    }
 
 </script>

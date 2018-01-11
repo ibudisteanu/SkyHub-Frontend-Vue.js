@@ -123,5 +123,8 @@
 
 <script>
 
+    export default {
+
+    }
 
 </script>

@@ -17,7 +17,7 @@ export default context => {
     //FetchService.startService(store.dispatch, store.state);
 
     //processing the AUTHENTICATION
-    store.dispatch('LOCALIZATION_NEW_IP', { ip: context.ip } ); //Dispatching the Context IP
+    //store.dispatch('LOCALIZATION_NEW_IP', { ip: context.ip } ); //Dispatching the Context IP
 
     let cookie =   context.cookies.sessionId || context.cookies.credential; //credential is the old SkyHub session Id
 
