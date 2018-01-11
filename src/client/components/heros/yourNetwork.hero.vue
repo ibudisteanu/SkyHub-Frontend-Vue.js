@@ -27,7 +27,7 @@
 
     <div id="yourPoolSection" class="fullSection">
 
-        <div class="verticalAlignMiddle">
+    <div class="verticalAlignMiddle">
 
             <h1 class="alignCenter bigMarginBottom">Your mining pool</h1>
 
