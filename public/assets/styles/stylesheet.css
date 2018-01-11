@@ -1093,6 +1093,11 @@ svg rect{
   margin: 21px;
 }
 
+.maxWidthSection{
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
 .distributionContainer{
   padding-top: 50px;
   display: grid;
@@ -1213,7 +1218,7 @@ svg rect{
 }
 
 .createPoolLink{
-  color: #fec02c;
+  color: #D5D5D5;
   text-align: center;
   text-size:14px;
 }
@@ -1293,4 +1298,35 @@ svg rect{
 #yourPoolSection{
   padding-top: 140px;
   padding-bottom: 110px;
+}
+
+#createPoolSection{
+  margin-bottom: 100px;
+}
+
+#createPoolSection .subtitle{
+  text-align: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 20px;
+  color: #fec02c;
+}
+
+#createPoolSection .createPoolLink{
+  width: 80%!important;
+  margin: 0 auto;
+  border-top: solid 1px #444;
+  padding-top: 30px;
+}
+
+#createPoolSection .bigMarginBottom{
+  margin-bottom: 60px;
+  margin-top: 60px;
+}
+
+#createPoolSection .poolSlider .miningSlider{
+  width: 80%!important;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 40px;
 }

@@ -1,6 +1,6 @@
 <template>
 
-    <div id="coinDistributionSection" class="fullSection">
+    <div id="coinDistributionSection" class="fullSection maxWidthSection">
 
         <div class="verticalAlignMiddle">
 

@@ -4,14 +4,14 @@
         <!--<img src="public/WebDollar-logo-black.png" id="logo"/>-->
 
         <div class="topnav" id="menu">
-            <a @click="this.collapseMenuBack" href="#mainSection" class="active" id="logoMenu"><img src="public/WebDollar-logo-white.png" id="logo"/></a>
+            <a @click="this.collapseMenuBack" href="/#mainSection" class="active" id="logoMenu"><img src="public/WebDollar-logo-white.png" id="logo"/></a>
 
-            <a @click="this.collapseMenuBack" href="#timelineSection">Timeline</a>
-            <a @click="this.collapseMenuBack" href="#faqSection">FAQ</a>
-            <a @click="this.collapseMenuBack" href="#team">Team</a>
+            <a @click="this.collapseMenuBack" href="/#timelineSection">Timeline</a>
+            <a @click="this.collapseMenuBack" href="/#faqSection">FAQ</a>
+            <a @click="this.collapseMenuBack" href="/#team">Team</a>
             <a @click="this.collapseMenuBack" href="/public/doc/WebDollar-White-Paper.pdf" target="_blank">White Paper</a>
-            <a @click="this.collapseMenuBack" href="#what-is-WebDollar">About</a>
-            <a @click="this.collapseMenuBack" href="#p2p-network">Network</a>
+            <a @click="this.collapseMenuBack" href="/#what-is-WebDollar">About</a>
+            <a @click="this.collapseMenuBack" href="/#p2p-network">Network</a>
 
             <a href="javascript:void(0);" style="font-size:15px;" class="icon showMenu" @click="this.showMobileMenu">&#9776;</a>
         </div>

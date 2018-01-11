@@ -13,9 +13,9 @@
             </div>
         </div>
 
-        <div id="createPoolSection" class="fullSection">
+        <div id="createPoolSection">
 
-            <div class="verticalAlignMiddle">
+            <div class="">
 
                 <h1 class="alignCenter bigMarginBottom">Create your own mining pool</h1>
 
@@ -23,19 +23,30 @@
 
                     <div class="distributionGrid">
 
-                        <p class="createPoolLink">https://webdollar.io/213tgewg23fghwej524q?12fa</p>
-                        <p class="copyPoolLink">Copy link</p>
+                        <div class="verticalAlignMiddle">
+
+                            <p class="subtitle">Set miner's reward commission</p>
+                            <slider ref="refMiningSlider" @sliderChanged="this.changeCommission"/>
+
+                            <p class="createPoolLink poolDescription">Send your invitation to friend and they will start instant mining in your pool.</p>
+                            <p class="copyPoolLink" @click="copyToClipboard">
+                                Copy your invitation link
+                            </p>
+
+                        </div>
 
                     </div>
                     <div class="distributionGrid poolDescription">
 
-                        You can mine WEBD with your friends! You can create your own pool just using the follow link. You will be able to see stats about miners and to add and remove miners in your pool everytime you want. You will also being albe to set a reward commission for your miners.
+                        <div class="verticalAlignMiddle">
 
-                        <no-ssr>
+                            You can mine WEBD with your friends! You can create your own pool just using the follow link. You will be able to see stats about miners and to add and remove miners in your pool everytime you want. You will also being albe to set a reward commission for your miners.
 
-                            <slider ref="refMiningSlider" @sliderChanged="this.changeCommission"/>
+                            <a href="/mypool">
+                                <p class="copyPoolLink">Manage your pool</p>
+                            </a>
 
-                        </no-ssr>
+                        </div>
 
                     </div>
 
@@ -51,15 +62,22 @@
 
 <script>
 
-    import NoSSR from './../../../../node_modules/vue-no-ssr';
+    var Vue = require('vue');
+
     import slider from './../UI/elements/slider.vue';
+    import Clipboard from './../../../../node_modules/v-clipboard';
 
     export default{
 
         name: 'pool',
 
+        data: () => {
+            return {
+
+            }
+        },
+
         components: {
-            'no-ssr': NoSSR,
             "slider":slider
         },
 
@@ -67,7 +85,18 @@
 
             changeCommission(){
 
+            },
+
+            copyToClipboard(){
+                this.$clipboard('test-link');
             }
+
+        },
+
+        mounted() {
+
+            if (typeof window === 'undefined') return;
+            else Vue.use(Clipboard);
 
         }
 
