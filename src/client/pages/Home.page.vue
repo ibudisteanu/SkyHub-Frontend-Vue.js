@@ -10,8 +10,6 @@
 
             <PeerToPeerHero />
 
-            <yourNetwork/>
-
             <newCryptoGeneration/>
 
             <blockChainDistribution/>
@@ -30,7 +28,6 @@
 
 </template>
 
-
 <script>
 
     import Layout from "client/components/layout/Layout.vue"
@@ -44,7 +41,6 @@
     import faq from "client/components/heros/faq.hero.vue"
     import newCryptoGeneration from "client/components/heros/newCryptoGeneration.hero.vue"
     import blockChainDistribution from "client/components/heros/blockChainDistribution.hero.vue"
-    import yourNetwork from "client/components/heros/yourNetwork.hero.vue"
 
     export default {
 
@@ -61,7 +57,6 @@
             "faq": faq,
             "newCryptoGeneration":newCryptoGeneration,
             "blockChainDistribution":blockChainDistribution,
-            "yourNetwork":yourNetwork
         }
 
     }

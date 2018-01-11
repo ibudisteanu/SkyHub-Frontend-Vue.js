@@ -1289,3 +1289,8 @@ svg rect{
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+#yourPoolSection{
+  padding-top: 140px;
+  padding-bottom: 110px;
+}

@@ -7,6 +7,7 @@ Vue.use(Router)
 
 const HomePage = () => import('client/pages/Home.page.vue');
 const transactionsPage = () => import('client/pages/transactions.page.vue');
+const networkPage = () => import('client/pages/pool.page.vue');
 
 export function createRouter () {
 
@@ -28,17 +29,7 @@ export function createRouter () {
         },
         routes: [
 
-            // { path: '/about', component: AboutPage },
-            // { path: '/contact', component: AboutPage },
-            // { path: '/login', component: LoginPage },
-            // { path: '/signin', component: LoginPage },
-            //
-            // { path: '/register', component: RegistrationPage },
-            // { path: '/signup', component: RegistrationPage },
-            // { path: '/registration', component: RegistrationPage },
-
-            // { path: '/:url*', component: HomePage },
-
+            { path: '/mypool', component: networkPage },
             { path: '/transactions', component: transactionsPage },
             { path: '/:a?/:b?/:c?/:d?', component: HomePage },
             { path: '/:a?/:b?/:c?', component: HomePage },

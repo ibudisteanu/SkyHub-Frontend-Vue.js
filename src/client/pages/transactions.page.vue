@@ -1,6 +1,10 @@
 <template>
 
-    <div id="transactions">
+    <Layout>
+
+        <div slot="content">
+
+            <div id="transactions">
         <div id="transactionContainer">
             <div class="transactionInfo">
                 <span class="id">53143</span>
@@ -33,12 +37,23 @@
         </div>
     </div>
 
+        </div>
+
+    </Layout>
+
 </template>
 
 <script>
 
+    import Layout from "client/components/layout/Layout.vue"
+
     export default{
 
+        name: "ViewHome",
+
+        components: {
+            "Layout": Layout,
+        }
 
     }
 
