@@ -1,20 +1,20 @@
 <template>
-    <div class="poolSlider">
-        <vue-slider id="miningWorkersSlider" class="miningSlider" ref="slider" :piecewise="false"
-                    tooltip="always" v-model="value"></vue-slider>
+    <div class="poolSlider" >
+        <vueSlider id="miningWorkersSlider" class="miningSlider" ref="slider" :piecewise="false"
+                    tooltip="always" v-model="value"></vueSlider>
     </div>
 </template>
 
 
 <script>
 
-    import vueSlider from 'vue-slider-component/src/vue2-slider.vue';
+    import vueSlider from './../../../../../node_modules/vue-slider-component/src/vue2-slider.vue';
 
     export default {
         name: 'slider',
 
         components: {
-            "vueSlider": vueSlider
+            "vueSlider":vueSlider,
         },
 
         data() {
