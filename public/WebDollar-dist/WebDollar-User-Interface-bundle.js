@@ -15900,7 +15900,7 @@ exports.insert = function (css) {
 }
 
 },{}],333:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("::-webkit-scrollbar {\n    width: 0;\n}\n\n/* Track */\n::-webkit-scrollbar-track {\n    -webkit-border-radius: 10px;\n    border-radius: 10px;\n}\n\n/* Handle */\n::-webkit-scrollbar-thumb {\n    opacity:0.1;\n    -webkit-border-radius: 10px;\n    border-radius: 10px;\n    background: rgba(0,0,0,0.5);\n    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);\n}\n\n#webDollar{\n    font-family: 'avenir',sans-serif;\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("#webDollar *{\n    -webkit-box-sizing: inherit!important;\n    -moz-box-sizing: inherit!important;\n    box-sizing: inherit!important;\n}\n\n::-webkit-scrollbar {\n    width: 0;\n}\n\n/* Track */\n::-webkit-scrollbar-track {\n    -webkit-border-radius: 10px;\n    border-radius: 10px;\n}\n\n/* Handle */\n::-webkit-scrollbar-thumb {\n    opacity:0.1;\n    -webkit-border-radius: 10px;\n    border-radius: 10px;\n    background: rgba(0,0,0,0.5);\n    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);\n}\n\n#webDollar{\n    font-family: 'avenir',sans-serif;\n}")
 ;(function(){
 "use strict";
 
