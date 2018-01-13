@@ -10,12 +10,12 @@
 
 <template>
 
-    <div id="timelineSection">
+    <div id="timelineSection" >
 
         <h1 class='alignCenter'>Timeline</h1>
         <h3>Fastes development of a cryptocurrency in the world</h3>
 
-        <div id="timeline">
+        <div id="timeline" class="backgroundSection">
         <div class="main-timeline">
                     <div class="timeline">
                         <div class="timeline-icon"><i class="fa fa-file-text2"></i></div>

@@ -2,7 +2,7 @@
 
     <div id="what-is-WebDollar">
 
-        <div id="aboutSection" class="fullSection">
+        <div id="aboutSection" class="fullSection backgroundSection">
             <div class="verticalAlignMiddle">
 
                 <h1 class="alignCenter titleMarginBottom">What is WebDollar?</h1>

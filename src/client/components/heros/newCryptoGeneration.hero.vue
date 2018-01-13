@@ -1,6 +1,6 @@
 <template>
 
-    <div id="newCryptoSection">
+    <div id="newCryptoSection" class="backgroundSection">
 
         <h1 class="alignCenter bigMarginTop">New Cryptocurrency generation</h1>
 

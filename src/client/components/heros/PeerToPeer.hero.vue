@@ -17,7 +17,7 @@
 
             <div class="">
 
-                <h1 class="alignCenter bigMarginBottom">Create your own mining pool</h1>
+                <h1 class="alignCenter bigMarginBottom">CREATE YOUR OWN MINING POOLl</h1>
 
                 <div class="distributionContainer">
 
@@ -28,10 +28,11 @@
                             <p class="subtitle">Set miner's reward commission</p>
                             <slider ref="refMiningSlider" @sliderChanged="this.changeCommission"/>
 
-                            <p class="createPoolLink poolDescription">Send your invitation to friend and they will start instant mining in your pool.</p>
-                            <p class="copyPoolLink" @click="copyToClipboard">
-                                Copy your invitation link
-                            </p>
+                            <p class="createPoolLink">Mine WEBD with your friends! Create your own Mining Pool now. See your Mining Pool stats in real-time by using the Button below.</p>
+
+                            <a href="/mypool">
+                                <p class="copyPoolLink">Manage your pool</p>
+                            </a>
 
                         </div>
 
@@ -40,11 +41,11 @@
 
                         <div class="verticalAlignMiddle">
 
-                            You can mine WEBD with your friends! You can create your own pool just using the follow link. You will be able to see stats about miners and to add and remove miners in your pool everytime you want. You will also being albe to set a reward commission for your miners.
+                            <p class="poolDescription">Send an invite to a friend and they can start mining instantly in your pool.</p>
+                            <p class="copyPoolLink" @click="copyToClipboard">
+                                Copy invite link
+                            </p>
 
-                            <a href="/mypool">
-                                <p class="copyPoolLink">Manage your pool</p>
-                            </a>
 
                         </div>
 

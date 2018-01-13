@@ -25,10 +25,11 @@ h1{
   border: 0;
   outline: 0;
   vertical-align: baseline;
-  background: transparent;
+  background: #9a9a9a24;
   color: #ffc12c;
+  text-transform: uppercase;
   line-height: 2.2em;
-  font-size: 36px;
+  font-size: 32px;
   word-wrap: break-word;
   transition: all .5s linear;
 }
@@ -96,6 +97,10 @@ a:hover{
   text-align: center;
 }
 
+#mainSection h1{
+  background: transparent;
+}
+
 #mediaContainer{
   display: grid;
   margin-left: 40px;
@@ -137,7 +142,6 @@ a:hover{
 .fullHeight{
   height: 100%;
   width: 100%;
-  padding-right: 17px;
   top: 0!important;
   transform: none!important;
 <!--overflow-y: scroll;-->
@@ -216,7 +220,7 @@ a:hover{
   transition: all .5s linear;
 }
 
-#aboutSection, #timelineSection, #newCryptoSection{
+.backgroundSection{
   background-color: #1b1b1b;
 }
 
@@ -385,7 +389,7 @@ a:hover{
   width: 100%;
   height: 52px;
   display: block;
-  padding-bottom:80px;
+  padding-bottom:82px;
   position: relative;
   border-top: solid 1px #444444;
 }
@@ -562,7 +566,7 @@ a:hover{
 .main-timeline .title{
   font-size: 22px;
   font-weight: bold;
-  color: #fff;
+  color: #ccc;
   margin-top: 0;
 }
 .main-timeline .description{
@@ -610,7 +614,7 @@ a:hover{
 .main-timeline .timeline:nth-child(2n) .year:before{
   background: #fec02c;
 }
-.main-timeline .timeline:nth-child(2n) .title{ color: #fff; }
+.main-timeline .timeline:nth-child(2n) .title{ color: #ccc; }
 .main-timeline .timeline:nth-child(3n):before,
 .main-timeline .timeline:nth-child(3n) .timeline-icon{ background: #fec02c;  }
 .main-timeline .timeline:nth-child(3n) .timeline-icon:before{
@@ -619,7 +623,7 @@ a:hover{
 .main-timeline .timeline:nth-child(3n) .year:before{
   background: #fec02c;
 }
-.main-timeline .timeline:nth-child(3n) .title{ color: #fff; }
+.main-timeline .timeline:nth-child(3n) .title{ color: #ccc; }
 .main-timeline .timeline:nth-child(4n):before,
 .main-timeline .timeline:nth-child(4n) .timeline-icon{
   background: #fec02c;
@@ -630,7 +634,7 @@ a:hover{
 .main-timeline .timeline:nth-child(4n) .year:before{
   background: #fec02c;
 }
-.main-timeline .timeline:nth-child(4n) .title{ color: #fff; }
+.main-timeline .timeline:nth-child(4n) .title{ color: #ccc; }
 
 #whatContainer h4{
   color: #fff;
@@ -919,7 +923,8 @@ a:hover{
 }
 
 #p2p-network h3,#timelineSection h3, #knowUsSection h3{
-  color: #f9dd9a;
+  font-weight: 100;
+  color: #efe0be;
   text-align: center;
   letter-spacing: 3px;
   margin-bottom: 40px;
@@ -928,7 +933,7 @@ a:hover{
 }
 
 #timelineSection h3{
-  margin-bottom: 120px;
+  margin-bottom: 20px;
 }
 
 #timeline{
@@ -1016,8 +1021,11 @@ a:hover{
 }
 
 #faqSection h1{
-  padding-top: 90px;
-  margin-top:0;
+  margin-top: 70px!important;
+}
+
+.backgroundSection h1{
+  background: transparent;
 }
 
 #faqSection{
@@ -1042,7 +1050,7 @@ a:hover{
 }
 
 .textContainer{
-  width: 80%;
+  width: 90%;
   display: block;
   margin: 0 auto;
 }
@@ -1086,6 +1094,7 @@ svg rect{
   width: 200px;
   height: 200px;
   margin: 0 auto;
+  margin-top: 60px;
 }
 
 .coinLogo{
@@ -1137,7 +1146,7 @@ svg rect{
   width: auto;
   font-size: 12px;
   margin-top: 15px;
-  color: #636363;
+  color: #ccc;
 }
 
 .distributionContainer .maxValue{
@@ -1147,7 +1156,7 @@ svg rect{
   width: auto;
   font-size: 12px;
   margin-top: 15px;
-  color: #636363;
+  color: #ccc;
 }
 
 .distributionContainer .stats{
@@ -1166,7 +1175,7 @@ svg rect{
 }
 
 .distributionContainer .stats .description{
-  color: #636262;
+  color: #ccc;
   text-align: center;
   font-size: 12px;
 }
@@ -1280,6 +1289,11 @@ svg rect{
   background-color: #101010!important;
 }
 
+.distributionContainer .stats .value{
+  font-size: 50px;
+  margin-top: 40px;
+}
+
 #yourPoolSection .poolContainer .miner .status{
   bottom: 0;
   text-align: center;
@@ -1329,4 +1343,8 @@ svg rect{
   margin: 0 auto;
   margin-top: 50px;
   margin-bottom: 40px;
+}
+
+.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-top .vue-slider-tooltip::before{
+  bottom: -8px;
 }

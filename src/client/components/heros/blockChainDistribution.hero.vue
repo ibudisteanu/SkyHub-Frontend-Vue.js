@@ -1,12 +1,12 @@
 <template>
 
-    <div id="coinDistributionSection" class="fullSection maxWidthSection">
+    <div id="coinDistributionSection" class="fullSection">
 
         <div class="verticalAlignMiddle">
 
             <h1 class="alignCenter bigMarginBottom">Coin Supply</h1>
 
-            <div class="distributionContainer">
+            <div class="distributionContainer maxWidthSection">
 
                 <div class="distributionGrid">
                     <div class="webdCoin spin">
