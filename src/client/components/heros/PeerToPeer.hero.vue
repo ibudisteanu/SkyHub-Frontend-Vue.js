@@ -63,10 +63,10 @@
 
 <script>
 
-    var Vue = require('vue');
+    import Vue from 'vue/dist/vue';
 
     import slider from './../UI/elements/slider.vue';
-    import Clipboard from './../../../../node_modules/v-clipboard';
+    import Clipboard from 'v-clipboard';
 
     export default{
 
@@ -97,7 +97,9 @@
         mounted() {
 
             if (typeof window === 'undefined') return;
-            else Vue.use(Clipboard);
+
+
+            Vue.use(Clipboard);
 
         }
 

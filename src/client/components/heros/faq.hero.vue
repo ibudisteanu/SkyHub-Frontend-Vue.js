@@ -139,6 +139,7 @@
 <script>
 
     import Collapse from './../../../../node_modules/vue-collapse'
+
     export default {
         name: "YourComponent",
         components: {

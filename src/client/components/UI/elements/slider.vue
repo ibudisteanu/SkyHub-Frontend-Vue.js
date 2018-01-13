@@ -1,7 +1,7 @@
 <template>
-    <div class="poolSlider">
-        <vue-slider id="miningWorkersSlider" class="miningSlider" ref="slider" :piecewise="false"
-                    tooltip="always" v-model="value"></vue-slider>
+    <div class="poolSlider" >
+        <vueSlider id="miningWorkersSlider" class="miningSlider" ref="slider" :piecewise="false"
+                    tooltip="always" v-model="value"></vueSlider>
     </div>
 </template>
 
@@ -14,7 +14,7 @@
         name: 'slider',
 
         components: {
-            "vueSlider": vueSlider
+            "vueSlider":vueSlider,
         },
 
         data() {
