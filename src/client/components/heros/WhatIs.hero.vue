@@ -15,12 +15,12 @@
                     <div>
                         <img src="public/assets/images/WebDollar-Security.png">
                         <h4>Immediate Security and Privacy</h4>
-                        <p>Built on the most advanced blockchain technology using PPOW consensus, your information will be secure and anonymous</p>
+                        <p>Built on the most advanced blockchain technology using PPoW consensus, your information will be secure and anonymous</p>
                     </div>
                     <div>
                         <img src="public/assets/images/WebDollar-wallet.png">
                         <h4>Simple Web Payments</h4>
-                        <p>With easy browser integrated blockchain for peer-to-peer allowing cross-border blockchain payments</p>
+                        <p>With easy browser integrated blockchain for peer-to-peer transactions, allowing cross-border blockchain payments</p>
                     </div>
                 </div>
 

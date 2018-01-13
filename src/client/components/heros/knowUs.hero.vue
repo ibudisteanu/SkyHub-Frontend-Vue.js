@@ -3,7 +3,7 @@
     <div id="knowUsSection" class="backgroundSection">
 
         <h1 class="alignCenter">Media</h1>
-        <h3 >They already speak about us! Do you?</h3>
+        <h3 >They are already talking about us!</h3>
 
         <div id="mediaContainer">
 

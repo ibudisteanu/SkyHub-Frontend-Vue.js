@@ -17,7 +17,7 @@
 
             <div class="">
 
-                <h1 class="alignCenter bigMarginBottom">CREATE YOUR OWN MINING POOLl</h1>
+                <h1 class="alignCenter bigMarginBottom">CREATE YOUR OWN MINING POOL</h1>
 
                 <div class="distributionContainer">
 
@@ -25,10 +25,10 @@
 
                         <div class="verticalAlignMiddle">
 
-                            <p class="subtitle">Set miner's reward commission</p>
+                            <p class="subtitle">SET MINER'S REWARD COMMISSION</p>
                             <slider ref="refMiningSlider" @sliderChanged="this.changeCommission"/>
 
-                            <p class="createPoolLink">Mine WEBD with your friends! Create your own Mining Pool now. See your Mining Pool stats in real-time by using the Button below.</p>
+                            <p class="createPoolLink">Mine WEBD with your friends! Create your own Mining Pool now, by using the Button below. See your Mining Pool stats in real-time.</p>
 
                             <a href="/mypool">
                                 <p class="copyPoolLink">Manage your pool</p>
@@ -41,7 +41,7 @@
 
                         <div class="verticalAlignMiddle">
 
-                            <p class="poolDescription">Send an invite to a friend and they can start mining instantly in your pool.</p>
+                            <p class="poolDescription">Send an invite to a friend and they can start mining in your pool, instantly</p>
                             <p class="copyPoolLink" @click="copyToClipboard">
                                 Copy invite link
                             </p>

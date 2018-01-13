@@ -12,8 +12,8 @@
 
     <div id="timelineSection" >
 
-        <h1 class='alignCenter'>Timeline</h1>
-        <h3>Fastes development of a cryptocurrency in the world</h3>
+        <h1 class='alignCenter'>TIMELINE</h1>
+        <h3>Rapid Development of the WebDollar Cryptocurrency</h3>
 
         <div id="timeline" class="backgroundSection">
         <div class="main-timeline">
@@ -31,9 +31,9 @@
                         <div class="timeline-icon"><i class="fa fa-trophy"></i></div>
                         <span class="year">22 OCT 2017</span>
                         <div class="timeline-content">
-                            <h5 class="title">TECH HUB JS HACKHTON</h5>
+                            <h5 class="title">TECH HUB JS HACKATHON</h5>
                             <p class="description">
-                                An initial team was formed during the TechHub Bucharest JS HACKHTON to bootstrap and implement the vision behind WebDollar.
+                                An initial team was formed during the TechHub Bucharest JS HACKATHON to bootstrap and implement the vision behind WebDollar.
                             </p>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                         <div class="timeline-content">
                             <h5 class="title">ICO - INITIAL COIN OFFERING</h5>
                             <p class="description">
-                                We plan to do an ICO - Initial Coin Offering by selling a big chunk of WebDollar genesis reward.
+                                We plan an ICO by offering WebDollar genesis rewards.
                             </p>
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                         <div class="timeline-content">
                             <h5 class="title">SMART CONTRACTS, ANONYMITY, EXCHANGE</h5>
                             <p class="description">
-                                Developing a Smart Contracts Platform, anonymity, currency exchange
+                                Developing a Smart Contracts Platform, Anonymity, Currency Exchange
                             </p>
                         </div>
                     </div>

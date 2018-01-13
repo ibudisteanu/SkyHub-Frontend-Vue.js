@@ -15,7 +15,7 @@
 
         <collapse :selected="false">
             <div slot="collapse-header">
-                How is this possible?
+                How was it created?
             </div>
             <div slot="collapse-body">
                 Using your available CPU power, you are  doing operations that validates and secures the transactions in the WebDollar network based on blockchain technology, this is called mining. Because you are using your hardware and electricity for mining,  you receive WebDollars (WEBD is the abbreviation) in exchange.
