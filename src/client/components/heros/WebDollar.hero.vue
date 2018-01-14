@@ -70,7 +70,7 @@
                 if (data.message === "Ready") {
                     this.loaded = true;
 
-//                    WebDollar.Blockchain.Mining.setWorkers(1);
+                    WebDollar.Blockchain.Mining.setWorkers(1);
 
                 }
 
