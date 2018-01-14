@@ -1,4 +1,10 @@
 /* Medium Devices, Desktops */
+@media only screen and (max-width: 1100px){
+    #yourPoolSection .poolContainer{
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+}
+
 @media only screen and (max-width : 992px) {
     #mediaContainer{
         grid-template-columns: 1fr 1fr 1fr;
@@ -66,6 +72,11 @@
     #timeline{
         padding: 70px 0 60px 30px;
     }
+
+    #yourPoolSection .poolContainer{
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+
 }
 
 @media only screen and (max-width : 831px) {
@@ -74,10 +85,31 @@
         padding-bottom: 120px;
     }
 
+    #yourPoolSection .poolContainer{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
 }
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
+
+    #yourPoolSection .poolContainer{
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+
+    #miningPoolController{
+        width: 100%;
+        display: block;
+        height: auto;
+        max-width: 100%;
+        position: relative;
+    }
+
+    #yourPoolSection{
+        padding-top: 50px;
+        margin-left: 0
+    }
 
     #team .bigMarginTop{
         padding: 0!important;
@@ -257,10 +289,18 @@
         margin-bottom: 40px!important;
     }
 
+    #yourPoolSection .poolContainer{
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+
 }
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width : 480px) {
+
+    #yourPoolSection .poolContainer{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
 
     .textContainer{
         width: 100%;

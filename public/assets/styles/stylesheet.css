@@ -1310,7 +1310,7 @@ svg rect{
 }
 
 #yourPoolSection{
-  padding-top: 140px;
+  padding-top: 90px;
   padding-bottom: 110px;
 }
 
@@ -1347,4 +1347,65 @@ svg rect{
 
 .vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-top .vue-slider-tooltip::before{
   bottom: -8px;
+}
+
+#miningPoolController{
+  width: 30%;
+  background-color: #262626;
+  border-right: solid 1px #444;
+  display: block;
+  position: absolute;
+  /* min-width: 30%; */
+  max-width: 350px;
+  width: 350px;
+  height: 100%;
+  position: fixed;
+}
+
+#yourPoolSection{
+  margin-left: 350px;
+}
+
+#yourPoolSection .poolSectionContainer{
+  margin: 0 auto;
+}
+
+#miningPoolController h2{
+  text-align: center;
+  font-size: 16px;
+  color: #fec02c;
+}
+
+#miningPoolController .generalController{
+  padding-top: 65px;
+  background-color: #2d2d2d;
+  border-bottom: solid 1px #444;
+  height: 300px;
+}
+
+#miningPoolController .poolSlider .miningSlider {
+  width: 85%!important;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-top .vue-slider-tooltip::before{
+  bottom: -9px!important;
+}
+
+.selectedMinerInfo{
+  padding: 0 20px;
+  font-size: 12px;
+  color: #adadad;
+}
+
+.selectedMinerInfo p{
+  padding: 5px 0;
+  display: block;
+}
+
+.minerData{
+  display: inline-block;
+  color: #fec02c;
+  width: auto;
 }

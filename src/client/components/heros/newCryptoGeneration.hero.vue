@@ -2,7 +2,7 @@
 
     <div id="newCryptoSection" class="backgroundSection">
 
-        <h1 class="alignCenter bigMarginTop">NEXT GENERATION CRYPTOCURRENCY</h1>
+        <h1 class="alignCenter bigMarginTop">What makes webdollar unique</h1>
 
         <div class="textContainer">
             <h2>Already integrated</h2>

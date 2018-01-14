@@ -2,9 +2,10 @@
 
     <div id="team">
 
-        <div id="teamSection" >
+        <div id="teamSection">
 
             <div class="fullHeight">
+
                 <h1 class="alignCenter bigMarginTop" >WebDollar Team</h1>
 
                 <div class="teamWrapper">
@@ -59,7 +60,7 @@
                         </div>
                         <h4>ADRIAN STRATULAT</h4>
                         <h5 class="teamRole">LEAD EVANGELIST</h5>
-                        <p>Adrian is a social innovator specialised in emerging energy technologies, he has a background in geopolitics and diplomacy, but is an entrepreneur at heart. Within WebDollar's core team</p>
+                        <p>Philosopher by vocation and diplomat by training, Adrian is a social entrepreneur specialized in innovative emerging technologies and blockchain applications. Also acting as economy advisor.</p>
                     </div>
                     <div class="our-team">
                         <div class="team-pic">

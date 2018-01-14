@@ -19,8 +19,6 @@ module.exports =
         BACKEND_URL : BACKEND_URL,
         BACKEND_WEBSITE_URL : BACKEND_WEBSITE_URL,
 
-
-
         SERVICE_HTTP_API_URL : trimSlash(BACKEND_WEBSITE_URL) + '/api/',
 
         SERVICE_WEBSOCK_URL : BACKEND_URL,
