@@ -293,6 +293,10 @@
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     }
 
+    .backgroundVideoWrap{
+        top:40px;
+    }
+
 }
 
 /* Extra Small Devices, Phones */
