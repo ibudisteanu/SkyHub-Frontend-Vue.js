@@ -13,7 +13,7 @@
                     <div class="our-team">
 
                         <div class="team-pic">
-                            <img src="/public/assets/images/team/budisteanuIonutAlexandru.jpg">
+                            <img src="/public/assets/images/team/budisteanuIonutAlexandru.jpg" alt="Budisteanu Ionut Alexandru" title="Budisteanu Ionut Alexandru">
 
                             <div class="over-layer">
                                 <ul class="social-link social-link-4">
@@ -34,7 +34,7 @@
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
-                            <img src="/public/assets/images/team/PanaitAlexandru.jpg">
+                            <img src="/public/assets/images/team/PanaitAlexandru.jpg" alt="Alexandru Ionut Panait" title="Alexandru Ionut Panait">
 
                             <div class="over-layer">
                                 <ul class="social-link">
