@@ -1,6 +1,6 @@
 {
   "name": "@webdollar/front-webdollar",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "WebDollar Frontend",
   "author": "WebDollar.io Team",
   "scripts": {
