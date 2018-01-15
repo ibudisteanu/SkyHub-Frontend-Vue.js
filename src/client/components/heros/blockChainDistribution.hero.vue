@@ -31,6 +31,7 @@
                     </div>
                     <span class="minValue">0 WEBD</span>
                     <span class="maxValue">100,000,000,000 WEBD</span>
+
                 </div>
 
             </div>

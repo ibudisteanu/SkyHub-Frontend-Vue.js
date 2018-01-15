@@ -8,6 +8,7 @@ Vue.use(Router)
 const HomePage = () => import('client/pages/Home.page.vue');
 const transactionsPage = () => import('client/pages/transactions.page.vue');
 const networkPage = () => import('client/pages/pool.page.vue');
+const faqPage = () => import('client/pages/faq.page.vue');
 
 export function createRouter () {
 
@@ -29,6 +30,7 @@ export function createRouter () {
         },
         routes: [
 
+            { path: '/faq', component: faqPage },
             { path: '/mypool', component: networkPage },
             { path: '/transactions', component: transactionsPage },
             { path: '/:a?/:b?/:c?/:d?', component: HomePage },
