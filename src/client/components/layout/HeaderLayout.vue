@@ -7,7 +7,7 @@
             <a @click="this.collapseMenuBack" href="/#mainSection" class="active" id="logoMenu"><img src="public/WebDollar-logo-white.png" id="logo"/></a>
 
             <a @click="this.collapseMenuBack" href="/#timelineSection">Timeline</a>
-            <a @click="this.collapseMenuBack" href="/#faqSection">FAQ</a>
+            <a @click="this.collapseMenuBack" href="/faq">FAQ</a>
             <a @click="this.collapseMenuBack" href="/#team">Team</a>
             <a @click="this.collapseMenuBack" href="/public/doc/WebDollar-White-Paper.pdf" target="_blank">White Paper</a>
             <a @click="this.collapseMenuBack" href="/#what-is-WebDollar">About</a>

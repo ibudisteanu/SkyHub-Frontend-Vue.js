@@ -16,11 +16,9 @@
 
             <TimelineHero/>
 
-            <faq/>
+            <TeamHero/>
 
             <knowUs/>
-
-            <TeamHero/>
 
         </div>
 
