@@ -163,6 +163,21 @@
                         <h5 class="teamRole">DESIGNER - EXPERT</h5>
                         <p>Adrian Manea is a twenty-four-year-old designer & developer from Romania who began his career at the age of sixteen. He is currently the administrator of a contracting company.</p>
                     </div>
+                    <div class="our-team">
+                        <div class="team-pic">
+                            <img src="/public/assets/images/team/tudorsmirna.jpg">
+                            <div class="over-layer">
+                                <ul class="social-link">
+                                    <li><a href="https://www.facebook.com/aesteticsadrian" target="_blank" class="fa fa-facebook"></a></li>
+                                    <li><a href="https://www.linkedin.com/in/%C8%99tefan-adrian-manea-534b5a77/" target="_blank" class="fa fa-linkedin2"></a></li>
+                                    <li><a href="http://aestetics.com" target="_blank" class="fa fa-globe"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <h4>TUDOR SMIRNA</h4>
+                        <h5 class="teamRole">Economic advisor</h5>
+                        <p>Tudor Smirna, Ph.D., is an economist and entrepreneur specialized in money and banking. He is a fellow of the Ludwig von Mises Institute and teaches at the Bucharest University of Economic Studies.</p>
+                    </div>
                 </div>
             </div>
         </div>
