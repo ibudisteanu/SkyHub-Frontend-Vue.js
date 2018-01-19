@@ -150,34 +150,6 @@
                         <h5 class="teamRole">LEAD STRATEGIC MANAGEMENT</h5>
                         <p>Issam is a Business Management Senior Consultant and Strategist who partners with top tier executives and marketers. Issam knows what truly drives conversions, product launches, and successful strategic and operational planning.</p>
                     </div>
-                    <div class="our-team">
-                        <div class="team-pic">
-                            <img src="/public/assets/images/team/Iulian-Vasilescu.jpg">
-                            <div class="over-layer">
-                                <ul class="social-link">
-                                    <li> <a href="https://www.facebook.com/iulian.vasilescu.1" target="_blank" class="fa fa-facebook"></a> </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <h4>IULIAN VASILESCU</h4>
-                        <h5 class="teamRole">DESIGNER - EXPERT</h5>
-                        <p></p>
-                    </div>
-                    <div class="our-team">
-                        <div class="team-pic">
-                            <img src="/public/assets/images/team/AdrianManea.jpg">
-                            <div class="over-layer">
-                                <ul class="social-link">
-                                    <li><a href="https://www.facebook.com/aesteticsadrian" target="_blank" class="fa fa-facebook"></a></li>
-                                    <li><a href="https://www.linkedin.com/in/%C8%99tefan-adrian-manea-534b5a77/" target="_blank" class="fa fa-linkedin2"></a></li>
-                                    <li><a href="http://aestetics.com" target="_blank" class="fa fa-globe"></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <h4>ADRIAN MANEA</h4>
-                        <h5 class="teamRole">DESIGNER - EXPERT</h5>
-                        <p>Adrian Manea is a twenty-four-year-old designer & developer from Romania who began his career at the age of sixteen. He is currently the administrator of a contracting company.</p>
-                    </div>
                 </div>
             </div>
         </div>
