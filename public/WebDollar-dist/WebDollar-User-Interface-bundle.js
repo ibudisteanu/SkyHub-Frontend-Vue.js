@@ -15943,13 +15943,13 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-78f88538", __vue__options__)
+    hotAPI.createRecord("data-v-0b73f08c", __vue__options__)
   } else {
-    hotAPI.reload("data-v-78f88538", __vue__options__)
+    hotAPI.reload("data-v-0b73f08c", __vue__options__)
   }
 })()}
 },{"./Mining/Mining.vue":334,"./Wallet/Wallet.vue":350,"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],334:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("#miningLoader{\n    vertical-align: top;\n    width: 30px;\n    height: 30px;\n}\n\n#dashboardMining{\n    overflow: hidden;\n    position: fixed;\n    bottom: 0px;\n    height: 33px;\n    background-color: #262626;\n    display: block;\n    left: 0;\n    padding-bottom: 3px;\n    right: 0;\n    z-index: 95;\n    border-top: solid 1px #444444;\n}\n\n.miningPowerThreads{\n    font-size: 14px;\n    display: inline-block;\n    padding: 0 10px;\n    vertical-align: top;\n    padding-top: 8px;\n    text-transform: uppercase;\n    padding-bottom: 5px;\n    color: #fff;\n    letter-spacing: 5px;\n    margin: 0;\n}\n\n\n.walletStartMining{\n    position: relative;\n    display: inline-block!important;\n    vertical-align: top;\n    left: 0;\n    right: 0;\n    font-size: 20px;\n    color: #f20;\n    cursor: pointer;\n    text-align: center;\n    transition: all .3s linear;\n}\n\n.walletStartMining a{\n    padding-top: 5px;\n    display: block;\n    color: #000;\n}\n\n.walletStartMining a:hover{\n    color: #ffc12c;\n}\n\n.walletStartMining:hover{\n    background-color: #191919;\n    transition: all .3s linear;\n}\n\n.minningController p{\n    font-size: 20px;\n    margin-right: -4px;\n}\n\n#miningDetails{\n    vertical-align: top;\n    display: inline-block;\n    line-height: 32px;\n    margin-top: 1px;\n    margin-left: 35px;\n}\n\n#miningDetails p{\n    margin-top: 0;\n    font-size: 12px;\n    color: #D5D5D5;\n}\n\n#threadsControll{\n    display: inline-block;\n    vertical-align: top;\n    width: 100%;\n    background-color: #1f1f1f;\n}\n\n#threadsControll .leftButton {\n    float: left;\n}\n\n#threadsControll .rightButton {\n    float: right;\n}\n\n#threadsControll .button p{\n    padding-top: 3px;\n    padding-bottom: 4px;\n    line-height: 27px;\n    margin: 0;\n}\n\n#allWalets{\n    /*border-top: solid 1px #7b7b7b;*/\n    display: block;\n    /*padding-top: 10px;*/\n}\n\n.miningPowerText{\n    font-size: 10px;\n    display: inline-block;\n    padding: 0 10px;\n    vertical-align: top;\n    padding-top: 5px;\n    margin: 0;\n    color: #fff;\n}\n\n\n.miningPowerText .secondWord{\n    height: auto;\n    line-height: 10px;\n    margin: 0;\n    font-weight: bold;\n    color: #fff;\n    margin-right: -4px;\n}\n\n\n#threadsControll .button{\n    display: inline-block;\n    background-color: #1f1f1f;\n    color: #fff;\n    font-size: 26px;\n    border: solid 1px #565656;\n    width: 31px;\n    border-top: none;\n    border-bottom: none;\n    text-align: center;\n    cursor: pointer;\n    transition: all .3s linear;\n}\n\n#threadsControll .button:hover{\n    background-color: #000;\n    transition: all .3s linear;\n}\n\n#threadsControll .button:first-child{\n    margin-top: 0;\n}\n\n#threadsNumber{\n    font-size: 20px;\n    padding: 0 10px;\n    text-align: center;\n    padding-bottom: 8px;\n    line-height: 25px;\n    display: inline-block;\n    color: #fff;\n    background-color: #d23c25;\n    vertical-align: top;\n    padding-top: 6px;\n    border-right: solid 1px #444;\n    width: 40px;\n    padding-left: 0;\n    padding-right:0;\n}\n\n.whiteText{\n    color: #c5c5c5;\n    font-weight: 100;\n}\n\n#minningController{\n    width: 100%;\n    border-top:none;\n    padding-bottom: 0;\n    margin-bottom: 15px;\n    display: inline-block;\n    vertical-align: top;\n}\n\n#createWalletAddress{\n    border: solid 1px #7b7b7b;\n    padding-bottom: 0;\n    margin-bottom: 15px;\n    display: inline-block;\n}\n\n#createWalletAddress p:hover{\n    background-color: #191919;\n    transition: all .3s linear;\n}\n\n#createWalletAddress p{\n    padding: 10px;\n    padding-top: 14px;\n    background-color: #353535;\n    color: #bbb;\n    display: inline-block;\n    width: 214px;\n    cursor: pointer;\n    text-align: center;\n    transition: all .3s linear;\n}\n\n.WEBD{\n    display: inline-block;\n    margin-left: 20px;\n    font-size: 20px;\n    color: #fec02c;\n    vertical-align: top;\n    margin-top: 0;\n    float: right;\n    min-width: 300px;\n    text-align: center;\n    border-left: solid 1px #444444;\n    line-height: 42px;\n}\n\n#miningDetails p{\n    display: inline-block;\n}\n\n.miningBar{\n    display: inline-block;\n    width: 330px;\n    margin-left: 0;\n}\n\n@media only screen and (max-width : 831px) {\n\n    .miningBar{\n        padding: 4px 0px;\n    }\n\n    .show-balance-span{\n        font-size: 20px;\n    }\n\n    #dashboardMining{\n        margin-bottom: 0;\n    }\n    #minningController, .walletStartMining, .WEBD{\n        display: inline-block;\n        width: 100%;\n    }\n    #minningController{\n        background-color: #0000;\n        margin-bottom: 0;\n        height: 33px;\n        border-top: none;\n        margin-top: 50px;\n    }\n    #threadsControll .button p{\n        line-height: 43px;\n    }\n    #threadsControll .button{\n        width: 80px;\n    }\n    .miningPowerThreads{\n        line-height: 38px;\n        font-size: 16px;\n        margin-right: -4px;\n    }\n    #miningDetails{\n        display: none;\n    }\n    .miningPowerText{\n        display: none;\n    }\n    #threadsNumber{\n        margin: 0 auto;\n        text-align: center;\n        float:left;\n        position: relative;\n        display: block;\n        line-height: 34px;\n        width: 35px;\n        padding-top: 6px;\n        padding-left: 0;\n    }\n    .WEBD{\n        text-align: right;\n        margin-right: 10px;\n        min-width: auto;\n        width: auto;\n        border:none;\n        line-height: 42px;\n    }\n    .miningPowerThreads{\n        display:none;\n    }\n    #threadsControll .button{\n        float:left;\n    }\n    .walletStartMining{\n        margin-top:-29px;\n    }\n    #threadsControll{\n        background-color: #f200;\n    }\n    #threadsControll .button p {\n        line-height: 35px;\n        font-size: 35px;\n        padding-top: 7px;\n    }\n    #threadsControll .button:first-child{\n        border:none;\n    }\n    #minningController{\n        margin-top:0\n    }\n    #dashboardMining{\n        height:40px;\n    }\n    .walletStartMining:hover{\n        background-color: #f200;\n    }\n\n}\n\n    @media only screen and (max-width : 600px) {\n\n        .whiteText{\n            display: none;\n        }\n\n    }\n\n    @media only screen and (max-width : 500px) {\n\n    .miningBar{\n        width: 50%;\n    }\n\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("#miningLoader{\n    vertical-align: top;\n    width: 30px;\n    height: 30px;\n}\n\n#dashboardMining{\n    overflow: hidden;\n    position: fixed;\n    bottom: 0px;\n    height: 33px;\n    background-color: #262626;\n    display: block;\n    left: 0;\n    padding-bottom: 3px;\n    right: 0;\n    z-index: 95;\n    border-top: solid 1px #444444;\n}\n\n.miningPowerThreads{\n    font-size: 14px;\n    display: inline-block;\n    padding: 0 10px;\n    vertical-align: top;\n    padding-top: 8px;\n    text-transform: uppercase;\n    padding-bottom: 5px;\n    color: #fff;\n    letter-spacing: 5px;\n    margin: 0;\n}\n\n\n.walletStartMining{\n    position: relative;\n    display: inline-block!important;\n    vertical-align: top;\n    left: 0;\n    right: 0;\n    font-size: 20px;\n    color: #f20;\n    cursor: pointer;\n    text-align: center;\n    transition: all .3s linear;\n}\n\n.walletStartMining a{\n    padding-top: 5px;\n    display: block;\n    color: #000;\n}\n\n.walletStartMining a:hover{\n    color: #ffc12c;\n}\n\n.walletStartMining:hover{\n    background-color: #191919;\n    transition: all .3s linear;\n}\n\n.minningController p{\n    font-size: 20px;\n    margin-right: -4px;\n}\n\n#miningDetails{\n    vertical-align: top;\n    display: inline-block;\n    line-height: 32px;\n    margin-top: 1;\n}\n\n#miningDetails p{\n    margin-top: 0;\n    font-size: 12px;\n    color: #D5D5D5;\n    margin-left: 55px;\n}\n\n#threadsControll{\n    display: inline-block;\n    vertical-align: top;\n    width: 100%;\n    background-color: #1f1f1f;\n}\n\n#threadsControll .leftButton {\n    float: left;\n}\n\n#threadsControll .rightButton {\n    float: right;\n}\n\n#threadsControll .button p{\n    padding-top: 3px;\n    padding-bottom: 4px;\n    line-height: 27px;\n    margin: 0;\n}\n\n#allWalets{\n    /*border-top: solid 1px #7b7b7b;*/\n    display: block;\n    /*padding-top: 10px;*/\n}\n\n.miningPowerText{\n    font-size: 10px;\n    display: inline-block;\n    padding: 0 10px;\n    vertical-align: top;\n    padding-top: 5px;\n    margin: 0;\n    color: #fff;\n}\n\n\n.miningPowerText .secondWord{\n    height: auto;\n    line-height: 10px;\n    margin: 0;\n    font-weight: bold;\n    color: #fff;\n    margin-right: -4px;\n}\n\n\n#threadsControll .button{\n    display: inline-block;\n    background-color: #1f1f1f;\n    color: #fff;\n    font-size: 26px;\n    border: solid 1px #565656;\n    width: 31px;\n    border-top: none;\n    border-bottom: none;\n    text-align: center;\n    cursor: pointer;\n    transition: all .3s linear;\n}\n\n#threadsControll .button:hover{\n    background-color: #000;\n    transition: all .3s linear;\n}\n\n#threadsControll .button:first-child{\n    margin-top: 0;\n}\n\n#threadsNumber{\n    font-size: 20px;\n    padding: 0 10px;\n    text-align: center;\n    padding-bottom: 8px;\n    line-height: 25px;\n    display: inline-block;\n    color: #fff;\n    background-color: #d23c25;\n    vertical-align: top;\n    padding-top: 6px;\n    border-right: solid 1px #444;\n    width: 40px;\n    padding-left: 0;\n    padding-right:0;\n}\n\n.whiteText{\n    color: #c5c5c5;\n    font-weight: 100;\n}\n\n#minningController{\n    width: 100%;\n    border-top:none;\n    padding-bottom: 0;\n    margin-bottom: 15px;\n    display: inline-block;\n    vertical-align: top;\n}\n\n#createWalletAddress{\n    border: solid 1px #7b7b7b;\n    padding-bottom: 0;\n    margin-bottom: 15px;\n    display: inline-block;\n}\n\n#createWalletAddress p:hover{\n    background-color: #191919;\n    transition: all .3s linear;\n}\n\n#createWalletAddress p{\n    padding: 10px;\n    padding-top: 14px;\n    background-color: #353535;\n    color: #bbb;\n    display: inline-block;\n    width: 214px;\n    cursor: pointer;\n    text-align: center;\n    transition: all .3s linear;\n}\n\n.WEBD{\n    display: inline-block;\n    margin-left: 20px;\n    font-size: 20px;\n    color: #fec02c;\n    vertical-align: top;\n    margin-top: 0;\n    float: right;\n    min-width: 300px;\n    text-align: center;\n    border-left: solid 1px #444444;\n    line-height: 42px;\n}\n\n#miningDetails p{\n    display: inline-block;\n}\n\n.miningBar{\n    display: inline-block;\n    width: 330px;\n    margin-left: 0;\n}\n\n@media only screen and (max-width : 831px) {\n\n    .miningBar{\n        padding: 4px 0px;\n    }\n\n    .show-balance-span{\n        font-size: 20px;\n    }\n\n    #dashboardMining{\n        margin-bottom: 0;\n    }\n    #minningController, .walletStartMining, .WEBD{\n        display: inline-block;\n        width: 100%;\n    }\n    #minningController{\n        background-color: #0000;\n        margin-bottom: 0;\n        height: 33px;\n        border-top: none;\n        margin-top: 50px;\n    }\n    #threadsControll .button p{\n        line-height: 43px;\n    }\n    #threadsControll .button{\n        width: 80px;\n    }\n    .miningPowerThreads{\n        line-height: 38px;\n        font-size: 16px;\n        margin-right: -4px;\n    }\n    #miningDetails{\n        display: none;\n    }\n    .miningPowerText{\n        display: none;\n    }\n    #threadsNumber{\n        margin: 0 auto;\n        text-align: center;\n        float:left;\n        position: relative;\n        display: block;\n        line-height: 34px;\n        width: 35px;\n        padding-top: 6px;\n        padding-left: 0;\n    }\n    .WEBD{\n        text-align: right;\n        margin-right: 10px;\n        min-width: auto;\n        width: auto;\n        border:none;\n        line-height: 42px;\n    }\n    .miningPowerThreads{\n        display:none;\n    }\n    #threadsControll .button{\n        float:left;\n    }\n    .walletStartMining{\n        margin-top:-29px;\n    }\n    #threadsControll{\n        background-color: #f200;\n    }\n    #threadsControll .button p {\n        line-height: 35px;\n        font-size: 35px;\n        padding-top: 7px;\n    }\n    #threadsControll .button:first-child{\n        border:none;\n    }\n    #minningController{\n        margin-top:0\n    }\n    #dashboardMining{\n        height:40px;\n    }\n    .walletStartMining:hover{\n        background-color: #f200;\n    }\n\n}\n\n    @media only screen and (max-width : 600px) {\n\n        .whiteText{\n            display: none;\n        }\n\n    }\n\n    @media only screen and (max-width : 500px) {\n\n    .miningBar{\n        width: 60%;\n    }\n\n}")
 ;(function(){
 "use strict";
 
@@ -16082,9 +16082,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-697b145f", __vue__options__)
+    hotAPI.createRecord("data-v-f2777896", __vue__options__)
   } else {
-    hotAPI.reload("data-v-697b145f", __vue__options__)
+    hotAPI.reload("data-v-f2777896", __vue__options__)
   }
 })()}
 },{"../Wallet/Address/Balance/ShowBalance.vue":347,"./slider.vue":335,"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],335:[function(require,module,exports){
@@ -16096,7 +16096,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _vueSliderComponent = require('./../../../node_modules/vue-slider-component');
+var _vueSliderComponent = require('vue-slider-component');
 
 var _vueSliderComponent2 = _interopRequireDefault(_vueSliderComponent);
 
@@ -16184,12 +16184,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4a898850", __vue__options__)
+    hotAPI.createRecord("data-v-67d2b7a6", __vue__options__)
   } else {
-    hotAPI.reload("data-v-4a898850", __vue__options__)
+    hotAPI.reload("data-v-67d2b7a6", __vue__options__)
   }
 })()}
-},{"./../../../node_modules/vue-slider-component":330,"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],336:[function(require,module,exports){
+},{"vue":331,"vue-hot-reload-api":329,"vue-slider-component":330,"vueify/lib/insert-css":332}],336:[function(require,module,exports){
 var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".webdollarFont{\n    cursor: pointer;\n    color: #f6cd69;\n    transition: all .5s linear;\n    text-decoration: none;\n    width: 14px;\n}\n\n.webdollarFont path{\n    fill: #f6cd69;\n}")
 ;(function(){
 "use strict";
@@ -16268,9 +16268,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-ab163dce", __vue__options__)
+    hotAPI.createRecord("data-v-7083df22", __vue__options__)
   } else {
-    hotAPI.reload("data-v-ab163dce", __vue__options__)
+    hotAPI.reload("data-v-7083df22", __vue__options__)
   }
 })()}
 },{"./res/svg-chevron-down.vue":337,"./res/svg-chevron-up.vue":338,"./res/svg-key.vue":339,"./res/svg-lock-closed.vue":340,"./res/svg-lock-open.vue":341,"./res/svg-plus-square.vue":342,"./res/svg-plus.vue":343,"./res/svg-x.vue":344,"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],337:[function(require,module,exports){
@@ -16292,9 +16292,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0bd49e6c", __vue__options__)
+    hotAPI.createRecord("data-v-801f3c7c", __vue__options__)
   } else {
-    hotAPI.reload("data-v-0bd49e6c", __vue__options__)
+    hotAPI.reload("data-v-801f3c7c", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329}],338:[function(require,module,exports){
@@ -16316,9 +16316,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-791e4865", __vue__options__)
+    hotAPI.createRecord("data-v-ca422d8a", __vue__options__)
   } else {
-    hotAPI.reload("data-v-791e4865", __vue__options__)
+    hotAPI.reload("data-v-ca422d8a", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329}],339:[function(require,module,exports){
@@ -16331,9 +16331,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-56386c97", __vue__options__)
+    hotAPI.createRecord("data-v-bc9d1efe", __vue__options__)
   } else {
-    hotAPI.reload("data-v-56386c97", __vue__options__)
+    hotAPI.reload("data-v-bc9d1efe", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329}],340:[function(require,module,exports){
@@ -16346,9 +16346,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5f7f8f06", __vue__options__)
+    hotAPI.createRecord("data-v-75d308f0", __vue__options__)
   } else {
-    hotAPI.reload("data-v-5f7f8f06", __vue__options__)
+    hotAPI.reload("data-v-75d308f0", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329}],341:[function(require,module,exports){
@@ -16361,9 +16361,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-07e88d64", __vue__options__)
+    hotAPI.createRecord("data-v-21c579ce", __vue__options__)
   } else {
-    hotAPI.reload("data-v-07e88d64", __vue__options__)
+    hotAPI.reload("data-v-21c579ce", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329}],342:[function(require,module,exports){
@@ -16376,9 +16376,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1b58b268", __vue__options__)
+    hotAPI.createRecord("data-v-31ac2c52", __vue__options__)
   } else {
-    hotAPI.reload("data-v-1b58b268", __vue__options__)
+    hotAPI.reload("data-v-31ac2c52", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329}],343:[function(require,module,exports){
@@ -16391,9 +16391,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-314237dc", __vue__options__)
+    hotAPI.createRecord("data-v-0b065d68", __vue__options__)
   } else {
-    hotAPI.reload("data-v-314237dc", __vue__options__)
+    hotAPI.reload("data-v-0b065d68", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329}],344:[function(require,module,exports){
@@ -16406,9 +16406,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3b946230", __vue__options__)
+    hotAPI.createRecord("data-v-6b1d4ecc", __vue__options__)
   } else {
-    hotAPI.reload("data-v-3b946230", __vue__options__)
+    hotAPI.reload("data-v-6b1d4ecc", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329}],345:[function(require,module,exports){
@@ -16468,9 +16468,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3a5a34f0", __vue__options__)
+    hotAPI.createRecord("data-v-73921f4c", __vue__options__)
   } else {
-    hotAPI.reload("data-v-3a5a34f0", __vue__options__)
+    hotAPI.reload("data-v-73921f4c", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],346:[function(require,module,exports){
@@ -16529,9 +16529,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-8a83cf3a", __vue__options__)
+    hotAPI.createRecord("data-v-0c05c9cd", __vue__options__)
   } else {
-    hotAPI.reload("data-v-8a83cf3a", __vue__options__)
+    hotAPI.reload("data-v-0c05c9cd", __vue__options__)
   }
 })()}
 },{"./Balance/ShowBalance.vue":347,"./Transactions/Transaction.modal.vue":349,"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],347:[function(require,module,exports){
@@ -16609,7 +16609,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"show-balance-span"},[_vm._v("\n    "+_vm._s((this.balances !== null && this.balances !== undefined && this.balances.hasOwnProperty(this.currency)) ? Math.round(this.balances[this.currency] * 1000)/1000 : 0)+"\n")])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"show-balance-span"},[_vm._v("\n    "+_vm._s((this.balances !== null && this.balances !== undefined && this.balances.hasOwnProperty(this.currency)) ? Math.round(this.balances[this.currency] * 100000)/100000 : 0)+"\n")])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -16617,9 +16617,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-c07a578a", __vue__options__)
+    hotAPI.createRecord("data-v-cf6c92b6", __vue__options__)
   } else {
-    hotAPI.reload("data-v-c07a578a", __vue__options__)
+    hotAPI.reload("data-v-cf6c92b6", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],348:[function(require,module,exports){
@@ -16686,9 +16686,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3df1093e", __vue__options__)
+    hotAPI.createRecord("data-v-c5b9ce6a", __vue__options__)
   } else {
-    hotAPI.reload("data-v-3df1093e", __vue__options__)
+    hotAPI.reload("data-v-c5b9ce6a", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],349:[function(require,module,exports){
@@ -16798,13 +16798,13 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-c1f19eb8", __vue__options__)
+    hotAPI.createRecord("data-v-3a4d87fa", __vue__options__)
   } else {
-    hotAPI.reload("data-v-c1f19eb8", __vue__options__)
+    hotAPI.reload("data-v-3a4d87fa", __vue__options__)
   }
 })()}
 },{"../../../UI/modal/Modal.vue":345,"../Balance/ShowBalance.vue":347,"./../../../../../node_modules/v-clipboard":328,"vue":331,"vue-hot-reload-api":329}],350:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".vue-slider-component.vue-slider-horizontal .vue-slider-dot{\n    left:-5px;\n}\n\n#walletButtonText{\n    color: #1f1f1f;\n}\n\n#walletButton {\n    margin: 0 auto;\n    position: fixed;\n    z-index: 85;\n    bottom: 0;\n    width: 299px!important;\n    right: 0;\n    text-align: center;\n    height: 50px;\n    border-top-left-radius: 60px;\n    cursor: pointer;\n    background-color: #fec02c;\n    color: #1f1f1f;\n    margin-bottom: 20px;\n    border: solid 1px #444444;\n    border-right: solid 1px #fec02c;\n    transition: all .3s linear;\n}\n\n#walletButton:hover{\n    background-color: #fec02c;\n    transition: all .3s linear;\n}\n\n.walletSection{\n    display: inline-block;\n    vertical-align: top;\n    height: 315px;\n    overflow-y: auto;\n    overflow-x: hidden;\n    width: 100%;\n}\n\n.walletController{\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    position: relative;\n    width: 100%;\n    border-bottom: solid 1px #333333;\n    background-color: #313131;\n}\n\n.walletController .btn{\n    text-align: center;\n    color: #b5b5b5;\n    cursor: pointer;\n    padding: 6px 19px 6px 19px!important;\n    margin-left: 10px;\n}\n\n.walletController .btn:hover{\n    background-color: #44403f;\n    transition: all .3s linear;\n}\n\n.walletController .btn:first-child{\n    border-right: solid 1px #3c3b3b;\n}\n\n.allWallets div{\n    border: solid 1px #545454;\n}\n\n#walletButton:hover{\n    transition: all .3s linear;\n}\n\n#walletButton span{\n    width: 100%;\n    line-height: 50px;\n    font-size: 20px;\n    font-weight: bolder;\n    transition: all .3s linear;\n}\n\n#walletButton span:hover{\n    transition: all .3s linear;\n}\n\n#walletMenu{\n    margin: 0 auto;\n    position: fixed;\n    bottom: 0;\n    right: 0;\n    width: 300px;\n    background-color: #1f1f1f;\n    height: 358px;\n    margin-bottom:-100px;\n    z-index: 90;\n    border-top: solid 1px #3d3d3d;\n    border-left: solid 1px #444;\n    transition: all .3s linear;\n}\n\n.buttonIcon{\n    display: inline-block;\n    margin-right: 10px;\n}\n\n#walletButton .buttonIcon{\n    fill: #000;\n    transition: all .3s linear;\n}\n\n.walletAddress b{\n    font-weight:100;\n}\n\n/* Small Devices, Tablets */\n@media only screen and (max-width : 831px) {\n    #walletMenu{\n        width: 100%;\n        margin-top: 40px!important;\n    }\n    #walletButton{\n        width: 100%!important;\n        border:0;\n        height: 40px;\n        border-top-left-radius: 15px;\n        border-top-right-radius: 15px;\n        margin-bottom: 90px;\n    }\n    #walletButton span{\n        line-height: 40px;\n        font-size: 22px;\n    }\n    .walletController .btn{\n        padding: 6px 19px 6px 19px!important;\n        margin-left: 10px;\n    }\n    .webdollarFont{\n        width: 24px!important;\n    }\n    #allWalets .walletAddress{\n        margin: 15px 0 0 10px!important;\n    }\n    #allWalets .walletAddress img{\n        height: 60px!important;\n    }\n    .walletAddress b{\n        font-size: 22px!important;\n        line-height: 60px!important;\n    }\n    .walletController{\n        position: relative;\n        width: 100%;\n        border-bottom: solid 5px #333333;\n        background-color: #313131;\n        border-top: solid 5px #313131;\n    }\n\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("#walletButtonText{\n    color: #1f1f1f;\n}\n\n#walletButton {\n    margin: 0 auto;\n    position: fixed;\n    z-index: 85;\n    bottom: 0;\n    width: 299px!important;\n    right: 0;\n    text-align: center;\n    height: 50px;\n    border-top-left-radius: 60px;\n    cursor: pointer;\n    background-color: #fec02c;\n    color: #1f1f1f;\n    margin-bottom: 20px;\n    border: solid 1px #444444;\n    border-right: solid 1px #fec02c;\n    transition: all .3s linear;\n}\n\n#walletButton:hover{\n    background-color: #fec02c;\n    transition: all .3s linear;\n}\n\n.walletSection{\n    display: inline-block;\n    vertical-align: top;\n    height: 315px;\n    overflow-y: auto;\n    overflow-x: hidden;\n    width: 100%;\n}\n\n.walletController{\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    position: relative;\n    width: 100%;\n    border-bottom: solid 1px #333333;\n    background-color: #313131;\n}\n\n.walletController .btn{\n    text-align: center;\n    color: #b5b5b5;\n    cursor: pointer;\n    padding: 6px 19px 6px 19px!important;\n    margin-left: 10px;\n}\n\n.walletController .btn:hover{\n    background-color: #44403f;\n    transition: all .3s linear;\n}\n\n.walletController .btn:first-child{\n    border-right: solid 1px #3c3b3b;\n}\n\n.allWallets div{\n    border: solid 1px #545454;\n}\n\n#walletButton:hover{\n    transition: all .3s linear;\n}\n\n#walletButton span{\n    width: 100%;\n    line-height: 50px;\n    font-size: 20px;\n    font-weight: bolder;\n    transition: all .3s linear;\n}\n\n#walletButton span:hover{\n    transition: all .3s linear;\n}\n\n#walletMenu{\n    margin: 0 auto;\n    position: fixed;\n    bottom: 0;\n    right: 0;\n    width: 300px;\n    background-color: #1f1f1f;\n    height: 358px;\n    margin-bottom:-100px;\n    z-index: 90;\n    border-top: solid 1px #3d3d3d;\n    border-left: solid 1px #444;\n    transition: all .3s linear;\n}\n\n.buttonIcon{\n    display: inline-block;\n    margin-right: 10px;\n}\n\n#walletButton .buttonIcon{\n    fill: #000;\n    transition: all .3s linear;\n}\n\n.walletAddress b{\n    font-weight:100;\n}\n\n/* Small Devices, Tablets */\n@media only screen and (max-width : 831px) {\n    #walletMenu{\n        width: 100%;\n        margin-top: 40px!important;\n    }\n    #walletButton{\n        width: 100%!important;\n        border:0;\n        height: 40px;\n        border-top-left-radius: 15px;\n        border-top-right-radius: 15px;\n        margin-bottom: 90px;\n    }\n    #walletButton span{\n        line-height: 40px;\n        font-size: 22px;\n    }\n    .walletController .btn{\n        padding: 6px 19px 6px 19px!important;\n        margin-left: 10px;\n    }\n    .webdollarFont{\n        width: 24px!important;\n    }\n    #allWalets .walletAddress{\n        margin: 15px 0 0 10px!important;\n    }\n    #allWalets .walletAddress img{\n        height: 60px!important;\n    }\n    .walletAddress b{\n        font-size: 22px!important;\n        line-height: 60px!important;\n    }\n    .walletController{\n        position: relative;\n        width: 100%;\n        border-bottom: solid 5px #333333;\n        background-color: #313131;\n        border-top: solid 5px #313131;\n    }\n}")
 ;(function(){
 "use strict";
 
@@ -17061,9 +17061,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1fe2643f", __vue__options__)
+    hotAPI.createRecord("data-v-3d2b9395", __vue__options__)
   } else {
-    hotAPI.reload("data-v-1fe2643f", __vue__options__)
+    hotAPI.reload("data-v-3d2b9395", __vue__options__)
   }
 })()}
 },{"../../helpers/Browser.helpers":358,"../UI/icons/icon.vue":336,"./Address/Address.vue":346,"./Address/Balance/ShowSumBalances.vue":348,"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],351:[function(require,module,exports){
@@ -17139,9 +17139,9 @@ var _CircleMap = require("./helpers/Circle-Map");
 
 var _CircleMap2 = _interopRequireDefault(_CircleMap);
 
-var _CellCounter = require("./helpers/Cell-Counter");
+var _Circles = require("./helpers/Circles");
 
-var _CellCounter2 = _interopRequireDefault(_CellCounter);
+var _Circles2 = _interopRequireDefault(_Circles);
 
 var _Maps = require("./../Maps.tester");
 
@@ -17198,7 +17198,7 @@ exports.default = {
                 return _this._mapHighlight(e);
             };
 
-            this._cellCounter = new _CellCounter2.default();
+            this._circles = new _Circles2.default();
 
             this.initialize();
         },
@@ -17387,7 +17387,7 @@ exports.default = {
 
                 this._circleMap.highlightCell(cell, 'peer-own', marker.desc);
 
-                this._cellCounter.incCellCount(cell);
+                this._circles.inc(cell);
 
                 for (var i = 0; i < this._markers.length; i++) {
                     if (this._markers[i] !== marker && this._markers[i].status === "connected") this._circleMap.addLink(cell, this._markers[i].cell);
@@ -17408,7 +17408,7 @@ exports.default = {
 
                 this._circleMap.highlightCell(cell, cellClass, marker.desc);
 
-                this._cellCounter.incCellCount(cell);
+                this._circles.inc(cell);
 
                 if (marker.desc.status === "connected") if (this._markerMyself !== null && this._markerMyself !== undefined && this._markerMyself !== marker) this._circleMap.addLink(cell, this._markerMyself.cell);
             }
@@ -17486,8 +17486,8 @@ exports.default = {
         _removeMarker: function _removeMarker(marker) {
 
             if (marker.cell !== undefined && marker.cell !== null) {
-                if (this._cellCounter.decCellCount(marker.cell) === 0) {
-                    if (this._cellCounter.getCellCount(marker.cell) > 0) {
+                if (this._circles.del(marker.cell) === 0) {
+                    if (this._circles.get(marker.cell) > 0) {
                         this._circleMap.highlightCell(marker.cell, 'peer-connected-browser', undefined);
                     } else this._circleMap.unhighlightCell(marker.cell);
 
@@ -17550,61 +17550,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-77863096", __vue__options__)
+    hotAPI.createRecord("data-v-700d1300", __vue__options__)
   } else {
-    hotAPI.reload("data-v-77863096", __vue__options__)
+    hotAPI.reload("data-v-700d1300", __vue__options__)
   }
 })()}
-},{"./../Maps.tester":351,"./helpers/Cell-Counter":353,"./helpers/Circle-Map":354,"./res/Network-Native-Map-Canvas.vue":356,"./res/Network-Native-Map-Dialog.vue":357,"vue":331,"vue-hot-reload-api":329}],353:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var CellCounter = function () {
-    function CellCounter() {
-        _classCallCheck(this, CellCounter);
-
-        this._cellCount = {};
-    }
-
-    _createClass(CellCounter, [{
-        key: "incCellCount",
-        value: function incCellCount(cell) {
-            if (!this._cellCount[cell.cellId]) {
-                this._cellCount[cell.cellId] = 0;
-            }
-            this._cellCount[cell.cellId]++;
-        }
-    }, {
-        key: "decCellCount",
-        value: function decCellCount(cell) {
-            if (!this._cellCount[cell.cellId]) {
-                this._cellCount[cell.cellId] = 0;
-            }
-            if (this._cellCount[cell.cellId] > 0) {
-                return --this._cellCount[cell.cellId];
-            }
-            return 0;
-        }
-    }, {
-        key: "getCellCount",
-        value: function getCellCount(cell) {
-            return this._cellCount[cell.cellId] || 0;
-        }
-    }]);
-
-    return CellCounter;
-}();
-
-exports.default = CellCounter;
-
-},{}],354:[function(require,module,exports){
+},{"./../Maps.tester":351,"./helpers/Circle-Map":353,"./helpers/Circles":354,"./res/Network-Native-Map-Canvas.vue":356,"./res/Network-Native-Map-Dialog.vue":357,"vue":331,"vue-hot-reload-api":329}],353:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17613,9 +17564,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _RobinsonProjection = require('./RobinsonProjection');
+var _Projection = require('./Projection');
 
-var _RobinsonProjection2 = _interopRequireDefault(_RobinsonProjection);
+var _Projection2 = _interopRequireDefault(_Projection);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17684,7 +17635,7 @@ var CircleMap = function () {
             // the computation on the full/original map, so we calculate the full size.
             var fullMapWidth = 1.0946808510638297 * mapDimensions.width;
             var fullMapHeight = fullMapWidth / 1.97165551906973; // RobinsonProjection maps have a fixed aspect ratio
-            var projection = new _RobinsonProjection2.default(fullMapWidth, fullMapHeight);
+            var projection = new _Projection2.default(fullMapWidth, fullMapHeight);
             var point = projection.project(latitude, longitude);
             // the origin is centered in the middle of the map, so we translate it
             // to the top left corner
@@ -17806,7 +17757,7 @@ CircleMap.MAX_CELL_DISTANCE = 12; // in terms of cells
 
 exports.default = CircleMap;
 
-},{"./RobinsonProjection":355}],355:[function(require,module,exports){
+},{"./Projection":355}],354:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -17817,38 +17768,93 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var RobinsonProjection = function () {
-    function RobinsonProjection(width) {
-        _classCallCheck(this, RobinsonProjection);
+var Circles = function () {
+    function Circles() {
+        _classCallCheck(this, Circles);
+
+        this.cells = {};
+    }
+
+    _createClass(Circles, [{
+        key: "inc",
+        value: function inc(cell) {
+            if (!this.cells[cell.cellId]) this.cells[cell.cellId] = 0;
+
+            this.cells[cell.cellId]++;
+        }
+    }, {
+        key: "del",
+        value: function del(cell) {
+
+            if (!this.cells[cell.cellId]) this.cells[cell.cellId] = 0;
+
+            if (this.cells[cell.cellId] > 0) return --this.cells[cell.cellId];
+
+            return 0;
+        }
+    }, {
+        key: "get",
+        value: function get(cell) {
+            return this.cells[cell.cellId] || 0;
+        }
+    }]);
+
+    return Circles;
+}();
+
+exports.default = Circles;
+
+},{}],355:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * It's a Robison Projection
+ *
+ * https://en.wikipedia.org/wiki/Robinson_projection
+ */
+
+var Projection = function () {
+    function Projection(width) {
+        _classCallCheck(this, Projection);
+
+        this.X = [594090, 593258.274, 591357.186, 588149.1, 583515.198, 578049.5700000001, 570326.4, 560048.643, 547513.3439999999, 532423.4580000001, 515610.71099999995, 496065.14999999997, 474440.274, 451330.173, 426913.07399999996, 399941.388, 369108.11699999997, 339938.298, 316174.698];
+
+        this.Y = [0, 58689.82, 117379.64, 176069.46000000002, 234759.28, 293449.10000000003, 352138.92000000004, 410828.74000000005, 470275.848, 527356.431, 584626.336, 640760.3089999999, 695379.706, 748105.883, 798465.5349999999, 845890.696, 889245.434, 923986.021, 946610];
+
+        this.EPS = 1e-8;
+        this.INTERVAL = 5;
+
+        this.radians = Math.PI / 180;
+        this.degrees = 180 / Math.PI;
 
         this._width = width;
         this._r = this._width / 5.332539516;
     }
 
-    _createClass(RobinsonProjection, [{
-        key: "project",
-        value: function project(lat, lng) {
-            var p = RobinsonProjection._project(lat, lng);
-            return {
-                x: p.x * this._r,
-                y: p.y * this._r
-            };
-        }
-    }], [{
+    _createClass(Projection, [{
         key: "_project",
         value: function _project(lat, lng) {
             // 5 degree intervals, so find right indices
-            var lI = Math.floor((Math.abs(lat) - RobinsonProjection.EPS) / RobinsonProjection.INTERVAL);
+            var lI = Math.floor((Math.abs(lat) - this.EPS) / this.INTERVAL);
             lI = Math.max(lI, 0);
             var hI = lI + 1;
-            var ratio = (Math.abs(lat) - lI * RobinsonProjection.INTERVAL) / RobinsonProjection.INTERVAL;
+            var ratio = (Math.abs(lat) - lI * this.INTERVAL) / this.INTERVAL;
 
             // interpolate x and y
-            var xDist = RobinsonProjection.X[hI] - RobinsonProjection.X[lI];
-            var yDist = RobinsonProjection.Y[hI] - RobinsonProjection.Y[lI];
-            var x = (xDist * ratio + RobinsonProjection.X[lI]) * (Math.abs(lng) * RobinsonProjection.radians);
+            var xDist = this.X[hI] / 700000 - this.X[lI] / 700000;
+            var yDist = this.Y[hI] / 700000 - this.Y[lI] / 700000;
+
+            var x = (xDist * ratio + this.X[lI] / 700000) * (Math.abs(lng) * this.radians);
             x = lng < 0 ? -x : x;
-            var y = yDist * ratio + RobinsonProjection.Y[lI];
+            var y = yDist * ratio + this.Y[lI] / 700000;
             y = lat < 0 ? -y : y;
 
             return {
@@ -17856,22 +17862,21 @@ var RobinsonProjection = function () {
                 y: y
             };
         }
+    }, {
+        key: "project",
+        value: function project(lat, lng) {
+            var p = this._project(lat, lng);
+            return {
+                x: p.x * this._r,
+                y: p.y * this._r
+            };
+        }
     }]);
 
-    return RobinsonProjection;
+    return Projection;
 }();
 
-RobinsonProjection.X = [0.8487, 0.84751182, 0.84479598, 0.840213, 0.83359314, 0.8257851, 0.814752, 0.80006949, 0.78216192, 0.76060494, 0.73658673, 0.7086645, 0.67777182, 0.64475739, 0.60987582, 0.57134484, 0.52729731, 0.48562614, 0.45167814];
-
-RobinsonProjection.Y = [0, 0.0838426, 0.1676852, 0.2515278, 0.3353704, 0.419213, 0.5030556, 0.5868982, 0.67182264, 0.75336633, 0.83518048, 0.91537187, 0.99339958, 1.06872269, 1.14066505, 1.20841528, 1.27035062, 1.31998003, 1.3523];
-
-RobinsonProjection.EPS = 1e-8;
-RobinsonProjection.INTERVAL = 5;
-RobinsonProjection.pi = Math.PI;
-RobinsonProjection.radians = RobinsonProjection.pi / 180;
-RobinsonProjection.degrees = 180 / RobinsonProjection.pi;
-
-exports.default = RobinsonProjection;
+exports.default = Projection;
 
 },{}],356:[function(require,module,exports){
 var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("<style>\n\n    /* map styling */\n\n\nsvg .WebDollarNativeMap{\n\n    margin: auto;\n    opacity: 1;\n    transition: 1s opacity;\n\n    /* we have the map as background image such that we can display:none the hexagons\n    in the svg which greatly improves performance on firefox */\n    background-image: url(public/assets/map/map.svg);\n}\n\n\nsvg.WebDollarNativeMap.hide-circles circle {\n    fill: #26292b;\n}\n\n.peer-own {\n    display: block !important;\n    fill: white !important;\n    -webkit-animation: connected 1800ms ease 5;\n    animation: connected 1800ms ease 8;\n}\n\n.peer-connected-terminal {\n    display: block !important;\n    fill: #fec02c !important;\n    -webkit-animation: connected 1800ms ease 10;\n    animation: connected 1800ms ease 3;\n}\n\n.peer-connected-browser {\n    display: block !important;\n    fill: #12428c !important;\n    -webkit-animation: connected 1800ms ease 10;\n    animation: connected 1800ms ease 3;\n}\n\n.peer-own,\n.peer-connected-terminal,\n.peer-connected-browser {\n    will-change: opacity;\n}\n\n\n.link {\n    stroke: #dedede;\n    stroke-width: 1;\n    stroke-dasharray: 5 5;\n    opacity: 0.5;\n}\n\n\n@media  screen and  (max-width: 480px) {\n    svg.WebDollarNativeMap{\n        box-sizing: border-box;\n        transform: scale(1.15);\n    }\n}\n\n@media   screen and  (max-width: 800px) {\n\n    /* disable map animations when map is in background */\n    .peer-own,  .peer-connected-browser, .peer-connected-terminal {\n        -webkit-animation: none;\n        animation: none;\n        will-change: initial;\n    }\n\n    svg.WebDollarNativeMap{\n        box-sizing: border-box;\n        transform: scale(1.05);\n    }\n\n}\n\n\n/* Large Screen */\n\n@media screen and (min-width: 1080px) {\n    svg.WebDollarNativeMap {\n        box-sizing: border-box;\n        transform: scale(0.9);\n    }\n}\n\n@media screen and (min-width: 1400px) {\n    svg.WebDollarNativeMap {\n        box-sizing: border-box;\n        transform: scale(0.8);\n    }\n}")
@@ -17894,9 +17899,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-c15838e0", __vue__options__)
+    hotAPI.createRecord("data-v-3a9a3ae6", __vue__options__)
   } else {
-    hotAPI.reload("data-v-c15838e0", __vue__options__)
+    hotAPI.reload("data-v-3a9a3ae6", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],357:[function(require,module,exports){
@@ -17971,9 +17976,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-14e41900", __vue__options__)
+    hotAPI.createRecord("data-v-de576a54", __vue__options__)
   } else {
-    hotAPI.reload("data-v-14e41900", __vue__options__)
+    hotAPI.reload("data-v-de576a54", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],358:[function(require,module,exports){
