@@ -16,7 +16,7 @@
                                 <path style=" fill:#fec02c;" d="M 34.585938 14.585938 L 21.015625 28.171875 L 15.414063 22.585938 L 12.585938 25.414063 L 21.019531 33.828125 L 37.414063 17.414063 Z "/>
                             </g>
                         </svg>
-                        <span class="newCryptoText">The First Cryptocurrency Native to the Browser</span>
+                        <span class="newCryptoText">Native to the Browser</span>
                     </div>
                     <div class="checkItem">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48" version="1.1" width="30px" height="30px">
@@ -25,7 +25,7 @@
                                 <path style=" fill:#fec02c;" d="M 34.585938 14.585938 L 21.015625 28.171875 L 15.414063 22.585938 L 12.585938 25.414063 L 21.019531 33.828125 L 37.414063 17.414063 Z "/>
                             </g>
                         </svg>
-                        <span class="newCryptoText">The First Wallet in your Browser</span>
+                        <span class="newCryptoText">Wallet in your Browser</span>
                     </div>
                     <div class="checkItem">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48" version="1.1" width="30px" height="30px">
@@ -34,7 +34,7 @@
                                 <path style=" fill:#fec02c;" d="M 34.585938 14.585938 L 21.015625 28.171875 L 15.414063 22.585938 L 12.585938 25.414063 L 21.019531 33.828125 L 37.414063 17.414063 Z "/>
                             </g>
                         </svg>
-                        <span class="newCryptoText">TThe First easily managed Mining Pool</span>
+                        <span class="newCryptoText">The First easily managed Mining Pool</span>
                     </div>
                 </div>
                 <div>

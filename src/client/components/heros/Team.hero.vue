@@ -13,7 +13,7 @@
                     <div class="our-team">
 
                         <div class="team-pic">
-                            <img src="/public/assets/images/team/budisteanuIonutAlexandru.jpg" alt="Budisteanu Ionut Alexandru" title="Budisteanu Ionut Alexandru">
+                            <img src="/public/assets/images/team/Alexandru-Ionut-Budisteanu.jpg" alt="Budisteanu Ionut Alexandru" title="Budisteanu Ionut Alexandru">
 
                             <div class="over-layer">
                                 <ul class="social-link social-link-4">
@@ -27,7 +27,7 @@
                         </div>
 
                         <h4>ALEXANDRU IONUT BUDISTEANU</h4>
-                        <h5 class="teamRole">Founder <br> LEAD PROTOCOL DEVELOPER</h5>
+                        <h5 class="teamRole">Founder </h5>
                         <p class="description">
                             Alexandru is a Forbes Europe 30 under 30 nominee in industry category. In 2013, he was nominated by Time Magazine as one of the most influential teens of the world. MIT named an asteroid with his name.</a>
                         </p>
@@ -45,7 +45,7 @@
                             </div>
                         </div>
                         <h4>Alexandru IONUT Panait</h4>
-                        <h5 class="teamRole">LEAD PLATFORM DEVELOPER</h5>
+                        <h5 class="teamRole">PLATFORM DEVELOPER</h5>
                         <p>Alexandru is a young entrepreneur interested in technology business. General Manager and Founder of a hiring Artificial Intelligence platform (AIpanait) and a software agency (AIPsolution).</p>
                     </div>
                     <div class="our-team">
@@ -59,7 +59,7 @@
                             </div>
                         </div>
                         <h4>ADRIAN STRATULAT</h4>
-                        <h5 class="teamRole">LEAD EVANGELIST</h5>
+                        <h5 class="teamRole">EVANGELIST</h5>
                         <p>Philosopher by vocation and diplomat by training, Adrian is a social entrepreneur specialized in innovative emerging technologies and blockchain applications. Also acting as economy advisor.</p>
                     </div>
                     <div class="our-team">
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <h4>COSMIN-DUMITRU OPREA</h4>
-                        <h5 class="teamRole">LEAD PERFORMANCE DEVELOPER</h5>
+                        <h5 class="teamRole">PERFORMANCE DEVELOPER</h5>
                         <p>Cosmin is a Teaching Assistant at Politehnica University of Bucharest, Software Engineer with lot of knowledge in algorithms. Cosmin has won three Honorable Mentions at the ACM-ICPC SEERC.</p>
                     </div>
                     <div class="our-team">
@@ -91,12 +91,10 @@
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
-                            <img src="/public/assets/images/team/tudorsmirna.jpg">
+                            <img src="/public/assets/images/team/Tudor-Smirna.jpeg">
                             <div class="over-layer">
                                 <ul class="social-link">
-                                    <li><a href="https://www.facebook.com/aesteticsadrian" target="_blank" class="fa fa-facebook"></a></li>
-                                    <li><a href="https://www.linkedin.com/in/%C8%99tefan-adrian-manea-534b5a77/" target="_blank" class="fa fa-linkedin2"></a></li>
-                                    <li><a href="http://aestetics.com" target="_blank" class="fa fa-globe"></a></li>
+                                    <li><a href="https://mises.org/profile/tudor-smirna" target="_blank" class="fa fa-globe"></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -120,6 +118,19 @@
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
+                            <img src="public/assets/images/team/Issam-Outaleb.jpg">
+                            <div class="over-layer">
+                                <ul class="social-link">
+                                    <li> <a href="https://www.linkedin.com/in/issame-outaleb-phd-84442577/" target="_blank" class="fa fa-linkedin2"></a> </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <h4>ISSAM OUTALEB</h4>
+                        <h5 class="teamRole">LEAD STRATEGIC MANAGEMENT</h5>
+                        <p>Issam is a Business Management Senior Consultant and Strategist who partners with top tier executives and marketers. Issam knows what truly drives conversions, product launches, and successful strategic and operational planning.</p>
+                    </div>
+                    <div class="our-team">
+                        <div class="team-pic">
                             <img src="/public/assets/images/team/silviuStroe.jpg">
                             <div class="over-layer">
                                 <ul class="social-link social-link-4">
@@ -137,19 +148,21 @@
                         </p>
 
                     </div>
+
                     <div class="our-team">
                         <div class="team-pic">
-                            <img src="public/assets/images/team/Issam-Outaleb.jpg">
+                            <img src="/public/assets/images/team/Iulian-Vasilescu.jpg">
                             <div class="over-layer">
                                 <ul class="social-link">
-                                    <li> <a href="https://www.linkedin.com/in/issame-outaleb-phd-84442577/" target="_blank" class="fa fa-linkedin2"></a> </li>
+                                    <li> <a href="https://www.facebook.com/iulian.vasilescu.1" target="_blank" class="fa fa-facebook"></a> </li>
                                 </ul>
                             </div>
                         </div>
-                        <h4>ISSAM OUTALEB</h4>
-                        <h5 class="teamRole">LEAD STRATEGIC MANAGEMENT</h5>
-                        <p>Issam is a Business Management Senior Consultant and Strategist who partners with top tier executives and marketers. Issam knows what truly drives conversions, product launches, and successful strategic and operational planning.</p>
+                        <h4>IULIAN VASILESCU</h4>
+                        <h5 class="teamRole">DESIGNER</h5>
+                        <p></p>
                     </div>
+
                 </div>
             </div>
         </div>
