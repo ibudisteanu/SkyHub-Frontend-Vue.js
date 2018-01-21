@@ -17066,7 +17066,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-3d2b9395", __vue__options__)
   }
 })()}
-},{"../../helpers/Browser.helpers":358,"../UI/icons/icon.vue":336,"./Address/Address.vue":346,"./Address/Balance/ShowSumBalances.vue":348,"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],351:[function(require,module,exports){
+},{"../../helpers/Browser.helpers":359,"../UI/icons/icon.vue":336,"./Address/Address.vue":346,"./Address/Balance/ShowSumBalances.vue":348,"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],351:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17151,7 +17151,7 @@ var _NetworkNativeMapCanvas = require("./res/Network-Native-Map-Canvas.vue");
 
 var _NetworkNativeMapCanvas2 = _interopRequireDefault(_NetworkNativeMapCanvas);
 
-var _NetworkNativeMapDialog = require("./res/Network-Native-Map-Dialog.vue");
+var _NetworkNativeMapDialog = require("./res/dialog/Network-Native-Map-Dialog.vue");
 
 var _NetworkNativeMapDialog2 = _interopRequireDefault(_NetworkNativeMapDialog);
 
@@ -17385,7 +17385,7 @@ exports.default = {
             if (cell) {
                 marker.cell = cell;
 
-                this._circleMap.highlightCell(cell, 'peer-own', marker.desc);
+                this._circleMap.highlightCell(cell, 'peer-own', marker.desc, marker.desc.uuid);
 
                 this._circles.inc(cell);
 
@@ -17406,7 +17406,7 @@ exports.default = {
                 if (marker.desc.nodeType === "myself") cellClass = "peer-own";else if (marker.desc.nodeType === "browser") cellClass = "peer-connected-browser";
                 if (marker.desc.nodeType === "terminal") cellClass = "peer-connected-terminal";
 
-                this._circleMap.highlightCell(cell, cellClass, marker.desc);
+                this._circleMap.highlightCell(cell, cellClass, marker.desc, marker.desc.uuid);
 
                 this._circles.inc(cell);
 
@@ -17421,20 +17421,25 @@ exports.default = {
                 nodeType = '',
                 status = "node",
                 nodeProtocol = '',
-                nodeIndex = 0;
+                nodeIndex = 0,
+                uuid = '';
 
             if (socket === 'myself') {
                 status = "connected";
                 address = geoLocation.address;
+                uuid = '0';
                 nodeType = "myself";
             } else if (socket === 'fake') {
                 address = geoLocation.country;
+                uuid = geoLocation.city;
 
                 if (Math.floor(Math.random() * 2) === 0) status = "connected";else status = "not connected";
 
                 if (Math.floor(Math.random() * 2) === 0) nodeType = "browser";else nodeType = "terminal";
             } else if ((typeof socket === "undefined" ? "undefined" : _typeof(socket)) === "object" && socket.node !== undefined && socket.node.protocol !== undefined && socket.node.protocol.helloValidated) {
                 address = socket.node.sckAddress.toString();
+                uuid = socket.node.sckAddress.uuid;
+
                 status = "connected";
 
                 switch (socket.node.type) {
@@ -17451,6 +17456,7 @@ exports.default = {
             } else if (socket instanceof WebDollar.Node.NodesWaitlist.NodesWaitlistObject) {
 
                 address = socket.sckAddresses[0].toString();
+                uuid = socket.sckAddresses[0].uuid;
 
                 switch (socket.type) {
                     case WebDollar.Node.NodesWaitlist.NODES_WAITLIST_OBJECT_TYPE.WEB_RTC_PEER:
@@ -17471,8 +17477,8 @@ exports.default = {
                 city: geoLocation.city || '',
                 country: geoLocation.country || '',
                 address: address,
+                uuid: uuid || nodeIndex,
                 protocol: nodeProtocol,
-                index: nodeIndex,
                 isp: geoLocation.isp || '',
                 pos: position,
                 nodeType: nodeType
@@ -17490,8 +17496,8 @@ exports.default = {
             if (marker.cell !== undefined && marker.cell !== null) {
                 if (this._circles.del(marker.cell) === 0) {
                     if (this._circles.get(marker.cell) > 0) {
-                        this._circleMap.highlightCell(marker.cell, 'peer-connected-browser', undefined);
-                    } else this._circleMap.unhighlightCell(marker.cell);
+                        this._circleMap.highlightCell(marker.cell, 'peer-connected-browser', undefined, marker.desc.uuid);
+                    } else this._circleMap.unhighlightCell(marker.cell, marker.desc.uuid);
 
                     if (this._markerMyself !== marker && this._markerMyself !== null) this._circleMap.removeLink(this._markerMyself.cell, marker.cell);
                 }
@@ -17527,10 +17533,10 @@ exports.default = {
             this._circleMap.addLink(cell2, cell3);
             this._circleMap.addLink(cell3, cell4);
 
-            this._circleMap.highlightCell(cell1, 'known-peer', data);
-            this._circleMap.highlightCell(cell2, 'own-peer', data);
-            this._circleMap.highlightCell(cell3, 'own-peer', data);
-            this._circleMap.highlightCell(cell4, 'own-peer', data);
+            this._circleMap.highlightCell(cell1, 'known-peer', data, 1);
+            this._circleMap.highlightCell(cell2, 'own-peer', data, 2);
+            this._circleMap.highlightCell(cell3, 'own-peer', data, 3);
+            this._circleMap.highlightCell(cell4, 'own-peer', data, 4);
         },
         _findMarkerIndexBySocket: function _findMarkerIndexBySocket(socket) {
 
@@ -17557,7 +17563,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-700d1300", __vue__options__)
   }
 })()}
-},{"./../Maps.tester":351,"./helpers/Circle-Map":353,"./helpers/Circles":354,"./res/Network-Native-Map-Canvas.vue":356,"./res/Network-Native-Map-Dialog.vue":357,"vue":331,"vue-hot-reload-api":329}],353:[function(require,module,exports){
+},{"./../Maps.tester":351,"./helpers/Circle-Map":353,"./helpers/Circles":354,"./res/Network-Native-Map-Canvas.vue":356,"./res/dialog/Network-Native-Map-Dialog.vue":358,"vue":331,"vue-hot-reload-api":329}],353:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17609,9 +17615,9 @@ var CircleMap = function () {
         }
     }, {
         key: 'unhighlightCell',
-        value: function unhighlightCell(cell) {
+        value: function unhighlightCell(cell, index) {
             cell.setAttribute('class', '');
-            cell.data = null;
+            delete cell.data[index];
         }
     }, {
         key: 'putCellOnTop',
@@ -17622,18 +17628,23 @@ var CircleMap = function () {
         }
     }, {
         key: 'highlightCell',
-        value: function highlightCell(cell, className, data) {
+        value: function highlightCell(cell, className, data, index) {
 
             if (cell.getAttribute('class') === 'peer-own') return;
 
             cell.setAttribute('class', className);
+
+            // deleted
 
             // if (className === 'peer-own')
             //     cell.parentElement.appendChild(cell);
 
 
             // XXX another hack
-            if (data) cell.data = data;
+            if (data) {
+                if (cell.data === undefined) cell.data = {};
+                cell.data[index] = data;
+            }
         }
     }, {
         key: '_convertCoordinates',
@@ -17908,7 +17919,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],357:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".map-dialog-description {\n    color: #ffc107;\n    height: 100px;\n    width: 200px;\n    margin: 0;\n    background-color: rgba(38, 41, 43, 0.66);\n    border-radius: 3px;\n    display: block;\n    padding: 8px;\n    opacity: 0;\n    will-change: opacity;\n    transition: 0.3s opacity;\n    text-align: center;\n    pointer-events: none;\n    position: relative;\n    margin-left: -100px;\n    left: 50%;\n    top: 100px;\n    z-index: 100;\n}\n\n@media (max-height: 800px) {\n    .map-dialog-description {\n        top: 40px;\n    }\n}\n\n.map-dialog {\n    position: fixed;\n    top: 50%;\n    transform: translateY(-50%);\n    width: 100%;\n    text-align: center;\n    pointer-events: none;\n}\n\n.map-dialog-description img {\n    width: 24px;\n    display: inline-block;\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".icon-connected{\n    -webkit-filter: brightness(0) invert(1);\n    filter: brightness(0) invert(1);\n}\n\n.network-dialog-icon {\n    width: 22px;\n    display: inline-block;\n}")
 ;(function(){
 'use strict';
 
@@ -17920,44 +17931,73 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 exports.default = {
 
+    props: {
+        nodeType: '',
+        status: '',
+        country: '',
+        city: '',
+        address: ''
+
+    },
+
+    computed: {
+        getAddress: function getAddress() {
+
+            if (typeof this.address === "string") return this.address;else if (_typeof(this.address) === "object" && typeof this.address.addressString === 'string') return this.address.addressString;else return "NOT DEFINED";
+        }
+    }
+
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticStyle:{"display":"inline-block","padding-right":"10px"}},[(_vm.nodeType === 'myself' )?_c('img',{staticClass:"network-dialog-icon icon-myself",attrs:{"src":"https://forum.noxiousnet.com/plugins/nodebb-plugin-emoji-one/static/images/1f60e.png"}}):_vm._e(),_vm._v(" "),(_vm.nodeType === 'browser' )?_c('img',{staticClass:"network-dialog-icon icon-browser",attrs:{"src":"http://icons.iconarchive.com/icons/dtafalonso/android-lollipop/48/Browser-icon.png"}}):_vm._e(),_vm._v(" "),(_vm.nodeType === 'terminal' )?_c('img',{staticClass:"network-dialog-icon icon-terminal",attrs:{"src":"http://icons.iconarchive.com/icons/paomedia/small-n-flat/48/terminal-icon.png"}}):_vm._e(),_vm._v(" "),_c('img',{staticClass:"icon-connected",attrs:{"src":this.connected === 'connected' ? 'http://icons.iconarchive.com/icons/icons8/windows-8/16/Network-Connected-icon.png' : 'http://icons.iconarchive.com/icons/icons8/windows-8/16/Network-Disconnected-icon.png'}})]),_vm._v(" "),_c('div',{ref:"refText",staticClass:"map-dialog-description-text",staticStyle:{"display":"inline-block"}},[_c('br'),_vm._v(_vm._s(_vm.country)+", "+_vm._s(_vm.city)),_c('br'),_vm._v(" "),_c('small',[_vm._v(_vm._s(this.getAddress || ' ')+" ")])])])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  module.hot.dispose(__vueify_style_dispose__)
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-fed4fefc", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-fed4fefc", __vue__options__)
+  }
+})()}
+},{"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],358:[function(require,module,exports){
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".map-dialog-description {\n    color: #ffc107;\n    height: auto;\n    max-height: 450px;\n    width: 250px;\n    margin: 0;\n    background-color: rgba(38, 41, 43, 0.66);\n    border-radius: 3px;\n    display: block;\n    padding: 8px;\n    opacity: 0;\n    will-change: opacity;\n    transition: 0.3s opacity;\n    text-align: center;\n    pointer-events: none;\n    position: relative;\n    margin-left: -100px;\n    left: 50%;\n    top: 100px;\n    z-index: 100;\n}\n\n@media (max-height: 800px) {\n    .map-dialog-description {\n        top: 40px;\n    }\n}\n\n.map-dialog {\n    position: fixed;\n    top: 50%;\n    transform: translateY(-50%);\n    width: 100%;\n    text-align: center;\n    pointer-events: none;\n}")
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _NetworkNativeMapDialogElement = require("./Network-Native-Map-Dialog-Element.vue");
+
+var _NetworkNativeMapDialogElement2 = _interopRequireDefault(_NetworkNativeMapDialogElement);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+
+    components: {
+        "NetworkNativeMapDialogElement": _NetworkNativeMapDialogElement2.default
+    },
+
     data: function data() {
         return {
 
             display: false,
-
-            status: '',
-            country: '',
-            city: '',
-            address: ''
+            desc: {}
         };
     },
 
     methods: {
-        _hideAllIcons: function _hideAllIcons(exclude) {
-
-            this.$refs['refIconMyself'].style.display = 'none';
-            this.$refs['refIconBrowser'].style.display = 'none';
-            this.$refs['refIconTerminal'].style.display = 'none';
-        },
-        _setNodeType: function _setNodeType(nodeType) {
-
-            var icon = void 0;
-
-            if (nodeType === 'myself') icon = this.$refs['refIconMyself'];else if (nodeType === 'browser') icon = this.$refs['refIconBrowser'];else if (nodeType === 'terminal') icon = this.$refs['refIconTerminal'];else icon = this.$refs['refIconTerminal'];
-
-            this._hideAllIcons(icon);
-            icon.style.display = 'inline-block';
-        },
         show: function show(desc) {
-            this._setNodeType(desc.nodeType);
 
-            this.status = desc.status;
-            this.country = desc.country;
-            this.city = desc.city;
-
-            if (typeof desc.address === "string") this.address = desc.address;else if (_typeof(desc.address) === "object" && typeof desc.address.addressString === 'string') this.address = desc.address.addressString;else this.address = "NOT DEFINED";
-
-            console.log(desc.address);
+            this.desc = desc;
 
             this.display = 1;
         },
@@ -17971,7 +18011,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"map-dialog "},[_c('div',{ref:"refDialogContainer",staticClass:"map-dialog-description",style:({opacity: this.display ? 1 : 0})},[_c('div',[_c('img',{ref:"refIconMyself",staticClass:"icon-myself",attrs:{"src":"https://forum.noxiousnet.com/plugins/nodebb-plugin-emoji-one/static/images/1f60e.png"}}),_vm._v(" "),_c('img',{ref:"refIconBrowser",staticClass:"icon-browser",attrs:{"src":"http://icons.iconarchive.com/icons/dtafalonso/android-lollipop/48/Browser-icon.png"}}),_vm._v(" "),_c('img',{ref:"refIconTerminal",staticClass:"icon-terminal",attrs:{"src":"http://icons.iconarchive.com/icons/paomedia/small-n-flat/48/terminal-icon.png"}})]),_vm._v(" "),_c('div',{ref:"refText",staticClass:"map-dialog-description-text"},[_c('b',[_vm._v(_vm._s(_vm.status))]),_vm._v(" "),_c('br'),_vm._v(_vm._s(_vm.country)+", "+_vm._s(_vm.city)),_c('br'),_vm._v(" "),_c('small',[_vm._v(_vm._s(_vm.address|| ' ')+" ")])])])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"map-dialog "},[_c('div',{ref:"refDialogContainer",staticClass:"map-dialog-description",style:({opacity: this.display ? 1 : 0})},_vm._l((this.desc),function(desc){return _c('NetworkNativeMapDialogElement',{key:desc.uuid||desc.index,staticStyle:{"padding-bottom":"20px"},attrs:{"address":desc.address,"status":desc.status,"country":desc.country,"city":desc.city,"nodeType":desc.nodeType}})}))])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -17979,12 +18019,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-de576a54", __vue__options__)
+    hotAPI.createRecord("data-v-b04dde1a", __vue__options__)
   } else {
-    hotAPI.reload("data-v-de576a54", __vue__options__)
+    hotAPI.reload("data-v-b04dde1a", __vue__options__)
   }
 })()}
-},{"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],358:[function(require,module,exports){
+},{"./Network-Native-Map-Dialog-Element.vue":357,"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],359:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18019,7 +18059,7 @@ var BrowserHelpers = function () {
 
 exports.default = BrowserHelpers;
 
-},{}],359:[function(require,module,exports){
+},{}],360:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18089,7 +18129,7 @@ var InitializeParams = function () {
 
 exports.default = new InitializeParams();
 
-},{"../helpers/Browser.helpers":358,"./global-initialize/Global-Initialization":360,"./vue/Main-vue":361,"./vue/Network-Native-Map-main-vue":362}],360:[function(require,module,exports){
+},{"../helpers/Browser.helpers":359,"./global-initialize/Global-Initialization":361,"./vue/Main-vue":362,"./vue/Network-Native-Map-main-vue":363}],361:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18138,7 +18178,7 @@ var GlobalInitialization = function () {
 
 exports.default = new GlobalInitialization();
 
-},{"../../helpers/Browser.helpers":358}],361:[function(require,module,exports){
+},{"../../helpers/Browser.helpers":359}],362:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -18167,7 +18207,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../components/Dashboard.vue":333,"babel-polyfill":1,"vue":331}],362:[function(require,module,exports){
+},{"../../components/Dashboard.vue":333,"babel-polyfill":1,"vue":331}],363:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -18197,7 +18237,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../components/maps/Native-Map/Network-Native-Map.vue":352,"babel-polyfill":1,"vue":331}],363:[function(require,module,exports){
+},{"../../components/maps/Native-Map/Network-Native-Map.vue":352,"babel-polyfill":1,"vue":331}],364:[function(require,module,exports){
 (function (global){
 "use strict";
 
@@ -18227,4 +18267,4 @@ if (typeof global.window !== 'undefined') global.window.WebDollarUserInterface =
 if (typeof window !== 'undefined') window.WebDollarUserInterface = exportObject;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./helpers/Browser.helpers":358,"./initialize-params/Initialize-Params":359}]},{},[363]);
+},{"./helpers/Browser.helpers":359,"./initialize-params/Initialize-Params":360}]},{},[364]);
