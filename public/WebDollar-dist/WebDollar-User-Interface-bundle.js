@@ -17919,7 +17919,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],357:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".icon-connected{\n    -webkit-filter: brightness(0) invert(1);\n    filter: brightness(0) invert(1);\n}\n\n.network-dialog-icon {\n    width: 22px;\n    display: inline-block;\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".icon-connected{\n    -webkit-filter: brightness(0) invert(1);\n    filter: brightness(0) invert(1);\n}\n\n.network-dialog-icon {\n    width: 16px;\n    display: inline-block;\n}")
 ;(function(){
 'use strict';
 
@@ -17966,7 +17966,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],358:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".map-dialog-description {\n    color: #ffc107;\n    height: auto;\n    max-height: 450px;\n    width: 250px;\n    margin: 0;\n    background-color: rgba(38, 41, 43, 0.66);\n    border-radius: 3px;\n    display: block;\n    padding: 8px;\n    opacity: 0;\n    will-change: opacity;\n    transition: 0.3s opacity;\n    text-align: center;\n    pointer-events: none;\n    position: relative;\n    margin-left: -100px;\n    left: 50%;\n    top: 100px;\n    z-index: 100;\n}\n\n@media (max-height: 800px) {\n    .map-dialog-description {\n        top: 40px;\n    }\n}\n\n.map-dialog {\n    position: fixed;\n    top: 50%;\n    transform: translateY(-50%);\n    width: 100%;\n    text-align: center;\n    pointer-events: none;\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".map-dialog-description {\n    color: #ffc107;\n    height: auto;\n    max-height: 450px;\n    width: 300px;\n    margin: 0;\n    background-color: rgba(38, 41, 43, 0.66);\n    border-radius: 3px;\n    display: block;\n    padding: 8px;\n    opacity: 0;\n    will-change: opacity;\n    transition: 0.3s opacity;\n    text-align: center;\n    pointer-events: none;\n    position: relative;\n    margin-left: -100px;\n    left: 50%;\n    top: 100px;\n    z-index: 100;\n}\n\n@media (max-height: 800px) {\n    .map-dialog-description {\n        top: 40px;\n    }\n}\n\n.map-dialog {\n    position: fixed;\n    top: 50%;\n    transform: translateY(-50%);\n    width: 100%;\n    text-align: center;\n    pointer-events: none;\n}")
 ;(function(){
 "use strict";
 
