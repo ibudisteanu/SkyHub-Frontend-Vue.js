@@ -15943,9 +15943,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-78f88538", __vue__options__)
+    hotAPI.createRecord("data-v-0b73f08c", __vue__options__)
   } else {
-    hotAPI.reload("data-v-78f88538", __vue__options__)
+    hotAPI.reload("data-v-0b73f08c", __vue__options__)
   }
 })()}
 },{"./Mining/Mining.vue":334,"./Wallet/Wallet.vue":350,"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],334:[function(require,module,exports){
@@ -16074,7 +16074,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"walletSection",attrs:{"id":"dashboardMining"}},[_c('div',{attrs:{"id":"minningController"}},[_vm._m(0),_vm._v(" "),_c('strong',{style:({background: this.workers ? 0 : '#d23c25'}),attrs:{"id":"threadsNumber"}},[_vm._v(_vm._s(this.workers))]),_vm._v(" "),_c('div',{staticClass:"miningBar",attrs:{"type":"button"}},[_c('slider',{ref:"refMiningSlider",on:{"sliderChanged":this.changeWorkers}})],1),_vm._v(" "),_c('div',{attrs:{"id":"miningDetails"}},[_c('p',{style:({display: this.hashesPerSecond==0 && this.started==true ? 'none' : 'inline-block'})},[_vm._v(_vm._s(this.started ? this.hashesPerSecond + ' hashes/sec' : 'not started')+" ")]),_vm._v(" "),_c('svg',{staticStyle:{"enable-background":"new 0 0 50 50"},style:({display: this.hashesPerSecond==0 && this.started==true ? 'inline-block' : 'none'}),attrs:{"version":"1.1","id":"miningLoader","xmlns":"http://www.w3.org/2000/svg","xmlns:xlink":"http://www.w3.org/1999/xlink","x":"0px","y":"0px","width":"40px","height":"40px","viewBox":"0 0 50 50","xml:space":"preserve"}},[_c('path',{attrs:{"fill":"#fec02c","d":"M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"}},[_c('animateTransform',{attrs:{"attributeType":"xml","attributeName":"transform","type":"rotate","from":"0 25 25","to":"360 25 25","dur":"0.6s","repeatCount":"indefinite"}})],1)])]),_vm._v(" "),_c('p',{staticClass:"WEBD"},[_c('ShowBalance',{attrs:{"address":this.minerAddress,"currency":"0x01"}}),_vm._v(" "),_c('b',{staticClass:"whiteText"},[_vm._v("WBD MINED")])],1)])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"walletSection",attrs:{"id":"dashboardMining"}},[_c('div',{attrs:{"id":"minningController"}},[_vm._m(0),_vm._v(" "),_c('strong',{style:({background: this.workers ? 0 : '#d23c25'}),attrs:{"id":"threadsNumber"}},[_vm._v(_vm._s(this.workers))]),_vm._v(" "),_c('div',{staticClass:"miningBar",attrs:{"type":"button"}},[_c('slider',{ref:"refMiningSlider",on:{"sliderChanged":this.changeWorkers}})],1),_vm._v(" "),_c('div',{attrs:{"id":"miningDetails"}},[_c('p',{style:({display: this.hashesPerSecond==0 && this.started==true ? 'none' : 'inline-block'})},[_vm._v(_vm._s(this.started ? this.hashesPerSecond + ' hashes/sec' : 'not started')+" ")]),_vm._v(" "),_c('svg',{staticStyle:{"enable-background":"new 0 0 50 50"},style:({display: this.hashesPerSecond==0 && this.started==true ? 'inline-block' : 'none'}),attrs:{"version":"1.1","id":"miningLoader","xmlns":"http://www.w3.org/2000/svg","xmlns:xlink":"http://www.w3.org/1999/xlink","x":"0px","y":"0px","width":"40px","height":"40px","viewBox":"0 0 50 50","xml:space":"preserve"}},[_c('path',{attrs:{"fill":"#fec02c","d":"M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"}},[_c('animateTransform',{attrs:{"attributeType":"xml","attributeName":"transform","type":"rotate","from":"0 25 25","to":"360 25 25","dur":"0.6s","repeatCount":"indefinite"}})],1)])]),_vm._v(" "),_c('p',{staticClass:"WEBD"},[_c('ShowBalance',{attrs:{"address":this.minerAddress,"currency":"0x01"}}),_vm._v(" "),_c('b',{staticClass:"whiteText"},[_vm._v("WEBD MINED")])],1)])])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',{staticClass:"miningPowerText"},[_vm._v("Mining "),_c('br'),_vm._v(" "),_c('span',{staticClass:"secondWord"},[_vm._v("Power")])])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -16082,9 +16082,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-697b145f", __vue__options__)
+    hotAPI.createRecord("data-v-f2777896", __vue__options__)
   } else {
-    hotAPI.reload("data-v-697b145f", __vue__options__)
+    hotAPI.reload("data-v-f2777896", __vue__options__)
   }
 })()}
 },{"../Wallet/Address/Balance/ShowBalance.vue":347,"./slider.vue":335,"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],335:[function(require,module,exports){
@@ -16096,7 +16096,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _vueSliderComponent = require('./../../../node_modules/vue-slider-component');
+var _vueSliderComponent = require('vue-slider-component');
 
 var _vueSliderComponent2 = _interopRequireDefault(_vueSliderComponent);
 
@@ -16184,12 +16184,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4a898850", __vue__options__)
+    hotAPI.createRecord("data-v-67d2b7a6", __vue__options__)
   } else {
-    hotAPI.reload("data-v-4a898850", __vue__options__)
+    hotAPI.reload("data-v-67d2b7a6", __vue__options__)
   }
 })()}
-},{"./../../../node_modules/vue-slider-component":330,"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],336:[function(require,module,exports){
+},{"vue":331,"vue-hot-reload-api":329,"vue-slider-component":330,"vueify/lib/insert-css":332}],336:[function(require,module,exports){
 var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".webdollarFont{\n    cursor: pointer;\n    color: #f6cd69;\n    transition: all .5s linear;\n    text-decoration: none;\n    width: 14px;\n}\n\n.webdollarFont path{\n    fill: #f6cd69;\n}")
 ;(function(){
 "use strict";
@@ -16268,9 +16268,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-ab163dce", __vue__options__)
+    hotAPI.createRecord("data-v-7083df22", __vue__options__)
   } else {
-    hotAPI.reload("data-v-ab163dce", __vue__options__)
+    hotAPI.reload("data-v-7083df22", __vue__options__)
   }
 })()}
 },{"./res/svg-chevron-down.vue":337,"./res/svg-chevron-up.vue":338,"./res/svg-key.vue":339,"./res/svg-lock-closed.vue":340,"./res/svg-lock-open.vue":341,"./res/svg-plus-square.vue":342,"./res/svg-plus.vue":343,"./res/svg-x.vue":344,"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],337:[function(require,module,exports){
@@ -16292,9 +16292,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0bd49e6c", __vue__options__)
+    hotAPI.createRecord("data-v-801f3c7c", __vue__options__)
   } else {
-    hotAPI.reload("data-v-0bd49e6c", __vue__options__)
+    hotAPI.reload("data-v-801f3c7c", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329}],338:[function(require,module,exports){
@@ -16316,9 +16316,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-791e4865", __vue__options__)
+    hotAPI.createRecord("data-v-ca422d8a", __vue__options__)
   } else {
-    hotAPI.reload("data-v-791e4865", __vue__options__)
+    hotAPI.reload("data-v-ca422d8a", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329}],339:[function(require,module,exports){
@@ -16331,9 +16331,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-56386c97", __vue__options__)
+    hotAPI.createRecord("data-v-bc9d1efe", __vue__options__)
   } else {
-    hotAPI.reload("data-v-56386c97", __vue__options__)
+    hotAPI.reload("data-v-bc9d1efe", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329}],340:[function(require,module,exports){
@@ -16346,9 +16346,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5f7f8f06", __vue__options__)
+    hotAPI.createRecord("data-v-75d308f0", __vue__options__)
   } else {
-    hotAPI.reload("data-v-5f7f8f06", __vue__options__)
+    hotAPI.reload("data-v-75d308f0", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329}],341:[function(require,module,exports){
@@ -16361,9 +16361,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-07e88d64", __vue__options__)
+    hotAPI.createRecord("data-v-21c579ce", __vue__options__)
   } else {
-    hotAPI.reload("data-v-07e88d64", __vue__options__)
+    hotAPI.reload("data-v-21c579ce", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329}],342:[function(require,module,exports){
@@ -16376,9 +16376,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1b58b268", __vue__options__)
+    hotAPI.createRecord("data-v-31ac2c52", __vue__options__)
   } else {
-    hotAPI.reload("data-v-1b58b268", __vue__options__)
+    hotAPI.reload("data-v-31ac2c52", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329}],343:[function(require,module,exports){
@@ -16391,9 +16391,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-314237dc", __vue__options__)
+    hotAPI.createRecord("data-v-0b065d68", __vue__options__)
   } else {
-    hotAPI.reload("data-v-314237dc", __vue__options__)
+    hotAPI.reload("data-v-0b065d68", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329}],344:[function(require,module,exports){
@@ -16406,9 +16406,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3b946230", __vue__options__)
+    hotAPI.createRecord("data-v-6b1d4ecc", __vue__options__)
   } else {
-    hotAPI.reload("data-v-3b946230", __vue__options__)
+    hotAPI.reload("data-v-6b1d4ecc", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329}],345:[function(require,module,exports){
@@ -16468,9 +16468,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3a5a34f0", __vue__options__)
+    hotAPI.createRecord("data-v-73921f4c", __vue__options__)
   } else {
-    hotAPI.reload("data-v-3a5a34f0", __vue__options__)
+    hotAPI.reload("data-v-73921f4c", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],346:[function(require,module,exports){
@@ -16521,7 +16521,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"walletAddress",on:{"click":function($event){$event.stopPropagation();_vm.handleTransferFunds($event)}}},[_c('img',{staticClass:"walletAddressImage",attrs:{"src":this.getAddressPic}}),_vm._v(" "),_c('b',[_c('ShowBalance',{attrs:{"address":this.address,"currency":"0x01"}}),_vm._v(" WBD")],1),_vm._v(" "),_c('TransactionModal',{ref:"refTransactionModal",attrs:{"address":this.address}})],1)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"walletAddress",on:{"click":function($event){$event.stopPropagation();_vm.handleTransferFunds($event)}}},[_c('img',{staticClass:"walletAddressImage",attrs:{"src":this.getAddressPic}}),_vm._v(" "),_c('b',[_c('ShowBalance',{attrs:{"address":this.address,"currency":"0x01"}}),_vm._v(" WEBD")],1),_vm._v(" "),_c('TransactionModal',{ref:"refTransactionModal",attrs:{"address":this.address}})],1)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -16529,9 +16529,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-8a83cf3a", __vue__options__)
+    hotAPI.createRecord("data-v-0c05c9cd", __vue__options__)
   } else {
-    hotAPI.reload("data-v-8a83cf3a", __vue__options__)
+    hotAPI.reload("data-v-0c05c9cd", __vue__options__)
   }
 })()}
 },{"./Balance/ShowBalance.vue":347,"./Transactions/Transaction.modal.vue":349,"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],347:[function(require,module,exports){
@@ -16617,9 +16617,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-c07a578a", __vue__options__)
+    hotAPI.createRecord("data-v-cf6c92b6", __vue__options__)
   } else {
-    hotAPI.reload("data-v-c07a578a", __vue__options__)
+    hotAPI.reload("data-v-cf6c92b6", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],348:[function(require,module,exports){
@@ -16686,9 +16686,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3df1093e", __vue__options__)
+    hotAPI.createRecord("data-v-c5b9ce6a", __vue__options__)
   } else {
-    hotAPI.reload("data-v-3df1093e", __vue__options__)
+    hotAPI.reload("data-v-c5b9ce6a", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],349:[function(require,module,exports){
@@ -16791,20 +16791,20 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (this.address !== null && this.address !== undefined)?_c('div',[_c('Modal',{ref:"refModal",attrs:{"title":"Wallet Address"}},[_c('div',{attrs:{"slot":"content"},slot:"content"},[_c('div',{staticClass:"twoColums"},[_c('div',{staticClass:"section"},[_c('div',{staticStyle:{"font-size":"20px"}},[_vm._v("\n                        Address\n                    ")]),_vm._v(" "),_c('b',{staticStyle:{"color":"gray"},attrs:{"id":"walletID"}},[_vm._v(_vm._s(this.address.toString()))]),_vm._v(" "),_c('div',{class:this.clipboardText!='Copied' ? 'copyToClipboard' : 'copyToClipboardSuccess',on:{"click":_vm.copyToClipboard}},[_vm._v("\n                        "+_vm._s(this.clipboardText)+"\n                    ")])]),_vm._v(" "),_c('div',{staticClass:"section"},[_c('div',{staticStyle:{"font-size":"20px"}},[_vm._v("\n                        Balance\n                    ")]),_vm._v(" "),_c('b',{staticClass:"ballance",staticStyle:{"color":"gray"}},[_c('ShowBalance',{attrs:{"address":this.address,"currency":"0x01"}}),_vm._v("WEBD")],1)])]),_vm._v(" "),_c('div',{staticClass:"adressActions"},[_c('div',{class:[ this.isTransfer ? 'actionButton activeActionButton' : 'actionButton' ],on:{"click":this.showTransfer}},[_vm._v("\n                    Transfer\n                ")]),_vm._v(" "),_c('div',{class:[ this.isBuy ? 'actionButton activeActionButton' : 'actionButton' ],on:{"click":this.showBuy}},[_vm._v("\n                    Buy\n                ")]),_vm._v(" "),_c('div',{class:[ this.isSell ? 'actionButton activeActionButton' : 'actionButton' ],on:{"click":this.showSell}},[_vm._v("\n                    Sell\n                ")]),_vm._v(" "),_c('div',{class:[ this.isTransactionList ? 'actionButton activeActionButton' : 'actionButton' ],on:{"click":this.showTransactions}},[_vm._v("\n                    Transactions\n                ")])]),_vm._v(" "),_c('form',{staticClass:"transfer",style:({display: this.isTransfer ? 'block': 'none'})},[_c('p',{staticClass:"title"},[_vm._v("Transfer WBD")]),_vm._v(" "),_c('input',{staticClass:"adress",attrs:{"placeholder":"Recipient Adress"}}),_vm._v(" "),_c('input',{staticClass:"amount",attrs:{"placeholder":"WBD Amount"}}),_vm._v(" "),_c('button',{staticClass:"button",attrs:{"type":"submit"}},[_vm._v("\n                    SEND WBD\n                ")])]),_vm._v(" "),_c('div',{staticClass:"transferList",style:({display: this.isTransactionList ? 'block': 'none'})},[_c('ul',{staticClass:"transferListContainer"},[_c('li',{staticClass:"transferListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement pairListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement pairListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement pairListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])])])]),_vm._v(" "),_c('form',{staticClass:"buy",style:({display: this.isBuy ? 'block': 'none'})},[_c('p',{staticClass:"title"},[_vm._v("Temporary unavailable")])]),_vm._v(" "),_c('form',{staticClass:"sell",style:({display: this.isSell ? 'block': 'none'})},[_c('p',{staticClass:"title"},[_vm._v("Temporary unavailable")])])])])],1):_vm._e()}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (this.address !== null && this.address !== undefined)?_c('div',[_c('Modal',{ref:"refModal",attrs:{"title":"Wallet Address"}},[_c('div',{attrs:{"slot":"content"},slot:"content"},[_c('div',{staticClass:"twoColums"},[_c('div',{staticClass:"section"},[_c('div',{staticStyle:{"font-size":"20px"}},[_vm._v("\n                        Address\n                    ")]),_vm._v(" "),_c('b',{staticStyle:{"color":"gray"},attrs:{"id":"walletID"}},[_vm._v(_vm._s(this.address.toString()))]),_vm._v(" "),_c('div',{class:this.clipboardText!='Copied' ? 'copyToClipboard' : 'copyToClipboardSuccess',on:{"click":_vm.copyToClipboard}},[_vm._v("\n                        "+_vm._s(this.clipboardText)+"\n                    ")])]),_vm._v(" "),_c('div',{staticClass:"section"},[_c('div',{staticStyle:{"font-size":"20px"}},[_vm._v("\n                        Balance\n                    ")]),_vm._v(" "),_c('b',{staticClass:"ballance",staticStyle:{"color":"gray"}},[_c('ShowBalance',{attrs:{"address":this.address,"currency":"0x01"}}),_vm._v("WEBD")],1)])]),_vm._v(" "),_c('div',{staticClass:"adressActions"},[_c('div',{class:[ this.isTransfer ? 'actionButton activeActionButton' : 'actionButton' ],on:{"click":this.showTransfer}},[_vm._v("\n                    Transfer\n                ")]),_vm._v(" "),_c('div',{class:[ this.isBuy ? 'actionButton activeActionButton' : 'actionButton' ],on:{"click":this.showBuy}},[_vm._v("\n                    Buy\n                ")]),_vm._v(" "),_c('div',{class:[ this.isSell ? 'actionButton activeActionButton' : 'actionButton' ],on:{"click":this.showSell}},[_vm._v("\n                    Sell\n                ")]),_vm._v(" "),_c('div',{class:[ this.isTransactionList ? 'actionButton activeActionButton' : 'actionButton' ],on:{"click":this.showTransactions}},[_vm._v("\n                    Transactions\n                ")])]),_vm._v(" "),_c('form',{staticClass:"transfer",style:({display: this.isTransfer ? 'block': 'none'})},[_c('p',{staticClass:"title"},[_vm._v("Transfer WEBD")]),_vm._v(" "),_c('input',{staticClass:"adress",attrs:{"placeholder":"Recipient Adress"}}),_vm._v(" "),_c('input',{staticClass:"amount",attrs:{"placeholder":"WEBD Amount"}}),_vm._v(" "),_c('button',{staticClass:"button",attrs:{"type":"submit"}},[_vm._v("\n                    SEND WEBD\n                ")])]),_vm._v(" "),_c('div',{staticClass:"transferList",style:({display: this.isTransactionList ? 'block': 'none'})},[_c('ul',{staticClass:"transferListContainer"},[_c('li',{staticClass:"transferListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement pairListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement pairListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement pairListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])]),_vm._v(" "),_c('li',{staticClass:"transferListElement"},[_c('span',{staticClass:"source",attrs:{"title":"Adress Source"}},[_vm._v(" dadsa dasdasdasdas das das")]),_vm._v(" "),_c('ul',{staticClass:"destinations"},[_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("dsad dsaas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])]),_vm._v(" "),_c('li',{staticClass:"destinationElement"},[_c('span',{staticClass:"destinationAdress",attrs:{"title":"Adress Destination"}},[_vm._v("ds dsad a dasadas dasd as das dasd as")]),_vm._v(" "),_c('div',{staticClass:"money",attrs:{"title":"Ammount & Currency"}},[_c('span',{staticClass:"ammount"},[_vm._v("20")]),_c('span',{staticClass:"currency"},[_vm._v("WEBD")])])])])])])]),_vm._v(" "),_c('form',{staticClass:"buy",style:({display: this.isBuy ? 'block': 'none'})},[_c('p',{staticClass:"title"},[_vm._v("Temporary unavailable")])]),_vm._v(" "),_c('form',{staticClass:"sell",style:({display: this.isSell ? 'block': 'none'})},[_c('p',{staticClass:"title"},[_vm._v("Temporary unavailable")])])])])],1):_vm._e()}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-c1f19eb8", __vue__options__)
+    hotAPI.createRecord("data-v-3a4d87fa", __vue__options__)
   } else {
-    hotAPI.reload("data-v-c1f19eb8", __vue__options__)
+    hotAPI.reload("data-v-3a4d87fa", __vue__options__)
   }
 })()}
 },{"../../../UI/modal/Modal.vue":345,"../Balance/ShowBalance.vue":347,"./../../../../../node_modules/v-clipboard":328,"vue":331,"vue-hot-reload-api":329}],350:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".vue-slider-component.vue-slider-horizontal .vue-slider-dot{\n    left:-5px;\n}\n\n#walletButtonText{\n    color: #1f1f1f;\n}\n\n#walletButton {\n    margin: 0 auto;\n    position: fixed;\n    z-index: 85;\n    bottom: 0;\n    width: 299px!important;\n    right: 0;\n    text-align: center;\n    height: 50px;\n    border-top-left-radius: 60px;\n    cursor: pointer;\n    background-color: #fec02c;\n    color: #1f1f1f;\n    margin-bottom: 20px;\n    border: solid 1px #444444;\n    border-right: solid 1px #fec02c;\n    transition: all .3s linear;\n}\n\n#walletButton:hover{\n    background-color: #fec02c;\n    transition: all .3s linear;\n}\n\n.walletSection{\n    display: inline-block;\n    vertical-align: top;\n    height: 315px;\n    overflow-y: auto;\n    overflow-x: hidden;\n    width: 100%;\n}\n\n.walletController{\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    position: relative;\n    width: 100%;\n    border-bottom: solid 1px #333333;\n    background-color: #313131;\n}\n\n.walletController .btn{\n    text-align: center;\n    color: #b5b5b5;\n    cursor: pointer;\n    padding: 6px 19px 6px 19px!important;\n    margin-left: 10px;\n}\n\n.walletController .btn:hover{\n    background-color: #44403f;\n    transition: all .3s linear;\n}\n\n.walletController .btn:first-child{\n    border-right: solid 1px #3c3b3b;\n}\n\n.allWallets div{\n    border: solid 1px #545454;\n}\n\n#walletButton:hover{\n    transition: all .3s linear;\n}\n\n#walletButton span{\n    width: 100%;\n    line-height: 50px;\n    font-size: 20px;\n    font-weight: bolder;\n    transition: all .3s linear;\n}\n\n#walletButton span:hover{\n    transition: all .3s linear;\n}\n\n#walletMenu{\n    margin: 0 auto;\n    position: fixed;\n    bottom: 0;\n    right: 0;\n    width: 300px;\n    background-color: #1f1f1f;\n    height: 358px;\n    margin-bottom:-100px;\n    z-index: 90;\n    border-top: solid 1px #3d3d3d;\n    border-left: solid 1px #444;\n    transition: all .3s linear;\n}\n\n.buttonIcon{\n    display: inline-block;\n    margin-right: 10px;\n}\n\n#walletButton .buttonIcon{\n    fill: #000;\n    transition: all .3s linear;\n}\n\n.walletAddress b{\n    font-weight:100;\n}\n\n/* Small Devices, Tablets */\n@media only screen and (max-width : 831px) {\n    #walletMenu{\n        width: 100%;\n        margin-top: 40px!important;\n    }\n    #walletButton{\n        width: 100%!important;\n        border:0;\n        height: 40px;\n        border-top-left-radius: 15px;\n        border-top-right-radius: 15px;\n        margin-bottom: 90px;\n    }\n    #walletButton span{\n        line-height: 40px;\n        font-size: 22px;\n    }\n    .walletController .btn{\n        padding: 6px 19px 6px 19px!important;\n        margin-left: 10px;\n    }\n    .webdollarFont{\n        width: 24px!important;\n    }\n    #allWalets .walletAddress{\n        margin: 15px 0 0 10px!important;\n    }\n    #allWalets .walletAddress img{\n        height: 60px!important;\n    }\n    .walletAddress b{\n        font-size: 22px!important;\n        line-height: 60px!important;\n    }\n    .walletController{\n        position: relative;\n        width: 100%;\n        border-bottom: solid 5px #333333;\n        background-color: #313131;\n        border-top: solid 5px #313131;\n    }\n\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".vue-slider-component.vue-slider-horizontal .vue-slider-dot{\n    left:-5px;\n}\n\n#walletButtonText{\n    color: #1f1f1f;\n}\n\n#walletButton {\n    margin: 0 auto;\n    position: fixed;\n    z-index: 85;\n    bottom: 0;\n    width: 299px!important;\n    right: 0;\n    text-align: center;\n    height: 50px;\n    border-top-left-radius: 60px;\n    cursor: pointer;\n    background-color: #fec02c;\n    color: #1f1f1f;\n    margin-bottom: 20px;\n    border: solid 1px #444444;\n    border-right: solid 1px #fec02c;\n    transition: all .3s linear;\n}\n\n#walletButton:hover{\n    background-color: #fec02c;\n    transition: all .3s linear;\n}\n\n.walletSection{\n    display: inline-block;\n    vertical-align: top;\n    height: 315px;\n    overflow-y: auto;\n    overflow-x: hidden;\n    width: 100%;\n}\n\n.walletController{\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    position: relative;\n    width: 100%;\n    border-bottom: solid 1px #333333;\n    background-color: #313131;\n}\n\n.walletController .btn{\n    text-align: center;\n    color: #b5b5b5;\n    cursor: pointer;\n    padding: 6px 19px 6px 19px!important;\n    margin-left: 10px;\n}\n\n.walletController .btn:hover{\n    background-color: #44403f;\n    transition: all .3s linear;\n}\n\n.walletController .btn:first-child{\n    border-right: solid 1px #3c3b3b;\n}\n\n.allWallets div{\n    border: solid 1px #545454;\n}\n\n#walletButton:hover{\n    transition: all .3s linear;\n}\n\n#walletButton span{\n    width: 100%;\n    line-height: 50px;\n    font-size: 20px;\n    font-weight: bolder;\n    transition: all .3s linear;\n}\n\n#walletButton span:hover{\n    transition: all .3s linear;\n}\n\n#walletMenu{\n    margin: 0 auto;\n    position: fixed;\n    bottom: 0;\n    right: 0;\n    width: 300px;\n    background-color: #1f1f1f;\n    height: 358px;\n    margin-bottom:-100px;\n    z-index: 90;\n    border-top: solid 1px #3d3d3d;\n    border-left: solid 1px #444;\n    transition: all .3s linear;\n}\n\n.buttonIcon{\n    display: inline-block;\n    margin-right: 10px;\n}\n\n#walletButton .buttonIcon{\n    fill: #000;\n    transition: all .3s linear;\n}\n\n.walletAddress b{\n    font-weight:100;\n}\n\n/* Small Devices, Tablets */\n@media only screen and (max-width : 831px) {\n    #walletMenu{\n        width: 100%;\n        margin-top: 40px!important;\n    }\n    #walletButton{\n        width: 100%!important;\n        border:0;\n        height: 40px;\n        border-top-left-radius: 15px;\n        border-top-right-radius: 15px;\n        margin-bottom: 90px;\n    }\n    #walletButton span{\n        line-height: 40px;\n        font-size: 22px;\n    }\n    .walletController .btn{\n        padding: 10px 19px 6px 19px!important;\n        margin-left: 10px;\n    }\n    .webdollarFont{\n        width: 24px!important;\n    }\n    #allWalets .walletAddress{\n        margin: 15px 0 0 10px!important;\n    }\n    #allWalets .walletAddress img{\n        height: 60px!important;\n    }\n    .walletAddress b{\n        font-size: 22px!important;\n        line-height: 60px!important;\n    }\n    .walletController{\n        position: relative;\n        width: 100%;\n        border-bottom: solid 5px #333333;\n        background-color: #313131;\n        border-top: solid 5px #313131;\n    }\n\n}")
 ;(function(){
 "use strict";
 
@@ -17061,12 +17061,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1fe2643f", __vue__options__)
+    hotAPI.createRecord("data-v-3d2b9395", __vue__options__)
   } else {
-    hotAPI.reload("data-v-1fe2643f", __vue__options__)
+    hotAPI.reload("data-v-3d2b9395", __vue__options__)
   }
 })()}
-},{"../../helpers/Browser.helpers":358,"../UI/icons/icon.vue":336,"./Address/Address.vue":346,"./Address/Balance/ShowSumBalances.vue":348,"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],351:[function(require,module,exports){
+},{"../../helpers/Browser.helpers":359,"../UI/icons/icon.vue":336,"./Address/Address.vue":346,"./Address/Balance/ShowSumBalances.vue":348,"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],351:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17139,9 +17139,9 @@ var _CircleMap = require("./helpers/Circle-Map");
 
 var _CircleMap2 = _interopRequireDefault(_CircleMap);
 
-var _CellCounter = require("./helpers/Cell-Counter");
+var _Circles = require("./helpers/Circles");
 
-var _CellCounter2 = _interopRequireDefault(_CellCounter);
+var _Circles2 = _interopRequireDefault(_Circles);
 
 var _Maps = require("./../Maps.tester");
 
@@ -17151,7 +17151,7 @@ var _NetworkNativeMapCanvas = require("./res/Network-Native-Map-Canvas.vue");
 
 var _NetworkNativeMapCanvas2 = _interopRequireDefault(_NetworkNativeMapCanvas);
 
-var _NetworkNativeMapDialog = require("./res/Network-Native-Map-Dialog.vue");
+var _NetworkNativeMapDialog = require("./res/dialog/Network-Native-Map-Dialog.vue");
 
 var _NetworkNativeMapDialog2 = _interopRequireDefault(_NetworkNativeMapDialog);
 
@@ -17198,7 +17198,7 @@ exports.default = {
                 return _this._mapHighlight(e);
             };
 
-            this._cellCounter = new _CellCounter2.default();
+            this._circles = new _Circles2.default();
 
             this.initialize();
         },
@@ -17385,13 +17385,13 @@ exports.default = {
             if (cell) {
                 marker.cell = cell;
 
-                this._circleMap.highlightCell(cell, 'peer-own', marker.desc);
+                this._circleMap.highlightCell(cell, 'peer-own', marker.desc, marker.desc.uuid);
 
-                this._cellCounter.incCellCount(cell);
+                this._circles.inc(cell);
 
                 for (var i = 0; i < this._markers.length; i++) {
                     if (this._markers[i] !== marker && this._markers[i].status === "connected") this._circleMap.addLink(cell, this._markers[i].cell);
-                }
+                }this._circleMap.putCellOnTop(cell);
             }
         },
         highlightConnectedPeer: function highlightConnectedPeer(marker) {
@@ -17406,11 +17406,13 @@ exports.default = {
                 if (marker.desc.nodeType === "myself") cellClass = "peer-own";else if (marker.desc.nodeType === "browser") cellClass = "peer-connected-browser";
                 if (marker.desc.nodeType === "terminal") cellClass = "peer-connected-terminal";
 
-                this._circleMap.highlightCell(cell, cellClass, marker.desc);
+                this._circleMap.highlightCell(cell, cellClass, marker.desc, marker.desc.uuid);
 
-                this._cellCounter.incCellCount(cell);
+                this._circles.inc(cell);
 
                 if (marker.desc.status === "connected") if (this._markerMyself !== null && this._markerMyself !== undefined && this._markerMyself !== marker) this._circleMap.addLink(cell, this._markerMyself.cell);
+
+                this._circleMap.putCellOnTop(cell);
             }
         },
         _getInfoWindowContent: function _getInfoWindowContent(geoLocation, socket) {
@@ -17419,20 +17421,25 @@ exports.default = {
                 nodeType = '',
                 status = "node",
                 nodeProtocol = '',
-                nodeIndex = 0;
+                nodeIndex = 0,
+                uuid = '';
 
             if (socket === 'myself') {
                 status = "connected";
                 address = geoLocation.address;
+                uuid = '0';
                 nodeType = "myself";
             } else if (socket === 'fake') {
                 address = geoLocation.country;
+                uuid = geoLocation.city;
 
                 if (Math.floor(Math.random() * 2) === 0) status = "connected";else status = "not connected";
 
                 if (Math.floor(Math.random() * 2) === 0) nodeType = "browser";else nodeType = "terminal";
             } else if ((typeof socket === "undefined" ? "undefined" : _typeof(socket)) === "object" && socket.node !== undefined && socket.node.protocol !== undefined && socket.node.protocol.helloValidated) {
                 address = socket.node.sckAddress.toString();
+                uuid = socket.node.sckAddress.uuid;
+
                 status = "connected";
 
                 switch (socket.node.type) {
@@ -17449,6 +17456,7 @@ exports.default = {
             } else if (socket instanceof WebDollar.Node.NodesWaitlist.NodesWaitlistObject) {
 
                 address = socket.sckAddresses[0].toString();
+                uuid = socket.sckAddresses[0].uuid;
 
                 switch (socket.type) {
                     case WebDollar.Node.NodesWaitlist.NODES_WAITLIST_OBJECT_TYPE.WEB_RTC_PEER:
@@ -17469,8 +17477,8 @@ exports.default = {
                 city: geoLocation.city || '',
                 country: geoLocation.country || '',
                 address: address,
+                uuid: uuid || nodeIndex,
                 protocol: nodeProtocol,
-                index: nodeIndex,
                 isp: geoLocation.isp || '',
                 pos: position,
                 nodeType: nodeType
@@ -17486,10 +17494,10 @@ exports.default = {
         _removeMarker: function _removeMarker(marker) {
 
             if (marker.cell !== undefined && marker.cell !== null) {
-                if (this._cellCounter.decCellCount(marker.cell) === 0) {
-                    if (this._cellCounter.getCellCount(marker.cell) > 0) {
-                        this._circleMap.highlightCell(marker.cell, 'peer-connected-browser', undefined);
-                    } else this._circleMap.unhighlightCell(marker.cell);
+                if (this._circles.del(marker.cell) === 0) {
+                    if (this._circles.get(marker.cell) > 0) {
+                        this._circleMap.highlightCell(marker.cell, 'peer-connected-browser', undefined, marker.desc.uuid);
+                    } else this._circleMap.unhighlightCell(marker.cell, marker.desc.uuid);
 
                     if (this._markerMyself !== marker && this._markerMyself !== null) this._circleMap.removeLink(this._markerMyself.cell, marker.cell);
                 }
@@ -17525,10 +17533,10 @@ exports.default = {
             this._circleMap.addLink(cell2, cell3);
             this._circleMap.addLink(cell3, cell4);
 
-            this._circleMap.highlightCell(cell1, 'known-peer', data);
-            this._circleMap.highlightCell(cell2, 'own-peer', data);
-            this._circleMap.highlightCell(cell3, 'own-peer', data);
-            this._circleMap.highlightCell(cell4, 'own-peer', data);
+            this._circleMap.highlightCell(cell1, 'known-peer', data, 1);
+            this._circleMap.highlightCell(cell2, 'own-peer', data, 2);
+            this._circleMap.highlightCell(cell3, 'own-peer', data, 3);
+            this._circleMap.highlightCell(cell4, 'own-peer', data, 4);
         },
         _findMarkerIndexBySocket: function _findMarkerIndexBySocket(socket) {
 
@@ -17550,61 +17558,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-77863096", __vue__options__)
+    hotAPI.createRecord("data-v-700d1300", __vue__options__)
   } else {
-    hotAPI.reload("data-v-77863096", __vue__options__)
+    hotAPI.reload("data-v-700d1300", __vue__options__)
   }
 })()}
-},{"./../Maps.tester":351,"./helpers/Cell-Counter":353,"./helpers/Circle-Map":354,"./res/Network-Native-Map-Canvas.vue":356,"./res/Network-Native-Map-Dialog.vue":357,"vue":331,"vue-hot-reload-api":329}],353:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var CellCounter = function () {
-    function CellCounter() {
-        _classCallCheck(this, CellCounter);
-
-        this._cellCount = {};
-    }
-
-    _createClass(CellCounter, [{
-        key: "incCellCount",
-        value: function incCellCount(cell) {
-            if (!this._cellCount[cell.cellId]) {
-                this._cellCount[cell.cellId] = 0;
-            }
-            this._cellCount[cell.cellId]++;
-        }
-    }, {
-        key: "decCellCount",
-        value: function decCellCount(cell) {
-            if (!this._cellCount[cell.cellId]) {
-                this._cellCount[cell.cellId] = 0;
-            }
-            if (this._cellCount[cell.cellId] > 0) {
-                return --this._cellCount[cell.cellId];
-            }
-            return 0;
-        }
-    }, {
-        key: "getCellCount",
-        value: function getCellCount(cell) {
-            return this._cellCount[cell.cellId] || 0;
-        }
-    }]);
-
-    return CellCounter;
-}();
-
-exports.default = CellCounter;
-
-},{}],354:[function(require,module,exports){
+},{"./../Maps.tester":351,"./helpers/Circle-Map":353,"./helpers/Circles":354,"./res/Network-Native-Map-Canvas.vue":356,"./res/dialog/Network-Native-Map-Dialog.vue":358,"vue":331,"vue-hot-reload-api":329}],353:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17613,9 +17572,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _RobinsonProjection = require('./RobinsonProjection');
+var _Projection = require('./Projection');
 
-var _RobinsonProjection2 = _interopRequireDefault(_RobinsonProjection);
+var _Projection2 = _interopRequireDefault(_Projection);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17656,24 +17615,36 @@ var CircleMap = function () {
         }
     }, {
         key: 'unhighlightCell',
-        value: function unhighlightCell(cell) {
+        value: function unhighlightCell(cell, index) {
             cell.setAttribute('class', '');
-            cell.data = null;
+            delete cell.data[index];
+            if (cell.data === {}) cell.data = null;
+        }
+    }, {
+        key: 'putCellOnTop',
+        value: function putCellOnTop(cell) {
+            // put my own cell on top of everything else. In svg the stacking is not affected by z-index, but
+            // only by document order. So we make the cell the last child
+            cell.parentElement.appendChild(cell);
         }
     }, {
         key: 'highlightCell',
-        value: function highlightCell(cell, className, data) {
+        value: function highlightCell(cell, className, data, index) {
+
+            if (cell.getAttribute('class') === 'peer-own') return;
+
             cell.setAttribute('class', className);
 
-            if (className === 'own-peer') {
-                // put my own cell on top of everything else. In svg the stacking is not affected by z-index, but
-                // only by document order. So we make the cell the last child
-                cell.parentElement.appendChild(cell);
-            }
+            // deleted
+
+            // if (className === 'peer-own')
+            //     cell.parentElement.appendChild(cell);
+
 
             // XXX another hack
             if (data) {
-                cell.data = data;
+                if (cell.data === undefined) cell.data = {};
+                cell.data[index] = data;
             }
         }
     }, {
@@ -17684,7 +17655,7 @@ var CircleMap = function () {
             // the computation on the full/original map, so we calculate the full size.
             var fullMapWidth = 1.0946808510638297 * mapDimensions.width;
             var fullMapHeight = fullMapWidth / 1.97165551906973; // RobinsonProjection maps have a fixed aspect ratio
-            var projection = new _RobinsonProjection2.default(fullMapWidth, fullMapHeight);
+            var projection = new _Projection2.default(fullMapWidth, fullMapHeight);
             var point = projection.project(latitude, longitude);
             // the origin is centered in the middle of the map, so we translate it
             // to the top left corner
@@ -17751,18 +17722,12 @@ var CircleMap = function () {
         key: 'addLink',
         value: function addLink(startCell, endCell) {
 
-            if (!startCell || !endCell) {
-                return;
-            }
+            if (!startCell || !endCell) return;
 
             // search whether we already drew that link
             for (var i = 0, link; link = this._links[i]; ++i) {
-                if (link.start === startCell && link.end === endCell || link.end === startCell && link.start === endCell) {
-                    return;
-                }
-            }
-
-            // draw the link
+                if (link.start === startCell && link.end === endCell || link.end === startCell && link.start === endCell) return;
+            } // draw the link
             var svgBoundingRect = this.getDimensions();
             var viewBox = this._svg.viewBox;
             var viewBoxWidth = viewBox.baseVal.width;
@@ -17787,6 +17752,7 @@ var CircleMap = function () {
     }, {
         key: 'removeLink',
         value: function removeLink(startCell, endCell) {
+
             for (var i = 0, link; link = this._links[i]; ++i) {
                 if (link.start === startCell && link.end === endCell || link.end === startCell && link.start === endCell) {
                     // we found the link
@@ -17806,7 +17772,7 @@ CircleMap.MAX_CELL_DISTANCE = 12; // in terms of cells
 
 exports.default = CircleMap;
 
-},{"./RobinsonProjection":355}],355:[function(require,module,exports){
+},{"./Projection":355}],354:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -17817,38 +17783,93 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var RobinsonProjection = function () {
-    function RobinsonProjection(width) {
-        _classCallCheck(this, RobinsonProjection);
+var Circles = function () {
+    function Circles() {
+        _classCallCheck(this, Circles);
+
+        this.cells = {};
+    }
+
+    _createClass(Circles, [{
+        key: "inc",
+        value: function inc(cell) {
+            if (!this.cells[cell.cellId]) this.cells[cell.cellId] = 0;
+
+            this.cells[cell.cellId]++;
+        }
+    }, {
+        key: "del",
+        value: function del(cell) {
+
+            if (!this.cells[cell.cellId]) this.cells[cell.cellId] = 0;
+
+            if (this.cells[cell.cellId] > 0) return --this.cells[cell.cellId];
+
+            return 0;
+        }
+    }, {
+        key: "get",
+        value: function get(cell) {
+            return this.cells[cell.cellId] || 0;
+        }
+    }]);
+
+    return Circles;
+}();
+
+exports.default = Circles;
+
+},{}],355:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * It's a Robison Projection
+ *
+ * https://en.wikipedia.org/wiki/Robinson_projection
+ */
+
+var Projection = function () {
+    function Projection(width) {
+        _classCallCheck(this, Projection);
+
+        this.X = [594090, 593258.274, 591357.186, 588149.1, 583515.198, 578049.5700000001, 570326.4, 560048.643, 547513.3439999999, 532423.4580000001, 515610.71099999995, 496065.14999999997, 474440.274, 451330.173, 426913.07399999996, 399941.388, 369108.11699999997, 339938.298, 316174.698];
+
+        this.Y = [0, 58689.82, 117379.64, 176069.46000000002, 234759.28, 293449.10000000003, 352138.92000000004, 410828.74000000005, 470275.848, 527356.431, 584626.336, 640760.3089999999, 695379.706, 748105.883, 798465.5349999999, 845890.696, 889245.434, 923986.021, 946610];
+
+        this.EPS = 1e-8;
+        this.INTERVAL = 5;
+
+        this.radians = Math.PI / 180;
+        this.degrees = 180 / Math.PI;
 
         this._width = width;
         this._r = this._width / 5.332539516;
     }
 
-    _createClass(RobinsonProjection, [{
-        key: "project",
-        value: function project(lat, lng) {
-            var p = RobinsonProjection._project(lat, lng);
-            return {
-                x: p.x * this._r,
-                y: p.y * this._r
-            };
-        }
-    }], [{
+    _createClass(Projection, [{
         key: "_project",
         value: function _project(lat, lng) {
             // 5 degree intervals, so find right indices
-            var lI = Math.floor((Math.abs(lat) - RobinsonProjection.EPS) / RobinsonProjection.INTERVAL);
+            var lI = Math.floor((Math.abs(lat) - this.EPS) / this.INTERVAL);
             lI = Math.max(lI, 0);
             var hI = lI + 1;
-            var ratio = (Math.abs(lat) - lI * RobinsonProjection.INTERVAL) / RobinsonProjection.INTERVAL;
+            var ratio = (Math.abs(lat) - lI * this.INTERVAL) / this.INTERVAL;
 
             // interpolate x and y
-            var xDist = RobinsonProjection.X[hI] - RobinsonProjection.X[lI];
-            var yDist = RobinsonProjection.Y[hI] - RobinsonProjection.Y[lI];
-            var x = (xDist * ratio + RobinsonProjection.X[lI]) * (Math.abs(lng) * RobinsonProjection.radians);
+            var xDist = this.X[hI] / 700000 - this.X[lI] / 700000;
+            var yDist = this.Y[hI] / 700000 - this.Y[lI] / 700000;
+
+            var x = (xDist * ratio + this.X[lI] / 700000) * (Math.abs(lng) * this.radians);
             x = lng < 0 ? -x : x;
-            var y = yDist * ratio + RobinsonProjection.Y[lI];
+            var y = yDist * ratio + this.Y[lI] / 700000;
             y = lat < 0 ? -y : y;
 
             return {
@@ -17856,25 +17877,24 @@ var RobinsonProjection = function () {
                 y: y
             };
         }
+    }, {
+        key: "project",
+        value: function project(lat, lng) {
+            var p = this._project(lat, lng);
+            return {
+                x: p.x * this._r,
+                y: p.y * this._r
+            };
+        }
     }]);
 
-    return RobinsonProjection;
+    return Projection;
 }();
 
-RobinsonProjection.X = [0.8487, 0.84751182, 0.84479598, 0.840213, 0.83359314, 0.8257851, 0.814752, 0.80006949, 0.78216192, 0.76060494, 0.73658673, 0.7086645, 0.67777182, 0.64475739, 0.60987582, 0.57134484, 0.52729731, 0.48562614, 0.45167814];
-
-RobinsonProjection.Y = [0, 0.0838426, 0.1676852, 0.2515278, 0.3353704, 0.419213, 0.5030556, 0.5868982, 0.67182264, 0.75336633, 0.83518048, 0.91537187, 0.99339958, 1.06872269, 1.14066505, 1.20841528, 1.27035062, 1.31998003, 1.3523];
-
-RobinsonProjection.EPS = 1e-8;
-RobinsonProjection.INTERVAL = 5;
-RobinsonProjection.pi = Math.PI;
-RobinsonProjection.radians = RobinsonProjection.pi / 180;
-RobinsonProjection.degrees = 180 / RobinsonProjection.pi;
-
-exports.default = RobinsonProjection;
+exports.default = Projection;
 
 },{}],356:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("<style>\n\n    /* map styling */\n\n\nsvg .WebDollarNativeMap{\n\n    margin: auto;\n    opacity: 1;\n    transition: 1s opacity;\n\n    /* we have the map as background image such that we can display:none the hexagons\n    in the svg which greatly improves performance on firefox */\n    background-image: url(public/assets/map/map.svg);\n}\n\n\nsvg.WebDollarNativeMap.hide-circles circle {\n    fill: #26292b;\n}\n\n.peer-own {\n    display: block !important;\n    fill: white !important;\n    -webkit-animation: connected 1800ms ease 5;\n    animation: connected 1800ms ease 8;\n}\n\n.peer-connected-terminal {\n    display: block !important;\n    fill: #fec02c !important;\n    -webkit-animation: connected 1800ms ease 10;\n    animation: connected 1800ms ease 3;\n}\n\n.peer-connected-browser {\n    display: block !important;\n    fill: #12428c !important;\n    -webkit-animation: connected 1800ms ease 10;\n    animation: connected 1800ms ease 3;\n}\n\n.peer-own,\n.peer-connected-terminal,\n.peer-connected-browser {\n    will-change: opacity;\n}\n\n\n.link {\n    stroke: #dedede;\n    stroke-width: 1;\n    stroke-dasharray: 5 5;\n    opacity: 0.5;\n}\n\n\n@media  screen and  (max-width: 480px) {\n    svg.WebDollarNativeMap{\n        box-sizing: border-box;\n        transform: scale(1.15);\n    }\n}\n\n@media   screen and  (max-width: 800px) {\n\n    /* disable map animations when map is in background */\n    .peer-own,  .peer-connected-browser, .peer-connected-terminal {\n        -webkit-animation: none;\n        animation: none;\n        will-change: initial;\n    }\n\n    svg.WebDollarNativeMap{\n        box-sizing: border-box;\n        transform: scale(1.05);\n    }\n\n}\n\n\n/* Large Screen */\n\n@media screen and (min-width: 1080px) {\n    svg.WebDollarNativeMap {\n        box-sizing: border-box;\n        transform: scale(0.9);\n    }\n}\n\n@media screen and (min-width: 1400px) {\n    svg.WebDollarNativeMap {\n        box-sizing: border-box;\n        transform: scale(0.8);\n    }\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("<style>\n\n    /* map styling */\n\n\nsvg .WebDollarNativeMap{\n\n    margin: auto;\n    opacity: 1;\n    transition: 1s opacity;\n\n    /* we have the map as background image such that we can display:none the hexagons\n    in the svg which greatly improves performance on firefox */\n    background-image: url(public/assets/map/map.svg);\n}\n\n\nsvg.WebDollarNativeMap.hide-circles circle {\n    fill: #26292b;\n}\n\n.peer-own {\n    display: block !important;\n    fill: white !important;\n    -webkit-animation: connected 1800ms ease 5;\n    animation: connected 1800ms ease 8;\n}\n\n.peer-connected-terminal {\n    display: block !important;\n    fill: #fec02c !important;\n    -webkit-animation: connected 1800ms ease 10;\n    animation: connected 1800ms ease 3;\n}\n\n.peer-connected-browser {\n    display: block !important;\n    fill: #ff0000 !important;\n    -webkit-animation: connected 1800ms ease 10;\n    animation: connected 1800ms ease 3;\n}\n\n.peer-own,\n.peer-connected-terminal,\n.peer-connected-browser {\n    will-change: opacity;\n}\n\n\n.link {\n    stroke: #dedede;\n    stroke-width: 1;\n    stroke-dasharray: 5 5;\n    opacity: 0.5;\n}\n\n\n@media  screen and  (max-width: 480px) {\n    svg.WebDollarNativeMap{\n        box-sizing: border-box;\n        transform: scale(1.15);\n    }\n}\n\n@media   screen and  (max-width: 800px) {\n\n    /* disable map animations when map is in background */\n    .peer-own,  .peer-connected-browser, .peer-connected-terminal {\n        -webkit-animation: none;\n        animation: none;\n        will-change: initial;\n    }\n\n    svg.WebDollarNativeMap{\n        box-sizing: border-box;\n        transform: scale(1.05);\n    }\n\n}\n\n\n/* Large Screen */\n\n@media screen and (min-width: 1080px) {\n    svg.WebDollarNativeMap {\n        box-sizing: border-box;\n        transform: scale(0.9);\n    }\n}\n\n@media screen and (min-width: 1400px) {\n    svg.WebDollarNativeMap {\n        box-sizing: border-box;\n        transform: scale(0.8);\n    }\n}")
 ;(function(){
 "use strict";
 
@@ -17894,13 +17914,13 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-c15838e0", __vue__options__)
+    hotAPI.createRecord("data-v-3a9a3ae6", __vue__options__)
   } else {
-    hotAPI.reload("data-v-c15838e0", __vue__options__)
+    hotAPI.reload("data-v-3a9a3ae6", __vue__options__)
   }
 })()}
 },{"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],357:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".map-dialog-description {\n    color: #ffc107;\n    height: 100px;\n    width: 200px;\n    margin: 0;\n    background-color: rgba(38, 41, 43, 0.66);\n    border-radius: 3px;\n    display: block;\n    padding: 8px;\n    opacity: 0;\n    will-change: opacity;\n    transition: 0.3s opacity;\n    text-align: center;\n    pointer-events: none;\n    position: relative;\n    margin-left: -100px;\n    left: 50%;\n    top: 100px;\n    z-index: 100;\n}\n\n@media (max-height: 800px) {\n    .map-dialog-description {\n        top: 40px;\n    }\n}\n\n.map-dialog {\n    position: fixed;\n    top: 50%;\n    transform: translateY(-50%);\n    width: 100%;\n    text-align: center;\n    pointer-events: none;\n}\n\n.map-dialog-description img {\n    width: 24px;\n    display: inline-block;\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".icon-connected{\n    -webkit-filter: brightness(0) invert(1);\n    filter: brightness(0) invert(1);\n}\n\n.network-dialog-icon {\n    width: 16px;\n    display: inline-block;\n}")
 ;(function(){
 'use strict';
 
@@ -17912,44 +17932,73 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 exports.default = {
 
+    props: {
+        nodeType: '',
+        status: '',
+        country: '',
+        city: '',
+        address: ''
+
+    },
+
+    computed: {
+        getAddress: function getAddress() {
+
+            if (typeof this.address === "string") return this.address;else if (_typeof(this.address) === "object" && typeof this.address.addressString === 'string') return this.address.addressString;else return "NOT DEFINED";
+        }
+    }
+
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticStyle:{"display":"inline-block","padding-right":"10px"}},[(_vm.nodeType === 'myself' )?_c('img',{staticClass:"network-dialog-icon icon-myself",attrs:{"src":"https://forum.noxiousnet.com/plugins/nodebb-plugin-emoji-one/static/images/1f60e.png"}}):_vm._e(),_vm._v(" "),(_vm.nodeType === 'browser' )?_c('img',{staticClass:"network-dialog-icon icon-browser",attrs:{"src":"http://icons.iconarchive.com/icons/dtafalonso/android-lollipop/48/Browser-icon.png"}}):_vm._e(),_vm._v(" "),(_vm.nodeType === 'terminal' )?_c('img',{staticClass:"network-dialog-icon icon-terminal",attrs:{"src":"http://icons.iconarchive.com/icons/paomedia/small-n-flat/48/terminal-icon.png"}}):_vm._e(),_vm._v(" "),_c('img',{staticClass:"icon-connected",attrs:{"src":this.connected === 'connected' ? 'http://icons.iconarchive.com/icons/icons8/windows-8/16/Network-Connected-icon.png' : 'http://icons.iconarchive.com/icons/icons8/windows-8/16/Network-Disconnected-icon.png'}})]),_vm._v(" "),_c('div',{ref:"refText",staticClass:"map-dialog-description-text",staticStyle:{"display":"inline-block"}},[_c('br'),_vm._v(_vm._s(_vm.country)+", "+_vm._s(_vm.city)),_c('br'),_vm._v(" "),_c('small',[_vm._v(_vm._s(this.getAddress || ' ')+" ")])])])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  module.hot.dispose(__vueify_style_dispose__)
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-fed4fefc", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-fed4fefc", __vue__options__)
+  }
+})()}
+},{"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],358:[function(require,module,exports){
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".map-dialog-description {\n    color: #ffc107;\n    height: auto;\n    max-height: 450px;\n    width: 300px;\n    margin: 0;\n    background-color: rgba(38, 41, 43, 0.66);\n    border-radius: 3px;\n    display: block;\n    padding: 8px;\n    opacity: 0;\n    will-change: opacity;\n    transition: 0.3s opacity;\n    text-align: center;\n    pointer-events: none;\n    position: relative;\n    margin-left: -100px;\n    left: 50%;\n    top: 100px;\n    z-index: 100;\n}\n\n@media (max-height: 800px) {\n    .map-dialog-description {\n        top: 40px;\n    }\n}\n\n.map-dialog {\n    position: fixed;\n    top: 50%;\n    transform: translateY(-50%);\n    width: 100%;\n    text-align: center;\n    pointer-events: none;\n}")
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _NetworkNativeMapDialogElement = require("./Network-Native-Map-Dialog-Element.vue");
+
+var _NetworkNativeMapDialogElement2 = _interopRequireDefault(_NetworkNativeMapDialogElement);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+
+    components: {
+        "NetworkNativeMapDialogElement": _NetworkNativeMapDialogElement2.default
+    },
+
     data: function data() {
         return {
 
             display: false,
-
-            status: '',
-            country: '',
-            city: '',
-            address: ''
+            desc: {}
         };
     },
 
     methods: {
-        _hideAllIcons: function _hideAllIcons(exclude) {
-
-            this.$refs['refIconMyself'].style.display = 'none';
-            this.$refs['refIconBrowser'].style.display = 'none';
-            this.$refs['refIconTerminal'].style.display = 'none';
-        },
-        _setNodeType: function _setNodeType(nodeType) {
-
-            var icon = void 0;
-
-            if (nodeType === 'myself') icon = this.$refs['refIconMyself'];else if (nodeType === 'browser') icon = this.$refs['refIconBrowser'];else if (nodeType === 'terminal') icon = this.$refs['refIconTerminal'];else icon = this.$refs['refIconTerminal'];
-
-            this._hideAllIcons(icon);
-            icon.style.display = 'inline-block';
-        },
         show: function show(desc) {
-            this._setNodeType(desc.nodeType);
 
-            this.status = desc.status;
-            this.country = desc.country;
-            this.city = desc.city;
-
-            if (typeof desc.address === "string") this.address = desc.address;else if (_typeof(desc.address) === "object" && typeof desc.address.addressString === 'string') this.address = desc.address.addressString;else this.address = "NOT DEFINED";
-
-            console.log(desc.address);
+            this.desc = desc;
 
             this.display = 1;
         },
@@ -17963,7 +18012,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"map-dialog "},[_c('div',{ref:"refDialogContainer",staticClass:"map-dialog-description",style:({opacity: this.display ? 1 : 0})},[_c('div',[_c('img',{ref:"refIconMyself",staticClass:"icon-myself",attrs:{"src":"https://forum.noxiousnet.com/plugins/nodebb-plugin-emoji-one/static/images/1f60e.png"}}),_vm._v(" "),_c('img',{ref:"refIconBrowser",staticClass:"icon-browser",attrs:{"src":"http://icons.iconarchive.com/icons/dtafalonso/android-lollipop/48/Browser-icon.png"}}),_vm._v(" "),_c('img',{ref:"refIconTerminal",staticClass:"icon-terminal",attrs:{"src":"http://icons.iconarchive.com/icons/paomedia/small-n-flat/48/terminal-icon.png"}})]),_vm._v(" "),_c('div',{ref:"refText",staticClass:"map-dialog-description-text"},[_c('b',[_vm._v(_vm._s(_vm.status))]),_vm._v(" "),_c('br'),_vm._v(_vm._s(_vm.country)+", "+_vm._s(_vm.city)),_c('br'),_vm._v(" "),_c('small',[_vm._v(_vm._s(_vm.address|| ' ')+" ")])])])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"map-dialog "},[_c('div',{ref:"refDialogContainer",staticClass:"map-dialog-description",style:({opacity: this.display ? 1 : 0})},_vm._l((this.desc),function(desc){return _c('NetworkNativeMapDialogElement',{key:desc.uuid||desc.index,staticStyle:{"padding-bottom":"20px"},attrs:{"address":desc.address,"status":desc.status,"country":desc.country,"city":desc.city,"nodeType":desc.nodeType}})}))])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -17971,12 +18020,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-14e41900", __vue__options__)
+    hotAPI.createRecord("data-v-b04dde1a", __vue__options__)
   } else {
-    hotAPI.reload("data-v-14e41900", __vue__options__)
+    hotAPI.reload("data-v-b04dde1a", __vue__options__)
   }
 })()}
-},{"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],358:[function(require,module,exports){
+},{"./Network-Native-Map-Dialog-Element.vue":357,"vue":331,"vue-hot-reload-api":329,"vueify/lib/insert-css":332}],359:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18011,7 +18060,7 @@ var BrowserHelpers = function () {
 
 exports.default = BrowserHelpers;
 
-},{}],359:[function(require,module,exports){
+},{}],360:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18081,7 +18130,7 @@ var InitializeParams = function () {
 
 exports.default = new InitializeParams();
 
-},{"../helpers/Browser.helpers":358,"./global-initialize/Global-Initialization":360,"./vue/Main-vue":361,"./vue/Network-Native-Map-main-vue":362}],360:[function(require,module,exports){
+},{"../helpers/Browser.helpers":359,"./global-initialize/Global-Initialization":361,"./vue/Main-vue":362,"./vue/Network-Native-Map-main-vue":363}],361:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18130,7 +18179,7 @@ var GlobalInitialization = function () {
 
 exports.default = new GlobalInitialization();
 
-},{"../../helpers/Browser.helpers":358}],361:[function(require,module,exports){
+},{"../../helpers/Browser.helpers":359}],362:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -18159,7 +18208,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../components/Dashboard.vue":333,"babel-polyfill":1,"vue":331}],362:[function(require,module,exports){
+},{"../../components/Dashboard.vue":333,"babel-polyfill":1,"vue":331}],363:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -18189,7 +18238,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../components/maps/Native-Map/Network-Native-Map.vue":352,"babel-polyfill":1,"vue":331}],363:[function(require,module,exports){
+},{"../../components/maps/Native-Map/Network-Native-Map.vue":352,"babel-polyfill":1,"vue":331}],364:[function(require,module,exports){
 (function (global){
 "use strict";
 
@@ -18219,4 +18268,4 @@ if (typeof global.window !== 'undefined') global.window.WebDollarUserInterface =
 if (typeof window !== 'undefined') window.WebDollarUserInterface = exportObject;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./helpers/Browser.helpers":358,"./initialize-params/Initialize-Params":359}]},{},[363]);
+},{"./helpers/Browser.helpers":359,"./initialize-params/Initialize-Params":360}]},{},[364]);
