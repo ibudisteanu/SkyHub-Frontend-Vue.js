@@ -8,8 +8,8 @@
     <div>
 
         <HeaderCover
-                title="SkyHub Social Network"
-                subTitle="Change the world together"
+                :title="this.title"
+                :subTitle="this.subTitle"
         />
 
         <DisplayForumContent />
@@ -30,6 +30,18 @@
         components: {
             'HeaderCover': HeaderCover,
             'DisplayForumContent' : DisplayForumContent,
+        },
+
+        computed:{
+
+            title(){
+                return this.$store.state.global.applicationName === "Aggregator" ? 'Agregator Stiri' :  'SkyHub Social Network';
+            },
+
+            subTitle(){
+                return this.$store.state.global.applicationName === "Aggregator" ? 'Toate stirile tale' : 'Change the world together' ;
+            }
+
         },
 
 

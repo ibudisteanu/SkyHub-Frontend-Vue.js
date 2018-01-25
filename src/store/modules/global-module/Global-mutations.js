@@ -14,5 +14,10 @@ export default{
         state.refModal = refModal;
     },
 
+    SET_APPLICATION_NAME: (state, { applicationName }) => {
+
+        state.applicationName = applicationName;
+
+    },
 
 }

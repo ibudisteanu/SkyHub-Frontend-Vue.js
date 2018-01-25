@@ -11,7 +11,7 @@
 
 
         <router-link to="/" >
-            <img src="/public/SkyHub-logo.png" alt="SkyHub Social Network" height="44px" style="padding: 0 15px 0 5px; float:left" />
+            <img :src="this.getIcon" alt="SkyHub Social Network" height="44px" style="padding: 0 15px 0 5px; float:left" />
         </router-link>
 
         <i class="fa fa-search" style="float: left; padding-top: 20px"></i>
@@ -44,6 +44,12 @@
       computed:{
           isLoggedIn(){
               return this.$store.getters.isAuthenticatedUserLoggedIn;
+          },
+
+          getIcon(){
+              return this.$store.state.global.applicationName === "Aggregator" ? 'http://www.pvhc.net/img37/lwzulicjlzwpuetsjgbu.jpg' :  '/public/SkyHub-logo.png';
+
+
           }
       }
 

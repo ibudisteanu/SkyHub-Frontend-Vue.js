@@ -45,6 +45,8 @@ export function createApp () {
   // this registers `store.state.route`
   sync(store, router)
 
+  store.dispatch('GLOBAL_SET_APPLICATION_NAME',{applicationName: process.env.NEWS_CRAWLER === 'true' ? "Aggregator" : "SkyHub"});
+
   // create the app instance.
   // here we inject the router, store and ssr context to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.

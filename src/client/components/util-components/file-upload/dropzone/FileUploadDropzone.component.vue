@@ -21,7 +21,7 @@
 <script>
 
     import Dropzone from './vue2-dropzone/index.vue';
-    import constants from 'root/constants.js'
+    import constants from 'root/constants'
 
     export default{
 

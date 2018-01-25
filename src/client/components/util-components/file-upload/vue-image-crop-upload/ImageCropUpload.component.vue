@@ -39,7 +39,7 @@
 
 <script>
     import VueImageCropUploadComponent from './VueImageCropUploadComponent.vue';
-    import constants from 'root/constants.js'
+    import constants from 'root/constants'
 
     export default{
 

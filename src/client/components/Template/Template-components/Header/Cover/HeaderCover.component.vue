@@ -5,7 +5,7 @@
 <template>
     <div style="padding-bottom: 20px">
 
-        <div class="header-cover row  border-bottom white-bg dashboard-header "  :style="{cursor: ( this.enableChangeCover ? 'pointer' : 'default'), backgroundImage: 'url('+(this.cover||'')+')', backgroundColor: (this.coverColor!=='' ? '#'+this.coverColor : 'darkblue') }" @mouseover="imageCoverMouseOver=true" @mouseout="imageCoverMouseOver=false" @click="handleShowCoverImageCropUploadModal">
+        <div class="header-cover row  border-bottom white-bg dashboard-header "  :style="{cursor: ( this.enableChangeCover ? 'pointer' : 'default'), backgroundImage: 'url('+(this.cover||this.defaultCover||'')+')', backgroundColor: (this.coverColor!=='' ? '#'+this.coverColor : 'darkblue') }" @mouseover="imageCoverMouseOver=true" @mouseout="imageCoverMouseOver=false" @click="handleShowCoverImageCropUploadModal">
 
             <ImageCropUpload :enableFileUpload="enableChangeCover" ref="refCoverImageCropUpload" @onImageChanged="coverChanged" :width="1500" :height="320"/>
 
@@ -26,7 +26,7 @@
 
                         <div class="image-with-caption-link" style="display: inline-block" @click="handleShowIconImageCropUploadModal"    @mouseover="imageIconMouseOver=true; " @mouseout="imageIconMouseOver=false">
                             <router-link :to="''" style="margin-bottom: 0">
-                                <img :class="(showPicBorder ? 'profile-pic-white-border' : '')" :src="icon||'/public/SkyHub-logo-square.png'" />
+                                <img :class="(showPicBorder ? 'profile-pic-white-border' : '')" :src="icon||this.defaultIcon" />
                                 <span v-if="enableChangeIcon" :style="showPicBorder ? 'margin-left: 5px; margin-bottom: 5px; width: 90%;' : '' + 'color:white' + 'opacity: '+(imageIconMouseOver ?  1 : 0.7)" ><i class="fa fa-picture-o"/> {{imageIconMouseOver ? 'Change Picture' : ''}}</span>
                             </router-link>
                         </div>
@@ -82,6 +82,7 @@
 
     import DisplayBreadcrumbs from 'client/components/util-components/UI/breadcrumbs/DisplayBreadcrumbs.component.vue';
     import ImageCropUpload from 'client/components/util-components/file-upload/vue-image-crop-upload/ImageCropUpload.component.vue';
+    import constants from 'root/constants'
 
     export default{
 
@@ -109,9 +110,9 @@
             buttons: {default: function() {return []}},
             showDescriptionMenu: {default: true},
             //cover: {default: 'http://spitfiresocial.com/wp-content/uploads/2015/03/worldsocial.jpg'},
-            cover: {default: 'http://i.imgur.com/hqLGii9.jpg'},
+            cover: {default: undefined},
             coverColor: {default: ''},
-            icon: {default: ''},
+            icon: {default: undefined},
 
             showLayOver: {default: false}, //lay over mask
             showPicBorder : {default: true},
@@ -120,6 +121,21 @@
             enableChangeCover : {default: false},
         },
 
+        computed:{
+
+            defaultIcon(){
+                if (this.icon !== undefined) return this.icon;
+
+                return this.$store.state.global.applicationName === "Aggregator" ? 'http://www.pvhc.net/img37/lwzulicjlzwpuetsjgbu.jpg' : '/public/SkyHub-logo-square.png';
+            },
+
+            defaultCover(){
+                if (this.cover !== undefined) return this.cover;
+
+                return this.$store.state.global.applicationName === "Aggregator" ? 'http://www.jogjatravelmart.co.id/JITM/wp-content/uploads/2017/12/News-Banner.jpg' : 'http://i.imgur.com/hqLGii9.jpg';
+            }
+
+        },
 
         methods:{
             handleShowIconImageCropUploadModal(e){

@@ -13,6 +13,9 @@ export default {
     state:  {
         refAuthenticationModal: null,
         refModal: null,
+
+        applicationName: 'SkyHub',
+
     },
     actions,
     mutations,

@@ -27,7 +27,8 @@ module.exports =
         SERVICE_WEBSOCK_API : 'api/',
 
         SERVICE_FILE_UPLOAD_URL : trimSlash(BACKEND_WEBSITE_URL)+'/upload/image',
-        SERVICE_FILE_UPLOAD_TOPIC_URL : trimSlash(BACKEND_WEBSITE_URL)+'/upload/topic-file'
+        SERVICE_FILE_UPLOAD_TOPIC_URL : trimSlash(BACKEND_WEBSITE_URL)+'/upload/topic-file',
+
 
     };
 

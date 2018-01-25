@@ -18,5 +18,12 @@ export default{
 
     },
 
+    GLOBAL_SET_APPLICATION_NAME: ({ commit }, { applicationName }) => {
+
+        commit('SET_APPLICATION_NAME', {applicationName});
+
+    },
+
+
 }
 
