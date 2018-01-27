@@ -4,14 +4,18 @@
         <!--<img src="public/WebDollar-logo-black.png" id="logo"/>-->
 
         <div class="topnav" id="menu">
-            <a @click="this.collapseMenuBack" href="/#mainSection" class="active" id="logoMenu"><img src="public/WebDollar-logo-white.png" id="logo"/></a>
 
-            <a @click="this.collapseMenuBack" href="/#timelineSection">Timeline</a>
-            <a @click="this.collapseMenuBack" href="/faq">FAQ</a>
-            <a @click="this.collapseMenuBack" href="/#team">Team</a>
+            <router-link to="/#mainSection" class="active" logoMenu @click="this.collapseMenuBack" >
+                <img src="public/WebDollar-logo-white.png" id="logo"/>
+            </router-link>
+
+            <router-link to="/#timelineSection" @click="this.collapseMenuBack" >Timeline</router-link>
+
+            <router-link to="/faq" @click="this.collapseMenuBack" > FAQ </router-link>
+            <router-link to="/team" @click="this.collapseMenuBack" > Team </router-link>
             <a @click="this.collapseMenuBack" href="/public/doc/WebDollar-White-Paper.pdf" target="_blank">White Paper</a>
-            <a @click="this.collapseMenuBack" href="/#what-is-WebDollar">About</a>
-            <a @click="this.collapseMenuBack" href="/#p2p-network">Network</a>
+            <router-link to="/#what-is-WebDollar" @click="this.collapseMenuBack" > About </router-link>
+            <router-link to="/#p2p-network" @click="this.collapseMenuBack" > Network </router-link>
 
             <a href="javascript:void(0);" style="font-size:15px;" class="icon showMenu" @click="this.showMobileMenu">&#9776;</a>
         </div>
