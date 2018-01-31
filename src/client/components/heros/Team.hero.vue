@@ -6,7 +6,7 @@
 
             <div class="fullHeight">
 
-                <h1 class="alignCenter bigMarginTop" >WebDollar Team</h1>
+                <h1 class="alignCenter bigMarginTop" >WebDollar Core Team</h1>
 
                 <div class="teamWrapper">
 
@@ -27,7 +27,7 @@
                         </div>
 
                         <h4>ALEXANDRU IONUT BUDISTEANU</h4>
-                        <h5 class="teamRole">Founder </h5>
+                        <h5 class="teamRole">Founder</h5>
                         <p class="description">
                             Alexandru is a Forbes Europe 30 under 30 nominee in industry category. In 2013, he was nominated by Time Magazine as one of the most influential teens of the world. MIT named an asteroid with his name.</a>
                         </p>

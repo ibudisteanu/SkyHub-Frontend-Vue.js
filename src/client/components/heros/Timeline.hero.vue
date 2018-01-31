@@ -49,7 +49,7 @@
                     </div>
                     <div class="timeline">
                         <div class="timeline-icon"><i class="fa fa-flask"></i></div>
-                        <span class="year">IAN 2017</span>
+                        <span class="year">IAN 2018</span>
                         <div class="timeline-content">
                             <h5 class="title">LAUNCH TEST NET</h5>
                             <p class="description">
@@ -59,7 +59,7 @@
                     </div>
                     <div class="timeline timelineUnfinishedMilestones">
                         <div class="timeline-icon unfinishedMilestones"><i class="fa fa-rocket"></i></div>
-                        <span class="year">SOON</span>
+                        <span class="year">TBA</span>
                         <div class="timeline-content">
                             <h5 class="title">SECURITY + LAUNCH MAIN NET</h5>
                             <p class="description">
@@ -69,7 +69,7 @@
                     </div>
                     <div class="timeline timelineUnfinishedMilestones">
                         <div class="timeline-icon unfinishedMilestones"><i class="fa fa-pig"></i></div>
-                        <span class="year">SOON</span>
+                        <span class="year">TBA</span>
                         <div class="timeline-content">
                             <h5 class="title">ICO - INITIAL COIN OFFERING</h5>
                             <p class="description">
