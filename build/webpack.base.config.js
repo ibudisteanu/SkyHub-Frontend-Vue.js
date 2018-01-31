@@ -44,7 +44,7 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         //exclude: /node_modules/,
-        exclude: /node_modules(?!\/quill-image-drop-module|quill|quill-image-resize-module)/,
+        exclude: /node_modules/,
       },
       {
         test: /\.(png|jpg|gif|svg)$/,

@@ -19,8 +19,6 @@ const config = merge(base, {
   },
   plugins: [
     new webpack.ProvidePlugin({
-        'window.Quill': 'quill/dist/quill.js',
-        'Quill': 'quill/dist/quill.js',
     }),
       // strip dev-only code in Vue source
     new webpack.DefinePlugin({

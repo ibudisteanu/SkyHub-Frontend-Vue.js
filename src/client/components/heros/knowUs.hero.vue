@@ -11,7 +11,7 @@
                 <img src="public/images/res/media/techhub.png">
             </div>
             <div>
-                <a href="https://www.youtube.com/watch?v=6YAEtqtL_So">
+                <a href="https://www.youtube.com/watch?v=6YAEtqtL_So"  target="_blank">
                     <img src="public/images/res/media/d10.png">
                 </a>
             </div>
