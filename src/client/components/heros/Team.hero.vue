@@ -149,20 +149,6 @@
 
                     </div>
 
-                    <div class="our-team">
-                        <div class="team-pic">
-                            <img src="/public/assets/images/team/Iulian-Vasilescu.jpg">
-                            <div class="over-layer">
-                                <ul class="social-link">
-                                    <li> <a href="https://www.facebook.com/iulian.vasilescu.1" target="_blank" class="fa fa-facebook"></a> </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <h4>IULIAN VASILESCU</h4>
-                        <h5 class="teamRole">DESIGNER</h5>
-                        <p></p>
-                    </div>
-
                 </div>
             </div>
         </div>
