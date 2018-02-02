@@ -50,6 +50,20 @@
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
+                            <img src="/public/assets/images/team/cosminOprea.jpg">
+                            <div class="over-layer">
+                                <ul class="social-link">
+                                    <li><a href="https://www.facebook.com/opreacosmind" class="fa fa-facebook" target="_blank"></a></li>
+                                    <li><a href="https://ro.linkedin.com/in/cosmin-dumitru-oprea-045a7353" class="fa fa-linkedin2" target="_blank"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <h4>COSMIN-DUMITRU OPREA</h4>
+                        <h5 class="teamRole">PROTOCOL DEVELOPER</h5>
+                        <p>Cosmin is a Teaching Assistant at Politehnica University of Bucharest, Software Engineer with lot of knowledge in algorithms. Cosmin has won three Honorable Mentions at the ACM-ICPC SEERC.</p>
+                    </div>
+                    <div class="our-team">
+                        <div class="team-pic">
                             <img src="/public/assets/images/team/Adrian-Stratulat.jpg">
                             <div class="over-layer">
                                 <ul class="social-link">
@@ -61,20 +75,6 @@
                         <h4>ADRIAN STRATULAT</h4>
                         <h5 class="teamRole">EVANGELIST</h5>
                         <p>Philosopher by vocation and diplomat by training, Adrian is a social entrepreneur specialized in innovative emerging technologies and blockchain applications. Also acting as economy advisor.</p>
-                    </div>
-                    <div class="our-team">
-                        <div class="team-pic">
-                            <img src="/public/assets/images/team/cosminOprea.jpg">
-                            <div class="over-layer">
-                                <ul class="social-link">
-                                    <li><a href="https://www.facebook.com/opreacosmind" class="fa fa-facebook" target="_blank"></a></li>
-                                    <li><a href="https://ro.linkedin.com/in/cosmin-dumitru-oprea-045a7353" class="fa fa-linkedin2" target="_blank"></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <h4>COSMIN-DUMITRU OPREA</h4>
-                        <h5 class="teamRole">PERFORMANCE DEVELOPER</h5>
-                        <p>Cosmin is a Teaching Assistant at Politehnica University of Bucharest, Software Engineer with lot of knowledge in algorithms. Cosmin has won three Honorable Mentions at the ACM-ICPC SEERC.</p>
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
