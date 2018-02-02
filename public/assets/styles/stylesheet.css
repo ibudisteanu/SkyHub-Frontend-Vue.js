@@ -220,6 +220,12 @@ a:hover{
   transition: all .5s linear;
 }
 
+#logoBox{
+  float: left;
+  padding: 14px 20px;
+  transform: translateY(5%);
+}
+
 .backgroundSection{
   background-color: #1b1b1b;
 }

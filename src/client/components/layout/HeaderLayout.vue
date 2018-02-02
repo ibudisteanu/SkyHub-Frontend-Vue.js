@@ -5,7 +5,7 @@
 
         <div class="topnav" id="menu">
 
-            <router-link to="/#mainSection" class="active" logoMenu @click="this.collapseMenuBack" >
+            <router-link to="/#mainSection" id="logoBox" class="active" logoMenu @click="this.collapseMenuBack" >
                 <img src="public/WebDollar-logo-white.png" id="logo"/>
             </router-link>
 
