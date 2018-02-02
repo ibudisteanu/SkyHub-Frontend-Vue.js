@@ -145,8 +145,8 @@ function render (req, res) {
         "@context": "http://schema.org",
         "@type": "WebSite",
         name: "SkyHub",
-        alternateName: "SkyHub Forum Social Network",
-        url: "http://skyub.me/",
+        alternateName: "WebDollar Currency of the Internet",
+        url: "http://webdollar.io/",
         potentialAction: {
             "@type": "SearchAction",
             target: "http://skyhub.me/search/{query}",
@@ -194,7 +194,7 @@ app.get('*', isProd ? render : (req, res) => {
   readyPromise.then(() => render(req, res))
 })
 
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 8081
 app.listen(port, () => {
   console.log(`server started at localhost:${port}`)
 })

@@ -32,9 +32,9 @@ function getBreadcrumbsMarkup (vm) {
         breadcrumbsItems.push({"@type": "ListItem",
             "position": ++iPosition,
             item: {
-            "@id": "https://skyhub.me/",
+            "@id": "https://webdollar.io/",
                 name: "Home",
-                image: "http://skyhub.me/public/SkyHub-logo-square.png"
+                image: "http://webdollar.io/public/SkyHub-logo-square.png"
         }});
 
         for (let i=0; i<breadcrumbsData.length; i++){

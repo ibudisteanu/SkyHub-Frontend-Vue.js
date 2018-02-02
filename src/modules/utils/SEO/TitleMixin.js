@@ -17,9 +17,9 @@ function getTitle (vm) {
             : title || '';
 
         return {
-            'title':addSuffix( result,' - SkyHub Social Network',' - SkyHub', 53),
-            'facebook': addSuffix( result, ' - SkyHub Social Network',' - SkyHub', 60),
-            'twitter': addSuffix( result, ' - SkyHub Social Network',' - SkyHub', 70)
+            'title':addSuffix( result,' - WebDollar Internet Currency',' - WebDollar', 53),
+            'facebook': addSuffix( result, ' - WebDollar Internet Currency',' - WebDollar', 60),
+            'twitter': addSuffix( result, ' - WebDollar Internet Currency',' - WebDollar', 70)
         }
     }
 }

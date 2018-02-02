@@ -52,13 +52,13 @@ function getSchemaMarkup (vm) {
             : url;
 
         if ((typeof imagesData === 'undefined')||(imagesData === null)||(imagesData.length === 0)) imagesData = [ {url: "http://webdollar.io/public/images/WebDollar-Landing-image.png", alt:"SkyHub Forum 2.0 Social Network - Change the World"}];
-        if ((typeof titleData === 'undefined')||(titleData === '')) titleData = 'SkyHub Forum 2.0 Social Network';
+        if ((typeof titleData === 'undefined')||(titleData === '')) titleData = 'WebDollar Currency of the Internet';
         if ((typeof descriptionData === 'undefined')||(descriptionData === '')) descriptionData = 'Change the world together!';
         if ((typeof webPageTypeData === 'undefined')||(webPageTypeData === '')) webPageTypeData = 'website';
         if ((typeof keywordsData === 'undefined')||(keywordsData === null)||(keywordsData.length === 0)) keywordsData = ['social network, forum 2.0, forums, discussions, networks, communities'];
         if ((typeof dateCreationData === 'undefined')||(dateCreationData === '')) dateCreationData = '';
         if ((typeof dateLastActivityData === 'undefined')||(dateLastActivityData === '')) dateLastActivityData = '';
-        if ((typeof urlData === 'undefined')||(urlData==='')) urlData = "http://skyhub.me/";
+        if ((typeof urlData === 'undefined')||(urlData==='')) urlData = "http://webdollar.io/";
 
         console.log(imagesData);
 
@@ -72,14 +72,14 @@ function getSchemaMarkup (vm) {
                 mixinSchemas ={
                     "@context": "http://schema.org",
                     "@type": "WebSite",
-                    url: "http://skyhub.me/",
+                    url: "http://webdollar.io/",
                     name: titleData,
                     author: authorData,
                     description: descriptionData,
-                    publisher: "SkyHub Forum 2.0 Social Network",
+                    publisher: "WebDollar.io",
                     potentialAction:{
                         "@type": "SearchAction",
-                        target: "http://skyhub.me/search/{query}",
+                        target: "http://webdollar.io/search/{query}",
                         "query-input": "required name=query"
                     }
                 };
@@ -101,9 +101,9 @@ function getSchemaMarkup (vm) {
                     //'wordcount: "1120",
                     publisher: {
                         "@type":"Organization",
-                        name:"SkyHub Forum 2.0 Social Network"
+                        name:"WebDollar"
                     },
-                    url: "http://skyhub.me",
+                    url: "http://webdollar.io",
                     datePublished: dateCreationData.toString(),
                     dateCreated: dateCreationData.toString(),
                     dateModified: dateLastActivityData.toString(),

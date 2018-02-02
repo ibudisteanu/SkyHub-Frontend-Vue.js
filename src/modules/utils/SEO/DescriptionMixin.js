@@ -18,9 +18,9 @@ function getDescription (vm) {
             : description || '';
 
         return {
-            'description':addSuffix(result, ' - SkyHub Forum Social Network', ' - SkyHub', 150),
-            'facebook':addSuffix(result, ' - SkyHub Forum Social Network', ' - SkyHub', 110),
-            'twitter': addSuffix(result, ' - SkyHub Forum Social Network', ' - SkyHub', 116),
+            'description':addSuffix(result, ' - WebDollar Internet Currency', ' - WebDollar', 150),
+            'facebook':addSuffix(result, ' - WebDollar Internet Currency', ' - WebDollar', 110),
+            'twitter': addSuffix(result, ' - WebDollar Internet Currency', ' - WebDollar', 116),
         }
     }
 }
