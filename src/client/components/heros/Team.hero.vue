@@ -129,25 +129,6 @@
                         <h5 class="teamRole">MANAGEMENT ADVISOR</h5>
                         <p>Issam is a Business Management Senior Consultant and Strategist who partners with top tier executives and marketers. Issam knows what truly drives conversions, product launches, and successful strategic and operational planning.</p>
                     </div>
-                    <div class="our-team">
-                        <div class="team-pic">
-                            <img src="/public/assets/images/team/silviuStroe.jpg">
-                            <div class="over-layer">
-                                <ul class="social-link social-link-4">
-                                    <li><a href="https://www.facebook.com/s1lviu/" target="_blank"  class="fa fa-facebook"></a></li>
-                                    <li><a href="https://github.com/s1lviu" target="_blank"  class="fa fa-github"></a></li>
-                                    <li><a href="https://silviu-s.com/" target="_blank"  class="fa fa-globe"></a></li>
-                                    <li><a href="https://www.linkedin.com/in/silviustroe/" target="_blank" class="fa fa-linkedin2"></a> </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <h4>SILVIU BOGDAN STROE</h4>
-                        <h5 class="teamRole"5>DEVELOPER</h5>
-                        <p>
-                        Silviu is a full stack developer and entrepreneur. He is the founder of one of the first VPN services in Romania, RoTunneling and is part of Yahoo - Wall of Fame. He also loves bleeding edge technologies and new challenges.
-                        </p>
-
-                    </div>
 
                 </div>
             </div>
