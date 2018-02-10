@@ -2,7 +2,7 @@
   "name": "@webdollar/front-webdollar",
   "version": "0.0.2",
   "description": "WebDollar Frontend",
-  "author": "WebDollar.io Team",
+  "author": "WebDollar.io",
   "scripts": {
     "dev": "node server",
     "start": "cross-env NODE_ENV=production node server",

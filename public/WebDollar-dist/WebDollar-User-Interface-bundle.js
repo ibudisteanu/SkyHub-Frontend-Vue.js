@@ -549,13 +549,69 @@ class BrowserHelpers{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_Modal_vue__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_icon_vue__ = __webpack_require__(11);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_d4961080_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Modal_vue__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_4a4e8449_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_icon_vue__ = __webpack_require__(68);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(74)
+  __webpack_require__(44)
+}
+var normalizeComponent = __webpack_require__(0)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_icon_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_4a4e8449_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_icon_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src/components/UI/icons/icon.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4a4e8449", Component.options)
+  } else {
+    hotAPI.reload("data-v-4a4e8449", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_Modal_vue__ = __webpack_require__(18);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_d4961080_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Modal_vue__ = __webpack_require__(78);
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(76)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -601,24 +657,17 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-!function(e,t){ true?module.exports=t():"function"==typeof define&&define.amd?define([],t):"object"==typeof exports?exports["v-clipboard"]=t():e["v-clipboard"]=t()}(this,function(){return function(e){function t(o){if(n[o])return n[o].exports;var r=n[o]={i:o,l:!1,exports:{}};return e[o].call(r.exports,r,r.exports,t),r.l=!0,r.exports}var n={};return t.m=e,t.c=n,t.i=function(e){return e},t.d=function(e,n,o){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:o})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="/dist/",t(t.s=0)}([function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var o=function(e){var t=document.createElement("textarea"),n=!1;t.value=e,t.style.cssText="position:fixed;pointer-events:none;z-index:-9999;opacity:0;",document.body.appendChild(t),t.select();try{n=document.execCommand("copy")}catch(e){}return document.body.removeChild(t),n};t.default={install:function(e){e.prototype.$clipboard=o,e.directive("clipboard",{bind:function(e,t,n){e.addEventListener("click",function(e){if(t.hasOwnProperty("value")){var r=t.value,c={value:r,srcEvent:e},i=n.context;o(r)?i.$emit("copy",c):i.$emit("copyError",c)}})}})}}}])});
-//# sourceMappingURL=index.min.js.map
-
-/***/ }),
 /* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_ShowBalance_vue__ = __webpack_require__(20);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1f1fe1ea_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ShowBalance_vue__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1f1fe1ea_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ShowBalance_vue__ = __webpack_require__(81);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(77)
+  __webpack_require__(79)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -669,7 +718,7 @@ if (false) {(function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Wallet_Wallet_vue__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Mining_Mining_vue__ = __webpack_require__(95);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Mining_Mining_vue__ = __webpack_require__(105);
 //
 //
 //
@@ -746,10 +795,11 @@ if (false) {(function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_components_UI_icons_icon_vue__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Address_Address_vue__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_components_UI_icons_icon_vue__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Address_Address_vue__ = __webpack_require__(69);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_helpers_Browser_helpers__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_components_Wallet_Address_Balance_ShowSumBalances_vue__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_components_Wallet_Address_Balance_ShowSumBalances_vue__ = __webpack_require__(100);
+//
 //
 //
 //
@@ -838,6 +888,7 @@ if (false) {(function () {
             return {
                 opened: false,
                 addresses: [],
+                miningAddress: '',
                 currency: "0x01",
 
                 walletButtonMarginOpened: 0,
@@ -873,6 +924,11 @@ if (false) {(function () {
               WebDollar.Blockchain.Wallet.emitter.on("wallet/changes", ()=>{
                   this.loadAllAddresses();
               });
+
+              WebDollar.Blockchain.emitter.on("blockchain/mining/address", (data)=>{
+                  this.miningAddress = data.address;
+              });
+              this.miningAddress = WebDollar.Blockchain.Mining.minerAddressBase;
 
               //onLoad
               __WEBPACK_IMPORTED_MODULE_2_helpers_Browser_helpers__["a" /* default */].addEvent(window, "load", (event) => {
@@ -1078,9 +1134,6 @@ if (false) {(function () {
 
                 let data = WebDollar.Blockchain.Balances.subscribeBalancesChanges(address, (data)=>{
 
-
-                    console.log("balance changed", address, data);
-
                     for (let i=0; i<this.addresses.length; i++)
                         if (this.addresses[i].address === address ){
 
@@ -1133,62 +1186,6 @@ if (false) {(function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_icon_vue__ = __webpack_require__(12);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_4a4e8449_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_icon_vue__ = __webpack_require__(66);
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(44)
-}
-var normalizeComponent = __webpack_require__(0)
-/* script */
-
-
-/* template */
-
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_icon_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_4a4e8449_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_icon_vue__["a" /* default */],
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "src/components/UI/icons/icon.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4a4e8449", Component.options)
-  } else {
-    hotAPI.reload("data-v-4a4e8449", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__res_svg_chevron_down_vue__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__res_svg_chevron_up_vue__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__res_svg_key_vue__ = __webpack_require__(50);
@@ -1199,6 +1196,7 @@ if (false) {(function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__res_svg_x_vue__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__res_svg_upload_vue__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__res_svg_download_vue__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__res_svg_mining_vue__ = __webpack_require__(66);
 //
 //
 //
@@ -1223,6 +1221,8 @@ if (false) {(function () {
 //
 //
 //
+//
+
 
 
 
@@ -1243,16 +1243,17 @@ if (false) {(function () {
     },
 
     components:{
-        "svgKey": __WEBPACK_IMPORTED_MODULE_2__res_svg_key_vue__["a" /* default */],
-        "svgChevronDown": __WEBPACK_IMPORTED_MODULE_0__res_svg_chevron_down_vue__["a" /* default */],
-        "svgChevronUp": __WEBPACK_IMPORTED_MODULE_1__res_svg_chevron_up_vue__["a" /* default */],
-        "svgLockClosed": __WEBPACK_IMPORTED_MODULE_3__res_svg_lock_closed_vue__["a" /* default */],
-        "svgLockOpen": __WEBPACK_IMPORTED_MODULE_4__res_svg_lock_open_vue__["a" /* default */],
-        "svgPlus": __WEBPACK_IMPORTED_MODULE_5__res_svg_plus_vue__["a" /* default */],
-        "svgPlusSquare": __WEBPACK_IMPORTED_MODULE_6__res_svg_plus_square_vue__["a" /* default */],
-        "svgX": __WEBPACK_IMPORTED_MODULE_7__res_svg_x_vue__["a" /* default */],
-        "svgDownload": __WEBPACK_IMPORTED_MODULE_9__res_svg_download_vue__["a" /* default */],
-        "svgUpload": __WEBPACK_IMPORTED_MODULE_8__res_svg_upload_vue__["a" /* default */],
+        "svg-key": __WEBPACK_IMPORTED_MODULE_2__res_svg_key_vue__["a" /* default */],
+        "svg-chevron-down": __WEBPACK_IMPORTED_MODULE_0__res_svg_chevron_down_vue__["a" /* default */],
+        "svg-chevron-up": __WEBPACK_IMPORTED_MODULE_1__res_svg_chevron_up_vue__["a" /* default */],
+        "svg-lock-closed": __WEBPACK_IMPORTED_MODULE_3__res_svg_lock_closed_vue__["a" /* default */],
+        "svg-lock-open": __WEBPACK_IMPORTED_MODULE_4__res_svg_lock_open_vue__["a" /* default */],
+        "svg-plus": __WEBPACK_IMPORTED_MODULE_5__res_svg_plus_vue__["a" /* default */],
+        "svg-plus-square": __WEBPACK_IMPORTED_MODULE_6__res_svg_plus_square_vue__["a" /* default */],
+        "svg-x": __WEBPACK_IMPORTED_MODULE_7__res_svg_x_vue__["a" /* default */],
+        "svg-download": __WEBPACK_IMPORTED_MODULE_9__res_svg_download_vue__["a" /* default */],
+        "svg-upload": __WEBPACK_IMPORTED_MODULE_8__res_svg_upload_vue__["a" /* default */],
+        "svg-mining": __WEBPACK_IMPORTED_MODULE_10__res_svg_mining_vue__["a" /* default */],
     },
 
     methods:{
@@ -1267,12 +1268,29 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 //
 //
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+
+});
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 //
 //
 //
@@ -1324,30 +1342,14 @@ if (false) {(function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-
-});
-
-
-/***/ }),
-/* 17 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_file_saver__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_file_saver__ = __webpack_require__(72);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_file_saver___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__node_modules_file_saver__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_components_UI_icons_icon_vue__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modals_Transaction_modal_vue__ = __webpack_require__(73);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Modals_Lock_modal_vue__ = __webpack_require__(81);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Modals_Delete_modal_vue__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_components_UI_icons_icon_vue__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modals_Transaction_modal_vue__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Modals_Lock_modal_vue__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Modals_Delete_modal_vue__ = __webpack_require__(95);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_components_Wallet_Address_Balance_ShowBalance_vue__ = __webpack_require__(8);
+//
 //
 //
 //
@@ -1392,6 +1394,7 @@ if (false) {(function () {
 
     props:{
         address:{default:''},
+        isMiningAddress: {default: false}
     },
 
     components:{
@@ -1449,14 +1452,24 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_components_UI_modal_Modal_vue__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_components_UI_modal_Modal_vue__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_components_Wallet_Address_Balance_ShowBalance_vue__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_components_UI_icons_icon_vue__ = __webpack_require__(6);
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1718,6 +1731,7 @@ var Vue = __webpack_require__(3);
 
 
 
+
 Vue.use(__WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard___default.a)
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -1727,11 +1741,13 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard___default.a)
         address: {default: null},
         toAddress: {default: null},
         toAmount: {default: 0.0},
+        isMiningAddress: {default: false},
     },
 
     components: {
         "Modal": __WEBPACK_IMPORTED_MODULE_0_components_UI_modal_Modal_vue__["a" /* default */],
         "ShowBalance":__WEBPACK_IMPORTED_MODULE_2_components_Wallet_Address_Balance_ShowBalance_vue__["a" /* default */],
+        "icon":__WEBPACK_IMPORTED_MODULE_3_components_UI_icons_icon_vue__["a" /* default */],
     },
 
     data: () => {
@@ -1770,6 +1786,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard___default.a)
             this.isBuy = false;
             this.isTransactionList = true;
         },
+
         closeModal() {
             this.$refs['refModal'].closeModal();
         },
@@ -1782,13 +1799,15 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard___default.a)
         copyToClipboard(){
             this.clipboardText = 'Copied';
             this.$clipboard(this.address)
+        },
+
+        handleSetAddress(){
+            WebDollar.Blockchain.Mining.minerAddress = this.address;
         }
 
     },
 
     mounted() {
-
-        this.clipboardText = 'Copy to Clipboard';
 
         if (typeof window === 'undefined') return;
 
@@ -1799,7 +1818,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard___default.a)
 
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1875,6 +1894,13 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard___default.a)
 
 
 /***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(e,t){ true?module.exports=t():"function"==typeof define&&define.amd?define([],t):"object"==typeof exports?exports["v-clipboard"]=t():e["v-clipboard"]=t()}(this,function(){return function(e){function t(o){if(n[o])return n[o].exports;var r=n[o]={i:o,l:!1,exports:{}};return e[o].call(r.exports,r,r.exports,t),r.l=!0,r.exports}var n={};return t.m=e,t.c=n,t.i=function(e){return e},t.d=function(e,n,o){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:o})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="/dist/",t(t.s=0)}([function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var o=function(e){var t=document.createElement("textarea"),n=!1;t.value=e,t.style.cssText="position:fixed;pointer-events:none;z-index:-9999;opacity:0;",document.body.appendChild(t),t.select();try{n=document.execCommand("copy")}catch(e){}return document.body.removeChild(t),n};t.default={install:function(e){e.prototype.$clipboard=o,e.directive("clipboard",{bind:function(e,t,n){e.addEventListener("click",function(e){if(t.hasOwnProperty("value")){var r=t.value,c={value:r,srcEvent:e},i=n.context;o(r)?i.$emit("copy",c):i.$emit("copyError",c)}})}})}}}])});
+//# sourceMappingURL=index.min.js.map
+
+/***/ }),
 /* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1889,55 +1915,38 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard___default.a)
 //
 
 
-/* harmony default export */ __webpack_exports__["a"] = ({
+    /* harmony default export */ __webpack_exports__["a"] = ({
 
-    name: "ShowBalance",
+        name: "ShowBalance",
 
-    props: ['address', 'currency'],
+        props: ['address', 'currency'],
 
-    data(){
-      return {
-          balances: {},
-          subscription: null,
-        }
-    },
+        data(){
+          return {
+              balances: {},
+              subscription: null,
+            }
+        },
 
-    mounted(){
+        mounted(){
 
-        if (typeof window === "undefined") return;
+            if (typeof window === "undefined") return;
 
-        this.currency = this.currency || '0x01';
+            this.currency = this.currency || '0x01';
 
-        if (typeof this.address === "object" && typeof this.address.hasOwnProperty("balances") ){ //it is an address object
-            this.balances = this.address.balances;
-            return;
-        }
+//            if (typeof this.address === "object" && typeof this.address.hasOwnProperty("balances") ){ //it is an address object
+//                this.balances = this.address.balances;
+//                return;
+//            }
 
-        let data = WebDollar.Blockchain.Balances.subscribeBalancesChanges(this.address, (data)=>{
-            this.balances = data.balances;
-        });
-
-        if (data !== null) {
-            this.subscription = data.subscription;
-            this.balances = data.balances;
-        }
-
-    },
-
-    watch: {
-        address: function (newVal, oldVal) { // watch it
-
-            if (typeof newVal === "object" && typeof newVal.hasOwnProperty("balances") ){ //it is an address object
-                this.balances = newVal.balances;
-                return;
+            let address = this.address;
+            if (typeof this.address === "object" && typeof this.address.hasOwnProperty("address") ) { //it is an address object
+                address = this.address.address;
             }
 
-            WebDollar.Blockchain.Balances.unsusbribeBalancesChanges(this.subscription);
-
-            let data = WebDollar.Blockchain.Balances.subscribeBalancesChanges(newVal, (data)=>{
+            let data = WebDollar.Blockchain.Balances.subscribeBalancesChanges(address, (data)=>{
                 this.balances = data.balances;
             });
-
 
             if (data !== null) {
                 this.subscription = data.subscription;
@@ -1946,12 +1955,41 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard___default.a)
 
         },
 
-        currency: function (newVal, oldVal) { // watch it
+        watch: {
+            address: function (newVal, oldVal) { // watch it
 
+//                if (typeof newVal === "object" && typeof newVal.hasOwnProperty("balances") ){ //it is an address object
+//                    this.balances = newVal.balances;
+//                    return;
+//                }
+
+                WebDollar.Blockchain.Balances.unsusbribeBalancesChanges(this.subscription);
+
+                let address = newVal;
+                if (typeof newVal === "object" && typeof newVal.hasOwnProperty("address") ) { //it is an address object
+                    address = newVal.address;
+                }
+
+                console.log("address!!!!!!", address);
+
+                let data = WebDollar.Blockchain.Balances.subscribeBalancesChanges(address, (data)=>{
+                    console.log("balance changed")
+                    this.balances = data.balances;
+                });
+
+                if (data !== null) {
+                    this.subscription = data.subscription;
+                    this.balances = data.balances;
+                }
+
+            },
+
+            currency: function (newVal, oldVal) { // watch it
+
+            }
         }
-    }
 
-});
+    });
 
 
 
@@ -1960,9 +1998,12 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard___default.a)
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_components_UI_modal_Modal_vue__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_components_UI_modal_Modal_vue__ = __webpack_require__(7);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2002,12 +2043,9 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard___default.a)
 //
 
 
-var Vue = __webpack_require__(3);
 
+let Clipboard = __webpack_require__(86)
 
-
-
-Vue.use(__WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard___default.a);
 
 /* harmony default export */ __webpack_exports__["a"] = ({
 
@@ -2042,57 +2080,63 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard___default.a);
             }
 
         },
+
         copyToClipboard(){
 
+            console.log('clipboard', this.$clipboard);
             this.clipboardText = 'Copied';
-            this.$clipboard(this.walletAddressPassword);
+            this.$refs['refClipboardCopy'].click();
+            console.log(this.walletAddressPassword)
 
         },
 
-        generatePasswrod(){
+        generateRandomPassword(){
 
-            var wordsArray = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z'];
-            this.walletAddressPassword = wordsArray[Math.floor(Math.random()*wordsArray.length)];
+            let wordsArray = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'];
+            this.walletAddressPassword = '';
 
-            for (var i=0;i<=11;i++){
+            for (let i = 0; i < 12; ++i){
 
-                var randomWord = wordsArray[Math.floor(Math.random()*wordsArray.length)];
-                var index = this.walletAddressPassword.lastIndexOf(randomWord);
+                let randomWord = wordsArray[Math.floor(Math.random() * wordsArray.length)];
+                let index = this.walletAddressPassword.lastIndexOf(randomWord);
 
-
-                if (index==-1){
-                    this.walletAddressPassword += (" "+randomWord);
-                }else{
+                if (index === -1){
+                    this.walletAddressPassword += randomWord;
+                    if (i < 11)
+                        this.walletAddressPassword += " ";
+                } else {
                     i--;
                 }
-
             }
 
         },
 
-        encryptPassword(){
+        async createPassword(){
 
-            var okPassword=true;
-            var wordsArray = this.walletAddressPassword.split(' ');
-            var wordsArraySize = wordsArray.length-1;
+            if (this.walletAddressPassword === null || this.walletAddressPassword === undefined)
+                alert('Your password is invalid');
 
-            if (wordsArraySize != 12){
+            let okPassword = true;
+            let wordsArray = this.walletAddressPassword.split(' ');
+            let wordsArraySize = wordsArray.length;
 
-                this.errorMessage = "The password should contain 12 words, but you have only "+wordsArraySize+" words.";
-                okPassword=false;
+            if (wordsArraySize !== 12){
+
+                this.errorMessage = "The password should contain 12 words, but you have " + wordsArraySize + " words.";
+                okPassword = false;
 
             }
 
-            if (okPassword==true){
+            if (okPassword === true){
 
-                for (var i=0; i<=wordsArraySize; i++){
+                for (let i = 0; i < wordsArraySize; i++){
 
-                    var index = wordsArray.lastIndexOf(wordsArray[i]);
+                    let index = wordsArray.lastIndexOf(wordsArray[i]);
 
-                    if  (index != i){
+                    if  (index !== i){
 
                         this.errorMessage = "The password should contain different words, but you are repeating '"+wordsArray[i]+"' word.";
-                        okPassword=false;
+                        okPassword = false;
 
                     }
 
@@ -2100,21 +2144,48 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard___default.a);
 
             }
 
-            if(okPassword==true){
+
+            if(okPassword === true){
 
                 this.errorMessage = '';
-                this.setPassword();
+                let oldPassword = undefined;
 
+                if (await WebDollar.Blockchain.Wallet.isAddressEncrypted(this.address)) {
+
+                    let response = prompt("Please enter your last password (12 words separated by space)");
+                    if (typeof response !== "string") response = '';
+
+                    oldPassword = response.split(' ');
+
+                    if (oldPassword.length !== 12) {
+                        alert('Your old password has ' + oldPassword.length + ' words. It must have 12!');
+                        return;
+                    }
+
+                    if ( (await this.setPassword(oldPassword, wordsArray)) === false)
+                        alert('Your old password is incorrect!!!');
+                } else {
+
+                    await this.setPassword(oldPassword, wordsArray);
+                }
             }
+
 
         },
 
-        setPassword(){
+        async setPassword(oldPassword, wordsArray){
+
 
             this.copyToClipboard();
-            this.closeModal();
-            alert('Your password was saved in clipboard');
+            let response = await WebDollar.Blockchain.Wallet.encryptAddress(this.address, oldPassword, wordsArray);
 
+            if (response === true) {
+                this.walletAddressPassword = "";
+                this.closeModal();
+                alert('Your password was saved in clipboard');
+            }
+
+            return response;
         }
 
     },
@@ -2122,6 +2193,18 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard___default.a);
     mounted() {
 
         if (typeof window === 'undefined') return;
+
+        console.log(this.$refs['refClipboardCopy']);
+
+        this.walletAddressPassword = "MAMA MERE";
+        new Clipboard( this.$refs['refClipboardCopy'], {
+            text: ()  => {
+                return this.walletAddressPassword;
+            }
+        });
+
+
+        this.$refs['refClipboardCopy'].click();
 
     },
 
@@ -2134,8 +2217,8 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard___default.a);
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_components_UI_modal_Modal_vue__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_components_UI_modal_Modal_vue__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard__);
 //
 //
@@ -2320,7 +2403,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard___default.a)
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_components_Wallet_Address_Balance_ShowBalance_vue__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__slider_vue__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__slider_vue__ = __webpack_require__(108);
 //
 //
 //
@@ -2470,7 +2553,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard___default.a)
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_slider_component__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_slider_component__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_slider_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_slider_component__);
 //
 //
@@ -2563,11 +2646,11 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard___default.a)
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_Circle_Map__ = __webpack_require__(107);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_Circles__ = __webpack_require__(109);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Maps_tester__ = __webpack_require__(110);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__res_Network_Native_Map_Canvas_vue__ = __webpack_require__(111);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__res_dialog_Network_Native_Map_Dialog_vue__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_Circle_Map__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_Circles__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Maps_tester__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__res_Network_Native_Map_Canvas_vue__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__res_dialog_Network_Native_Map_Dialog_vue__ = __webpack_require__(125);
 //
 //
 //
@@ -4998,7 +5081,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard___default.a)
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Network_Native_Map_Dialog_Element_vue__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Network_Native_Map_Dialog_Element_vue__ = __webpack_require__(128);
 //
 //
 //
@@ -5191,7 +5274,7 @@ class InitializeParams{
         });
 
         __webpack_require__(33);
-        __webpack_require__(105);
+        __webpack_require__(115);
 
     }
 
@@ -5724,7 +5807,7 @@ process.umask = function() { return 0; };
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_Dashboard_vue__ = __webpack_require__(9);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_aae30ed8_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Dashboard_vue__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_aae30ed8_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Dashboard_vue__ = __webpack_require__(114);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
@@ -5853,7 +5936,7 @@ module.exports = function listToStyles (parentId, list) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_Wallet_vue__ = __webpack_require__(10);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_8087f122_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Wallet_vue__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_8087f122_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Wallet_vue__ = __webpack_require__(104);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
@@ -5937,7 +6020,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n#myWalletImport{\n    display: none;\n}\n.vue-slider-component.vue-slider-horizontal .vue-slider-dot{\n    left:-5px;\n}\n#walletButtonText{\n    color: #1f1f1f;\n}\n.mainAddress{\n    background-color: #fec02c14;\n}\n#walletButton {\n    margin: 0 auto;\n    position: fixed;\n    z-index: 85;\n    bottom: 0;\n    width: 299px!important;\n    right: 0;\n    text-align: center;\n    height: 50px;\n    border-top-left-radius: 60px;\n    cursor: pointer;\n    background-color: #fec02c;\n    color: #1f1f1f;\n    margin-bottom: 20px;\n    border: solid 1px #444444;\n    border-right: solid 1px #fec02c;\n    transition: all .3s linear;\n}\n#walletButton:hover{\n    background-color: #fec02c;\n    transition: all .3s linear;\n}\n.walletSection{\n    display: inline-block;\n    vertical-align: top;\n    height: 315px;\n    overflow-y: auto;\n    overflow-x: hidden;\n    width: 100%;\n}\n.walletController{\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-columns: 1fr 1fr;\n        grid-template-columns: 1fr 1fr;\n    position: relative;\n    width: 100%;\n    border-bottom: solid 1px #333333;\n    background-color: #313131;\n}\n.walletController .btn{\n    text-align: center;\n    color: #b5b5b5;\n    cursor: pointer;\n    padding: 8px 19px 6px 19px!important;\n}\n.walletController .btn:hover{\n    background-color: #44403f;\n    transition: all .3s linear;\n}\n.walletController .btn:first-child{\n    border-right: solid 1px #3c3b3b;\n}\n.allWallets div{\n    border: solid 1px #545454;\n}\n#walletButton:hover{\n    transition: all .3s linear;\n}\n#walletButton span{\n    width: 100%;\n    line-height: 50px;\n    font-size: 20px;\n    font-weight: bolder;\n    transition: all .3s linear;\n}\n#walletButton span:hover{\n    transition: all .3s linear;\n}\n#walletMenu{\n    margin: 0 auto;\n    position: fixed;\n    bottom: 0;\n    right: 0;\n    width: 300px;\n    background-color: #1f1f1f;\n    height: 358px;\n    margin-bottom:-100px;\n    z-index: 90;\n    border-top: solid 1px #3d3d3d;\n    border-left: solid 1px #444;\n    transition: all .3s linear;\n}\n.buttonIcon{\n    display: inline-block;\n    margin-right: 10px;\n}\n#walletButton .buttonIcon{\n    fill: #000;\n    transition: all .3s linear;\n}\n.walletAddress b{\n    font-weight:100;\n}\nlabel.myLabel input[type=\"file\"] {\n    position: fixed;\n    top: -1000px;\n}\n\n/* Small Devices, Tablets */\n@media only screen and (max-width : 831px) {\n#walletMenu{\n        width: 100%;\n        margin-top: 40px!important;\n}\n#walletButton{\n        width: 100%!important;\n        border:0;\n        height: 40px;\n        border-top-left-radius: 15px;\n        border-top-right-radius: 15px;\n        margin-bottom: 90px;\n}\n#walletButton span{\n        line-height: 40px;\n        font-size: 22px;\n}\n.walletController .btn{\n        padding: 10px 19px 6px 19px!important;\n        margin-left: 10px;\n}\n.webdollarFont{\n        width: 24px!important;\n}\n#allWalets .walletAddress{\n        margin: 15px 0 0 10px!important;\n}\n#allWalets .walletAddress img{\n        height: 60px!important;\n}\n.walletAddress b{\n        font-size: 22px!important;\n        line-height: 60px!important;\n}\n.walletController{\n        position: relative;\n        width: 100%;\n        border-bottom: solid 5px #333333;\n        background-color: #313131;\n        border-top: solid 5px #313131;\n}\n}\n\n", "", {"version":3,"sources":["/home/alex/WebDollar/User-Interface-WebDollar/src/components/Wallet/src/components/Wallet/Wallet.vue"],"names":[],"mappings":";AA2XA;IACA,cAAA;CACA;AAEA;IACA,UAAA;CACA;AAEA;IACA,eAAA;CACA;AAEA;IACA,4BAAA;CACA;AAEA;IACA,eAAA;IACA,gBAAA;IACA,YAAA;IACA,UAAA;IACA,uBAAA;IACA,SAAA;IACA,mBAAA;IACA,aAAA;IACA,6BAAA;IACA,gBAAA;IACA,0BAAA;IACA,eAAA;IACA,oBAAA;IACA,0BAAA;IACA,gCAAA;IACA,2BAAA;CACA;AAEA;IACA,0BAAA;IACA,2BAAA;CACA;AAEA;IACA,sBAAA;IACA,oBAAA;IACA,cAAA;IACA,iBAAA;IACA,mBAAA;IACA,YAAA;CACA;AAEA;IACA,kBAAA;IAAA,cAAA;IACA,0BAAA;QAAA,+BAAA;IACA,mBAAA;IACA,YAAA;IACA,iCAAA;IACA,0BAAA;CACA;AAEA;IACA,mBAAA;IACA,eAAA;IACA,gBAAA;IACA,qCAAA;CACA;AAEA;IACA,0BAAA;IACA,2BAAA;CACA;AAEA;IACA,gCAAA;CACA;AAEA;IACA,0BAAA;CACA;AAEA;IACA,2BAAA;CACA;AAEA;IACA,YAAA;IACA,kBAAA;IACA,gBAAA;IACA,oBAAA;IACA,2BAAA;CACA;AAEA;IACA,2BAAA;CACA;AAEA;IACA,eAAA;IACA,gBAAA;IACA,UAAA;IACA,SAAA;IACA,aAAA;IACA,0BAAA;IACA,cAAA;IACA,qBAAA;IACA,YAAA;IACA,8BAAA;IACA,4BAAA;IACA,2BAAA;CACA;AAEA;IACA,sBAAA;IACA,mBAAA;CACA;AAEA;IACA,WAAA;IACA,2BAAA;CACA;AAEA;IACA,gBAAA;CACA;AAEA;IACA,gBAAA;IACA,aAAA;CACA;;AAEA,4BAAA;AACA;AACA;QACA,YAAA;QACA,2BAAA;CACA;AACA;QACA,sBAAA;QACA,SAAA;QACA,aAAA;QACA,6BAAA;QACA,8BAAA;QACA,oBAAA;CACA;AACA;QACA,kBAAA;QACA,gBAAA;CACA;AACA;QACA,sCAAA;QACA,kBAAA;CACA;AACA;QACA,sBAAA;CACA;AACA;QACA,gCAAA;CACA;AACA;QACA,uBAAA;CACA;AACA;QACA,0BAAA;QACA,4BAAA;CACA;AACA;QACA,mBAAA;QACA,YAAA;QACA,iCAAA;QACA,0BAAA;QACA,8BAAA;CACA;CAEA","file":"Wallet.vue","sourcesContent":["<template>\n\n    <div class=\"dashboardWallet\" ref=\"dashboardWallet\">\n\n        <div id=\"walletButton\" ref=\"walletMenuButton\" @click=\"this.toggleWallet\" :style=\"{\n                    marginBottom: this.opened ? this.walletButtonMarginOpened+'px': this.walletButtonMarginClosed+'px',\n                    top: this.opened ? this.buttonTopDistanceOpen : this.buttonTopDistanceClose,\n                    borderTopLeftRadius: this.opened ? this.walletButtonRadiusLeftOpen+'px' : this.walletButtonRadiusLeftClose+'px',\n                    borderTopRightRadius: this.opened ? this.walletButtonRadiusRightOpen+'px' : this.walletButtonRadiusRightClose+'px'}\">\n\n            <span id=\"walletButtonText\">\n                <icon class=\"buttonIcon\" :icon=\"this.opened ? 'chevron-down' : 'chevron-up'\"></icon>\n                Wallet\n                <ShowSumBalances :addresses=\"this.addresses\" :currency=\"this.currency\" ref=\"showSumBalances\" />\n            </span>\n        </div>\n\n        <div id=\"walletMenu\" ref=\"walletMenu\" :style=\"{\n                    marginBottom: this.opened ? this.walletMarginOpened+'px': this.walletMarginClosed+'px',\n                    top: this.opened ? this.buttonTopDistanceOpen : this.buttonTopDistanceClose,\n                    marginTop: this.opened ? this.walletMenuMarginTopOpen : this.walletMenuMarginTopClose,\n                    height: this.opened ? this.walletMenuHeightOpen : this.walletMenuHeightClosed}\">\n\n            <div id=\"dashboardWallet\">\n\n                <div class=\"walletController\">\n\n                    <div class=\"btn\" @click=\"this.handleAddNewAddress\">\n                        Add Address\n                    </div>\n                    <label class=\"myLabel\">\n\n                        <input ref=\"importedAddress\" type=\"file\" v-on:change=\"this.importAddress\" multiple size=\"50\" />\n\n                        <div class=\"btn\">\n                            Import Address\n                        </div>\n\n                    </label>\n\n                </div>\n\n                <div class=\"walletSection walletsContainer\" :style=\"{\n                    height: this.walletContentHeight}\">\n                    <div id=\"allWalets\">\n\n                        <Address v-for=\"walletAddress in this.addresses\"\n\n                                     :key=\"walletAddress.address\"\n                                     :id=\"'address'+walletAddress.address\"\n                                     :address=\"walletAddress.address\"\n                                     style=\"padding-right: 20px\"\n\n                        >\n\n                        </Address>\n\n                    </div>\n                </div>\n            </div>\n        </div>\n\n    </div>\n\n</template>\n\n\n\n<script>\n    var Vue = require('vue/dist/vue.min.js');\n\n    import icon from \"components/UI/icons/icon.vue\"\n    import Address from \"./Address/Address.vue\"\n    import BrowserHelpers from \"helpers/Browser.helpers\"\n    import ShowSumBalances from \"components/Wallet/Address/Balance/ShowSumBalances.vue\"\n\n    export default{\n\n        components:{\n            \"icon\":icon,\n            \"Address\":Address,\n            \"ShowSumBalances\":ShowSumBalances,\n        },\n\n        data:  () => {\n            return {\n                opened: false,\n                addresses: [],\n                currency: \"0x01\",\n\n                walletButtonMarginOpened: 0,\n                walletButtonMarginClosed: 0,\n                buttonTopDistanceOpen: 0,\n                buttonTopDistanceClose: 0,\n                walletMarginOpened: 0,\n                walletMarginClosed: 0,\n                walletMenuMarginTopOpen: 0,\n                walletMenuMarginTopClose: 0,\n                walletMenuHeightOpen: 0,\n                walletMenuHeightClosed: 0,\n                walletContentHeight: 315,\n                walletButtonRadiusLeftOpen: 0,\n                walletButtonRadiusLeftClose: 0,\n                walletButtonRadiusRightOpen: 0,\n                walletButtonRadiusRightClose: 0\n            }\n        },\n\n        mounted(){\n\n                //in browser\n              if (typeof window === \"undefined\") return false;\n\n              this.changeScreenBehavior();\n\n              WebDollar.Blockchain.Wallet.emitter.on(\"wallet/address-changes\", (address)=>{\n                  console.log(\"wallet/address-changes\", address)\n                  this.addNewAddress(address);\n              });\n\n              WebDollar.Blockchain.Wallet.emitter.on(\"wallet/changes\", ()=>{\n                  this.loadAllAddresses();\n              });\n\n              //onLoad\n              BrowserHelpers.addEvent(window, \"load\", (event) => {\n                  this.changeScreenBehavior();\n                  this.walletResizeFix();\n              });\n\n              //onResize\n              BrowserHelpers.addEvent(window, \"resize\", (event) => {\n                  this.changeScreenBehavior();\n                  this.walletResizeFix();\n              });\n\n              this.loadAllAddresses();\n\n        },\n\n        methods: {\n\n            changeScreenBehavior(){\n\n                if (window.screenWidth < 831){\n\n                    this.walletButtonMarginOpened = 452;\n                    this.walletButtonMarginClosed = 43;\n\n                    this.walletMarginOpened = 42;\n                    this.walletMarginClosed = -325;\n\n                    this.buttonTopDistanceOpen = '0';\n                    this.buttonTopDistanceClose = 'auto';\n\n                    this.walletMenuMarginTopOpen=this.$refs['walletMenuButton'].clientHeight;\n                    this.walletMenuMarginTopClose='0';\n\n                    this.walletMenuHeightOpen='100%';\n                    this.walletMenuHeightClosed='358px';\n\n                    this.walletContentHeight= window.outerHeight-90;\n\n                    this.walletButtonRadiusLeftOpen= 0;\n                    this.walletButtonRadiusLeftClose= 15;\n\n                    this.walletButtonRadiusRightOpen= 0;\n                    this.walletButtonRadiusRightClose= 15;\n\n                }else{\n\n                    this.walletContentHeight= 315;\n\n                    this.walletButtonMarginOpened = 392;\n                    this.walletButtonMarginClosed = 30;\n\n                    this.walletMarginOpened = 34;\n                    this.walletMarginClosed = -325;\n\n                    this.buttonTopDistanceOpen = 'auto';\n                    this.buttonTopDistanceClose = 'auto';\n\n                    this.walletMenuMarginTopOpen=this.$refs['walletMenuButton'].clientHeight;\n                    this.walletMenuMarginTopClose='0';\n\n                    this.walletMenuHeightOpen='358px';\n                    this.walletMenuHeightClosed='0';\n\n                    this.walletButtonRadiusLeftOpen= 60;\n                    this.walletButtonRadiusLeftClose= 60;\n\n                    this.walletButtonRadiusRightOpen= 0;\n                    this.walletButtonRadiusRightClose= 0;\n\n                }\n\n            },\n\n            toggleWallet(){\n\n                this.opened = !this.opened;\n\n                if(window.screenWidth < 831){\n                    if (this.opened===true)\n                        document.getElementById('dashboardMining').setAttribute('style', 'display:none');\n                    else\n                        document.getElementById('dashboardMining').setAttribute('style', 'display:block');\n\n                }else\n                    document.getElementById('dashboardMining').setAttribute('style', 'display:block');\n\n\n            },\n\n            walletResizeFix(){\n\n                if(window.screenWidth < 831)\n                    if (this.opened===true)\n                        document.getElementById('dashboardMining').setAttribute('style', 'display:none');\n                    else\n                        document.getElementById('dashboardMining').setAttribute('style', 'display:block');\n\n                else\n                    document.getElementById('dashboardMining').setAttribute('style', 'display:block');\n\n\n            },\n\n            handleAddNewAddress(){\n                WebDollar.Blockchain.Wallet.createNewAddress();\n            },\n\n            async importAddress(){\n\n                // dropzone tutorial https://www.html5rocks.com/en/tutorials/file/dndfiles/\n\n                // Check for the various File API support.\n                if ((window.File && window.FileReader && window.FileList && window.Blob) === false){\n                    alert('The File APIs are not fully supported in this browser.');\n                }\n\n                let fileInput = this.$refs['importedAddress'];\n\n                if ('files' in fileInput) {\n                    if (fileInput.files.length === 0) {\n                        alert ( \"Select one or more files.\" );\n                    } else {\n\n                        for (let i = 0; i < fileInput.files.length; i++) {\n\n                            let file = fileInput.files[i];\n                            let extension = file.name.split('.').pop();\n\n//                            console.log(file);\n//                            console.log(extension);\n\n                            if (extension === \"webd\") {\n                                let reader = new FileReader();\n\n                                try {\n                                    reader.onload = async (e) => {\n\n                                        //console.log(reader.result);\n                                        let data = JSON.parse(reader.result);\n\n                                        let answer = await WebDollar.Blockchain.Wallet.importAddressFromPrivateKey(data);\n\n                                        if (answer.result === true){\n                                            console.log(\"Address Imported\", answer.address);\n                                        } else {\n                                            alert(answer.message);\n                                        }\n\n\n                                    };\n\n                                } catch (exception){\n                                    alert(\"Your Uploaded file is not JSON\");\n                                }\n\n                                reader.readAsText(file);\n                            } else {\n                                alert ( \"File not supported!\" )\n                            }\n\n                        }\n\n\n                    }\n                }\n\n\n\n            },\n\n            addNewAddress(address){\n\n                if (address === null || address === undefined) return false;\n\n                for (let i=0; i<this.addresses.length; i++)\n                    if (address.toString() === this.addresses[i].address.toString()){\n                        return false;\n                    }\n\n                this.addAddressToWalletWatch(address);\n            },\n\n            loadAllAddresses(){\n\n                for (let index in this.addresses){\n                    WebDollar.Blockchain.Balances.unsusbribeBalancesChanges(this.addresses[index ].subscription);\n                    this.addresses[ index ].subscription = null;\n                    console.log(\"unsubscribe....\");\n                }\n\n\n                this.addresses = [];\n\n                for (let i=0; i<WebDollar.Blockchain.Wallet.addresses.length; i++) {\n                    this.addAddressToWalletWatch(WebDollar.Blockchain.Wallet.addresses[i].address);\n                }\n\n            },\n\n            addAddressToWalletWatch(address){\n\n                let data = WebDollar.Blockchain.Balances.subscribeBalancesChanges(address, (data)=>{\n\n\n                    console.log(\"balance changed\", address, data);\n\n                    for (let i=0; i<this.addresses.length; i++)\n                        if (this.addresses[i].address === address ){\n\n                            this.addresses[i].balances = data.balances;\n                            this.addresses[i] = Object.assign( {}, this.addresses[i], { });\n                            this.$refs['showSumBalances'].refreshSum(this.addresses, this.currency);\n\n                            break;\n                        }\n\n                    // immutable array\n                    // this.addresses = Object.assign( {}, this.addresses, { });\n\n                    this.$forceUpdate();\n\n                });\n\n                if (data !== null) {\n\n                    let element =  {address: address, balances: data.balances, subscription: data.subscription};\n                    this.addresses.push (element);\n\n                }\n\n            },\n\n            deleteAddress(address){\n\n                if (address === null || address === undefined) return false;\n\n                for (let keyAddress in this.addresses)\n                    if (address.toString() === this.addresses[keyAddress].address.toString()){\n\n                        WebDollar.Blockchain.Balances.unsusbribeBalancesChanges(this.addresses[keyAddress].subscription);\n                        this.addresses.splice(i,1);\n                        return true;\n                    }\n\n                return false;\n            }\n\n        }\n\n    }\n\n</script>\n\n<style>\n\n    #myWalletImport{\n        display: none;\n    }\n\n    .vue-slider-component.vue-slider-horizontal .vue-slider-dot{\n        left:-5px;\n    }\n\n    #walletButtonText{\n        color: #1f1f1f;\n    }\n\n    .mainAddress{\n        background-color: #fec02c14;\n    }\n\n    #walletButton {\n        margin: 0 auto;\n        position: fixed;\n        z-index: 85;\n        bottom: 0;\n        width: 299px!important;\n        right: 0;\n        text-align: center;\n        height: 50px;\n        border-top-left-radius: 60px;\n        cursor: pointer;\n        background-color: #fec02c;\n        color: #1f1f1f;\n        margin-bottom: 20px;\n        border: solid 1px #444444;\n        border-right: solid 1px #fec02c;\n        transition: all .3s linear;\n    }\n\n    #walletButton:hover{\n        background-color: #fec02c;\n        transition: all .3s linear;\n    }\n\n    .walletSection{\n        display: inline-block;\n        vertical-align: top;\n        height: 315px;\n        overflow-y: auto;\n        overflow-x: hidden;\n        width: 100%;\n    }\n\n    .walletController{\n        display: grid;\n        grid-template-columns: 1fr 1fr;\n        position: relative;\n        width: 100%;\n        border-bottom: solid 1px #333333;\n        background-color: #313131;\n    }\n\n    .walletController .btn{\n        text-align: center;\n        color: #b5b5b5;\n        cursor: pointer;\n        padding: 8px 19px 6px 19px!important;\n    }\n\n    .walletController .btn:hover{\n        background-color: #44403f;\n        transition: all .3s linear;\n    }\n\n    .walletController .btn:first-child{\n        border-right: solid 1px #3c3b3b;\n    }\n\n    .allWallets div{\n        border: solid 1px #545454;\n    }\n\n    #walletButton:hover{\n        transition: all .3s linear;\n    }\n\n    #walletButton span{\n        width: 100%;\n        line-height: 50px;\n        font-size: 20px;\n        font-weight: bolder;\n        transition: all .3s linear;\n    }\n\n    #walletButton span:hover{\n        transition: all .3s linear;\n    }\n\n    #walletMenu{\n        margin: 0 auto;\n        position: fixed;\n        bottom: 0;\n        right: 0;\n        width: 300px;\n        background-color: #1f1f1f;\n        height: 358px;\n        margin-bottom:-100px;\n        z-index: 90;\n        border-top: solid 1px #3d3d3d;\n        border-left: solid 1px #444;\n        transition: all .3s linear;\n    }\n\n    .buttonIcon{\n        display: inline-block;\n        margin-right: 10px;\n    }\n\n    #walletButton .buttonIcon{\n        fill: #000;\n        transition: all .3s linear;\n    }\n\n    .walletAddress b{\n        font-weight:100;\n    }\n\n    label.myLabel input[type=\"file\"] {\n        position: fixed;\n        top: -1000px;\n    }\n\n    /* Small Devices, Tablets */\n    @media only screen and (max-width : 831px) {\n        #walletMenu{\n            width: 100%;\n            margin-top: 40px!important;\n        }\n        #walletButton{\n            width: 100%!important;\n            border:0;\n            height: 40px;\n            border-top-left-radius: 15px;\n            border-top-right-radius: 15px;\n            margin-bottom: 90px;\n        }\n        #walletButton span{\n            line-height: 40px;\n            font-size: 22px;\n        }\n        .walletController .btn{\n            padding: 10px 19px 6px 19px!important;\n            margin-left: 10px;\n        }\n        .webdollarFont{\n            width: 24px!important;\n        }\n        #allWalets .walletAddress{\n            margin: 15px 0 0 10px!important;\n        }\n        #allWalets .walletAddress img{\n            height: 60px!important;\n        }\n        .walletAddress b{\n            font-size: 22px!important;\n            line-height: 60px!important;\n        }\n        .walletController{\n            position: relative;\n            width: 100%;\n            border-bottom: solid 5px #333333;\n            background-color: #313131;\n            border-top: solid 5px #313131;\n        }\n\n    }\n\n</style>"],"sourceRoot":""}]);
+exports.push([module.i, "\n#myWalletImport{\n    display: none;\n}\n.vue-slider-component.vue-slider-horizontal .vue-slider-dot{\n    left:-5px;\n}\n#walletButtonText{\n    color: #1f1f1f;\n}\n.mainAddress{\n    background-color: #fec02c14;\n}\n#walletButton {\n    margin: 0 auto;\n    position: fixed;\n    z-index: 85;\n    bottom: 0;\n    width: 299px!important;\n    right: 0;\n    text-align: center;\n    height: 50px;\n    border-top-left-radius: 60px;\n    cursor: pointer;\n    background-color: #fec02c;\n    color: #1f1f1f;\n    margin-bottom: 20px;\n    border: solid 1px #444444;\n    border-right: solid 1px #fec02c;\n    transition: all .3s linear;\n}\n#walletButton:hover{\n    background-color: #fec02c;\n    transition: all .3s linear;\n}\n.walletSection{\n    display: inline-block;\n    vertical-align: top;\n    height: 315px;\n    overflow-y: auto;\n    overflow-x: hidden;\n    width: 100%;\n}\n.walletController{\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-columns: 1fr 1fr;\n        grid-template-columns: 1fr 1fr;\n    position: relative;\n    width: 100%;\n    border-bottom: solid 1px #333333;\n    background-color: #313131;\n}\n.walletController .btn{\n    text-align: center;\n    color: #b5b5b5;\n    cursor: pointer;\n    padding: 8px 19px 6px 19px!important;\n}\n.walletController .btn:hover{\n    background-color: #44403f;\n    transition: all .3s linear;\n}\n.walletController .btn:first-child{\n    border-right: solid 1px #3c3b3b;\n}\n.allWallets div{\n    border: solid 1px #545454;\n}\n#walletButton:hover{\n    transition: all .3s linear;\n}\n#walletButton span{\n    width: 100%;\n    line-height: 50px;\n    font-size: 20px;\n    font-weight: bolder;\n    transition: all .3s linear;\n}\n#walletButton span:hover{\n    transition: all .3s linear;\n}\n#walletMenu{\n    margin: 0 auto;\n    position: fixed;\n    bottom: 0;\n    right: 0;\n    width: 300px;\n    background-color: #1f1f1f;\n    height: 358px;\n    margin-bottom:-100px;\n    z-index: 90;\n    border-top: solid 1px #3d3d3d;\n    border-left: solid 1px #444;\n    transition: all .3s linear;\n}\n.buttonIcon{\n    display: inline-block;\n    margin-right: 10px;\n}\n.dashboardWallet{\n    -moz-user-select: none; /* Firefox */\n    -ms-user-select: none; /* Internet Explorer */\n    -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */\n    -webkit-user-select: none; /* Chrome, Safari, and Opera */\n    -webkit-touch-callout: none; /* Disable Android and iOS callouts*/\n}\n#walletButton .buttonIcon{\n    fill: #000;\n    transition: all .3s linear;\n}\n.walletAddress b{\n    font-weight:100;\n}\nlabel.myLabel input[type=\"file\"] {\n    position: fixed;\n    top: -1000px;\n}\n\n/* Small Devices, Tablets */\n@media only screen and (max-width : 831px) {\n#walletMenu{\n        width: 100%;\n        margin-top: 40px!important;\n}\n#walletButton{\n        width: 100%!important;\n        border:0;\n        height: 40px;\n        border-top-left-radius: 15px;\n        border-top-right-radius: 15px;\n        margin-bottom: 90px;\n}\n#walletButton span{\n        line-height: 40px;\n        font-size: 22px;\n}\n.walletController .btn{\n        padding: 10px 19px 6px 19px!important;\n        margin-left: 10px;\n}\n.webdollarFont{\n        width: 24px!important;\n}\n#allWalets .walletAddress{\n        margin: 15px 0 0 10px!important;\n}\n#allWalets .walletAddress img{\n        height: 60px!important;\n}\n.walletAddress b{\n        font-size: 22px!important;\n        line-height: 60px!important;\n}\n.walletController{\n        position: relative;\n        width: 100%;\n        border-bottom: solid 5px #333333;\n        background-color: #313131;\n        border-top: solid 5px #313131;\n}\n}\n\n", "", {"version":3,"sources":["/home/alex/WebDollar/User-Interface-WebDollar/src/components/Wallet/src/components/Wallet/Wallet.vue"],"names":[],"mappings":";AA+XA;IACA,cAAA;CACA;AAEA;IACA,UAAA;CACA;AAEA;IACA,eAAA;CACA;AAEA;IACA,4BAAA;CACA;AAEA;IACA,eAAA;IACA,gBAAA;IACA,YAAA;IACA,UAAA;IACA,uBAAA;IACA,SAAA;IACA,mBAAA;IACA,aAAA;IACA,6BAAA;IACA,gBAAA;IACA,0BAAA;IACA,eAAA;IACA,oBAAA;IACA,0BAAA;IACA,gCAAA;IACA,2BAAA;CACA;AAEA;IACA,0BAAA;IACA,2BAAA;CACA;AAEA;IACA,sBAAA;IACA,oBAAA;IACA,cAAA;IACA,iBAAA;IACA,mBAAA;IACA,YAAA;CACA;AAEA;IACA,kBAAA;IAAA,cAAA;IACA,0BAAA;QAAA,+BAAA;IACA,mBAAA;IACA,YAAA;IACA,iCAAA;IACA,0BAAA;CACA;AAEA;IACA,mBAAA;IACA,eAAA;IACA,gBAAA;IACA,qCAAA;CACA;AAEA;IACA,0BAAA;IACA,2BAAA;CACA;AAEA;IACA,gCAAA;CACA;AAEA;IACA,0BAAA;CACA;AAEA;IACA,2BAAA;CACA;AAEA;IACA,YAAA;IACA,kBAAA;IACA,gBAAA;IACA,oBAAA;IACA,2BAAA;CACA;AAEA;IACA,2BAAA;CACA;AAEA;IACA,eAAA;IACA,gBAAA;IACA,UAAA;IACA,SAAA;IACA,aAAA;IACA,0BAAA;IACA,cAAA;IACA,qBAAA;IACA,YAAA;IACA,8BAAA;IACA,4BAAA;IACA,2BAAA;CACA;AAEA;IACA,sBAAA;IACA,mBAAA;CACA;AAEA;IACA,uBAAA,CAAA,aAAA;IACA,sBAAA,CAAA,uBAAA;IACA,yBAAA,CAAA,qCAAA;IACA,0BAAA,CAAA,+BAAA;IACA,4BAAA,CAAA,qCAAA;CACA;AAEA;IACA,WAAA;IACA,2BAAA;CACA;AAEA;IACA,gBAAA;CACA;AAEA;IACA,gBAAA;IACA,aAAA;CACA;;AAEA,4BAAA;AACA;AACA;QACA,YAAA;QACA,2BAAA;CACA;AACA;QACA,sBAAA;QACA,SAAA;QACA,aAAA;QACA,6BAAA;QACA,8BAAA;QACA,oBAAA;CACA;AACA;QACA,kBAAA;QACA,gBAAA;CACA;AACA;QACA,sCAAA;QACA,kBAAA;CACA;AACA;QACA,sBAAA;CACA;AACA;QACA,gCAAA;CACA;AACA;QACA,uBAAA;CACA;AACA;QACA,0BAAA;QACA,4BAAA;CACA;AACA;QACA,mBAAA;QACA,YAAA;QACA,iCAAA;QACA,0BAAA;QACA,8BAAA;CACA;CAEA","file":"Wallet.vue","sourcesContent":["<template>\n\n    <div class=\"dashboardWallet\" ref=\"dashboardWallet\">\n\n        <div id=\"walletButton\" ref=\"walletMenuButton\" @click=\"this.toggleWallet\" :style=\"{\n                    marginBottom: this.opened ? this.walletButtonMarginOpened+'px': this.walletButtonMarginClosed+'px',\n                    top: this.opened ? this.buttonTopDistanceOpen : this.buttonTopDistanceClose,\n                    borderTopLeftRadius: this.opened ? this.walletButtonRadiusLeftOpen+'px' : this.walletButtonRadiusLeftClose+'px',\n                    borderTopRightRadius: this.opened ? this.walletButtonRadiusRightOpen+'px' : this.walletButtonRadiusRightClose+'px'}\">\n\n            <span id=\"walletButtonText\">\n                <icon class=\"buttonIcon\" :icon=\"this.opened ? 'chevron-down' : 'chevron-up'\"></icon>\n                Wallet\n                <ShowSumBalances :addresses=\"this.addresses\" :currency=\"this.currency\" ref=\"showSumBalances\" />\n            </span>\n        </div>\n\n        <div id=\"walletMenu\" ref=\"walletMenu\" :style=\"{\n                    marginBottom: this.opened ? this.walletMarginOpened+'px': this.walletMarginClosed+'px',\n                    top: this.opened ? this.buttonTopDistanceOpen : this.buttonTopDistanceClose,\n                    marginTop: this.opened ? this.walletMenuMarginTopOpen : this.walletMenuMarginTopClose,\n                    height: this.opened ? this.walletMenuHeightOpen : this.walletMenuHeightClosed}\">\n\n            <div id=\"dashboardWallet\">\n\n                <div class=\"walletController\">\n\n                    <div class=\"btn\" @click=\"this.handleAddNewAddress\">\n                        Add Address\n                    </div>\n                    <label class=\"myLabel\">\n\n                        <input ref=\"importedAddress\" type=\"file\" v-on:change=\"this.importAddress\" multiple size=\"50\" />\n\n                        <div class=\"btn\">\n                            Import Address\n                        </div>\n\n                    </label>\n\n                </div>\n\n                <div class=\"walletSection walletsContainer\" :style=\"{\n                    height: this.walletContentHeight}\">\n                    <div id=\"allWalets\">\n\n                        <Address v-for=\"walletAddress in this.addresses\"\n\n                                     :isMiningAddress=\"miningAddress === walletAddress.address\"\n                                     :key=\"walletAddress.address\"\n                                     :id=\"'address'+walletAddress.address\"\n                                     :address=\"walletAddress.address\"\n                                     style=\"padding-right: 20px\"\n\n                        >\n\n                        </Address>\n\n                    </div>\n                </div>\n            </div>\n        </div>\n\n    </div>\n\n</template>\n\n\n\n<script>\n    var Vue = require('vue/dist/vue.min.js');\n\n    import icon from \"components/UI/icons/icon.vue\"\n    import Address from \"./Address/Address.vue\"\n    import BrowserHelpers from \"helpers/Browser.helpers\"\n    import ShowSumBalances from \"components/Wallet/Address/Balance/ShowSumBalances.vue\"\n\n    export default{\n\n        components:{\n            \"icon\":icon,\n            \"Address\":Address,\n            \"ShowSumBalances\":ShowSumBalances,\n        },\n\n        data:  () => {\n            return {\n                opened: false,\n                addresses: [],\n                miningAddress: '',\n                currency: \"0x01\",\n\n                walletButtonMarginOpened: 0,\n                walletButtonMarginClosed: 0,\n                buttonTopDistanceOpen: 0,\n                buttonTopDistanceClose: 0,\n                walletMarginOpened: 0,\n                walletMarginClosed: 0,\n                walletMenuMarginTopOpen: 0,\n                walletMenuMarginTopClose: 0,\n                walletMenuHeightOpen: 0,\n                walletMenuHeightClosed: 0,\n                walletContentHeight: 315,\n                walletButtonRadiusLeftOpen: 0,\n                walletButtonRadiusLeftClose: 0,\n                walletButtonRadiusRightOpen: 0,\n                walletButtonRadiusRightClose: 0\n            }\n        },\n\n        mounted(){\n\n                //in browser\n              if (typeof window === \"undefined\") return false;\n\n              this.changeScreenBehavior();\n\n              WebDollar.Blockchain.Wallet.emitter.on(\"wallet/address-changes\", (address)=>{\n                  console.log(\"wallet/address-changes\", address)\n                  this.addNewAddress(address);\n              });\n\n              WebDollar.Blockchain.Wallet.emitter.on(\"wallet/changes\", ()=>{\n                  this.loadAllAddresses();\n              });\n\n              WebDollar.Blockchain.emitter.on(\"blockchain/mining/address\", (data)=>{\n                  this.miningAddress = data.address;\n              });\n              this.miningAddress = WebDollar.Blockchain.Mining.minerAddressBase;\n\n              //onLoad\n              BrowserHelpers.addEvent(window, \"load\", (event) => {\n                  this.changeScreenBehavior();\n                  this.walletResizeFix();\n              });\n\n              //onResize\n              BrowserHelpers.addEvent(window, \"resize\", (event) => {\n                  this.changeScreenBehavior();\n                  this.walletResizeFix();\n              });\n\n              this.loadAllAddresses();\n\n        },\n\n        methods: {\n\n            changeScreenBehavior(){\n\n                if (window.screenWidth < 831){\n\n                    this.walletButtonMarginOpened = 452;\n                    this.walletButtonMarginClosed = 43;\n\n                    this.walletMarginOpened = 42;\n                    this.walletMarginClosed = -325;\n\n                    this.buttonTopDistanceOpen = '0';\n                    this.buttonTopDistanceClose = 'auto';\n\n                    this.walletMenuMarginTopOpen=this.$refs['walletMenuButton'].clientHeight;\n                    this.walletMenuMarginTopClose='0';\n\n                    this.walletMenuHeightOpen='100%';\n                    this.walletMenuHeightClosed='358px';\n\n                    this.walletContentHeight= window.outerHeight-90;\n\n                    this.walletButtonRadiusLeftOpen= 0;\n                    this.walletButtonRadiusLeftClose= 15;\n\n                    this.walletButtonRadiusRightOpen= 0;\n                    this.walletButtonRadiusRightClose= 15;\n\n                }else{\n\n                    this.walletContentHeight= 315;\n\n                    this.walletButtonMarginOpened = 392;\n                    this.walletButtonMarginClosed = 30;\n\n                    this.walletMarginOpened = 34;\n                    this.walletMarginClosed = -325;\n\n                    this.buttonTopDistanceOpen = 'auto';\n                    this.buttonTopDistanceClose = 'auto';\n\n                    this.walletMenuMarginTopOpen=this.$refs['walletMenuButton'].clientHeight;\n                    this.walletMenuMarginTopClose='0';\n\n                    this.walletMenuHeightOpen='358px';\n                    this.walletMenuHeightClosed='0';\n\n                    this.walletButtonRadiusLeftOpen= 60;\n                    this.walletButtonRadiusLeftClose= 60;\n\n                    this.walletButtonRadiusRightOpen= 0;\n                    this.walletButtonRadiusRightClose= 0;\n\n                }\n\n            },\n\n            toggleWallet(){\n\n                this.opened = !this.opened;\n\n                if(window.screenWidth < 831){\n                    if (this.opened===true)\n                        document.getElementById('dashboardMining').setAttribute('style', 'display:none');\n                    else\n                        document.getElementById('dashboardMining').setAttribute('style', 'display:block');\n\n                }else\n                    document.getElementById('dashboardMining').setAttribute('style', 'display:block');\n\n\n            },\n\n            walletResizeFix(){\n\n                if(window.screenWidth < 831)\n                    if (this.opened===true)\n                        document.getElementById('dashboardMining').setAttribute('style', 'display:none');\n                    else\n                        document.getElementById('dashboardMining').setAttribute('style', 'display:block');\n\n                else\n                    document.getElementById('dashboardMining').setAttribute('style', 'display:block');\n\n\n            },\n\n            handleAddNewAddress(){\n                WebDollar.Blockchain.Wallet.createNewAddress();\n            },\n\n            async importAddress(){\n\n                // dropzone tutorial https://www.html5rocks.com/en/tutorials/file/dndfiles/\n\n                // Check for the various File API support.\n                if ((window.File && window.FileReader && window.FileList && window.Blob) === false){\n                    alert('The File APIs are not fully supported in this browser.');\n                }\n\n                let fileInput = this.$refs['importedAddress'];\n\n                if ('files' in fileInput) {\n                    if (fileInput.files.length === 0) {\n                        alert ( \"Select one or more files.\" );\n                    } else {\n\n                        for (let i = 0; i < fileInput.files.length; i++) {\n\n                            let file = fileInput.files[i];\n                            let extension = file.name.split('.').pop();\n\n//                            console.log(file);\n//                            console.log(extension);\n\n                            if (extension === \"webd\") {\n                                let reader = new FileReader();\n\n                                try {\n                                    reader.onload = async (e) => {\n\n                                        //console.log(reader.result);\n                                        let data = JSON.parse(reader.result);\n\n                                        let answer = await WebDollar.Blockchain.Wallet.importAddressFromPrivateKey(data);\n\n                                        if (answer.result === true){\n                                            console.log(\"Address Imported\", answer.address);\n                                        } else {\n                                            alert(answer.message);\n                                        }\n\n\n                                    };\n\n                                } catch (exception){\n                                    alert(\"Your Uploaded file is not JSON\");\n                                }\n\n                                reader.readAsText(file);\n                            } else {\n                                alert ( \"File not supported!\" )\n                            }\n\n                        }\n\n\n                    }\n                }\n\n\n\n            },\n\n            addNewAddress(address){\n\n                if (address === null || address === undefined) return false;\n\n                for (let i=0; i<this.addresses.length; i++)\n                    if (address.toString() === this.addresses[i].address.toString()){\n                        return false;\n                    }\n\n                this.addAddressToWalletWatch(address);\n            },\n\n            loadAllAddresses(){\n\n                for (let index in this.addresses){\n                    WebDollar.Blockchain.Balances.unsusbribeBalancesChanges(this.addresses[index ].subscription);\n                    this.addresses[ index ].subscription = null;\n                    console.log(\"unsubscribe....\");\n                }\n\n\n                this.addresses = [];\n\n                for (let i=0; i<WebDollar.Blockchain.Wallet.addresses.length; i++) {\n                    this.addAddressToWalletWatch(WebDollar.Blockchain.Wallet.addresses[i].address);\n                }\n\n            },\n\n            addAddressToWalletWatch(address){\n\n                let data = WebDollar.Blockchain.Balances.subscribeBalancesChanges(address, (data)=>{\n\n                    for (let i=0; i<this.addresses.length; i++)\n                        if (this.addresses[i].address === address ){\n\n                            this.addresses[i].balances = data.balances;\n                            this.addresses[i] = Object.assign( {}, this.addresses[i], { });\n                            this.$refs['showSumBalances'].refreshSum(this.addresses, this.currency);\n\n                            break;\n                        }\n\n                    // immutable array\n                    // this.addresses = Object.assign( {}, this.addresses, { });\n\n                    this.$forceUpdate();\n\n                });\n\n                if (data !== null) {\n\n                    let element =  {address: address, balances: data.balances, subscription: data.subscription};\n                    this.addresses.push (element);\n\n                }\n\n            },\n\n            deleteAddress(address){\n\n                if (address === null || address === undefined) return false;\n\n                for (let keyAddress in this.addresses)\n                    if (address.toString() === this.addresses[keyAddress].address.toString()){\n\n                        WebDollar.Blockchain.Balances.unsusbribeBalancesChanges(this.addresses[keyAddress].subscription);\n                        this.addresses.splice(i,1);\n                        return true;\n                    }\n\n                return false;\n            }\n\n        }\n\n    }\n\n</script>\n\n<style>\n\n    #myWalletImport{\n        display: none;\n    }\n\n    .vue-slider-component.vue-slider-horizontal .vue-slider-dot{\n        left:-5px;\n    }\n\n    #walletButtonText{\n        color: #1f1f1f;\n    }\n\n    .mainAddress{\n        background-color: #fec02c14;\n    }\n\n    #walletButton {\n        margin: 0 auto;\n        position: fixed;\n        z-index: 85;\n        bottom: 0;\n        width: 299px!important;\n        right: 0;\n        text-align: center;\n        height: 50px;\n        border-top-left-radius: 60px;\n        cursor: pointer;\n        background-color: #fec02c;\n        color: #1f1f1f;\n        margin-bottom: 20px;\n        border: solid 1px #444444;\n        border-right: solid 1px #fec02c;\n        transition: all .3s linear;\n    }\n\n    #walletButton:hover{\n        background-color: #fec02c;\n        transition: all .3s linear;\n    }\n\n    .walletSection{\n        display: inline-block;\n        vertical-align: top;\n        height: 315px;\n        overflow-y: auto;\n        overflow-x: hidden;\n        width: 100%;\n    }\n\n    .walletController{\n        display: grid;\n        grid-template-columns: 1fr 1fr;\n        position: relative;\n        width: 100%;\n        border-bottom: solid 1px #333333;\n        background-color: #313131;\n    }\n\n    .walletController .btn{\n        text-align: center;\n        color: #b5b5b5;\n        cursor: pointer;\n        padding: 8px 19px 6px 19px!important;\n    }\n\n    .walletController .btn:hover{\n        background-color: #44403f;\n        transition: all .3s linear;\n    }\n\n    .walletController .btn:first-child{\n        border-right: solid 1px #3c3b3b;\n    }\n\n    .allWallets div{\n        border: solid 1px #545454;\n    }\n\n    #walletButton:hover{\n        transition: all .3s linear;\n    }\n\n    #walletButton span{\n        width: 100%;\n        line-height: 50px;\n        font-size: 20px;\n        font-weight: bolder;\n        transition: all .3s linear;\n    }\n\n    #walletButton span:hover{\n        transition: all .3s linear;\n    }\n\n    #walletMenu{\n        margin: 0 auto;\n        position: fixed;\n        bottom: 0;\n        right: 0;\n        width: 300px;\n        background-color: #1f1f1f;\n        height: 358px;\n        margin-bottom:-100px;\n        z-index: 90;\n        border-top: solid 1px #3d3d3d;\n        border-left: solid 1px #444;\n        transition: all .3s linear;\n    }\n\n    .buttonIcon{\n        display: inline-block;\n        margin-right: 10px;\n    }\n\n    .dashboardWallet{\n        -moz-user-select: none; /* Firefox */\n        -ms-user-select: none; /* Internet Explorer */\n        -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */\n        -webkit-user-select: none; /* Chrome, Safari, and Opera */\n        -webkit-touch-callout: none; /* Disable Android and iOS callouts*/\n    }\n\n    #walletButton .buttonIcon{\n        fill: #000;\n        transition: all .3s linear;\n    }\n\n    .walletAddress b{\n        font-weight:100;\n    }\n\n    label.myLabel input[type=\"file\"] {\n        position: fixed;\n        top: -1000px;\n    }\n\n    /* Small Devices, Tablets */\n    @media only screen and (max-width : 831px) {\n        #walletMenu{\n            width: 100%;\n            margin-top: 40px!important;\n        }\n        #walletButton{\n            width: 100%!important;\n            border:0;\n            height: 40px;\n            border-top-left-radius: 15px;\n            border-top-right-radius: 15px;\n            margin-bottom: 90px;\n        }\n        #walletButton span{\n            line-height: 40px;\n            font-size: 22px;\n        }\n        .walletController .btn{\n            padding: 10px 19px 6px 19px!important;\n            margin-left: 10px;\n        }\n        .webdollarFont{\n            width: 24px!important;\n        }\n        #allWalets .walletAddress{\n            margin: 15px 0 0 10px!important;\n        }\n        #allWalets .walletAddress img{\n            height: 60px!important;\n        }\n        .walletAddress b{\n            font-size: 22px!important;\n            line-height: 60px!important;\n        }\n        .walletController{\n            position: relative;\n            width: 100%;\n            border-bottom: solid 5px #333333;\n            background-color: #313131;\n            border-top: solid 5px #313131;\n        }\n\n    }\n\n</style>"],"sourceRoot":""}]);
 
 // exports
 
@@ -5977,7 +6060,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.webdollarFont{\n    cursor: pointer;\n    color: #f6cd69;\n    transition: all .5s linear;\n    text-decoration: none;\n    width: 14px;\n}\n.webdollarFont path{\n    fill: #f6cd69;\n}\n\n", "", {"version":3,"sources":["/home/alex/WebDollar/User-Interface-WebDollar/src/components/UI/icons/src/components/UI/icons/icon.vue"],"names":[],"mappings":";AAmEA;IACA,gBAAA;IACA,eAAA;IACA,2BAAA;IACA,sBAAA;IACA,YAAA;CACA;AAEA;IACA,cAAA;CACA","file":"icon.vue","sourcesContent":["<!--\nDownload svgs from https://icomoon.io/app/#/select/image\n-->\n\n<template>\n\n    <div @click=\"this.handleClick\">\n\n        <svgChevronUp v-if=\"this.icon === 'chevron-up'\"></svgChevronUp>\n        <svgChevronDown v-if=\"this.icon === 'chevron-down'\"></svgChevronDown>\n        <svgKey v-if=\"this.icon === 'key'\"></svgKey>\n        <svgLockClosed v-if=\"this.icon === 'lock-closed'\"></svgLockClosed>\n        <svgLockOpen v-if=\"this.icon === 'lock-open'\"></svgLockOpen>\n        <svgPlus v-if=\"this.icon === 'plus'\"></svgPlus>\n        <svgPlusSquare v-if=\"this.icon === 'plus-square'\"></svgPlusSquare>\n        <svgX v-if=\"this.icon === 'x'\"></svgX>\n        <svgUpload v-if=\"this.icon === 'upload'\"></svgUpload>\n        <svgDownload v-if=\"this.icon === 'download'\"></svgDownload>\n\n    </div>\n\n</template>\n\n\n<script>\n\n    import svgChevronDown from \"./res/svg-chevron-down.vue\"\n    import svgChevronUp from \"./res/svg-chevron-up.vue\"\n    import svgKey from \"./res/svg-key.vue\"\n    import svgLockClosed from \"./res/svg-lock-closed.vue\"\n    import svgLockOpen from \"./res/svg-lock-open.vue\"\n    import svgPlus from \"./res/svg-plus.vue\"\n    import svgPlusSquare from \"./res/svg-plus-square.vue\"\n    import svgX from \"./res/svg-x.vue\"\n    import svgUpload from \"./res/svg-upload.vue\"\n    import svgDownload from \"./res/svg-download.vue\"\n\n    export default{\n\n        props:{\n            icon: {default: ''}\n        },\n\n        components:{\n            \"svgKey\": svgKey,\n            \"svgChevronDown\": svgChevronDown,\n            \"svgChevronUp\": svgChevronUp,\n            \"svgLockClosed\": svgLockClosed,\n            \"svgLockOpen\": svgLockOpen,\n            \"svgPlus\": svgPlus,\n            \"svgPlusSquare\": svgPlusSquare,\n            \"svgX\": svgX,\n            \"svgDownload\": svgDownload,\n            \"svgUpload\": svgUpload,\n        },\n\n        methods:{\n\n            handleClick(e){\n                this.$emit('click',e );\n            }\n\n        }\n\n    }\n</script>\n\n<style>\n    .webdollarFont{\n        cursor: pointer;\n        color: #f6cd69;\n        transition: all .5s linear;\n        text-decoration: none;\n        width: 14px;\n    }\n\n    .webdollarFont path{\n        fill: #f6cd69;\n    }\n\n</style>"],"sourceRoot":""}]);
+exports.push([module.i, "\n.webdollarFont{\n    cursor: pointer;\n    color: #f6cd69;\n    transition: all .5s linear;\n    text-decoration: none;\n    width: 14px;\n}\n.webdollarFont path{\n    fill: #f6cd69;\n}\n\n", "", {"version":3,"sources":["/home/alex/WebDollar/User-Interface-WebDollar/src/components/UI/icons/src/components/UI/icons/icon.vue"],"names":[],"mappings":";AAsEA;IACA,gBAAA;IACA,eAAA;IACA,2BAAA;IACA,sBAAA;IACA,YAAA;CACA;AAEA;IACA,cAAA;CACA","file":"icon.vue","sourcesContent":["<!--\nDownload svgs from https://icomoon.io/app/#/select/image\n-->\n\n<template>\n\n    <div @click=\"this.handleClick\">\n\n        <svg-chevron-up v-if=\"this.icon === 'chevron-up'\"></svg-chevron-up>\n        <svg-chevron-down v-if=\"this.icon === 'chevron-down'\"></svg-chevron-down>\n        <svg-key v-if=\"this.icon === 'key'\"></svg-key>\n        <svg-lock-closed v-if=\"this.icon === 'lock-closed'\"></svg-lock-closed>\n        <svg-lock-open v-if=\"this.icon === 'lock-open'\"></svg-lock-open>\n        <svg-plus v-if=\"this.icon === 'plus'\"></svg-plus>\n        <svg-plus-square v-if=\"this.icon === 'plus-square'\"></svg-plus-square>\n        <svg-x v-if=\"this.icon === 'x'\"></svg-x>\n        <svg-upload v-if=\"this.icon === 'upload'\"></svg-upload>\n        <svg-download v-if=\"this.icon === 'download'\"></svg-download>\n        <svg-mining v-if=\"this.icon === 'mining'\"></svg-mining>\n\n    </div>\n\n</template>\n\n\n<script>\n\n    import svgChevronDown from \"./res/svg-chevron-down.vue\"\n    import svgChevronUp from \"./res/svg-chevron-up.vue\"\n    import svgKey from \"./res/svg-key.vue\"\n    import svgLockClosed from \"./res/svg-lock-closed.vue\"\n    import svgLockOpen from \"./res/svg-lock-open.vue\"\n    import svgPlus from \"./res/svg-plus.vue\"\n    import svgPlusSquare from \"./res/svg-plus-square.vue\"\n    import svgX from \"./res/svg-x.vue\"\n    import svgUpload from \"./res/svg-upload.vue\"\n    import svgDownload from \"./res/svg-download.vue\"\n    import svgMining from \"./res/svg-mining.vue\"\n\n    export default{\n\n        props:{\n            icon: {default: ''}\n        },\n\n        components:{\n            \"svg-key\": svgKey,\n            \"svg-chevron-down\": svgChevronDown,\n            \"svg-chevron-up\": svgChevronUp,\n            \"svg-lock-closed\": svgLockClosed,\n            \"svg-lock-open\": svgLockOpen,\n            \"svg-plus\": svgPlus,\n            \"svg-plus-square\": svgPlusSquare,\n            \"svg-x\": svgX,\n            \"svg-download\": svgDownload,\n            \"svg-upload\": svgUpload,\n            \"svg-mining\": svgMining,\n        },\n\n        methods:{\n\n            handleClick(e){\n                this.$emit('click',e );\n            }\n\n        }\n\n    }\n</script>\n\n<style>\n    .webdollarFont{\n        cursor: pointer;\n        color: #f6cd69;\n        transition: all .5s linear;\n        text-decoration: none;\n        width: 14px;\n    }\n\n    .webdollarFont path{\n        fill: #f6cd69;\n    }\n\n</style>"],"sourceRoot":""}]);
 
 // exports
 
@@ -5987,7 +6070,7 @@ exports.push([module.i, "\n.webdollarFont{\n    cursor: pointer;\n    color: #f6
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_svg_chevron_down_vue__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_svg_chevron_down_vue__ = __webpack_require__(12);
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_21e1e19c_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_svg_chevron_down_vue__ = __webpack_require__(47);
 var disposed = false
@@ -6081,7 +6164,7 @@ if (false) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_svg_chevron_up_vue__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_svg_chevron_up_vue__ = __webpack_require__(13);
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_77029795_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_svg_chevron_up_vue__ = __webpack_require__(49);
 var disposed = false
@@ -6709,7 +6792,7 @@ if (false) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_svg_upload_vue__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_svg_upload_vue__ = __webpack_require__(14);
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6a688829_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_svg_upload_vue__ = __webpack_require__(63);
 var disposed = false
@@ -6795,7 +6878,7 @@ if (false) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_svg_download_vue__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_svg_download_vue__ = __webpack_require__(15);
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5814e330_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_svg_download_vue__ = __webpack_require__(65);
 var disposed = false
@@ -6885,6 +6968,96 @@ if (false) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_template_compiler_index_id_data_v_62f432f8_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_svg_mining_vue__ = __webpack_require__(67);
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = null
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_template_compiler_index_id_data_v_62f432f8_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_svg_mining_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src/components/UI/icons/res/svg-mining.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-62f432f8", Component.options)
+  } else {
+    hotAPI.reload("data-v-62f432f8", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+/* 67 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "svg",
+    {
+      staticClass: "webdollarFont",
+      attrs: {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "24",
+        height: "24",
+        viewBox: "0 0 24 24"
+      }
+    },
+    [
+      _c("path", {
+        attrs: {
+          d:
+            "M23.672 19.429l-7.067-7.067c-0.438-0.438-1.153-0.438-1.591 0l-0.53 0.53-4.313-4.313 7.079-7.079h-7.5l-3.329 3.329-0.33-0.329h-1.591v1.591l0.329 0.329-4.829 4.83 3.75 3.75 4.829-4.829 4.313 4.313-0.53 0.53c-0.438 0.438-0.438 1.153 0 1.591l7.067 7.067c0.438 0.438 1.153 0.438 1.591 0l2.652-2.652c0.438-0.437 0.438-1.153 0-1.591z"
+        }
+      })
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-62f432f8", esExports)
+  }
+}
+
+/***/ }),
+/* 68 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -6893,16 +7066,17 @@ var render = function() {
     "div",
     { on: { click: this.handleClick } },
     [
-      this.icon === "chevron-up" ? _c("svgChevronUp") : _vm._e(),
-      this.icon === "chevron-down" ? _c("svgChevronDown") : _vm._e(),
-      this.icon === "key" ? _c("svgKey") : _vm._e(),
-      this.icon === "lock-closed" ? _c("svgLockClosed") : _vm._e(),
-      this.icon === "lock-open" ? _c("svgLockOpen") : _vm._e(),
-      this.icon === "plus" ? _c("svgPlus") : _vm._e(),
-      this.icon === "plus-square" ? _c("svgPlusSquare") : _vm._e(),
-      this.icon === "x" ? _c("svgX") : _vm._e(),
-      this.icon === "upload" ? _c("svgUpload") : _vm._e(),
-      this.icon === "download" ? _c("svgDownload") : _vm._e()
+      this.icon === "chevron-up" ? _c("svg-chevron-up") : _vm._e(),
+      this.icon === "chevron-down" ? _c("svg-chevron-down") : _vm._e(),
+      this.icon === "key" ? _c("svg-key") : _vm._e(),
+      this.icon === "lock-closed" ? _c("svg-lock-closed") : _vm._e(),
+      this.icon === "lock-open" ? _c("svg-lock-open") : _vm._e(),
+      this.icon === "plus" ? _c("svg-plus") : _vm._e(),
+      this.icon === "plus-square" ? _c("svg-plus-square") : _vm._e(),
+      this.icon === "x" ? _c("svg-x") : _vm._e(),
+      this.icon === "upload" ? _c("svg-upload") : _vm._e(),
+      this.icon === "download" ? _c("svg-download") : _vm._e(),
+      this.icon === "mining" ? _c("svg-mining") : _vm._e()
     ],
     1
   )
@@ -6919,17 +7093,17 @@ if (false) {
 }
 
 /***/ }),
-/* 67 */
+/* 69 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_Address_vue__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_Address_vue__ = __webpack_require__(16);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6fd10b33_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Address_vue__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6fd10b33_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Address_vue__ = __webpack_require__(99);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(68)
+  __webpack_require__(70)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -6975,13 +7149,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 68 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(69);
+var content = __webpack_require__(71);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -7001,7 +7175,7 @@ if(false) {
 }
 
 /***/ }),
-/* 69 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -7009,13 +7183,13 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n#allWalets .walletAddress{\n    padding: 0!important;\n    padding-right: 0;\n    width: 100%;\n    border-top-left-radius: 50px;\n    border-bottom-left-radius: 50px;\n    margin: 15px 10px;\n    transition: all .3s linear;\n}\n#allWalets .walletAddress .addressIdentityBox{\n    cursor: pointer;\n}\n#allWalets .walletAddress:last-child{\n    margin-bottom: 1px;\n}\n#allWalets .walletAddress img{\n    height: 40px;\n    display: inline-block;\n    vertical-align: top;\n    border-radius: 100%;\n}\n#allWalets .walletAddress:hover{\n    margin: 15px 20px;\n    background-color: #313131;\n    transition: all .3s linear;\n}\n.walletAddress b{\n    text-align: center;\n    display: inline-block;\n    color: #fcbd2d;\n    line-height: 40px;\n    padding-top: 1px;\n    margin-left: 7px;\n    font-size: 12px;\n    vertical-align: top;\n}\n.addressButton{\n    display:inline-block;\n    padding: 7px 12px;\n    vertical-align: top;\n    height: 27px;\n    margin-right: -4px;\n    cursor: pointer;\n    transition: all .3s linear;\n}\n.addressButton:hover{\n    background-color: #1f1f1f;\n    transition: all .3s linear;\n}\n.actionsBox{\n    float: right;\n    display: none;\n    margin-right: 25px;\n}\n.addressIdentityBox{\n    display: inline-block;\n}\n.hoverAddress:hover .actionsBox{\n    display: inline-block;\n}\n\n", "", {"version":3,"sources":["/home/alex/WebDollar/User-Interface-WebDollar/src/components/Wallet/Address/src/components/Wallet/Address/Address.vue"],"names":[],"mappings":";AAqGA;IACA,qBAAA;IACA,iBAAA;IACA,YAAA;IACA,6BAAA;IACA,gCAAA;IACA,kBAAA;IACA,2BAAA;CACA;AAEA;IACA,gBAAA;CACA;AAEA;IACA,mBAAA;CACA;AAEA;IACA,aAAA;IACA,sBAAA;IACA,oBAAA;IACA,oBAAA;CACA;AAEA;IACA,kBAAA;IACA,0BAAA;IACA,2BAAA;CACA;AAEA;IACA,mBAAA;IACA,sBAAA;IACA,eAAA;IACA,kBAAA;IACA,iBAAA;IACA,iBAAA;IACA,gBAAA;IACA,oBAAA;CACA;AAEA;IACA,qBAAA;IACA,kBAAA;IACA,oBAAA;IACA,aAAA;IACA,mBAAA;IACA,gBAAA;IACA,2BAAA;CACA;AAEA;IACA,0BAAA;IACA,2BAAA;CACA;AAEA;IACA,aAAA;IACA,cAAA;IACA,mBAAA;CACA;AAEA;IACA,sBAAA;CACA;AAEA;IACA,sBAAA;CACA","file":"Address.vue","sourcesContent":["<template>\n    <div class=\"walletAddress hoverAddress\">\n\n        <div class=\"addressIdentityBox\" v-on:click.stop=\"handleTransferFunds\">\n            <img class=\"walletAddressImage\" :src=\"this.getAddressPic\" >\n\n            <b><ShowBalance :address=\"this.address\" currency=\"0x01\"/> WEBD</b>\n        </div>\n\n        <div class=\"actionsBox hoverAddress\" :style=\"{marginBottom: this.opened ? this.walletButtonMarginOpened+'px': this.walletButtonMarginClosed+'px'}\">\n            <div class=\"addressButton\" v-on:click.stop=\"handleExport\">\n                <icon class=\"btn\" alt=\"Secure Wallet\" text=\"Download Address\" icon=\"download\" />\n            </div>\n\n            <div class=\"addressButton\" v-on:click.stop=\"handleLock\">\n                <icon class=\"btn\" alt=\"Secure Wallet\" text=\"Lock Address\" icon=\"lock-open\" />\n            </div>\n\n            <div class=\"addressButton\" v-on:click.stop=\"handleDelete\">\n                <icon class=\"btn\" alt=\"Secure Wallet\" text=\"Delete Address\" icon=\"x\" />\n            </div>\n        </div>\n\n        <TransactionModal ref=\"refTransactionModal\" :address=\"this.address\" />\n        <LockModal ref=\"refLockModal\" :address=\"this.address\" />\n        <DeleteModal ref=\"refDeleteModal\" :address=\"this.address\" />\n\n    </div>\n</template>\n\n\n<script>\n\n    import FileSaver from './../../../../node_modules/file-saver'\n    import icon from \"components/UI/icons/icon.vue\"\n    import TransactionModal from \"./Modals/Transaction.modal.vue\"\n    import LockModal from \"./Modals/Lock.modal.vue\"\n    import DeleteModal from \"./Modals/Delete.modal.vue\"\n    import ShowBalance from \"components/Wallet/Address/Balance/ShowBalance.vue\"\n\n    export default{\n\n        props:{\n            address:{default:''},\n        },\n\n        components:{\n            \"TransactionModal\":TransactionModal,\n            \"ShowBalance\":ShowBalance,\n            \"icon\":icon,\n            \"LockModal\":LockModal,\n            \"DeleteModal\":DeleteModal,\n        },\n\n        computed: {\n            getAddressPic(){\n                return WebDollar.Blockchain.Wallet.getAddressPic(this.address);\n            }\n        },\n\n        methods:{\n\n            handleTransferFunds(e){\n\n                this.$refs['refTransactionModal'].showModal(e);\n\n            },\n\n            async handleExport(e){\n\n                let answer = await WebDollar.Blockchain.Wallet.exportPrivateKeyFromAddress(this.address);\n\n                if (answer.result){\n\n                    let addressFile = new Blob([JSON.stringify(answer.data)], {type: \"application/json;charset=utf-8\"});\n                    FileSaver.saveAs(addressFile, this.address + \".webd\");\n\n                } else {\n                    alert(answer.message)\n                }\n\n            },\n\n            handleLock(e){\n\n                this.$refs['refLockModal'].showModal(e);\n\n            },\n\n            handleDelete(e){\n\n                this.$refs['refDeleteModal'].showModal(e);\n\n            },\n\n        }\n\n    }\n</script>\n\n<style>\n\n    #allWalets .walletAddress{\n        padding: 0!important;\n        padding-right: 0;\n        width: 100%;\n        border-top-left-radius: 50px;\n        border-bottom-left-radius: 50px;\n        margin: 15px 10px;\n        transition: all .3s linear;\n    }\n\n    #allWalets .walletAddress .addressIdentityBox{\n        cursor: pointer;\n    }\n\n    #allWalets .walletAddress:last-child{\n        margin-bottom: 1px;\n    }\n\n    #allWalets .walletAddress img{\n        height: 40px;\n        display: inline-block;\n        vertical-align: top;\n        border-radius: 100%;\n    }\n\n    #allWalets .walletAddress:hover{\n        margin: 15px 20px;\n        background-color: #313131;\n        transition: all .3s linear;\n    }\n\n    .walletAddress b{\n        text-align: center;\n        display: inline-block;\n        color: #fcbd2d;\n        line-height: 40px;\n        padding-top: 1px;\n        margin-left: 7px;\n        font-size: 12px;\n        vertical-align: top;\n    }\n\n    .addressButton{\n        display:inline-block;\n        padding: 7px 12px;\n        vertical-align: top;\n        height: 27px;\n        margin-right: -4px;\n        cursor: pointer;\n        transition: all .3s linear;\n    }\n\n    .addressButton:hover{\n        background-color: #1f1f1f;\n        transition: all .3s linear;\n    }\n\n    .actionsBox{\n        float: right;\n        display: none;\n        margin-right: 25px;\n    }\n\n    .addressIdentityBox{\n        display: inline-block;\n    }\n\n    .hoverAddress:hover .actionsBox{\n        display: inline-block;\n    }\n\n</style>"],"sourceRoot":""}]);
+exports.push([module.i, "\n#allWalets .walletAddress{\n    padding: 0!important;\n    padding-right: 0;\n    width: 100%;\n    border-top-left-radius: 50px;\n    border-bottom-left-radius: 50px;\n    margin: 15px 10px;\n    transition: all .3s linear;\n}\n#allWalets .walletAddress .addressIdentityBox{\n    cursor: pointer;\n}\n#allWalets .walletAddress:last-child{\n    margin-bottom: 1px;\n}\n#allWalets .walletAddress img{\n    height: 40px;\n    display: inline-block;\n    vertical-align: top;\n    border-radius: 100%;\n}\n#allWalets .walletAddress:hover{\n    margin: 15px 20px;\n    background-color: #313131;\n    transition: all .3s linear;\n}\n.walletAddress b{\n    text-align: center;\n    display: inline-block;\n    color: #fcbd2d;\n    line-height: 40px;\n    padding-top: 1px;\n    margin-left: 7px;\n    font-size: 12px;\n    vertical-align: top;\n}\n.addressButton{\n    display:inline-block;\n    padding: 7px 12px;\n    vertical-align: top;\n    height: 27px;\n    margin-right: -4px;\n    cursor: pointer;\n    transition: all .3s linear;\n}\n.addressButton:hover{\n    background-color: #1f1f1f;\n    transition: all .3s linear;\n}\n.actionsBox{\n    float: right;\n    display: none;\n    margin-right: 25px;\n}\n.addressIdentityBox{\n    display: inline-block;\n}\n.hoverAddress:hover .actionsBox{\n    display: inline-block;\n}\n@media only screen and (max-width : 831px) {\n.actionsBox{\n        display: block;\n}\n.addressButton{\n        padding: 17px 12px;\n        margin: 0 5px;\n}\n}\n@media only screen and (max-width : 400px) {\n.addressButton{\n        margin: 0;\n}\n.webdollarFont {\n        width: 16px!important;\n}\n}\n\n", "", {"version":3,"sources":["/home/alex/WebDollar/User-Interface-WebDollar/src/components/Wallet/Address/src/components/Wallet/Address/Address.vue"],"names":[],"mappings":";AAuGA;IACA,qBAAA;IACA,iBAAA;IACA,YAAA;IACA,6BAAA;IACA,gCAAA;IACA,kBAAA;IACA,2BAAA;CACA;AAEA;IACA,gBAAA;CACA;AAEA;IACA,mBAAA;CACA;AAEA;IACA,aAAA;IACA,sBAAA;IACA,oBAAA;IACA,oBAAA;CACA;AAEA;IACA,kBAAA;IACA,0BAAA;IACA,2BAAA;CACA;AAEA;IACA,mBAAA;IACA,sBAAA;IACA,eAAA;IACA,kBAAA;IACA,iBAAA;IACA,iBAAA;IACA,gBAAA;IACA,oBAAA;CACA;AAEA;IACA,qBAAA;IACA,kBAAA;IACA,oBAAA;IACA,aAAA;IACA,mBAAA;IACA,gBAAA;IACA,2BAAA;CACA;AAEA;IACA,0BAAA;IACA,2BAAA;CACA;AAEA;IACA,aAAA;IACA,cAAA;IACA,mBAAA;CACA;AAEA;IACA,sBAAA;CACA;AAEA;IACA,sBAAA;CACA;AAEA;AAEA;QACA,eAAA;CACA;AAEA;QACA,mBAAA;QACA,cAAA;CACA;CAEA;AAEA;AAEA;QACA,UAAA;CACA;AAEA;QACA,sBAAA;CACA;CAEA","file":"Address.vue","sourcesContent":["<template>\n    <div class=\"walletAddress hoverAddress\">\n\n        <div class=\"addressIdentityBox\" v-on:click.stop=\"handleTransferFunds\">\n            <img class=\"walletAddressImage\" :src=\"this.getAddressPic\" >\n            <icon v-if=\"this.isMiningAddress\" class=\"btn\" alt=\"Mining\" text=\"Mining Address\" icon=\"mining\" style=\"display: inline-block\" />\n\n            <b><ShowBalance :address=\"this.address\" currency=\"0x01\"/> WEBD</b>\n        </div>\n\n        <div class=\"actionsBox hoverAddress\" :style=\"{marginBottom: this.opened ? this.walletButtonMarginOpened+'px': this.walletButtonMarginClosed+'px'}\">\n            <div class=\"addressButton\" v-on:click.stop=\"handleExport\">\n                <icon class=\"btn\" alt=\"Secure Wallet\" text=\"Download Address\" icon=\"download\" />\n            </div>\n\n            <div class=\"addressButton\" v-on:click.stop=\"handleLock\">\n                <icon class=\"btn\" alt=\"Secure Wallet\" text=\"Lock Address\" icon=\"lock-open\" />\n            </div>\n\n            <div class=\"addressButton\" v-on:click.stop=\"handleDelete\">\n                <icon class=\"btn\" alt=\"Secure Wallet\" text=\"Delete Address\" icon=\"x\" />\n            </div>\n        </div>\n\n        <TransactionModal ref=\"refTransactionModal\" :address=\"this.address\" :isMiningAddress=\"this.isMiningAddress\" />\n        <LockModal ref=\"refLockModal\" :address=\"this.address\" />\n        <DeleteModal ref=\"refDeleteModal\" :address=\"this.address\" />\n\n    </div>\n</template>\n\n\n<script>\n\n    import FileSaver from './../../../../node_modules/file-saver'\n    import icon from \"components/UI/icons/icon.vue\"\n    import TransactionModal from \"./Modals/Transaction.modal.vue\"\n    import LockModal from \"./Modals/Lock.modal.vue\"\n    import DeleteModal from \"./Modals/Delete.modal.vue\"\n    import ShowBalance from \"components/Wallet/Address/Balance/ShowBalance.vue\"\n\n    export default{\n\n        props:{\n            address:{default:''},\n            isMiningAddress: {default: false}\n        },\n\n        components:{\n            \"TransactionModal\":TransactionModal,\n            \"ShowBalance\":ShowBalance,\n            \"icon\":icon,\n            \"LockModal\":LockModal,\n            \"DeleteModal\":DeleteModal,\n        },\n\n        computed: {\n            getAddressPic(){\n                return WebDollar.Blockchain.Wallet.getAddressPic(this.address);\n            }\n        },\n\n        methods:{\n\n            handleTransferFunds(e){\n\n                this.$refs['refTransactionModal'].showModal(e);\n\n            },\n\n            async handleExport(e){\n\n                let answer = await WebDollar.Blockchain.Wallet.exportPrivateKeyFromAddress(this.address);\n\n                if (answer.result){\n\n                    let addressFile = new Blob([JSON.stringify(answer.data)], {type: \"application/json;charset=utf-8\"});\n                    FileSaver.saveAs(addressFile, this.address + \".webd\");\n\n                } else {\n                    alert(answer.message)\n                }\n\n            },\n\n            handleLock(e){\n\n                this.$refs['refLockModal'].showModal(e);\n\n            },\n\n            handleDelete(e){\n\n                this.$refs['refDeleteModal'].showModal(e);\n\n            },\n\n        }\n\n    }\n</script>\n\n<style>\n\n    #allWalets .walletAddress{\n        padding: 0!important;\n        padding-right: 0;\n        width: 100%;\n        border-top-left-radius: 50px;\n        border-bottom-left-radius: 50px;\n        margin: 15px 10px;\n        transition: all .3s linear;\n    }\n\n    #allWalets .walletAddress .addressIdentityBox{\n        cursor: pointer;\n    }\n\n    #allWalets .walletAddress:last-child{\n        margin-bottom: 1px;\n    }\n\n    #allWalets .walletAddress img{\n        height: 40px;\n        display: inline-block;\n        vertical-align: top;\n        border-radius: 100%;\n    }\n\n    #allWalets .walletAddress:hover{\n        margin: 15px 20px;\n        background-color: #313131;\n        transition: all .3s linear;\n    }\n\n    .walletAddress b{\n        text-align: center;\n        display: inline-block;\n        color: #fcbd2d;\n        line-height: 40px;\n        padding-top: 1px;\n        margin-left: 7px;\n        font-size: 12px;\n        vertical-align: top;\n    }\n\n    .addressButton{\n        display:inline-block;\n        padding: 7px 12px;\n        vertical-align: top;\n        height: 27px;\n        margin-right: -4px;\n        cursor: pointer;\n        transition: all .3s linear;\n    }\n\n    .addressButton:hover{\n        background-color: #1f1f1f;\n        transition: all .3s linear;\n    }\n\n    .actionsBox{\n        float: right;\n        display: none;\n        margin-right: 25px;\n    }\n\n    .addressIdentityBox{\n        display: inline-block;\n    }\n\n    .hoverAddress:hover .actionsBox{\n        display: inline-block;\n    }\n\n    @media only screen and (max-width : 831px) {\n\n        .actionsBox{\n            display: block;\n        }\n\n        .addressButton{\n            padding: 17px 12px;\n            margin: 0 5px;\n        }\n\n    }\n\n    @media only screen and (max-width : 400px) {\n\n        .addressButton{\n            margin: 0;\n        }\n\n        .webdollarFont {\n            width: 16px!important;\n        }\n\n    }\n\n</style>"],"sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
-/* 70 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/* FileSaver.js
@@ -7201,7 +7375,7 @@ var saveAs = saveAs || (function(view) {
 
 if (typeof module !== "undefined" && module.exports) {
   module.exports.saveAs = saveAs;
-} else if (("function" !== "undefined" && __webpack_require__(71) !== null) && (__webpack_require__(72) !== null)) {
+} else if (("function" !== "undefined" && __webpack_require__(73) !== null) && (__webpack_require__(74) !== null)) {
   !(__WEBPACK_AMD_DEFINE_RESULT__ = (function() {
     return saveAs;
   }).call(exports, __webpack_require__, exports, module),
@@ -7210,7 +7384,7 @@ if (typeof module !== "undefined" && module.exports) {
 
 
 /***/ }),
-/* 71 */
+/* 73 */
 /***/ (function(module, exports) {
 
 module.exports = function() {
@@ -7219,7 +7393,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 72 */
+/* 74 */
 /***/ (function(module, exports) {
 
 /* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {/* globals __webpack_amd_options__ */
@@ -7228,13 +7402,13 @@ module.exports = __webpack_amd_options__;
 /* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ }),
-/* 73 */
+/* 75 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_Transaction_modal_vue__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_Transaction_modal_vue__ = __webpack_require__(17);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0b1961e5_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Transaction_modal_vue__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0b1961e5_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Transaction_modal_vue__ = __webpack_require__(82);
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -7280,13 +7454,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 74 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(75);
+var content = __webpack_require__(77);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -7306,7 +7480,7 @@ if(false) {
 }
 
 /***/ }),
-/* 75 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -7314,13 +7488,13 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.modal input:focus, .modal textarea:focus{\n    outline: none;\n}\n.content{\n    padding: 20px;\n    padding-top: 30px;\n}\n.modal{\n    width: 50%;\n    height: auto;\n    border-radius: 5px;\n    max-width: 550px;\n    min-width: 450px;\n    position: fixed;\n    margin: 0 auto;\n    border: solid 1px #313131;\n    left: 0;\n    right: 0;\n    text-align: center;\n    background-color: #1f1f1f;\n    z-index: 1600;\n    top: 50%;\n    -ms-transform: translateY(-50%);\n        transform: translateY(-50%);\n}\n.modal #walletID{\n    word-wrap: break-word;\n    display: block;\n    line-height: 12px;\n    margin: 10px 0;\n    font-weight: 100;\n}\n.modalBackground{\n    position: fixed;\n    height: 100%;\n    width: 100%;\n    display: block;\n    z-index: 1000;\n    top:0;\n    left: 0;\n    background-color: rgba(0, 0, 0, 0.83);\n}\n.modal .close{\n    position: fixed;\n    top: -10px;\n    right: 10px!important;\n    font-size: 40px;\n    display: block;\n    color: #ffc12c;\n    cursor: pointer;\n}\n.modal .title{\n    background-color: #262626;\n    padding: 10px 0;\n    text-transform: uppercase;\n    letter-spacing: 4px;\n    line-height: 22px;\n    color: #ffc12c;\n}\n.modal .footer .button{\n    display: inline;\n    cursor: pointer;\n}\n.modal b{\n    margin-left: 0;\n}\n.modal .twoColums{\n    border-bottom: solid 1px #313131;\n    background-color: #151515;\n}\n.modal .ballance{\n    color: #ffc12c!important;\n    font-size: 24px;\n    margin-top: 20px;\n}\n.modal .transfer{\n    padding: 0 10px;\n}\n.modal .transfer input{\n    border: none;\n    background-color: #333333;\n    padding: 10px 0 10px 10px;\n    margin: 10px 0;\n    color: #fff\n}\n.modal .transfer .address{\n    width: 100%;\n    display: block;\n}\n.modal .transfer .amount {\n    width: 100%;\n}\n.modal .transfer .title{\n    background-color: #1f1f1f;\n    padding-top: 30px;\n    text-transform: uppercase;\n    letter-spacing: 4px;\n    padding-bottom: 20px;\n    color: #d4d4d4;\n}\n.modal .transfer .button{\n    margin-top: 10px;\n    background-color: #ffc12c;\n    color: #1f1f1f;\n    margin-bottom: 15px;\n    width: 100%;\n    font-size: 14px;\n    border: none;\n    padding: 15px 0 15px 0;\n    border-radius: 5px;\n    transition: all 0.5s ease;\n}\n.modal .transfer .button:hover{\n    background-color: #fbdb8d;\n    color: #000000;\n    transition: all 0.5s ease\n}\n.twoColums{\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-columns: 1fr 1fr;\n        grid-template-columns: 1fr 1fr;\n}\n.addressActions{\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-columns: 1fr 1fr 1fr 1fr;\n        grid-template-columns: 1fr 1fr 1fr 1fr;\n    border-bottom: solid 1px #313131;\n    border-top: solid 3px #000;\n}\n.addressActions .actionButton{\n    display: inline-block;\n    background-color: #333;\n    color: #ffc12c;\n    padding: 5px;\n    padding-top: 8px;\n    border-left: solid 1px #6d6d6d;\n    border-collapse: collapse;\n    transition: all 0.5s ease\n}\n.addressActions .actionButton:hover{\n    background-color: #232222;\n    color: #ffdd8c;\n    transition: all 0.5s ease\n}\n.addressActions .actionButton:first-child{\n    border-left:none;\n}\n.activeActionButton{\n    background-color: #ffc12c!important;\n    color: #000!important;\n}\n.twoColums .section{\n    overflow: hidden;\n    padding: 20px;\n    color: #D5D5D5;\n}\n.twoColums .section:first-child{\n    border-right: solid 1px #313131;\n}\n.copyToClipboard{\n    background-color: #353535;\n    border-radius: 5px;\n    padding: 7px 0 5px 0;\n    border: solid 1px #777;\n    font-size: 12px;\n    padding: 7px 0 5px 0;\n    width: 150px;\n    margin: 0 auto;\n    transition: all 0.5s ease\n}\n.copyToClipboard:hover{\n    background-color: #000;\n    transition: all 0.5s ease\n}\n.copyToClipboardSuccess{\n    color: #149008;\n    font-size: 14px;\n}\n.transferListContainer{\n    list-style: none;\n    padding: 0;\n    max-height: 200px;\n    overflow: scroll;\n}\n.transferListElement{\n    font-size: 12px;\n    color: #fff;\n    list-style: none;\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-columns: 1fr 2fr;\n        grid-template-columns: 1fr 2fr;\n    grid-column-gap: 15px;\n    white-space: nowrap ;\n    text-align: left;\n    background-color: #151515;\n    padding: 5px 10px;\n}\n.destinations{\n    list-style: none;\n    padding: 0;\n}\n.money, .destinationAddress{\n    display: inline-block;\n}\n.destinationAddress{\n    width: 70%;\n    overflow: hidden;\n}\n.money{\n    width: 20%;\n    padding-left: 10px;\n    display: inline-block;\n    float: right;\n    text-align: right;\n}\n.currency{\n    margin-left: 5px;\n}\n.pairListElement{\n    background-color: #333333;\n}\n.transferListContainer .money{\n    color:#ffc12c;\n}\n.transferListContainer .source{\n    color: #c5c5c5;\n}\n.transferList .header{\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-columns: 1fr 1fr 1fr;\n        grid-template-columns: 1fr 1fr 1fr;\n}\n.headerElement{\n    display: inline-block;\n    text-align: center;\n    color: #d4d4d4;\n    margin-top: 15px;\n    font-size: 14px;\n}\n@media (max-width:831px){\n#walletID{\n        font-size: 12px!important;\n        line-height: 14px!important;\n}\n}\n@media (max-width:600px)  {\n.modal{\n        width: 100%;\n        max-width: none;\n        min-width: none;\n        max-height: 100%;\n        overflow-y: auto;\n}\n.twoColums{\n        display: inline-block;\n}\n.twoColums .section:first-child {\n        border-bottom: solid 1px #313131;\n        border-right: none;\n}\n.modal .ballance{\n        margin-top: 0;\n}\n.addressActions .actionButton{\n        line-height: 50px;\n        font-size: 20px;\n}\n.modal .transfer input{\n        padding: 15px 0 15px 10px;\n        font-size: 16px;\n}\n.modal .transfer .button{\n        line-height: 26px;\n        font-size: 20px;\n        margin-bottom: 50px;\n}\n.modal .title{\n        padding: 20px 0;\n}\n.modal .close{\n        top:0;\n        right: 30px!important;\n}\n.modal .twoColums{\n        width: 100%;\n        -ms-grid-columns: 1fr;\n            grid-template-columns: 1fr;\n}\n.modal{\n        min-width: auto;\n}\n}\n\n", "", {"version":3,"sources":["/home/alex/WebDollar/User-Interface-WebDollar/src/components/UI/modal/src/components/UI/modal/Modal.vue"],"names":[],"mappings":";AA0EA;IACA,cAAA;CACA;AAEA;IACA,cAAA;IACA,kBAAA;CACA;AAEA;IACA,WAAA;IACA,aAAA;IACA,mBAAA;IACA,iBAAA;IACA,iBAAA;IACA,gBAAA;IACA,eAAA;IACA,0BAAA;IACA,QAAA;IACA,SAAA;IACA,mBAAA;IACA,0BAAA;IACA,cAAA;IACA,SAAA;IACA,gCAAA;QAAA,4BAAA;CACA;AAEA;IACA,sBAAA;IACA,eAAA;IACA,kBAAA;IACA,eAAA;IACA,iBAAA;CACA;AAEA;IACA,gBAAA;IACA,aAAA;IACA,YAAA;IACA,eAAA;IACA,cAAA;IACA,MAAA;IACA,QAAA;IACA,sCAAA;CACA;AAEA;IACA,gBAAA;IACA,WAAA;IACA,sBAAA;IACA,gBAAA;IACA,eAAA;IACA,eAAA;IACA,gBAAA;CACA;AAEA;IACA,0BAAA;IACA,gBAAA;IACA,0BAAA;IACA,oBAAA;IACA,kBAAA;IACA,eAAA;CACA;AAEA;IACA,gBAAA;IACA,gBAAA;CACA;AAEA;IACA,eAAA;CACA;AAEA;IACA,iCAAA;IACA,0BAAA;CACA;AAEA;IACA,yBAAA;IACA,gBAAA;IACA,iBAAA;CACA;AAEA;IACA,gBAAA;CACA;AAEA;IACA,aAAA;IACA,0BAAA;IACA,0BAAA;IACA,eAAA;IACA,WAAA;CACA;AAEA;IACA,YAAA;IACA,eAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,0BAAA;IACA,kBAAA;IACA,0BAAA;IACA,oBAAA;IACA,qBAAA;IACA,eAAA;CACA;AAEA;IACA,iBAAA;IACA,0BAAA;IACA,eAAA;IACA,oBAAA;IACA,YAAA;IACA,gBAAA;IACA,aAAA;IACA,uBAAA;IACA,mBAAA;IACA,0BAAA;CACA;AAEA;IACA,0BAAA;IACA,eAAA;IACA,yBAAA;CACA;AAEA;IACA,kBAAA;IAAA,cAAA;IACA,0BAAA;QAAA,+BAAA;CACA;AAEA;IACA,kBAAA;IAAA,cAAA;IACA,kCAAA;QAAA,uCAAA;IACA,iCAAA;IACA,2BAAA;CACA;AAEA;IACA,sBAAA;IACA,uBAAA;IACA,eAAA;IACA,aAAA;IACA,iBAAA;IACA,+BAAA;IACA,0BAAA;IACA,yBAAA;CACA;AAEA;IACA,0BAAA;IACA,eAAA;IACA,yBAAA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,oCAAA;IACA,sBAAA;CACA;AAEA;IACA,iBAAA;IACA,cAAA;IACA,eAAA;CACA;AAEA;IACA,gCAAA;CACA;AAEA;IACA,0BAAA;IACA,mBAAA;IACA,qBAAA;IACA,uBAAA;IACA,gBAAA;IACA,qBAAA;IACA,aAAA;IACA,eAAA;IACA,yBAAA;CACA;AAEA;IACA,uBAAA;IACA,yBAAA;CACA;AAEA;IACA,eAAA;IACA,gBAAA;CACA;AAEA;IACA,iBAAA;IACA,WAAA;IACA,kBAAA;IACA,iBAAA;CACA;AAEA;IACA,gBAAA;IACA,YAAA;IACA,iBAAA;IACA,kBAAA;IAAA,cAAA;IACA,0BAAA;QAAA,+BAAA;IACA,sBAAA;IACA,qBAAA;IACA,iBAAA;IACA,0BAAA;IACA,kBAAA;CACA;AAEA;IACA,iBAAA;IACA,WAAA;CACA;AAEA;IACA,sBAAA;CACA;AAEA;IACA,WAAA;IACA,iBAAA;CACA;AAEA;IACA,WAAA;IACA,mBAAA;IACA,sBAAA;IACA,aAAA;IACA,kBAAA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,0BAAA;CACA;AAEA;IACA,cAAA;CACA;AAEA;IACA,eAAA;CACA;AAEA;IACA,kBAAA;IAAA,cAAA;IACA,8BAAA;QAAA,mCAAA;CACA;AAEA;IACA,sBAAA;IACA,mBAAA;IACA,eAAA;IACA,iBAAA;IACA,gBAAA;CACA;AAEA;AAEA;QACA,0BAAA;QACA,4BAAA;CACA;CAEA;AAEA;AAEA;QACA,YAAA;QACA,gBAAA;QACA,gBAAA;QACA,iBAAA;QACA,iBAAA;CACA;AACA;QACA,sBAAA;CACA;AACA;QACA,iCAAA;QACA,mBAAA;CACA;AACA;QACA,cAAA;CACA;AACA;QACA,kBAAA;QACA,gBAAA;CACA;AACA;QACA,0BAAA;QACA,gBAAA;CACA;AACA;QACA,kBAAA;QACA,gBAAA;QACA,oBAAA;CACA;AACA;QACA,gBAAA;CACA;AACA;QACA,MAAA;QACA,sBAAA;CACA;AACA;QACA,YAAA;QACA,sBAAA;YAAA,2BAAA;CACA;AACA;QACA,gBAAA;CACA;CACA","file":"Modal.vue","sourcesContent":["<template>\n\n    <div v-if=\"this.modalOpened\">\n        <div class=\"modalBackground\" @click=\"this.closeModal\"> </div>\n        <div class=\"modal\" ref=\"refModal\">\n\n            <div class=\"close\" @click=\"this.closeModal\">\n                x\n            </div>\n\n            <div class=\"header\">\n                <div class=\"title\">\n                    {{this.title}}\n                </div>\n            </div>\n\n            <div class=\"content\">\n                <slot name=\"content\"></slot>\n            </div>\n\n        </div>\n    </div>\n\n</template>\n\n\n<script>\n\n    export default{\n\n        name: \"Modal\",\n\n        data: () => {\n            return {\n                modalOpened: false,\n            }\n        },\n\n        props:{\n\n            title: {default: 'Modal Title'},\n            buttons: {default: ()=>{return [{text:\"cancel\"}]}}\n\n        },\n\n        methods:{\n\n            closeModal(e){\n\n                if(e!=undefined) e.stopPropagation();\n\n                this.modalOpened = false;\n                console.log(\"closeModal2\");\n\n            },\n\n            showModal(e){\n\n                if (e !== undefined)\n                    e.stopPropagation();\n\n                console.log(\"showModal\");\n                this.modalOpened = true;\n            },\n\n        }\n\n    }\n\n</script>\n\n\n\n<style>\n\n    .modal input:focus, .modal textarea:focus{\n        outline: none;\n    }\n\n    .content{\n        padding: 20px;\n        padding-top: 30px;\n    }\n\n    .modal{\n        width: 50%;\n        height: auto;\n        border-radius: 5px;\n        max-width: 550px;\n        min-width: 450px;\n        position: fixed;\n        margin: 0 auto;\n        border: solid 1px #313131;\n        left: 0;\n        right: 0;\n        text-align: center;\n        background-color: #1f1f1f;\n        z-index: 1600;\n        top: 50%;\n        transform: translateY(-50%);\n    }\n\n    .modal #walletID{\n        word-wrap: break-word;\n        display: block;\n        line-height: 12px;\n        margin: 10px 0;\n        font-weight: 100;\n    }\n\n    .modalBackground{\n        position: fixed;\n        height: 100%;\n        width: 100%;\n        display: block;\n        z-index: 1000;\n        top:0;\n        left: 0;\n        background-color: rgba(0, 0, 0, 0.83);\n    }\n\n    .modal .close{\n        position: fixed;\n        top: -10px;\n        right: 10px!important;\n        font-size: 40px;\n        display: block;\n        color: #ffc12c;\n        cursor: pointer;\n    }\n\n    .modal .title{\n        background-color: #262626;\n        padding: 10px 0;\n        text-transform: uppercase;\n        letter-spacing: 4px;\n        line-height: 22px;\n        color: #ffc12c;\n    }\n\n    .modal .footer .button{\n        display: inline;\n        cursor: pointer;\n    }\n\n    .modal b{\n        margin-left: 0;\n    }\n\n    .modal .twoColums{\n        border-bottom: solid 1px #313131;\n        background-color: #151515;\n    }\n\n    .modal .ballance{\n        color: #ffc12c!important;\n        font-size: 24px;\n        margin-top: 20px;\n    }\n\n    .modal .transfer{\n        padding: 0 10px;\n    }\n\n    .modal .transfer input{\n        border: none;\n        background-color: #333333;\n        padding: 10px 0 10px 10px;\n        margin: 10px 0;\n        color: #fff\n    }\n\n    .modal .transfer .address{\n        width: 100%;\n        display: block;\n    }\n\n    .modal .transfer .amount {\n        width: 100%;\n    }\n\n    .modal .transfer .title{\n        background-color: #1f1f1f;\n        padding-top: 30px;\n        text-transform: uppercase;\n        letter-spacing: 4px;\n        padding-bottom: 20px;\n        color: #d4d4d4;\n    }\n\n    .modal .transfer .button{\n        margin-top: 10px;\n        background-color: #ffc12c;\n        color: #1f1f1f;\n        margin-bottom: 15px;\n        width: 100%;\n        font-size: 14px;\n        border: none;\n        padding: 15px 0 15px 0;\n        border-radius: 5px;\n        transition: all 0.5s ease;\n    }\n\n    .modal .transfer .button:hover{\n        background-color: #fbdb8d;\n        color: #000000;\n        transition: all 0.5s ease\n    }\n\n    .twoColums{\n        display: grid;\n        grid-template-columns: 1fr 1fr;\n    }\n\n    .addressActions{\n        display: grid;\n        grid-template-columns: 1fr 1fr 1fr 1fr;\n        border-bottom: solid 1px #313131;\n        border-top: solid 3px #000;\n    }\n\n    .addressActions .actionButton{\n        display: inline-block;\n        background-color: #333;\n        color: #ffc12c;\n        padding: 5px;\n        padding-top: 8px;\n        border-left: solid 1px #6d6d6d;\n        border-collapse: collapse;\n        transition: all 0.5s ease\n    }\n\n    .addressActions .actionButton:hover{\n        background-color: #232222;\n        color: #ffdd8c;\n        transition: all 0.5s ease\n    }\n\n    .addressActions .actionButton:first-child{\n        border-left:none;\n    }\n\n    .activeActionButton{\n        background-color: #ffc12c!important;\n        color: #000!important;\n    }\n\n    .twoColums .section{\n        overflow: hidden;\n        padding: 20px;\n        color: #D5D5D5;\n    }\n\n    .twoColums .section:first-child{\n        border-right: solid 1px #313131;\n    }\n\n    .copyToClipboard{\n        background-color: #353535;\n        border-radius: 5px;\n        padding: 7px 0 5px 0;\n        border: solid 1px #777;\n        font-size: 12px;\n        padding: 7px 0 5px 0;\n        width: 150px;\n        margin: 0 auto;\n        transition: all 0.5s ease\n    }\n\n    .copyToClipboard:hover{\n        background-color: #000;\n        transition: all 0.5s ease\n    }\n\n    .copyToClipboardSuccess{\n        color: #149008;\n        font-size: 14px;\n    }\n\n    .transferListContainer{\n        list-style: none;\n        padding: 0;\n        max-height: 200px;\n        overflow: scroll;\n    }\n\n    .transferListElement{\n        font-size: 12px;\n        color: #fff;\n        list-style: none;\n        display: grid;\n        grid-template-columns: 1fr 2fr;\n        grid-column-gap: 15px;\n        white-space: nowrap ;\n        text-align: left;\n        background-color: #151515;\n        padding: 5px 10px;\n    }\n\n    .destinations{\n        list-style: none;\n        padding: 0;\n    }\n\n    .money, .destinationAddress{\n        display: inline-block;\n    }\n\n    .destinationAddress{\n        width: 70%;\n        overflow: hidden;\n    }\n\n    .money{\n        width: 20%;\n        padding-left: 10px;\n        display: inline-block;\n        float: right;\n        text-align: right;\n    }\n\n    .currency{\n        margin-left: 5px;\n    }\n\n    .pairListElement{\n        background-color: #333333;\n    }\n\n    .transferListContainer .money{\n        color:#ffc12c;\n    }\n\n    .transferListContainer .source{\n        color: #c5c5c5;\n    }\n\n    .transferList .header{\n        display: grid;\n        grid-template-columns: 1fr 1fr 1fr;\n    }\n\n    .headerElement{\n        display: inline-block;\n        text-align: center;\n        color: #d4d4d4;\n        margin-top: 15px;\n        font-size: 14px;\n    }\n\n    @media (max-width:831px){\n\n        #walletID{\n            font-size: 12px!important;\n            line-height: 14px!important;\n        }\n\n    }\n\n    @media (max-width:600px)  {\n\n        .modal{\n            width: 100%;\n            max-width: none;\n            min-width: none;\n            max-height: 100%;\n            overflow-y: auto;\n        }\n        .twoColums{\n            display: inline-block;\n        }\n        .twoColums .section:first-child {\n            border-bottom: solid 1px #313131;\n            border-right: none;\n        }\n        .modal .ballance{\n            margin-top: 0;\n        }\n        .addressActions .actionButton{\n            line-height: 50px;\n            font-size: 20px;\n        }\n        .modal .transfer input{\n            padding: 15px 0 15px 10px;\n            font-size: 16px;\n        }\n        .modal .transfer .button{\n            line-height: 26px;\n            font-size: 20px;\n            margin-bottom: 50px;\n        }\n        .modal .title{\n            padding: 20px 0;\n        }\n        .modal .close{\n            top:0;\n            right: 30px!important;\n        }\n        .modal .twoColums{\n            width: 100%;\n            grid-template-columns: 1fr;\n        }\n        .modal{\n            min-width: auto;\n        }\n    }\n\n</style>"],"sourceRoot":""}]);
+exports.push([module.i, "\n.modal input:focus, .modal textarea:focus{\n    outline: none;\n}\n.content{\n    padding: 20px;\n    padding-top: 30px;\n}\n.modal{\n    width: 50%;\n    height: auto;\n    border-radius: 5px;\n    max-width: 550px;\n    min-width: 450px;\n    position: fixed;\n    margin: 0 auto;\n    border: solid 1px #313131;\n    left: 0;\n    right: 0;\n    text-align: center;\n    background-color: #1f1f1f;\n    z-index: 1600;\n    top: 50%;\n    -ms-transform: translateY(-50%);\n        transform: translateY(-50%);\n}\n.modal #walletID{\n    word-wrap: break-word;\n    display: block;\n    line-height: 12px;\n    margin: 10px 0;\n    font-weight: 100;\n}\n.modalBackground{\n    position: fixed;\n    height: 100%;\n    width: 100%;\n    display: block;\n    z-index: 1000;\n    top:0;\n    left: 0;\n    background-color: rgba(0, 0, 0, 0.83);\n}\n.modal .close{\n    position: fixed;\n    top: -10px;\n    right: 10px!important;\n    font-size: 40px;\n    display: block;\n    color: #ffc12c;\n    cursor: pointer;\n}\n.modal .title{\n    background-color: #262626;\n    padding: 10px 0;\n    text-transform: uppercase;\n    letter-spacing: 4px;\n    line-height: 22px;\n    color: #ffc12c;\n}\n.modal .footer .button{\n    display: inline;\n    cursor: pointer;\n}\n.modal b{\n    margin-left: 0;\n}\n.modal .twoColums{\n    border-bottom: solid 1px #313131;\n    background-color: #151515;\n}\n.modal .ballance{\n    color: #ffc12c!important;\n    font-size: 24px;\n    margin-top: 20px;\n}\n.modal .transfer{\n    padding: 0 10px;\n}\n.modal .transfer input{\n    border: none;\n    background-color: #333333;\n    padding: 10px 0 10px 10px;\n    margin: 10px 0;\n    color: #fff\n}\n.modal .transfer .address{\n    width: 100%;\n    display: block;\n}\n.modal .transfer .amount {\n    width: 100%;\n}\n.modal .transfer .title{\n    background-color: #1f1f1f;\n    padding-top: 30px;\n    text-transform: uppercase;\n    letter-spacing: 4px;\n    padding-bottom: 20px;\n    color: #d4d4d4;\n}\n.modal .transfer .button{\n    margin-top: 10px;\n    background-color: #ffc12c;\n    color: #1f1f1f;\n    margin-bottom: 15px;\n    width: 100%;\n    font-size: 14px;\n    border: none;\n    padding: 15px 0 15px 0;\n    border-radius: 5px;\n    transition: all 0.5s ease;\n}\n.modal .transfer .button:hover{\n    background-color: #fbdb8d;\n    color: #000000;\n    transition: all 0.5s ease\n}\n.twoColums{\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-columns: 1fr 1fr;\n        grid-template-columns: 1fr 1fr;\n}\n.addressActions{\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-columns: 1fr 1fr 1fr 1fr;\n        grid-template-columns: 1fr 1fr 1fr 1fr;\n    border-bottom: solid 1px #313131;\n    border-top: solid 3px #000;\n}\n.addressActions .actionButton{\n    display: inline-block;\n    background-color: #333;\n    color: #ffc12c;\n    padding: 5px;\n    padding-top: 8px;\n    border-left: solid 1px #6d6d6d;\n    border-collapse: collapse;\n    transition: all 0.5s ease\n}\n.addressActions .actionButton:hover{\n    background-color: #232222;\n    color: #ffdd8c;\n    transition: all 0.5s ease\n}\n.addressActions .actionButton:first-child{\n    border-left:none;\n}\n.activeActionButton{\n    background-color: #ffc12c!important;\n    color: #000!important;\n}\n.twoColums .section{\n    overflow: hidden;\n    padding: 20px;\n    color: #D5D5D5;\n}\n.twoColums .section:first-child{\n    border-right: solid 1px #313131;\n}\n.modalButton2{\n    background-color: #353535;\n    border-radius: 5px;\n    padding: 7px 0 5px 0;\n    border: solid 1px #777;\n    font-size: 12px;\n    padding: 7px 0 5px 0;\n    width: 150px;\n    margin: 0 auto;\n    transition: all 0.5s ease\n}\n.modalButton2:hover{\n    background-color: #000;\n    transition: all 0.5s ease\n}\n.modalButton2Success{\n    color: #149008;\n    font-size: 14px;\n}\n.transferListContainer{\n    list-style: none;\n    padding: 0;\n    max-height: 200px;\n    overflow: scroll;\n}\n.transferListElement{\n    font-size: 12px;\n    color: #fff;\n    list-style: none;\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-columns: 1fr 2fr;\n        grid-template-columns: 1fr 2fr;\n    grid-column-gap: 15px;\n    white-space: nowrap ;\n    text-align: left;\n    background-color: #151515;\n    padding: 5px 10px;\n}\n.destinations{\n    list-style: none;\n    padding: 0;\n}\n.money, .destinationAddress{\n    display: inline-block;\n}\n.destinationAddress{\n    width: 70%;\n    overflow: hidden;\n}\n.money{\n    width: 20%;\n    padding-left: 10px;\n    display: inline-block;\n    float: right;\n    text-align: right;\n}\n.currency{\n    margin-left: 5px;\n}\n.pairListElement{\n    background-color: #333333;\n}\n.transferListContainer .money{\n    color:#ffc12c;\n}\n.transferListContainer .source{\n    color: #c5c5c5;\n}\n.transferList .header{\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-columns: 1fr 1fr 1fr;\n        grid-template-columns: 1fr 1fr 1fr;\n}\n.headerElement{\n    display: inline-block;\n    text-align: center;\n    color: #d4d4d4;\n    margin-top: 15px;\n    font-size: 14px;\n}\n@media (max-width:831px){\n#walletID{\n        font-size: 12px!important;\n        line-height: 14px!important;\n}\n}\n@media (max-width:600px)  {\n.modal{\n        width: 100%;\n        max-width: none;\n        min-width: none;\n        max-height: 100%;\n        overflow-y: auto;\n}\n.twoColums{\n        display: inline-block;\n}\n.twoColums .section:first-child {\n        border-bottom: solid 1px #313131;\n        border-right: none;\n}\n.modal .ballance{\n        margin-top: 0;\n}\n.addressActions .actionButton{\n        line-height: 50px;\n        font-size: 20px;\n}\n.modal .transfer input{\n        padding: 15px 0 15px 10px;\n        font-size: 16px;\n}\n.modal .transfer .button{\n        line-height: 26px;\n        font-size: 20px;\n        margin-bottom: 50px;\n}\n.modal .title{\n        padding: 20px 0;\n}\n.modal .close{\n        top:0;\n        right: 30px!important;\n}\n.modal .twoColums{\n        width: 100%;\n        -ms-grid-columns: 1fr;\n            grid-template-columns: 1fr;\n}\n.modal{\n        min-width: auto;\n}\n}\n\n", "", {"version":3,"sources":["/home/alex/WebDollar/User-Interface-WebDollar/src/components/UI/modal/src/components/UI/modal/Modal.vue"],"names":[],"mappings":";AA0EA;IACA,cAAA;CACA;AAEA;IACA,cAAA;IACA,kBAAA;CACA;AAEA;IACA,WAAA;IACA,aAAA;IACA,mBAAA;IACA,iBAAA;IACA,iBAAA;IACA,gBAAA;IACA,eAAA;IACA,0BAAA;IACA,QAAA;IACA,SAAA;IACA,mBAAA;IACA,0BAAA;IACA,cAAA;IACA,SAAA;IACA,gCAAA;QAAA,4BAAA;CACA;AAEA;IACA,sBAAA;IACA,eAAA;IACA,kBAAA;IACA,eAAA;IACA,iBAAA;CACA;AAEA;IACA,gBAAA;IACA,aAAA;IACA,YAAA;IACA,eAAA;IACA,cAAA;IACA,MAAA;IACA,QAAA;IACA,sCAAA;CACA;AAEA;IACA,gBAAA;IACA,WAAA;IACA,sBAAA;IACA,gBAAA;IACA,eAAA;IACA,eAAA;IACA,gBAAA;CACA;AAEA;IACA,0BAAA;IACA,gBAAA;IACA,0BAAA;IACA,oBAAA;IACA,kBAAA;IACA,eAAA;CACA;AAEA;IACA,gBAAA;IACA,gBAAA;CACA;AAEA;IACA,eAAA;CACA;AAEA;IACA,iCAAA;IACA,0BAAA;CACA;AAEA;IACA,yBAAA;IACA,gBAAA;IACA,iBAAA;CACA;AAEA;IACA,gBAAA;CACA;AAEA;IACA,aAAA;IACA,0BAAA;IACA,0BAAA;IACA,eAAA;IACA,WAAA;CACA;AAEA;IACA,YAAA;IACA,eAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,0BAAA;IACA,kBAAA;IACA,0BAAA;IACA,oBAAA;IACA,qBAAA;IACA,eAAA;CACA;AAEA;IACA,iBAAA;IACA,0BAAA;IACA,eAAA;IACA,oBAAA;IACA,YAAA;IACA,gBAAA;IACA,aAAA;IACA,uBAAA;IACA,mBAAA;IACA,0BAAA;CACA;AAEA;IACA,0BAAA;IACA,eAAA;IACA,yBAAA;CACA;AAEA;IACA,kBAAA;IAAA,cAAA;IACA,0BAAA;QAAA,+BAAA;CACA;AAEA;IACA,kBAAA;IAAA,cAAA;IACA,kCAAA;QAAA,uCAAA;IACA,iCAAA;IACA,2BAAA;CACA;AAEA;IACA,sBAAA;IACA,uBAAA;IACA,eAAA;IACA,aAAA;IACA,iBAAA;IACA,+BAAA;IACA,0BAAA;IACA,yBAAA;CACA;AAEA;IACA,0BAAA;IACA,eAAA;IACA,yBAAA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,oCAAA;IACA,sBAAA;CACA;AAEA;IACA,iBAAA;IACA,cAAA;IACA,eAAA;CACA;AAEA;IACA,gCAAA;CACA;AAEA;IACA,0BAAA;IACA,mBAAA;IACA,qBAAA;IACA,uBAAA;IACA,gBAAA;IACA,qBAAA;IACA,aAAA;IACA,eAAA;IACA,yBAAA;CACA;AAEA;IACA,uBAAA;IACA,yBAAA;CACA;AAEA;IACA,eAAA;IACA,gBAAA;CACA;AAEA;IACA,iBAAA;IACA,WAAA;IACA,kBAAA;IACA,iBAAA;CACA;AAEA;IACA,gBAAA;IACA,YAAA;IACA,iBAAA;IACA,kBAAA;IAAA,cAAA;IACA,0BAAA;QAAA,+BAAA;IACA,sBAAA;IACA,qBAAA;IACA,iBAAA;IACA,0BAAA;IACA,kBAAA;CACA;AAEA;IACA,iBAAA;IACA,WAAA;CACA;AAEA;IACA,sBAAA;CACA;AAEA;IACA,WAAA;IACA,iBAAA;CACA;AAEA;IACA,WAAA;IACA,mBAAA;IACA,sBAAA;IACA,aAAA;IACA,kBAAA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,0BAAA;CACA;AAEA;IACA,cAAA;CACA;AAEA;IACA,eAAA;CACA;AAEA;IACA,kBAAA;IAAA,cAAA;IACA,8BAAA;QAAA,mCAAA;CACA;AAEA;IACA,sBAAA;IACA,mBAAA;IACA,eAAA;IACA,iBAAA;IACA,gBAAA;CACA;AAEA;AAEA;QACA,0BAAA;QACA,4BAAA;CACA;CAEA;AAEA;AAEA;QACA,YAAA;QACA,gBAAA;QACA,gBAAA;QACA,iBAAA;QACA,iBAAA;CACA;AACA;QACA,sBAAA;CACA;AACA;QACA,iCAAA;QACA,mBAAA;CACA;AACA;QACA,cAAA;CACA;AACA;QACA,kBAAA;QACA,gBAAA;CACA;AACA;QACA,0BAAA;QACA,gBAAA;CACA;AACA;QACA,kBAAA;QACA,gBAAA;QACA,oBAAA;CACA;AACA;QACA,gBAAA;CACA;AACA;QACA,MAAA;QACA,sBAAA;CACA;AACA;QACA,YAAA;QACA,sBAAA;YAAA,2BAAA;CACA;AACA;QACA,gBAAA;CACA;CACA","file":"Modal.vue","sourcesContent":["<template>\n\n    <div v-if=\"this.modalOpened\">\n        <div class=\"modalBackground\" @click=\"this.closeModal\"> </div>\n        <div class=\"modal\" ref=\"refModal\">\n\n            <div class=\"close\" @click=\"this.closeModal\">\n                x\n            </div>\n\n            <div class=\"header\">\n                <div class=\"title\">\n                    {{this.title}}\n                </div>\n            </div>\n\n            <div class=\"content\">\n                <slot name=\"content\"></slot>\n            </div>\n\n        </div>\n    </div>\n\n</template>\n\n\n<script>\n\n    export default{\n\n        name: \"Modal\",\n\n        data: () => {\n            return {\n                modalOpened: false,\n            }\n        },\n\n        props:{\n\n            title: {default: 'Modal Title'},\n            buttons: {default: ()=>{return [{text:\"cancel\"}]}}\n\n        },\n\n        methods:{\n\n            closeModal(e){\n\n                if(e!=undefined) e.stopPropagation();\n\n                this.modalOpened = false;\n                console.log(\"closeModal2\");\n\n            },\n\n            showModal(e){\n\n                if (e !== undefined)\n                    e.stopPropagation();\n\n                console.log(\"showModal\");\n                this.modalOpened = true;\n            },\n\n        }\n\n    }\n\n</script>\n\n\n\n<style>\n\n    .modal input:focus, .modal textarea:focus{\n        outline: none;\n    }\n\n    .content{\n        padding: 20px;\n        padding-top: 30px;\n    }\n\n    .modal{\n        width: 50%;\n        height: auto;\n        border-radius: 5px;\n        max-width: 550px;\n        min-width: 450px;\n        position: fixed;\n        margin: 0 auto;\n        border: solid 1px #313131;\n        left: 0;\n        right: 0;\n        text-align: center;\n        background-color: #1f1f1f;\n        z-index: 1600;\n        top: 50%;\n        transform: translateY(-50%);\n    }\n\n    .modal #walletID{\n        word-wrap: break-word;\n        display: block;\n        line-height: 12px;\n        margin: 10px 0;\n        font-weight: 100;\n    }\n\n    .modalBackground{\n        position: fixed;\n        height: 100%;\n        width: 100%;\n        display: block;\n        z-index: 1000;\n        top:0;\n        left: 0;\n        background-color: rgba(0, 0, 0, 0.83);\n    }\n\n    .modal .close{\n        position: fixed;\n        top: -10px;\n        right: 10px!important;\n        font-size: 40px;\n        display: block;\n        color: #ffc12c;\n        cursor: pointer;\n    }\n\n    .modal .title{\n        background-color: #262626;\n        padding: 10px 0;\n        text-transform: uppercase;\n        letter-spacing: 4px;\n        line-height: 22px;\n        color: #ffc12c;\n    }\n\n    .modal .footer .button{\n        display: inline;\n        cursor: pointer;\n    }\n\n    .modal b{\n        margin-left: 0;\n    }\n\n    .modal .twoColums{\n        border-bottom: solid 1px #313131;\n        background-color: #151515;\n    }\n\n    .modal .ballance{\n        color: #ffc12c!important;\n        font-size: 24px;\n        margin-top: 20px;\n    }\n\n    .modal .transfer{\n        padding: 0 10px;\n    }\n\n    .modal .transfer input{\n        border: none;\n        background-color: #333333;\n        padding: 10px 0 10px 10px;\n        margin: 10px 0;\n        color: #fff\n    }\n\n    .modal .transfer .address{\n        width: 100%;\n        display: block;\n    }\n\n    .modal .transfer .amount {\n        width: 100%;\n    }\n\n    .modal .transfer .title{\n        background-color: #1f1f1f;\n        padding-top: 30px;\n        text-transform: uppercase;\n        letter-spacing: 4px;\n        padding-bottom: 20px;\n        color: #d4d4d4;\n    }\n\n    .modal .transfer .button{\n        margin-top: 10px;\n        background-color: #ffc12c;\n        color: #1f1f1f;\n        margin-bottom: 15px;\n        width: 100%;\n        font-size: 14px;\n        border: none;\n        padding: 15px 0 15px 0;\n        border-radius: 5px;\n        transition: all 0.5s ease;\n    }\n\n    .modal .transfer .button:hover{\n        background-color: #fbdb8d;\n        color: #000000;\n        transition: all 0.5s ease\n    }\n\n    .twoColums{\n        display: grid;\n        grid-template-columns: 1fr 1fr;\n    }\n\n    .addressActions{\n        display: grid;\n        grid-template-columns: 1fr 1fr 1fr 1fr;\n        border-bottom: solid 1px #313131;\n        border-top: solid 3px #000;\n    }\n\n    .addressActions .actionButton{\n        display: inline-block;\n        background-color: #333;\n        color: #ffc12c;\n        padding: 5px;\n        padding-top: 8px;\n        border-left: solid 1px #6d6d6d;\n        border-collapse: collapse;\n        transition: all 0.5s ease\n    }\n\n    .addressActions .actionButton:hover{\n        background-color: #232222;\n        color: #ffdd8c;\n        transition: all 0.5s ease\n    }\n\n    .addressActions .actionButton:first-child{\n        border-left:none;\n    }\n\n    .activeActionButton{\n        background-color: #ffc12c!important;\n        color: #000!important;\n    }\n\n    .twoColums .section{\n        overflow: hidden;\n        padding: 20px;\n        color: #D5D5D5;\n    }\n\n    .twoColums .section:first-child{\n        border-right: solid 1px #313131;\n    }\n\n    .modalButton2{\n        background-color: #353535;\n        border-radius: 5px;\n        padding: 7px 0 5px 0;\n        border: solid 1px #777;\n        font-size: 12px;\n        padding: 7px 0 5px 0;\n        width: 150px;\n        margin: 0 auto;\n        transition: all 0.5s ease\n    }\n\n    .modalButton2:hover{\n        background-color: #000;\n        transition: all 0.5s ease\n    }\n\n    .modalButton2Success{\n        color: #149008;\n        font-size: 14px;\n    }\n\n    .transferListContainer{\n        list-style: none;\n        padding: 0;\n        max-height: 200px;\n        overflow: scroll;\n    }\n\n    .transferListElement{\n        font-size: 12px;\n        color: #fff;\n        list-style: none;\n        display: grid;\n        grid-template-columns: 1fr 2fr;\n        grid-column-gap: 15px;\n        white-space: nowrap ;\n        text-align: left;\n        background-color: #151515;\n        padding: 5px 10px;\n    }\n\n    .destinations{\n        list-style: none;\n        padding: 0;\n    }\n\n    .money, .destinationAddress{\n        display: inline-block;\n    }\n\n    .destinationAddress{\n        width: 70%;\n        overflow: hidden;\n    }\n\n    .money{\n        width: 20%;\n        padding-left: 10px;\n        display: inline-block;\n        float: right;\n        text-align: right;\n    }\n\n    .currency{\n        margin-left: 5px;\n    }\n\n    .pairListElement{\n        background-color: #333333;\n    }\n\n    .transferListContainer .money{\n        color:#ffc12c;\n    }\n\n    .transferListContainer .source{\n        color: #c5c5c5;\n    }\n\n    .transferList .header{\n        display: grid;\n        grid-template-columns: 1fr 1fr 1fr;\n    }\n\n    .headerElement{\n        display: inline-block;\n        text-align: center;\n        color: #d4d4d4;\n        margin-top: 15px;\n        font-size: 14px;\n    }\n\n    @media (max-width:831px){\n\n        #walletID{\n            font-size: 12px!important;\n            line-height: 14px!important;\n        }\n\n    }\n\n    @media (max-width:600px)  {\n\n        .modal{\n            width: 100%;\n            max-width: none;\n            min-width: none;\n            max-height: 100%;\n            overflow-y: auto;\n        }\n        .twoColums{\n            display: inline-block;\n        }\n        .twoColums .section:first-child {\n            border-bottom: solid 1px #313131;\n            border-right: none;\n        }\n        .modal .ballance{\n            margin-top: 0;\n        }\n        .addressActions .actionButton{\n            line-height: 50px;\n            font-size: 20px;\n        }\n        .modal .transfer input{\n            padding: 15px 0 15px 10px;\n            font-size: 16px;\n        }\n        .modal .transfer .button{\n            line-height: 26px;\n            font-size: 20px;\n            margin-bottom: 50px;\n        }\n        .modal .title{\n            padding: 20px 0;\n        }\n        .modal .close{\n            top:0;\n            right: 30px!important;\n        }\n        .modal .twoColums{\n            width: 100%;\n            grid-template-columns: 1fr;\n        }\n        .modal{\n            min-width: auto;\n        }\n    }\n\n</style>"],"sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
-/* 76 */
+/* 78 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7362,13 +7536,13 @@ if (false) {
 }
 
 /***/ }),
-/* 77 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(78);
+var content = __webpack_require__(80);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -7388,7 +7562,7 @@ if(false) {
 }
 
 /***/ }),
-/* 78 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -7396,13 +7570,13 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.show-balance-span{\n    display: inline-block;\n    margin-right: 4px;\n    color: #fec02c;\n    vertical-align: top;\n    margin-top: 0;\n    text-align: center;\n}\n", "", {"version":3,"sources":["/home/alex/WebDollar/User-Interface-WebDollar/src/components/Wallet/Address/Balance/src/components/Wallet/Address/Balance/ShowBalance.vue"],"names":[],"mappings":";AA4EA;IACA,sBAAA;IACA,kBAAA;IACA,eAAA;IACA,oBAAA;IACA,cAAA;IACA,mBAAA;CACA","file":"ShowBalance.vue","sourcesContent":["<template>\n\n    <div class=\"show-balance-span\">\n        {{ (this.balances !== null && this.balances !== undefined && this.balances.hasOwnProperty(this.currency)) ? Math.round(this.balances[this.currency] * 1000)/1000 : 0 }}\n    </div>\n\n</template>\n\n<script>\n\n    export default{\n\n        name: \"ShowBalance\",\n\n        props: ['address', 'currency'],\n\n        data(){\n          return {\n              balances: {},\n              subscription: null,\n            }\n        },\n\n        mounted(){\n\n            if (typeof window === \"undefined\") return;\n\n            this.currency = this.currency || '0x01';\n\n            if (typeof this.address === \"object\" && typeof this.address.hasOwnProperty(\"balances\") ){ //it is an address object\n                this.balances = this.address.balances;\n                return;\n            }\n\n            let data = WebDollar.Blockchain.Balances.subscribeBalancesChanges(this.address, (data)=>{\n                this.balances = data.balances;\n            });\n\n            if (data !== null) {\n                this.subscription = data.subscription;\n                this.balances = data.balances;\n            }\n\n        },\n\n        watch: {\n            address: function (newVal, oldVal) { // watch it\n\n                if (typeof newVal === \"object\" && typeof newVal.hasOwnProperty(\"balances\") ){ //it is an address object\n                    this.balances = newVal.balances;\n                    return;\n                }\n\n                WebDollar.Blockchain.Balances.unsusbribeBalancesChanges(this.subscription);\n\n                let data = WebDollar.Blockchain.Balances.subscribeBalancesChanges(newVal, (data)=>{\n                    this.balances = data.balances;\n                });\n\n\n                if (data !== null) {\n                    this.subscription = data.subscription;\n                    this.balances = data.balances;\n                }\n\n            },\n\n            currency: function (newVal, oldVal) { // watch it\n\n            }\n        }\n\n    }\n\n</script>\n\n<style>\n    .show-balance-span{\n        display: inline-block;\n        margin-right: 4px;\n        color: #fec02c;\n        vertical-align: top;\n        margin-top: 0;\n        text-align: center;\n    }\n</style>"],"sourceRoot":""}]);
+exports.push([module.i, "\n.show-balance-span{\n    display: inline-block;\n    margin-right: 4px;\n    color: #fec02c;\n    vertical-align: top;\n    margin-top: 0;\n    text-align: center;\n}\n", "", {"version":3,"sources":["/home/alex/WebDollar/User-Interface-WebDollar/src/components/Wallet/Address/Balance/src/components/Wallet/Address/Balance/ShowBalance.vue"],"names":[],"mappings":";AAwFA;IACA,sBAAA;IACA,kBAAA;IACA,eAAA;IACA,oBAAA;IACA,cAAA;IACA,mBAAA;CACA","file":"ShowBalance.vue","sourcesContent":["<template>\n\n    <div class=\"show-balance-span\">\n        {{ (this.balances !== null && this.balances !== undefined && this.balances.hasOwnProperty(this.currency)) ? Math.round(this.balances[this.currency] * 1000)/1000 : 0 }}\n    </div>\n\n</template>\n\n<script>\n\n    export default{\n\n        name: \"ShowBalance\",\n\n        props: ['address', 'currency'],\n\n        data(){\n          return {\n              balances: {},\n              subscription: null,\n            }\n        },\n\n        mounted(){\n\n            if (typeof window === \"undefined\") return;\n\n            this.currency = this.currency || '0x01';\n\n//            if (typeof this.address === \"object\" && typeof this.address.hasOwnProperty(\"balances\") ){ //it is an address object\n//                this.balances = this.address.balances;\n//                return;\n//            }\n\n            let address = this.address;\n            if (typeof this.address === \"object\" && typeof this.address.hasOwnProperty(\"address\") ) { //it is an address object\n                address = this.address.address;\n            }\n\n            let data = WebDollar.Blockchain.Balances.subscribeBalancesChanges(address, (data)=>{\n                this.balances = data.balances;\n            });\n\n            if (data !== null) {\n                this.subscription = data.subscription;\n                this.balances = data.balances;\n            }\n\n        },\n\n        watch: {\n            address: function (newVal, oldVal) { // watch it\n\n//                if (typeof newVal === \"object\" && typeof newVal.hasOwnProperty(\"balances\") ){ //it is an address object\n//                    this.balances = newVal.balances;\n//                    return;\n//                }\n\n                WebDollar.Blockchain.Balances.unsusbribeBalancesChanges(this.subscription);\n\n                let address = newVal;\n                if (typeof newVal === \"object\" && typeof newVal.hasOwnProperty(\"address\") ) { //it is an address object\n                    address = newVal.address;\n                }\n\n                console.log(\"address!!!!!!\", address);\n\n                let data = WebDollar.Blockchain.Balances.subscribeBalancesChanges(address, (data)=>{\n                    console.log(\"balance changed\")\n                    this.balances = data.balances;\n                });\n\n                if (data !== null) {\n                    this.subscription = data.subscription;\n                    this.balances = data.balances;\n                }\n\n            },\n\n            currency: function (newVal, oldVal) { // watch it\n\n            }\n        }\n\n    }\n\n</script>\n\n<style>\n    .show-balance-span{\n        display: inline-block;\n        margin-right: 4px;\n        color: #fec02c;\n        vertical-align: top;\n        margin-top: 0;\n        text-align: center;\n    }\n</style>"],"sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
-/* 79 */
+/* 81 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7436,7 +7610,7 @@ if (false) {
 }
 
 /***/ }),
-/* 80 */
+/* 82 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7470,8 +7644,8 @@ var render = function() {
                     {
                       class:
                         this.clipboardText != "Copied"
-                          ? "copyToClipboard"
-                          : "copyToClipboardSuccess",
+                          ? "modalButton2"
+                          : "modalButton2Success",
                       on: { click: _vm.copyToClipboard }
                     },
                     [
@@ -7499,7 +7673,41 @@ var render = function() {
                       _vm._v("WEBD")
                     ],
                     1
-                  )
+                  ),
+                  _vm.isMiningAddress
+                    ? _c(
+                        "b",
+                        [
+                          _c("icon", {
+                            staticClass: "btn",
+                            staticStyle: { display: "inline-block" },
+                            attrs: {
+                              alt: "Mining",
+                              text: "Mining Address",
+                              icon: "mining"
+                            }
+                          }),
+                          _vm._v(
+                            "\n                        Mining on this Address\n                    "
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  !_vm.isMiningAddress
+                    ? _c(
+                        "div",
+                        {
+                          staticClass: "modalButton2",
+                          on: { click: _vm.handleSetAddress }
+                        },
+                        [
+                          _vm._v(
+                            "\n                        Mine on this address\n                    "
+                          )
+                        ]
+                      )
+                    : _vm._e()
                 ])
               ]),
               _c("div", { staticClass: "addressActions" }, [
@@ -7630,17 +7838,17 @@ if (false) {
 }
 
 /***/ }),
-/* 81 */
+/* 83 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_Lock_modal_vue__ = __webpack_require__(21);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3b585992_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Lock_modal_vue__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3b585992_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Lock_modal_vue__ = __webpack_require__(94);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(82)
+  __webpack_require__(84)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -7686,13 +7894,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 82 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(83);
+var content = __webpack_require__(85);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -7712,7 +7920,7 @@ if(false) {
 }
 
 /***/ }),
-/* 83 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -7720,13 +7928,865 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.descriptionTextPass{\n    color: #bdbdbd;\n    padding: 30px 10px;\n}\n.inputDeleteModalPass{\n    width: 100%;\n    width: -webkit-fill-available;\n    background-color: #2d2d2d;\n    border: none;\n    margin: 0 auto;\n    left: 0;\n    right: 0;\n    color: #ccc;\n    padding: 7px 0;\n    font-weight: 100;\n    font-size: 14px;\n    padding-left: 5px;\n}\n.modalButtonPass{\n    background-color: #131313;\n    color: #969696;\n    font-size: 12px;\n    width: 140px;\n    font-weight: bolder;\n    border-radius: 5px;\n    letter-spacing: 2px;\n    text-transform: uppercase;\n    padding: 8px 20px;\n    margin: 0 auto;\n    cursor: pointer;\n    border: solid 1px #5f5d5d;\n    transition: all .3s linear;\n}\n.modalButtonPass:hover{\n    background-color: #f6ba2c;\n    color: #000000;\n    transition: all .3s linear;\n}\n.inputAndGeneratorPass{\n    width: 100%;\n    margin: 0 auto;\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-columns: 1fr;\n        grid-template-columns: 1fr;\n    border: solid 1px #5f5d5d;\n    margin-bottom: 20px;\n}\n.generatorButtonPass{\n    margin: 0!important;\n    width: 100%!important;\n    border-radius: 0!important;\n    border: none;\n    height: 15px!important;\n    padding: 8px 0!important;\n}\n.errorMessage{\n    color: #de604d;\n    padding-bottom: 20px;\n    display: block;\n}\n\n", "", {"version":3,"sources":["/home/alex/WebDollar/User-Interface-WebDollar/src/components/Wallet/Address/Modals/src/components/Wallet/Address/Modals/Lock.modal.vue"],"names":[],"mappings":";AAsKA;IACA,eAAA;IACA,mBAAA;CACA;AAEA;IACA,YAAA;IACA,8BAAA;IACA,0BAAA;IACA,aAAA;IACA,eAAA;IACA,QAAA;IACA,SAAA;IACA,YAAA;IACA,eAAA;IACA,iBAAA;IACA,gBAAA;IACA,kBAAA;CACA;AAEA;IACA,0BAAA;IACA,eAAA;IACA,gBAAA;IACA,aAAA;IACA,oBAAA;IACA,mBAAA;IACA,oBAAA;IACA,0BAAA;IACA,kBAAA;IACA,eAAA;IACA,gBAAA;IACA,0BAAA;IACA,2BAAA;CACA;AAEA;IACA,0BAAA;IACA,eAAA;IACA,2BAAA;CACA;AAEA;IACA,YAAA;IACA,eAAA;IACA,kBAAA;IAAA,cAAA;IACA,sBAAA;QAAA,2BAAA;IACA,0BAAA;IACA,oBAAA;CACA;AAEA;IACA,oBAAA;IACA,sBAAA;IACA,2BAAA;IACA,aAAA;IACA,uBAAA;IACA,yBAAA;CACA;AAEA;IACA,eAAA;IACA,qBAAA;IACA,eAAA;CACA","file":"Lock.modal.vue","sourcesContent":["<template>\n\n    <div>\n\n        <Modal title=\"Wallet Address Secure\" ref=\"refPassModal\">\n\n            <div slot=\"content\">\n\n                <div >\n\n                    <div class=\"inputAndGeneratorPass\">\n                        <div>\n                            <input placeholder=\"Your 12 words Password\" v-model=\"walletAddressPassword\" class=\"inputDeleteModalPass\"/>\n                        </div>\n                        <div>\n                            <div @click=\"this.generatePasswrod\" class=\"modalButtonPass generatorButtonPass\">\n                                Generate random password\n                            </div>\n                        </div>\n                    </div>\n\n                    <span class=\"errorMessage\">{{this.errorMessage}}</span>\n\n                    <div @click=\"this.encryptPassword\" class=\"modalButtonPass\">\n                        Set Password\n                    </div>\n\n                </div>\n\n            </div>\n\n        </Modal>\n\n    </div>\n\n</template>\n\n<script>\n\n    var Vue = require('vue/dist/vue.min.js');\n    import Modal from \"components/UI/modal/Modal.vue\";\n\n    import Clipboard from './../../../../../node_modules/v-clipboard';\n\n    Vue.use(Clipboard);\n\n    export default {\n\n        props: {\n            address: {default: null},\n            toAddress: {default: null},\n            toAmount: {default: 0.0},\n        },\n\n        components: {\n            \"Modal\":Modal,\n        },\n\n        data: () => {\n            return {\n                clipboardText: 'Copy to Clipboard',\n                walletAddressPassword: '',\n                errorMessage: ''\n            }\n        },\n\n        methods: {\n\n            closeModal() {\n                this.$refs['refPassModal'].closeModal();\n            },\n\n            showModal(e) {\n\n                if (this.$refs['refPassModal'].modalOpened === false){\n                    this.$refs['refPassModal'].showModal();\n                }\n\n            },\n            copyToClipboard(){\n\n                this.clipboardText = 'Copied';\n                this.$clipboard(this.walletAddressPassword);\n\n            },\n\n            generatePasswrod(){\n\n                var wordsArray = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z'];\n                this.walletAddressPassword = wordsArray[Math.floor(Math.random()*wordsArray.length)];\n\n                for (var i=0;i<=11;i++){\n\n                    var randomWord = wordsArray[Math.floor(Math.random()*wordsArray.length)];\n                    var index = this.walletAddressPassword.lastIndexOf(randomWord);\n\n\n                    if (index==-1){\n                        this.walletAddressPassword += (\" \"+randomWord);\n                    }else{\n                        i--;\n                    }\n\n                }\n\n            },\n\n            encryptPassword(){\n\n                var okPassword=true;\n                var wordsArray = this.walletAddressPassword.split(' ');\n                var wordsArraySize = wordsArray.length-1;\n\n                if (wordsArraySize != 12){\n\n                    this.errorMessage = \"The password should contain 12 words, but you have only \"+wordsArraySize+\" words.\";\n                    okPassword=false;\n\n                }\n\n                if (okPassword==true){\n\n                    for (var i=0; i<=wordsArraySize; i++){\n\n                        var index = wordsArray.lastIndexOf(wordsArray[i]);\n\n                        if  (index != i){\n\n                            this.errorMessage = \"The password should contain different words, but you are repeating '\"+wordsArray[i]+\"' word.\";\n                            okPassword=false;\n\n                        }\n\n                    }\n\n                }\n\n                if(okPassword==true){\n\n                    this.errorMessage = '';\n                    this.setPassword();\n\n                }\n\n            },\n\n            setPassword(){\n\n                this.copyToClipboard();\n                this.closeModal();\n                alert('Your password was saved in clipboard');\n\n            }\n\n        },\n\n        mounted() {\n\n            if (typeof window === 'undefined') return;\n\n        },\n\n    }\n\n</script>\n\n<style>\n    .descriptionTextPass{\n        color: #bdbdbd;\n        padding: 30px 10px;\n    }\n\n    .inputDeleteModalPass{\n        width: 100%;\n        width: -webkit-fill-available;\n        background-color: #2d2d2d;\n        border: none;\n        margin: 0 auto;\n        left: 0;\n        right: 0;\n        color: #ccc;\n        padding: 7px 0;\n        font-weight: 100;\n        font-size: 14px;\n        padding-left: 5px;\n    }\n\n    .modalButtonPass{\n        background-color: #131313;\n        color: #969696;\n        font-size: 12px;\n        width: 140px;\n        font-weight: bolder;\n        border-radius: 5px;\n        letter-spacing: 2px;\n        text-transform: uppercase;\n        padding: 8px 20px;\n        margin: 0 auto;\n        cursor: pointer;\n        border: solid 1px #5f5d5d;\n        transition: all .3s linear;\n    }\n\n    .modalButtonPass:hover{\n        background-color: #f6ba2c;\n        color: #000000;\n        transition: all .3s linear;\n    }\n\n    .inputAndGeneratorPass{\n        width: 100%;\n        margin: 0 auto;\n        display: grid;\n        grid-template-columns: 1fr;\n        border: solid 1px #5f5d5d;\n        margin-bottom: 20px;\n    }\n\n    .generatorButtonPass{\n        margin: 0!important;\n        width: 100%!important;\n        border-radius: 0!important;\n        border: none;\n        height: 15px!important;\n        padding: 8px 0!important;\n    }\n\n    .errorMessage{\n        color: #de604d;\n        padding-bottom: 20px;\n        display: block;\n    }\n\n</style>\n\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.descriptionTextPass{\n    color: #bdbdbd;\n    padding: 30px 10px;\n}\n.inputDeleteModalPass{\n    width: 100%;\n    width: -webkit-fill-available;\n    background-color: #2d2d2d;\n    border: none;\n    margin: 0 auto;\n    left: 0;\n    right: 0;\n    color: #ccc;\n    padding: 7px 0;\n    font-weight: 100;\n    font-size: 14px;\n    padding-left: 5px;\n}\n.modalButtonPass{\n    background-color: #131313;\n    color: #969696;\n    font-size: 12px;\n    width: 140px;\n    font-weight: bolder;\n    border-radius: 5px;\n    letter-spacing: 2px;\n    text-transform: uppercase;\n    padding: 8px 20px;\n    margin: 0 auto;\n    cursor: pointer;\n    border: solid 1px #5f5d5d;\n    transition: all .3s linear;\n}\n.modalButtonPass:hover{\n    background-color: #f6ba2c;\n    color: #000000;\n    transition: all .3s linear;\n}\n.inputAndGeneratorPass{\n    width: 100%;\n    margin: 0 auto;\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-columns: 1fr;\n        grid-template-columns: 1fr;\n    border: solid 1px #5f5d5d;\n    margin-bottom: 20px;\n}\n.generatorButtonPass{\n    margin: 0!important;\n    width: 100%!important;\n    border-radius: 0!important;\n    border: none;\n    height: 15px!important;\n    padding: 8px 0!important;\n}\n.errorMessage{\n    color: #de604d;\n    padding-bottom: 20px;\n    display: block;\n}\n\n", "", {"version":3,"sources":["/home/alex/WebDollar/User-Interface-WebDollar/src/components/Wallet/Address/Modals/src/components/Wallet/Address/Modals/Lock.modal.vue"],"names":[],"mappings":";AAqNA;IACA,eAAA;IACA,mBAAA;CACA;AAEA;IACA,YAAA;IACA,8BAAA;IACA,0BAAA;IACA,aAAA;IACA,eAAA;IACA,QAAA;IACA,SAAA;IACA,YAAA;IACA,eAAA;IACA,iBAAA;IACA,gBAAA;IACA,kBAAA;CACA;AAEA;IACA,0BAAA;IACA,eAAA;IACA,gBAAA;IACA,aAAA;IACA,oBAAA;IACA,mBAAA;IACA,oBAAA;IACA,0BAAA;IACA,kBAAA;IACA,eAAA;IACA,gBAAA;IACA,0BAAA;IACA,2BAAA;CACA;AAEA;IACA,0BAAA;IACA,eAAA;IACA,2BAAA;CACA;AAEA;IACA,YAAA;IACA,eAAA;IACA,kBAAA;IAAA,cAAA;IACA,sBAAA;QAAA,2BAAA;IACA,0BAAA;IACA,oBAAA;CACA;AAEA;IACA,oBAAA;IACA,sBAAA;IACA,2BAAA;IACA,aAAA;IACA,uBAAA;IACA,yBAAA;CACA;AAEA;IACA,eAAA;IACA,qBAAA;IACA,eAAA;CACA","file":"Lock.modal.vue","sourcesContent":["<template>\n\n    <div>\n\n        <div ref=\"refClipboardCopy\"></div>\n\n        <Modal title=\"Wallet Address Secure\" ref=\"refPassModal\">\n\n            <div slot=\"content\">\n\n                <div >\n\n                    <div class=\"inputAndGeneratorPass\">\n                        <div>\n                            <input placeholder=\"Your 12 words Password\" v-model=\"walletAddressPassword\" class=\"inputDeleteModalPass\"/>\n                        </div>\n                        <div>\n                            <div @click=\"this.generateRandomPassword\" class=\"modalButtonPass generatorButtonPass\">\n                                Generate random password\n                            </div>\n                        </div>\n                    </div>\n\n                    <span class=\"errorMessage\">{{this.errorMessage}}</span>\n\n                    <div @click=\"this.createPassword\" class=\"modalButtonPass\">\n                        Set Password\n                    </div>\n\n                    {{this.clipboardText}}\n\n\n                </div>\n\n            </div>\n\n        </Modal>\n\n    </div>\n\n</template>\n\n<script>\n\n    import Modal from \"components/UI/modal/Modal.vue\";\n    let Clipboard = require(\"./../../../../../node_modules/clipboard\")\n\n\n    export default {\n\n        props: {\n            address: {default: null},\n            toAddress: {default: null},\n            toAmount: {default: 0.0},\n        },\n\n        components: {\n            \"Modal\":Modal,\n        },\n\n        data: () => {\n            return {\n                clipboardText: 'Copy to Clipboard',\n                walletAddressPassword: '',\n                errorMessage: ''\n            }\n        },\n\n        methods: {\n\n            closeModal() {\n                this.$refs['refPassModal'].closeModal();\n            },\n\n            showModal(e) {\n\n                if (this.$refs['refPassModal'].modalOpened === false){\n                    this.$refs['refPassModal'].showModal();\n                }\n\n            },\n\n            copyToClipboard(){\n\n                console.log('clipboard', this.$clipboard);\n                this.clipboardText = 'Copied';\n                this.$refs['refClipboardCopy'].click();\n                console.log(this.walletAddressPassword)\n\n            },\n\n            generateRandomPassword(){\n\n                let wordsArray = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'];\n                this.walletAddressPassword = '';\n\n                for (let i = 0; i < 12; ++i){\n\n                    let randomWord = wordsArray[Math.floor(Math.random() * wordsArray.length)];\n                    let index = this.walletAddressPassword.lastIndexOf(randomWord);\n\n                    if (index === -1){\n                        this.walletAddressPassword += randomWord;\n                        if (i < 11)\n                            this.walletAddressPassword += \" \";\n                    } else {\n                        i--;\n                    }\n                }\n\n            },\n\n            async createPassword(){\n\n                if (this.walletAddressPassword === null || this.walletAddressPassword === undefined)\n                    alert('Your password is invalid');\n\n                let okPassword = true;\n                let wordsArray = this.walletAddressPassword.split(' ');\n                let wordsArraySize = wordsArray.length;\n\n                if (wordsArraySize !== 12){\n\n                    this.errorMessage = \"The password should contain 12 words, but you have \" + wordsArraySize + \" words.\";\n                    okPassword = false;\n\n                }\n\n                if (okPassword === true){\n\n                    for (let i = 0; i < wordsArraySize; i++){\n\n                        let index = wordsArray.lastIndexOf(wordsArray[i]);\n\n                        if  (index !== i){\n\n                            this.errorMessage = \"The password should contain different words, but you are repeating '\"+wordsArray[i]+\"' word.\";\n                            okPassword = false;\n\n                        }\n\n                    }\n\n                }\n\n\n                if(okPassword === true){\n\n                    this.errorMessage = '';\n                    let oldPassword = undefined;\n\n                    if (await WebDollar.Blockchain.Wallet.isAddressEncrypted(this.address)) {\n\n                        let response = prompt(\"Please enter your last password (12 words separated by space)\");\n                        if (typeof response !== \"string\") response = '';\n\n                        oldPassword = response.split(' ');\n\n                        if (oldPassword.length !== 12) {\n                            alert('Your old password has ' + oldPassword.length + ' words. It must have 12!');\n                            return;\n                        }\n\n                        if ( (await this.setPassword(oldPassword, wordsArray)) === false)\n                            alert('Your old password is incorrect!!!');\n                    } else {\n\n                        await this.setPassword(oldPassword, wordsArray);\n                    }\n                }\n\n\n            },\n\n            async setPassword(oldPassword, wordsArray){\n\n\n                this.copyToClipboard();\n                let response = await WebDollar.Blockchain.Wallet.encryptAddress(this.address, oldPassword, wordsArray);\n\n                if (response === true) {\n                    this.walletAddressPassword = \"\";\n                    this.closeModal();\n                    alert('Your password was saved in clipboard');\n                }\n\n                return response;\n            }\n\n        },\n\n        mounted() {\n\n            if (typeof window === 'undefined') return;\n\n            console.log(this.$refs['refClipboardCopy']);\n\n            this.walletAddressPassword = \"MAMA MERE\";\n            new Clipboard( this.$refs['refClipboardCopy'], {\n                text: ()  => {\n                    return this.walletAddressPassword;\n                }\n            });\n\n\n            this.$refs['refClipboardCopy'].click();\n\n        },\n\n    }\n\n</script>\n\n<style>\n    .descriptionTextPass{\n        color: #bdbdbd;\n        padding: 30px 10px;\n    }\n\n    .inputDeleteModalPass{\n        width: 100%;\n        width: -webkit-fill-available;\n        background-color: #2d2d2d;\n        border: none;\n        margin: 0 auto;\n        left: 0;\n        right: 0;\n        color: #ccc;\n        padding: 7px 0;\n        font-weight: 100;\n        font-size: 14px;\n        padding-left: 5px;\n    }\n\n    .modalButtonPass{\n        background-color: #131313;\n        color: #969696;\n        font-size: 12px;\n        width: 140px;\n        font-weight: bolder;\n        border-radius: 5px;\n        letter-spacing: 2px;\n        text-transform: uppercase;\n        padding: 8px 20px;\n        margin: 0 auto;\n        cursor: pointer;\n        border: solid 1px #5f5d5d;\n        transition: all .3s linear;\n    }\n\n    .modalButtonPass:hover{\n        background-color: #f6ba2c;\n        color: #000000;\n        transition: all .3s linear;\n    }\n\n    .inputAndGeneratorPass{\n        width: 100%;\n        margin: 0 auto;\n        display: grid;\n        grid-template-columns: 1fr;\n        border: solid 1px #5f5d5d;\n        margin-bottom: 20px;\n    }\n\n    .generatorButtonPass{\n        margin: 0!important;\n        width: 100%!important;\n        border-radius: 0!important;\n        border: none;\n        height: 15px!important;\n        padding: 8px 0!important;\n    }\n\n    .errorMessage{\n        color: #de604d;\n        padding-bottom: 20px;\n        display: block;\n    }\n\n</style>\n\n"],"sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
-/* 84 */
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+    if (true) {
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(87), __webpack_require__(89), __webpack_require__(90)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    } else if (typeof exports !== "undefined") {
+        factory(module, require('./clipboard-action'), require('tiny-emitter'), require('good-listener'));
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory(mod, global.clipboardAction, global.tinyEmitter, global.goodListener);
+        global.clipboard = mod.exports;
+    }
+})(this, function (module, _clipboardAction, _tinyEmitter, _goodListener) {
+    'use strict';
+
+    var _clipboardAction2 = _interopRequireDefault(_clipboardAction);
+
+    var _tinyEmitter2 = _interopRequireDefault(_tinyEmitter);
+
+    var _goodListener2 = _interopRequireDefault(_goodListener);
+
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
+        };
+    }
+
+    var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+        return typeof obj;
+    } : function (obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    var _createClass = function () {
+        function defineProperties(target, props) {
+            for (var i = 0; i < props.length; i++) {
+                var descriptor = props[i];
+                descriptor.enumerable = descriptor.enumerable || false;
+                descriptor.configurable = true;
+                if ("value" in descriptor) descriptor.writable = true;
+                Object.defineProperty(target, descriptor.key, descriptor);
+            }
+        }
+
+        return function (Constructor, protoProps, staticProps) {
+            if (protoProps) defineProperties(Constructor.prototype, protoProps);
+            if (staticProps) defineProperties(Constructor, staticProps);
+            return Constructor;
+        };
+    }();
+
+    function _possibleConstructorReturn(self, call) {
+        if (!self) {
+            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        }
+
+        return call && (typeof call === "object" || typeof call === "function") ? call : self;
+    }
+
+    function _inherits(subClass, superClass) {
+        if (typeof superClass !== "function" && superClass !== null) {
+            throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        }
+
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: false,
+                writable: true,
+                configurable: true
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+    }
+
+    var Clipboard = function (_Emitter) {
+        _inherits(Clipboard, _Emitter);
+
+        /**
+         * @param {String|HTMLElement|HTMLCollection|NodeList} trigger
+         * @param {Object} options
+         */
+        function Clipboard(trigger, options) {
+            _classCallCheck(this, Clipboard);
+
+            var _this = _possibleConstructorReturn(this, (Clipboard.__proto__ || Object.getPrototypeOf(Clipboard)).call(this));
+
+            _this.resolveOptions(options);
+            _this.listenClick(trigger);
+            return _this;
+        }
+
+        /**
+         * Defines if attributes would be resolved using internal setter functions
+         * or custom functions that were passed in the constructor.
+         * @param {Object} options
+         */
+
+
+        _createClass(Clipboard, [{
+            key: 'resolveOptions',
+            value: function resolveOptions() {
+                var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+                this.action = typeof options.action === 'function' ? options.action : this.defaultAction;
+                this.target = typeof options.target === 'function' ? options.target : this.defaultTarget;
+                this.text = typeof options.text === 'function' ? options.text : this.defaultText;
+                this.container = _typeof(options.container) === 'object' ? options.container : document.body;
+            }
+        }, {
+            key: 'listenClick',
+            value: function listenClick(trigger) {
+                var _this2 = this;
+
+                this.listener = (0, _goodListener2.default)(trigger, 'click', function (e) {
+                    return _this2.onClick(e);
+                });
+            }
+        }, {
+            key: 'onClick',
+            value: function onClick(e) {
+                var trigger = e.delegateTarget || e.currentTarget;
+
+                if (this.clipboardAction) {
+                    this.clipboardAction = null;
+                }
+
+                this.clipboardAction = new _clipboardAction2.default({
+                    action: this.action(trigger),
+                    target: this.target(trigger),
+                    text: this.text(trigger),
+                    container: this.container,
+                    trigger: trigger,
+                    emitter: this
+                });
+            }
+        }, {
+            key: 'defaultAction',
+            value: function defaultAction(trigger) {
+                return getAttributeValue('action', trigger);
+            }
+        }, {
+            key: 'defaultTarget',
+            value: function defaultTarget(trigger) {
+                var selector = getAttributeValue('target', trigger);
+
+                if (selector) {
+                    return document.querySelector(selector);
+                }
+            }
+        }, {
+            key: 'defaultText',
+            value: function defaultText(trigger) {
+                return getAttributeValue('text', trigger);
+            }
+        }, {
+            key: 'destroy',
+            value: function destroy() {
+                this.listener.destroy();
+
+                if (this.clipboardAction) {
+                    this.clipboardAction.destroy();
+                    this.clipboardAction = null;
+                }
+            }
+        }], [{
+            key: 'isSupported',
+            value: function isSupported() {
+                var action = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ['copy', 'cut'];
+
+                var actions = typeof action === 'string' ? [action] : action;
+                var support = !!document.queryCommandSupported;
+
+                actions.forEach(function (action) {
+                    support = support && !!document.queryCommandSupported(action);
+                });
+
+                return support;
+            }
+        }]);
+
+        return Clipboard;
+    }(_tinyEmitter2.default);
+
+    /**
+     * Helper function to retrieve attribute value.
+     * @param {String} suffix
+     * @param {Element} element
+     */
+    function getAttributeValue(suffix, element) {
+        var attribute = 'data-clipboard-' + suffix;
+
+        if (!element.hasAttribute(attribute)) {
+            return;
+        }
+
+        return element.getAttribute(attribute);
+    }
+
+    module.exports = Clipboard;
+});
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+    if (true) {
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(88)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    } else if (typeof exports !== "undefined") {
+        factory(module, require('select'));
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory(mod, global.select);
+        global.clipboardAction = mod.exports;
+    }
+})(this, function (module, _select) {
+    'use strict';
+
+    var _select2 = _interopRequireDefault(_select);
+
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
+        };
+    }
+
+    var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+        return typeof obj;
+    } : function (obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    var _createClass = function () {
+        function defineProperties(target, props) {
+            for (var i = 0; i < props.length; i++) {
+                var descriptor = props[i];
+                descriptor.enumerable = descriptor.enumerable || false;
+                descriptor.configurable = true;
+                if ("value" in descriptor) descriptor.writable = true;
+                Object.defineProperty(target, descriptor.key, descriptor);
+            }
+        }
+
+        return function (Constructor, protoProps, staticProps) {
+            if (protoProps) defineProperties(Constructor.prototype, protoProps);
+            if (staticProps) defineProperties(Constructor, staticProps);
+            return Constructor;
+        };
+    }();
+
+    var ClipboardAction = function () {
+        /**
+         * @param {Object} options
+         */
+        function ClipboardAction(options) {
+            _classCallCheck(this, ClipboardAction);
+
+            this.resolveOptions(options);
+            this.initSelection();
+        }
+
+        /**
+         * Defines base properties passed from constructor.
+         * @param {Object} options
+         */
+
+
+        _createClass(ClipboardAction, [{
+            key: 'resolveOptions',
+            value: function resolveOptions() {
+                var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+                this.action = options.action;
+                this.container = options.container;
+                this.emitter = options.emitter;
+                this.target = options.target;
+                this.text = options.text;
+                this.trigger = options.trigger;
+
+                this.selectedText = '';
+            }
+        }, {
+            key: 'initSelection',
+            value: function initSelection() {
+                if (this.text) {
+                    this.selectFake();
+                } else if (this.target) {
+                    this.selectTarget();
+                }
+            }
+        }, {
+            key: 'selectFake',
+            value: function selectFake() {
+                var _this = this;
+
+                var isRTL = document.documentElement.getAttribute('dir') == 'rtl';
+
+                this.removeFake();
+
+                this.fakeHandlerCallback = function () {
+                    return _this.removeFake();
+                };
+                this.fakeHandler = this.container.addEventListener('click', this.fakeHandlerCallback) || true;
+
+                this.fakeElem = document.createElement('textarea');
+                // Prevent zooming on iOS
+                this.fakeElem.style.fontSize = '12pt';
+                // Reset box model
+                this.fakeElem.style.border = '0';
+                this.fakeElem.style.padding = '0';
+                this.fakeElem.style.margin = '0';
+                // Move element out of screen horizontally
+                this.fakeElem.style.position = 'absolute';
+                this.fakeElem.style[isRTL ? 'right' : 'left'] = '-9999px';
+                // Move element to the same position vertically
+                var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+                this.fakeElem.style.top = yPosition + 'px';
+
+                this.fakeElem.setAttribute('readonly', '');
+                this.fakeElem.value = this.text;
+
+                this.container.appendChild(this.fakeElem);
+
+                this.selectedText = (0, _select2.default)(this.fakeElem);
+                this.copyText();
+            }
+        }, {
+            key: 'removeFake',
+            value: function removeFake() {
+                if (this.fakeHandler) {
+                    this.container.removeEventListener('click', this.fakeHandlerCallback);
+                    this.fakeHandler = null;
+                    this.fakeHandlerCallback = null;
+                }
+
+                if (this.fakeElem) {
+                    this.container.removeChild(this.fakeElem);
+                    this.fakeElem = null;
+                }
+            }
+        }, {
+            key: 'selectTarget',
+            value: function selectTarget() {
+                this.selectedText = (0, _select2.default)(this.target);
+                this.copyText();
+            }
+        }, {
+            key: 'copyText',
+            value: function copyText() {
+                var succeeded = void 0;
+
+                try {
+                    succeeded = document.execCommand(this.action);
+                } catch (err) {
+                    succeeded = false;
+                }
+
+                this.handleResult(succeeded);
+            }
+        }, {
+            key: 'handleResult',
+            value: function handleResult(succeeded) {
+                this.emitter.emit(succeeded ? 'success' : 'error', {
+                    action: this.action,
+                    text: this.selectedText,
+                    trigger: this.trigger,
+                    clearSelection: this.clearSelection.bind(this)
+                });
+            }
+        }, {
+            key: 'clearSelection',
+            value: function clearSelection() {
+                if (this.trigger) {
+                    this.trigger.focus();
+                }
+
+                window.getSelection().removeAllRanges();
+            }
+        }, {
+            key: 'destroy',
+            value: function destroy() {
+                this.removeFake();
+            }
+        }, {
+            key: 'action',
+            set: function set() {
+                var action = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'copy';
+
+                this._action = action;
+
+                if (this._action !== 'copy' && this._action !== 'cut') {
+                    throw new Error('Invalid "action" value, use either "copy" or "cut"');
+                }
+            },
+            get: function get() {
+                return this._action;
+            }
+        }, {
+            key: 'target',
+            set: function set(target) {
+                if (target !== undefined) {
+                    if (target && (typeof target === 'undefined' ? 'undefined' : _typeof(target)) === 'object' && target.nodeType === 1) {
+                        if (this.action === 'copy' && target.hasAttribute('disabled')) {
+                            throw new Error('Invalid "target" attribute. Please use "readonly" instead of "disabled" attribute');
+                        }
+
+                        if (this.action === 'cut' && (target.hasAttribute('readonly') || target.hasAttribute('disabled'))) {
+                            throw new Error('Invalid "target" attribute. You can\'t cut text from elements with "readonly" or "disabled" attributes');
+                        }
+
+                        this._target = target;
+                    } else {
+                        throw new Error('Invalid "target" value, use a valid Element');
+                    }
+                }
+            },
+            get: function get() {
+                return this._target;
+            }
+        }]);
+
+        return ClipboardAction;
+    }();
+
+    module.exports = ClipboardAction;
+});
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports) {
+
+function select(element) {
+    var selectedText;
+
+    if (element.nodeName === 'SELECT') {
+        element.focus();
+
+        selectedText = element.value;
+    }
+    else if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
+        var isReadOnly = element.hasAttribute('readonly');
+
+        if (!isReadOnly) {
+            element.setAttribute('readonly', '');
+        }
+
+        element.select();
+        element.setSelectionRange(0, element.value.length);
+
+        if (!isReadOnly) {
+            element.removeAttribute('readonly');
+        }
+
+        selectedText = element.value;
+    }
+    else {
+        if (element.hasAttribute('contenteditable')) {
+            element.focus();
+        }
+
+        var selection = window.getSelection();
+        var range = document.createRange();
+
+        range.selectNodeContents(element);
+        selection.removeAllRanges();
+        selection.addRange(range);
+
+        selectedText = selection.toString();
+    }
+
+    return selectedText;
+}
+
+module.exports = select;
+
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports) {
+
+function E () {
+  // Keep this empty so it's easier to inherit from
+  // (via https://github.com/lipsmack from https://github.com/scottcorgan/tiny-emitter/issues/3)
+}
+
+E.prototype = {
+  on: function (name, callback, ctx) {
+    var e = this.e || (this.e = {});
+
+    (e[name] || (e[name] = [])).push({
+      fn: callback,
+      ctx: ctx
+    });
+
+    return this;
+  },
+
+  once: function (name, callback, ctx) {
+    var self = this;
+    function listener () {
+      self.off(name, listener);
+      callback.apply(ctx, arguments);
+    };
+
+    listener._ = callback
+    return this.on(name, listener, ctx);
+  },
+
+  emit: function (name) {
+    var data = [].slice.call(arguments, 1);
+    var evtArr = ((this.e || (this.e = {}))[name] || []).slice();
+    var i = 0;
+    var len = evtArr.length;
+
+    for (i; i < len; i++) {
+      evtArr[i].fn.apply(evtArr[i].ctx, data);
+    }
+
+    return this;
+  },
+
+  off: function (name, callback) {
+    var e = this.e || (this.e = {});
+    var evts = e[name];
+    var liveEvents = [];
+
+    if (evts && callback) {
+      for (var i = 0, len = evts.length; i < len; i++) {
+        if (evts[i].fn !== callback && evts[i].fn._ !== callback)
+          liveEvents.push(evts[i]);
+      }
+    }
+
+    // Remove event from queue to prevent memory leak
+    // Suggested by https://github.com/lazd
+    // Ref: https://github.com/scottcorgan/tiny-emitter/commit/c6ebfaa9bc973b33d110a84a307742b7cf94c953#commitcomment-5024910
+
+    (liveEvents.length)
+      ? e[name] = liveEvents
+      : delete e[name];
+
+    return this;
+  }
+};
+
+module.exports = E;
+
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var is = __webpack_require__(91);
+var delegate = __webpack_require__(92);
+
+/**
+ * Validates all params and calls the right
+ * listener function based on its target type.
+ *
+ * @param {String|HTMLElement|HTMLCollection|NodeList} target
+ * @param {String} type
+ * @param {Function} callback
+ * @return {Object}
+ */
+function listen(target, type, callback) {
+    if (!target && !type && !callback) {
+        throw new Error('Missing required arguments');
+    }
+
+    if (!is.string(type)) {
+        throw new TypeError('Second argument must be a String');
+    }
+
+    if (!is.fn(callback)) {
+        throw new TypeError('Third argument must be a Function');
+    }
+
+    if (is.node(target)) {
+        return listenNode(target, type, callback);
+    }
+    else if (is.nodeList(target)) {
+        return listenNodeList(target, type, callback);
+    }
+    else if (is.string(target)) {
+        return listenSelector(target, type, callback);
+    }
+    else {
+        throw new TypeError('First argument must be a String, HTMLElement, HTMLCollection, or NodeList');
+    }
+}
+
+/**
+ * Adds an event listener to a HTML element
+ * and returns a remove listener function.
+ *
+ * @param {HTMLElement} node
+ * @param {String} type
+ * @param {Function} callback
+ * @return {Object}
+ */
+function listenNode(node, type, callback) {
+    node.addEventListener(type, callback);
+
+    return {
+        destroy: function() {
+            node.removeEventListener(type, callback);
+        }
+    }
+}
+
+/**
+ * Add an event listener to a list of HTML elements
+ * and returns a remove listener function.
+ *
+ * @param {NodeList|HTMLCollection} nodeList
+ * @param {String} type
+ * @param {Function} callback
+ * @return {Object}
+ */
+function listenNodeList(nodeList, type, callback) {
+    Array.prototype.forEach.call(nodeList, function(node) {
+        node.addEventListener(type, callback);
+    });
+
+    return {
+        destroy: function() {
+            Array.prototype.forEach.call(nodeList, function(node) {
+                node.removeEventListener(type, callback);
+            });
+        }
+    }
+}
+
+/**
+ * Add an event listener to a selector
+ * and returns a remove listener function.
+ *
+ * @param {String} selector
+ * @param {String} type
+ * @param {Function} callback
+ * @return {Object}
+ */
+function listenSelector(selector, type, callback) {
+    return delegate(document.body, selector, type, callback);
+}
+
+module.exports = listen;
+
+
+/***/ }),
+/* 91 */
+/***/ (function(module, exports) {
+
+/**
+ * Check if argument is a HTML element.
+ *
+ * @param {Object} value
+ * @return {Boolean}
+ */
+exports.node = function(value) {
+    return value !== undefined
+        && value instanceof HTMLElement
+        && value.nodeType === 1;
+};
+
+/**
+ * Check if argument is a list of HTML elements.
+ *
+ * @param {Object} value
+ * @return {Boolean}
+ */
+exports.nodeList = function(value) {
+    var type = Object.prototype.toString.call(value);
+
+    return value !== undefined
+        && (type === '[object NodeList]' || type === '[object HTMLCollection]')
+        && ('length' in value)
+        && (value.length === 0 || exports.node(value[0]));
+};
+
+/**
+ * Check if argument is a string.
+ *
+ * @param {Object} value
+ * @return {Boolean}
+ */
+exports.string = function(value) {
+    return typeof value === 'string'
+        || value instanceof String;
+};
+
+/**
+ * Check if argument is a function.
+ *
+ * @param {Object} value
+ * @return {Boolean}
+ */
+exports.fn = function(value) {
+    var type = Object.prototype.toString.call(value);
+
+    return type === '[object Function]';
+};
+
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var closest = __webpack_require__(93);
+
+/**
+ * Delegates event to a selector.
+ *
+ * @param {Element} element
+ * @param {String} selector
+ * @param {String} type
+ * @param {Function} callback
+ * @param {Boolean} useCapture
+ * @return {Object}
+ */
+function _delegate(element, selector, type, callback, useCapture) {
+    var listenerFn = listener.apply(this, arguments);
+
+    element.addEventListener(type, listenerFn, useCapture);
+
+    return {
+        destroy: function() {
+            element.removeEventListener(type, listenerFn, useCapture);
+        }
+    }
+}
+
+/**
+ * Delegates event to a selector.
+ *
+ * @param {Element|String|Array} [elements]
+ * @param {String} selector
+ * @param {String} type
+ * @param {Function} callback
+ * @param {Boolean} useCapture
+ * @return {Object}
+ */
+function delegate(elements, selector, type, callback, useCapture) {
+    // Handle the regular Element usage
+    if (typeof elements.addEventListener === 'function') {
+        return _delegate.apply(null, arguments);
+    }
+
+    // Handle Element-less usage, it defaults to global delegation
+    if (typeof type === 'function') {
+        // Use `document` as the first parameter, then apply arguments
+        // This is a short way to .unshift `arguments` without running into deoptimizations
+        return _delegate.bind(null, document).apply(null, arguments);
+    }
+
+    // Handle Selector-based usage
+    if (typeof elements === 'string') {
+        elements = document.querySelectorAll(elements);
+    }
+
+    // Handle Array-like based usage
+    return Array.prototype.map.call(elements, function (element) {
+        return _delegate(element, selector, type, callback, useCapture);
+    });
+}
+
+/**
+ * Finds closest match and invokes callback.
+ *
+ * @param {Element} element
+ * @param {String} selector
+ * @param {String} type
+ * @param {Function} callback
+ * @return {Function}
+ */
+function listener(element, selector, type, callback) {
+    return function(e) {
+        e.delegateTarget = closest(e.target, selector);
+
+        if (e.delegateTarget) {
+            callback.call(element, e);
+        }
+    }
+}
+
+module.exports = delegate;
+
+
+/***/ }),
+/* 93 */
+/***/ (function(module, exports) {
+
+var DOCUMENT_NODE_TYPE = 9;
+
+/**
+ * A polyfill for Element.matches()
+ */
+if (typeof Element !== 'undefined' && !Element.prototype.matches) {
+    var proto = Element.prototype;
+
+    proto.matches = proto.matchesSelector ||
+                    proto.mozMatchesSelector ||
+                    proto.msMatchesSelector ||
+                    proto.oMatchesSelector ||
+                    proto.webkitMatchesSelector;
+}
+
+/**
+ * Finds the closest parent that matches a selector.
+ *
+ * @param {Element} element
+ * @param {String} selector
+ * @return {Function}
+ */
+function closest (element, selector) {
+    while (element && element.nodeType !== DOCUMENT_NODE_TYPE) {
+        if (typeof element.matches === 'function' &&
+            element.matches(selector)) {
+          return element;
+        }
+        element = element.parentNode;
+    }
+}
+
+module.exports = closest;
+
+
+/***/ }),
+/* 94 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7737,6 +8797,7 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("div", { ref: "refClipboardCopy" }),
       _c(
         "Modal",
         { ref: "refPassModal", attrs: { title: "Wallet Address Secure" } },
@@ -7772,7 +8833,7 @@ var render = function() {
                     "div",
                     {
                       staticClass: "modalButtonPass generatorButtonPass",
-                      on: { click: this.generatePasswrod }
+                      on: { click: this.generateRandomPassword }
                     },
                     [
                       _vm._v(
@@ -7789,9 +8850,14 @@ var render = function() {
                 "div",
                 {
                   staticClass: "modalButtonPass",
-                  on: { click: this.encryptPassword }
+                  on: { click: this.createPassword }
                 },
                 [_vm._v("\n                    Set Password\n                ")]
+              ),
+              _vm._v(
+                "\n\n                " +
+                  _vm._s(this.clipboardText) +
+                  "\n\n\n            "
               )
             ])
           ])
@@ -7813,17 +8879,17 @@ if (false) {
 }
 
 /***/ }),
-/* 85 */
+/* 95 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_Delete_modal_vue__ = __webpack_require__(22);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_dc2c73dc_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Delete_modal_vue__ = __webpack_require__(88);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_dc2c73dc_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Delete_modal_vue__ = __webpack_require__(98);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(86)
+  __webpack_require__(96)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -7869,13 +8935,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 86 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(87);
+var content = __webpack_require__(97);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -7895,7 +8961,7 @@ if(false) {
 }
 
 /***/ }),
-/* 87 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -7909,7 +8975,7 @@ exports.push([module.i, "\n.descriptionText{\n\n    color: #bdbdbd;\n    padding
 
 
 /***/ }),
-/* 88 */
+/* 98 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7972,7 +9038,7 @@ if (false) {
 }
 
 /***/ }),
-/* 89 */
+/* 99 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8000,6 +9066,13 @@ var render = function() {
             staticClass: "walletAddressImage",
             attrs: { src: this.getAddressPic }
           }),
+          this.isMiningAddress
+            ? _c("icon", {
+                staticClass: "btn",
+                staticStyle: { display: "inline-block" },
+                attrs: { alt: "Mining", text: "Mining Address", icon: "mining" }
+              })
+            : _vm._e(),
           _c(
             "b",
             [
@@ -8010,7 +9083,8 @@ var render = function() {
             ],
             1
           )
-        ]
+        ],
+        1
       ),
       _c(
         "div",
@@ -8096,7 +9170,7 @@ var render = function() {
       ),
       _c("TransactionModal", {
         ref: "refTransactionModal",
-        attrs: { address: this.address }
+        attrs: { address: this.address, isMiningAddress: this.isMiningAddress }
       }),
       _c("LockModal", {
         ref: "refLockModal",
@@ -8122,17 +9196,17 @@ if (false) {
 }
 
 /***/ }),
-/* 90 */
+/* 100 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_ShowSumBalances_vue__ = __webpack_require__(23);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_4fface31_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ShowSumBalances_vue__ = __webpack_require__(93);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_4fface31_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ShowSumBalances_vue__ = __webpack_require__(103);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(91)
+  __webpack_require__(101)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -8178,13 +9252,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 91 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(92);
+var content = __webpack_require__(102);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -8204,7 +9278,7 @@ if(false) {
 }
 
 /***/ }),
-/* 92 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -8218,7 +9292,7 @@ exports.push([module.i, "\n.show-sum-balances{\n    display: inline;\n    color:
 
 
 /***/ }),
-/* 93 */
+/* 103 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8242,7 +9316,7 @@ if (false) {
 }
 
 /***/ }),
-/* 94 */
+/* 104 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8349,6 +9423,8 @@ var render = function() {
                     key: walletAddress.address,
                     staticStyle: { "padding-right": "20px" },
                     attrs: {
+                      isMiningAddress:
+                        _vm.miningAddress === walletAddress.address,
                       id: "address" + walletAddress.address,
                       address: walletAddress.address
                     }
@@ -8374,17 +9450,17 @@ if (false) {
 }
 
 /***/ }),
-/* 95 */
+/* 105 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_Mining_vue__ = __webpack_require__(24);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0954b78f_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Mining_vue__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0954b78f_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Mining_vue__ = __webpack_require__(113);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(96)
+  __webpack_require__(106)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -8430,13 +9506,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 96 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(97);
+var content = __webpack_require__(107);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -8456,7 +9532,7 @@ if(false) {
 }
 
 /***/ }),
-/* 97 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -8470,17 +9546,17 @@ exports.push([module.i, "\n#miningLoader{\n    vertical-align: top;\n    width: 
 
 
 /***/ }),
-/* 98 */
+/* 108 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_slider_vue__ = __webpack_require__(25);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_2b39a900_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_slider_vue__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_2b39a900_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_slider_vue__ = __webpack_require__(112);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(99)
+  __webpack_require__(109)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -8526,13 +9602,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 99 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(100);
+var content = __webpack_require__(110);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -8552,7 +9628,7 @@ if(false) {
 }
 
 /***/ }),
-/* 100 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -8566,13 +9642,13 @@ exports.push([module.i, "\n.miningSlider {\n    padding-top: 15px !important;\n 
 
 
 /***/ }),
-/* 101 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 !function(t,e){ true?module.exports=e():"function"==typeof define&&define.amd?define("vue-slider-component",[],e):"object"==typeof exports?exports["vue-slider-component"]=e():t["vue-slider-component"]=e()}(this,function(){return function(t){function e(s){if(i[s])return i[s].exports;var r=i[s]={i:s,l:!1,exports:{}};return t[s].call(r.exports,r,r.exports,e),r.l=!0,r.exports}var i={};return e.m=t,e.c=i,e.i=function(t){return t},e.d=function(t,i,s){e.o(t,i)||Object.defineProperty(t,i,{configurable:!1,enumerable:!0,get:s})},e.n=function(t){var i=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(i,"a",i),i},e.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},e.p="",e(e.s=2)}([function(t,e,i){i(7);var s=i(5)(i(1),i(6),null,null);t.exports=s.exports},function(t,e,i){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.default={name:"VueSliderComponent",data:function(){return{flag:!1,size:0,currentValue:0,currentSlider:0}},props:{width:{type:[Number,String],default:"auto"},height:{type:[Number,String],default:6},data:{type:Array,default:null},dotSize:{type:Number,default:16},dotWidth:{type:Number,required:!1},dotHeight:{type:Number,required:!1},min:{type:Number,default:0},max:{type:Number,default:100},interval:{type:Number,default:1},show:{type:Boolean,default:!0},disabled:{type:Boolean,default:!1},piecewise:{type:Boolean,default:!1},tooltip:{type:[String,Boolean],default:"always"},eventType:{type:String,default:"auto"},direction:{type:String,default:"horizontal"},reverse:{type:Boolean,default:!1},lazy:{type:Boolean,default:!1},clickable:{type:Boolean,default:!0},speed:{type:Number,default:.5},realTime:{type:Boolean,default:!1},stopPropagation:{type:Boolean,default:!1},value:{type:[String,Number,Array],default:0},piecewiseLabel:{type:Boolean,default:!1},sliderStyle:[Array,Object,Function],tooltipDir:[Array,String],formatter:[String,Function],piecewiseStyle:Object,piecewiseActiveStyle:Object,processStyle:Object,bgStyle:Object,tooltipStyle:[Array,Object,Function],labelStyle:Object,labelActiveStyle:Object},computed:{dotWidthVal:function(){return"number"==typeof this.dotWidth?this.dotWidth:this.dotSize},dotHeightVal:function(){return"number"==typeof this.dotHeight?this.dotHeight:this.dotSize},flowDirection:function(){return"vue-slider-"+this.direction+(this.reverse?"-reverse":"")},tooltipDirection:function(){var t=this.tooltipDir||("vertical"===this.direction?"left":"top");return Array.isArray(t)?this.isRange?t:t[1]:this.isRange?[t,t]:t},tooltipStatus:function(){return"hover"===this.tooltip&&this.flag?"vue-slider-always":this.tooltip?"vue-slider-"+this.tooltip:""},tooltipClass:function(){return["vue-slider-tooltip-"+this.tooltipDirection,"vue-slider-tooltip"]},isDisabled:function(){return"none"===this.eventType||this.disabled},disabledClass:function(){return this.disabled?"vue-slider-disabled":""},isRange:function(){return Array.isArray(this.value)},slider:function(){return this.isRange?[this.$refs.dot0,this.$refs.dot1]:this.$refs.dot},minimum:function(){return this.data?0:this.min},val:{get:function(){return this.data?this.isRange?[this.data[this.currentValue[0]],this.data[this.currentValue[1]]]:this.data[this.currentValue]:this.currentValue},set:function(t){if(this.data)if(this.isRange){var e=this.data.indexOf(t[0]),i=this.data.indexOf(t[1]);e>-1&&i>-1&&(this.currentValue=[e,i])}else{var s=this.data.indexOf(t);s>-1&&(this.currentValue=s)}else this.currentValue=t}},currentIndex:function(){return this.isRange?this.data?this.currentValue:[(this.currentValue[0]-this.minimum)/this.spacing,(this.currentValue[1]-this.minimum)/this.spacing]:(this.currentValue-this.minimum)/this.spacing},indexRange:function(){return this.isRange?this.currentIndex:[0,this.currentIndex]},maximum:function(){return this.data?this.data.length-1:this.max},multiple:function(){var t=(""+this.interval).split(".")[1];return t?Math.pow(10,t.length):1},spacing:function(){return this.data?1:this.interval},total:function(){return this.data?this.data.length-1:(~~((this.maximum-this.minimum)*this.multiple)%(this.interval*this.multiple)!=0&&console.error("[Vue-slider warn]: Prop[interval] is illegal, Please make sure that the interval can be divisible"),(this.maximum-this.minimum)/this.interval)},gap:function(){return this.size/this.total},position:function(){return this.isRange?[(this.currentValue[0]-this.minimum)/this.spacing*this.gap,(this.currentValue[1]-this.minimum)/this.spacing*this.gap]:(this.currentValue-this.minimum)/this.spacing*this.gap},limit:function(){return this.isRange?[[0,this.position[1]],[this.position[0],this.size]]:[0,this.size]},valueLimit:function(){return this.isRange?[[this.minimum,this.currentValue[1]],[this.currentValue[0],this.maximum]]:[this.minimum,this.maximum]},wrapStyles:function(){return"vertical"===this.direction?{height:"number"==typeof this.height?this.height+"px":this.height,padding:this.dotHeightVal/2+"px "+this.dotWidthVal/2+"px"}:{width:"number"==typeof this.width?this.width+"px":this.width,padding:this.dotHeightVal/2+"px "+this.dotWidthVal/2+"px"}},sliderStyles:function(){return Array.isArray(this.sliderStyle)?this.isRange?this.sliderStyle:this.sliderStyle[1]:"function"==typeof this.sliderStyle?this.sliderStyle(this.val,this.currentIndex):this.isRange?[this.sliderStyle,this.sliderStyle]:this.sliderStyle},tooltipStyles:function(){return Array.isArray(this.tooltipStyle)?this.isRange?this.tooltipStyle:this.tooltipStyle[1]:"function"==typeof this.tooltipStyle?this.tooltipStyle(this.val,this.currentIndex):this.isRange?[this.tooltipStyle,this.tooltipStyle]:this.tooltipStyle},elemStyles:function(){return"vertical"===this.direction?{width:this.width+"px",height:"100%"}:{height:this.height+"px"}},dotStyles:function(){return"vertical"===this.direction?{width:this.dotWidthVal+"px",height:this.dotHeightVal+"px",left:-(this.dotWidthVal-this.width)/2+"px"}:{width:this.dotWidthVal+"px",height:this.dotHeightVal+"px",top:-(this.dotHeightVal-this.height)/2+"px"}},piecewiseDotStyle:function(){return"vertical"===this.direction?{width:this.width+"px",height:this.width+"px"}:{width:this.height+"px",height:this.height+"px"}},piecewiseDotWrap:function(){if(!this.piecewise&&!this.piecewiseLabel)return!1;for(var t=[],e=0;e<=this.total;e++){var i="vertical"===this.direction?{bottom:this.gap*e-this.width/2+"px",left:0}:{left:this.gap*e-this.height/2+"px",top:0},s=this.reverse?this.total-e:e,r=this.data?this.data[s]:this.spacing*s+this.min;t.push({style:i,label:this.formatter?this.formatting(r):r,inRange:s>=this.indexRange[0]&&s<=this.indexRange[1]})}return t}},watch:{value:function(t){this.flag||this.setValue(t,!0)},max:function(t){var e=this.limitValue(this.val);!1!==e&&this.setValue(e),this.refresh()},min:function(t){var e=this.limitValue(this.val);!1!==e&&this.setValue(e),this.refresh()},show:function(t){var e=this;t&&!this.size&&this.$nextTick(function(){e.refresh()})}},methods:{bindEvents:function(){document.addEventListener("touchmove",this.moving,{passive:!1}),document.addEventListener("touchend",this.moveEnd,{passive:!1}),document.addEventListener("mousemove",this.moving),document.addEventListener("mouseup",this.moveEnd),document.addEventListener("mouseleave",this.moveEnd),window.addEventListener("resize",this.refresh)},unbindEvents:function(){window.removeEventListener("resize",this.refresh),document.removeEventListener("touchmove",this.moving),document.removeEventListener("touchend",this.moveEnd),document.removeEventListener("mousemove",this.moving),document.removeEventListener("mouseup",this.moveEnd),document.removeEventListener("mouseleave",this.moveEnd)},formatting:function(t){return"string"==typeof this.formatter?this.formatter.replace(/\{value\}/,t):this.formatter(t)},getPos:function(t){return this.realTime&&this.getStaticData(),"vertical"===this.direction?this.reverse?t.pageY-this.offset:this.size-(t.pageY-this.offset):this.reverse?this.size-(t.clientX-this.offset):t.clientX-this.offset},wrapClick:function(t){if(this.isDisabled||!this.clickable)return!1;var e=this.getPos(t);this.isRange&&(this.currentSlider=e>(this.position[1]-this.position[0])/2+this.position[0]?1:0),this.setValueOnPos(e)},moveStart:function(t,e){if(this.stopPropagation&&t.stopPropagation(),this.isDisabled)return!1;this.isRange&&(this.currentSlider=e),this.flag=!0,this.$emit("drag-start",this)},moving:function(t){if(this.stopPropagation&&t.stopPropagation(),!this.flag)return!1;t.preventDefault(),t.targetTouches&&t.targetTouches[0]&&(t=t.targetTouches[0]),this.setValueOnPos(this.getPos(t),!0)},moveEnd:function(t){if(this.stopPropagation&&t.stopPropagation(),!this.flag)return!1;this.$emit("drag-end",this),this.lazy&&this.isDiff(this.val,this.value)&&this.syncValue(),this.flag=!1,this.setPosition()},setValueOnPos:function(t,e){var i=this.isRange?this.limit[this.currentSlider]:this.limit,s=this.isRange?this.valueLimit[this.currentSlider]:this.valueLimit;if(t>=i[0]&&t<=i[1]){this.setTransform(t);var r=(Math.round(t/this.gap)*(this.spacing*this.multiple)+this.minimum*this.multiple)/this.multiple;this.setCurrentValue(r,e)}else t<i[0]?(this.setTransform(i[0]),this.setCurrentValue(s[0]),1===this.currentSlider&&(this.currentSlider=0)):(this.setTransform(i[1]),this.setCurrentValue(s[1]),0===this.currentSlider&&(this.currentSlider=1))},isDiff:function(t,e){return Object.prototype.toString.call(t)!==Object.prototype.toString.call(e)||(Array.isArray(t)&&t.length===e.length?t.some(function(t,i){return t!==e[i]}):t!==e)},setCurrentValue:function(t,e){if(t<this.minimum||t>this.maximum)return!1;this.isRange?this.isDiff(this.currentValue[this.currentSlider],t)&&(this.currentValue.splice(this.currentSlider,1,t),this.lazy&&this.flag||this.syncValue()):this.isDiff(this.currentValue,t)&&(this.currentValue=t,this.lazy&&this.flag||this.syncValue()),e||this.setPosition()},setIndex:function(t){if(Array.isArray(t)&&this.isRange){var e=void 0;e=this.data?[this.data[t[0]],this.data[t[1]]]:[this.spacing*t[0]+this.minimum,this.spacing*t[1]+this.minimum],this.setValue(e)}else t=this.spacing*t+this.minimum,this.isRange&&(this.currentSlider=t>(this.currentValue[1]-this.currentValue[0])/2+this.currentValue[0]?1:0),this.setCurrentValue(t)},setValue:function(t,e,i){var s=this;if(this.isDiff(this.val,t)){var r=this.limitValue(t);this.val=!1!==r?this.isRange?r.concat():r:this.isRange?t.concat():t,this.syncValue(e)}this.$nextTick(function(){return s.setPosition(i)})},setPosition:function(t){this.flag||this.setTransitionTime(void 0===t?this.speed:t),this.isRange?(this.currentSlider=0,this.setTransform(this.position[this.currentSlider]),this.currentSlider=1,this.setTransform(this.position[this.currentSlider])):this.setTransform(this.position),this.flag||this.setTransitionTime(0)},setTransform:function(t){var e=("vertical"===this.direction?this.dotHeightVal/2-t:t-this.dotWidthVal/2)*(this.reverse?-1:1),i="vertical"===this.direction?"translateY("+e+"px)":"translateX("+e+"px)",s=(0===this.currentSlider?this.position[1]-t:t-this.position[0])+"px",r=(0===this.currentSlider?t:this.position[0])+"px";this.isRange?(this.slider[this.currentSlider].style.transform=i,this.slider[this.currentSlider].style.WebkitTransform=i,this.slider[this.currentSlider].style.msTransform=i,"vertical"===this.direction?(this.$refs.process.style.height=s,this.$refs.process.style[this.reverse?"top":"bottom"]=r):(this.$refs.process.style.width=s,this.$refs.process.style[this.reverse?"right":"left"]=r)):(this.slider.style.transform=i,this.slider.style.WebkitTransform=i,this.slider.style.msTransform=i,"vertical"===this.direction?(this.$refs.process.style.height=t+"px",this.$refs.process.style[this.reverse?"top":"bottom"]=0):(this.$refs.process.style.width=t+"px",this.$refs.process.style[this.reverse?"right":"left"]=0))},setTransitionTime:function(t){if(t||this.$refs.process.offsetWidth,this.isRange){for(var e=0;e<this.slider.length;e++)this.slider[e].style.transitionDuration=t+"s",this.slider[e].style.WebkitTransitionDuration=t+"s";this.$refs.process.style.transitionDuration=t+"s",this.$refs.process.style.WebkitTransitionDuration=t+"s"}else this.slider.style.transitionDuration=t+"s",this.slider.style.WebkitTransitionDuration=t+"s",this.$refs.process.style.transitionDuration=t+"s",this.$refs.process.style.WebkitTransitionDuration=t+"s"},limitValue:function(t){var e=this;if(this.data)return t;var i=!1;return this.isRange?t=t.map(function(t){return t<e.min?(i=!0,e.min):t>e.max?(i=!0,e.max):t}):t>this.max?(i=!0,t=this.max):t<this.min&&(i=!0,t=this.min),i&&t},syncValue:function(t){t||this.$emit("callback",this.val),this.$emit("input",this.isRange?this.val.concat():this.val)},getValue:function(){return this.val},getIndex:function(){return this.currentIndex},getStaticData:function(){this.$refs.elem&&(this.size="vertical"===this.direction?this.$refs.elem.offsetHeight:this.$refs.elem.offsetWidth,this.offset="vertical"===this.direction?this.$refs.elem.getBoundingClientRect().top+window.pageYOffset||document.documentElement.scrollTop:this.$refs.elem.getBoundingClientRect().left)},refresh:function(){this.$refs.elem&&(this.getStaticData(),this.setPosition())}},mounted:function(){var t=this;"undefined"!=typeof window&&"undefined"!=typeof document&&this.$nextTick(function(){t.getStaticData(),t.setValue(t.value,!0,0),t.bindEvents()})},beforeDestroy:function(){this.unbindEvents()}}},function(t,e,i){"use strict";var s=i(0);t.exports=s},function(t,e,i){e=t.exports=i(4)(),e.push([t.i,'.vue-slider-component{position:relative;box-sizing:border-box;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.vue-slider-component.vue-slider-disabled{opacity:.5;cursor:not-allowed}.vue-slider-component.vue-slider-has-label{margin-bottom:15px}.vue-slider-component.vue-slider-disabled .vue-slider-dot{cursor:not-allowed}.vue-slider-component .vue-slider{position:relative;display:block;border-radius:15px;background-color:#ccc}.vue-slider-component .vue-slider:after{content:"";position:absolute;left:0;top:0;width:100%;height:100%;z-index:2}.vue-slider-component .vue-slider-process{position:absolute;border-radius:15px;background-color:#3498db;transition:all 0s;z-index:1}.vue-slider-component.vue-slider-horizontal .vue-slider-process{width:0;height:100%;top:0;left:0;will-change:width}.vue-slider-component.vue-slider-vertical .vue-slider-process{width:100%;height:0;bottom:0;left:0;will-change:height}.vue-slider-component.vue-slider-horizontal-reverse .vue-slider-process{width:0;height:100%;top:0;right:0}.vue-slider-component.vue-slider-vertical-reverse .vue-slider-process{width:100%;height:0;top:0;left:0}.vue-slider-component .vue-slider-dot{position:absolute;border-radius:50%;background-color:#fff;box-shadow:.5px .5px 2px 1px rgba(0,0,0,.32);transition:all 0s;will-change:transform;cursor:pointer;z-index:3}.vue-slider-component.vue-slider-horizontal .vue-slider-dot{left:0}.vue-slider-component.vue-slider-vertical .vue-slider-dot{bottom:0}.vue-slider-component.vue-slider-horizontal-reverse .vue-slider-dot{right:0}.vue-slider-component.vue-slider-vertical-reverse .vue-slider-dot{top:0}.vue-slider-component .vue-slider-tooltip-wrap{display:none;position:absolute;z-index:9}.vue-slider-component .vue-slider-tooltip{display:block;font-size:14px;white-space:nowrap;padding:2px 5px;min-width:20px;text-align:center;color:#fff;border-radius:5px;border:1px solid #3498db;background-color:#3498db}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-top{top:-9px;left:50%;-webkit-transform:translate(-50%,-100%);transform:translate(-50%,-100%)}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-bottom{bottom:-9px;left:50%;-webkit-transform:translate(-50%,100%);transform:translate(-50%,100%)}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-left{top:50%;left:-9px;-webkit-transform:translate(-100%,-50%);transform:translate(-100%,-50%)}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-right{top:50%;right:-9px;-webkit-transform:translate(100%,-50%);transform:translate(100%,-50%)}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-top .vue-slider-tooltip:before{content:"";position:absolute;bottom:-10px;left:50%;width:0;height:0;border:5px solid transparent;border:6px solid transparent\\0;border-top-color:inherit;-webkit-transform:translate(-50%);transform:translate(-50%)}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-bottom .vue-slider-tooltip:before{content:"";position:absolute;top:-10px;left:50%;width:0;height:0;border:5px solid transparent;border:6px solid transparent\\0;border-bottom-color:inherit;-webkit-transform:translate(-50%);transform:translate(-50%)}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-left .vue-slider-tooltip:before{content:"";position:absolute;top:50%;right:-10px;width:0;height:0;border:5px solid transparent;border:6px solid transparent\\0;border-left-color:inherit;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-right .vue-slider-tooltip:before{content:"";position:absolute;top:50%;left:-10px;width:0;height:0;border:5px solid transparent;border:6px solid transparent\\0;border-right-color:inherit;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.vue-slider-component .vue-slider-dot.vue-slider-hover:hover .vue-slider-tooltip-wrap{display:block}.vue-slider-component .vue-slider-dot.vue-slider-always .vue-slider-tooltip-wrap{display:block!important}.vue-slider-component .vue-slider-piecewise{position:absolute;width:100%;padding:0;margin:0;left:0;top:0;height:100%;list-style:none}.vue-slider-component .vue-slider-piecewise-item{position:absolute;width:8px;height:8px}.vue-slider-component .vue-slider-piecewise-dot{position:absolute;left:50%;top:50%;width:100%;height:100%;display:inline-block;background-color:rgba(0,0,0,.16);border-radius:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);z-index:2;transition:all .3s}.vue-slider-component .vue-slider-piecewise-item:first-child .vue-slider-piecewise-dot,.vue-slider-component .vue-slider-piecewise-item:last-child .vue-slider-piecewise-dot{visibility:hidden}.vue-slider-component.vue-slider-horizontal-reverse .vue-slider-piecewise-label,.vue-slider-component.vue-slider-horizontal .vue-slider-piecewise-label{position:absolute;display:inline-block;top:100%;left:50%;white-space:nowrap;font-size:12px;color:#333;-webkit-transform:translate(-50%,8px);transform:translate(-50%,8px);visibility:visible}.vue-slider-component.vue-slider-vertical-reverse .vue-slider-piecewise-label,.vue-slider-component.vue-slider-vertical .vue-slider-piecewise-label{position:absolute;display:inline-block;top:50%;left:100%;white-space:nowrap;font-size:12px;color:#333;-webkit-transform:translate(8px,-50%);transform:translate(8px,-50%);visibility:visible}.vue-slider-component .vue-slider-sr-only{clip:rect(1px,1px,1px,1px);height:1px;width:1px;overflow:hidden;position:absolute!important}',""])},function(t,e){t.exports=function(){var t=[];return t.toString=function(){for(var t=[],e=0;e<this.length;e++){var i=this[e];i[2]?t.push("@media "+i[2]+"{"+i[1]+"}"):t.push(i[1])}return t.join("")},t.i=function(e,i){"string"==typeof e&&(e=[[null,e,""]]);for(var s={},r=0;r<this.length;r++){var n=this[r][0];"number"==typeof n&&(s[n]=!0)}for(r=0;r<e.length;r++){var o=e[r];"number"==typeof o[0]&&s[o[0]]||(i&&!o[2]?o[2]=i:i&&(o[2]="("+o[2]+") and ("+i+")"),t.push(o))}},t}},function(t,e){t.exports=function(t,e,i,s){var r,n=t=t||{},o=typeof t.default;"object"!==o&&"function"!==o||(r=t,n=t.default);var l="function"==typeof n?n.options:n;if(e&&(l.render=e.render,l.staticRenderFns=e.staticRenderFns),i&&(l._scopeId=i),s){var a=Object.create(l.computed||null);Object.keys(s).forEach(function(t){var e=s[t];a[t]=function(){return e}}),l.computed=a}return{esModule:r,exports:n,options:l}}},function(t,e){t.exports={render:function(){var t=this,e=t.$createElement,i=t._self._c||e;return i("div",{directives:[{name:"show",rawName:"v-show",value:t.show,expression:"show"}],ref:"wrap",class:["vue-slider-component",t.flowDirection,t.disabledClass,{"vue-slider-has-label":t.piecewiseLabel}],style:t.wrapStyles,on:{click:t.wrapClick}},[i("div",{ref:"elem",staticClass:"vue-slider",style:[t.elemStyles,t.bgStyle],attrs:{"aria-hidden":"true"}},[t.isRange?[i("div",{ref:"dot0",class:[t.tooltipStatus,"vue-slider-dot"],style:[t.dotStyles,t.sliderStyles[0]],on:{mousedown:function(e){t.moveStart(e,0)},touchstart:function(e){t.moveStart(e,0)}}},[i("span",{class:["vue-slider-tooltip-"+t.tooltipDirection[0],"vue-slider-tooltip-wrap"]},[t._t("tooltip",[i("span",{staticClass:"vue-slider-tooltip",style:t.tooltipStyles[0]},[t._v(t._s(t.formatter?t.formatting(t.val[0]):t.val[0]))])],{value:t.val[0],index:0})],2)]),t._v(" "),i("div",{ref:"dot1",class:[t.tooltipStatus,"vue-slider-dot"],style:[t.dotStyles,t.sliderStyles[1]],on:{mousedown:function(e){t.moveStart(e,1)},touchstart:function(e){t.moveStart(e,1)}}},[i("span",{class:["vue-slider-tooltip-"+t.tooltipDirection[1],"vue-slider-tooltip-wrap"]},[t._t("tooltip",[i("span",{staticClass:"vue-slider-tooltip",style:t.tooltipStyles[1]},[t._v(t._s(t.formatter?t.formatting(t.val[1]):t.val[1]))])],{value:t.val[1],index:1})],2)])]:[i("div",{ref:"dot",class:[t.tooltipStatus,"vue-slider-dot"],style:[t.dotStyles,t.sliderStyles],on:{mousedown:t.moveStart,touchstart:t.moveStart}},[i("span",{class:["vue-slider-tooltip-"+t.tooltipDirection,"vue-slider-tooltip-wrap"]},[t._t("tooltip",[i("span",{staticClass:"vue-slider-tooltip",style:t.tooltipStyles},[t._v(t._s(t.formatter?t.formatting(t.val):t.val))])],{value:t.val})],2)])],t._v(" "),i("ul",{staticClass:"vue-slider-piecewise"},t._l(t.piecewiseDotWrap,function(e,s){return i("li",{key:s,staticClass:"vue-slider-piecewise-item",style:[t.piecewiseDotStyle,e.style]},[t._t("piecewise",[t.piecewise?i("span",{staticClass:"vue-slider-piecewise-dot",style:[t.piecewiseStyle,e.inRange?t.piecewiseActiveStyle:null]}):t._e()],{label:e.label,index:s,first:0===s,last:s===t.piecewiseDotWrap.length-1,active:e.inRange}),t._v(" "),t._t("label",[t.piecewiseLabel?i("span",{staticClass:"vue-slider-piecewise-label",style:[t.labelStyle,e.inRange?t.labelActiveStyle:null]},[t._v("\n            "+t._s(e.label)+"\n          ")]):t._e()],{label:e.label,index:s,first:0===s,last:s===t.piecewiseDotWrap.length-1,active:e.inRange})],2)})),t._v(" "),i("div",{ref:"process",staticClass:"vue-slider-process",style:t.processStyle})],2),t._v(" "),t.isRange||t.data?t._e():i("input",{directives:[{name:"model",rawName:"v-model",value:t.val,expression:"val"}],staticClass:"vue-slider-sr-only",attrs:{type:"range",min:t.min,max:t.max},domProps:{value:t.val},on:{__r:function(e){t.val=e.target.value}}})])},staticRenderFns:[]}},function(t,e,i){var s=i(3);"string"==typeof s&&(s=[[t.i,s,""]]),s.locals&&(t.exports=s.locals);i(8)("743d98f5",s,!0)},function(t,e,i){function s(t){for(var e=0;e<t.length;e++){var i=t[e],s=h[i.id];if(s){s.refs++;for(var r=0;r<s.parts.length;r++)s.parts[r](i.parts[r]);for(;r<i.parts.length;r++)s.parts.push(n(i.parts[r]));s.parts.length>i.parts.length&&(s.parts.length=i.parts.length)}else{for(var o=[],r=0;r<i.parts.length;r++)o.push(n(i.parts[r]));h[i.id]={id:i.id,refs:1,parts:o}}}}function r(){var t=document.createElement("style");return t.type="text/css",d.appendChild(t),t}function n(t){var e,i,s=document.querySelector('style[data-vue-ssr-id~="'+t.id+'"]');if(s){if(f)return v;s.parentNode.removeChild(s)}if(m){var n=c++;s=p||(p=r()),e=o.bind(null,s,n,!1),i=o.bind(null,s,n,!0)}else s=r(),e=l.bind(null,s),i=function(){s.parentNode.removeChild(s)};return e(t),function(s){if(s){if(s.css===t.css&&s.media===t.media&&s.sourceMap===t.sourceMap)return;e(t=s)}else i()}}function o(t,e,i,s){var r=i?"":s.css;if(t.styleSheet)t.styleSheet.cssText=g(e,r);else{var n=document.createTextNode(r),o=t.childNodes;o[e]&&t.removeChild(o[e]),o.length?t.insertBefore(n,o[e]):t.appendChild(n)}}function l(t,e){var i=e.css,s=e.media,r=e.sourceMap;if(s&&t.setAttribute("media",s),r&&(i+="\n/*# sourceURL="+r.sources[0]+" */",i+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(r))))+" */"),t.styleSheet)t.styleSheet.cssText=i;else{for(;t.firstChild;)t.removeChild(t.firstChild);t.appendChild(document.createTextNode(i))}}var a="undefined"!=typeof document;if("undefined"!=typeof DEBUG&&DEBUG&&!a)throw new Error("vue-style-loader cannot be used in a non-browser environment. Use { target: 'node' } in your Webpack config to indicate a server-rendering environment.");var u=i(9),h={},d=a&&(document.head||document.getElementsByTagName("head")[0]),p=null,c=0,f=!1,v=function(){},m="undefined"!=typeof navigator&&/msie [6-9]\b/.test(navigator.userAgent.toLowerCase());t.exports=function(t,e,i){f=i;var r=u(t,e);return s(r),function(e){for(var i=[],n=0;n<r.length;n++){var o=r[n],l=h[o.id];l.refs--,i.push(l)}e?(r=u(t,e),s(r)):r=[];for(var n=0;n<i.length;n++){var l=i[n];if(0===l.refs){for(var a=0;a<l.parts.length;a++)l.parts[a]();delete h[l.id]}}}};var g=function(){var t=[];return function(e,i){return t[e]=i,t.filter(Boolean).join("\n")}}()},function(t,e){t.exports=function(t,e){for(var i=[],s={},r=0;r<e.length;r++){var n=e[r],o=n[0],l=n[1],a=n[2],u=n[3],h={id:t+":"+r,css:l,media:a,sourceMap:u};s[o]?s[o].parts.push(h):i.push(s[o]={id:o,parts:[h]})}return i}}])});
 
 /***/ }),
-/* 102 */
+/* 112 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8620,7 +9696,7 @@ if (false) {
 }
 
 /***/ }),
-/* 103 */
+/* 113 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8763,7 +9839,7 @@ if (false) {
 }
 
 /***/ }),
-/* 104 */
+/* 114 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8790,12 +9866,12 @@ if (false) {
 }
 
 /***/ }),
-/* 105 */
+/* 115 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_components_maps_Native_Map_Network_Native_Map_vue__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_components_maps_Native_Map_Network_Native_Map_vue__ = __webpack_require__(116);
 
 var Vue = __webpack_require__(3);
 
@@ -8814,13 +9890,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
 });
 
 /***/ }),
-/* 106 */
+/* 116 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_Network_Native_Map_vue__ = __webpack_require__(26);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6f992934_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Network_Native_Map_vue__ = __webpack_require__(123);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6f992934_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Network_Native_Map_vue__ = __webpack_require__(133);
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -8866,11 +9942,11 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 107 */
+/* 117 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Projection__ = __webpack_require__(108);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Projection__ = __webpack_require__(118);
 
 
 class CircleMap {
@@ -9058,7 +10134,7 @@ CircleMap.MAX_CELL_DISTANCE = 12; // in terms of cells
 /* harmony default export */ __webpack_exports__["a"] = (CircleMap);
 
 /***/ }),
-/* 108 */
+/* 118 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9122,7 +10198,7 @@ class Projection {
 /* harmony default export */ __webpack_exports__["a"] = (Projection);
 
 /***/ }),
-/* 109 */
+/* 119 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9157,7 +10233,7 @@ class Circles {
 /* harmony default export */ __webpack_exports__["a"] = (Circles);
 
 /***/ }),
-/* 110 */
+/* 120 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9209,17 +10285,17 @@ class MapsTester{
 /* harmony default export */ __webpack_exports__["a"] = (MapsTester);
 
 /***/ }),
-/* 111 */
+/* 121 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_Network_Native_Map_Canvas_vue__ = __webpack_require__(27);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_df567280_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Network_Native_Map_Canvas_vue__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_df567280_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Network_Native_Map_Canvas_vue__ = __webpack_require__(124);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(112)
+  __webpack_require__(122)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -9265,13 +10341,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 112 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(113);
+var content = __webpack_require__(123);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -9291,7 +10367,7 @@ if(false) {
 }
 
 /***/ }),
-/* 113 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -9305,7 +10381,7 @@ exports.push([module.i, "\n<style>\n\n    /* map styling */\n\n\nsvg .WebDollarN
 
 
 /***/ }),
-/* 114 */
+/* 124 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15336,17 +16412,17 @@ if (false) {
 }
 
 /***/ }),
-/* 115 */
+/* 125 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_Network_Native_Map_Dialog_vue__ = __webpack_require__(28);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_05fc5bd9_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Network_Native_Map_Dialog_vue__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_05fc5bd9_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Network_Native_Map_Dialog_vue__ = __webpack_require__(132);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(116)
+  __webpack_require__(126)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -15392,13 +16468,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 116 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(117);
+var content = __webpack_require__(127);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -15418,7 +16494,7 @@ if(false) {
 }
 
 /***/ }),
-/* 117 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -15432,17 +16508,17 @@ exports.push([module.i, "\n.map-dialog-description {\n    color: #ffc107;\n    h
 
 
 /***/ }),
-/* 118 */
+/* 128 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_Network_Native_Map_Dialog_Element_vue__ = __webpack_require__(29);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_094a8568_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Network_Native_Map_Dialog_Element_vue__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_094a8568_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Network_Native_Map_Dialog_Element_vue__ = __webpack_require__(131);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(119)
+  __webpack_require__(129)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -15488,13 +16564,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 119 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(120);
+var content = __webpack_require__(130);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -15514,7 +16590,7 @@ if(false) {
 }
 
 /***/ }),
-/* 120 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -15528,7 +16604,7 @@ exports.push([module.i, "\n.icon-connected{\n    filter: brightness(0) invert(1)
 
 
 /***/ }),
-/* 121 */
+/* 131 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15607,7 +16683,7 @@ if (false) {
 }
 
 /***/ }),
-/* 122 */
+/* 132 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15651,7 +16727,7 @@ if (false) {
 }
 
 /***/ }),
-/* 123 */
+/* 133 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
