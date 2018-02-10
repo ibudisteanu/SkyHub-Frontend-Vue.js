@@ -11,6 +11,3 @@ accounts.txt
 public/hidden
 package-lock\.json
 
-public/WebDollar-dist/WebDollar-User-Interface-bundle\.js\.map
-
-public/WebDollar-dist/WebDollar-Protocol-bundle\.js\.map
