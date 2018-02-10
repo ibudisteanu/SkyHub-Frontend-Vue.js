@@ -15,7 +15,7 @@
 <script>
 
     import Layout from "client/components/layout/sampleLayout.vue"
-    import faq from "client/components/heros/faq.hero.vue"
+    import faq from "client/components/heros/Faq.hero.vue"
 
 
     export default {

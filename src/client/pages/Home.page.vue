@@ -35,8 +35,8 @@
     import WhatIsHero from "client/components/heros/WhatIs.hero.vue"
     import PeerToPeerHero from "client/components/heros/PeerToPeer.hero.vue"
     import TimelineHero from "client/components/heros/Timeline.hero.vue"
-    import knowUs from "client/components/heros/knowUs.hero.vue"
-    import faq from "client/components/heros/faq.hero.vue"
+    import knowUs from "client/components/heros/KnowUs.hero.vue"
+    import faq from "client/components/heros/Faq.hero.vue"
     import newCryptoGeneration from "client/components/heros/NewCryptoGeneration.hero.vue"
     import blockChainDistribution from "client/components/heros/BlockChainDistribution.hero.vue"
 
