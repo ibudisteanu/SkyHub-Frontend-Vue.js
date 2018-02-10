@@ -17,12 +17,12 @@
 
                     <div class="stats">
                         <div>
-                            <span class="value">{{this.blocksLength}}</span>
+                            <span class="value">{{this.blocksLength * 2500}}</span>
                             <span class="description">Current Distribution</span>
                         </div>
                         <div>
-                            <span class="value">0.0001</span>
-                            <span class="description">USD per 1 WEBD</span>
+                            <span class="value">{{this.blocksLength}}</span>
+                            <span class="description">Mined blocks</span>
                         </div>
                     </div>
 
