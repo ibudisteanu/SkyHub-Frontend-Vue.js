@@ -76,13 +76,15 @@
 
                 this.totalAmountCoins = totalAmount;
 
-                this.$refs['refDistributionProgressBar'].style.width = totalAmount / this.distributionProgressBarMax * 100  +'%'
+                //this.$refs['refDistributionProgressBar'].style.width = totalAmount / this.distributionProgressBarMax * 100  +'%'
 
             });
 
             WebDollar.Blockchain.Chain.emitter.on("blockchain/blocks-count-changed", (blocksLength)=>{
 
                 this.blocksLength = blocksLength;
+
+                this.$refs['refDistributionProgressBar'].style.width = blocksLength*2500 / this.distributionProgressBarMax * 100  +'%'
 
             })
 
