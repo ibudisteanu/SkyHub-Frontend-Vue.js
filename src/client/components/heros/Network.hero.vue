@@ -6,7 +6,7 @@
 
             <div class="generalController">
 
-                <h2>Miner's commision</h2>
+                <h2>Miner's commission</h2>
 
                 <slider ref="refMiningSlider" @sliderChanged="this.changeCommission"/>
 
@@ -28,7 +28,7 @@
 
                 <p>Total hours mined: <span class="minerData">24h</span></p>
 
-                <p>Avability mining precentage: <span class="minerData">90%</span></p>
+                <p>Arability mining percentage: <span class="minerData">90%</span></p>
 
                 <p>Mining power: <span class="minerData">5 Threads</span></p>
 
@@ -276,3 +276,4 @@
     }
 
 </script>
+

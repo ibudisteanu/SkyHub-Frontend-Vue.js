@@ -23,12 +23,7 @@
                     <img src="public/images/res/media/medium.png">
                 </a>
             </div>
-            <div>
-                <a href="https://silviu-s.com/webdollar-coin-of-the-internet-the-newest-internet-cryptocurrency/" target="_blank">
-                    <img src="public/images/res/media/silviu.png">
-                </a>
-            </div>
-            <div>
+            <div>g
                 <a href="https://www.digi24.ro/stiri/diverse/prima-moneda-virtuala-romaneasca-860158" target="_blank">
                     <img src="public/images/res/media/digi24.png"/>
                 </a>
