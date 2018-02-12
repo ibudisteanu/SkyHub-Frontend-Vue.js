@@ -17034,9 +17034,9 @@ class InterfaceBlockchainFork {
                 this.blockchain.blocks[i] = undefined;
             }
 
-            this.blockchain.spliceBlocks(this.forkStartingHeight);
-
             this.preFork();
+
+            this.blockchain.spliceBlocks(this.forkStartingHeight);
 
             let forkedSuccessfully = true;
 
@@ -19502,7 +19502,7 @@ class MiniBlockchainFork extends inheritFork{
         //clone the Accountant Tree
         this._accountantTreeClone = this.blockchain.accountantTree.serializeMiniAccountant();
 
-        //console.log("root.targetNode.balances before", this.blockchain.accountantTree.root.edges[0].targetNode.balances);
+        console.log("preFork root before", this.blockchain.accountantTree.calculateNodeCoins());
 
         //remove transactions and rewards from each blocks
         for (let i = this.blockchain.getBlockchainLength-1; i>=this.forkStartingHeight; i--) {
@@ -19520,7 +19520,7 @@ class MiniBlockchainFork extends inheritFork{
         // console.log("this.forkStartingHeight", this.forkStartingHeight);
         // console.log("root", this.blockchain.accountantTree.root);
         // console.log("root.edges", this.blockchain.accountantTree.root.edges[0]);
-        // console.log("root.targetNode.balances", this.blockchain.accountantTree.root.edges[0].targetNode.balances);
+        console.log("preFork root after ", this.blockchain.accountantTree.calculateNodeCoins());
 
     }
 
