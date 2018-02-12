@@ -669,7 +669,7 @@ if (false) {(function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Wallet_Wallet_vue__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Mining_Mining_vue__ = __webpack_require__(97);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Mining_Mining_vue__ = __webpack_require__(99);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_components_Wallet_Address_Address_vue__ = __webpack_require__(16);
 //
 //
@@ -2355,8 +2355,12 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1__node_modules_v_clipboard___default.a);
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_ShowSumBalances_vue__ = __webpack_require__(25);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_4fface31_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ShowSumBalances_vue__ = __webpack_require__(95);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_4fface31_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ShowSumBalances_vue__ = __webpack_require__(97);
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(95)
+}
 var normalizeComponent = __webpack_require__(0)
 /* script */
 
@@ -2366,7 +2370,7 @@ var normalizeComponent = __webpack_require__(0)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -2480,7 +2484,19 @@ if (false) {(function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_components_Wallet_Address_Balance_ShowSumBalances_vue__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__slider_vue__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__slider_vue__ = __webpack_require__(102);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2537,6 +2553,8 @@ if (false) {(function () {
             hashesPerSecond: 0,
             workers: 0,
             minerAddress:'',
+            status: '',
+            loaded:false
         }
     },
 
@@ -2584,7 +2602,25 @@ if (false) {(function () {
 
         });
 
+        WebDollar.Blockchain.emitter.on("blockchain/status", (data)=>{
+
+            this.status = data.message;
+
+        });
+
+        WebDollar.Blockchain.emitter.on("blockchain/status-webdollar", (data)=>{
+
+            if (data.message === "Ready") {
+                this.loaded = true;
+
+                WebDollar.Blockchain.Mining.setWorkers(1);
+
+            }
+
+        });
+
     },
+
 
     methods: {
 
@@ -2606,7 +2642,7 @@ if (false) {(function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_slider_component__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_slider_component__ = __webpack_require__(105);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_slider_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_slider_component__);
 //
 //
@@ -2699,11 +2735,11 @@ if (false) {(function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_Circle_Map__ = __webpack_require__(109);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_Circles__ = __webpack_require__(111);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Maps_tester__ = __webpack_require__(112);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__res_Network_Native_Map_Canvas_vue__ = __webpack_require__(113);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__res_dialog_Network_Native_Map_Dialog_vue__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_Circle_Map__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_Circles__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Maps_tester__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__res_Network_Native_Map_Canvas_vue__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__res_dialog_Network_Native_Map_Dialog_vue__ = __webpack_require__(119);
 //
 //
 //
@@ -5145,7 +5181,7 @@ if (false) {(function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Network_Native_Map_Dialog_Element_vue__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Network_Native_Map_Dialog_Element_vue__ = __webpack_require__(122);
 //
 //
 //
@@ -5338,7 +5374,7 @@ class InitializeParams{
         });
 
         __webpack_require__(35);
-        __webpack_require__(107);
+        __webpack_require__(109);
 
     }
 
@@ -5871,7 +5907,7 @@ process.umask = function() { return 0; };
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_Dashboard_vue__ = __webpack_require__(9);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_aae30ed8_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Dashboard_vue__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_aae30ed8_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Dashboard_vue__ = __webpack_require__(108);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
@@ -6000,7 +6036,7 @@ module.exports = function listToStyles (parentId, list) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_Wallet_vue__ = __webpack_require__(10);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_8087f122_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Wallet_vue__ = __webpack_require__(96);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_8087f122_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Wallet_vue__ = __webpack_require__(98);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
@@ -8378,6 +8414,46 @@ if (false) {
 
 /***/ }),
 /* 95 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(96);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("28708a8e", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4fface31\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ShowSumBalances.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4fface31\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ShowSumBalances.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 96 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(true);
+// imports
+
+
+// module
+exports.push([module.i, "\n.show-sum-balances{\n    width: auto;\n    display: inline-block;\n    color:#fec02c;\n}\n\n", "", {"version":3,"sources":["/Users/alexandru.panait/Work/Other/User-Interface-WebDollar/src/components/Wallet/Address/Balance/src/components/Wallet/Address/Balance/ShowSumBalances.vue"],"names":[],"mappings":";AAuEA;IACA,YAAA;IACA,sBAAA;IACA,cAAA;CACA","file":"ShowSumBalances.vue","sourcesContent":["<template>\n\n    <span class=\"show-sum-balances\">\n        {{  Math.round(this.sum * 100000)/100000 }}\n    </span>\n\n</template>\n\n<script>\n\n    export default{\n\n        name: \"ShowSumBalances\",\n\n        props: ['addresses', 'currency'],\n\n        data(){\n            return {\n                sum: 0,\n            }\n        },\n\n        mounted(){\n\n        },\n\n        methods:{\n\n            refreshSum(addresses, currency){\n\n                let newSum = 0;\n\n                //it should use BigNumber as math...\n\n                console.log('changed to newxxxx', addresses);\n\n                if (addresses === undefined || addresses === null) return ;\n\n                for (let index in this.addresses){\n\n                    if (addresses[index].balances !== undefined && addresses[index].balances !== null && addresses[index].balances[currency] !== undefined)\n                        newSum += parseFloat( addresses[index].balances[currency]);\n                }\n\n                this.sum = newSum;\n\n            }\n\n        },\n\n        watch: {\n            addresses: function (newVal, oldVal) { // watch it\n\n                console.log('changed to new', newVal);\n                this.refreshSum(newVal, this.currency);\n\n            },\n\n            currency: function (newVal, oldVal) { // watch it\n\n                this.refreshSum(this.addresses, newVal);\n\n            }\n        }\n\n    }\n\n</script>\n\n<style>\n\n    .show-sum-balances{\n        width: auto;\n        display: inline-block;\n        color:#fec02c;\n    }\n\n</style>\n"],"sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+/* 97 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8401,7 +8477,7 @@ if (false) {
 }
 
 /***/ }),
-/* 96 */
+/* 98 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8531,17 +8607,17 @@ if (false) {
 }
 
 /***/ }),
-/* 97 */
+/* 99 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_Mining_vue__ = __webpack_require__(26);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0954b78f_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Mining_vue__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0954b78f_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Mining_vue__ = __webpack_require__(107);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(98)
+  __webpack_require__(100)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -8587,13 +8663,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 98 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(99);
+var content = __webpack_require__(101);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -8613,7 +8689,7 @@ if(false) {
 }
 
 /***/ }),
-/* 99 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -8621,23 +8697,23 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n#miningLoader{\n    vertical-align: top;\n    width: 30px;\n    height: 30px;\n}\n#dashboardMining{\n    overflow: hidden;\n    position: fixed;\n    bottom: 0px;\n    height: 33px;\n    background-color: #262626;\n    display: block;\n    left: 0;\n    padding-bottom: 3px;\n    right: 0;\n    z-index: 95;\n    border-top: solid 1px #444444;\n}\n.miningPowerThreads{\n    font-size: 14px;\n    display: inline-block;\n    padding: 0 10px;\n    vertical-align: top;\n    padding-top: 8px;\n    text-transform: uppercase;\n    padding-bottom: 5px;\n    color: #fff;\n    letter-spacing: 5px;\n    margin: 0;\n}\n.walletStartMining{\n    position: relative;\n    display: inline-block!important;\n    vertical-align: top;\n    left: 0;\n    right: 0;\n    font-size: 20px;\n    color: #f20;\n    cursor: pointer;\n    text-align: center;\n    transition: all .3s linear;\n}\n.walletStartMining a{\n    padding-top: 5px;\n    display: block;\n    color: #000;\n}\n.walletStartMining a:hover{\n    color: #ffc12c;\n}\n.walletStartMining:hover{\n    background-color: #191919;\n    transition: all .3s linear;\n}\n.minningController p{\n    font-size: 20px;\n    margin-right: -4px;\n}\n#miningDetails{\n    vertical-align: top;\n    display: inline-block;\n    line-height: 32px;\n    margin-top: 1px;\n    margin-left: 35px;\n}\n#miningDetails p{\n    margin-top: 0;\n    font-size: 12px;\n    color: #D5D5D5;\n}\n#threadsControll{\n    display: inline-block;\n    vertical-align: top;\n    width: 100%;\n    background-color: #1f1f1f;\n}\n#threadsControll .leftButton {\n    float: left;\n}\n#threadsControll .rightButton {\n    float: right;\n}\n#threadsControll .button p{\n    padding-top: 3px;\n    padding-bottom: 4px;\n    line-height: 27px;\n    margin: 0;\n}\n#allWalets{\n    /*border-top: solid 1px #7b7b7b;*/\n    display: block;\n    /*padding-top: 10px;*/\n}\n.miningPowerText{\n    font-size: 10px;\n    display: inline-block;\n    padding: 0 10px;\n    vertical-align: top;\n    padding-top: 5px;\n    margin: 0;\n    color: #fff;\n}\n.miningPowerText .secondWord{\n    height: auto;\n    line-height: 10px;\n    margin: 0;\n    font-weight: bold;\n    color: #fff;\n    margin-right: -4px;\n}\n#threadsControll .button{\n    display: inline-block;\n    background-color: #1f1f1f;\n    color: #fff;\n    font-size: 26px;\n    border: solid 1px #565656;\n    width: 31px;\n    border-top: none;\n    border-bottom: none;\n    text-align: center;\n    cursor: pointer;\n    transition: all .3s linear;\n}\n#threadsControll .button:hover{\n    background-color: #000;\n    transition: all .3s linear;\n}\n#threadsControll .button:first-child{\n    margin-top: 0;\n}\n#threadsNumber{\n    font-size: 20px;\n    padding: 0 10px;\n    text-align: center;\n    padding-bottom: 8px;\n    line-height: 25px;\n    display: inline-block;\n    color: #fff;\n    background-color: #d23c25;\n    vertical-align: top;\n    padding-top: 6px;\n    border-right: solid 1px #444;\n    width: 40px;\n    padding-left: 0;\n    padding-right:0;\n}\n.whiteText{\n    color: #c5c5c5;\n    font-weight: 100;\n    margin-left: 5px;\n}\n#minningController{\n    width: 100%;\n    border-top:none;\n    padding-bottom: 0;\n    margin-bottom: 15px;\n    display: inline-block;\n    vertical-align: top;\n}\n#createWalletAddress{\n    border: solid 1px #7b7b7b;\n    padding-bottom: 0;\n    margin-bottom: 15px;\n    display: inline-block;\n}\n#createWalletAddress p:hover{\n    background-color: #191919;\n    transition: all .3s linear;\n}\n#createWalletAddress p{\n    padding: 10px;\n    padding-top: 14px;\n    background-color: #353535;\n    color: #bbb;\n    display: inline-block;\n    width: 214px;\n    cursor: pointer;\n    text-align: center;\n    transition: all .3s linear;\n}\n.WEBD{\n    display: inline-block;\n    margin-left: 20px;\n    font-size: 20px;\n    color: #fec02c;\n    vertical-align: top;\n    margin-top: 0;\n    float: right;\n    min-width: 300px;\n    text-align: center;\n    border-left: solid 1px #444444;\n    line-height: 42px;\n}\n#miningDetails p{\n    display: inline-block;\n}\n.miningBar{\n    display: inline-block;\n    width: 330px;\n    margin-left: 0;\n}\n@media only screen and (max-width : 831px) {\n.miningBar{\n        padding: 4px 0px;\n}\n.show-balance-span{\n        font-size: 20px;\n}\n#dashboardMining{\n        margin-bottom: 0;\n}\n#minningController, .walletStartMining, .WEBD{\n        display: inline-block;\n        width: 100%;\n}\n#minningController{\n        background-color: #0000;\n        margin-bottom: 0;\n        height: 33px;\n        border-top: none;\n        margin-top: 50px;\n}\n#threadsControll .button p{\n        line-height: 43px;\n}\n#threadsControll .button{\n        width: 80px;\n}\n.miningPowerThreads{\n        line-height: 38px;\n        font-size: 16px;\n        margin-right: -4px;\n}\n#miningDetails{\n        display: none;\n}\n.miningPowerText{\n        display: none;\n}\n#threadsNumber{\n        margin: 0 auto;\n        text-align: center;\n        float:left;\n        position: relative;\n        display: block;\n        line-height: 34px;\n        width: 35px;\n        padding-top: 6px;\n        padding-left: 0;\n}\n.WEBD{\n        text-align: right;\n        margin-right: 10px;\n        min-width: auto;\n        width: auto;\n        border:none;\n        line-height: 42px;\n}\n.miningPowerThreads{\n        display:none;\n}\n#threadsControll .button{\n        float:left;\n}\n.walletStartMining{\n        margin-top:-29px;\n}\n#threadsControll{\n        background-color: #f200;\n}\n#threadsControll .button p {\n        line-height: 35px;\n        font-size: 35px;\n        padding-top: 7px;\n}\n#threadsControll .button:first-child{\n        border:none;\n}\n#minningController{\n        margin-top:0\n}\n#dashboardMining{\n        height:40px;\n}\n.walletStartMining:hover{\n        background-color: #f200;\n}\n}\n@media only screen and (max-width : 600px) {\n.whiteText{\n            display: none;\n}\n}\n@media only screen and (max-width : 500px) {\n.miningBar{\n        width: 50%;\n}\n}\n\n", "", {"version":3,"sources":["/Users/alexandru.panait/Work/Other/User-Interface-WebDollar/src/components/Mining/src/components/Mining/Mining.vue"],"names":[],"mappings":";AA0HA;IACA,oBAAA;IACA,YAAA;IACA,aAAA;CACA;AAEA;IACA,iBAAA;IACA,gBAAA;IACA,YAAA;IACA,aAAA;IACA,0BAAA;IACA,eAAA;IACA,QAAA;IACA,oBAAA;IACA,SAAA;IACA,YAAA;IACA,8BAAA;CACA;AAEA;IACA,gBAAA;IACA,sBAAA;IACA,gBAAA;IACA,oBAAA;IACA,iBAAA;IACA,0BAAA;IACA,oBAAA;IACA,YAAA;IACA,oBAAA;IACA,UAAA;CACA;AAGA;IACA,mBAAA;IACA,gCAAA;IACA,oBAAA;IACA,QAAA;IACA,SAAA;IACA,gBAAA;IACA,YAAA;IACA,gBAAA;IACA,mBAAA;IACA,2BAAA;CACA;AAEA;IACA,iBAAA;IACA,eAAA;IACA,YAAA;CACA;AAEA;IACA,eAAA;CACA;AAEA;IACA,0BAAA;IACA,2BAAA;CACA;AAEA;IACA,gBAAA;IACA,mBAAA;CACA;AAEA;IACA,oBAAA;IACA,sBAAA;IACA,kBAAA;IACA,gBAAA;IACA,kBAAA;CACA;AAEA;IACA,cAAA;IACA,gBAAA;IACA,eAAA;CACA;AAEA;IACA,sBAAA;IACA,oBAAA;IACA,YAAA;IACA,0BAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,iBAAA;IACA,oBAAA;IACA,kBAAA;IACA,UAAA;CACA;AAEA;IACA,kCAAA;IACA,eAAA;IACA,sBAAA;CACA;AAEA;IACA,gBAAA;IACA,sBAAA;IACA,gBAAA;IACA,oBAAA;IACA,iBAAA;IACA,UAAA;IACA,YAAA;CACA;AAGA;IACA,aAAA;IACA,kBAAA;IACA,UAAA;IACA,kBAAA;IACA,YAAA;IACA,mBAAA;CACA;AAGA;IACA,sBAAA;IACA,0BAAA;IACA,YAAA;IACA,gBAAA;IACA,0BAAA;IACA,YAAA;IACA,iBAAA;IACA,oBAAA;IACA,mBAAA;IACA,gBAAA;IACA,2BAAA;CACA;AAEA;IACA,uBAAA;IACA,2BAAA;CACA;AAEA;IACA,cAAA;CACA;AAEA;IACA,gBAAA;IACA,gBAAA;IACA,mBAAA;IACA,oBAAA;IACA,kBAAA;IACA,sBAAA;IACA,YAAA;IACA,0BAAA;IACA,oBAAA;IACA,iBAAA;IACA,6BAAA;IACA,YAAA;IACA,gBAAA;IACA,gBAAA;CACA;AAEA;IACA,eAAA;IACA,iBAAA;IACA,iBAAA;CACA;AAEA;IACA,YAAA;IACA,gBAAA;IACA,kBAAA;IACA,oBAAA;IACA,sBAAA;IACA,oBAAA;CACA;AAEA;IACA,0BAAA;IACA,kBAAA;IACA,oBAAA;IACA,sBAAA;CACA;AAEA;IACA,0BAAA;IACA,2BAAA;CACA;AAEA;IACA,cAAA;IACA,kBAAA;IACA,0BAAA;IACA,YAAA;IACA,sBAAA;IACA,aAAA;IACA,gBAAA;IACA,mBAAA;IACA,2BAAA;CACA;AAEA;IACA,sBAAA;IACA,kBAAA;IACA,gBAAA;IACA,eAAA;IACA,oBAAA;IACA,cAAA;IACA,aAAA;IACA,iBAAA;IACA,mBAAA;IACA,+BAAA;IACA,kBAAA;CACA;AAEA;IACA,sBAAA;CACA;AAEA;IACA,sBAAA;IACA,aAAA;IACA,eAAA;CACA;AAEA;AAEA;QACA,iBAAA;CACA;AAEA;QACA,gBAAA;CACA;AAEA;QACA,iBAAA;CACA;AACA;QACA,sBAAA;QACA,YAAA;CACA;AACA;QACA,wBAAA;QACA,iBAAA;QACA,aAAA;QACA,iBAAA;QACA,iBAAA;CACA;AACA;QACA,kBAAA;CACA;AACA;QACA,YAAA;CACA;AACA;QACA,kBAAA;QACA,gBAAA;QACA,mBAAA;CACA;AACA;QACA,cAAA;CACA;AACA;QACA,cAAA;CACA;AACA;QACA,eAAA;QACA,mBAAA;QACA,WAAA;QACA,mBAAA;QACA,eAAA;QACA,kBAAA;QACA,YAAA;QACA,iBAAA;QACA,gBAAA;CACA;AACA;QACA,kBAAA;QACA,mBAAA;QACA,gBAAA;QACA,YAAA;QACA,YAAA;QACA,kBAAA;CACA;AACA;QACA,aAAA;CACA;AACA;QACA,WAAA;CACA;AACA;QACA,iBAAA;CACA;AACA;QACA,wBAAA;CACA;AACA;QACA,kBAAA;QACA,gBAAA;QACA,iBAAA;CACA;AACA;QACA,YAAA;CACA;AACA;QACA,YAAA;CACA;AACA;QACA,YAAA;CACA;AACA;QACA,wBAAA;CACA;CAEA;AAEA;AAEA;YACA,cAAA;CACA;CAEA;AAEA;AAEA;QACA,WAAA;CACA;CAEA","file":"Mining.vue","sourcesContent":["<template>\n    <div id=\"dashboardMining\" class=\"walletSection\" >\n\n        <div id=\"minningController\">\n            <p class=\"miningPowerText\">Mining <br/> <span class=\"secondWord\">Power</span></p>\n            <strong id=\"threadsNumber\" :style=\"{background: this.workers ? 0 : '#d23c25'}\">{{this.workers}}</strong>\n\n            <div type=\"button\" class=\"miningBar\">\n                <slider ref=\"refMiningSlider\" @sliderChanged=\"this.changeWorkers\"/>\n            </div>\n\n            <div id=\"miningDetails\">\n                <p class=\"\" :style=\"{display: this.hashesPerSecond==0 && this.started==true ? 'none' : 'inline-block'}\">{{this.started ? this.hashesPerSecond + ' hashes/sec' : 'not started'}} </p>\n                <svg :style=\"{display: this.hashesPerSecond==0 && this.started==true ? 'inline-block' : 'none'}\" version=\"1.1\" id=\"miningLoader\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n                     width=\"40px\" height=\"40px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\n                      <path fill=\"#fec02c\" d=\"M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z\">\n                        <animateTransform attributeType=\"xml\"\n                          attributeName=\"transform\"\n                          type=\"rotate\"\n                          from=\"0 25 25\"\n                          to=\"360 25 25\"\n                          dur=\"0.6s\"\n                          repeatCount=\"indefinite\"/>\n                        </path>\n                </svg>\n            </div>\n            <p class=\"WEBD\">\n                <ShowSumBalances :addresses=\"this.addresses\" :currency=\"this.currency\" ref=\"refShowSumBalances\" /> <b class=\"whiteText\">WEBD</b>\n            </p>\n        </div>\n\n    </div>\n</template>\n\n<script>\n\n    import ShowSumBalances from \"components/Wallet/Address/Balance/ShowSumBalances.vue\"\n    import slider from \"./slider.vue\";\n\n    export default{\n\n        name: 'Mining',\n\n        components: {\n            \"ShowSumBalances\":ShowSumBalances,\n            \"slider\":slider\n        },\n\n        props: ['addresses', 'currency'],\n\n        data: function () {\n            return {\n                started: false,\n                hashesPerSecond: 0,\n                workers: 0,\n                minerAddress:'',\n            }\n        },\n\n        computed:{\n        },\n\n        mounted() {\n\n            if (typeof window === 'undefined') return;\n\n            WebDollar.Blockchain.Mining.emitter.on(\"mining/hash-rate\", (hashesPerSecond)=>{\n                this.hashesPerSecond = hashesPerSecond;\n            });\n\n            WebDollar.Blockchain.Mining.emitter.on(\"mining/status-changed\", (status)=>{\n\n                this.started = WebDollar.Blockchain.Mining.started;\n\n            });\n\n            WebDollar.Blockchain.Mining.emitter.on(\"mining/reset\", ()=>{\n\n                this.started = WebDollar.Blockchain.Mining.started;\n\n            });\n\n            WebDollar.Blockchain.Mining.emitter.on(\"mining/workers-changed\", (workers)=>{\n\n                this.workers = workers;\n                if (this.workers !== this.$refs['refMiningSlider'].data)\n                    this.$refs['refMiningSlider'].$refs['slider'].setValue(this.workers);\n\n            });\n\n            this.minerAddress = WebDollar.Blockchain.Mining.minerAddressBase;\n            WebDollar.Blockchain.Mining.emitter.on(\"mining/miner-address-changed\", (minerAddress)=>{\n                this.minerAddress = minerAddress;\n            });\n\n\n            WebDollar.Blockchain.emitter.on(\"blockchain/status-webdollar\", (data)=> {\n\n                if (data.message === \"Ready\")\n                    this.$refs['refMiningSlider'].disabled = false;\n\n            });\n\n        },\n\n        methods: {\n\n            changeWorkers(value){\n\n                WebDollar.Blockchain.Mining.setWorkers(value);\n\n            }\n\n        }\n\n\n    }\n\n</script>\n\n<style>\n\n    #miningLoader{\n        vertical-align: top;\n        width: 30px;\n        height: 30px;\n    }\n\n    #dashboardMining{\n        overflow: hidden;\n        position: fixed;\n        bottom: 0px;\n        height: 33px;\n        background-color: #262626;\n        display: block;\n        left: 0;\n        padding-bottom: 3px;\n        right: 0;\n        z-index: 95;\n        border-top: solid 1px #444444;\n    }\n\n    .miningPowerThreads{\n        font-size: 14px;\n        display: inline-block;\n        padding: 0 10px;\n        vertical-align: top;\n        padding-top: 8px;\n        text-transform: uppercase;\n        padding-bottom: 5px;\n        color: #fff;\n        letter-spacing: 5px;\n        margin: 0;\n    }\n\n\n    .walletStartMining{\n        position: relative;\n        display: inline-block!important;\n        vertical-align: top;\n        left: 0;\n        right: 0;\n        font-size: 20px;\n        color: #f20;\n        cursor: pointer;\n        text-align: center;\n        transition: all .3s linear;\n    }\n\n    .walletStartMining a{\n        padding-top: 5px;\n        display: block;\n        color: #000;\n    }\n\n    .walletStartMining a:hover{\n        color: #ffc12c;\n    }\n\n    .walletStartMining:hover{\n        background-color: #191919;\n        transition: all .3s linear;\n    }\n\n    .minningController p{\n        font-size: 20px;\n        margin-right: -4px;\n    }\n\n    #miningDetails{\n        vertical-align: top;\n        display: inline-block;\n        line-height: 32px;\n        margin-top: 1px;\n        margin-left: 35px;\n    }\n\n    #miningDetails p{\n        margin-top: 0;\n        font-size: 12px;\n        color: #D5D5D5;\n    }\n\n    #threadsControll{\n        display: inline-block;\n        vertical-align: top;\n        width: 100%;\n        background-color: #1f1f1f;\n    }\n\n    #threadsControll .leftButton {\n        float: left;\n    }\n\n    #threadsControll .rightButton {\n        float: right;\n    }\n\n    #threadsControll .button p{\n        padding-top: 3px;\n        padding-bottom: 4px;\n        line-height: 27px;\n        margin: 0;\n    }\n\n    #allWalets{\n        /*border-top: solid 1px #7b7b7b;*/\n        display: block;\n        /*padding-top: 10px;*/\n    }\n\n    .miningPowerText{\n        font-size: 10px;\n        display: inline-block;\n        padding: 0 10px;\n        vertical-align: top;\n        padding-top: 5px;\n        margin: 0;\n        color: #fff;\n    }\n\n\n    .miningPowerText .secondWord{\n        height: auto;\n        line-height: 10px;\n        margin: 0;\n        font-weight: bold;\n        color: #fff;\n        margin-right: -4px;\n    }\n\n\n    #threadsControll .button{\n        display: inline-block;\n        background-color: #1f1f1f;\n        color: #fff;\n        font-size: 26px;\n        border: solid 1px #565656;\n        width: 31px;\n        border-top: none;\n        border-bottom: none;\n        text-align: center;\n        cursor: pointer;\n        transition: all .3s linear;\n    }\n\n    #threadsControll .button:hover{\n        background-color: #000;\n        transition: all .3s linear;\n    }\n\n    #threadsControll .button:first-child{\n        margin-top: 0;\n    }\n\n    #threadsNumber{\n        font-size: 20px;\n        padding: 0 10px;\n        text-align: center;\n        padding-bottom: 8px;\n        line-height: 25px;\n        display: inline-block;\n        color: #fff;\n        background-color: #d23c25;\n        vertical-align: top;\n        padding-top: 6px;\n        border-right: solid 1px #444;\n        width: 40px;\n        padding-left: 0;\n        padding-right:0;\n    }\n\n    .whiteText{\n        color: #c5c5c5;\n        font-weight: 100;\n        margin-left: 5px;\n    }\n\n    #minningController{\n        width: 100%;\n        border-top:none;\n        padding-bottom: 0;\n        margin-bottom: 15px;\n        display: inline-block;\n        vertical-align: top;\n    }\n\n    #createWalletAddress{\n        border: solid 1px #7b7b7b;\n        padding-bottom: 0;\n        margin-bottom: 15px;\n        display: inline-block;\n    }\n\n    #createWalletAddress p:hover{\n        background-color: #191919;\n        transition: all .3s linear;\n    }\n\n    #createWalletAddress p{\n        padding: 10px;\n        padding-top: 14px;\n        background-color: #353535;\n        color: #bbb;\n        display: inline-block;\n        width: 214px;\n        cursor: pointer;\n        text-align: center;\n        transition: all .3s linear;\n    }\n\n    .WEBD{\n        display: inline-block;\n        margin-left: 20px;\n        font-size: 20px;\n        color: #fec02c;\n        vertical-align: top;\n        margin-top: 0;\n        float: right;\n        min-width: 300px;\n        text-align: center;\n        border-left: solid 1px #444444;\n        line-height: 42px;\n    }\n\n    #miningDetails p{\n        display: inline-block;\n    }\n\n    .miningBar{\n        display: inline-block;\n        width: 330px;\n        margin-left: 0;\n    }\n\n    @media only screen and (max-width : 831px) {\n\n        .miningBar{\n            padding: 4px 0px;\n        }\n\n        .show-balance-span{\n            font-size: 20px;\n        }\n\n        #dashboardMining{\n            margin-bottom: 0;\n        }\n        #minningController, .walletStartMining, .WEBD{\n            display: inline-block;\n            width: 100%;\n        }\n        #minningController{\n            background-color: #0000;\n            margin-bottom: 0;\n            height: 33px;\n            border-top: none;\n            margin-top: 50px;\n        }\n        #threadsControll .button p{\n            line-height: 43px;\n        }\n        #threadsControll .button{\n            width: 80px;\n        }\n        .miningPowerThreads{\n            line-height: 38px;\n            font-size: 16px;\n            margin-right: -4px;\n        }\n        #miningDetails{\n            display: none;\n        }\n        .miningPowerText{\n            display: none;\n        }\n        #threadsNumber{\n            margin: 0 auto;\n            text-align: center;\n            float:left;\n            position: relative;\n            display: block;\n            line-height: 34px;\n            width: 35px;\n            padding-top: 6px;\n            padding-left: 0;\n        }\n        .WEBD{\n            text-align: right;\n            margin-right: 10px;\n            min-width: auto;\n            width: auto;\n            border:none;\n            line-height: 42px;\n        }\n        .miningPowerThreads{\n            display:none;\n        }\n        #threadsControll .button{\n            float:left;\n        }\n        .walletStartMining{\n            margin-top:-29px;\n        }\n        #threadsControll{\n            background-color: #f200;\n        }\n        #threadsControll .button p {\n            line-height: 35px;\n            font-size: 35px;\n            padding-top: 7px;\n        }\n        #threadsControll .button:first-child{\n            border:none;\n        }\n        #minningController{\n            margin-top:0\n        }\n        #dashboardMining{\n            height:40px;\n        }\n        .walletStartMining:hover{\n            background-color: #f200;\n        }\n\n    }\n\n        @media only screen and (max-width : 600px) {\n\n            .whiteText{\n                display: none;\n            }\n\n        }\n\n        @media only screen and (max-width : 500px) {\n\n        .miningBar{\n            width: 50%;\n        }\n\n    }\n\n</style>\n\n\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n#miningLoader{\n    vertical-align: top;\n    width: 30px;\n    height: 30px;\n}\n#dashboardMining{\n    overflow: hidden;\n    position: fixed;\n    bottom: 0px;\n    height: 33px;\n    background-color: #262626;\n    display: block;\n    left: 0;\n    padding-bottom: 3px;\n    right: 0;\n    z-index: 95;\n    border-top: solid 1px #444444;\n}\n.miningPowerThreads{\n    font-size: 14px;\n    display: inline-block;\n    padding: 0 10px;\n    vertical-align: top;\n    padding-top: 8px;\n    text-transform: uppercase;\n    padding-bottom: 5px;\n    color: #fff;\n    letter-spacing: 5px;\n    margin: 0;\n}\n.walletStartMining{\n    position: relative;\n    display: inline-block!important;\n    vertical-align: top;\n    left: 0;\n    right: 0;\n    font-size: 20px;\n    color: #f20;\n    cursor: pointer;\n    text-align: center;\n    transition: all .3s linear;\n}\n.walletStartMining a{\n    padding-top: 5px;\n    display: block;\n    color: #000;\n}\n.walletStartMining a:hover{\n    color: #ffc12c;\n}\n.walletStartMining:hover{\n    background-color: #191919;\n    transition: all .3s linear;\n}\n.minningController p{\n    font-size: 20px;\n    margin-right: -4px;\n}\n#miningDetails{\n    vertical-align: top;\n    display: inline-block;\n    line-height: 32px;\n    margin-top: 1px;\n    margin-left: 35px;\n}\n#miningDetails p{\n    margin-top: 0;\n    font-size: 12px;\n    color: #D5D5D5;\n}\n#threadsControll{\n    display: inline-block;\n    vertical-align: top;\n    width: 100%;\n    background-color: #1f1f1f;\n}\n#threadsControll .leftButton {\n    float: left;\n}\n#threadsControll .rightButton {\n    float: right;\n}\n#threadsControll .button p{\n    padding-top: 3px;\n    padding-bottom: 4px;\n    line-height: 27px;\n    margin: 0;\n}\n#allWalets{\n    /*border-top: solid 1px #7b7b7b;*/\n    display: block;\n    /*padding-top: 10px;*/\n}\n.miningPowerText{\n    font-size: 10px;\n    display: inline-block;\n    padding: 0 10px;\n    vertical-align: top;\n    padding-top: 5px;\n    margin: 0;\n    color: #fff;\n}\n.miningPowerText .secondWord{\n    height: auto;\n    line-height: 10px;\n    margin: 0;\n    font-weight: bold;\n    color: #fff;\n    margin-right: -4px;\n}\n#threadsControll .button{\n    display: inline-block;\n    background-color: #1f1f1f;\n    color: #fff;\n    font-size: 26px;\n    border: solid 1px #565656;\n    width: 31px;\n    border-top: none;\n    border-bottom: none;\n    text-align: center;\n    cursor: pointer;\n    transition: all .3s linear;\n}\n#threadsControll .button:hover{\n    background-color: #000;\n    transition: all .3s linear;\n}\n#threadsControll .button:first-child{\n    margin-top: 0;\n}\n#threadsNumber{\n    font-size: 20px;\n    padding: 0 10px;\n    text-align: center;\n    padding-bottom: 8px;\n    line-height: 25px;\n    display: inline-block;\n    color: #fff;\n    background-color: #d23c25;\n    vertical-align: top;\n    padding-top: 6px;\n    border-right: solid 1px #444;\n    width: 40px;\n    padding-left: 0;\n    padding-right:0;\n}\n.whiteText{\n    color: #c5c5c5;\n    font-weight: 100;\n    margin-left: 5px;\n}\n#minningController{\n    width: 100%;\n    border-top:none;\n    padding-bottom: 0;\n    margin-bottom: 15px;\n    display: inline-block;\n    vertical-align: top;\n}\n#createWalletAddress{\n    border: solid 1px #7b7b7b;\n    padding-bottom: 0;\n    margin-bottom: 15px;\n    display: inline-block;\n}\n#createWalletAddress p:hover{\n    background-color: #191919;\n    transition: all .3s linear;\n}\n#createWalletAddress p{\n    padding: 10px;\n    padding-top: 14px;\n    background-color: #353535;\n    color: #bbb;\n    display: inline-block;\n    width: 214px;\n    cursor: pointer;\n    text-align: center;\n    transition: all .3s linear;\n}\n.WEBD{\n    display: inline-block;\n    margin-left: 20px;\n    font-size: 20px;\n    color: #fec02c;\n    vertical-align: top;\n    margin-top: 0;\n    float: right;\n    min-width: 300px;\n    text-align: center;\n    border-left: solid 1px #444444;\n    line-height: 42px;\n}\n#miningDetails p{\n    display: inline-block;\n}\n.miningBar{\n    display: inline-block;\n    width: 330px;\n    margin-left: 0;\n}\n.miningLoader{\n    margin-top: 5px;\n}\n@media only screen and (max-width : 831px) {\n.miningBar{\n        padding: 4px 0px;\n}\n.show-balance-span{\n        font-size: 20px;\n}\n#dashboardMining{\n        margin-bottom: 0;\n}\n#minningController, .walletStartMining, .WEBD{\n        display: inline-block;\n        width: 100%;\n}\n#minningController{\n        background-color: #0000;\n        margin-bottom: 0;\n        height: 33px;\n        border-top: none;\n        margin-top: 50px;\n}\n#threadsControll .button p{\n        line-height: 43px;\n}\n#threadsControll .button{\n        width: 80px;\n}\n.miningPowerThreads{\n        line-height: 38px;\n        font-size: 16px;\n        margin-right: -4px;\n}\n#miningDetails{\n        display: none;\n}\n.miningPowerText{\n        display: none;\n}\n#threadsNumber{\n        margin: 0 auto;\n        text-align: center;\n        float:left;\n        position: relative;\n        display: block;\n        line-height: 34px;\n        width: 35px;\n        padding-top: 6px;\n        padding-left: 0;\n}\n.WEBD{\n        text-align: right;\n        margin-right: 10px;\n        min-width: auto;\n        width: auto;\n        border:none;\n        line-height: 42px;\n}\n.miningPowerThreads{\n        display:none;\n}\n#threadsControll .button{\n        float:left;\n}\n.walletStartMining{\n        margin-top:-29px;\n}\n#threadsControll{\n        background-color: #f200;\n}\n#threadsControll .button p {\n        line-height: 35px;\n        font-size: 35px;\n        padding-top: 7px;\n}\n#threadsControll .button:first-child{\n        border:none;\n}\n#minningController{\n        margin-top:0\n}\n#dashboardMining{\n        height:40px;\n}\n.walletStartMining:hover{\n        background-color: #f200;\n}\n}\n@media only screen and (max-width : 600px) {\n.whiteText{\n            display: none;\n}\n}\n@media only screen and (max-width : 500px) {\n.miningBar{\n        width: 50%;\n}\n}\n\n", "", {"version":3,"sources":["/Users/alexandru.panait/Work/Other/User-Interface-WebDollar/src/components/Mining/src/components/Mining/Mining.vue"],"names":[],"mappings":";AA0JA;IACA,oBAAA;IACA,YAAA;IACA,aAAA;CACA;AAEA;IACA,iBAAA;IACA,gBAAA;IACA,YAAA;IACA,aAAA;IACA,0BAAA;IACA,eAAA;IACA,QAAA;IACA,oBAAA;IACA,SAAA;IACA,YAAA;IACA,8BAAA;CACA;AAEA;IACA,gBAAA;IACA,sBAAA;IACA,gBAAA;IACA,oBAAA;IACA,iBAAA;IACA,0BAAA;IACA,oBAAA;IACA,YAAA;IACA,oBAAA;IACA,UAAA;CACA;AAGA;IACA,mBAAA;IACA,gCAAA;IACA,oBAAA;IACA,QAAA;IACA,SAAA;IACA,gBAAA;IACA,YAAA;IACA,gBAAA;IACA,mBAAA;IACA,2BAAA;CACA;AAEA;IACA,iBAAA;IACA,eAAA;IACA,YAAA;CACA;AAEA;IACA,eAAA;CACA;AAEA;IACA,0BAAA;IACA,2BAAA;CACA;AAEA;IACA,gBAAA;IACA,mBAAA;CACA;AAEA;IACA,oBAAA;IACA,sBAAA;IACA,kBAAA;IACA,gBAAA;IACA,kBAAA;CACA;AAEA;IACA,cAAA;IACA,gBAAA;IACA,eAAA;CACA;AAEA;IACA,sBAAA;IACA,oBAAA;IACA,YAAA;IACA,0BAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,iBAAA;IACA,oBAAA;IACA,kBAAA;IACA,UAAA;CACA;AAEA;IACA,kCAAA;IACA,eAAA;IACA,sBAAA;CACA;AAEA;IACA,gBAAA;IACA,sBAAA;IACA,gBAAA;IACA,oBAAA;IACA,iBAAA;IACA,UAAA;IACA,YAAA;CACA;AAGA;IACA,aAAA;IACA,kBAAA;IACA,UAAA;IACA,kBAAA;IACA,YAAA;IACA,mBAAA;CACA;AAGA;IACA,sBAAA;IACA,0BAAA;IACA,YAAA;IACA,gBAAA;IACA,0BAAA;IACA,YAAA;IACA,iBAAA;IACA,oBAAA;IACA,mBAAA;IACA,gBAAA;IACA,2BAAA;CACA;AAEA;IACA,uBAAA;IACA,2BAAA;CACA;AAEA;IACA,cAAA;CACA;AAEA;IACA,gBAAA;IACA,gBAAA;IACA,mBAAA;IACA,oBAAA;IACA,kBAAA;IACA,sBAAA;IACA,YAAA;IACA,0BAAA;IACA,oBAAA;IACA,iBAAA;IACA,6BAAA;IACA,YAAA;IACA,gBAAA;IACA,gBAAA;CACA;AAEA;IACA,eAAA;IACA,iBAAA;IACA,iBAAA;CACA;AAEA;IACA,YAAA;IACA,gBAAA;IACA,kBAAA;IACA,oBAAA;IACA,sBAAA;IACA,oBAAA;CACA;AAEA;IACA,0BAAA;IACA,kBAAA;IACA,oBAAA;IACA,sBAAA;CACA;AAEA;IACA,0BAAA;IACA,2BAAA;CACA;AAEA;IACA,cAAA;IACA,kBAAA;IACA,0BAAA;IACA,YAAA;IACA,sBAAA;IACA,aAAA;IACA,gBAAA;IACA,mBAAA;IACA,2BAAA;CACA;AAEA;IACA,sBAAA;IACA,kBAAA;IACA,gBAAA;IACA,eAAA;IACA,oBAAA;IACA,cAAA;IACA,aAAA;IACA,iBAAA;IACA,mBAAA;IACA,+BAAA;IACA,kBAAA;CACA;AAEA;IACA,sBAAA;CACA;AAEA;IACA,sBAAA;IACA,aAAA;IACA,eAAA;CACA;AAEA;IACA,gBAAA;CACA;AAEA;AAEA;QACA,iBAAA;CACA;AAEA;QACA,gBAAA;CACA;AAEA;QACA,iBAAA;CACA;AACA;QACA,sBAAA;QACA,YAAA;CACA;AACA;QACA,wBAAA;QACA,iBAAA;QACA,aAAA;QACA,iBAAA;QACA,iBAAA;CACA;AACA;QACA,kBAAA;CACA;AACA;QACA,YAAA;CACA;AACA;QACA,kBAAA;QACA,gBAAA;QACA,mBAAA;CACA;AACA;QACA,cAAA;CACA;AACA;QACA,cAAA;CACA;AACA;QACA,eAAA;QACA,mBAAA;QACA,WAAA;QACA,mBAAA;QACA,eAAA;QACA,kBAAA;QACA,YAAA;QACA,iBAAA;QACA,gBAAA;CACA;AACA;QACA,kBAAA;QACA,mBAAA;QACA,gBAAA;QACA,YAAA;QACA,YAAA;QACA,kBAAA;CACA;AACA;QACA,aAAA;CACA;AACA;QACA,WAAA;CACA;AACA;QACA,iBAAA;CACA;AACA;QACA,wBAAA;CACA;AACA;QACA,kBAAA;QACA,gBAAA;QACA,iBAAA;CACA;AACA;QACA,YAAA;CACA;AACA;QACA,YAAA;CACA;AACA;QACA,YAAA;CACA;AACA;QACA,wBAAA;CACA;CAEA;AAEA;AAEA;YACA,cAAA;CACA;CAEA;AAEA;AAEA;QACA,WAAA;CACA;CAEA","file":"Mining.vue","sourcesContent":["<template>\n    <div id=\"dashboardMining\" class=\"walletSection\" >\n\n        <div id=\"minningController\">\n            <p class=\"miningPowerText\">Mining <br/> <span class=\"secondWord\">Power</span></p>\n            <strong id=\"threadsNumber\" :style=\"{background: this.workers ? 0 : '#d23c25'}\">{{this.workers}}</strong>\n\n            <div type=\"button\" class=\"miningBar\">\n                <slider ref=\"refMiningSlider\" @sliderChanged=\"this.changeWorkers\"/>\n            </div>\n\n            <div id=\"miningDetails\">\n                <p class=\"\" :style=\"{display: this.hashesPerSecond==0 && this.started==true ? 'none' : 'inline-block'}\">{{this.started ? this.hashesPerSecond + ' hashes/sec' : 'not started'}} </p>\n                <svg :style=\"{display: this.hashesPerSecond==0 && this.started==true ? 'inline-block' : 'none'}\" version=\"1.1\" id=\"miningLoader\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n                     width=\"40px\" height=\"40px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\n                      <path fill=\"#fec02c\" d=\"M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z\">\n                        <animateTransform attributeType=\"xml\"\n                          attributeName=\"transform\"\n                          type=\"rotate\"\n                          from=\"0 25 25\"\n                          to=\"360 25 25\"\n                          dur=\"0.6s\"\n                          repeatCount=\"indefinite\"/>\n                        </path>\n                </svg>\n            </div>\n            <p class=\"WEBD\">\n                <svg :style=\"{display: this.loaded==false ? 'inline-block' : 'none'}\" version=\"1.1\" id=\"miningLoader\" class=\"miningLoader\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n                     width=\"40px\" height=\"40px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\n                      <path fill=\"#fec02c\" d=\"M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z\">\n                        <animateTransform attributeType=\"xml\"\n                          attributeName=\"transform\"\n                          type=\"rotate\"\n                          from=\"0 25 25\"\n                          to=\"360 25 25\"\n                          dur=\"0.6s\"\n                          repeatCount=\"indefinite\"/>\n                        </path>\n                </svg>\n                <ShowSumBalances :style=\"{display: this.loaded==false ? 'none' : 'inline-block'}\" :addresses=\"this.addresses\" :currency=\"this.currency\" ref=\"refShowSumBalances\" /> <b class=\"whiteText\">WEBD</b>\n            </p>\n        </div>\n\n    </div>\n</template>\n\n<script>\n\n    import ShowSumBalances from \"components/Wallet/Address/Balance/ShowSumBalances.vue\"\n    import slider from \"./slider.vue\";\n\n    export default{\n\n        name: 'Mining',\n\n        components: {\n            \"ShowSumBalances\":ShowSumBalances,\n            \"slider\":slider\n        },\n\n        props: ['addresses', 'currency'],\n\n        data: function () {\n            return {\n                started: false,\n                hashesPerSecond: 0,\n                workers: 0,\n                minerAddress:'',\n                status: '',\n                loaded:false\n            }\n        },\n\n        computed:{\n        },\n\n        mounted() {\n\n            if (typeof window === 'undefined') return;\n\n            WebDollar.Blockchain.Mining.emitter.on(\"mining/hash-rate\", (hashesPerSecond)=>{\n                this.hashesPerSecond = hashesPerSecond;\n            });\n\n            WebDollar.Blockchain.Mining.emitter.on(\"mining/status-changed\", (status)=>{\n\n                this.started = WebDollar.Blockchain.Mining.started;\n\n            });\n\n            WebDollar.Blockchain.Mining.emitter.on(\"mining/reset\", ()=>{\n\n                this.started = WebDollar.Blockchain.Mining.started;\n\n            });\n\n            WebDollar.Blockchain.Mining.emitter.on(\"mining/workers-changed\", (workers)=>{\n\n                this.workers = workers;\n                if (this.workers !== this.$refs['refMiningSlider'].data)\n                    this.$refs['refMiningSlider'].$refs['slider'].setValue(this.workers);\n\n            });\n\n            this.minerAddress = WebDollar.Blockchain.Mining.minerAddressBase;\n            WebDollar.Blockchain.Mining.emitter.on(\"mining/miner-address-changed\", (minerAddress)=>{\n                this.minerAddress = minerAddress;\n            });\n\n\n            WebDollar.Blockchain.emitter.on(\"blockchain/status-webdollar\", (data)=> {\n\n                if (data.message === \"Ready\")\n                    this.$refs['refMiningSlider'].disabled = false;\n\n            });\n\n            WebDollar.Blockchain.emitter.on(\"blockchain/status\", (data)=>{\n\n                this.status = data.message;\n\n            });\n\n            WebDollar.Blockchain.emitter.on(\"blockchain/status-webdollar\", (data)=>{\n\n                if (data.message === \"Ready\") {\n                    this.loaded = true;\n\n                    WebDollar.Blockchain.Mining.setWorkers(1);\n\n                }\n\n            });\n\n        },\n\n\n        methods: {\n\n            changeWorkers(value){\n\n                WebDollar.Blockchain.Mining.setWorkers(value);\n\n            }\n\n        }\n\n\n    }\n\n</script>\n\n<style>\n\n    #miningLoader{\n        vertical-align: top;\n        width: 30px;\n        height: 30px;\n    }\n\n    #dashboardMining{\n        overflow: hidden;\n        position: fixed;\n        bottom: 0px;\n        height: 33px;\n        background-color: #262626;\n        display: block;\n        left: 0;\n        padding-bottom: 3px;\n        right: 0;\n        z-index: 95;\n        border-top: solid 1px #444444;\n    }\n\n    .miningPowerThreads{\n        font-size: 14px;\n        display: inline-block;\n        padding: 0 10px;\n        vertical-align: top;\n        padding-top: 8px;\n        text-transform: uppercase;\n        padding-bottom: 5px;\n        color: #fff;\n        letter-spacing: 5px;\n        margin: 0;\n    }\n\n\n    .walletStartMining{\n        position: relative;\n        display: inline-block!important;\n        vertical-align: top;\n        left: 0;\n        right: 0;\n        font-size: 20px;\n        color: #f20;\n        cursor: pointer;\n        text-align: center;\n        transition: all .3s linear;\n    }\n\n    .walletStartMining a{\n        padding-top: 5px;\n        display: block;\n        color: #000;\n    }\n\n    .walletStartMining a:hover{\n        color: #ffc12c;\n    }\n\n    .walletStartMining:hover{\n        background-color: #191919;\n        transition: all .3s linear;\n    }\n\n    .minningController p{\n        font-size: 20px;\n        margin-right: -4px;\n    }\n\n    #miningDetails{\n        vertical-align: top;\n        display: inline-block;\n        line-height: 32px;\n        margin-top: 1px;\n        margin-left: 35px;\n    }\n\n    #miningDetails p{\n        margin-top: 0;\n        font-size: 12px;\n        color: #D5D5D5;\n    }\n\n    #threadsControll{\n        display: inline-block;\n        vertical-align: top;\n        width: 100%;\n        background-color: #1f1f1f;\n    }\n\n    #threadsControll .leftButton {\n        float: left;\n    }\n\n    #threadsControll .rightButton {\n        float: right;\n    }\n\n    #threadsControll .button p{\n        padding-top: 3px;\n        padding-bottom: 4px;\n        line-height: 27px;\n        margin: 0;\n    }\n\n    #allWalets{\n        /*border-top: solid 1px #7b7b7b;*/\n        display: block;\n        /*padding-top: 10px;*/\n    }\n\n    .miningPowerText{\n        font-size: 10px;\n        display: inline-block;\n        padding: 0 10px;\n        vertical-align: top;\n        padding-top: 5px;\n        margin: 0;\n        color: #fff;\n    }\n\n\n    .miningPowerText .secondWord{\n        height: auto;\n        line-height: 10px;\n        margin: 0;\n        font-weight: bold;\n        color: #fff;\n        margin-right: -4px;\n    }\n\n\n    #threadsControll .button{\n        display: inline-block;\n        background-color: #1f1f1f;\n        color: #fff;\n        font-size: 26px;\n        border: solid 1px #565656;\n        width: 31px;\n        border-top: none;\n        border-bottom: none;\n        text-align: center;\n        cursor: pointer;\n        transition: all .3s linear;\n    }\n\n    #threadsControll .button:hover{\n        background-color: #000;\n        transition: all .3s linear;\n    }\n\n    #threadsControll .button:first-child{\n        margin-top: 0;\n    }\n\n    #threadsNumber{\n        font-size: 20px;\n        padding: 0 10px;\n        text-align: center;\n        padding-bottom: 8px;\n        line-height: 25px;\n        display: inline-block;\n        color: #fff;\n        background-color: #d23c25;\n        vertical-align: top;\n        padding-top: 6px;\n        border-right: solid 1px #444;\n        width: 40px;\n        padding-left: 0;\n        padding-right:0;\n    }\n\n    .whiteText{\n        color: #c5c5c5;\n        font-weight: 100;\n        margin-left: 5px;\n    }\n\n    #minningController{\n        width: 100%;\n        border-top:none;\n        padding-bottom: 0;\n        margin-bottom: 15px;\n        display: inline-block;\n        vertical-align: top;\n    }\n\n    #createWalletAddress{\n        border: solid 1px #7b7b7b;\n        padding-bottom: 0;\n        margin-bottom: 15px;\n        display: inline-block;\n    }\n\n    #createWalletAddress p:hover{\n        background-color: #191919;\n        transition: all .3s linear;\n    }\n\n    #createWalletAddress p{\n        padding: 10px;\n        padding-top: 14px;\n        background-color: #353535;\n        color: #bbb;\n        display: inline-block;\n        width: 214px;\n        cursor: pointer;\n        text-align: center;\n        transition: all .3s linear;\n    }\n\n    .WEBD{\n        display: inline-block;\n        margin-left: 20px;\n        font-size: 20px;\n        color: #fec02c;\n        vertical-align: top;\n        margin-top: 0;\n        float: right;\n        min-width: 300px;\n        text-align: center;\n        border-left: solid 1px #444444;\n        line-height: 42px;\n    }\n\n    #miningDetails p{\n        display: inline-block;\n    }\n\n    .miningBar{\n        display: inline-block;\n        width: 330px;\n        margin-left: 0;\n    }\n\n    .miningLoader{\n        margin-top: 5px;\n    }\n\n    @media only screen and (max-width : 831px) {\n\n        .miningBar{\n            padding: 4px 0px;\n        }\n\n        .show-balance-span{\n            font-size: 20px;\n        }\n\n        #dashboardMining{\n            margin-bottom: 0;\n        }\n        #minningController, .walletStartMining, .WEBD{\n            display: inline-block;\n            width: 100%;\n        }\n        #minningController{\n            background-color: #0000;\n            margin-bottom: 0;\n            height: 33px;\n            border-top: none;\n            margin-top: 50px;\n        }\n        #threadsControll .button p{\n            line-height: 43px;\n        }\n        #threadsControll .button{\n            width: 80px;\n        }\n        .miningPowerThreads{\n            line-height: 38px;\n            font-size: 16px;\n            margin-right: -4px;\n        }\n        #miningDetails{\n            display: none;\n        }\n        .miningPowerText{\n            display: none;\n        }\n        #threadsNumber{\n            margin: 0 auto;\n            text-align: center;\n            float:left;\n            position: relative;\n            display: block;\n            line-height: 34px;\n            width: 35px;\n            padding-top: 6px;\n            padding-left: 0;\n        }\n        .WEBD{\n            text-align: right;\n            margin-right: 10px;\n            min-width: auto;\n            width: auto;\n            border:none;\n            line-height: 42px;\n        }\n        .miningPowerThreads{\n            display:none;\n        }\n        #threadsControll .button{\n            float:left;\n        }\n        .walletStartMining{\n            margin-top:-29px;\n        }\n        #threadsControll{\n            background-color: #f200;\n        }\n        #threadsControll .button p {\n            line-height: 35px;\n            font-size: 35px;\n            padding-top: 7px;\n        }\n        #threadsControll .button:first-child{\n            border:none;\n        }\n        #minningController{\n            margin-top:0\n        }\n        #dashboardMining{\n            height:40px;\n        }\n        .walletStartMining:hover{\n            background-color: #f200;\n        }\n\n    }\n\n        @media only screen and (max-width : 600px) {\n\n            .whiteText{\n                display: none;\n            }\n\n        }\n\n        @media only screen and (max-width : 500px) {\n\n        .miningBar{\n            width: 50%;\n        }\n\n    }\n\n</style>\n\n\n"],"sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
-/* 100 */
+/* 102 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_slider_vue__ = __webpack_require__(27);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_2b39a900_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_slider_vue__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_2b39a900_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_slider_vue__ = __webpack_require__(106);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(101)
+  __webpack_require__(103)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -8683,13 +8759,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 101 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(102);
+var content = __webpack_require__(104);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -8709,7 +8785,7 @@ if(false) {
 }
 
 /***/ }),
-/* 102 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -8723,13 +8799,13 @@ exports.push([module.i, "\n.miningSlider {\n    padding-top: 15px !important;\n 
 
 
 /***/ }),
-/* 103 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 !function(t,e){ true?module.exports=e():"function"==typeof define&&define.amd?define("vue-slider-component",[],e):"object"==typeof exports?exports["vue-slider-component"]=e():t["vue-slider-component"]=e()}(this,function(){return function(t){function e(s){if(i[s])return i[s].exports;var r=i[s]={i:s,l:!1,exports:{}};return t[s].call(r.exports,r,r.exports,e),r.l=!0,r.exports}var i={};return e.m=t,e.c=i,e.i=function(t){return t},e.d=function(t,i,s){e.o(t,i)||Object.defineProperty(t,i,{configurable:!1,enumerable:!0,get:s})},e.n=function(t){var i=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(i,"a",i),i},e.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},e.p="",e(e.s=2)}([function(t,e,i){i(7);var s=i(5)(i(1),i(6),null,null);t.exports=s.exports},function(t,e,i){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.default={name:"VueSliderComponent",data:function(){return{flag:!1,size:0,currentValue:0,currentSlider:0,isComponentExists:!0}},props:{width:{type:[Number,String],default:"auto"},height:{type:[Number,String],default:6},data:{type:Array,default:null},dotSize:{type:Number,default:16},dotWidth:{type:Number,required:!1},dotHeight:{type:Number,required:!1},min:{type:Number,default:0},max:{type:Number,default:100},interval:{type:Number,default:1},show:{type:Boolean,default:!0},disabled:{type:Boolean,default:!1},piecewise:{type:Boolean,default:!1},tooltip:{type:[String,Boolean],default:"always"},eventType:{type:String,default:"auto"},direction:{type:String,default:"horizontal"},reverse:{type:Boolean,default:!1},lazy:{type:Boolean,default:!1},clickable:{type:Boolean,default:!0},speed:{type:Number,default:.5},realTime:{type:Boolean,default:!1},stopPropagation:{type:Boolean,default:!1},value:{type:[String,Number,Array],default:0},piecewiseLabel:{type:Boolean,default:!1},debug:{type:Boolean,default:!0},sliderStyle:[Array,Object,Function],tooltipDir:[Array,String],formatter:[String,Function],piecewiseStyle:Object,piecewiseActiveStyle:Object,processStyle:Object,bgStyle:Object,tooltipStyle:[Array,Object,Function],labelStyle:Object,labelActiveStyle:Object},computed:{dotWidthVal:function(){return"number"==typeof this.dotWidth?this.dotWidth:this.dotSize},dotHeightVal:function(){return"number"==typeof this.dotHeight?this.dotHeight:this.dotSize},flowDirection:function(){return"vue-slider-"+this.direction+(this.reverse?"-reverse":"")},tooltipDirection:function(){var t=this.tooltipDir||("vertical"===this.direction?"left":"top");return Array.isArray(t)?this.isRange?t:t[1]:this.isRange?[t,t]:t},tooltipStatus:function(){return"hover"===this.tooltip&&this.flag?"vue-slider-always":this.tooltip?"vue-slider-"+this.tooltip:""},tooltipClass:function(){return["vue-slider-tooltip-"+this.tooltipDirection,"vue-slider-tooltip"]},isDisabled:function(){return"none"===this.eventType||this.disabled},disabledClass:function(){return this.disabled?"vue-slider-disabled":""},isRange:function(){return Array.isArray(this.value)},slider:function(){return this.isRange?[this.$refs.dot0,this.$refs.dot1]:this.$refs.dot},minimum:function(){return this.data?0:this.min},val:{get:function(){return this.data?this.isRange?[this.data[this.currentValue[0]],this.data[this.currentValue[1]]]:this.data[this.currentValue]:this.currentValue},set:function(t){if(this.data)if(this.isRange){var e=this.data.indexOf(t[0]),i=this.data.indexOf(t[1]);e>-1&&i>-1&&(this.currentValue=[e,i])}else{var s=this.data.indexOf(t);s>-1&&(this.currentValue=s)}else this.currentValue=t}},currentIndex:function(){return this.isRange?this.data?this.currentValue:[(this.currentValue[0]-this.minimum)/this.spacing,(this.currentValue[1]-this.minimum)/this.spacing]:(this.currentValue-this.minimum)/this.spacing},indexRange:function(){return this.isRange?this.currentIndex:[0,this.currentIndex]},maximum:function(){return this.data?this.data.length-1:this.max},multiple:function(){var t=(""+this.interval).split(".")[1];return t?Math.pow(10,t.length):1},spacing:function(){return this.data?1:this.interval},total:function(){return this.data?this.data.length-1:(Math.floor((this.maximum-this.minimum)*this.multiple)%(this.interval*this.multiple)!=0&&this.printError("[VueSlider error]: Prop[interval] is illegal, Please make sure that the interval can be divisible"),(this.maximum-this.minimum)/this.interval)},gap:function(){return this.size/this.total},position:function(){return this.isRange?[(this.currentValue[0]-this.minimum)/this.spacing*this.gap,(this.currentValue[1]-this.minimum)/this.spacing*this.gap]:(this.currentValue-this.minimum)/this.spacing*this.gap},limit:function(){return this.isRange?[[0,this.position[1]],[this.position[0],this.size]]:[0,this.size]},valueLimit:function(){return this.isRange?[[this.minimum,this.currentValue[1]],[this.currentValue[0],this.maximum]]:[this.minimum,this.maximum]},wrapStyles:function(){return"vertical"===this.direction?{height:"number"==typeof this.height?this.height+"px":this.height,padding:this.dotHeightVal/2+"px "+this.dotWidthVal/2+"px"}:{width:"number"==typeof this.width?this.width+"px":this.width,padding:this.dotHeightVal/2+"px "+this.dotWidthVal/2+"px"}},sliderStyles:function(){return Array.isArray(this.sliderStyle)?this.isRange?this.sliderStyle:this.sliderStyle[1]:"function"==typeof this.sliderStyle?this.sliderStyle(this.val,this.currentIndex):this.isRange?[this.sliderStyle,this.sliderStyle]:this.sliderStyle},tooltipStyles:function(){return Array.isArray(this.tooltipStyle)?this.isRange?this.tooltipStyle:this.tooltipStyle[1]:"function"==typeof this.tooltipStyle?this.tooltipStyle(this.val,this.currentIndex):this.isRange?[this.tooltipStyle,this.tooltipStyle]:this.tooltipStyle},elemStyles:function(){return"vertical"===this.direction?{width:this.width+"px",height:"100%"}:{height:this.height+"px"}},dotStyles:function(){return"vertical"===this.direction?{width:this.dotWidthVal+"px",height:this.dotHeightVal+"px",left:-(this.dotWidthVal-this.width)/2+"px"}:{width:this.dotWidthVal+"px",height:this.dotHeightVal+"px",top:-(this.dotHeightVal-this.height)/2+"px"}},piecewiseDotStyle:function(){return"vertical"===this.direction?{width:this.width+"px",height:this.width+"px"}:{width:this.height+"px",height:this.height+"px"}},piecewiseDotWrap:function(){if(!this.piecewise&&!this.piecewiseLabel)return!1;for(var t=[],e=0;e<=this.total;e++){var i="vertical"===this.direction?{bottom:this.gap*e-this.width/2+"px",left:0}:{left:this.gap*e-this.height/2+"px",top:0},s=this.reverse?this.total-e:e,r=this.data?this.data[s]:this.spacing*s+this.min;t.push({style:i,label:this.formatter?this.formatting(r):r,inRange:s>=this.indexRange[0]&&s<=this.indexRange[1]})}return t}},watch:{value:function(t){this.flag||this.setValue(t,!0)},max:function(t){if(t<this.min)return this.printError("[VueSlider error]: The maximum value can not be less than the minimum value.");var e=this.limitValue(this.val);this.setValue(e),this.refresh()},min:function(t){if(t>this.max)return this.printError("[VueSlider error]: The minimum value can not be greater than the maximum value.");var e=this.limitValue(this.val);this.setValue(e),this.refresh()},show:function(t){var e=this;t&&!this.size&&this.$nextTick(function(){e.refresh()})}},methods:{bindEvents:function(){document.addEventListener("touchmove",this.moving,{passive:!1}),document.addEventListener("touchend",this.moveEnd,{passive:!1}),document.addEventListener("mousemove",this.moving),document.addEventListener("mouseup",this.moveEnd),document.addEventListener("mouseleave",this.moveEnd),window.addEventListener("resize",this.refresh)},unbindEvents:function(){window.removeEventListener("resize",this.refresh),document.removeEventListener("touchmove",this.moving),document.removeEventListener("touchend",this.moveEnd),document.removeEventListener("mousemove",this.moving),document.removeEventListener("mouseup",this.moveEnd),document.removeEventListener("mouseleave",this.moveEnd)},formatting:function(t){return"string"==typeof this.formatter?this.formatter.replace(/\{value\}/,t):this.formatter(t)},getPos:function(t){return this.realTime&&this.getStaticData(),"vertical"===this.direction?this.reverse?t.pageY-this.offset:this.size-(t.pageY-this.offset):this.reverse?this.size-(t.clientX-this.offset):t.clientX-this.offset},wrapClick:function(t){if(this.isDisabled||!this.clickable)return!1;var e=this.getPos(t);this.isRange&&(this.currentSlider=e>(this.position[1]-this.position[0])/2+this.position[0]?1:0),this.setValueOnPos(e)},moveStart:function(t,e){if(this.stopPropagation&&t.stopPropagation(),this.isDisabled)return!1;this.isRange&&(this.currentSlider=e),this.flag=!0,this.$emit("drag-start",this)},moving:function(t){if(this.stopPropagation&&t.stopPropagation(),!this.flag)return!1;t.preventDefault(),t.targetTouches&&t.targetTouches[0]&&(t=t.targetTouches[0]),this.setValueOnPos(this.getPos(t),!0)},moveEnd:function(t){if(this.stopPropagation&&t.stopPropagation(),!this.flag)return!1;this.$emit("drag-end",this),this.lazy&&this.isDiff(this.val,this.value)&&this.syncValue(),this.flag=!1,this.setPosition()},setValueOnPos:function(t,e){var i=this.isRange?this.limit[this.currentSlider]:this.limit,s=this.isRange?this.valueLimit[this.currentSlider]:this.valueLimit;if(t>=i[0]&&t<=i[1]){this.setTransform(t);var r=(Math.round(t/this.gap)*(this.spacing*this.multiple)+this.minimum*this.multiple)/this.multiple;this.setCurrentValue(r,e)}else t<i[0]?(this.setTransform(i[0]),this.setCurrentValue(s[0]),1===this.currentSlider&&(this.currentSlider=0)):(this.setTransform(i[1]),this.setCurrentValue(s[1]),0===this.currentSlider&&(this.currentSlider=1))},isDiff:function(t,e){return Object.prototype.toString.call(t)!==Object.prototype.toString.call(e)||(Array.isArray(t)&&t.length===e.length?t.some(function(t,i){return t!==e[i]}):t!==e)},setCurrentValue:function(t,e){if(t<this.minimum||t>this.maximum)return!1;this.isRange?this.isDiff(this.currentValue[this.currentSlider],t)&&(this.currentValue.splice(this.currentSlider,1,t),this.lazy&&this.flag||this.syncValue()):this.isDiff(this.currentValue,t)&&(this.currentValue=t,this.lazy&&this.flag||this.syncValue()),e||this.setPosition()},setIndex:function(t){if(Array.isArray(t)&&this.isRange){var e=void 0;e=this.data?[this.data[t[0]],this.data[t[1]]]:[this.spacing*t[0]+this.minimum,this.spacing*t[1]+this.minimum],this.setValue(e)}else t=this.spacing*t+this.minimum,this.isRange&&(this.currentSlider=t>(this.currentValue[1]-this.currentValue[0])/2+this.currentValue[0]?1:0),this.setCurrentValue(t)},setValue:function(t,e,i){var s=this;if(this.isDiff(this.val,t)){var r=this.limitValue(t);this.val=this.isRange?r.concat():r,this.syncValue(e)}this.$nextTick(function(){return s.setPosition(i)})},setPosition:function(t){this.flag||this.setTransitionTime(void 0===t?this.speed:t),this.isRange?(this.currentSlider=0,this.setTransform(this.position[this.currentSlider]),this.currentSlider=1,this.setTransform(this.position[this.currentSlider])):this.setTransform(this.position),this.flag||this.setTransitionTime(0)},setTransform:function(t){var e=("vertical"===this.direction?this.dotHeightVal/2-t:t-this.dotWidthVal/2)*(this.reverse?-1:1),i="vertical"===this.direction?"translateY("+e+"px)":"translateX("+e+"px)",s=(0===this.currentSlider?this.position[1]-t:t-this.position[0])+"px",r=(0===this.currentSlider?t:this.position[0])+"px";this.isRange?(this.slider[this.currentSlider].style.transform=i,this.slider[this.currentSlider].style.WebkitTransform=i,this.slider[this.currentSlider].style.msTransform=i,"vertical"===this.direction?(this.$refs.process.style.height=s,this.$refs.process.style[this.reverse?"top":"bottom"]=r):(this.$refs.process.style.width=s,this.$refs.process.style[this.reverse?"right":"left"]=r)):(this.slider.style.transform=i,this.slider.style.WebkitTransform=i,this.slider.style.msTransform=i,"vertical"===this.direction?(this.$refs.process.style.height=t+"px",this.$refs.process.style[this.reverse?"top":"bottom"]=0):(this.$refs.process.style.width=t+"px",this.$refs.process.style[this.reverse?"right":"left"]=0))},setTransitionTime:function(t){if(t||this.$refs.process.offsetWidth,this.isRange){for(var e=0;e<this.slider.length;e++)this.slider[e].style.transitionDuration=t+"s",this.slider[e].style.WebkitTransitionDuration=t+"s";this.$refs.process.style.transitionDuration=t+"s",this.$refs.process.style.WebkitTransitionDuration=t+"s"}else this.slider.style.transitionDuration=t+"s",this.slider.style.WebkitTransitionDuration=t+"s",this.$refs.process.style.transitionDuration=t+"s",this.$refs.process.style.WebkitTransitionDuration=t+"s"},limitValue:function(t){var e=this;if(this.data)return t;var i=function(i){return i<e.min?(e.printError("[VueSlider warn]: The value of the slider is "+t+", the minimum value is "+e.min+", the value of this slider can not be less than the minimum value"),e.min):i>e.max?(e.printError("[VueSlider warn]: The value of the slider is "+t+", the maximum value is "+e.max+", the value of this slider can not be greater than the maximum value"),e.max):i};return this.isRange?t.map(function(t){return i(t)}):i(t)},syncValue:function(t){var e=this.isRange?this.val.concat():this.val;this.$emit("input",e),t||this.$emit("callback",e)},getValue:function(){return this.val},getIndex:function(){return this.currentIndex},getStaticData:function(){this.$refs.elem&&(this.size="vertical"===this.direction?this.$refs.elem.offsetHeight:this.$refs.elem.offsetWidth,this.offset="vertical"===this.direction?this.$refs.elem.getBoundingClientRect().top+window.pageYOffset||document.documentElement.scrollTop:this.$refs.elem.getBoundingClientRect().left)},refresh:function(){this.$refs.elem&&(this.getStaticData(),this.setPosition())},printError:function(t){this.debug&&console.error(t)}},mounted:function(){var t=this;if(this.isComponentExists=!0,"undefined"==typeof window||"undefined"==typeof document)return this.printError("[VueSlider error]: window or document is undefined, can not be initialization.");this.$nextTick(function(){t.isComponentExists&&(t.getStaticData(),t.setValue(t.limitValue(t.value),!0,0),t.bindEvents())})},beforeDestroy:function(){this.isComponentExists=!1,this.unbindEvents()}}},function(t,e,i){"use strict";var s=i(0);t.exports=s},function(t,e,i){e=t.exports=i(4)(),e.push([t.i,'.vue-slider-component{position:relative;box-sizing:border-box;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.vue-slider-component.vue-slider-disabled{opacity:.5;cursor:not-allowed}.vue-slider-component.vue-slider-has-label{margin-bottom:15px}.vue-slider-component.vue-slider-disabled .vue-slider-dot{cursor:not-allowed}.vue-slider-component .vue-slider{position:relative;display:block;border-radius:15px;background-color:#ccc}.vue-slider-component .vue-slider:after{content:"";position:absolute;left:0;top:0;width:100%;height:100%;z-index:2}.vue-slider-component .vue-slider-process{position:absolute;border-radius:15px;background-color:#3498db;transition:all 0s;z-index:1}.vue-slider-component.vue-slider-horizontal .vue-slider-process{width:0;height:100%;top:0;left:0;will-change:width}.vue-slider-component.vue-slider-vertical .vue-slider-process{width:100%;height:0;bottom:0;left:0;will-change:height}.vue-slider-component.vue-slider-horizontal-reverse .vue-slider-process{width:0;height:100%;top:0;right:0}.vue-slider-component.vue-slider-vertical-reverse .vue-slider-process{width:100%;height:0;top:0;left:0}.vue-slider-component .vue-slider-dot{position:absolute;border-radius:50%;background-color:#fff;box-shadow:.5px .5px 2px 1px rgba(0,0,0,.32);transition:all 0s;will-change:transform;cursor:pointer;z-index:3}.vue-slider-component.vue-slider-horizontal .vue-slider-dot{left:0}.vue-slider-component.vue-slider-vertical .vue-slider-dot{bottom:0}.vue-slider-component.vue-slider-horizontal-reverse .vue-slider-dot{right:0}.vue-slider-component.vue-slider-vertical-reverse .vue-slider-dot{top:0}.vue-slider-component .vue-slider-tooltip-wrap{display:none;position:absolute;z-index:9}.vue-slider-component .vue-slider-tooltip{display:block;font-size:14px;white-space:nowrap;padding:2px 5px;min-width:20px;text-align:center;color:#fff;border-radius:5px;border:1px solid #3498db;background-color:#3498db}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-top{top:-9px;left:50%;-webkit-transform:translate(-50%,-100%);transform:translate(-50%,-100%)}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-bottom{bottom:-9px;left:50%;-webkit-transform:translate(-50%,100%);transform:translate(-50%,100%)}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-left{top:50%;left:-9px;-webkit-transform:translate(-100%,-50%);transform:translate(-100%,-50%)}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-right{top:50%;right:-9px;-webkit-transform:translate(100%,-50%);transform:translate(100%,-50%)}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-top .vue-slider-tooltip:before{content:"";position:absolute;bottom:-10px;left:50%;width:0;height:0;border:5px solid transparent;border:6px solid transparent\\0;border-top-color:inherit;-webkit-transform:translate(-50%);transform:translate(-50%)}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-bottom .vue-slider-tooltip:before{content:"";position:absolute;top:-10px;left:50%;width:0;height:0;border:5px solid transparent;border:6px solid transparent\\0;border-bottom-color:inherit;-webkit-transform:translate(-50%);transform:translate(-50%)}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-left .vue-slider-tooltip:before{content:"";position:absolute;top:50%;right:-10px;width:0;height:0;border:5px solid transparent;border:6px solid transparent\\0;border-left-color:inherit;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-right .vue-slider-tooltip:before{content:"";position:absolute;top:50%;left:-10px;width:0;height:0;border:5px solid transparent;border:6px solid transparent\\0;border-right-color:inherit;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.vue-slider-component .vue-slider-dot.vue-slider-hover:hover .vue-slider-tooltip-wrap{display:block}.vue-slider-component .vue-slider-dot.vue-slider-always .vue-slider-tooltip-wrap{display:block!important}.vue-slider-component .vue-slider-piecewise{position:absolute;width:100%;padding:0;margin:0;left:0;top:0;height:100%;list-style:none}.vue-slider-component .vue-slider-piecewise-item{position:absolute;width:8px;height:8px}.vue-slider-component .vue-slider-piecewise-dot{position:absolute;left:50%;top:50%;width:100%;height:100%;display:inline-block;background-color:rgba(0,0,0,.16);border-radius:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);z-index:2;transition:all .3s}.vue-slider-component .vue-slider-piecewise-item:first-child .vue-slider-piecewise-dot,.vue-slider-component .vue-slider-piecewise-item:last-child .vue-slider-piecewise-dot{visibility:hidden}.vue-slider-component.vue-slider-horizontal-reverse .vue-slider-piecewise-label,.vue-slider-component.vue-slider-horizontal .vue-slider-piecewise-label{position:absolute;display:inline-block;top:100%;left:50%;white-space:nowrap;font-size:12px;color:#333;-webkit-transform:translate(-50%,8px);transform:translate(-50%,8px);visibility:visible}.vue-slider-component.vue-slider-vertical-reverse .vue-slider-piecewise-label,.vue-slider-component.vue-slider-vertical .vue-slider-piecewise-label{position:absolute;display:inline-block;top:50%;left:100%;white-space:nowrap;font-size:12px;color:#333;-webkit-transform:translate(8px,-50%);transform:translate(8px,-50%);visibility:visible}.vue-slider-component .vue-slider-sr-only{clip:rect(1px,1px,1px,1px);height:1px;width:1px;overflow:hidden;position:absolute!important}',""])},function(t,e){t.exports=function(){var t=[];return t.toString=function(){for(var t=[],e=0;e<this.length;e++){var i=this[e];i[2]?t.push("@media "+i[2]+"{"+i[1]+"}"):t.push(i[1])}return t.join("")},t.i=function(e,i){"string"==typeof e&&(e=[[null,e,""]]);for(var s={},r=0;r<this.length;r++){var n=this[r][0];"number"==typeof n&&(s[n]=!0)}for(r=0;r<e.length;r++){var o=e[r];"number"==typeof o[0]&&s[o[0]]||(i&&!o[2]?o[2]=i:i&&(o[2]="("+o[2]+") and ("+i+")"),t.push(o))}},t}},function(t,e){t.exports=function(t,e,i,s){var r,n=t=t||{},o=typeof t.default;"object"!==o&&"function"!==o||(r=t,n=t.default);var l="function"==typeof n?n.options:n;if(e&&(l.render=e.render,l.staticRenderFns=e.staticRenderFns),i&&(l._scopeId=i),s){var a=Object.create(l.computed||null);Object.keys(s).forEach(function(t){var e=s[t];a[t]=function(){return e}}),l.computed=a}return{esModule:r,exports:n,options:l}}},function(t,e){t.exports={render:function(){var t=this,e=t.$createElement,i=t._self._c||e;return i("div",{directives:[{name:"show",rawName:"v-show",value:t.show,expression:"show"}],ref:"wrap",class:["vue-slider-component",t.flowDirection,t.disabledClass,{"vue-slider-has-label":t.piecewiseLabel}],style:t.wrapStyles,on:{click:t.wrapClick}},[i("div",{ref:"elem",staticClass:"vue-slider",style:[t.elemStyles,t.bgStyle],attrs:{"aria-hidden":"true"}},[t.isRange?[i("div",{ref:"dot0",class:[t.tooltipStatus,"vue-slider-dot"],style:[t.dotStyles,t.sliderStyles[0]],on:{mousedown:function(e){t.moveStart(e,0)},touchstart:function(e){t.moveStart(e,0)}}},[i("span",{class:["vue-slider-tooltip-"+t.tooltipDirection[0],"vue-slider-tooltip-wrap"]},[t._t("tooltip",[i("span",{staticClass:"vue-slider-tooltip",style:t.tooltipStyles[0]},[t._v(t._s(t.formatter?t.formatting(t.val[0]):t.val[0]))])],{value:t.val[0],index:0})],2)]),t._v(" "),i("div",{ref:"dot1",class:[t.tooltipStatus,"vue-slider-dot"],style:[t.dotStyles,t.sliderStyles[1]],on:{mousedown:function(e){t.moveStart(e,1)},touchstart:function(e){t.moveStart(e,1)}}},[i("span",{class:["vue-slider-tooltip-"+t.tooltipDirection[1],"vue-slider-tooltip-wrap"]},[t._t("tooltip",[i("span",{staticClass:"vue-slider-tooltip",style:t.tooltipStyles[1]},[t._v(t._s(t.formatter?t.formatting(t.val[1]):t.val[1]))])],{value:t.val[1],index:1})],2)])]:[i("div",{ref:"dot",class:[t.tooltipStatus,"vue-slider-dot"],style:[t.dotStyles,t.sliderStyles],on:{mousedown:t.moveStart,touchstart:t.moveStart}},[i("span",{class:["vue-slider-tooltip-"+t.tooltipDirection,"vue-slider-tooltip-wrap"]},[t._t("tooltip",[i("span",{staticClass:"vue-slider-tooltip",style:t.tooltipStyles},[t._v(t._s(t.formatter?t.formatting(t.val):t.val))])],{value:t.val})],2)])],t._v(" "),i("ul",{staticClass:"vue-slider-piecewise"},t._l(t.piecewiseDotWrap,function(e,s){return i("li",{key:s,staticClass:"vue-slider-piecewise-item",style:[t.piecewiseDotStyle,e.style]},[t._t("piecewise",[t.piecewise?i("span",{staticClass:"vue-slider-piecewise-dot",style:[t.piecewiseStyle,e.inRange?t.piecewiseActiveStyle:null]}):t._e()],{label:e.label,index:s,first:0===s,last:s===t.piecewiseDotWrap.length-1,active:e.inRange}),t._v(" "),t._t("label",[t.piecewiseLabel?i("span",{staticClass:"vue-slider-piecewise-label",style:[t.labelStyle,e.inRange?t.labelActiveStyle:null]},[t._v("\n            "+t._s(e.label)+"\n          ")]):t._e()],{label:e.label,index:s,first:0===s,last:s===t.piecewiseDotWrap.length-1,active:e.inRange})],2)})),t._v(" "),i("div",{ref:"process",staticClass:"vue-slider-process",style:t.processStyle})],2),t._v(" "),t.isRange||t.data?t._e():i("input",{directives:[{name:"model",rawName:"v-model",value:t.val,expression:"val"}],staticClass:"vue-slider-sr-only",attrs:{type:"range",min:t.min,max:t.max},domProps:{value:t.val},on:{__r:function(e){t.val=e.target.value}}})])},staticRenderFns:[]}},function(t,e,i){var s=i(3);"string"==typeof s&&(s=[[t.i,s,""]]),s.locals&&(t.exports=s.locals);i(8)("743d98f5",s,!0)},function(t,e,i){function s(t){for(var e=0;e<t.length;e++){var i=t[e],s=h[i.id];if(s){s.refs++;for(var r=0;r<s.parts.length;r++)s.parts[r](i.parts[r]);for(;r<i.parts.length;r++)s.parts.push(n(i.parts[r]));s.parts.length>i.parts.length&&(s.parts.length=i.parts.length)}else{for(var o=[],r=0;r<i.parts.length;r++)o.push(n(i.parts[r]));h[i.id]={id:i.id,refs:1,parts:o}}}}function r(){var t=document.createElement("style");return t.type="text/css",d.appendChild(t),t}function n(t){var e,i,s=document.querySelector('style[data-vue-ssr-id~="'+t.id+'"]');if(s){if(f)return v;s.parentNode.removeChild(s)}if(m){var n=c++;s=p||(p=r()),e=o.bind(null,s,n,!1),i=o.bind(null,s,n,!0)}else s=r(),e=l.bind(null,s),i=function(){s.parentNode.removeChild(s)};return e(t),function(s){if(s){if(s.css===t.css&&s.media===t.media&&s.sourceMap===t.sourceMap)return;e(t=s)}else i()}}function o(t,e,i,s){var r=i?"":s.css;if(t.styleSheet)t.styleSheet.cssText=g(e,r);else{var n=document.createTextNode(r),o=t.childNodes;o[e]&&t.removeChild(o[e]),o.length?t.insertBefore(n,o[e]):t.appendChild(n)}}function l(t,e){var i=e.css,s=e.media,r=e.sourceMap;if(s&&t.setAttribute("media",s),r&&(i+="\n/*# sourceURL="+r.sources[0]+" */",i+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(r))))+" */"),t.styleSheet)t.styleSheet.cssText=i;else{for(;t.firstChild;)t.removeChild(t.firstChild);t.appendChild(document.createTextNode(i))}}var a="undefined"!=typeof document;if("undefined"!=typeof DEBUG&&DEBUG&&!a)throw new Error("vue-style-loader cannot be used in a non-browser environment. Use { target: 'node' } in your Webpack config to indicate a server-rendering environment.");var u=i(9),h={},d=a&&(document.head||document.getElementsByTagName("head")[0]),p=null,c=0,f=!1,v=function(){},m="undefined"!=typeof navigator&&/msie [6-9]\b/.test(navigator.userAgent.toLowerCase());t.exports=function(t,e,i){f=i;var r=u(t,e);return s(r),function(e){for(var i=[],n=0;n<r.length;n++){var o=r[n],l=h[o.id];l.refs--,i.push(l)}e?(r=u(t,e),s(r)):r=[];for(var n=0;n<i.length;n++){var l=i[n];if(0===l.refs){for(var a=0;a<l.parts.length;a++)l.parts[a]();delete h[l.id]}}}};var g=function(){var t=[];return function(e,i){return t[e]=i,t.filter(Boolean).join("\n")}}()},function(t,e){t.exports=function(t,e){for(var i=[],s={},r=0;r<e.length;r++){var n=e[r],o=n[0],l=n[1],a=n[2],u=n[3],h={id:t+":"+r,css:l,media:a,sourceMap:u};s[o]?s[o].parts.push(h):i.push(s[o]={id:o,parts:[h]})}return i}}])});
 
 /***/ }),
-/* 104 */
+/* 106 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8777,7 +8853,7 @@ if (false) {
 }
 
 /***/ }),
-/* 105 */
+/* 107 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8886,8 +8962,59 @@ var render = function() {
           "p",
           { staticClass: "WEBD" },
           [
+            _c(
+              "svg",
+              {
+                staticClass: "miningLoader",
+                staticStyle: { "enable-background": "new 0 0 50 50" },
+                style: {
+                  display: this.loaded == false ? "inline-block" : "none"
+                },
+                attrs: {
+                  version: "1.1",
+                  id: "miningLoader",
+                  xmlns: "http://www.w3.org/2000/svg",
+                  "xmlns:xlink": "http://www.w3.org/1999/xlink",
+                  x: "0px",
+                  y: "0px",
+                  width: "40px",
+                  height: "40px",
+                  viewBox: "0 0 50 50",
+                  "xml:space": "preserve"
+                }
+              },
+              [
+                _c(
+                  "path",
+                  {
+                    attrs: {
+                      fill: "#fec02c",
+                      d:
+                        "M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"
+                    }
+                  },
+                  [
+                    _c("animateTransform", {
+                      attrs: {
+                        attributeType: "xml",
+                        attributeName: "transform",
+                        type: "rotate",
+                        from: "0 25 25",
+                        to: "360 25 25",
+                        dur: "0.6s",
+                        repeatCount: "indefinite"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ]
+            ),
             _c("ShowSumBalances", {
               ref: "refShowSumBalances",
+              style: {
+                display: this.loaded == false ? "none" : "inline-block"
+              },
               attrs: { addresses: this.addresses, currency: this.currency }
             }),
             _c("b", { staticClass: "whiteText" }, [_vm._v("WEBD")])
@@ -8921,7 +9048,7 @@ if (false) {
 }
 
 /***/ }),
-/* 106 */
+/* 108 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8957,12 +9084,12 @@ if (false) {
 }
 
 /***/ }),
-/* 107 */
+/* 109 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_components_maps_Native_Map_Network_Native_Map_vue__ = __webpack_require__(108);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_components_maps_Native_Map_Network_Native_Map_vue__ = __webpack_require__(110);
 
 var Vue = __webpack_require__(3);
 
@@ -8981,13 +9108,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
 });
 
 /***/ }),
-/* 108 */
+/* 110 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_Network_Native_Map_vue__ = __webpack_require__(28);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6f992934_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Network_Native_Map_vue__ = __webpack_require__(125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6f992934_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Network_Native_Map_vue__ = __webpack_require__(127);
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -9033,11 +9160,11 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 109 */
+/* 111 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Projection__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Projection__ = __webpack_require__(112);
 
 
 class CircleMap {
@@ -9225,7 +9352,7 @@ CircleMap.MAX_CELL_DISTANCE = 12; // in terms of cells
 /* harmony default export */ __webpack_exports__["a"] = (CircleMap);
 
 /***/ }),
-/* 110 */
+/* 112 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9289,7 +9416,7 @@ class Projection {
 /* harmony default export */ __webpack_exports__["a"] = (Projection);
 
 /***/ }),
-/* 111 */
+/* 113 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9324,7 +9451,7 @@ class Circles {
 /* harmony default export */ __webpack_exports__["a"] = (Circles);
 
 /***/ }),
-/* 112 */
+/* 114 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9376,17 +9503,17 @@ class MapsTester{
 /* harmony default export */ __webpack_exports__["a"] = (MapsTester);
 
 /***/ }),
-/* 113 */
+/* 115 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_Network_Native_Map_Canvas_vue__ = __webpack_require__(29);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_df567280_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Network_Native_Map_Canvas_vue__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_df567280_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Network_Native_Map_Canvas_vue__ = __webpack_require__(118);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(114)
+  __webpack_require__(116)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -9432,13 +9559,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 114 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(115);
+var content = __webpack_require__(117);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -9458,7 +9585,7 @@ if(false) {
 }
 
 /***/ }),
-/* 115 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -9472,7 +9599,7 @@ exports.push([module.i, "\n<style>\n\n    /* map styling */\n\n\nsvg .WebDollarN
 
 
 /***/ }),
-/* 116 */
+/* 118 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15503,17 +15630,17 @@ if (false) {
 }
 
 /***/ }),
-/* 117 */
+/* 119 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_Network_Native_Map_Dialog_vue__ = __webpack_require__(30);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_05fc5bd9_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Network_Native_Map_Dialog_vue__ = __webpack_require__(124);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_05fc5bd9_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Network_Native_Map_Dialog_vue__ = __webpack_require__(126);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(118)
+  __webpack_require__(120)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -15559,13 +15686,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 118 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(119);
+var content = __webpack_require__(121);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -15585,7 +15712,7 @@ if(false) {
 }
 
 /***/ }),
-/* 119 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -15599,17 +15726,17 @@ exports.push([module.i, "\n.map-dialog-description {\n    color: #ffc107;\n    h
 
 
 /***/ }),
-/* 120 */
+/* 122 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_selector_type_script_index_0_Network_Native_Map_Dialog_Element_vue__ = __webpack_require__(31);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_094a8568_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Network_Native_Map_Dialog_Element_vue__ = __webpack_require__(123);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_094a8568_hasScoped_false_preserveWhitespace_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Network_Native_Map_Dialog_Element_vue__ = __webpack_require__(125);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(121)
+  __webpack_require__(123)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -15655,13 +15782,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 121 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(122);
+var content = __webpack_require__(124);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -15681,7 +15808,7 @@ if(false) {
 }
 
 /***/ }),
-/* 122 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -15695,7 +15822,7 @@ exports.push([module.i, "\n.icon-connected{\n    filter: brightness(0) invert(1)
 
 
 /***/ }),
-/* 123 */
+/* 125 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15774,7 +15901,7 @@ if (false) {
 }
 
 /***/ }),
-/* 124 */
+/* 126 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15818,7 +15945,7 @@ if (false) {
 }
 
 /***/ }),
-/* 125 */
+/* 127 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
