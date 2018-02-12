@@ -1953,6 +1953,7 @@ consts.UUID = uuid.v4();
 
 consts.NODE_VERSION = "0.249";
 consts.NODE_VERSION_COMPATIBILITY = "0.249";
+
 consts.WALLET_VERSION = "0.1";
 
 consts.BLOCKCHAIN_FILE_NAME = 'blockchain4.bin';
@@ -18549,7 +18550,7 @@ class NodeProtocol {
 
             if (response.version < __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].NODE_VERSION_COMPATIBILITY){
 
-                console.log(colors.red("hello received, VERSION is not right"), response.version);
+                console.log(colors.red("hello received, VERSION is not right"), response.version, __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].NODE_VERSION_COMPATIBILITY);
                 return false;
 
             }
@@ -77624,14 +77625,14 @@ class InterfaceBlockchainTipsAdministrator {
         }
     }
 
-    updateTipNewForkLength(tip, forkToDoChainLength, forkToDoLastHeader ){
+    updateTipNewForkLength(tip, forkToDoChainLength, forkToDoLastBlockHeader ){
 
         if (tip === null) return null;
 
         if (tip.forkChainLength > forkToDoChainLength) return null; //nothing to update
 
         tip.forkToDoChainLength = forkToDoChainLength;
-        tip.forkToDoLastHeader = forkToDoLastHeader;
+        tip.forkToDoLastBlockHeader = forkToDoLastBlockHeader;
 
         return tip;
     }
@@ -77639,6 +77640,9 @@ class InterfaceBlockchainTipsAdministrator {
     processTipsNewForkLengths(){
 
         for (let i=this.tips.length-1; i>=0; i--){
+
+            if (this.tips[i] === null || this.tips[i] === undefined)
+                this.tips.splice(i, 1);
 
             this.tips[i].updateToDo();
 
