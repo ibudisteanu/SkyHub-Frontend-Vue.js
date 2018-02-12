@@ -17016,12 +17016,12 @@ class InterfaceBlockchainFork {
 
         //overwrite the blockchain blocks with the forkBlocks
 
-        console.log("save Fork before validateFork")
+        console.log("save Fork before validateFork");
         if (!await this.validateFork()) {
             console.log(colors.red("validateFork was not passed"));
             return false
         }
-        console.log("save Fork after validateFork")
+        console.log("save Fork after validateFork");
 
         // to do
 
@@ -17031,7 +17031,6 @@ class InterfaceBlockchainFork {
             this._blocksCopy = [];
             for (let i = this.forkStartingHeight; i < this.blockchain.getBlockchainLength; i++) {
                 this._blocksCopy.push(this.blockchain.blocks[i]);
-                this.blockchain.blocks[i] = undefined;
             }
 
             this.preFork();
@@ -17084,8 +17083,10 @@ class InterfaceBlockchainFork {
 
             //propagating valid blocks
             if (forkedSuccessfully) {
+                console.log("FORK SOLVER SAVE");
                 await this.blockchain.save();
                 this.blockchain.mining.resetMining();
+                console.log("FORK SOLVER SAVE FINISHED");
             }
 
             return forkedSuccessfully;
@@ -17093,6 +17094,7 @@ class InterfaceBlockchainFork {
 
         // it was done successfully
         console.log("FORK SOLVER SUCCESS", success);
+
         if (success){
 
             //propagate last block
@@ -19503,13 +19505,16 @@ class MiniBlockchainFork extends inheritFork{
         this._accountantTreeClone = this.blockchain.accountantTree.serializeMiniAccountant();
 
         console.log("preFork root before", this.blockchain.accountantTree.calculateNodeCoins());
+        console.log("preFork positions", this.forkStartingHeight, this.blockchain.getBlockchainLength-1);
 
         //remove transactions and rewards from each blocks
         for (let i = this.blockchain.getBlockchainLength-1; i>=this.forkStartingHeight; i--) {
 
+
             //remove reward
 
-            console.log(this.blockchain.blocks[i].reward.toString(),"+");
+            console.log("preFork block", i, this.blockchain.blocks[i]);
+            console.log("preFork block ", this.blockchain.blocks[i].reward.toString(),"+");
             this.blockchain.accountantTree.updateAccount(this.blockchain.blocks[i].data.minerAddress, this.blockchain.blocks[i].reward.negated() );
 
             //remove transactions
@@ -35233,28 +35238,36 @@ class InterfaceBlockchain {
         return true;
     }
 
-    async save(){
+    async save(onlyLastBlocks){
 
         //save the number of blocks
         let result = true;
 
         if (await this.db.save(this._blockchainFileName, this.blocks.length) !== true){
             console.log(colors.red("Error saving the blocks.length"));
-        } else
+        } else {
 
-            for (let i = 0; i < this.blocks.length; ++i)
+            let indexStart = 0;
 
-                if (this.blocks[i] !== undefined && this.blocks[i] !== null){
+            if (onlyLastBlocks !== undefined){
+                indexStart = this.blocks.length - onlyLastBlocks;
+            }
+
+
+            for (let i = indexStart; i < this.blocks.length; ++i)
+
+                if (this.blocks[i] !== undefined && this.blocks[i] !== null) {
                     let response = await this.blocks[i].save();
 
                     if (response !== true)
                         break;
                 }
+        }
 
         return result;
     }
 
-    async load(validateLastBlocks){
+    async load(onlyLastBlocks = undefined){
 
         //load the number of blocks
         let numBlocks = await this.db.get(this._blockchainFileName);
@@ -35274,17 +35287,17 @@ class InterfaceBlockchain {
 
             let blockValidationType = {};
 
-            if (validateLastBlocks !== undefined)
-                blockValidationType["skip-validation-before"] = {height: numBlocks - validateLastBlocks -1};
+            if (onlyLastBlocks !== undefined)
+                blockValidationType["skip-validation-before"] = {height: numBlocks - onlyLastBlocks -1};
 
             let indexStart = 0;
 
             if (this.agent !== undefined && this.agent.light === true) {
-                indexStart = Math.max(0, numBlocks - validateLastBlocks-1);
+
+                indexStart = Math.max(0, numBlocks - onlyLastBlocks-1);
 
                 for (let i=0; i<indexStart; i++)
                     this.addBlock(undefined);
-
             }
 
             for (let i = indexStart; i < numBlocks; ++i) {
@@ -35354,7 +35367,13 @@ class InterfaceBlockchain {
         if (this.agent !== undefined) {
             for (let i=Math.max(0, height); i<this.blocks.length; i++) {
                 console.log("PROPAGATE " ,height, " sockets", socketsAvoidBroadcast.length);
-                this.agent.protocol.propagateHeader(this.blocks[i], this.blocks.length, socketsAvoidBroadcast);
+
+                if (this.blocks[i] === undefined)
+                    console.log(colors.red("PROPAGATE ERROR"+i), this.blocks[i]);
+                else {
+                    console.log("PROPAGATING", this.blocks[i].hash.toString("hex"));
+                    this.agent.protocol.propagateHeader(this.blocks[i], this.blocks.length, socketsAvoidBroadcast);
+                }
             }
 
         }
@@ -81998,7 +82017,6 @@ class NodeWebPeerRTC {
 
     checkDataChannelState() {
 
-        console.log('WebRTC changed:');
         console.log('WebRTC channel state is:', this.peer.dataChannel.readyState);
 
         if (this.peer.dataChannel.readyState === 'open') {
@@ -82167,10 +82185,10 @@ class NodeWebPeerRTC {
             let ip6 = this.extractValueFromDescription(str, "IP6");
             let candidate = this.extractValueFromDescription(str, "candidate:");
 
-            console.log("str", str);
-            console.log("IP4=", ip4);
-            console.log("IP6=", ip6);
-            console.log("candidate=", candidate);
+            // console.log("str", str);
+            // console.log("IP4=", ip4);
+            // console.log("IP6=", ip6);
+            // console.log("candidate=", candidate);
 
             let address = '';
 
@@ -83890,10 +83908,10 @@ class InterfaceBlockchainProtocolForkManager {
 
         let bestTip = this.blockchain.tipsAdministrator.getBestTip();
 
-        for (let i=0; i<this.blockchain.tipsAdministrator.tips.length; i++)
-            console.log("tip: ",this.blockchain.tipsAdministrator.tips[i].toString());
-
-        console.log("bestTip", bestTip !== null ? bestTip.toString() : "null");
+        // for (let i=0; i<this.blockchain.tipsAdministrator.tips.length; i++)
+        //     console.log("tip: ",this.blockchain.tipsAdministrator.tips[i].toString());
+        //
+        // console.log("bestTip", bestTip !== null ? bestTip.toString() : "null");
 
         if (bestTip !== null){
 
@@ -84127,7 +84145,7 @@ class MiniBlockchainLightProtocol extends __WEBPACK_IMPORTED_MODULE_0__Mini_Bloc
 
                 let serialization = this.blockchain.getSerializedAccountantTree(data.height);
 
-                console.log("get/blockchain/accountant-tree/get-accountant-tree", serialization.toString("hex"))
+                //console.log("get/blockchain/accountant-tree/get-accountant-tree", serialization.toString("hex"))
 
                 socket.node.sendRequest("get/blockchain/accountant-tree/get-accountant-tree/" + data.height, {
                     result: true,
@@ -84338,11 +84356,11 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
             if (this._accountantTreeClone === undefined || this._accountantTreeClone === null) this._accountantTreeClone = new Buffer(0);
 
             console.log("preFork1 accountantTree sum all", this.blockchain.accountantTree.calculateNodeCoins() );
-            console.log("preFork hashAccountantTree", this.forkPrevAccountantTree.toString("hex"));
+            //console.log("preFork hashAccountantTree", this.forkPrevAccountantTree.toString("hex"));
 
             this.blockchain.accountantTree.deserializeMiniAccountant( this.forkPrevAccountantTree );
 
-            console.log("preFork hashAccountantTree", this.blockchain.accountantTree.root.hash.sha256.toString("hex"));
+            //console.log("preFork hashAccountantTree", this.blockchain.accountantTree.root.hash.sha256.toString("hex"));
             console.log("preFork2 accountantTree sum all", this.blockchain.accountantTree.calculateNodeCoins() );
 
             console.log("this.forkPrevDifficultyTarget", this.forkPrevDifficultyTarget.toString("hex"));
@@ -84566,16 +84584,16 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_
 
             if (this.lightPrevDifficultyTargets[diffIndex] === undefined) throw "_saveLightSettings is undefined "+diffIndex;
 
-            console.log(colors.blue("this.blocksStartingPoint "), this.blocksStartingPoint );
+            // console.log(colors.blue("this.blocksStartingPoint "), this.blocksStartingPoint );
 
             let treeSerialization = this.getSerializedAccountantTree(diffIndex);
             //console.log(colors.blue("this.getSerializedAccountantTree "), colors.yellow(diffIndex), treeSerialization !== undefined ? treeSerialization.toString('hex') : '');
 
             if (!await this.accountantTree.saveMiniAccountant(true, undefined, treeSerialization)) throw "saveMiniAccountant";
 
-            console.log(colors.blue("this.lightPrevDifficultyTarget"), this.lightPrevDifficultyTargets[diffIndex] !== undefined ? this.lightPrevDifficultyTargets[diffIndex].toString("hex") : '');
-            console.log(colors.blue("this.lightPrevTimestamp"), this.lightPrevTimeStamps[diffIndex]);
-            console.log(colors.blue("this.lightPrevHashPrev"), this.lightPrevHashPrevs[diffIndex] !== undefined ? this.lightPrevHashPrevs[diffIndex].toString("hex") : '');
+            // console.log(colors.blue("this.lightPrevDifficultyTarget"), this.lightPrevDifficultyTargets[diffIndex] !== undefined ? this.lightPrevDifficultyTargets[diffIndex].toString("hex") : '');
+            // console.log(colors.blue("this.lightPrevTimestamp"), this.lightPrevTimeStamps[diffIndex]);
+            // console.log(colors.blue("this.lightPrevHashPrev"), this.lightPrevHashPrevs[diffIndex] !== undefined ? this.lightPrevHashPrevs[diffIndex].toString("hex") : '');
 
             if (!await this.db.save(this._blockchainFileName + "_LightSettings_prevDifficultyTarget", this.lightPrevDifficultyTargets[diffIndex])) throw "Couldn't be saved _LightSettings_prevDifficultyTarget";
             if (!await this.db.save(this._blockchainFileName + "_LightSettings_prevTimestamp", this.lightPrevTimeStamps[diffIndex])) throw "Couldn't be saved _LightSettings_prevTimestamp ";
@@ -84657,7 +84675,7 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_
 
             await this._saveLightSettings();
 
-            if (! await this.inheritBlockchain.prototype.save.call(this)) throw "couldn't save the blockchain";
+            if (! await this.inheritBlockchain.prototype.save.call(this, __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].POW_PARAMS.LIGHT_VALIDATE_LAST_BLOCKS )) throw "couldn't save the blockchain";
 
         } catch (exception){
             console.log(colors.red("Couldn't save MiniBlockchain"), exception);
