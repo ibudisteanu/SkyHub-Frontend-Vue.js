@@ -38,7 +38,7 @@
     import knowUs from "client/components/heros/KnowUs.hero.vue"
     import faq from "client/components/heros/Faq.hero.vue"
     import newCryptoGeneration from "client/components/heros/NewCryptoGeneration.hero.vue"
-    import blockChainDistribution from "client/components/heros/BlockChainDistribution.hero.vue"
+    import blockChainDistribution from "client/components/heros/BlockchainDistribution.hero.vue"
 
     export default {
 
