@@ -16916,9 +16916,21 @@ class InterfaceBlockchainFork {
 
     async validateFork(){
 
+        let useFork = false;
+
+        if (this.blockchain.getBlockchainLength < this.forkStartingHeight + this.forkBlocks.length)
+            useFork = true;
+        else
+        if (this.blockchain.getBlockchainLength === this.forkStartingHeight + this.forkBlocks.length) //I need to check
+            if (this.forkBlocks[this.forkBlocks.length-1].hash.compare( this.blockchain.getHashPrev(this.blockchain.getBlockchainLength) ) < 0)
+                useFork = true;
+
+        if (useFork === false)
+            return false;
+
         for (let i=0; i<this.forkBlocks.length; i++){
 
-            if (! await this.validateForkBlock( this.forkBlocks[i], this.forkStartingHeight + i )) return false;
+            if (! await this.validateForkBlock( this.forkBlocks[i], this.forkStartingHeight + i )) throw "validateForkBlock failed for " + i;
 
         }
 
@@ -16927,7 +16939,7 @@ class InterfaceBlockchainFork {
 
     async includeForkBlock(block){
 
-        if (! await this.validateForkBlock(block, block.height ) ) return false;
+        if (! await this.validateForkBlock(block, block.height ) ) throw "includeForkBlock failed for "+block.height;
 
         this.forkBlocks.push(block);
 
@@ -16952,9 +16964,9 @@ class InterfaceBlockchainFork {
 
         block.difficultyTargetPrev = prevData.prevDifficultyTarget;
 
-        return await this.blockchain.validateBlockchainBlock(block, prevData.prevDifficultyTarget, prevData.prevHash, prevData.prevTimeStamp, blockValidationType );
+        let result = await this.blockchain.validateBlockchainBlock(block, prevData.prevDifficultyTarget, prevData.prevHash, prevData.prevTimeStamp, blockValidationType );
 
-        //recalculate next target difficulty automatically
+        return result;
 
     }
 
@@ -17001,106 +17013,95 @@ class InterfaceBlockchainFork {
 
         if (__WEBPACK_IMPORTED_MODULE_0_consts_global__["a" /* default */].TERMINATED) return false;
 
+        //overwrite the blockchain blocks with the forkBlocks
+
+        console.log("save Fork before validateFork")
         if (!await this.validateFork()) {
             console.log(colors.red("validateFork was not passed"));
             return false
         }
+        console.log("save Fork after validateFork")
+
         // to do
 
-        let useFork = false;
+        let success = await this.blockchain.processBlocksSempahoreCallback( async () => {
 
-        if (this.blockchain.getBlockchainLength < this.forkStartingHeight + this.forkBlocks.length)
-            useFork = true;
-        else
-        if (this.blockchain.getBlockchainLength === this.forkStartingHeight + this.forkBlocks.length){ //I need to check
+            //making a copy of the current blockchain
+            this._blocksCopy = [];
+            for (let i = this.forkStartingHeight; i < this.blockchain.getBlockchainLength; i++) {
+                this._blocksCopy.push(this.blockchain.blocks[i]);
+                this.blockchain.blocks[i] = undefined;
+            }
 
-        }
+            this.blockchain.spliceBlocks(this.forkStartingHeight);
 
-        //overwrite the blockchain blocks with the forkBlocks
-        if (useFork){
+            this.preFork();
 
-            let success = await this.blockchain.processBlocksSempahoreCallback( async () => {
+            let forkedSuccessfully = true;
 
-                //making a copy of the current blockchain
-                this._blocksCopy = [];
-                for (let i = this.forkStartingHeight; i < this.blockchain.getBlockchainLength; i++) {
-                    this._blocksCopy.push(this.blockchain.blocks[i]);
-                    this.blockchain.blocks[i] = undefined;
-                }
+
+            console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+            console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+            console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+
+            try {
+
+                for (let i = 0; i < this.forkBlocks.length; i++)
+                    if (!await this.blockchain.includeBlockchainBlock(this.forkBlocks[i], false, "all", false, {})) {
+                        console.log(colors.green("fork couldn't be included in main Blockchain ", i));
+                        forkedSuccessfully = false;
+                        break;
+                    }
+
+            } catch (exception){
+                console.log(colors.red("saveFork includeBlockchainBlock1 raised exception"), exception);
+                forkedSuccessfully = false;
+            }
+
+
+            await this.postForkBefore(forkedSuccessfully);
+
+            //revert the last K blocks
+            if (!forkedSuccessfully) {
 
                 this.blockchain.spliceBlocks(this.forkStartingHeight);
 
-                this.preFork();
-
-                let forkedSuccessfully = true;
-
-
-                console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-
                 try {
 
-                    for (let i = 0; i < this.forkBlocks.length; i++)
-                        if (!await this.blockchain.includeBlockchainBlock(this.forkBlocks[i], false, "all", false, {})) {
-                            console.log(colors.green("fork couldn't be included in main Blockchain ", i));
-                            forkedSuccessfully = false;
+                    for (let i = 0; i < this._blocksCopy.length; i++)
+                        if (!await this.blockchain.includeBlockchainBlock( this._blocksCopy[i], false, "all", false, {})) {
+                            console.log(colors.green("blockchain couldn't restored after fork included in main Blockchain ", i));
                             break;
                         }
 
                 } catch (exception){
-                    console.log(colors.red("saveFork includeBlockchainBlock1 raised exception"), exception);
-                    forkedSuccessfully = false;
+                    console.log(colors.red("saveFork includeBlockchainBlock2 raised exception"), exception);
                 }
-
-
-                await this.postForkBefore(forkedSuccessfully);
-
-                //revert the last K blocks
-                if (!forkedSuccessfully) {
-
-                    this.blockchain.spliceBlocks(this.forkStartingHeight);
-
-                    try {
-
-                        for (let i = 0; i < this._blocksCopy.length; i++)
-                            if (!await this.blockchain.includeBlockchainBlock( this._blocksCopy[i], false, "all", false, {})) {
-                                console.log(colors.green("blockchain couldn't restored after fork included in main Blockchain ", i));
-                                break;
-                            }
-
-                    } catch (exception){
-                        console.log(colors.red("saveFork includeBlockchainBlock2 raised exception"), exception);
-                    }
-                }
-
-                await this.postFork(forkedSuccessfully);
-
-                //propagating valid blocks
-                if (forkedSuccessfully) {
-                    await this.blockchain.save();
-                    this.blockchain.mining.resetMining();
-                }
-
-                return forkedSuccessfully;
-            });
-
-            // it was done successfully
-            console.log("FORK SOLVER SUCCESS", success);
-            if (success){
-
-                //propagate last block
-                this.blockchain.propagateBlocks( this.blockchain.blocks.length-1, this.sockets );
-
-                //this.blockchain.propagateBlocks(this.forkStartingHeight, this.sockets);
-
             }
 
-            return success;
+            await this.postFork(forkedSuccessfully);
+
+            //propagating valid blocks
+            if (forkedSuccessfully) {
+                await this.blockchain.save();
+                this.blockchain.mining.resetMining();
+            }
+
+            return forkedSuccessfully;
+        });
+
+        // it was done successfully
+        console.log("FORK SOLVER SUCCESS", success);
+        if (success){
+
+            //propagate last block
+            this.blockchain.propagateBlocks( this.blockchain.blocks.length-1, this.sockets );
+
+            //this.blockchain.propagateBlocks(this.forkStartingHeight, this.sockets);
 
         }
 
-        return false;
+        return success;
     }
 
 
@@ -24812,7 +24813,7 @@ class InterfaceBlockchainBlock {
 
         if (height !== this.height) throw 'height is different' + height+ " "+ this.height ;
 
-        await this._validateBlockHash(previousHash, blockValidationType);
+        if (!await this._validateBlockHash(previousHash, blockValidationType)) throw "validateBlockchain return false";
 
         this._validateTargetDifficulty(previousDifficultyTarget);
 
@@ -24848,6 +24849,7 @@ class InterfaceBlockchainBlock {
             let hash = await this.computeHash();
 
             if (!hash.equals(this.hash)) throw "block hash is not right (" + this.nonce + ")" + this.hash.toString("hex") + " " + hash.toString("hex") + "    " + "difficultyTargetPrev" + this.difficultyTargetPrev.toString("hex")+ "    "+ Buffer.concat([this.computedBlockPrefix, __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].serializeNumber4Bytes(this.nonce)]).toString("hex");
+
         }
 
         await this.data.validateBlockData(this.height, blockValidationType);
@@ -26102,9 +26104,11 @@ class InterfaceBlockchainAgentFullNode extends __WEBPACK_IMPORTED_MODULE_0__Inte
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__blockchain_forks_Interface_Blockchain_Fork__ = __webpack_require__(97);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_global_Blockchain_Mining_Reward__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_global__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_consts_const_global__ = __webpack_require__(3);
 
 
 const colors = __webpack_require__(8);
+
 
 
 /**
@@ -26238,6 +26242,12 @@ class InterfaceBlockchainProtocolForkSolver{
                 if (answer === undefined || answer === undefined || typeof answer.chainStartingPoint !== "number" ) throw "request-blockchain-info couldn't return real values";
 
                 newChainStartingPoint = answer.chainStartingPoint;
+
+                if (this.blockchain.agent.light)
+                    if (newChainLength - newChainStartingPoint > __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].POW_PARAMS.LIGHT_VALIDATE_LAST_BLOCKS){
+                        console.log(colors.red("LIGHT CHANGES from "), newChainStartingPoint, " to ", newChainLength - __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].POW_PARAMS.LIGHT_VALIDATE_LAST_BLOCKS - 1);
+                        newChainStartingPoint = newChainLength - __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].POW_PARAMS.LIGHT_VALIDATE_LAST_BLOCKS - 1;
+                    }
 
                 console.log(colors.yellow("discoverFork 6666" + newChainStartingPoint))
 
@@ -35095,7 +35105,7 @@ class InterfaceBlockchain {
         block.difficultyTargetPrev = prevDifficultyTarget;
 
         //validate difficulty & hash
-        if (await block.validateBlock(block.height, prevDifficultyTarget, prevHash, blockValidationType) === false) throw ('block validation failed');
+        if (! await block.validateBlock(block.height, prevDifficultyTarget, prevHash, blockValidationType)) throw ('block validation failed');
 
         //recalculate next target difficulty
         // console.log("block.difficultyTarget", prevDifficultyTarget, prevTimeStamp, block.timeStamp, block.height);
@@ -37909,7 +37919,7 @@ class SocketExtend{
         Sending the Request and return the Promise to Wait Async
     */
 
-    sendRequestWaitOnce (socket, request, requestData, answerPrefix, timeOutInterval=15000) {
+    sendRequestWaitOnce (socket, request, requestData, answerPrefix, timeOutInterval=3000) {
 
         if ( answerPrefix !== undefined) answerPrefix = String(answerPrefix); //in case it is a number
 
@@ -45690,7 +45700,7 @@ class MainBlockchainWallet{
                     alert('Your old password has ' + oldPassword.length + ' words. It must have 12!');
                     if (tries === 1)
                         return {result: false, message: "Your old password is incorrect!"};
-                    
+
                     continue;
                 }
 
@@ -77599,51 +77609,40 @@ class InterfaceBlockchainTipsAdministrator {
         else return this.tips[index];
     }
 
-    deleteTip(socket){
 
-        let index = this.findTip(socket);
 
-        if (index !== null) {
-            this.tips.splice(index, 1);
-            return true;
-        }
-
-        return false;
-
-    }
-
-    addTip(socket, forkChainLength) {
+    addTip(socket,  forkChainLength, forkLastBlockHeader) {
 
         if (this.findTip(socket) === null) {
 
-            let tip = new __WEBPACK_IMPORTED_MODULE_0__Interface_Blockchain_Tip__["a" /* default */](socket, forkChainLength, -1);
+            let tip = new __WEBPACK_IMPORTED_MODULE_0__Interface_Blockchain_Tip__["a" /* default */](this.blockchain, socket, forkChainLength, forkLastBlockHeader);
+
+            if (!tip.validateTip()) return null;
 
             this.tips.push(tip);
             return this.tips[this.tips.length - 1];
         }
     }
 
-    updateTipNewForkLength(tip, forkChainLengthToDo ){
+    updateTipNewForkLength(tip, forkToDoChainLength, forkToDoLastHeader ){
 
         if (tip === null) return null;
 
-        if (tip.forkChainLength > forkChainLengthToDo) return; //nothing to update
+        if (tip.forkChainLength > forkToDoChainLength) return null; //nothing to update
 
-        tip.forkChainLengthToDo = Math.max(forkChainLengthToDo, tip.forkChainLengthToDo);
+        tip.forkToDoChainLength = forkToDoChainLength;
+        tip.forkToDoLastHeader = forkToDoLastHeader;
 
         return tip;
     }
 
     processTipsNewForkLengths(){
 
-        let blockchainLength = this.blockchain.getBlockchainLength;
-
         for (let i=this.tips.length-1; i>=0; i--){
 
-            if (this.tips[i].forkChainLengthToDo !== -1 &&  this.tips[i].forkChainLengthToDo > this.tips[i].forkChainLength && this.tips[i].forkChainLengthToDo > blockchainLength)
-                this.tips[i].updateToDo();
+            this.tips[i].updateToDo();
 
-            if (this.tips[i].forkChainLength < blockchainLength){
+            if (!this.tips[i].validateTip){
                 this.tips.splice(i,1);
             }
 
@@ -77681,7 +77680,6 @@ class InterfaceBlockchainTipsAdministrator {
 
     findBan(sckAddress){
 
-        console.log("this.bansthis.bansthis.bansthis.bansthis.bansthis.bansthis.bans", this.bans);
         for (let i=0; i<this.bans.length; i++)
             if (this.bans[i].sckAddress.matchAddress(sckAddress, ["uuid"]) )
                 return i;
@@ -77717,23 +77715,47 @@ class InterfaceBlockchainTipsAdministrator {
 "use strict";
 class InterfaceBlockchainTip{
 
-    constructor(socket, forkChainLength, forkChainLengthToDo = -1 ){
+    constructor(blockchain, socket, forkChainLength, forkLastBlockHeader, forkToDoChainLength = -1, forkToDoLastBlockHeader = null ){
+
+        this.blockchain = blockchain;
 
         this.socket = socket;
         this.forkChainLength = forkChainLength;
-        this.forkChainLengthToDo = forkChainLengthToDo;
+        this.forkLastBlockHeader = forkLastBlockHeader;
+
+        this.forkToDoChainLength = forkToDoChainLength;
+        this.forkToDoLastBlockHeader = forkToDoLastBlockHeader;
     }
 
     updateToDo(){
 
-        if ( this.forkChainLengthToDo > 0 && this.forkChainLengthToDo > this.forkChainLength) {
-            this.forkChainLength = this.forkChainLengthToDo;
-            this.forkChainLengthToDo = -1;
+        if ( this.forkToDoChainLength > 0 && this.forkToDoChainLength > this.forkChainLength) {
+            this.forkChainLength = this.forkToDoChainLength;
+            this.forkLastBlockHeader = this.forkToDoLastBlockHeader;
+            this.forkToDoChainLength = -1;
             return true;
         }
 
         return false;
 
+    }
+
+    toString(){
+        return "socket.uuid " + this.socket.node.sckAddress.uuid + " forkChainLength " + this.forkChainLength, " forkToDoChainLength " + this.forkToDoChainLength;
+    }
+
+    validateTip(){
+
+        let blockchainLength = this.blockchain.getBlockchainLength;
+
+        if (blockchainLength < this.forkChainLength)
+            return true;
+        else
+        if (blockchainLength === this.forkChainLength) //I need to check
+            if (this.forkLastBlockHeader.hash.compare( this.blockchain.getHashPrev(this.blockchain.getBlockchainLength) ) < 0)
+                return true;
+
+        return false;
     }
 
 }
@@ -77762,7 +77784,7 @@ class InterfaceBlockchainTipBan{
 
         let time = new Date().getTime();
 
-        if ( (time - this.timeStamp) >= ( this.banTrials * TIP_BAN_TIME ))
+        if ( (time - this.timeStamp) < ( this.banTrials * TIP_BAN_TIME ))
             return true;
 
         return false;
@@ -83860,18 +83882,27 @@ class InterfaceBlockchainProtocolForkManager {
 
         if (this.blockchain === undefined) return; //not yet
 
+        this.blockchain.tipsAdministrator.processTipsNewForkLengths();
+
         let bestTip = this.blockchain.tipsAdministrator.getBestTip();
 
-        console.log("this.blockchain.tipsAdministrator", this.blockchain.tipsAdministrator.tips);
-        console.log("bestTip", bestTip);
+        for (let i=0; i<this.blockchain.tipsAdministrator.tips.length; i++)
+            console.log("tip: ",this.blockchain.tipsAdministrator.tips[i].toString());
+
+        console.log("bestTip", bestTip !== null ? bestTip.toString() : "null");
 
         if (bestTip !== null){
 
-            console.log("BEEEEEST TIIIP BEFORE", bestTip);
+            console.log("BEEEEEST TIIIP BEFORE");
+            bestTip.toString()
+
+            console.log("bans bans bans bans bans bans bans bans");
+            console.log(this.blockchain.tipsAdministrator.bans);
 
             let forkAnswer = await this.protocol.forkSolver.discoverAndProcessFork(bestTip);
 
-            console.log("AFTER", bestTip);
+            console.log("AFTER");
+            bestTip.toString();
 
             if (!forkAnswer){
                 console.log("BANNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
@@ -83882,9 +83913,6 @@ class InterfaceBlockchainProtocolForkManager {
 
             //TODO process forkAnswer
 
-
-            this.blockchain.tipsAdministrator.processTipsNewForkLengths();
-
             return true;
         }
 
@@ -83894,7 +83922,7 @@ class InterfaceBlockchainProtocolForkManager {
     /*
         may the fork be with you Otto
      */
-    async discoverNewForkTip(socket, newChainLength, header){
+    async discoverNewForkTip(socket, newChainLength, forkLastBlockHeader){
 
         if (typeof newChainLength !== "number") throw "newChainLength is not a number";
 
@@ -83906,10 +83934,10 @@ class InterfaceBlockchainProtocolForkManager {
         let tip = this.blockchain.tipsAdministrator.getTip(socket);
 
         if (tip !== null) {
-            this.blockchain.tipsAdministrator.updateTipNewForkLength(tip, newChainLength);
+            this.blockchain.tipsAdministrator.updateTipNewForkLength(tip, newChainLength, forkLastBlockHeader);
             return false;
         } else
-            tip =  this.blockchain.tipsAdministrator.addTip(socket, newChainLength);
+            tip =  this.blockchain.tipsAdministrator.addTip(socket, newChainLength, forkLastBlockHeader);
 
     }
 
@@ -84157,7 +84185,7 @@ class MiniBlockchainLightProtocolForkSolver extends inheritForkSolver{
 
     async _calculateForkBinarySearch(socket, newChainStartingPoint, newChainLength, currentBlockchainLength){
 
-        console.log("chainStartingPoint", newChainStartingPoint, "newChainLength", newChainLength, "currentBlockchainLength", currentBlockchainLength)
+        console.log("newChainStartingPoint", newChainStartingPoint, "newChainLength", newChainLength, "currentBlockchainLength", currentBlockchainLength)
 
         if (newChainStartingPoint > currentBlockchainLength-1) {
 
@@ -84195,14 +84223,14 @@ class MiniBlockchainLightProtocolForkSolver extends inheritForkSolver{
             let answer = await socket.node.sendRequestWaitOnce("get/blockchain/accountant-tree/get-accountant-tree", {height: fork.forkChainStartingPoint }, fork.forkChainStartingPoint );
 
             if (answer === null) throw "get-accountant-tree never received " + (fork.forkChainStartingPoint);
+            if (!answer.result) throw "get-accountant-tree return false "+ answer.message;
 
             fork.forkPrevAccountantTree = answer.accountantTree;
-
 
             answer = await socket.node.sendRequestWaitOnce("get/blockchain/light/get-light-settings", {height: fork.forkChainStartingPoint  }, fork.forkChainStartingPoint );
 
             if (answer === null) throw "get-light-settings never received " + (fork.forkChainStartingPoint);
-            if (answer.result === false) throw "get-light-settings received by it is false ";
+            if (answer.result === false) throw "get-light-settings return false "+ answer.message;
 
             if (answer.difficultyTarget === null ) throw "get-light-settings difficultyTarget is null";
             if (answer.timeStamp === null ) throw "get-light-settings timeStamp is null";
@@ -84213,7 +84241,6 @@ class MiniBlockchainLightProtocolForkSolver extends inheritForkSolver{
             fork.forkPrevDifficultyTarget = answer.difficultyTarget;
             fork.forkPrevTimeStamp = answer.timeStamp;
             fork.forkPrevHashPrev = answer.hashPrev;
-
         } else {
             fork.forkPrevAccountantTree = null;
             fork.forkPrevDifficultyTarget = null;
@@ -84438,8 +84465,8 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_
      */
     async includeBlockchainBlock(block, resetMining, socketsAvoidBroadcast, saveBlock, blockValidationType){
 
-        console.log("blockchain serialization1", this.accountantTree.serializeMiniAccountant().toString("hex") );
-        console.log("blockchain serialization1", this.accountantTree.calculateNodeCoins(), this.accountantTree.root.hash.sha256.toString("hex"));
+        // console.log("blockchain serialization1", this.accountantTree.serializeMiniAccountant().toString("hex") );
+        // console.log("blockchain serialization1", this.accountantTree.calculateNodeCoins(), this.accountantTree.root.hash.sha256.toString("hex"));
 
         if (  blockValidationType['skip-validation-before'] === undefined ||
             (block.height >= blockValidationType['skip-validation-before'].height )) {
@@ -84991,7 +85018,8 @@ class InterfaceBlockchainMiningWorkers extends __WEBPACK_IMPORTED_MODULE_0__Inte
                 this.workers.suspendWorkers();
                 this._suspendMiningWorking();
 
-                this._workerResolve({result:false}); //we didn't find anything
+                if (this._workerResolve !== null && this._workerResolve !== undefined)
+                    this._workerResolve({result:false}); //we didn't find anything
 
                 return true;
 
