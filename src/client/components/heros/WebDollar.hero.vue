@@ -60,7 +60,7 @@
 
         mounted(){
 
-            if (typeof window === "undefined") return null;
+            if (typeof window === "undefined") return;
 
             WebDollar.Blockchain.emitter.on("blockchain/status", (data)=>{
 
