@@ -1,23 +1,35 @@
 <template>
 
-    <div id="header">
-        <!--<img src="public/WebDollar-logo-black.png" id="logo"/>-->
+    <div>
 
-        <div class="topnav" id="menu">
+        <div id="alertsBox" ref="refAlertsBox">
 
-            <router-link to="/#mainSection" id="logoBox" class="active" logoMenu @click="this.collapseMenuBack" >
-                <img src="public/WebDollar-logo-white.png" id="logo"/>
-            </router-link>
+            <Alert v-for="alertItem in this.alerts" :message="alertItem.message">
 
-            <router-link to="/#timelineSection" @click="this.collapseMenuBack" >Timeline</router-link>
+            </Alert>
 
-            <router-link to="/faq" @click="this.collapseMenuBack" > FAQ </router-link>
-            <router-link to="/team" @click="this.collapseMenuBack" > Team </router-link>
-            <a @click="this.collapseMenuBack" href="/public/doc/WebDollar-White-Paper.pdf" target="_blank">White Paper</a>
-            <router-link to="/#what-is-WebDollar" @click="this.collapseMenuBack" > About </router-link>
-            <router-link to="/#p2p-network" @click="this.collapseMenuBack" > Network </router-link>
+        </div>
 
-            <a href="javascript:void(0);" style="font-size:15px;" class="icon showMenu" @click="this.showMobileMenu">&#9776;</a>
+        <div id="header" :style="{marginTop: this.alertsHeight}">
+            <!--<img src="public/WebDollar-logo-black.png" id="logo"/>-->
+
+            <div class="topnav" id="menu">
+
+                <router-link to="/#mainSection" id="logoBox" class="active" logoMenu @click="this.collapseMenuBack" >
+                    <img src="public/WebDollar-logo-white.png" id="logo"/>
+                </router-link>
+
+                <router-link to="/#timelineSection" @click="this.collapseMenuBack" >Timeline</router-link>
+
+                <router-link to="/faq" @click="this.collapseMenuBack" > FAQ </router-link>
+                <router-link to="/team" @click="this.collapseMenuBack" > Team </router-link>
+                <a @click="this.collapseMenuBack" href="/public/doc/WebDollar-White-Paper.pdf" target="_blank">White Paper</a>
+                <router-link to="/#what-is-WebDollar" @click="this.collapseMenuBack" > About </router-link>
+                <router-link to="/#p2p-network" @click="this.collapseMenuBack" > Network </router-link>
+
+                <a href="javascript:void(0);" style="font-size:15px;" class="icon showMenu" @click="this.showMobileMenu">&#9776;</a>
+            </div>
+
         </div>
 
     </div>
@@ -25,13 +37,28 @@
 </template>
 
 <script>
+
+    import Alert from './../UI/elements/alerts.vue';
+
     export default {
 
         name: "HeaderLayout",
 
+        components: {
+            "Alert":Alert,
+        },
+
         data () {
             return {
                 screenWidth: 0,
+                alertsHeight: 0,
+                alerts: [
+                    {
+                        message: 'test text'
+                    },{
+                        message: 'test text 2'
+                    }
+                ]
             }
         },
 
@@ -97,6 +124,9 @@
             });
 
             this.screenWidth = window.innerWidth;
+
+            //I am not sure about this if is getting correct height
+            this.alertsHeight = this.$refs['refAlertsBox'].innerHeight;
 
             this.bringmenu();
 
