@@ -1441,15 +1441,15 @@ svg rect{
 
 .newAlert{
   width: 100%;
-  background-color: #8e2919;
+  background-color: #c23c3b;
   padding: 10px 0px;
   position: relative;
   display: block;
   z-index: 1500;
-  color: #ffdc8a;
+  color: #fff;
   font-size: 16px;
   text-transform: uppercase;
   text-align: center;
   line-height: 22px;
-  border-bottom: solid 1px #ffdc8a;
+  border-bottom: solid 1px #840101;
 }
