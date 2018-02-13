@@ -1,5 +1,5 @@
 <template>
-    <div class="newAlert" >
+    <div class="newAlert animateOpen" >
 
         {{this.message}}
 
