@@ -23,7 +23,7 @@
                     <img src="public/images/res/media/medium.png">
                 </a>
             </div>
-            <div>g
+            <div>
                 <a href="https://www.digi24.ro/stiri/diverse/prima-moneda-virtuala-romaneasca-860158" target="_blank">
                     <img src="public/images/res/media/digi24.png"/>
                 </a>

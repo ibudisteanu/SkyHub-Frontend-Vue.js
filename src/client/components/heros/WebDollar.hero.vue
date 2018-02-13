@@ -6,7 +6,7 @@
             <img src="/public/WebDollar-logo-white.png" class="mainLogo fadeIn">
 
             <h1 class="fadeIn fadeIn2">Web Dollar <b class="testnet">TEST NET# 3.0</b></h1>
-            <h2 class="fadeIn fadeIn2"><b class="testnet">UNDER MAINTENANCE</b></h2>
+            <h2 v-show="this.maintenance" class="fadeIn fadeIn2"><b class="testnet">UNDER MAINTENANCE</b></h2>
             <h3 class="fadeIn fadeIn3">Currency of the Internet</h3>
             <h5 class="fadeIn fadeIn4">{{this.status}}</h5>
             <div class='btn-cont btnPosition fadeIn fadeIn5'> </div>
@@ -54,12 +54,13 @@
             return {
                 status: '',
                 loaded: false,
+                maintenance: false,
             }
         },
 
         mounted(){
 
-            if (typeof window === "undefined") return null;
+            if (typeof window === "undefined") return;
 
             WebDollar.Blockchain.emitter.on("blockchain/status", (data)=>{
 

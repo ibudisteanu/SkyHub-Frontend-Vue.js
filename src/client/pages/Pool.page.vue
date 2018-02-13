@@ -4,7 +4,7 @@
 
         <div slot="content">
 
-            <faq/>
+            <network-hero/>
 
         </div>
 
@@ -15,16 +15,16 @@
 <script>
 
     import Layout from "client/components/layout/sampleLayout.vue"
-    import faq from "client/components/heros/Faq.hero.vue"
+    import NetworkHero from "client/components/heros/Network.hero.vue"
 
 
     export default {
 
-        name: "faqPage",
+        name: "pool-page",
 
         components:{
-            "Layout": Layout,
-            "faq": faq,
+            "layout": Layout,
+            "network-hero": NetworkHero,
 
         }
 

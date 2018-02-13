@@ -103,19 +103,19 @@
                 }
             },
 
-            bringmenu() {
-                console.log("da");
-                if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
-                    document.getElementById("menu").style.bottom = "-100%";
-                } else {
-                    document.getElementById("menu").style.bottom = "0";
-                }
+            bringMenu() {
+
+
+                if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0)
+                    this.$refs['refMenu'].style.bottom = "-100%";
+                else
+                    this.$refs['refMenu'].style.bottom = "0";
             }
 
         },
         mounted(){
 
-            if(typeof window === 'undefined') return;
+            if (typeof window === 'undefined') return;
 
             this.addEvent(window, "resize", (event) => {
 
@@ -125,10 +125,7 @@
 
             this.screenWidth = window.innerWidth;
 
-            //I am not sure about this if is getting correct height
-            this.alertsHeight = this.$refs['refAlertsBox'].innerHeight;
-
-            this.bringmenu();
+            this.bringMenu();
 
         }
 
