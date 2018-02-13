@@ -1,6 +1,6 @@
 <template>
 
-    <Layout>
+    <layout>
 
         <div slot="content">
 
@@ -39,7 +39,7 @@
 
         </div>
 
-    </Layout>
+    </layout>
 
 </template>
 
@@ -49,10 +49,10 @@
 
     export default{
 
-        name: "ViewHome",
+        name: "transactions-page",
 
         components: {
-            "Layout": Layout,
+            "layout": Layout,
         }
 
     }

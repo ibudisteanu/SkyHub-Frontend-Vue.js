@@ -6,9 +6,9 @@ Vue.use(Router)
 // route-level code splitting
 
 const HomePage = () => import('client/pages/Home.page.vue');
-const transactionsPage = () => import('client/pages/transactions.page.vue');
-const networkPage = () => import('client/pages/pool.page.vue');
-const faqPage = () => import('client/pages/faq.page.vue');
+const TransactionsPage = () => import('client/pages/Transactions.page.vue');
+const NetworkPage = () => import('client/pages/Pool.page.vue');
+const FaqPage = () => import('client/pages/Faq.page.vue');
 
 export function createRouter () {
 
@@ -30,9 +30,9 @@ export function createRouter () {
         },
         routes: [
 
-            { path: '/faq', component: faqPage },
-            { path: '/mypool', component: networkPage },
-            { path: '/transactions', component: transactionsPage },
+            { path: '/faq', component: FaqPage },
+            { path: '/mypool', component: NetworkPage },
+            { path: '/transactions', component: TransactionsPage },
             { path: '/:a?/:b?/:c?/:d?', component: HomePage },
             { path: '/:a?/:b?/:c?', component: HomePage },
             { path: '/:a?/:b?', component: HomePage },

@@ -1,9 +1,7 @@
 <template>
 
     <div id="header">
-        <!--<img src="public/WebDollar-logo-black.png" id="logo"/>-->
-
-        <div class="topnav" ref="refMenu">
+        <div class="topnav" ref="refMenu" id="menu">
 
             <router-link to="/#mainSection" id="logoBox" class="active" logoMenu @click="this.collapseMenuBack" >
                 <img src="public/WebDollar-logo-white.png" id="logo"/>

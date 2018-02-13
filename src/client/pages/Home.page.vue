@@ -1,28 +1,28 @@
 <template>
 
-    <Layout>
+    <layout>
 
         <div slot="content">
 
-            <WebDollarHero/>
+            <webdollar-hero/>
 
-            <WhatIsHero/>
+            <what-is-hero/>
 
-            <PeerToPeerHero />
+            <peer-to-peer-hero/>
 
-            <newCryptoGeneration/>
+            <new-crypto-generation-hero/>
 
-            <blockChainDistribution/>
+            <blockchain-distribution-hero/>
 
-            <TimelineHero/>
+            <timeline-hero/>
 
-            <TeamHero/>
+            <team-hero/>
 
-            <knowUs/>
+            <know-us--hero/>
 
         </div>
 
-    </Layout>
+    </layout>
 
 </template>
 
@@ -32,29 +32,36 @@
 
     import TeamHero from "client/components/heros/Team.hero.vue"
     import WebDollarHero from "client/components/heros/WebDollar.hero.vue"
-    import WhatIsHero from "client/components/heros/WhatIs.hero.vue"
-    import PeerToPeerHero from "client/components/heros/PeerToPeer.hero.vue"
+    import WhatIsHero from "client/components/heros/What-Is.hero.vue"
+    import PeerToPeerHero from "client/components/heros/Peer-To-Peer.hero.vue"
     import TimelineHero from "client/components/heros/Timeline.hero.vue"
-    import knowUs from "client/components/heros/KnowUs.hero.vue"
-    import faq from "client/components/heros/Faq.hero.vue"
-    import newCryptoGeneration from "client/components/heros/NewCryptoGeneration.hero.vue"
-    import blockChainDistribution from "client/components/heros/BlockchainDistribution.hero.vue"
+    import KnowUsHero from "client/components/heros/Know-Us.hero.vue"
+    import FaqHero from "client/components/heros/Faq.hero.vue"
+    import NewCryptoGenerationHero from "client/components/heros/New-Crypto-Generation.hero.vue"
+    import BlockChainDistributionHero from "client/components/heros/Blockchain-Distribution.hero.vue"
+    import BlockchainDistributionHero from "../components/heros/Blockchain-Distribution.hero.vue";
+    import WebdollarHero from "../components/heros/WebDollar.hero.vue";
 
     export default {
 
         name: "ViewHome",
 
         components:{
-            "Layout": Layout,
-            "TeamHero": TeamHero,
-            "WebDollarHero": WebDollarHero,
-            "WhatIsHero": WhatIsHero,
-            "PeerToPeerHero": PeerToPeerHero,
-            "TimelineHero": TimelineHero,
-            "knowUs": knowUs,
-            "faq": faq,
-            "newCryptoGeneration":newCryptoGeneration,
-            "blockChainDistribution":blockChainDistribution,
+            WebdollarHero,
+            PeerToPeerHero,
+            BlockchainDistributionHero,
+            TimelineHero,
+            TeamHero,
+            "layout": Layout,
+            "team-hero": TeamHero,
+            "webdollar-hero": WebDollarHero,
+            "what-is-hero": WhatIsHero,
+            "peer-to-peer-hero": PeerToPeerHero,
+            "timeline-hero": TimelineHero,
+            "know-us-hero": KnowUsHero,
+            "faq-hero": FaqHero,
+            "new-crypto-generation-hero":NewCryptoGenerationHero,
+            "blockchain-distribution-hero":BlockChainDistributionHero,
         }
 
     }

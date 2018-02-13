@@ -1,30 +1,30 @@
 <template>
 
-    <Layout>
+    <layout>
 
         <div slot="content">
 
-            <network/>
+            <faq-hero/>
 
         </div>
 
-    </Layout>
+    </layout>
 
 </template>
 
 <script>
 
     import Layout from "client/components/layout/sampleLayout.vue"
-    import network from "client/components/heros/Network.hero.vue"
+    import FaqHero from "client/components/heros/Faq.hero.vue"
 
 
     export default {
 
-        name: "ViewHome",
+        name: "faq-page",
 
         components:{
-            "Layout": Layout,
-            "network": network,
+            "layout": Layout,
+            "faq-hero": FaqHero,
 
         }
 
