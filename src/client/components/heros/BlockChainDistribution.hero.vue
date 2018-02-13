@@ -17,11 +17,11 @@
 
                     <div class="stats">
                         <div>
-                            <span class="value">{{this.blocksLength * 2500}}</span>
+                            <span class="value">{{this.distributionAmount}}</span>
                             <span class="description">Current Distribution</span>
                         </div>
                         <div>
-                            <span class="value">{{this.blocksLength}}</span>
+                            <span class="value">{{this.distributionBlocks}}</span>
                             <span class="description">Mined blocks</span>
                         </div>
                     </div>
@@ -65,7 +65,14 @@
 
             distributionProgressBarMaxString(){
                 return this.formatMoneyNumber(this.distributionProgressBarMax, 0)
-            }
+            },
+            distributionAmount(){
+                return this.formatMoneyNumber(this.blocksLength*2500, 0)
+            },
+
+            distributionBlocks(){
+                return this.formatMoneyNumber(this.blocksLength, 0)
+            },
         },
 
         mounted(){
@@ -75,8 +82,6 @@
             WebDollar.Blockchain.Chain.accountantTree.emitter.on("accountant-tree/root/total",(totalAmount)=>{
 
                 this.totalAmountCoins = totalAmount;
-
-                //this.$refs['refDistributionProgressBar'].style.width = totalAmount / this.distributionProgressBarMax * 100  +'%'
 
             });
 

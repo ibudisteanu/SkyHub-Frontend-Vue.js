@@ -59,6 +59,7 @@
         },
 
         mounted(){
+
             if (typeof window === "undefined") return null;
 
             WebDollar.Blockchain.emitter.on("blockchain/status", (data)=>{

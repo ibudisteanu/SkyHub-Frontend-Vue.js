@@ -1189,6 +1189,7 @@ svg rect{
   color: #ccc;
   text-align: center;
   font-size: 12px;
+  width: 100%;
 }
 
 #newCryptoSection .featuresContainer{
@@ -1301,8 +1302,9 @@ svg rect{
 }
 
 .distributionContainer .stats .value{
-  font-size: 50px;
+  font-size: 30px;
   margin-top: 40px;
+  width: 100%;
 }
 
 #yourPoolSection .poolContainer .miner .status{
