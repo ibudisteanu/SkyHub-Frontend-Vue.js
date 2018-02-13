@@ -3,7 +3,7 @@
     <div id="header">
         <!--<img src="public/WebDollar-logo-black.png" id="logo"/>-->
 
-        <div class="topnav" id="menu">
+        <div class="topnav" ref="refMenu">
 
             <router-link to="/#mainSection" id="logoBox" class="active" logoMenu @click="this.collapseMenuBack" >
                 <img src="public/WebDollar-logo-white.png" id="logo"/>
@@ -78,14 +78,11 @@
 
             bringMenu() {
 
-                let menu = document.getElementById("menu");
-
-                if (menu === undefined || menu === null) return;
 
                 if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0)
-                    menu.style.bottom = "-100%";
+                    this.$refs['refMenu'].style.bottom = "-100%";
                 else
-                    menu.style.bottom = "0";
+                    this.$refs['refMenu'].style.bottom = "0";
             }
 
         },
