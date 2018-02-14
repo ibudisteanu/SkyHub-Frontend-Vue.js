@@ -16928,12 +16928,12 @@ class InterfaceBlockchainFork {
             if (this.forkBlocks[this.forkBlocks.length-1].hash.compare( this.blockchain.getHashPrev(this.blockchain.getBlockchainLength) ) < 0)
                 useFork = true;
 
-        if (useFork === false)
+        if (!useFork)
             return false;
 
         for (let i=0; i<this.forkBlocks.length; i++){
 
-            if (! await this.validateForkBlock( this.forkBlocks[i], this.forkStartingHeight + i )) throw "validateForkBlock failed for " + i;
+            if (! (await this.validateForkBlock( this.forkBlocks[i], this.forkStartingHeight + i ))) throw "validateForkBlock failed for " + i;
 
         }
 
