@@ -24709,7 +24709,13 @@ class GeoHelper {
 
             let data = response.data;
 
-            if (typeof data === 'string') data = JSON.parse(data);
+            if (typeof data === 'string'){
+                try {
+                    data = JSON.parse(data);
+                } catch (exception){
+                    console.error("Error processing downloadFile data", data, exception);
+                }
+            }
 
             if (typeof data === 'object') return data;
 
@@ -27429,7 +27435,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_main_blockchain_blockchain_protocol_Main_Blockchain_Protocol__ = __webpack_require__(785);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_main_blockchain_agents_Main_Blockchain_Agent__ = __webpack_require__(786);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_main_blockchain_balances_Main_Blockchain_Balances__ = __webpack_require__(790);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_node_lists_nodes_list__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_common_utils_validation_Validations_Utils__ = __webpack_require__(792);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_node_lists_nodes_list__ = __webpack_require__(21);
+
 
 
 
@@ -27459,9 +27467,9 @@ class Blockchain{
             this._onLoadedResolver = resolve;
         })
 
-        __WEBPACK_IMPORTED_MODULE_6_node_lists_nodes_list__["a" /* default */].emitter.on("nodes-list/disconnected", async (result) => {
+        __WEBPACK_IMPORTED_MODULE_7_node_lists_nodes_list__["a" /* default */].emitter.on("nodes-list/disconnected", async (result) => {
 
-            if (__WEBPACK_IMPORTED_MODULE_6_node_lists_nodes_list__["a" /* default */].nodes.length === 0) { //no more sockets, maybe I no longer have internet
+            if (__WEBPACK_IMPORTED_MODULE_7_node_lists_nodes_list__["a" /* default */].nodes.length === 0) { //no more sockets, maybe I no longer have internet
                 console.log("################### RESYNCHRONIZATION STARTED ##########");
                 this.Mining.stopMining();
                 this.emitter.emit('blockchain/status-webdollar', {message: "No Internet Access"});
@@ -27484,33 +27492,13 @@ class Blockchain{
 
     async initializeBlockchain(){
 
+        //Waiting Until a Single Window is present
 
-        //loading the Wallet
-        this.emitter.emit('blockchain/status', {message: "Wallet Loading"});
-        try{
+        let validation = new __WEBPACK_IMPORTED_MODULE_6_common_utils_validation_Validations_Utils__["a" /* default */](this);
+        await validation.waitSingleTab(()=>{this.emitter.emit('blockchain/status-webdollar', {message: "Multiple Windows Detected"}); });
+        this.emitter.emit('blockchain/status-webdollar', {message: "Single Window"});
 
-            let response = await this.Wallet.loadAddresses();
-
-            if (response !== false)
-                this.emitter.emit('blockchain/status', {message: "Wallet Loaded Successfully"});
-
-            if (response === false || this.Wallet.addresses.length === 0) {
-
-                console.log("create this.Wallet.createNewAddress");
-                await this.Wallet.createNewAddress(); //it will save automatically
-                console.log("create this.Wallet.createNewAddress done");
-
-                this.emitter.emit('blockchain/status', {message: "Wallet Creating New Wallet"});
-            }
-
-        } catch (exception){
-
-            console.log("exception loading Wallet.Addresses");
-
-            this.emitter.emit('blockchain/status', {message: "Wallet Error Loading and Creating"});
-
-            await this.Wallet.createNewAddress(); //it will save automatically
-        }
+        await this.Wallet.loadWallet();
 
         //starting mining
         await this.initializeMining();
@@ -27539,10 +27527,8 @@ class Blockchain{
 
         await this.Mining.setMinerAddress(await this.Wallet.getMiningAddress() );
 
-        if (Object({"BROWSER":true}).START_MINING){
-
+        if (Object({"BROWSER":true}).START_MINING)
             this.Mining.startMining();
-        }
 
     }
 
@@ -27570,6 +27556,7 @@ class Blockchain{
             this.emitter.emit('blockchain/status', {message: "Synchronizing"});
 
             let resultAgentStarted = await this.Agent.startAgent(firstTime);
+            firstTime = false;
 
             if (resultAgentStarted.result){
 
@@ -39153,8 +39140,8 @@ class InterfaceBlockchainAgent{
         this.agentQueueCount = 0;
 
         this.AGENT_TIME_OUT = 10000;
-        this.AGENT_QUEUE_COUNT_MAX = 2;
-        this.NODES_LIST_MINIM_LENGTH = 2;
+        this.AGENT_QUEUE_COUNT_MAX = 1;
+        this.NODES_LIST_MINIM_LENGTH = 1;
 
         this.newFork();
         this.newProtocol();
@@ -39210,7 +39197,7 @@ class InterfaceBlockchainAgent{
 
             let done = true;
             for (let i = 0; i < __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__["a" /* default */].nodes.length; i++)
-                if (__WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__["a" /* default */].nodes[i].socket.level <= 3 && __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__["a" /* default */].nodes[i].socket.node.protocol.agent.startedAgentDone === false) {
+                if (__WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__["a" /* default */].nodes[i].socket.level <= 2 && __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__["a" /* default */].nodes[i].socket.node.protocol.agent.startedAgentDone === false) {
 
                     done = false;
                     console.log("not done", __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__["a" /* default */].nodes[i]);
@@ -39238,7 +39225,7 @@ class InterfaceBlockchainAgent{
         }
 
         //it is not done, maybe timeout
-        this._setStartAgentTimeOut(0.5);
+        this._setStartAgentTimeOut(1);
     }
 
     async _requestBlockchainForNewPeers(){
@@ -39342,7 +39329,7 @@ class InterfaceBlockchainAgentBlockHeaders extends __WEBPACK_IMPORTED_MODULE_0__
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_webrtc_web_peer_node_web_peer__ = __webpack_require__(325);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_webrtc_web_peer_node_web_peer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_node_webrtc_web_peer_node_web_peer__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_webrtc_service_discovery_node_web_peers_discovery_service__ = __webpack_require__(793);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_webrtc_service_discovery_node_web_peers_discovery_service__ = __webpack_require__(796);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_nodes_waitlist__ = __webpack_require__(60);
 
@@ -45319,8 +45306,8 @@ module.exports = function (regExp, replace) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_main_blockchain_Blockchain__ = __webpack_require__(233);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_Node__ = __webpack_require__(792);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_applications_Applications__ = __webpack_require__(795);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_Node__ = __webpack_require__(795);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_applications_Applications__ = __webpack_require__(798);
 
 
 
@@ -45869,6 +45856,38 @@ class MainBlockchainWallet{
 
         }
 
+    }
+
+
+    async loadWallet(){
+
+        //loading the Wallet
+        this.blockchain.emitter.emit('blockchain/status', {message: "Wallet Loading"});
+
+        try{
+
+            let response = await this.loadAddresses();
+
+            if (response !== false)
+                this.blockchain.emitter.emit('blockchain/status', {message: "Wallet Loaded Successfully"});
+
+            if (response === false || this.addresses.length === 0) {
+
+                console.log("create this.Wallet.createNewAddress");
+                await this.createNewAddress(); //it will save automatically
+                console.log("create this.Wallet.createNewAddress done");
+
+                this.blockchain.emitter.emit('blockchain/status', {message: "Wallet Creating New Wallet"});
+            }
+
+        } catch (exception){
+
+            console.log("exception loading Wallet.Addresses");
+
+            this.blockchain.emitter.emit('blockchain/status', {message: "Wallet Error Loading and Creating"});
+
+            await this.createNewAddress(); //it will save automatically
+        }
     }
 
 }
@@ -81982,7 +82001,13 @@ class NodeWebPeerRTC {
         let promise = new Promise ( (resolve) => {
 
             //answer
-            if (typeof inputSignal === "string") inputSignal = JSON.parse(inputSignal);
+            if (typeof inputSignal === "string") {
+                try {
+                    inputSignal = JSON.parse(inputSignal);
+                } catch (exception){
+                    console.error("Error processing JSON createSignal", inputSignal, exception)
+                }
+            }
 
 
             if (inputSignal.sdp) {
@@ -82070,12 +82095,17 @@ class NodeWebPeerRTC {
 
         this.peer.dataChannel.onmessage = (event) => {
 
-            let data = JSON.parse(event.data);
+            try {
+                let data = JSON.parse(event.data);
 
-            let name = data.name;
-            let value = data.value;
-            if (name !== '')
-                this.callEvents(name, value);
+                let name = data.name;
+                let value = data.value;
+                if (name !== '')
+                    this.callEvents(name, value);
+
+            } catch (exception){
+                console.error("Error onMessage", event.data, exception);
+            }
 
             //console.log("DATA RECEIVED# ################", data);
         }
@@ -82497,7 +82527,13 @@ class NodeDiscoveryService {
         try {
             //console.log(data);
 
-            if (typeof data === 'string') data = JSON.parse(data);
+            if (typeof data === 'string') {
+                try {
+                    data = JSON.parse(data);
+                } catch (exception){
+                    console.error("Error processFallbackNodes String", data, exception);
+                }
+            }
 
 
             if ((typeof data === 'object') && (data !== null)) {
@@ -86171,10 +86207,231 @@ class MiniBlockchainBalances{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__cookies_Cookies__ = __webpack_require__(793);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Detect_Multiple_Tabs__ = __webpack_require__(794);
+
+
+
+class ValidationsUtils{
+
+    constructor(blockchain){
+
+
+        this._blockchain = blockchain;
+
+
+        this._validateIndexedDB();
+
+    }
+
+    _validateIndexedDB(){
+
+        if (typeof window === 'undefined') return;
+
+        let indexedDB = window.indexedDB ||
+            window.mozIndexedDB ||
+            window.webkitIndexedDB ||
+            window.msIndexedDB;
+
+        if (indexedDB)
+            this._blockchain.emitter.emit("validation/status", {result:true, message: "IndexedDB is available"})
+        else
+            this._blockchain.emitter.emit("validation/status", {result:false, message: "IndexedDB is not supported"})
+
+    }
+
+    waitSingleTab(waitCallback){
+
+        if (typeof window === "undefined") return true;
+
+        return __WEBPACK_IMPORTED_MODULE_1__Detect_Multiple_Tabs__["a" /* default */].waitForSingleTabNow(waitCallback);
+    }
+
+    // _validateBrowser(){
+    //     // Do not allow multiple call center tabs
+    //     //if (~window.location.hash.indexOf('#admin/callcenter')) {
+    //     if (1===1) {
+    //         $(window).on('beforeunload onbeforeunload', function(){
+    //             document.cookie = 'ic_window_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    //         });
+    //
+    //         function validateCallCenterTab() {
+    //             var win_id_cookie_duration = 10; // in seconds
+    //
+    //             if (!window.name) {
+    //                 window.name = Math.random().toString();
+    //             }
+    //
+    //             if (!getCookie('ic_window_id') || window.name === getCookie('ic_window_id')) {
+    //                 // This means they are using just one tab. Set/clobber the cookie to prolong the tab's validity.
+    //                 setCookie('ic_window_id', window.name, win_id_cookie_duration);
+    //             } else if (getCookie('ic_window_id') !== window.name) {
+    //                 // this means another browser tab is open, alert them to close the tabs until there is only one remaining
+    //                 var message = 'You cannot have this website open in multiple tabs. ' +
+    //                     'Please close them until there is only one remaining. Thanks!';
+    //                 $('html').html(message);
+    //                 clearInterval(callCenterInterval);
+    //                 throw 'Multiple call center tabs error. Program terminating.';
+    //             }
+    //         }
+    //
+    //         callCenterInterval = setInterval(validateCallCenterTab, 3000);
+    //     }
+    // }
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (ValidationsUtils);
+
+/***/ }),
+/* 793 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export setCookie */
+/* unused harmony export getCookie */
+// helper function to set cookies
+function setCookie(cname, cvalue, seconds) {
+    var d = new Date();
+    d.setTime(d.getTime() + (seconds * 1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+// helper function to get a cookie
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+
+/***/ }),
+/* 794 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class DetectMultipleTabs {
+
+    constructor() {
+
+        window.addEventListener('storage', (data) => {
+            if (data.key === this.HI1)
+                this._hi2(e.newValue);
+        });
+        window.addEventListener('unload', () => {
+            this._hi3();
+        });
+
+    }
+
+    isWindowSingle() {
+
+        return new Promise((resolve) => {
+
+            const nonce = Math.round(Math.random() * Number.MAX_SAFE_INTEGER);
+
+            const timeout = setTimeout( () => {
+                window.removeEventListener('storage', listener);
+                resolve(true);
+            }, 500);
+
+            const listener = (e) => {
+
+                if (e.key === this.HI2 && e.newValue == nonce) {
+                    clearTimeout(timeout);
+
+                    window.removeEventListener('storage', listener);
+                    resolve(false);
+                }
+
+            };
+            window.addEventListener('storage', listener);
+
+            this._hi1(nonce);
+        });
+    }
+
+    waitForSingleTabNow(waitCallback, ) {
+
+        return new Promise((resolver)=>{
+
+            setTimeout( async ()=>{ await this._waitForSingleTab(waitCallback, resolver)}, 100);
+
+        });
+    }
+
+    async _waitForSingleTab(waitCallback, promiseResolver){
+
+        let windowSingle = await this.isWindowSingle();
+
+        console.log("_waitForSingleTab _waitForSingleTab",);
+
+        if (windowSingle)
+            promiseResolver ( true );
+        else {
+
+            if (typeof waitCallback === "function")
+                waitCallback();
+
+            const listener = (e) => {
+                if (e.key === this.HI3) {
+                    window.removeEventListener('storage', listener);
+                    // Don't pass fnWait, we only want it to be called once.
+                    this._waitForSingleTab(undefined, promiseResolver);
+                }
+            };
+            window.addEventListener('storage', listener);
+        }
+    }
+
+
+    get HI1() {
+        return 'WindowDetector.HI1';
+    }
+
+    get HI2() {
+        return 'WindowDetector.HI2';
+    }
+
+    get HI3() {
+        return 'WindowDetector.Hi3';
+    }
+
+    _hi1(nonce) {
+        localStorage.setItem(this.HI1, nonce);
+    }
+
+    _hi2(nonce) {
+        localStorage.setItem(this.HI2, nonce);
+    }
+
+    _hi3() {
+        localStorage.setItem(this.HI3, Date.now());
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (new DetectMultipleTabs());
+
+/***/ }),
+/* 795 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_sockets_node_clients_service_node_clients_service__ = __webpack_require__(313);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_webrtc_service_node_web_peers_service__ = __webpack_require__(324);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_stats_nodes_stats__ = __webpack_require__(794);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_stats_nodes_stats__ = __webpack_require__(797);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_nodes_list__ = __webpack_require__(21);
 var NodeServer;
 
@@ -86208,7 +86465,7 @@ class Node{
 
 
 /***/ }),
-/* 793 */
+/* 796 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -86260,7 +86517,7 @@ class NodeWebPeersDiscoveryService {
 
 
 /***/ }),
-/* 794 */
+/* 797 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -86327,7 +86584,7 @@ class NodesStats {
 /* harmony default export */ __webpack_exports__["a"] = (new NodesStats());
 
 /***/ }),
-/* 795 */
+/* 798 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
