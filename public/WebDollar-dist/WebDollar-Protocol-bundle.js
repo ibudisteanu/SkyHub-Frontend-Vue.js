@@ -34893,11 +34893,11 @@ class MiniBlockchain extends  inheritBlockchain{
      */
     async includeBlockchainBlock(block, resetMining, socketsAvoidBroadcast, saveBlock, blockValidationType){
 
-        if (! ((await this.simulateNewBlock(block, false, async ()=>{
+        if (! (await this.simulateNewBlock(block, false, async ()=>{
             return await inheritBlockchain.prototype.includeBlockchainBlock.call(this, block, resetMining, socketsAvoidBroadcast, saveBlock, blockValidationType );
-        })))) throw "Error includeBlockchainBlock MiniBlockchain ";
+        }))) throw "Error includeBlockchainBlock MiniBlockchain ";
 
-        if (!await this.accountantTree.saveMiniAccountant( true)) console.log(colors.red("Error Saving Mini Accountant Tree"));
+        if (! (await this.accountantTree.saveMiniAccountant( true))) console.log(colors.red("Error Saving Mini Accountant Tree"));
 
         return true;
     }
