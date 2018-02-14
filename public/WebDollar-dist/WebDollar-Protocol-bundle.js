@@ -27479,7 +27479,7 @@ class Blockchain{
 
     }
 
-    async createBlockchain(agentName){
+    async createBlockchain(agentName, initializationCallback){
 
 
         this.Agent = __WEBPACK_IMPORTED_MODULE_4_main_blockchain_agents_Main_Blockchain_Agent__["a" /* default */].createAgent(agentName, this.blockchain);
@@ -27487,19 +27487,21 @@ class Blockchain{
 
         this.blockchain._setAgent(this.Agent);
 
+        //Waiting Until a Single Window is present
+        let validation = new __WEBPACK_IMPORTED_MODULE_6_common_utils_validation_Validations_Utils__["a" /* default */](this);
+
+        await validation.waitSingleTab( ()=>{
+            this.emitter.emit('blockchain/status-webdollar', {message: "Multiple Windows Detected"});
+        });
+        this.emitter.emit('blockchain/status-webdollar', {message: "Single Window"});
+
+        if (typeof initializationCallback === "function")
+            initializationCallback();
+
         await this.initializeBlockchain();
     }
 
     async initializeBlockchain(){
-
-        //Waiting Until a Single Window is present
-
-        let validation = new __WEBPACK_IMPORTED_MODULE_6_common_utils_validation_Validations_Utils__["a" /* default */](this);
-        await validation.waitSingleTab( ()=>{
-                alert("VALIDATION IS NOT WORKING");
-                this.emitter.emit('blockchain/status-webdollar', {message: "Multiple Windows Detected"});
-            });
-        this.emitter.emit('blockchain/status-webdollar', {message: "Single Window"});
 
         await this.Wallet.loadWallet();
 
@@ -39551,11 +39553,11 @@ const colors = __webpack_require__(8);
 
 console.log("BROWSER MODE");
 
-__WEBPACK_IMPORTED_MODULE_0__index_js__["Node"].NodeClientsService.startService();
-__WEBPACK_IMPORTED_MODULE_0__index_js__["Node"].NodeWebPeersService.startService();
-
 //Blockchain.createBlockchain("headers-node");
-__WEBPACK_IMPORTED_MODULE_0__index_js__["Blockchain"].createBlockchain("light-node");
+__WEBPACK_IMPORTED_MODULE_0__index_js__["Blockchain"].createBlockchain("light-node", ()=>{
+    __WEBPACK_IMPORTED_MODULE_0__index_js__["Node"].NodeClientsService.startService();
+    __WEBPACK_IMPORTED_MODULE_0__index_js__["Node"].NodeWebPeersService.startService();
+});
 
 window.onbeforeunload = () => {
     console.log(colors.yellow("SIGINT FIRED"))
@@ -86399,8 +86401,8 @@ class DetectMultipleWindows {
             if (typeof waitCallback === "function")
                 waitCallback();
 
-            const listener = (e) => {
-                if (e.key === this.HI3) {
+            const listener = (data) => {
+                if (data.key === this.HI3) {
                     window.removeEventListener('storage', listener);
                     // Don't pass fnWait, we only want it to be called once.
                     this._waitForSingleTab(undefined, promiseResolver);
@@ -86423,9 +86425,9 @@ class DetectMultipleWindows {
                 resolve(true);
             }, 500);
 
-            const listener = (e) => {
+            const listener = (data) => {
 
-                if (e.key === this.HI2 && e.newValue == nonce) {
+                if (data.key === this.HI2 && data.newValue == nonce) {
                     clearTimeout(timeout);
 
                     window.removeEventListener('storage', listener);
