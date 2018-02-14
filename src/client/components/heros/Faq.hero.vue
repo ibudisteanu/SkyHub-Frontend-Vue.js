@@ -13,7 +13,16 @@
                         What is WebDollar?
                     </div>
                     <div slot="collapse-body">
-                        WebDollar is a cryptocurrency that can be mined with a click of a button in your browser.
+                        WebDollar is a digital currency that can be mined with a click of a button in your browser.
+                    </div>
+                </collapse>
+
+                <collapse :selected="false">
+                    <div slot="collapse-header">
+                        What Test Net means?
+                    </div>
+                    <div slot="collapse-body">
+                        Test Net means a fully functional and real network before the official launch especially to test and improve the security of the main network after the official launch.
                     </div>
                 </collapse>
 
@@ -70,7 +79,7 @@
                         How much WEBD can I earn in 24 hours of mining?
                     </div>
                     <div slot="collapse-body">
-                        # ToBeDiscussed more details
+                        The amount of WebDollar you can mine 24 hours is solely based on the Computation Power of your devices. WebDollar uses Proof of Work and it is a computation competition.
                     </div>
                 </collapse>
 
@@ -101,7 +110,8 @@
                         How are the wallets secured?
                     </div>
                     <div slot="collapse-body">
-                        #TBD
+                        The wallets are stored directly in your browsers. Your browser is the only one that is storing your wallet. If you loose your wallet, your WebDollars will be locked for ever.
+                        The wallets are also encrypted with AES-192 like in Bitcoin requiring a 12-words password
                     </div>
                 </collapse>
 
@@ -116,10 +126,11 @@
 
                 <collapse :selected="false">
                     <div slot="collapse-header">
-                        Can I use other wallets to store WEBD, for example Jaxx, NanoLedger, etc?
+                        Can I use other wallets to store WEBD, for example NanoLedger, etc?
                     </div>
                     <div slot="collapse-body">
-                        #TBD
+                        Yes! Now, you can download your wallet and store on an external device device and when it is required to make a Transaction, you can import or sign the transaction with the wallet from the stored device.
+                        In time, WebDollar will be also integrated with other ledges.
                     </div>
                 </collapse>
 

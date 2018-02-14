@@ -31,7 +31,6 @@
         name: "HeaderLayout",
 
         components: {
-            AlertsStickyBar,
         },
 
         data () {
