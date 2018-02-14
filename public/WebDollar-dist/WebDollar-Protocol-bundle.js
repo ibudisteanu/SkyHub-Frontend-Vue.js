@@ -27495,7 +27495,10 @@ class Blockchain{
         //Waiting Until a Single Window is present
 
         let validation = new __WEBPACK_IMPORTED_MODULE_6_common_utils_validation_Validations_Utils__["a" /* default */](this);
-        await validation.waitSingleTab(()=>{this.emitter.emit('blockchain/status-webdollar', {message: "Multiple Windows Detected"}); });
+        await validation.waitSingleTab( ()=>{
+                alert("VALIDATION IS NOT WORKING");
+                this.emitter.emit('blockchain/status-webdollar', {message: "Multiple Windows Detected"});
+            });
         this.emitter.emit('blockchain/status-webdollar', {message: "Single Window"});
 
         await this.Wallet.loadWallet();
@@ -45399,6 +45402,20 @@ class MainBlockchainWallet{
         return blockchainAddress;
     }
 
+    async _insertAddress(blockchainAddress){
+
+        let index = this.getAddressIndex(blockchainAddress);
+        if (index >= 0)
+            return false;
+
+        this.addresses.push(blockchainAddress);
+        this.emitter.emit('wallet/address-changes', blockchainAddress.address );
+
+        await this.saveWallet();
+
+        return true;
+    }
+
     async serialize(serializePrivateKey = false) {
 
         let list = [__WEBPACK_IMPORTED_MODULE_3_common_utils_Serialization__["a" /* default */].serializeNumber4Bytes(this.addresses.length)];
@@ -45472,6 +45489,37 @@ class MainBlockchainWallet{
 
         return answer;
     }
+    
+    /**
+     * Finding stringAddress or address
+     * @param address
+     * @returns {*}
+     */
+    getAddress(address){
+
+        let index = this.getAddressIndex(address);
+        if (index === -1)
+            return null;
+        else
+            return this.addresses[index];
+    }
+
+    /**
+     * Finding stringAddress or address
+     * @param address
+     * @returns {*}
+     */
+    getAddressIndex(address){
+
+        for (let i = 0; i < this.addresses.length; i++)
+            if (address === this.addresses[i].address)
+                return i;
+            else
+            if (typeof address ==="object" && (this.addresses[i].address === address.address || this.addresses[i].unencodedAddress === address.unencodedAddress))
+                return i;
+
+        return -1;
+    }
 
     getAddressPic(address){
 
@@ -45490,6 +45538,19 @@ class MainBlockchainWallet{
             await this.createNewAddress();
 
         return this.addresses[0].address;
+    }
+    
+    /**
+     * @param address
+     * @returns true if privateKey of address is encrypted
+     */
+    async isAddressEncrypted(address){
+
+        address = this.getAddress(address);
+        if (address === null)
+            throw "address not found";
+
+        return (await address.isPrivateKeyEncrypted());
     }
 
     /**
@@ -45640,7 +45701,6 @@ class MainBlockchainWallet{
      * @param address
      * @returns privateKeyWIF as Hex
      */
-
     async exportPrivateKeyFromAddress(address){
 
         for (let i=0; i<this.addresses.length; i++)
@@ -45679,29 +45739,67 @@ class MainBlockchainWallet{
         this.addresses.push(blockchainAddress);
 
         return blockchainAddress;
-    }
-
+    }  
+    
     /**
      * @param address
-     * @returns true if privateKey of address is encrypted
+     * @param password
+     * @returns {Promise<boolean>}
      */
-    async isAddressEncrypted(address){
+    async signTransaction(address, password){
 
         address = this.getAddress(address);
         if (address === null)
             throw "address not found";
 
-        return (await address.isPrivateKeyEncrypted());
+        if (await address.isPrivateKeyEncrypted(password) === false) {
+            let privateKey = await address.getPrivateKey(password);
+            //TODO: Sign transaction code
+            return true;
+        } else {
+            let privateKey = await address.getPrivateKey(password);
+            //TODO: Sign transaction code
+            return true;
+        }
     }
 
     /**
+     * 
      * @param address
+     * @param password
+     * @returns {Promise<*>} true if address's password is @param password
+     */
+    async validatePassword(address, password){
+
+        if (typeof address === "object" && address.hasOwnProperty("address"))
+            address = address.address;
+
+        address = this.getAddress(address);
+        
+        let privateKey = await address.getPrivateKey(password);
+        
+        try {
+            if (__WEBPACK_IMPORTED_MODULE_7__common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__["a" /* default */].validatePrivateKeyWIF(privateKey)) {
+                return true;
+            }
+        } catch (exception) {
+            return false;
+        }
+        
+        return false;
+    }
+    
+    /**
+     * @param addressString
      * @param newPassword
-     * * @param oldPassword
+     * @param oldPassword
      * @returns {Promise<*>}
      */
     async encryptAddress(address, newPassword, oldPassword = undefined){
 
+        if (typeof address === "object" && address.hasOwnProperty("address"))
+            address = address.address;
+        
         if (await this.isAddressEncrypted(address)  && true) {
 
             let response = prompt("Please enter your last password (12 words separated by space)");
@@ -45728,68 +45826,6 @@ class MainBlockchainWallet{
             return false;
         }
 
-    }
-
-    /**
-     * @param address
-     * @param password
-     * @returns {Promise<boolean>}
-     */
-    async signTransaction(address, password){
-
-        address = this.getAddress(address);
-        if (address === null)
-            throw "address not found";
-
-        if (await address.isPrivateKeyEncrypted(password) === false) {
-            let privateKey = await address.getPrivateKey(password);
-            //TODO: Sign transaction code
-            return true;
-        } else {
-            let privateKey = await address.getPrivateKey(password);
-            //TODO: Sign transaction code
-            return true;
-        }
-    }
-
-    /**
-     * Finding stringAddress or address
-     * @param address
-     * @returns {*}
-     */
-    getAddress(address){
-
-        let index = this.getAddressIndex(address);
-        if (index === -1)
-            return null;
-        else
-            return this.addresses[index];
-    }
-
-    getAddressIndex(address){
-
-        for (let i = 0; i < this.addresses.length; i++)
-            if (address === this.addresses[i].address)
-                return i;
-            else
-            if (typeof address ==="object" && (this.addresses[i].address === address.address || this.addresses[i].unencodedAddress === address.unencodedAddress))
-                return i;
-
-        return -1;
-    }
-
-    async _insertAddress(blockchainAddress){
-
-        let index = this.getAddressIndex(blockchainAddress);
-        if (index >= 0)
-            return false;
-
-        this.addresses.push(blockchainAddress);
-        this.emitter.emit('wallet/address-changes', blockchainAddress.address );
-
-        await this.saveWallet();
-
-        return true;
     }
 
     async deleteAddress(address){
@@ -86334,7 +86370,7 @@ class DetectMultipleWindows {
 
         window.addEventListener('storage', (data) => {
             if (data.key === this.HI1)
-                this._hi2(e.newValue);
+                this._hi2(data.newValue);
         });
         window.addEventListener('unload', () => {
             this._hi3();
@@ -86342,32 +86378,6 @@ class DetectMultipleWindows {
 
     }
 
-    isWindowSingle() {
-
-        return new Promise((resolve) => {
-
-            const nonce = Math.round(Math.random() * Number.MAX_SAFE_INTEGER);
-
-            const timeout = setTimeout( () => {
-                window.removeEventListener('storage', listener);
-                resolve(true);
-            }, 500);
-
-            const listener = (e) => {
-
-                if (e.key === this.HI2 && e.newValue == nonce) {
-                    clearTimeout(timeout);
-
-                    window.removeEventListener('storage', listener);
-                    resolve(false);
-                }
-
-            };
-            window.addEventListener('storage', listener);
-
-            this._hi1(nonce);
-        });
-    }
 
     waitForSingleTabNow(waitCallback, ) {
 
@@ -86398,6 +86408,35 @@ class DetectMultipleWindows {
             };
             window.addEventListener('storage', listener);
         }
+    }
+
+
+
+    isWindowSingle() {
+
+        return new Promise((resolve) => {
+
+            const nonce = Math.round(Math.random() * Number.MAX_SAFE_INTEGER);
+
+            const timeout = setTimeout( () => {
+                window.removeEventListener('storage', listener);
+                resolve(true);
+            }, 500);
+
+            const listener = (e) => {
+
+                if (e.key === this.HI2 && e.newValue == nonce) {
+                    clearTimeout(timeout);
+
+                    window.removeEventListener('storage', listener);
+                    resolve(false);
+                }
+
+            };
+            window.addEventListener('storage', listener);
+
+            this._hi1(nonce);
+        });
     }
 
 
