@@ -1429,9 +1429,30 @@ svg rect{
   grid-column-gap: 30px;
 }
 
-.faqSection{
-
+.textAlignCenter{
+  text-align: center;
+  letter-spacing: 1px;
+  color: #d0cfcf;
+  background-color: #e6e6e647;
+  margin-bottom: 30px;
+  font-weight: 900;
+  line-height: 22px;
+  padding: 15px 0;
+  cursor: pointer;
+  transition:all 0.50s ease 0s;
 }
 
+.textAlignCenter:hover{
+  background-color: rgba(255, 255, 255, 0.83);
+  color: rgba(35, 35, 35, 1);
+  transition:all 0.50s ease 0s;
+}
 
+#menu .spanCorrect{
+  width: auto!important;
+  display: inline!important;
+  margin: auto!important;
+  line-height: normal!important;
+  letter-spacing: normal!important;
+}
 

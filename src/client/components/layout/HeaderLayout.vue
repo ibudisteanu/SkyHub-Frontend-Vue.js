@@ -5,19 +5,36 @@
 
         <div class="topnav" id="menu">
 
-            <router-link to="/#mainSection" id="logoBox" class="active logoMenu"  @click="this.collapseMenuBack" >
-                <img src="public/WebDollar-logo-white.png" id="logo"/>
+            <router-link to="/#mainSection" id="logoBox" class="active logoMenu" :class="this.mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
+                <img v-on:click="this.collapseMenuBack" src="public/WebDollar-logo-white.png" id="logo"/>
             </router-link>
 
-            <router-link to="/#timelineSection" @click="this.collapseMenuBack" >Timeline</router-link>
+            <router-link to="/#timelineSection" :class="this.mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
+                <div v-on:click="this.collapseMenuBack">Timeline</div>
+            </router-link>
 
-            <router-link to="/faq" @click="this.collapseMenuBack" > FAQ </router-link>
-            <router-link to="/team" @click="this.collapseMenuBack" > Team </router-link>
-            <a @click="this.collapseMenuBack" href="/public/doc/WebDollar-White-Paper.pdf" target="_blank">White Paper</a>
-            <router-link to="/#what-is-WebDollar" @click="this.collapseMenuBack" > About </router-link>
-            <router-link to="/#p2p-network" @click="this.collapseMenuBack" > Network </router-link>
+            <router-link to="/faq" :class="this.mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
+                <div v-on:click="this.collapseMenuBack">FAQ</div>
+            </router-link>
 
-            <a href="javascript:void(0);" style="font-size:15px;" class="icon showMenu" @click="this.showMobileMenu">&#9776;</a>
+            <router-link to="/#team" :class="this.mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
+                <div v-on:click="this.collapseMenuBack">Team</div>
+            </router-link>
+
+            <a @click="this.collapseMenuBack" href="/public/doc/WebDollar-White-Paper.pdf" target="_blank" :class="this.mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
+                <div v-on:click="this.collapseMenuBack">White Paper</div>
+            </a>
+
+            <router-link to="/#what-is-WebDollar" :class="mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
+                <div v-on:click="this.collapseMenuBack">About</div>
+            </router-link>
+
+            <router-link to="/#p2p-network" :class="mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
+                <div v-on:click="this.collapseMenuBack">Network</div>
+            </router-link>
+
+            <a href="javascript:void(0);" style="font-size:15px;" :style="{display: (mobileMenuOpened || isMobile==false) ? 'none':'block'}" class="icon showMenu" @click="this.showMobileMenu" :class="mobileMenuOpened ? 'openedMenuLink' : '' ">&#9776;</a>
+
         </div>
 
     </div>
@@ -37,6 +54,8 @@
             return {
                 screenWidth: 0,
                 alertsHeight: 0,
+                mobileMenuOpened: false,
+                isMobile: false,
                 alerts: [
                     {
                         message: 'test text'
@@ -49,29 +68,27 @@
 
         methods:{
 
-            handleWallet(){
+            collapseMenuBack(){
 
-                this.$store.dispatch('WALLET_MENU_INVERT', {})
+                this.mobileMenuOpened = false;
 
             },
 
             showMobileMenu() {
-                let x = document.getElementById("menu");
 
-                if (x.className === "topnav") {
-                    document.getElementById('logoMenu').setAttribute('style', 'float:none !important');
-                    x.className += " responsive";
-                } else {
-                    x.className = "topnav";
-                    document.getElementById('logoMenu').setAttribute('style', 'float:left !important');
-                }
+                this.mobileMenuOpened = true;
+
             },
 
-            collapseMenuBack(){
+            verifyIfIsMobile(){
 
                 if (this.screenWidth<768){
 
-                    this.showMobileMenu();
+                    this.isMobile=true;
+
+                }else{
+
+                    this.isMobile=false;
 
                 }
 
@@ -86,21 +103,10 @@
                 } else {
                     object["on"+type] = callback;
                 }
-            },
-
-            bringMenu() {
-
-                if (typeof window === "undefined") return;
-                if (this.$refs['refMenu'] === undefined) return;
-
-
-                if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0)
-                    this.$refs['refMenu'].style.bottom = "-100%";
-                else
-                    this.$refs['refMenu'].style.bottom = "0";
             }
 
         },
+
         mounted(){
 
             if (typeof window === 'undefined') return;
@@ -108,12 +114,12 @@
             this.addEvent(window, "resize", (event) => {
 
                 this.screenWidth = window.innerWidth;
+                this.verifyIfIsMobile();
 
             });
 
             this.screenWidth = window.innerWidth;
-
-            this.bringMenu();
+            this.verifyIfIsMobile();
 
         }
 
