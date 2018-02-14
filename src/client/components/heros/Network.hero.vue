@@ -243,7 +243,7 @@
 
     import Vue from 'vue/dist/vue';
 
-    import slider from './../UI/elements/slider.vue';
+    import slider from '../UI/elements/Slider.vue';
     import Clipboard from 'v-clipboard';
 
     export default{

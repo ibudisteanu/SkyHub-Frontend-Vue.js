@@ -7,5 +7,11 @@ export default {
 
     },
 
+    GLOBAL_STATUS: ({ commit, dispatch, state }, { statusType, statusMessage }) => {
+
+        return commit( "SET_GLOBAL_STATUS", { statusType, statusMessage } );
+
+    },
+
 
 }

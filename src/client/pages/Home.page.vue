@@ -47,11 +47,6 @@
         name: "ViewHome",
 
         components:{
-            WebdollarHero,
-            PeerToPeerHero,
-            BlockchainDistributionHero,
-            TimelineHero,
-            TeamHero,
             "layout": Layout,
             "team-hero": TeamHero,
             "webdollar-hero": WebDollarHero,

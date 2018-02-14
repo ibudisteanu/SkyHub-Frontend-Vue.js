@@ -7,5 +7,10 @@ export default {
         state.screenWidth = screenWidth;
     },
 
+    SET_GLOBAL_STATUS: (state, {statusType, statusMessage}) => {
+        state.statusType = statusType;
+        state.statusMessage = statusMessage;
+    },
+
 
 }

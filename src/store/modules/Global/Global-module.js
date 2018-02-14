@@ -16,6 +16,9 @@ export default {
         screenHeight: 0,
         screenWidth:0,
 
+        statusType: '',
+        statusMessage: '',
+
     },
     actions,
     mutations,
