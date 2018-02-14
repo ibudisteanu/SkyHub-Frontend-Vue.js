@@ -15,37 +15,39 @@
 
         <div id="createPoolSection">
 
-            <div class="">
+                <div class="">
 
-                <h1 class="alignCenter bigMarginBottom">CREATE YOUR OWN MINING POOL</h1>
+                    <h1 class="alignCenter bigMarginBottom">CREATE YOUR OWN MINING POOL</h1>
 
-                <div class="distributionContainer">
+                    <div class="distributionContainer">
 
-                    <div class="distributionGrid">
+                        <div class="distributionGrid">
 
-                        <div class="verticalAlignMiddle">
+                            <div class="verticalAlignMiddle">
 
-                            <p class="subtitle">SET MINER'S REWARD COMMISSION</p>
-                            <slider ref="refMiningSlider" @sliderChanged="this.changeCommission"/>
+                                <p class="subtitle">SET MINER'S REWARD COMMISSION</p>
+                                <slider ref="refMiningSlider" @sliderChanged="this.changeCommission"/>
 
-                            <p class="createPoolLink">Mine WEBD with your friends! Create your own Mining Pool now, by using the Button below. See your Mining Pool stats in real-time.</p>
+                                <p class="createPoolLink">Mine WEBD with your friends! Create your own Mining Pool now, by using the Button below. See your Mining Pool stats in real-time.</p>
 
-                            <router-link to="/mypool" >
-                                <p class="copyPoolLink">Manage your pool</p>
-                            </router-link>
+                                <router-link to="/mypool" >
+                                    <p class="copyPoolLink">Manage your pool</p>
+                                </router-link>
+
+                            </div>
 
                         </div>
+                        <div class="distributionGrid poolDescription">
 
-                    </div>
-                    <div class="distributionGrid poolDescription">
+                            <div class="verticalAlignMiddle">
 
-                        <div class="verticalAlignMiddle">
+                                <p class="poolDescription">Send an invite to a friend and they can start mining in your pool, instantly</p>
+                                <p class="copyPoolLink" @click="copyToClipboard">
+                                    Copy invite link
+                                </p>
 
-                            <p class="poolDescription">Send an invite to a friend and they can start mining in your pool, instantly</p>
-                            <p class="copyPoolLink" @click="copyToClipboard">
-                                Copy invite link
-                            </p>
 
+                            </div>
 
                         </div>
 
@@ -54,8 +56,6 @@
                 </div>
 
             </div>
-
-        </div>
 
     </div>
 
@@ -97,7 +97,6 @@
         mounted() {
 
             if (typeof window === 'undefined') return;
-
 
             Vue.use(Clipboard);
 

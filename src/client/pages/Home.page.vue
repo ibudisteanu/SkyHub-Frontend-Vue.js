@@ -1,46 +1,52 @@
 <template>
 
-    <layout>
+    <div>
 
-        <div slot="content">
+        <layout v-show="!protocolUsedOnMultipleTabs">
 
-            <webdollar-hero/>
+            <div slot="content">
 
-            <what-is-hero/>
+                <webdollar-hero/>
 
-            <peer-to-peer-hero/>
+                <what-is-hero/>
 
-            <new-crypto-generation-hero/>
+                <peer-to-peer-hero/>
 
-            <blockchain-distribution-hero/>
+                <new-crypto-generation-hero/>
 
-            <timeline-hero/>
+                <blockchain-distribution-hero/>
 
-            <team-hero/>
+                <timeline-hero/>
 
-            <know-us--hero/>
+                <team-hero/>
 
-        </div>
+                <know-us--hero/>
 
-    </layout>
+            </div>
+
+        </layout>
+
+        <multiple-tabs v-show="protocolUsedOnMultipleTabs"/>
+
+    </div>
 
 </template>
 
 <script>
 
-    import Layout from "client/components/layout/Layout.vue"
+    import Layout from "client/components/layout/Layout.vue";
 
-    import TeamHero from "client/components/heros/Team.hero.vue"
-    import WebDollarHero from "client/components/heros/WebDollar.hero.vue"
-    import WhatIsHero from "client/components/heros/What-Is.hero.vue"
-    import PeerToPeerHero from "client/components/heros/Peer-To-Peer.hero.vue"
-    import TimelineHero from "client/components/heros/Timeline.hero.vue"
-    import KnowUsHero from "client/components/heros/Know-Us.hero.vue"
-    import FaqHero from "client/components/heros/Faq.hero.vue"
-    import NewCryptoGenerationHero from "client/components/heros/New-Crypto-Generation.hero.vue"
-    import BlockChainDistributionHero from "client/components/heros/Blockchain-Distribution.hero.vue"
-    import BlockchainDistributionHero from "../components/heros/Blockchain-Distribution.hero.vue";
+    import TeamHero from "client/components/heros/Team.hero.vue";
+    import WebDollarHero from "client/components/heros/WebDollar.hero.vue";
+    import WhatIsHero from "client/components/heros/What-Is.hero.vue";
+    import PeerToPeerHero from "client/components/heros/Peer-To-Peer.hero.vue";
+    import TimelineHero from "client/components/heros/Timeline.hero.vue";
+    import KnowUsHero from "client/components/heros/Know-Us.hero.vue";
+    import FaqHero from "client/components/heros/Faq.hero.vue";
+    import NewCryptoGenerationHero from "client/components/heros/New-Crypto-Generation.hero.vue";
+    import BlockChainDistributionHero from "client/components/heros/Blockchain-Distribution.hero.vue";
     import WebdollarHero from "../components/heros/WebDollar.hero.vue";
+    import MultipleTabs from "../components/heros/Multiple-Tabs.hero.vue";
 
     export default {
 
@@ -57,6 +63,32 @@
             "faq-hero": FaqHero,
             "new-crypto-generation-hero":NewCryptoGenerationHero,
             "blockchain-distribution-hero":BlockChainDistributionHero,
+            "MultipleTabs":MultipleTabs
+        },
+
+        data: () => {
+            return {
+                protocolUsedOnMultipleTabs: false
+            }
+        },
+
+        mounted(){
+
+            WebDollar.Blockchain.emitter.on("blockchain/status-webdollar", (data)=>{
+
+                if (data.message === "Single Window") {
+
+                    this.protocolUsedOnMultipleTabs= false;
+
+                }else
+                if (data.message === "Multiple Windows Detected"){
+
+                    this.protocolUsedOnMultipleTabs=true;
+
+                }
+
+            });
+
         }
 
     }

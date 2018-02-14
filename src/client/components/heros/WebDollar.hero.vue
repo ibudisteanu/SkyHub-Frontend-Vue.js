@@ -76,11 +76,6 @@
 
                     WebDollar.Blockchain.Mining.setWorkers(1);
 
-                } else
-                if (data.message === "Multiple Windows Detected"){
-                    this.loaded = false;
-
-                    alert("Multiple Windows Detected. You can mine only in one window")
                 }
 
             });
