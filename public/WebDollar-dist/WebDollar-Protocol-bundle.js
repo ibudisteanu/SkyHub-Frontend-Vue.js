@@ -27564,7 +27564,8 @@ class Blockchain{
                 agentInitialization = true;
 
             } else {
-                this.emitter.emit('blockchain/status', {message: "Error Synchronizing"});
+
+                this.emitter.emit('blockchain/status', { message: "Error Synchronizing" });
                 this.emitter.emit('blockchain/status-webdollar', {message: "Error Synchronizing"});
 
                 this.Agent.initializeAgentPromise();
@@ -39139,7 +39140,7 @@ class InterfaceBlockchainAgent{
         this.agentQueueProcessing = [];
         this.agentQueueCount = 0;
 
-        this.AGENT_TIME_OUT = 10000;
+        this.AGENT_TIME_OUT = 40000;
         this.AGENT_QUEUE_COUNT_MAX = 1;
         this.NODES_LIST_MINIM_LENGTH = 1;
 
@@ -39171,8 +39172,8 @@ class InterfaceBlockchainAgent{
 
         // let's ask everybody
 
-        clearTimeout(this.startAgentTimeOut);
-        this.startAgentTimeOut = undefined;
+        clearTimeout(this._startAgentTimeOut);
+        this._startAgentTimeOut = undefined;
 
         try {
 
@@ -39191,7 +39192,7 @@ class InterfaceBlockchainAgent{
 
         //check if start Agent is finished
 
-        console.log("this.startAgentResolver",this.startAgentResolver !== undefined)
+        console.log("this.startAgentResolver",this.startAgentResolver !== undefined);
         console.log("this.agentQueueProcessing", this.agentQueueProcessing .length);
         if (this.startAgentResolver !== undefined && this.agentQueueProcessing.length === 0) {
 
@@ -39252,6 +39253,9 @@ class InterfaceBlockchainAgent{
             this.startAgentResolver = resolve;
         });
 
+        clearTimeout(this._startAgentTimeOut);
+        this._startAgentTimeOut = undefined;
+
         this._setStartAgentTimeOut();
     }
 
@@ -39274,9 +39278,9 @@ class InterfaceBlockchainAgent{
 
         console.log("_setStartAgentTimeOut");
 
-        if (this.startAgentTimeOut !== undefined) return;
+        if (this._startAgentTimeOut !== undefined) return;
 
-        this.startAgentTimeOut = setTimeout( ()=>{
+        this._startAgentTimeOut = setTimeout( ()=>{
 
             if (this.startAgentResolver === undefined) return;
 
@@ -39285,7 +39289,7 @@ class InterfaceBlockchainAgent{
 
             console.log( colors.green("Synchronization done FAILED") );
 
-            this.startAgentTimeOut = undefined;
+            this._startAgentTimeOut = undefined;
 
             resolver({
                 result: false,
@@ -45472,7 +45476,7 @@ class MainBlockchainWallet{
     getAddressPic(address){
 
         if (Buffer.isBuffer(address))
-            address = __WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__["a" /* default */].toBase();
+            address = __WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__["a" /* default */].toBase(address);
 
         return `https://www.gravatar.com/avatar/${md5(address)}?d=retro&f=y`;
     }
@@ -45610,7 +45614,7 @@ class MainBlockchainWallet{
             } else {
                 blockchainAddress.publicKey = Buffer.from(publicKey, "hex");
                 blockchainAddress.address = address;
-                blockchainAddress.unencodedAddress = __WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__["a" /* default */].fromBase("WEBD$gCV7BpnRcygsUyJZEyKK95cEG1keYcSwk2HAsm9pFbAqpiLhUjsPw==");
+                blockchainAddress.unencodedAddress = __WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__["a" /* default */].fromBase(blockchainAddress.address);
 
                 await blockchainAddress.savePrivateKey(Buffer.from(privateKey, "hex"));
             }
@@ -86208,7 +86212,7 @@ class MiniBlockchainBalances{
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__cookies_Cookies__ = __webpack_require__(793);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Detect_Multiple_Tabs__ = __webpack_require__(794);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Detect_Multiple_Windows__ = __webpack_require__(794);
 
 
 
@@ -86244,7 +86248,7 @@ class ValidationsUtils{
 
         if (typeof window === "undefined") return true;
 
-        return __WEBPACK_IMPORTED_MODULE_1__Detect_Multiple_Tabs__["a" /* default */].waitForSingleTabNow(waitCallback);
+        return __WEBPACK_IMPORTED_MODULE_1__Detect_Multiple_Windows__["a" /* default */].waitForSingleTabNow(waitCallback);
     }
 
     // _validateBrowser(){
@@ -86321,9 +86325,12 @@ function getCookie(cname) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-class DetectMultipleTabs {
+class DetectMultipleWindows {
 
     constructor() {
+
+        if (typeof window === "undefined")
+            return;
 
         window.addEventListener('storage', (data) => {
             if (data.key === this.HI1)
@@ -86375,8 +86382,6 @@ class DetectMultipleTabs {
 
         let windowSingle = await this.isWindowSingle();
 
-        console.log("_waitForSingleTab _waitForSingleTab",);
-
         if (windowSingle)
             promiseResolver ( true );
         else {
@@ -86397,15 +86402,15 @@ class DetectMultipleTabs {
 
 
     get HI1() {
-        return 'WindowDetector.HI1';
+        return 'Windows.HI1';
     }
 
     get HI2() {
-        return 'WindowDetector.HI2';
+        return 'Windows.HI2';
     }
 
     get HI3() {
-        return 'WindowDetector.Hi3';
+        return 'Windows.HI3';
     }
 
     _hi1(nonce) {
@@ -86421,7 +86426,7 @@ class DetectMultipleTabs {
     }
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (new DetectMultipleTabs());
+/* harmony default export */ __webpack_exports__["a"] = (new DetectMultipleWindows());
 
 /***/ }),
 /* 795 */

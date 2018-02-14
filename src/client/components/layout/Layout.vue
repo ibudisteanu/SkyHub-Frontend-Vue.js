@@ -12,6 +12,7 @@
 
         <div id="websiteBody">
 
+            <div id="WebDollarAlertsStickyBar"></div>
             <slot name="content"></slot>
 
         </div>

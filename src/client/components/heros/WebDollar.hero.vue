@@ -71,6 +71,7 @@
             WebDollar.Blockchain.emitter.on("blockchain/status-webdollar", (data)=>{
 
                 if (data.message === "Ready") {
+
                     this.loaded = true;
 
                     WebDollar.Blockchain.Mining.setWorkers(1);
