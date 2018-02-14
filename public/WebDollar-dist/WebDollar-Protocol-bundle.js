@@ -16942,7 +16942,7 @@ class InterfaceBlockchainFork {
 
     async includeForkBlock(block){
 
-        if (! await this.validateForkBlock(block, block.height ) ) throw "includeForkBlock failed for "+block.height;
+        if (! (await this.validateForkBlock(block, block.height )) ) throw "includeForkBlock failed for "+block.height;
 
         this.forkBlocks.push(block);
 
@@ -17019,7 +17019,7 @@ class InterfaceBlockchainFork {
         //overwrite the blockchain blocks with the forkBlocks
 
         console.log("save Fork before validateFork");
-        if (!await this.validateFork()) {
+        if (! (await this.validateFork())) {
             console.log(colors.red("validateFork was not passed"));
             return false
         }
@@ -17049,7 +17049,7 @@ class InterfaceBlockchainFork {
             try {
 
                 for (let i = 0; i < this.forkBlocks.length; i++)
-                    if (!await this.blockchain.includeBlockchainBlock(this.forkBlocks[i], false, "all", false, {})) {
+                    if (! (await this.blockchain.includeBlockchainBlock(this.forkBlocks[i], false, "all", false, {}))) {
                         console.log(colors.green("fork couldn't be included in main Blockchain ", i));
                         forkedSuccessfully = false;
                         break;
@@ -17071,7 +17071,7 @@ class InterfaceBlockchainFork {
                 try {
 
                     for (let i = 0; i < this._blocksCopy.length; i++)
-                        if (!await this.blockchain.includeBlockchainBlock( this._blocksCopy[i], false, "all", false, {})) {
+                        if (! (await this.blockchain.includeBlockchainBlock( this._blocksCopy[i], false, "all", false, {}))) {
                             console.log(colors.green("blockchain couldn't restored after fork included in main Blockchain ", i));
                             break;
                         }
@@ -24829,7 +24829,7 @@ class InterfaceBlockchainBlock {
 
         if (height !== this.height) throw 'height is different' + height+ " "+ this.height ;
 
-        if (!await this._validateBlockHash(previousHash, blockValidationType)) throw "validateBlockchain return false";
+        if (! (await this._validateBlockHash(previousHash, blockValidationType))) throw "validateBlockchain return false";
 
         this._validateTargetDifficulty(previousDifficultyTarget);
 
@@ -34893,9 +34893,9 @@ class MiniBlockchain extends  inheritBlockchain{
      */
     async includeBlockchainBlock(block, resetMining, socketsAvoidBroadcast, saveBlock, blockValidationType){
 
-        if (!await this.simulateNewBlock(block, false, async ()=>{
+        if (! ((await this.simulateNewBlock(block, false, async ()=>{
             return await inheritBlockchain.prototype.includeBlockchainBlock.call(this, block, resetMining, socketsAvoidBroadcast, saveBlock, blockValidationType );
-        })) throw "Error includeBlockchainBlock MiniBlockchain ";
+        })))) throw "Error includeBlockchainBlock MiniBlockchain ";
 
         if (!await this.accountantTree.saveMiniAccountant( true)) console.log(colors.red("Error Saving Mini Accountant Tree"));
 
@@ -34913,9 +34913,9 @@ class MiniBlockchain extends  inheritBlockchain{
 
             if (this.blocks.length === 0) return false;
 
-            if (! await this.accountantTree.saveMiniAccountant( true )) throw "Couldn't save the Account Tree"
+            if (! (await this.accountantTree.saveMiniAccountant( true ))) throw "Couldn't save the Account Tree"
 
-            if (! await inheritBlockchain.prototype.save.call(this)) throw "couldn't sae the blockchain"
+            if (! (await inheritBlockchain.prototype.save.call(this))) throw "couldn't sae the blockchain"
 
             return true;
 
@@ -35056,7 +35056,7 @@ class InterfaceBlockchain {
     async validateBlockchain(){
 
         for (let i=0; i<this.blocks.length; i++){
-            if (! await this.validateBlockchainBlock(this.blocks[i]) ) return false;
+            if (! (await this.validateBlockchainBlock(this.blocks[i])) ) return false;
         }
 
         return true;
@@ -35088,7 +35088,7 @@ class InterfaceBlockchain {
         if (this.transactions.uniqueness.searchTransactionsUniqueness(block.data.transactions))
             throw "transaction already processed";
 
-        if (! await this.validateBlockchainBlock(block, undefined, undefined, undefined, blockValidationType) ) return false; // the block has height === this.blocks.length
+        if (! (await this.validateBlockchainBlock(block, undefined, undefined, undefined, blockValidationType)) ) return false; // the block has height === this.blocks.length
 
 
         //let's check again the heights
@@ -35148,7 +35148,7 @@ class InterfaceBlockchain {
         block.difficultyTargetPrev = prevDifficultyTarget;
 
         //validate difficulty & hash
-        if (! await block.validateBlock(block.height, prevDifficultyTarget, prevHash, blockValidationType)) throw ('block validation failed');
+        if (! (await block.validateBlock(block.height, prevDifficultyTarget, prevHash, blockValidationType))) throw ('block validation failed');
 
         //recalculate next target difficulty
         // console.log("block.difficultyTarget", prevDifficultyTarget, prevTimeStamp, block.timeStamp, block.height);
@@ -45383,7 +45383,7 @@ class MainBlockchainWallet{
 
         let blockchainAddress = await this._justCreateNewAddress(salt, false);
 
-        if (!await this._insertAddress(blockchainAddress))
+        if (! (await this._insertAddress(blockchainAddress)))
             throw "Address already exists";
 
         return blockchainAddress;
@@ -45393,7 +45393,7 @@ class MainBlockchainWallet{
 
         let blockchainAddress = await this._justCreateNewAddress(salt, false);
 
-        if (!await this._insertAddress(blockchainAddress))
+        if (! (await this._insertAddress(blockchainAddress)))
             throw "Address already exists";
 
         return blockchainAddress;
@@ -45619,7 +45619,7 @@ class MainBlockchainWallet{
                 await blockchainAddress.savePrivateKey(Buffer.from(privateKey, "hex"));
             }
 
-            if (!await this._insertAddress(blockchainAddress))
+            if (! (await this._insertAddress(blockchainAddress)))
                 throw "Address already exists";
 
             return {
@@ -84386,7 +84386,7 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
             this.blockchain.lightPrevHashPrevs[diffIndex] = this._lightPrevHashPrevClone;
             this.blockchain.lightAccountantTreeSerializations[diffIndex] = this._lightAccountantTreeSerializationsHeightClone;
 
-            //if (!await this.blockchain._recalculateLightPrevs( this.blockchain.blocks.length - consts.POW_PARAMS.LIGHT_VALIDATE_LAST_BLOCKS - 1)) throw "_recalculateLightPrevs failed";
+            //if (! (await this.blockchain._recalculateLightPrevs( this.blockchain.blocks.length - consts.POW_PARAMS.LIGHT_VALIDATE_LAST_BLOCKS - 1))) throw "_recalculateLightPrevs failed";
         } else
         return __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Fork__["a" /* default */].prototype.postForkBefore.call(this, forkedSuccessfully);
     }
@@ -84470,9 +84470,9 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_
 
             console.log("block.height > ", block.height);
 
-            if (!await this.simulateNewBlock(block, false, async ()=>{
+            if (! (await this.simulateNewBlock(block, false, async ()=>{
                 return await this.inheritBlockchain.prototype.includeBlockchainBlock.call( this, block, resetMining, "all", saveBlock, blockValidationType );
-            })) throw "Error Including Blockchain Light Block";
+            }))) throw "Error Including Blockchain Light Block";
 
             console.log("this.blocks.height",block.height);
             //console.log("this.blocks.length - consts.POW_PARAMS.LIGHT_VALIDATE_LAST_BLOCKS - 2", this.blocks.length - consts.POW_PARAMS.VALIDATE_LAST_BLOCKS - 2);
@@ -84488,13 +84488,13 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_
 
         } else {
 
-            if (!await this.inheritBlockchain.prototype.includeBlockchainBlock.call(this, block, resetMining, "all", saveBlock, blockValidationType ))
+            if (! (await this.inheritBlockchain.prototype.includeBlockchainBlock.call(this, block, resetMining, "all", saveBlock, blockValidationType )))
                 throw "Error Including Blockchain Light Block";
 
             //for debugging only
         }
 
-        if (!await this._recalculateLightPrevs( block.height, block, undefined, saveBlock)) throw "_recalculateLightPrevs failed";
+        if (! (await this._recalculateLightPrevs( block.height, block, undefined, saveBlock))) throw "_recalculateLightPrevs failed";
 
         //console.log("BLOCK ", block.serializeBlock().toString("hex"));
         console.log(" hash", block.hash.toString("hex"));
@@ -84564,15 +84564,15 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_
             let treeSerialization = this.getSerializedAccountantTree(diffIndex);
             //console.log(colors.blue("this.getSerializedAccountantTree "), colors.yellow(diffIndex), treeSerialization !== undefined ? treeSerialization.toString('hex') : '');
 
-            if (!await this.accountantTree.saveMiniAccountant(true, undefined, treeSerialization)) throw "saveMiniAccountant";
+            if (! (await this.accountantTree.saveMiniAccountant(true, undefined, treeSerialization))) throw "saveMiniAccountant";
 
             // console.log(colors.blue("this.lightPrevDifficultyTarget"), this.lightPrevDifficultyTargets[diffIndex] !== undefined ? this.lightPrevDifficultyTargets[diffIndex].toString("hex") : '');
             // console.log(colors.blue("this.lightPrevTimestamp"), this.lightPrevTimeStamps[diffIndex]);
             // console.log(colors.blue("this.lightPrevHashPrev"), this.lightPrevHashPrevs[diffIndex] !== undefined ? this.lightPrevHashPrevs[diffIndex].toString("hex") : '');
 
-            if (!await this.db.save(this._blockchainFileName + "_LightSettings_prevDifficultyTarget", this.lightPrevDifficultyTargets[diffIndex])) throw "Couldn't be saved _LightSettings_prevDifficultyTarget";
-            if (!await this.db.save(this._blockchainFileName + "_LightSettings_prevTimestamp", this.lightPrevTimeStamps[diffIndex])) throw "Couldn't be saved _LightSettings_prevTimestamp ";
-            if (!await this.db.save(this._blockchainFileName + "_LightSettings_prevHashPrev", this.lightPrevHashPrevs[diffIndex])) throw "Couldn't be saved _LightSettings_prevHashPrev ";
+            if (! (await this.db.save(this._blockchainFileName + "_LightSettings_prevDifficultyTarget", this.lightPrevDifficultyTargets[diffIndex]))) throw "Couldn't be saved _LightSettings_prevDifficultyTarget";
+            if (! (await this.db.save(this._blockchainFileName + "_LightSettings_prevTimestamp", this.lightPrevTimeStamps[diffIndex]))) throw "Couldn't be saved _LightSettings_prevTimestamp ";
+            if (! (await this.db.save(this._blockchainFileName + "_LightSettings_prevHashPrev", this.lightPrevHashPrevs[diffIndex]))) throw "Couldn't be saved _LightSettings_prevHashPrev ";
 
         } catch (exception){
             console.log(colors.red("Error saving LIGHT SETTINGS"), exception)
@@ -84650,7 +84650,7 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_
 
             await this._saveLightSettings();
 
-            if (! await this.inheritBlockchain.prototype.save.call(this, __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].POW_PARAMS.LIGHT_VALIDATE_LAST_BLOCKS )) throw "couldn't save the blockchain";
+            if (! (await this.inheritBlockchain.prototype.save.call(this, __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].POW_PARAMS.LIGHT_VALIDATE_LAST_BLOCKS ))) throw "couldn't save the blockchain";
 
         } catch (exception){
             console.log(colors.red("Couldn't save MiniBlockchain"), exception);
@@ -84671,7 +84671,7 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_
         try {
 
             //AccountantTree[:-POW_PARAMS.LIGHT_VALIDATE_LAST_BLOCKS]
-            if (!await this.accountantTree.loadMiniAccountant(undefined, undefined, true))
+            if (! (await this.accountantTree.loadMiniAccountant(undefined, undefined, true)))
                 throw "Problem Loading Mini Accountant Tree Initial";
 
             console.log("loading blockchain balances ",  this.accountantTree.calculateNodeCoins(), this.accountantTree.root.hash.sha256.toString("hex") );
@@ -84683,9 +84683,9 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_
             //console.log("this.accountantTree initial ", this.accountantTree.root.hash.sha256);
 
             //load the number of blocks
-            if (!await this._loadLightSettings(serializationAccountantTreeInitial)) throw "couldn't load the Light Settings";
+            if (! (await this._loadLightSettings(serializationAccountantTreeInitial))) throw "couldn't load the Light Settings";
 
-            if (! await this.inheritBlockchain.prototype.load.call(this, __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].POW_PARAMS.LIGHT_VALIDATE_LAST_BLOCKS  )) throw "Problem loading the blockchain";
+            if (! (await this.inheritBlockchain.prototype.load.call(this, __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].POW_PARAMS.LIGHT_VALIDATE_LAST_BLOCKS  ))) throw "Problem loading the blockchain";
 
             //check the accountant Tree if matches
             console.log("this.accountantTree final", this.accountantTree.root.hash.sha256);
@@ -85273,11 +85273,11 @@ class InterfaceBlockchainMining{
 
 
                 //simulating the new block and calculate the hashAccountantTree
-                if (!await this.blockchain.semaphoreProcessing.processSempahoreCallback(  ()=>{
+                if (! (await this.blockchain.semaphoreProcessing.processSempahoreCallback(  ()=>{
                         return  this.blockchain.simulateNewBlock(nextBlock, true, ()=>{
                             return this._simulatedNextBlockMining(nextBlock);
                         });
-                    })) throw "Mining1 returned False";
+                    }))) throw "Mining1 returned False";
 
 
             } catch (Exception){
@@ -85349,11 +85349,11 @@ class InterfaceBlockchainMining{
 
                 try {
 
-                    if (!await this.blockchain.semaphoreProcessing.processSempahoreCallback(() => {
+                    if (! (await this.blockchain.semaphoreProcessing.processSempahoreCallback(() => {
                             block.hash = answer.hash;
                             block.nonce = answer.nonce;
                             return this.blockchain.includeBlockchainBlock(block, false, [], true, {});
-                        })) throw "Mining2 returned false";
+                        }))) throw "Mining2 returned false";
 
                 } catch (exception){
 
