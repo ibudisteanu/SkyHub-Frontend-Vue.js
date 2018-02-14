@@ -90,6 +90,9 @@
 
             bringMenu() {
 
+                if (typeof window === "undefined") return;
+                if (this.$refs['refMenu'] === undefined) return;
+
 
                 if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0)
                     this.$refs['refMenu'].style.bottom = "-100%";
