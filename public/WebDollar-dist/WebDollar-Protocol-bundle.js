@@ -86331,7 +86331,7 @@ class ValidationsUtils{
             }
 
         } catch (exception){
-            this._emitter.emit("validation/status", {result: true, message: "IndexedDB - PouchDB doesn't work", dbName: dbName});
+            this._emitter.emit("validation/status", {result: true, message: "IndexedDB - PouchDB doesn't work", dbName: dbName + exception.toString() });
             return false;
         }
 
