@@ -86346,10 +86346,11 @@ class ValidationsUtils{
                     number: number
                 });
 
-                let number2 = await db.get("validate_test"+number, {attachments: true}).number;
+                let data = await db.get("validate_test"+number, {attachments: true});
+                let number2 = data.number;
 
                 if (number !== number2 || number === null || number2 === null)
-                    throw (number === undefined ? 'undefined' : number.toString())+" !== "+ (number2 === null ? 'undefined' : number2.toString());
+                    throw (number === undefined ? 'undefined' : number.toString())+" !== "+ (number2 === undefined ? 'undefined' : number2.toString());
                 else
                     this._emitter.emit("validation/status", {result: true, message: "IndexedDB - PouchDB works", dbName: dbName});
 
@@ -86357,7 +86358,7 @@ class ValidationsUtils{
                 resolve(true);
 
             } catch (exception){
-                this._emitter.emit("validation/status", {result: true, message: "IndexedDB - PouchDB doesn't work", dbName: dbName + " - PouchDB 1 directly " + exception.toString() });
+                this._emitter.emit("validation/status", {result: true, message: "IndexedDB - PouchDB doesn't work", dbName: dbName + " - PouchDB 1 directly " + exception.toString() + " JSON" + JSON.stringify(data) });
                 clearTimeout(timeout);
                 resolve(false);
             }
