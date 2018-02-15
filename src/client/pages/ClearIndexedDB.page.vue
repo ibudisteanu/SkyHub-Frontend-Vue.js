@@ -36,6 +36,13 @@
                 window.indexedDB.deleteDatabase('_pouch_blockchainDB2');
                 window.indexedDB.deleteDatabase('_pouch_blockchainDB');
 
+                window.localStorage.removeItem("_pouch_check_localstorage");
+                window.localStorage.removeItem("_pouch_validateDB");
+                window.localStorage.removeItem("_pouch_defaultDB");
+                window.localStorage.removeItem("_pouch_blockchainDB3");
+                window.localStorage.removeItem("_pouch_blockchainDB2");
+                window.localStorage.removeItem("_pouch_validateDB");
+
                 alert("The indexedDB was cleared!");
 
                 this.getAllIndexedDBs();
