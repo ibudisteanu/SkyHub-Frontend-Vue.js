@@ -88,7 +88,7 @@
 @media only screen and (max-width : 831px) {
 
     #footer{
-        padding-bottom: 120px;
+        padding-bottom: 125px;
     }
 
     #yourPoolSection .poolContainer{
@@ -99,6 +99,17 @@
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
+
+    #menu .openedMenuLink{
+        width: 100%;
+        display: block;
+        padding: 15px 16px;
+        border-top: solid 1px #3c3c3c;
+    }
+
+    #menu .openedMenuLink:first-child{
+        border-top: none;
+    }
 
     #faqSection h1{
         margin-top: 40px!important;
@@ -180,7 +191,7 @@
     }
 
     .showMenu{
-        padding: 9px 26px!important;
+        padding: 20px 26px!important;
     }
 
     #mainSection h5{
