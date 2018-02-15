@@ -86318,13 +86318,13 @@ class ValidationsUtils{
         try{
             let db = new __WEBPACK_IMPORTED_MODULE_2_common_satoshmindb_Interface_SatoshminDB__["a" /* default */](dbName);
 
-            let number = Math.floor(Math.random()*10000000);
+            let number = Math.floor(Math.random()*10000000).toString();
 
             await db.save("validate_test", number, 3000);
             let number2 = await db.get("validate_test", 3000);
 
-            if (number != number2){
-                throw number.toString()+" !== "+number2.toString();
+            if (number != number2 || number === null || number2 === null){
+                throw (number === null ? 'null' : number.toString())+" !== "+ (number2 === null ? 'null' : number2.toString());
             } else {
                 this._emitter.emit("validation/status", {result: true, message: "IndexedDB - PouchDB works", dbName: dbName});
                 return true;
