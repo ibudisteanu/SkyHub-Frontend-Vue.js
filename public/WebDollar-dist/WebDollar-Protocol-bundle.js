@@ -86320,11 +86320,11 @@ class ValidationsUtils{
 
             let number = Math.floor(Math.random()*10000000);
 
-            await db.save("validate_test", number, 1000);
-            let number2 = await db.get("validate_test", 1000);
+            await db.save("validate_test", number, 3000);
+            let number2 = await db.get("validate_test", 3000);
 
-            if (number !== number2){
-                throw "number !== number2";
+            if (number != number2){
+                throw number.toString()+" !== "+number2.toString();
             } else {
                 this._emitter.emit("validation/status", {result: true, message: "IndexedDB - PouchDB works", dbName: dbName});
                 return true;
