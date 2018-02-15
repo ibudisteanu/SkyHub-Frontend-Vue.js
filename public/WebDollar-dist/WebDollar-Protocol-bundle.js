@@ -86316,6 +86316,9 @@ class ValidationsUtils{
         if (await this.testPounchDB2("validateDB"))
             await this.testPounchDB2("defaultDB");
 
+        if (await this.testPounchDB3("validateDB"))
+            await this.testPounchDB3("defaultDB");
+
     }
 
     testPounchDB(dbName){
@@ -86323,7 +86326,8 @@ class ValidationsUtils{
         return new Promise(async (resolve)=>{
 
             let timeout = setTimeout(()=>{
-                this._emitter.emit("validation/status", {result: true, message: "IndexedDB - PouchDB doesn't work", dbName: dbName + " - poucbDB directly TIMEOUT" });
+                this._emitter.emit("validation/status", {result: true, message: "IndexedDB - PouchDB doesn't work", dbName: dbName + " - PouchDB 1 directly TIMEOUT" });
+                resolve(false);
             }, 10000);
 
             try{
@@ -86335,14 +86339,14 @@ class ValidationsUtils{
 
                 let db = new pounchdb(dbName);
 
-                let number = Math.floor(Math.random()*10000000).toString();
+                let number = Math.floor(Math.random()*100000000).toString();
 
                 await db.put({
-                    _id: "validate_test",
+                    _id: "validate_test"+number,
                     number: number
                 });
 
-                let number2 = await db.get("validate_test", {attachments: true}).number;
+                let number2 = await db.get("validate_test"+number, {attachments: true}).number;
 
                 if (number !== number2 || number === null || number2 === null)
                     throw (number === null ? 'null' : number.toString())+" !== "+ (number2 === null ? 'null' : number2.toString());
@@ -86353,7 +86357,7 @@ class ValidationsUtils{
                 resolve(true);
 
             } catch (exception){
-                this._emitter.emit("validation/status", {result: true, message: "IndexedDB - PouchDB doesn't work", dbName: dbName + " - poucbDB directly " + exception.toString() });
+                this._emitter.emit("validation/status", {result: true, message: "IndexedDB - PouchDB doesn't work", dbName: dbName + " - PouchDB 1 directly " + exception.toString() });
                 clearTimeout(timeout);
                 resolve(false);
             }
@@ -86380,7 +86384,30 @@ class ValidationsUtils{
 
             return true;
         } catch (exception){
-            this._emitter.emit("validation/status", {result: true, message: "IndexedDB - PouchDB doesn't work", dbName: dbName + exception.toString() });
+            this._emitter.emit("validation/status", {result: true, message: "IndexedDB - PouchDB doesn't work", dbName: dbName  +" 2 "+ exception.toString() });
+            return false;
+        }
+
+    }
+
+    async testPounchDB3(dbName){
+
+        try{
+            let db = new __WEBPACK_IMPORTED_MODULE_2_common_satoshmindb_Interface_SatoshminDB__["a" /* default */](dbName);
+
+            let number = Math.floor(Math.random()*10000000).toString();
+
+            await db.save("validate_test"+number, number, 10000);
+            let number2 = await db.get("validate_test"+number, 10000);
+
+            if (number !== number2 || number === null || number2 === null)
+                throw (number === null ? 'null' : number.toString())+" !== "+ (number2 === null ? 'null' : number2.toString());
+            else
+                this._emitter.emit("validation/status", {result: true, message: "IndexedDB - PouchDB 3 works", dbName: dbName});
+
+            return true;
+        } catch (exception){
+            this._emitter.emit("validation/status", {result: true, message: "IndexedDB - PouchDB doesn't work", dbName: dbName +" 3 " + exception.toString() });
             return false;
         }
 
