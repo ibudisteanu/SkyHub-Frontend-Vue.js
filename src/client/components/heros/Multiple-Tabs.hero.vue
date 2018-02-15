@@ -2,11 +2,11 @@
 
     <div id="browserError" class="verticalAlignMiddle">
 
-        <h3>Multi Tab Minning Error</h3>
+        <h3>Ops! You can't mine on multiple tabs</h3>
 
         <h4>Please make sure you are not mining WEBD in other browser's tab.</h4>
 
-        <img src="./../../../../public/assets/images/darkBrowser.png" class="browserPng">
+        <img src="/public/assets/images/darkBrowser.png" class="browserPng">
 
     </div>
 

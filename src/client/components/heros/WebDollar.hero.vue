@@ -52,7 +52,7 @@
 
         data: ()=>{
             return {
-                status: '',
+                status: 'Starting...',
                 loaded: false,
                 maintenance: false,
             }
@@ -61,6 +61,9 @@
         mounted(){
 
             if (typeof window === "undefined") return;
+
+            if (process.env.NODE_ENV === 'development')
+                WebDollarUserInterface.initializeParams.mining.startAutomatically = false;
 
             WebDollar.Blockchain.emitter.on("blockchain/status", (data)=>{
 
@@ -73,8 +76,6 @@
                 if (data.message === "Ready") {
 
                     this.loaded = true;
-
-                    WebDollar.Blockchain.Mining.setWorkers(1);
 
                 }
 
