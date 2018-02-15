@@ -4,8 +4,8 @@
 
         <div slot="content">
 
-            <div style="margin-top: 300px; margin-left: 200px; margin-bottom: 900px">
-                <button style="background-color: yellow" @click="clearIndexedDB">Clear IndexedDB</button>
+            <div style="margin-top: 200px; margin-left: 100px; margin-bottom: 900px">
+                <button style="background-color: yellow; height: 100px" @click="clearIndexedDB">Clear IndexedDB</button>
             </div>
 
         </div>
@@ -29,19 +29,21 @@
         methods:{
 
             clearIndexedDB(){
+
                 window.indexedDB.deleteDatabase('_pouch_validateDB');
                 window.indexedDB.deleteDatabase('_pouch_defaultDB');
                 window.indexedDB.deleteDatabase('_pouch_blockchainDB3');
                 window.indexedDB.deleteDatabase('_pouch_blockchainDB2');
                 window.indexedDB.deleteDatabase('_pouch_blockchainDB');
 
+                alert("The indexedDB was cleared!");
+
                 this.getAllIndexedDBs();
             },
 
             getAllIndexedDBs(){
 
-                window.indexedDB.webkitGetDatabaseNames().onsuccess = function(sender,args)
-                {
+                window.indexedDB.webkitGetDatabaseNames().onsuccess = function(sender,args) {
                     var r = sender.target.result;
                     for(var i in r)
                         indexedDB.deleteDatabase(r[i]);
