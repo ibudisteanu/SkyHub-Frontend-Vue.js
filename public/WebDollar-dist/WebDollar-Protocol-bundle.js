@@ -86328,7 +86328,7 @@ class ValidationsUtils{
             let timeout = setTimeout(()=>{
                 this._emitter.emit("validation/status", {result: true, message: "IndexedDB - PouchDB doesn't work", dbName: dbName + " - PouchDB 1 directly TIMEOUT" });
                 resolve(false);
-            }, 10000);
+            }, 5000);
 
             try{
 
@@ -86375,8 +86375,8 @@ class ValidationsUtils{
 
             let number = Math.floor(Math.random()*10000000).toString();
 
-            await db.save("validate_test", number, 10000);
-            let number2 = await db.get("validate_test", 10000);
+            await db.save("validate_test", number, 5000);
+            let number2 = await db.get("validate_test", 5000);
 
             if (number !== number2 || number === null || number2 === null)
                 throw (number === null ? 'null' : number.toString())+" !== "+ (number2 === null ? 'null' : number2.toString());
@@ -86398,8 +86398,8 @@ class ValidationsUtils{
 
             let number = Math.floor(Math.random()*10000000).toString();
 
-            await db.save("validate_test"+number, number, 10000);
-            let number2 = await db.get("validate_test"+number, 10000);
+            await db.save("validate_test"+number, number, 5000);
+            let number2 = await db.get("validate_test"+number, 5000);
 
             if (number !== number2 || number === null || number2 === null)
                 throw (number === null ? 'null' : number.toString())+" !== "+ (number2 === null ? 'null' : number2.toString());

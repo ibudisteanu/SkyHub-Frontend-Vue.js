@@ -5309,23 +5309,23 @@ if (false) {(function () {
 
              switch (data.message) {
                  case "IndexedDB is not supported":
-                     this.addAlert("indexedDB-error", "error", "IndexedDB is not supported on your browser. Install a different browser");
+                     this.addAlert("indexedDB-error", "error", "<b>IndexedDB is not supported</b> on your browser. Install a different browser");
                      break;
 
                  case "IndexedDB - PouchDB doesn't work":
-                     this.addAlert("pouchDB-error", "error", "PouchDB doesn't work "+data.dbName+" . Clear your Website Data from browser");
+                     this.addAlert("pouchDB-error", "error", "<b>PouchDB doesn't work</b> "+data.dbName+" . Clear your Website Data from browser. <b style='text-decoration: underline; color:blue'>Click Here</b>", undefined, "/clearIndexedDB");
                      break;
 
                  case "Incognito mode":
-                     this.addAlert("incognito-warning", "warning", "Incognito - your WALLET will not be saved");
+                     this.addAlert("incognito-warning", "warning", "Incognito - your <b>WALLET will not be saved</b>b");
                      break;
 
                  case "WebAssembly not supported":
-                     this.addAlert("web-assembly-warning", "warning", "WebAssembly is not supported. You use an old browser or one that doesn't support WebAssembly. Install Chrome/Firefox/Safari and mining increases with 70%");
+                     this.addAlert("web-assembly-warning", "warning", "<b>WebAssembly is not supported</b>. You use an old browser or one that doesn't support WebAssembly. Install Chrome/Firefox/Safari and mining increases with 70%");
                      break;
 
                  case "ASM.JS not supported":
-                     this.addAlert("web-assembly-warning", "error", "ASM.JS is not supported. Mining is not available on your machine. Please update your browser");
+                     this.addAlert("web-assembly-warning", "error", "<b>ASM.JS is not supported</b>. Mining is not available on your machine. Please update your browser");
                      break;
              }
 
@@ -5336,7 +5336,7 @@ if (false) {(function () {
      methods:{
 
 
-         addAlert(statusId, statusType, statusMessage, timeoutDelete){
+         addAlert(statusId, statusType, statusMessage, timeoutDelete, href){
 
              this.alertUniqueIds += 1;
 
@@ -5345,6 +5345,7 @@ if (false) {(function () {
                  statusId: statusId,
                  statusType: statusType,
                  statusMessage: statusMessage,
+                 statusHref: href,
              };
 
              this.alerts.push(alert);
@@ -5386,6 +5387,8 @@ if (false) {(function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_components_UI_icons_icon_vue__ = __webpack_require__(4);
+//
+//
 //
 //
 //
@@ -16262,7 +16265,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.alertsStickyBar{\n\n    position: fixed;\n    width: 100%;\n    z-index: 1000;\n    text-align: center;\n}\n\n", "", {"version":3,"sources":["/home/alex/WebDollar/User-Interface-WebDollar/src/components/alerts/src/components/alerts/Alerts-Sticky-Bar.vue"],"names":[],"mappings":";AA8JA;;IAEA,gBAAA;IACA,YAAA;IACA,cAAA;IACA,mBAAA;CAEA","file":"Alerts-Sticky-Bar.vue","sourcesContent":["<template>\n    <div v-show=\"this._showStatus\">\n\n        <div class='alertsStickyBar' :style=\"'background: '+this._backgroundColor \" >\n\n            <alert v-for=\"alert in this.alerts\"\n                   :key=\"'alert'+alert.statusUniqueId\"\n                   :alert=\"alert\"\n            >\n            </alert>\n\n        </div>\n    </div>\n</template>\n\n<script>\n\n    import icon from \"components/UI/icons/icon.vue\"\n    import Alert from \"./Alert.vue\"\n\n     export default{\n\n         name: \"alerts-sticky-bar\",\n\n         components:{\n             icon,\n             Alert,\n         },\n\n         data: () => {\n             return {\n                 loadedFirstTime: false,\n\n                 alertUniqueIds: 0,\n                 alerts: [],\n             }\n         },\n\n\n         computed:{\n\n             _showStatus(){\n                 return this.alerts.length > 0;\n             },\n         },\n\n         mounted(){\n\n\n             if (typeof window === \"undefined\") return;\n\n             WebDollar.Blockchain.emitter.on(\"blockchain/status-webdollar\", (data)=>{\n\n                 switch (data.message){\n                     case \"Ready\":\n                         this.loadedFirstTime = true;\n\n                         WebDollar.Blockchain.Mining.setWorkers(1);\n\n                         this.deleteAlert([\"error-firewall\",\"error-internet\"]);\n\n                         break;\n                     case \"Error Synchronizing\":\n\n                         if (WebDollar.Blockchain._onLoadedResolver !== \"done\") {\n                             this.addAlert(\"error-firewall\", \"error\", \"Check your Firewall, Router, Anti-virus or Internet\");\n                             this.delete(\"error-internet\");\n                         }\n                         else\n                             this.addAlert(\"error-internet\", \"error\",\"Internet is no longer working. Check your internet or refresh\");\n\n                         break;\n\n                     case \"No Internet Access\":\n                         this.addAlert(\"error-internet\", \"error\",\"Internet is no longer working. Check your internet or refresh\");\n                         break;\n                 }\n\n\n\n             });\n\n             WebDollar.Blockchain.emitter.on(\"validation/status\", (data)=> {\n\n                 switch (data.message) {\n                     case \"IndexedDB is not supported\":\n                         this.addAlert(\"indexedDB-error\", \"error\", \"IndexedDB is not supported on your browser. Install a different browser\");\n                         break;\n\n                     case \"IndexedDB - PouchDB doesn't work\":\n                         this.addAlert(\"pouchDB-error\", \"error\", \"PouchDB doesn't work \"+data.dbName+\" . Clear your Website Data from browser\");\n                         break;\n\n                     case \"Incognito mode\":\n                         this.addAlert(\"incognito-warning\", \"warning\", \"Incognito - your WALLET will not be saved\");\n                         break;\n\n                     case \"WebAssembly not supported\":\n                         this.addAlert(\"web-assembly-warning\", \"warning\", \"WebAssembly is not supported. You use an old browser or one that doesn't support WebAssembly. Install Chrome/Firefox/Safari and mining increases with 70%\");\n                         break;\n\n                     case \"ASM.JS not supported\":\n                         this.addAlert(\"web-assembly-warning\", \"error\", \"ASM.JS is not supported. Mining is not available on your machine. Please update your browser\");\n                         break;\n                 }\n\n             });\n\n         },\n\n         methods:{\n\n\n             addAlert(statusId, statusType, statusMessage, timeoutDelete){\n\n                 this.alertUniqueIds += 1;\n\n                 let alert = {\n                     statusUniqueId: this.alertUniqueIds,\n                     statusId: statusId,\n                     statusType: statusType,\n                     statusMessage: statusMessage,\n                 };\n\n                 this.alerts.push(alert);\n\n                 if (typeof timeoutDelete === \"number\")\n                    setTimeout(()=>{\n\n                        for (let i=0; i<this.alerts.length; i++)\n                            if (this.alerts[i] === alert)\n                                this.alerts[i].splice(i,1);\n                    }, timeoutDelete)\n\n             },\n\n             deleteAlert(statusId){\n\n                 if (Array.isArray(!statusId)) statusId = [statusId];\n\n                 for (let i=0; i<statusId.length; i++){\n\n                     for (let j=this.alerts.length-1; j>=0; j--)\n                         if (this.alerts[j].statusId === statusId[i] ){\n                             this.alerts.splice(i,1);\n                             break;\n                         }\n                 }\n\n             }\n\n         }\n\n     }\n\n</script>\n\n<style>\n\n    .alertsStickyBar{\n\n        position: fixed;\n        width: 100%;\n        z-index: 1000;\n        text-align: center;\n\n    }\n\n</style>"],"sourceRoot":""}]);
+exports.push([module.i, "\n.alertsStickyBar{\n\n    position: fixed;\n    width: 100%;\n    z-index: 1000;\n    text-align: center;\n}\n\n", "", {"version":3,"sources":["/home/alex/WebDollar/User-Interface-WebDollar/src/components/alerts/src/components/alerts/Alerts-Sticky-Bar.vue"],"names":[],"mappings":";AA+JA;;IAEA,gBAAA;IACA,YAAA;IACA,cAAA;IACA,mBAAA;CAEA","file":"Alerts-Sticky-Bar.vue","sourcesContent":["<template>\n    <div v-show=\"this._showStatus\">\n\n        <div class='alertsStickyBar' :style=\"'background: '+this._backgroundColor \" >\n\n            <alert v-for=\"alert in this.alerts\"\n                   :key=\"'alert'+alert.statusUniqueId\"\n                   :alert=\"alert\"\n            >\n            </alert>\n\n        </div>\n    </div>\n</template>\n\n<script>\n\n    import icon from \"components/UI/icons/icon.vue\"\n    import Alert from \"./Alert.vue\"\n\n     export default{\n\n         name: \"alerts-sticky-bar\",\n\n         components:{\n             icon,\n             Alert,\n         },\n\n         data: () => {\n             return {\n                 loadedFirstTime: false,\n\n                 alertUniqueIds: 0,\n                 alerts: [],\n             }\n         },\n\n\n         computed:{\n\n             _showStatus(){\n                 return this.alerts.length > 0;\n             },\n         },\n\n         mounted(){\n\n\n             if (typeof window === \"undefined\") return;\n\n             WebDollar.Blockchain.emitter.on(\"blockchain/status-webdollar\", (data)=>{\n\n                 switch (data.message){\n                     case \"Ready\":\n                         this.loadedFirstTime = true;\n\n                         WebDollar.Blockchain.Mining.setWorkers(1);\n\n                         this.deleteAlert([\"error-firewall\",\"error-internet\"]);\n\n                         break;\n                     case \"Error Synchronizing\":\n\n                         if (WebDollar.Blockchain._onLoadedResolver !== \"done\") {\n                             this.addAlert(\"error-firewall\", \"error\", \"Check your Firewall, Router, Anti-virus or Internet\");\n                             this.delete(\"error-internet\");\n                         }\n                         else\n                             this.addAlert(\"error-internet\", \"error\",\"Internet is no longer working. Check your internet or refresh\");\n\n                         break;\n\n                     case \"No Internet Access\":\n                         this.addAlert(\"error-internet\", \"error\",\"Internet is no longer working. Check your internet or refresh\");\n                         break;\n                 }\n\n\n\n             });\n\n             WebDollar.Blockchain.emitter.on(\"validation/status\", (data)=> {\n\n                 switch (data.message) {\n                     case \"IndexedDB is not supported\":\n                         this.addAlert(\"indexedDB-error\", \"error\", \"<b>IndexedDB is not supported</b> on your browser. Install a different browser\");\n                         break;\n\n                     case \"IndexedDB - PouchDB doesn't work\":\n                         this.addAlert(\"pouchDB-error\", \"error\", \"<b>PouchDB doesn't work</b> \"+data.dbName+\" . Clear your Website Data from browser. <b style='text-decoration: underline; color:blue'>Click Here</b>\", undefined, \"/clearIndexedDB\");\n                         break;\n\n                     case \"Incognito mode\":\n                         this.addAlert(\"incognito-warning\", \"warning\", \"Incognito - your <b>WALLET will not be saved</b>b\");\n                         break;\n\n                     case \"WebAssembly not supported\":\n                         this.addAlert(\"web-assembly-warning\", \"warning\", \"<b>WebAssembly is not supported</b>. You use an old browser or one that doesn't support WebAssembly. Install Chrome/Firefox/Safari and mining increases with 70%\");\n                         break;\n\n                     case \"ASM.JS not supported\":\n                         this.addAlert(\"web-assembly-warning\", \"error\", \"<b>ASM.JS is not supported</b>. Mining is not available on your machine. Please update your browser\");\n                         break;\n                 }\n\n             });\n\n         },\n\n         methods:{\n\n\n             addAlert(statusId, statusType, statusMessage, timeoutDelete, href){\n\n                 this.alertUniqueIds += 1;\n\n                 let alert = {\n                     statusUniqueId: this.alertUniqueIds,\n                     statusId: statusId,\n                     statusType: statusType,\n                     statusMessage: statusMessage,\n                     statusHref: href,\n                 };\n\n                 this.alerts.push(alert);\n\n                 if (typeof timeoutDelete === \"number\")\n                    setTimeout(()=>{\n\n                        for (let i=0; i<this.alerts.length; i++)\n                            if (this.alerts[i] === alert)\n                                this.alerts[i].splice(i,1);\n                    }, timeoutDelete)\n\n             },\n\n             deleteAlert(statusId){\n\n                 if (Array.isArray(!statusId)) statusId = [statusId];\n\n                 for (let i=0; i<statusId.length; i++){\n\n                     for (let j=this.alerts.length-1; j>=0; j--)\n                         if (this.alerts[j].statusId === statusId[i] ){\n                             this.alerts.splice(i,1);\n                             break;\n                         }\n                 }\n\n             }\n\n         }\n\n     }\n\n</script>\n\n<style>\n\n    .alertsStickyBar{\n\n        position: fixed;\n        width: 100%;\n        z-index: 1000;\n        text-align: center;\n\n    }\n\n</style>"],"sourceRoot":""}]);
 
 // exports
 
@@ -16358,7 +16361,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.alertStickyBar{\n    text-align: center;\n}\n\n", "", {"version":3,"sources":["/home/alex/WebDollar/User-Interface-WebDollar/src/components/alerts/src/components/alerts/Alert.vue"],"names":[],"mappings":";AAsEA;IACA,mBAAA;CACA","file":"Alert.vue","sourcesContent":["<template>\n\n    <div class=\"alertStickyBar\" :style=\"{backgroundColor: this._backgroundColor }\">\n\n        <icon class=\"btn\" :icon=\"this._icon\" :width=\"5\" :height=\"5\" />\n        <b :style=\"{color: this._textColor}\">{{ this.alert.statusMessage }}</b>\n\n    </div>\n\n</template>\n\n<script>\n\n    import icon from \"components/UI/icons/icon.vue\"\n\n    export default{\n\n        components:{\n            icon,\n        },\n\n        props:[\n            \"alert\",\n        ],\n\n        computed:{\n\n            _icon(){\n                switch (this.alert.statusType){\n\n                    case \"error\":\n                        return \"x\";\n\n                    case \"warning\":\n                        return \"plus\";\n                }\n            },\n\n            _backgroundColor(){\n\n                switch (this.alert.statusType){\n\n                    case \"error\":\n                        return \"red\";\n\n                    case \"warning\":\n                        return \"yellow\";\n                }\n\n            },\n\n            _textColor(){\n\n                switch (this.alert.statusType){\n\n                    case \"error\":\n                        return \"yellow\";\n\n                    case \"warning\":\n                        return \"navy\";\n                }\n            }\n        }\n\n    }\n\n</script>\n\n\n<style>\n\n    .alertStickyBar{\n        text-align: center;\n    }\n\n</style>"],"sourceRoot":""}]);
+exports.push([module.i, "\n.alertStickyBar{\n    text-align: center;\n}\n\n", "", {"version":3,"sources":["/home/alex/WebDollar/User-Interface-WebDollar/src/components/alerts/src/components/alerts/Alert.vue"],"names":[],"mappings":";AAwEA;IACA,mBAAA;CACA","file":"Alert.vue","sourcesContent":["<template>\n\n    <div class=\"alertStickyBar\" :style=\"{backgroundColor: this._backgroundColor, display: 'display-inline' }\">\n\n        <!--<icon class=\"btn\" :icon=\"this._icon\" :width=\"5\" :height=\"5\" />-->\n        <a :href=\"this.alert.statusHref||''\">\n            <span  v-html=\"this.alert.statusMessage \" :style=\"{color: this._textColor}\"></span>\n        </a>\n\n    </div>\n\n</template>\n\n<script>\n\n    import icon from \"components/UI/icons/icon.vue\"\n\n    export default{\n\n        components:{\n            icon,\n        },\n\n        props:[\n            \"alert\",\n        ],\n\n        computed:{\n\n            _icon(){\n                switch (this.alert.statusType){\n\n                    case \"error\":\n                        return \"x\";\n\n                    case \"warning\":\n                        return \"plus\";\n                }\n            },\n\n            _backgroundColor(){\n\n                switch (this.alert.statusType){\n\n                    case \"error\":\n                        return \"red\";\n\n                    case \"warning\":\n                        return \"yellow\";\n                }\n\n            },\n\n            _textColor(){\n\n                switch (this.alert.statusType){\n\n                    case \"error\":\n                        return \"yellow\";\n\n                    case \"warning\":\n                        return \"navy\";\n                }\n            }\n        }\n\n    }\n\n</script>\n\n\n<style>\n\n    .alertStickyBar{\n        text-align: center;\n    }\n\n</style>"],"sourceRoot":""}]);
 
 // exports
 
@@ -16376,18 +16379,19 @@ var render = function() {
     "div",
     {
       staticClass: "alertStickyBar",
-      style: { backgroundColor: this._backgroundColor }
+      style: {
+        backgroundColor: this._backgroundColor,
+        display: "display-inline"
+      }
     },
     [
-      _c("icon", {
-        staticClass: "btn",
-        attrs: { icon: this._icon, width: 5, height: 5 }
-      }),
-      _c("b", { style: { color: this._textColor } }, [
-        _vm._v(_vm._s(this.alert.statusMessage))
+      _c("a", { attrs: { href: this.alert.statusHref || "" } }, [
+        _c("span", {
+          style: { color: this._textColor },
+          domProps: { innerHTML: _vm._s(this.alert.statusMessage) }
+        })
       ])
-    ],
-    1
+    ]
   )
 }
 var staticRenderFns = []
