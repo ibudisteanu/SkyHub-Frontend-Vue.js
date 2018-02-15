@@ -27489,7 +27489,7 @@ class Blockchain{
         try {
 
             validation = new __WEBPACK_IMPORTED_MODULE_6_common_utils_validation_Validations_Utils__["a" /* default */](this.emitter);
-            await validation.validate();
+            validation.validate();
 
         } catch (exception){
 
@@ -35236,6 +35236,8 @@ class InterfaceBlockchain {
     }
 
     async saveNewBlock(block){
+
+        if (true) return true;
 
         if (await this.db.save(this._blockchainFileName, this.blocks.length) !== true){
             console.log(colors.red("Error saving the blocks.length"));
@@ -86320,8 +86322,8 @@ class ValidationsUtils{
 
             let number = Math.floor(Math.random()*10000000).toString();
 
-            await db.save("validate_test", number, 3000);
-            let number2 = await db.get("validate_test", 3000);
+            await db.save("validate_test", number, 5000);
+            let number2 = await db.get("validate_test", 5000);
 
             if (number != number2 || number === null || number2 === null){
                 throw (number === null ? 'null' : number.toString())+" !== "+ (number2 === null ? 'null' : number2.toString());
