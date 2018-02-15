@@ -91,6 +91,8 @@
 
             fullHeightSectionOnMobile(element,maxWidth){
 
+                if (element === undefined || element === null) return;
+
                 if(this.screenWidth<=maxWidth){
 
                     element.firstChild.className += " fullHeight";

@@ -12,7 +12,6 @@
 
         <div id="websiteBody">
 
-            <div id="WebDollarAlertsStickyBar"></div>
             <slot name="content"></slot>
 
         </div>
@@ -92,6 +91,8 @@
             },
 
             fullHeightSectionOnMobile(element,maxWidth){
+
+                if (element === undefined || element === null) return;
 
                 if(this.screenWidth<=maxWidth){
 

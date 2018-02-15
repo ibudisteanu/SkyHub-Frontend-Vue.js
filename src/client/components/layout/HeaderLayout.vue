@@ -36,7 +36,7 @@
             <a href="javascript:void(0);" style="font-size:15px;" :style="{display: (mobileMenuOpened || isMobile==false) ? 'none':'block'}" class="icon showMenu" @click="this.showMobileMenu" :class="mobileMenuOpened ? 'openedMenuLink' : '' ">&#9776;</a>
 
         </div>
-
+        <div id="WebDollarAlertsStickyBar"></div>
     </div>
 
 </template>
