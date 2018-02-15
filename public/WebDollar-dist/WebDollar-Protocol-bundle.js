@@ -86339,7 +86339,7 @@ class ValidationsUtils{
 
                 let db = new pounchdb(dbName);
 
-                let number = Math.floor(Math.random()*100000000).toString();
+                let number = Math.floor(Math.random()*10000000).toString();
 
                 await db.put({
                     _id: "validate_test"+number,
@@ -86349,7 +86349,7 @@ class ValidationsUtils{
                 let number2 = await db.get("validate_test"+number, {attachments: true}).number;
 
                 if (number !== number2 || number === null || number2 === null)
-                    throw (number === null ? 'null' : number.toString())+" !== "+ (number2 === null ? 'null' : number2.toString());
+                    throw (number === undefined ? 'undefined' : number.toString())+" !== "+ (number2 === null ? 'undefined' : number2.toString());
                 else
                     this._emitter.emit("validation/status", {result: true, message: "IndexedDB - PouchDB works", dbName: dbName});
 
