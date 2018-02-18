@@ -1035,6 +1035,10 @@ a:hover{
   background: transparent;
 }
 
+#what-is-WebDollar .backgroundSection h1{
+  width: 90%;
+}
+
 #faqSection{
   width: 100%;
   margin: 0 auto;
@@ -1232,7 +1236,7 @@ svg rect{
 }
 
 .poolDescription{
-  line-height: 30px;
+  line-height: 20px;
   font-size: 16px;
   letter-spacing: 1px;
   text-align: center;
