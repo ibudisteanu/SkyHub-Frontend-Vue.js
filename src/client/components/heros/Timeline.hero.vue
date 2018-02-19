@@ -83,7 +83,7 @@
                         <div class="timeline-content">
                             <h5 class="title">SMART CONTRACTS, ANONYMITY, EXCHANGE</h5>
                             <p class="description">
-                                Developing a Smart Contracts Platform, Anonymity, Currency Exchange
+                                Developing a Smart Contracts Platform, Anonymity, Currency Exchange, multisign with social network / fingerprint / faceID
                             </p>
                         </div>
                     </div>

@@ -1078,8 +1078,7 @@ a:hover{
   margin-bottom: 20px;
 }
 
-svg path,
-svg rect{
+svg path, svg rect{
   fill: #fec02c;
 }
 
