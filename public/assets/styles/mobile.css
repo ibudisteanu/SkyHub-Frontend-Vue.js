@@ -100,6 +100,11 @@
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
 
+    .fullSection .verticalAlignMiddle{
+        top:auto;
+        transform: none;
+    }
+
     #menu .openedMenuLink{
         width: 100%;
         display: block;
@@ -209,7 +214,7 @@
 
     .distributionContainer{
         grid-template-columns: 1fr;
-        padding-bottom: 70px;
+        padding-bottom: 0px;
     }
 
     #newCryptoSection .featuresContainer{
@@ -230,7 +235,7 @@
     #whatContainer h4{
         margin-bottom: 0;
         font-size: 18px;
-        line-height: 35px;
+        line-height: 22px;
     }
     #networkSection h1{
         margin-top: 90px;

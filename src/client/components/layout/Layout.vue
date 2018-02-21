@@ -64,7 +64,7 @@
             document.body.style.backgroundColor='#000';
 
             this.fullHeightSectionOnMobile(document.getElementById("aboutSection"),768);
-
+            this.fullHeightSectionOnMobile(document.getElementById("coinDistributionSection"),768);
 
             this.addEvent(window, "resize", (event) => {
 
@@ -88,6 +88,7 @@
                     fullSection[i].style.height = fullSectionHeight + 'px';
 
                 this.fullHeightSectionOnMobile(document.getElementById("aboutSection"),768);
+                this.fullHeightSectionOnMobile(document.getElementById("coinDistributionSection"),768);
             },
 
             fullHeightSectionOnMobile(element,maxWidth){
