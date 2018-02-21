@@ -71,6 +71,9 @@
 
             });
 
+
+
+
             WebDollar.Blockchain.emitter.on("blockchain/status-webdollar", (data)=>{
 
                 if (data.message === "Ready") {
