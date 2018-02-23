@@ -10,9 +10,11 @@ import Vue from 'vue'
 export default {
 
     SET_LOCALIZATION_IP: (state, {ip}) => {
-        if (ip.lastIndexOf(":") > -1){
+
+        if (typeof ip === "string" && ip.lastIndexOf(":") > -1){
             ip = ip.substr(ip.lastIndexOf(":")+1);
         }
+
         state.ip = ip;
     },
 
