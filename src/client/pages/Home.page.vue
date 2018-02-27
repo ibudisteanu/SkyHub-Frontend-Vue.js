@@ -74,7 +74,7 @@
 
         mounted(){
 
-            WebDollar.Blockchain.emitter.on("blockchain/status-webdollar", (data)=>{
+            WebDollar.StatusEvents.on("blockchain/status-webdollar", (data)=>{
 
                 if (data.message === "Single Window") {
 

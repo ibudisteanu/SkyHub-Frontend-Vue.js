@@ -119,7 +119,7 @@
 
             });
 
-            WebDollar.Blockchain.Chain.emitter.on("blockchain/blocks-count-changed", (blocksLength)=>{
+            WebDollar.StatusEvents.on("blockchain/blocks-count-changed", (blocksLength)=>{
 
                 this.blocksLength = blocksLength;
 

@@ -65,7 +65,7 @@
             if (process.env.NODE_ENV === 'development')
                 WebDollarUserInterface.initializeParams.mining.startAutomatically = false;
 
-            WebDollar.Blockchain.emitter.on("blockchain/status", (data)=>{
+            WebDollar.StatusEvents.on("blockchain/status", (data)=>{
 
                 this.status = data.message;
 
@@ -74,7 +74,7 @@
 
 
 
-            WebDollar.Blockchain.emitter.on("blockchain/status-webdollar", (data)=>{
+            WebDollar.StatusEvents.emitter.on("blockchain/status-webdollar", (data)=>{
 
                 if (data.message === "Ready") {
 
