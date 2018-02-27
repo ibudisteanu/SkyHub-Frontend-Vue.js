@@ -7,7 +7,7 @@ const favicon = require('serve-favicon')
 const compression = require('compression')
 const resolve = file => path.resolve(__dirname, file)
 const { createBundleRenderer } = require('vue-server-renderer')
-
+const https = require('https');
 
 
 const isProd = process.env.NODE_ENV === 'production'
@@ -180,6 +180,7 @@ function render (req, res) {
     if (err) {
       return handleError(err)
     }
+
     res.end(html)
     if (cacheable) {
       microCache.set(req.url, html)
@@ -194,7 +195,15 @@ app.get('*', isProd ? render : (req, res) => {
   readyPromise.then(() => render(req, res))
 });
 
-const port = process.env.PORT || 8084
-app.listen(port, () => {
-  console.log(`server started at localhost:${port}`)
-});
+const port = process.env.PORT || 8081;
+
+var options = {
+    key: fs.readFileSync('./key.pem', 'utf8'),
+    cert: fs.readFileSync('./server.crt', 'utf8')
+};
+
+// app.listen(port, () => {
+//   console.log(`server started at localhost:${port}`)
+// })
+
+https.createServer(options, app).listen(port);
