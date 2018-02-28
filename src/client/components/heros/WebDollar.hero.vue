@@ -5,7 +5,7 @@
 
             <img src="/public/WebDollar-logo-white.png" class="mainLogo fadeIn">
 
-            <h1 class="fadeIn fadeIn2">WebDollar <b class="testnet">TEST NET# 3.0</b></h1>
+            <h1 class="fadeIn fadeIn2">WebDollar <b class="testnet">TEST NET# 3.1</b></h1>
             <h2 v-show="this.maintenance" class="fadeIn fadeIn2"><b class="testnet">UNDER MAINTENANCE</b></h2>
             <h3 class="fadeIn fadeIn3">Currency of the Internet</h3>
             <h5 class="fadeIn fadeIn4">{{this.status}}</h5>
@@ -74,9 +74,9 @@
 
 
 
-            WebDollar.StatusEvents.emitter.on("blockchain/status-webdollar", (data)=>{
+            WebDollar.StatusEvents.emitter.on("blockchain/status", (data)=>{
 
-                if (data.message === "Ready") {
+                if (data.message === "Blockchain Ready to Mine") {
 
                     this.loaded = true;
 

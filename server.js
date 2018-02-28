@@ -195,15 +195,18 @@ app.get('*', isProd ? render : (req, res) => {
   readyPromise.then(() => render(req, res))
 });
 
-const port = process.env.PORT || 8081;
+let port = process.env.PORT;
+
+if (process.env.NODE_ENV === 'production') port = port || 80;
+else port = port || 8084;
 
 var options = {
     key: fs.readFileSync('./key.pem', 'utf8'),
     cert: fs.readFileSync('./server.crt', 'utf8')
 };
 
-// app.listen(port, () => {
-//   console.log(`server started at localhost:${port}`)
-// })
+app.listen(port, () => {
+  console.log(`server started at localhost:${port}`)
+})
 
-https.createServer(options, app).listen(port);
+// https.createServer(options, app).listen(port);
