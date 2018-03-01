@@ -1951,7 +1951,7 @@ consts.BLOCKCHAIN = {
 
     HARD_FORKS : {
         TEST_NET_3:{
-            DIFFICULTY_HARD_FORK: 112809
+            DIFFICULTY_HARD_FORK: 112789
         },
     }
 
@@ -82634,6 +82634,7 @@ class NetworkAdjustedTimeClusters{
     }
 
     _timeConverter(UNIX_timestamp){
+
         let a = new Date(UNIX_timestamp * 1000);
         let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
         let year = a.getFullYear();
