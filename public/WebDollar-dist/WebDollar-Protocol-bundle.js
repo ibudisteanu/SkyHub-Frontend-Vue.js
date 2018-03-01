@@ -1939,7 +1939,7 @@ consts.BLOCKCHAIN = {
         NETWORK_ADJUSTED_TIME_NODE_MAX_UTC_DIFFERENCE: 10*60*1000,
     },
 
-    DIFFICULTY_TIME : 200, //in ms, timestamp in UNIX format
+    DIFFICULTY_TIME : 200, //in s, timestamp in UNIX format
 
     BLOCKS_POW_LENGTH: 32,
     BLOCKS_NONCE : 4,
@@ -24747,8 +24747,8 @@ class InterfaceBlockchainBlock {
         if (this.height >= __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TEST_NET_3.DIFFICULTY_HARD_FORK)
             if ( this.blockValidation.blockValidationType['validation-timestamp-adjusted-time'] === true ) {
 
-                if (this.timeStamp < this.blockchain.timestamp.networkAdjustedTime + __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.TIMESTAMP.NETWORK_ADJUSTED_TIME_MAXIMUM_BLOCK_OFFSET)
-                    throw "Timestamp of block is less than the network-adjusted time "+__WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.TIMESTAMP.NETWORK_ADJUSTED_TIME_MAXIMUM_BLOCK_OFFSET
+                if (this.timeStamp < this.blockchain.timestamp.networkAdjustedTime - __WEBPACK_IMPORTED_MODULE_2_common_blockchain_global_Blockchain_Genesis__["a" /* default */].timeStampOffset + __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.TIMESTAMP.NETWORK_ADJUSTED_TIME_MAXIMUM_BLOCK_OFFSET)
+                    throw "Timestamp of block is less than the network-adjusted time "+this.timeStamp+"  "+" "+this.blockchain.timestamp.networkAdjustedTime+" "+__WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.TIMESTAMP.NETWORK_ADJUSTED_TIME_MAXIMUM_BLOCK_OFFSET
             }
 
     }
