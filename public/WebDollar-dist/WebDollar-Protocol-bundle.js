@@ -48007,15 +48007,15 @@ class InterfaceBlockchain {
                     if (i < numBlocks - onlyLastBlocks - 1 + __WEBPACK_IMPORTED_MODULE_10_consts_const_global__["a" /* default */].BLOCKCHAIN.TIMESTAMP.VALIDATION_NO_BLOCKS)
                         validationType["skip-validation-timestamp"] = true;
 
-                    if (!difficultyNotValidated)
+                    if ( !difficultyNotValidated )
                         validationType["skip-difficulty-recalculation"] = true;
 
-                    if ( (i+1) % __WEBPACK_IMPORTED_MODULE_10_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.NO_BLOCKS && (i-indexStart) > __WEBPACK_IMPORTED_MODULE_10_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.NO_BLOCKS )
+                    if ( (i+1) % __WEBPACK_IMPORTED_MODULE_10_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.NO_BLOCKS === 0 && (i-indexStart) >= __WEBPACK_IMPORTED_MODULE_10_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.NO_BLOCKS )
                         difficultyNotValidated = true;
                 }
 
                 //fork 3.1, it must be deleted after
-                if ( i < __WEBPACK_IMPORTED_MODULE_10_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TEST_NET_3.DIFFICULTY_HARD_FORK )
+                if ( i <= __WEBPACK_IMPORTED_MODULE_10_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TEST_NET_3.DIFFICULTY_HARD_FORK )
                     validationType["skip-difficulty-recalculation"] = false;
 
                 console.log("validationType", validationType);
