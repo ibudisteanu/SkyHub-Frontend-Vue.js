@@ -1459,3 +1459,6 @@ svg path, svg rect{
   letter-spacing: normal!important;
 }
 
+.vuejs-countdown{
+  color: #fdfdfd;
+}
