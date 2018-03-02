@@ -3,7 +3,48 @@
     <div id="mainSection" class="fullSection">
         <div class="verticalAlignMiddle alignCenter modifyTop verticalAlignMiddleMobileFix">
 
-            <div id="globe"><canvas width="1045" height="1002"></canvas></div>
+            <img src="/public/WebDollar-logo-white.png" class="mainLogo fadeIn">
+
+            <h1 class="fadeIn fadeIn2">WebDollar <b class="testnet">TEST NET# 3.1</b></h1>
+            <h2 v-show="this.maintenance" class="fadeIn fadeIn2"><b class="testnet">UNDER MAINTENANCE</b></h2>
+            <h3 class="fadeIn fadeIn3" :style="{marginTop: !this.mainNet ? '0': '30px'}">Currency of the Internet</h3>
+
+            <div v-show="this.mainNet">
+                <h5 class="fadeIn fadeIn4">{{this.status}}</h5>
+                <div class='btn-cont btnPosition fadeIn fadeIn5'> </div>
+
+                <h5 class="fadeIn fadeIn3" v-if="this.loaded === false">
+                    <span class="alreadyMining">You are already mining...</span>
+                    <div class="minningSpinner">
+                        <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                     width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                      <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
+                        <animateTransform attributeType="xml"
+                          attributeName="transform"
+                          type="rotate"
+                          from="0 25 25"
+                          to="360 25 25"
+                          dur="0.6s"
+                          repeatCount="indefinite"/>
+                        </path>
+                  </svg>
+                    </div>
+                </h5>
+
+                <div class='btn-cont btnPosition fadeIn fadeIn4'>
+                    <a class='btn' href="#p2p-network">
+                        See your Network
+                        <span class='line-1'></span>
+                        <span class='line-2'></span>
+                        <span class='line-3'></span>
+                        <span class='line-4'></span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="fadeIn fadeIn3" v-show="!this.mainNet">
+                <Countdown end="August 1, 2018"></Countdown>
+            </div>
 
         </div>
     </div>
@@ -27,7 +68,7 @@
                 status: 'Starting...',
                 loaded: false,
                 maintenance: false,
-                mainNet: true
+                mainNet: false
             }
         },
 
@@ -57,75 +98,5 @@
         }
 
     }
-
-    var globe,
-        globeCount = 0;
-
-
-    function createGlobe(){
-        var newData = [];
-        globeCount++;
-        $("#globe canvas").remove();
-
-        globe = new ENCOM.Globe(window.innerWidth, window.innerHeight, { tiles: grid.tiles });
-
-        $("#globe").append(globe.domElement);
-        globe.init(start);
-    }
-
-    function onWindowResize(){
-        globe.camera.aspect = window.innerWidth / window.innerHeight;
-        globe.camera.updateProjectionMatrix();
-        globe.renderer.setSize(window.innerWidth, window.innerHeight);
-
-    }
-
-    function roundNumber(num){
-        return Math.round(num * 100)/100;
-    }
-
-    function projectionToLatLng(width, height, x,y){
-
-        return {
-            lat: 90 - 180*(y/height),
-            lon: 360*(x/width)- 180,
-        };
-
-    }
-
-    function animate(){
-
-        if(globe){
-            globe.tick();
-        }
-
-        lastTickTime = Date.now();
-
-        requestAnimationFrame(animate);
-    }
-
-    function start(){
-        if(globeCount == 1){ // only do this for the first globe that's created. very messy
-            animate();
-        }
-    }
-
-    $(function() {
-        var open = false;
-
-        if(!Detector.webgl)
-        {
-            Detector.addGetWebGLMessage({parent: document.getElementById("container")});
-            return;
-        }
-
-        window.addEventListener( 'resize', onWindowResize, false );
-
-        var docHeight = $(document).height();
-
-        /* Webgl stuff */
-        createGlobe();
-
-    });
 
 </script>
