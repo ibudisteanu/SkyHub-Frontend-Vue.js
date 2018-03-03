@@ -74,18 +74,20 @@
                 WebDollarUserInterface.initializeParams.mining.startAutomatically = false;
 
             WebDollar.StatusEvents.on("blockchain/status", (data)=>{
-
                 this.status = data.message;
+            });
+
+            WebDollar.StatusEvents.on("agent/status", (data)=>{
+
+                if ( !this.loaded )
+                    this.status = data.message + " " + data.blockHeight + " / " + (data.blockHeightMax-1);
 
             });
 
             WebDollar.StatusEvents.emitter.on("blockchain/status", (data)=>{
 
-                if (data.message === "Blockchain Ready to Mine") {
-
+                if (data.message === "Blockchain Ready to Mine")
                     this.loaded = true;
-
-                }
 
             });
 
