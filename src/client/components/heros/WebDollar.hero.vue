@@ -68,7 +68,7 @@
                 status: 'Starting...',
                 loaded: false,
                 maintenance: false,
-                mainNet: false
+                mainNet: true
             }
         },
 

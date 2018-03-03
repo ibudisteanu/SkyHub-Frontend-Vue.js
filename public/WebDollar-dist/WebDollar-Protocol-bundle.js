@@ -1922,8 +1922,8 @@ consts.TERMINATED = false;
 
 consts.UUID = uuid.v4();
 
-consts.NODE_VERSION = "0.252";
-consts.NODE_VERSION_COMPATIBILITY = "0.252";
+consts.NODE_VERSION = "0.254";
+consts.NODE_VERSION_COMPATIBILITY = "0.254";
 
 consts.WALLET_VERSION = "0.1";
 
@@ -1947,17 +1947,21 @@ consts.BLOCKCHAIN = {
     LIGHT:{
         VALIDATE_LAST_BLOCKS: 10 , //overwrite below
         SAFETY_LAST_BLOCKS: 40, //overwrite below
+        SAFETY_LAST_BLOCKS_DELETE: 60, //overwrite below
     },
 
     HARD_FORKS : {
+
         TEST_NET_3:{
-            //DIFFICULTY_HARD_FORK: 112779
-            DIFFICULTY_HARD_FORK: 212779
+            DIFFICULTY_HARD_FORK: 121909
+            //DIFFICULTY_HARD_FORK: 83949
         },
+
     }
 };
 
 consts.BLOCKCHAIN.LIGHT.VALIDATE_LAST_BLOCKS = consts.BLOCKCHAIN.DIFFICULTY.NO_BLOCKS * 1 ;
+consts.BLOCKCHAIN.LIGHT.SAFETY_LAST_BLOCKS = consts.BLOCKCHAIN.LIGHT.VALIDATE_LAST_BLOCKS + 2* consts.BLOCKCHAIN.DIFFICULTY.NO_BLOCKS ;
 consts.BLOCKCHAIN.LIGHT.SAFETY_LAST_BLOCKS = consts.BLOCKCHAIN.LIGHT.VALIDATE_LAST_BLOCKS + 2* consts.BLOCKCHAIN.DIFFICULTY.NO_BLOCKS ;
 
 consts.MINI_BLOCKCHAIN = {
@@ -16742,7 +16746,7 @@ class InterfaceBlockchainFork {
 
                     this.forkBlocks[index].blockValidation = this._createBlockValidation_BlockchainValidation( this.forkBlocks[index].height , index);
 
-                    if (! (await this.blockchain.includeBlockchainBlock(this.forkBlocks[index], false, "all", false))) {
+                    if (! (await this.saveIncludeBlock(index)) ) {
                         console.error("fork couldn't be included in main Blockchain ", index);
                         forkedSuccessfully = false;
                         break;
@@ -16765,7 +16769,7 @@ class InterfaceBlockchainFork {
                 try {
 
                     for (let i = 0; i < this._blocksCopy.length; i++)
-                        if (! await this.blockchain.includeBlockchainBlock(this._blocksCopy[index], false, "all", false)) {
+                        if (! (await this.blockchain.includeBlockchainBlock(this._blocksCopy[index], false, "all", false))) {
                             console.error("blockchain couldn't restored after fork included in main Blockchain ", i);
                             break;
                         }
@@ -16820,6 +16824,18 @@ class InterfaceBlockchainFork {
     postFork(forkedSuccessfully){
 
     }
+
+
+    async saveIncludeBlock(index){
+
+        if (! (await this.blockchain.includeBlockchainBlock( this.forkBlocks[index], false, "all", false))) {
+            console.error("fork couldn't be included in main Blockchain ", index);
+            return false;
+        }
+
+        return true;
+    }
+
 
 
 }
@@ -24700,7 +24716,7 @@ class InterfaceBlockchainBlock {
             let hash = await this.computeHash();
 
             if (!hash.equals(this.hash))
-                throw "block hash is not right (" + this.nonce + ")" + this.hash.toString("hex") + " " + hash.toString("hex") + "    " + "difficultyTargetPrev" + this.difficultyTargetPrev.toString("hex")+ "    "+ Buffer.concat([this.computedBlockPrefix, __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].serializeNumber4Bytes(this.nonce)]).toString("hex");
+                throw "block "+this.height+" hash is not right (" + this.nonce + ")" + this.hash.toString("hex") + " " + hash.toString("hex") + "    " + "difficultyTargetPrev" + this.difficultyTargetPrev.toString("hex")+ "    "+ Buffer.concat([this.computedBlockPrefix, __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].serializeNumber4Bytes(this.nonce)]).toString("hex");
 
         }
 
@@ -24805,6 +24821,8 @@ class InterfaceBlockchainBlock {
                                        this.computedBlockPrefix,
                                        __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].serializeNumber4Bytes(newNonce||this.nonce ),
                                      ] );
+
+        console.warn("computeHash", this.height,"   " ,buffer.toString("hex"));
 
         return  await __WEBPACK_IMPORTED_MODULE_1_common_crypto_WebDollar_Crypto__["a" /* default */].hashPOW(buffer);
     }
@@ -26433,6 +26451,7 @@ class InterfaceBlockchainProtocolForkSolver{
                 throw "discoverAndProcessFork a smaller fork than I have";
 
             let forkFound = this.blockchain.forksAdministrator.findForkBySockets(socket);
+
             if ( forkFound !== null ) {
                 console.error("discoverAndProcessFork - fork already found");
                 return forkFound;
@@ -47886,10 +47905,10 @@ class InterfaceBlockchain {
             return __WEBPACK_IMPORTED_MODULE_3_common_blockchain_global_Blockchain_Genesis__["a" /* default */].timeStamp;
         else{
             if (height > this.blocks.length )
-                throw "getTimeStamp invalid height";
+                throw "getTimeStamp invalid height " + height;
             else
             if (this.blocks[height-1] === undefined)
-                throw "getTimeStamp invalid height";
+                throw "getTimeStamp invalid height " + height;
 
             return this.blocks[height-1].timeStamp;
         }
@@ -47968,6 +47987,12 @@ class InterfaceBlockchain {
         return result;
     }
 
+    _getLoadBlockchainValidationType(indexStart, i, numBlocks, onlyLastBlocks){
+
+        return {};
+
+    }
+
     async loadBlockchain(onlyLastBlocks = undefined){
 
         if (true)
@@ -47989,7 +48014,6 @@ class InterfaceBlockchain {
         try {
 
             let indexStart = 0;
-            let difficultyNotValidated = false;
 
             if (this.agent !== undefined && this.agent.light === true) {
 
@@ -48000,52 +48024,13 @@ class InterfaceBlockchain {
 
             for (let i = indexStart; i < numBlocks; ++i) {
 
-                let validationType = {};
-
-                if ( this.agent !== undefined && this.agent.light === true) {
-
-                    //I can not validate timestamp for the first consts.BLOCKCHAIN.TIMESTAMP.VALIDATION_NO_BLOCKS blocks
-                    if (i < numBlocks - onlyLastBlocks - 1 + __WEBPACK_IMPORTED_MODULE_10_consts_const_global__["a" /* default */].BLOCKCHAIN.TIMESTAMP.VALIDATION_NO_BLOCKS)
-                        validationType["skip-validation-timestamp"] = true;
-
-                    if ( !difficultyNotValidated )
-                        validationType["skip-difficulty-recalculation"] = true;
-
-                    if ( (i+1) % __WEBPACK_IMPORTED_MODULE_10_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.NO_BLOCKS === 0 && (i-indexStart) >= __WEBPACK_IMPORTED_MODULE_10_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.NO_BLOCKS )
-                        difficultyNotValidated = true;
-                }
-
-                //fork 3.1, it must be deleted after
-                if ( i <= __WEBPACK_IMPORTED_MODULE_10_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TEST_NET_3.DIFFICULTY_HARD_FORK )
-                    validationType["skip-difficulty-recalculation"] = false;
+                let validationType = this._getLoadBlockchainValidationType(indexStart, i, numBlocks, onlyLastBlocks);
 
                 console.log("validationType", validationType);
 
-                let blockValidation = new __WEBPACK_IMPORTED_MODULE_14_common_blockchain_interface_blockchain_blocks_validation_Interface_Blockchain_Block_Validation__["a" /* default */](this.getDifficultyTarget.bind(this), this.getTimeStamp.bind(this), this.getHashPrev.bind(this), validationType );
+                let blockValidation = new __WEBPACK_IMPORTED_MODULE_14_common_blockchain_interface_blockchain_blocks_validation_Interface_Blockchain_Block_Validation__["a" /* default */]( this.getDifficultyTarget.bind(this), this.getTimeStamp.bind(this), this.getHashPrev.bind(this), validationType );
 
-                let block = this.blockCreator.createEmptyBlock(i, blockValidation);
-                block.height = i;
-
-                try{
-
-                    if (await block.loadBlock() === false)
-                        throw "no block to load was found";
-
-                    //it will include the block, but it will not ask to save, because it was already saved before
-
-                    if (await this.includeBlockchainBlock(block, undefined, "all", false) ) {
-                        console.warn("blockchain loaded successfully index ", i);
-                    }
-                    else {
-                        console.error("blockchain is invalid at index " + i);
-                        throw "blockchain is invalid at index "+i;
-                    }
-
-
-                } catch (exception){
-                    console.error("blockchain LOADING stopped at " + i, exception);
-                    throw exception;
-                }
+                await this._loadBlock(indexStart, i, blockValidation);
 
             }
 
@@ -48055,6 +48040,36 @@ class InterfaceBlockchain {
         }
 
         return true;
+    }
+
+
+    async _loadBlock(indexStart, i, blockValidation){
+
+        let block = this.blockCreator.createEmptyBlock(i, blockValidation);
+        block.height = i;
+
+        try{
+
+            if (await block.loadBlock() === false)
+                throw "no block to load was found";
+
+            //it will include the block, but it will not ask to save, because it was already saved before
+
+            if (await this.includeBlockchainBlock(block, undefined, "all", false) ) {
+                console.warn("blockchain loaded successfully index ", i);
+            }
+            else {
+                console.error("blockchain is invalid at index " + i);
+                throw "blockchain is invalid at index "+i;
+            }
+
+
+        } catch (exception){
+            console.error("blockchain LOADING stopped at " + i, exception);
+            throw exception;
+        }
+
+        return block;
     }
 
     async removeBlockchain(index, removeFiles = true){
@@ -58104,7 +58119,7 @@ class MainBlockchainWallet{
 
             //setting the next minerAddress
             console.log("addressDeleted", addressDeleted);
-            if (this.blockchain.mining.minerAddress === undefined || this.blockchain.mining.minerAddress.equals(addressDeleted.unencodedAddress) ) {
+            if (this.blockchain.mining.minerAddress === undefined || this.blockchain.mining.unencodedAddress.equals(addressDeleted.unencodedAddress) ) {
                 this.blockchain.mining.minerAddress = this.addresses.length > 0 ? this.addresses[0].address : undefined;
                 this.blockchain.mining.resetMining();
             }
@@ -75748,7 +75763,7 @@ class InterfaceBlockchainBlocks{
         //delete old blocks when I am in light node
         if (this.blockchain.agent.light){
 
-            let index = this.length - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.SAFETY_LAST_BLOCKS -3;
+            let index = this.length - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.SAFETY_LAST_BLOCKS_DELETE;
             while (this[index] !== undefined){
                 delete this[index];
                 index--;
@@ -84042,6 +84057,17 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_3__Mini_Blockchain_
         this.lightPrevDifficultyTargets = {};
         this.lightPrevTimeStamps = {};
         this.lightPrevHashPrevs = {};
+
+        this._lightLoadingDifficultyNextDifficulty = null;
+
+    }
+
+    getSavingSafePosition(height){
+
+        if (height === undefined) height = this.blocks.length-1;
+
+        height = height - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.SAFETY_LAST_BLOCKS;
+        return height - (height +1) % __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.NO_BLOCKS
     }
 
     /**
@@ -84128,8 +84154,8 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_3__Mini_Blockchain_
         try {
 
             if (this.agent.light && save)
-                if (this.lightPrevDifficultyTargets[height - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.SAFETY_LAST_BLOCKS] !== undefined)
-                    await this._saveLightSettings(height - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.SAFETY_LAST_BLOCKS);
+                if (this.lightPrevDifficultyTargets[ this.getSavingSafePosition(height) ] !== undefined)
+                    await this._saveLightSettings( this.getSavingSafePosition(height) );
 
         } catch (exception){
             console.error("Couldn't save Light Settings _saveLightSettings", exception);
@@ -84149,7 +84175,7 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_3__Mini_Blockchain_
             console.log("_LightPrevDifficultyTarget saved");
 
             if (diffIndex === undefined)
-                diffIndex = this.blocks.length - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.SAFETY_LAST_BLOCKS - 1;
+                diffIndex = this.getSavingSafePosition() ;
 
             if (! (await this.db.save(this._blockchainFileName + "_LightSettings_diffIndex", diffIndex)))
                 throw "Couldn't be saved _LightSettings_diffIndex";
@@ -84171,6 +84197,9 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_3__Mini_Blockchain_
 
             if (! (await this.db.save(this._blockchainFileName + "_LightSettings_prevDifficultyTarget", this.lightPrevDifficultyTargets[diffIndex])))
                 throw "Couldn't be saved _LightSettings_prevDifficultyTarget";
+
+            if (! (await this.db.save(this._blockchainFileName + "_LightSettings_prevDifficultyTargetStart", this.lightPrevDifficultyTargets[diffIndex+1])))
+                throw "Couldn't be saved _LightSettings_prevDifficultyTargetStart";
             
             if (! (await this.db.save(this._blockchainFileName + "_LightSettings_prevTimestamp", this.lightPrevTimeStamps[diffIndex])))
                 throw "Couldn't be saved _LightSettings_prevTimestamp ";
@@ -84198,14 +84227,18 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_3__Mini_Blockchain_
         let numBlocks = await this.db.get(this._blockchainFileName);
         if (numBlocks === null ) {
             console.error("numBlocks was not found");
-            return false;
+            return {result:false};
         }
 
         // trying to read the diffIndex
         let diffIndex = await this.db.get(this._blockchainFileName + "_LightSettings_diffIndex");
 
-        if ( diffIndex === null || diffIndex === undefined || diffIndex > numBlocks - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.SAFETY_LAST_BLOCKS - 1)
-            diffIndex = numBlocks - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.SAFETY_LAST_BLOCKS -1 ;
+        if ( diffIndex === null || diffIndex === undefined)
+
+            if (diffIndex < __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TEST_NET_3)
+                diffIndex = numBlocks - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.SAFETY_LAST_BLOCKS -1 ;
+            else
+                diffIndex = this.getSavingSafePosition(numBlocks-1);
 
         console.log("DIFFFINDEXAFTER", diffIndex);
 
@@ -84214,28 +84247,29 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_3__Mini_Blockchain_
             this.lightAccountantTreeSerializations[diffIndex] = serializationAccountantTreeInitial;
 
             this.lightPrevDifficultyTargets[diffIndex] = await this.db.get(this._blockchainFileName + "_LightSettings_prevDifficultyTarget");
-
             if (this.lightPrevDifficultyTargets[diffIndex] === null) {
                 console.error("_LightSettings_prevDifficultyTarget was not found");
-                return false;
+                return {result:false};
             }
+
+            this._lightLoadingDifficultyNextDifficulty = await this.db.get(this._blockchainFileName + "_LightSettings_prevDifficultyTargetStart");
 
             this.lightPrevTimeStamps[diffIndex] = await this.db.get(this._blockchainFileName + "_LightSettings_prevTimestamp");
             if (this.lightPrevTimeStamps[diffIndex] === null) {
                 console.error("_LightSettings_prevTimestamp was not found");
-                return false;
+                return {result:false};
             }
 
             this.lightPrevHashPrevs[diffIndex] = await this.db.get(this._blockchainFileName + "_LightSettings_prevHashPrev");
             if (this.lightPrevHashPrevs[diffIndex] === null) {
                 console.error("_LightSettings_prevHashPrev was not found");
-                return false;
+                return {result:false};
             }
 
         } else throw "Error Loading Light Settings";
 
-        if (this.agent.light === true)
-            this.blocks.blocksStartingPoint = numBlocks - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.VALIDATE_LAST_BLOCKS -1  ;
+
+        this.blocks.blocksStartingPoint = diffIndex  ;
 
         console.log("diffIndex", diffIndex);
         console.log("this.lightPrevDifficultyTarget", this.lightPrevDifficultyTargets[diffIndex] !== undefined ? this.lightPrevDifficultyTargets[diffIndex].toString("hex") : '');
@@ -84243,8 +84277,11 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_3__Mini_Blockchain_
         console.log("this.lightPrevTimestamp", this.lightPrevTimeStamps[diffIndex]);
         console.log("this.lightPrevHashPrev", this.lightPrevHashPrevs[diffIndex] !== undefined ? this.lightPrevHashPrevs[diffIndex].toString("hex")  : '');
 
-
-        return true;
+        return {
+            result:true,
+            numBlocks: numBlocks,
+            diffIndex: diffIndex
+        };
 
     }
 
@@ -84263,7 +84300,7 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_3__Mini_Blockchain_
 
             await this._saveLightSettings();
 
-            if (! (await this.inheritBlockchain.prototype.saveBlockchain.call(this, __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.SAFETY_LAST_BLOCKS )))
+            if (! (await this.inheritBlockchain.prototype.saveBlockchain.call(this, this.blocks.length - this.getSavingSafePosition() )))
                 throw "couldn't save the blockchain";
 
         } catch (exception){
@@ -84300,10 +84337,14 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_3__Mini_Blockchain_
             //console.log("this.accountantTree initial ", this.accountantTree.root.hash.sha256);
 
             //load the number of blocks
-            if (! (await this._loadLightSettings(serializationAccountantTreeInitial)))
+            let answer = await this._loadLightSettings(serializationAccountantTreeInitial)
+
+            if (!answer.result)
                 throw "couldn't load the Light Settings";
 
-            if (! (await this.inheritBlockchain.prototype.loadBlockchain.call(this, __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.SAFETY_LAST_BLOCKS  )))
+            this._difficultyNotValidated = false;
+
+            if (! (await this.inheritBlockchain.prototype.loadBlockchain.call(this, answer.numBlocks - answer.diffIndex -1 )))
                 throw "Problem loading the blockchain";
 
             //check the accountant Tree if matches
@@ -84319,6 +84360,53 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_3__Mini_Blockchain_
 
             return false;
         }
+
+    }
+
+    _getLoadBlockchainValidationType(indexStart, i, numBlocks, onlyLastBlocks){
+
+        let validationType = {};
+
+        if ( this.agent !== undefined && this.agent.light === true) {
+
+            //I can not validate timestamp for the first consts.BLOCKCHAIN.TIMESTAMP.VALIDATION_NO_BLOCKS blocks
+            if (i - indexStart < numBlocks + __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.TIMESTAMP.VALIDATION_NO_BLOCKS)
+                validationType["skip-validation-timestamp"] = true;
+
+            if ( !this._difficultyNotValidated )
+                validationType["skip-difficulty-recalculation"] = true;
+
+            if ( (i+1) % __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.NO_BLOCKS === 0 && (i-indexStart) >= __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.NO_BLOCKS ) {
+                this._difficultyNotValidated = true;
+                validationType["skip-difficulty-recalculation"] = false;
+            }
+
+            console.log( "_getLoadBlockchainValidationType", i, (i-indexStart), this._difficultyNotValidated );
+        }
+
+        //fork 3.1, it must be deleted after
+        if ( i <= __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TEST_NET_3.DIFFICULTY_HARD_FORK ) {
+            validationType["skip-difficulty-recalculation"] = false;
+        }
+
+        return validationType;
+    }
+
+    async _loadBlock(indexStart, i, blockValidation){
+
+        let block = await __WEBPACK_IMPORTED_MODULE_3__Mini_Blockchain__["a" /* default */].prototype._loadBlock.call(this, indexStart, i, blockValidation);
+
+        if (i >= __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TEST_NET_3.DIFFICULTY_HARD_FORK) // must be deleted the verification
+            if ( (i + 1) % __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.NO_BLOCKS  === 0 && i === indexStart){
+
+                block.difficultyTargetPrev = block.difficultyTarget;
+                block.difficultyTarget = this._lightLoadingDifficultyNextDifficulty;
+
+                this.lightPrevDifficultyTargets[i+1] = this._lightLoadingDifficultyNextDifficulty;
+
+            }
+
+        return block;
     }
 
 
@@ -84326,7 +84414,8 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_3__Mini_Blockchain_
 
         //delete serializations older than [:-m]
 
-        let index = this.blocks.length - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.SAFETY_LAST_BLOCKS - 3;
+        let index = this.blocks.length - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.SAFETY_LAST_BLOCKS_DELETE;
+
         while (this.lightAccountantTreeSerializations.hasOwnProperty(index)){
             delete this.lightAccountantTreeSerializations[index];
             delete this.lightPrevDifficultyTargets[index];
@@ -84347,7 +84436,7 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_3__Mini_Blockchain_
             return emptyAccountantTree.serializeMiniAccountant();
         }
 
-        if (Buffer.isBuffer(this.lightAccountantTreeSerializations[height]))
+        if ( Buffer.isBuffer(this.lightAccountantTreeSerializations[height]) )
             return this.lightAccountantTreeSerializations[height];
 
         // else I need to compute it, by removing n-1..n
@@ -84396,6 +84485,7 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_3__Mini_Blockchain_
 
         return __WEBPACK_IMPORTED_MODULE_3__Mini_Blockchain__["a" /* default */].prototype.getHashPrev.call(this, height);
     }
+
 
 
 }
@@ -85168,7 +85258,7 @@ class InterfaceBlockchainMiningWorkersList{
 
         this._workersList = [];
 
-        this.WORKERS_MAX = 20;
+        this.WORKERS_MAX = 64;
 
         this.block = undefined;
         this.difficultyTarget = undefined;
@@ -85186,6 +85276,7 @@ class InterfaceBlockchainMiningWorkersList{
 
         if (this.workers <= 0)
             this.workers = 0;
+
         if (this.workers > this.WORKERS_MAX)
             this.workers = this.WORKERS_MAX;
 
@@ -86120,7 +86211,7 @@ class MiniBlockchainLightProtocolForkSolver extends inheritForkSolver{
 
     }
 
-    _calculateBlockRequestsForLight(fork){
+    async _calculateBlockRequestsForLight(socket, fork){
 
         /**
 
@@ -86198,8 +86289,20 @@ class MiniBlockchainLightProtocolForkSolver extends inheritForkSolver{
         for (let i = forkPosition - (forkPosition+1) % __WEBPACK_IMPORTED_MODULE_2_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.NO_BLOCKS - __WEBPACK_IMPORTED_MODULE_2_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.NO_BLOCKS ; i < forkPosition; i++)
             forkAdditionalBlocksBlocksRequired.push(i);
 
+
+
+        //downloading the difficulty for the first element
+        let blockFirstPosition = forkAdditionalBlocksBlocksRequired[0];
+        let answer = await socket.node.sendRequestWaitOnce("get/blockchain/light/get-light-settings", {height: blockFirstPosition+1 }, blockFirstPosition+1 );
+        if (answer === null) throw "get-accountant-tree[0] never received " + (blockFirstPosition+1);
+        if (!answer.result) throw "get-accountant-tree[0] return false "+ answer.message;
+
+        if (answer.result === false) throw "get-light-settings return false "+ answer.message;
+        if (answer.difficultyTarget === null ) throw "get-light-settings difficultyTarget is null";
+
         return {
             difficultyAdditionalBlocks: forkAdditionalBlocksBlocksRequired,
+            difficultyAdditionalBlockFirstDifficulty: answer.difficultyTarget,
             difficultyCalculationStarts: forkPosition - (forkPosition+1) % __WEBPACK_IMPORTED_MODULE_2_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.NO_BLOCKS,
         }
 
@@ -86215,7 +86318,7 @@ class MiniBlockchainLightProtocolForkSolver extends inheritForkSolver{
         if (fork.forkChainStartingPoint === fork.forkStartingHeight) {
 
             //light solutions requires more blocks
-            fork.forkDifficultyCalculation = this._calculateBlockRequestsForLight(fork);
+            fork.forkDifficultyCalculation = await this._calculateBlockRequestsForLight(socket, fork);
 
             fork.forkStartingHeight = fork.forkDifficultyCalculation.difficultyAdditionalBlocks[0];
             fork.forkChainStartingPoint = fork.forkDifficultyCalculation.difficultyAdditionalBlocks[0];
@@ -86223,38 +86326,26 @@ class MiniBlockchainLightProtocolForkSolver extends inheritForkSolver{
             //downloading the accountant tree
             let answer = await socket.node.sendRequestWaitOnce("get/blockchain/accountant-tree/get-accountant-tree", {height: fork.forkStartingHeight }, fork.forkStartingHeight );
 
-            if (answer === null)
-                throw "get-accountant-tree never received " + (fork.forkStartingHeight);
-
-            if (!answer.result)
-                throw "get-accountant-tree return false "+ answer.message;
+            if (answer === null) throw "get-accountant-tree never received " + (fork.forkStartingHeight);
+            if (!answer.result) throw "get-accountant-tree return false "+ answer.message;
 
             fork.forkPrevAccountantTree = answer.accountantTree;
 
             //downloading the light settings
             answer = await socket.node.sendRequestWaitOnce("get/blockchain/light/get-light-settings", {height: fork.forkStartingHeight  }, fork.forkStartingHeight );
 
-            if (answer === null)
-                throw "get-light-settings never received " + (fork.forkChainStartingPoint);
+            if (answer === null) throw "get-light-settings never received " + (fork.forkChainStartingPoint);
 
-            if (answer.result === false)
-                throw "get-light-settings return false "+ answer.message;
+            if (answer.result === false) throw "get-light-settings return false "+ answer.message;
+            if (answer.difficultyTarget === null ) throw "get-light-settings difficultyTarget is null";
+            if (answer.timeStamp === null ) throw "get-light-settings timeStamp is null";
+            if (answer.hashPrev === null ) throw "get-light-settings hashPrev is null";
 
-            if (answer.difficultyTarget === null )
-                throw "get-light-settings difficultyTarget is null";
-
-            if (answer.timeStamp === null )
-                throw "get-light-settings timeStamp is null";
-
-            if (answer.hashPrev === null )
-                throw "get-light-settings hashPrev is null";
-
-            console.log("answer.difficultyTarget",answer.difficultyTarget);
+            console.log("answer.difficultyTarget", fork.forkStartingHeight, answer.difficultyTarget.toString("hex"));
 
             fork.forkPrevDifficultyTarget = answer.difficultyTarget;
             fork.forkPrevTimeStamp = answer.timeStamp;
             fork.forkPrevHashPrev = answer.hashPrev;
-
 
             //let's download the requested blocks for proving the difficulty
             for (let i = 0; i < fork.forkDifficultyCalculation.difficultyAdditionalBlocks.length; i++ ){
@@ -86274,11 +86365,13 @@ class MiniBlockchainLightProtocolForkSolver extends inheritForkSolver{
                 let block = this._deserializeForkBlock( answer.block, blockRequested , blockValidation);
 
                 if (blockRequested < fork.forkDifficultyCalculation.difficultyCalculationStarts)
-                    block.difficultyTarget = fork.forkPrevDifficultyTarget;
+                    block.difficultyTarget = fork.forkDifficultyCalculation.difficultyAdditionalBlockFirstDifficulty;
 
                 try {
-
                     let result = await fork.includeForkBlock(block);
+
+                    if (blockRequested === fork.forkDifficultyCalculation.difficultyAdditionalBlocks[0])
+                        block.difficultyTarget = fork.forkDifficultyCalculation.difficultyAdditionalBlockFirstDifficulty;
 
                     if (!result )
                         throw "The block "+ blockRequested+" was not includedForkBlock successfully"
@@ -86516,6 +86609,20 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
 
         return __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Fork__["a" /* default */].prototype.postFork.call(this, forkedSuccessfully);
     }
+
+    async saveIncludeBlock(index){
+
+        let answer = await __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Fork__["a" /* default */].prototype.saveIncludeBlock.call(this, index);
+
+        if (answer){
+
+            if (this.forkChainStartingPoint === this.forkStartingHeight && index === 0 && this.forkBlocks[index].height >= __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TEST_NET_3)
+                this.forkBlocks[index].difficultyTarget = this.forkDifficultyCalculation.difficultyAdditionalBlockFirstDifficulty
+        }
+
+        return answer;
+    }
+
 
 }
 
@@ -87319,7 +87426,7 @@ class FallBackObject {
        "port": 80,
     },
     {
-        "addr": ["188.26.60.130"],
+        "addr": ["5.12.246.73"],
         "port": 2095,
     },
     {
