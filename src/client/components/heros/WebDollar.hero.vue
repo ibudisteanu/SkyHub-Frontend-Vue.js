@@ -43,7 +43,7 @@
             </div>
 
             <div class="fadeIn fadeIn3" v-show="!this.mainNet">
-                <Countdown end="August 1, 2018"></Countdown>
+                <!--<Countdown end="August 1, 2018"></Countdown>-->
             </div>
 
         </div>
@@ -53,15 +53,9 @@
 
 <script>
 
-    import Countdown from 'vuejs-countdown';
-
     export default{
 
         name: "WebDollarHero",
-
-        components: {
-            "Countdown":Countdown
-        },
 
         data: ()=>{
             return {
