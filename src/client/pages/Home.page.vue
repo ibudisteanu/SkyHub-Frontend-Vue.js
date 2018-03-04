@@ -20,7 +20,7 @@
 
                 <team-hero/>
 
-                <know-us--hero/>
+                <know-us-hero/>
 
             </div>
 

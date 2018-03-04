@@ -113,10 +113,11 @@ a:hover{
 }
 
 #mediaContainer img{
-  height: 50px;
-  max-width: 200px;
-  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
-  filter: grayscale(100%);
+  /*height: 50px;*/
+  width: 100%;
+  border-radius: 10px;
+  /*-webkit-filter: grayscale(100%); !* Safari 6.0 - 9.0 *!*/
+  /*filter: grayscale(100%);*/
 }
 
 .twoColums{
@@ -925,7 +926,8 @@ a:hover{
 }
 
 #mainSection{
-  margin-top: 60px;
+    margin-top: 60px;
+    background-color: #020102;
 }
 
 #p2p-network h3,#timelineSection h3, #knowUsSection h3{
@@ -1461,4 +1463,25 @@ svg path, svg rect{
 
 .vuejs-countdown{
   color: #fdfdfd;
+}
+
+#mediaContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 0 auto;
+}
+
+#knowUsSection h1{
+  margin-bottom: 70px;
+}
+
+#knowUsSection h3{
+  color: #ffdd8d;
+  letter-spacing: 1px;
+  margin-bottom: 0;
+}
+
+.mediaContentBox{
+  max-width: 350px;
+  margin: 0 auto;
 }
