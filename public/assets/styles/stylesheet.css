@@ -927,7 +927,6 @@ a:hover{
 
 #mainSection{
     margin-top: 60px;
-    background-color: #020102;
 }
 
 #p2p-network h3,#timelineSection h3, #knowUsSection h3{
@@ -1467,8 +1466,9 @@ svg path, svg rect{
 
 #mediaContainer{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     margin: 0 auto;
+    padding: 0 30px;
 }
 
 #knowUsSection h1{
@@ -1484,4 +1484,8 @@ svg path, svg rect{
 .mediaContentBox{
   max-width: 350px;
   margin: 0 auto;
+}
+
+.mediaContentBox span{
+  line-height: 18px;
 }

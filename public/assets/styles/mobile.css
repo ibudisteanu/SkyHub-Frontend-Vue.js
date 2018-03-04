@@ -3,11 +3,17 @@
     .faqContainer{
         grid-template-columns: 1fr;
     }
+    #mediaContainer{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
 }
 
 @media only screen and (max-width: 1100px){
     #yourPoolSection .poolContainer{
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+    #mediaContainer{
+        grid-template-columns: 1fr 1fr 1fr;
     }
 }
 
@@ -99,6 +105,10 @@
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
+
+    #mediaContainer{
+        grid-template-columns: 1fr 1fr;
+    }
 
     .fullSection .verticalAlignMiddle{
         top:auto;
@@ -229,9 +239,7 @@
         margin-left: 10px;
         margin-right: 10px;
     }
-    #mediaContainer img{
-        height: 30px;
-    }
+
     #whatContainer h4{
         margin-bottom: 0;
         font-size: 18px;
@@ -334,6 +342,11 @@
     .distributionContainer .stats{
         grid-template-columns: 1fr;
     }
+    #mediaContainer{
+        grid-template-columns: 1fr;
+        padding: 0 10px;
+    }
+
 
 }
 
@@ -356,13 +369,6 @@
 
     .checkItem{
         margin-left: 0;
-    }
-    #mediaContainer{
-        grid-template-columns: 1fr 1fr;
-        grid-column-gap: 20px;
-    }
-    #mediaContainer img {
-        height: 25px;
     }
     .socialImage{
         padding: 13px 0px 14px 10px;

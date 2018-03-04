@@ -46,7 +46,7 @@
             <div class="mediaContentBox">
                 <a href ="https://www.youtube.com/watch?v=AO67T4jip3k" target="_blank">
 
-                    <img src="public/assets/images/media/saudi.jpg">
+                    <img alt="Web Dollar Alexandru Budisteanu" src="public/assets/images/media/webdollar-alexandru-budisteanu-human-machine-future.jpg">
                     <h3>Web Dollar presented in Saudi Arabia</h3>
                     <span>Human Machine Future</span>
 
@@ -54,11 +54,11 @@
             </div>
 
             <div class="mediaContentBox">
-                <a href ="https://www.digi24.ro/stiri/sci-tech/lumea-digitala/prima-moneda-virtuala-romaneasca-860158" target="_blank">
+                <a href ="https://www.facebook.com/webdollar.io/videos/131800187541413/" target="_blank">
 
-                    <img src="public/assets/images/media/digi24.jpg">
-                    <h3>First Cryptocurrency developed by a romanian team</h3>
-                    <span>Digi 24 TV</span>
+                    <img src="public/assets/images/media/omega.jpg">
+                    <h3>Web Dollar Technology Presentation</h3>
+                    <span>Omega Crypto</span>
 
                 </a>
             </div>
@@ -66,9 +66,39 @@
             <div class="mediaContentBox">
                 <a href ="https://www.youtube.com/watch?v=6YAEtqtL_So" target="_blank">
 
-                    <img src="public/assets/images/media/d10e.jpg">
+                    <img alt="Web Dollar Alexandru Budisteanu" src="public/assets/images/media/webdollar-alexandru-budisteanu-d10e.jpg">
                     <h3>Web Dollar Presentation</h3>
                     <span>d10e</span>
+
+                </a>
+            </div>
+
+            <div class="mediaContentBox">
+                <a href ="https://www.digi24.ro/stiri/sci-tech/lumea-digitala/prima-moneda-virtuala-romaneasca-860158" target="_blank">
+
+                    <img alt="Web Dollar Alexandru Panait" src="public/assets/images/media/webdollar-alexandru-panait-digi24.jpg">
+                    <h3>First Romanian Cryptocurrency Interview</h3>
+                    <span>Digi 24 TV</span>
+
+                </a>
+            </div>
+
+            <div class="mediaContentBox">
+                <a href ="http://www.startupcafe.ro/idei-si-antreprenori/bitcoin-romanesc-webdollar-castigi-bani-pierzi-timp-net.html" target="_blank">
+
+                    <img alt="Web Dollar Alexandru Panait Cosmin Oprea Adrian Stratulat" src="public/assets/images/media/webdollar-alexandru-panait-adrian-stratulat-oprea-cosmin.jpg">
+                    <h3>Web Dollar concept talking</h3>
+                    <span>Startup caffe</span>
+
+                </a>
+            </div>
+
+            <div class="mediaContentBox">
+                <a href ="https://youtu.be/vOt4HmL36gg" target="_blank">
+
+                    <img alt="Web Dollar Alexandru Budisteanu" src="public/assets/images/media/webdollar-alexandru-budisteanu-kanal33.jpg">
+                    <h3>Web Dollar Interview</h3>
+                    <span>Kanal 33</span>
 
                 </a>
             </div>
@@ -84,9 +114,39 @@
             </div>
 
             <div class="mediaContentBox">
+                <a href ="https://medium.com/@adrianmihaistratulat/not-another-ico-56cd4c6fe0c4" target="_blank">
+
+                    <img src="public/assets/images/media/icofail.jpg">
+                    <h3>Why Web Dollar will don't have ICO</h3>
+                    <span>Medium</span>
+
+                </a>
+            </div>
+
+            <div class="mediaContentBox">
+                <a href ="https://medium.com/@adrianmihaistratulat/how-webdollar-will-reinvent-mining-aafde32d943" target="_blank">
+
+                    <img src="public/assets/images/media/mining.jpg">
+                    <h3>How Web Dollar is reinventing the mining</h3>
+                    <span>Medium</span>
+
+                </a>
+            </div>
+
+            <div class="mediaContentBox">
+                <a href ="" target="_blank">
+
+                    <img src="public/assets/images/media/meetup.jpg">
+                    <h3>First Web Dollar Community meetup</h3>
+                    <span>Romania, Bucharest</span>
+
+                </a>
+            </div>
+
+            <div class="mediaContentBox">
                 <a href ="https://www.facebook.com/webdollar.io/videos/127222761332489/" target="_blank">
 
-                    <img src="public/assets/images/media/medium1.jpg">
+                    <img src="public/assets/images/media/techhub.jpg">
                     <h3>Web Dollar Presentation</h3>
                     <span>Javascript Bucharest TechHub</span>
 
@@ -99,36 +159,6 @@
                     <img src="public/assets/images/media/ibitcoin.jpg">
                     <h3>Web Dollar Interview</h3>
                     <span>Bitcoin News Romania</span>
-
-                </a>
-            </div>
-
-            <div class="mediaContentBox">
-                <a href ="https://medium.com/@adrianmihaistratulat/not-another-ico-56cd4c6fe0c4" target="_blank"
-
-                    <img src="public/assets/images/media/icofail.jpg">
-                    <h3>Why Web Dollar will not have ICO</h3>
-                    <span>Medium</span>
-
-                </a>
-            </div>
-
-            <div class="mediaContentBox">
-                <a href ="https://www.facebook.com/webdollar.io/videos/131800187541413/" target="_blank">
-
-                    <img src="public/assets/images/media/omega.jpg">
-                    <h3>Web Dollar Presentation</h3>
-                    <span>Omega Crypto</span>
-
-                </a>
-            </div>
-
-            <div class="mediaContentBox">
-                <a href ="https://medium.com/@adrianmihaistratulat/how-webdollar-will-reinvent-mining-aafde32d943" target="_blank">
-
-                    <img src="public/assets/images/media/mining.jpg">
-                    <h3>Web Dollar reinventing the mining</h3>
-                    <span>Medium</span>
 
                 </a>
             </div>
