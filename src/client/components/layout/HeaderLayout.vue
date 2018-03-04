@@ -118,6 +118,14 @@
 
             });
 
+            this.addEvent(window, "scroll", (event) =>{
+
+                if (this.mobileMenuOpened==true){
+                    this.mobileMenuOpened=false;
+                }
+
+            });
+
             this.screenWidth = window.innerWidth;
             this.verifyIfIsMobile();
 
