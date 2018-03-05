@@ -137,12 +137,13 @@
                 });
             },
 
-            verifyIfContainData(data){
+            verifyIfContainData(amount){
 
-                if (data!=0){
+                if (amount!==0)
                     this.loaded=true;
-                }else{
-                    this.loaded=false;
+                else {
+                    this.loaded = false;
+                    console.error("verifyIfContainData", amount)
                 }
 
             }
