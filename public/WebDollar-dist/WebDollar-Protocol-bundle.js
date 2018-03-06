@@ -50985,12 +50985,10 @@ module.exports = function(obj, fn){
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_sockets_protocol_node_propagation_protocol__ = __webpack_require__(303);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_sockets_protocol_signaling_server_node_signaling_server_protocol__ = __webpack_require__(736);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_sockets_protocol_signaling_client_node_signaling_client_protocol__ = __webpack_require__(738);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_nodes_list__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_sockets_socket_address__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_is_array_buffer__ = __webpack_require__(743);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_is_array_buffer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_is_array_buffer__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_consts_global__ = __webpack_require__(74);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_sockets_socket_address__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_is_array_buffer__ = __webpack_require__(743);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_is_array_buffer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_is_array_buffer__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_consts_global__ = __webpack_require__(74);
 
 
 
@@ -51016,7 +51014,7 @@ class SocketExtend{
         socket.node.on = (name, callback ) => {
             socket.on(name, (data)=>{
 
-                if (__WEBPACK_IMPORTED_MODULE_7_consts_global__["a" /* default */].TERMINATED)
+                if (__WEBPACK_IMPORTED_MODULE_6_consts_global__["a" /* default */].TERMINATED)
                     return;
 
                 this._processBufferArray(data);
@@ -51028,7 +51026,7 @@ class SocketExtend{
         socket.node.once = (name, callback ) => {
             socket.once(name, (data)=>{
 
-                if (__WEBPACK_IMPORTED_MODULE_7_consts_global__["a" /* default */].TERMINATED)
+                if (__WEBPACK_IMPORTED_MODULE_6_consts_global__["a" /* default */].TERMINATED)
                     return;
 
                 this._processBufferArray(data);
@@ -51037,7 +51035,7 @@ class SocketExtend{
             })
         } ;
 
-        socket.node.sckAddress = __WEBPACK_IMPORTED_MODULE_5_common_sockets_socket_address__["a" /* default */].createSocketAddress(address, port, uuid);
+        socket.node.sckAddress = __WEBPACK_IMPORTED_MODULE_4_common_sockets_socket_address__["a" /* default */].createSocketAddress(address, port, uuid);
 
         socket.node.sendRequest = (request, requestData) => { return this.sendRequest(socket, request, requestData) };
         socket.node.sendRequestWaitOnce = (request, requestData, answerPrefix) => {return this.sendRequestWaitOnce(socket, request, requestData, answerPrefix) };
@@ -51114,7 +51112,7 @@ class SocketExtend{
 
             let requestFunction = (resData) => {
 
-                if (__WEBPACK_IMPORTED_MODULE_7_consts_global__["a" /* default */].TERMINATED) return;
+                if (__WEBPACK_IMPORTED_MODULE_6_consts_global__["a" /* default */].TERMINATED) return;
 
                 if (timeoutId !== undefined) clearTimeout(timeoutId);
 
@@ -51166,7 +51164,7 @@ class SocketExtend{
             for (let prop in data){
                 if (data.hasOwnProperty(prop)){
 
-                    if (__WEBPACK_IMPORTED_MODULE_6_is_array_buffer___default()(data[prop]))
+                    if (__WEBPACK_IMPORTED_MODULE_5_is_array_buffer___default()(data[prop]))
                         data[prop] = Buffer.from(data[prop]);
                     else
                     if (prop === "type" && data.type === "Buffer" && data.hasOwnProperty("data")) {
@@ -52268,8 +52266,12 @@ class InterfaceBlockchainAgent{
         this.agentQueueCount = 0;
 
         this.AGENT_TIME_OUT = 40000;
+        this.AGENT_TIME_OUT_NEW_CONNECTIONS = 20000;
+
         this.AGENT_QUEUE_COUNT_MAX = 1;
         this.NODES_LIST_MINIM_LENGTH = 1;
+
+        this._startAgentTimestamp = undefined;
 
         this.newFork();
         this.newProtocol();
@@ -52297,6 +52299,12 @@ class InterfaceBlockchainAgent{
 
     async _requestBlockchainForNewPeer(result) {
 
+        //AGENT_TIME_OUT_NEW_CONNECTIONS
+        if (new Date().getTime() - this._startAgentTimestamp >= this.AGENT_TIME_OUT_NEW_CONNECTIONS){
+            console.warn("too late for Agent");
+            return false;
+        }
+
         // let's ask everybody
 
         clearTimeout(this._startAgentTimeOut);
@@ -52319,7 +52327,7 @@ class InterfaceBlockchainAgent{
             if (index !== this.agentQueueProcessing.length)
                 this.agentQueueProcessing.splice(index);
 
-            console.log(this.agentQueueProcessing);
+            console.log("this.agentQueueProcessing", this.agentQueueProcessing);
 
         } catch (exception) {
             console.error("Error asking for Blockchain", exception);
@@ -52394,6 +52402,7 @@ class InterfaceBlockchainAgent{
         });
 
         clearTimeout(this._startAgentTimeOut);
+        this._startAgentTimestamp = new Date().getTime();
         this._startAgentTimeOut = undefined;
 
         this._setStartAgentTimeOut();
@@ -77294,10 +77303,15 @@ class InterfaceBlockchainTipsAdministrator {
         if (tip.forkChainLength > forkToDoChainLength) //nothing to update
             return null;
 
+        if (tip.forkToDoResolve !== undefined){
+            tip.forkToDoResolve(false);
+            tip.forkToDoResolve = undefined;
+        }
+
         tip.forkToDoChainLength = forkToDoChainLength;
         tip.forkToDoLastBlockHeader = forkToDoLastBlockHeader;
 
-        if (tip.forkToDoPromise === null){
+        if (tip.forkToDoPromise === undefined){
             tip.forkToDoPromise = new Promise((resolve)=>{
                 tip.forkToDoResolve = resolve;
             })
@@ -77317,7 +77331,7 @@ class InterfaceBlockchainTipsAdministrator {
 
             if (!this.tips[i].validateTip()){
 
-                if (this.tips[i].forkResolve !== null)
+                if (this.tips[i].forkResolve !== undefined)
                     this.tips[i].forkResolve(false);
 
                 this.tips.splice(i,1);
@@ -77407,16 +77421,16 @@ class InterfaceBlockchainTip{
         })
 
         this.forkToDoChainLength = -1;
-        this.forkToDoLastBlockHeader = null;
-        this.forkToDoPromise = null;
-        this.forkToDoResolve = null;
+        this.forkToDoLastBlockHeader = undefined;
+        this.forkToDoPromise = undefined;
+        this.forkToDoResolve = undefined;
     }
 
     updateToDo(){
 
         if ( this.forkToDoChainLength > 0 && this.forkToDoChainLength > this.forkChainLength) {
 
-            if (this.forkResolve !== null)
+            if (this.forkResolve !== undefined)
                 this.forkResolve(false);
 
             this.forkChainLength = this.forkToDoChainLength;
@@ -77426,9 +77440,9 @@ class InterfaceBlockchainTip{
 
 
             this.forkToDoChainLength = -1;
-            this.forkToDoLastBlockHeader = null;
-            this.forkToDoPromise = null;
-            this.forkToDoResolve = null;
+            this.forkToDoLastBlockHeader = undefined;
+            this.forkToDoPromise = undefined;
+            this.forkToDoResolve = undefined;
 
             return true;
         }
@@ -86879,14 +86893,16 @@ class InterfaceBlockchainProtocolTipsManager {
                 console.log("BANNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
                 this.blockchain.tipsAdministrator.addBan(bestTip.socket.node.sckAddress);
 
-                bestTip.forkResolve(true);
+                if (bestTip.forkResolve !== undefined)
+                    bestTip.forkResolve(true);
             } else {
                 this.blockchain.tipsAdministrator.deleteBan(bestTip.socket.node.sckAddress);
 
-                bestTip.forkResolve(false);
+                if (bestTip.forkResolve !== undefined)
+                    bestTip.forkResolve(false);
             }
 
-            bestTip.forkResolve = null;
+            bestTip.forkResolve = undefined;
 
             result = true;
         }
