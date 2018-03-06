@@ -25,7 +25,7 @@
 
                             <div class="verticalAlignMiddle">
 
-                                <p class="subtitle">SET MINER'S REWARD COMMISSION</p>
+                                <p class="subtitle">SET POOL LEADER REWARD FEE</p>
                                 <slider ref="refMiningSlider" @sliderChanged="this.changeCommission"/>
 
                                 <p class="createPoolLink">Mine WEBD with your friends! Create your own Mining Pool now, by using the Button below. See your Mining Pool stats in real-time.</p>
