@@ -76,7 +76,7 @@
             <div class="mediaContentBox">
                 <a href ="https://www.digi24.ro/stiri/sci-tech/lumea-digitala/prima-moneda-virtuala-romaneasca-860158" target="_blank">
 
-                    <img alt="Web Dollar Alexandru Panait" src="public/assets/images/media/webdollar-alexandru-panait-digi24-2.jpg">
+                    <img alt="Web Dollar Alexandru Panait" src="public/assets/images/media/webdollar-alexandru-panait-digi24.jpg">
                     <h3>First Romanian cryptocurrency interview</h3>
                     <span>Digi 24 TV</span>
 
