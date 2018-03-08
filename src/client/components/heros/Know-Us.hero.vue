@@ -47,7 +47,7 @@
                 <a href ="https://www.youtube.com/watch?v=AO67T4jip3k" target="_blank">
 
                     <img alt="Web Dollar Alexandru Budisteanu" src="public/assets/images/media/webdollar-alexandru-budisteanu-human-machine-future.jpg">
-                    <h3>WebDollar presentation in Saudia Arabia</h3>
+                    <h3>WebDollar presentation in Saudi Arabia</h3>
                     <span>Human Machine Future</span>
 
                 </a>
@@ -137,7 +137,7 @@
                 <a href ="" target="_blank">
 
                     <img src="public/assets/images/media/meetup.jpg">
-                    <h3>First WebDollar community meetu</h3>
+                    <h3>First WebDollar community meetup</h3>
                     <span>Romania, Bucharest</span>
 
                 </a>

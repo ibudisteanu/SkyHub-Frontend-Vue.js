@@ -13,7 +13,7 @@
     <div id="timelineSection" >
 
         <h1 class='alignCenter'>TIMELINE</h1>
-        <h3>Rapid Development of the WebDollar Cryptocurrency</h3>
+        <h3>Fast Development of the WebDollar Cryptocurrency</h3>
 
         <div id="timeline" class="backgroundSection">
         <div class="main-timeline">
@@ -63,7 +63,7 @@
                         <div class="timeline-content">
                             <h5 class="title">SECURITY + LAUNCH MAIN NET</h5>
                             <p class="description">
-                                Proofs of Proof of Work, Improving the Security and launching a Main Net
+                                Non-Interactive Proofs of Proof-of-Work, Improving the Security and launching a Main Net
                             </p>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                         <div class="timeline-content">
                             <h5 class="title">SMART CONTRACTS, ANONYMITY, EXCHANGE</h5>
                             <p class="description">
-                                Developing a Smart Contracts Platform, Anonymity, Currency Exchange, multisign with social network / fingerprint / faceID
+                                Developing a Smart Contracts Platform, Anonymity, Currency Exchange, multisign with fingerprint / faceID
                             </p>
                         </div>
                     </div>

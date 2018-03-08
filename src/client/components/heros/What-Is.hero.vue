@@ -15,7 +15,7 @@
                     <div>
                         <img src="public/assets/images/WebDollar-Security.png">
                         <h4>Immediate Security and Privacy</h4>
-                        <p>Built on the most advanced blockchain technology using PPoW consensus, your information will be secure and anonymous</p>
+                        <p>Built on the most advanced blockchain technology using NIPoPoW consensus, your information will be secure and anonymous</p>
                     </div>
                     <div>
                         <img src="public/assets/images/WebDollar-wallet.png">
