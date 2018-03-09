@@ -45,187 +45,187 @@
                 <div class="poolContainer">
 
                     <div class="miner">
-                        <img src="/public/assets/images/picker.png"/>
+                        <img alt="picker" src="/public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
-                        <span class="status">Offline</span>
-                    </div>
-                    <div class="miner activeMinner">
-                        <img src="public/assets/images/picker.png"/>
-                        <span class="status">Mining</span>
-                    </div>
-                    <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner activeMinner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Mining</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
+                        <span class="status">Offline</span>
+                    </div>
+                    <div class="miner activeMinner">
+                        <img alt="picker" src="public/assets/images/picker.png"/>
+                        <span class="status">Mining</span>
+                    </div>
+                    <div class="miner">
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
 
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner activeMinner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Mining</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
 
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
-                        <span class="status">Offline</span>
-                    </div>
-                    <div class="miner activeMinner">
-                        <img src="public/assets/images/picker.png"/>
-                        <span class="status">Mining</span>
-                    </div>
-                    <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner activeMinner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Mining</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
+                        <span class="status">Offline</span>
+                    </div>
+                    <div class="miner activeMinner">
+                        <img alt="picker" src="public/assets/images/picker.png"/>
+                        <span class="status">Mining</span>
+                    </div>
+                    <div class="miner">
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
 
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner activeMinner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner activeMinner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Mining</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Mining</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner activeMinner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
 
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
-                        <span class="status">Offline</span>
-                    </div>
-                    <div class="miner activeMinner">
-                        <img src="public/assets/images/picker.png"/>
-                        <span class="status">Offline</span>
-                    </div>
-                    <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
-                        <span class="status">Offline</span>
-                    </div>
-                    <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
-                        <span class="status">Mining</span>
-                    </div>
-                    <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner activeMinner">
-                        <img src="public/assets/images/picker.png"/>
-                        <span class="status">Mining</span>
-                    </div>
-                    <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
                     <div class="miner">
-                        <img src="public/assets/images/picker.png"/>
+                        <img alt="picker" src="public/assets/images/picker.png"/>
+                        <span class="status">Offline</span>
+                    </div>
+                    <div class="miner">
+                        <img alt="picker" src="public/assets/images/picker.png"/>
+                        <span class="status">Mining</span>
+                    </div>
+                    <div class="miner">
+                        <img alt="picker" src="public/assets/images/picker.png"/>
+                        <span class="status">Offline</span>
+                    </div>
+                    <div class="miner activeMinner">
+                        <img alt="picker" src="public/assets/images/picker.png"/>
+                        <span class="status">Mining</span>
+                    </div>
+                    <div class="miner">
+                        <img alt="picker" src="public/assets/images/picker.png"/>
+                        <span class="status">Offline</span>
+                    </div>
+                    <div class="miner">
+                        <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">Offline</span>
                     </div>
 
