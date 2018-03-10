@@ -27,7 +27,7 @@
                         </div>
 
                         <span class="teamName">Alexandru Ionut Budisteanu</span>
-                        <h5 class="teamRole">Founder</h5>
+                        <span class="teamRole">Founder</span>
                         <p class="description">
                             Alexandru is a Forbes Europe 30 under 30 nominee in industry category. In 2013, he was nominated by Time Magazine as one of the most influential teens of the world. MIT named an asteroid with his name.</a>
                         </p>
@@ -45,7 +45,7 @@
                             </div>
                         </div>
                         <span class="teamName">Alexandru Ionut Panait</span>
-                        <h5 class="teamRole">PLATFORM DEVELOPER</h5>
+                        <span class="teamRole">PLATFORM DEVELOPER</span>
                         <p>Alexandru is a young entrepreneur interested in technology and business. General Manager and Founder of a hiring Artificial Intelligence platform and a software agency.</p>
                     </div>
                     <div class="our-team">
@@ -59,7 +59,7 @@
                             </div>
                         </div>
                         <span class="teamName">Cosmin-Dumitru Oprea</span>
-                        <h5 class="teamRole">PROTOCOL DEVELOPER</h5>
+                        <span class="teamRole">PROTOCOL DEVELOPER</span>
                         <p>Cosmin is a Teaching Assistant at Politehnica University of Bucharest, Software Engineer with lot of knowledge in algorithms. Cosmin has won three Honorable Mentions at the ACM-ICPC SEERC.</p>
                     </div>
                     <div class="our-team">
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <span class="teamName">Adrian Stratulat</span>
-                        <h5 class="teamRole">EVANGELIST</h5>
+                        <span class="teamRole">EVANGELIST</span>
                         <p>Philosopher by vocation and diplomat by training, Adrian is a social entrepreneur specialized in innovative emerging technologies and blockchain applications. Also acting as economy advisor.</p>
                     </div>
                     <div class="our-team">
@@ -86,7 +86,7 @@
                             </div>
                         </div>
                         <span class="teamName">Patrick McCullough</span>
-                        <h5 class="teamRole">ADVISOR</h5>
+                        <span class="teamRole">ADVISOR</span>
                         <p>Patrick is the presentation coach for Singularity University's SU Ventures in Silicon Valley. He recently joined the Unreasonable Group for their Project Literacy Lab with Pearson, and he coaches senior executives for GE in Europe.</p>
                     </div>
                     <div class="our-team">
@@ -99,7 +99,7 @@
                             </div>
                         </div>
                         <span class="teamName">Tudor Smirna</span>
-                        <h5 class="teamRole">Economic advisor</h5>
+                        <span class="teamRole">Economic advisor</span>
                         <p>Tudor Smirna, Ph.D., is an economist and entrepreneur specialized in money and banking. He is a fellow of the Ludwig von Mises Institute and teaches at the Bucharest University of Economic Studies.</p>
                     </div>
                     <div class="our-team">
@@ -113,7 +113,7 @@
                             </div>
                         </div>
                         <span class="teamName">Adrian Robescu</span>
-                        <h5 class="teamRole">Blockchain business developer</h5>
+                        <span class="teamRole">Blockchain business developer</span>
                         <p>Adrian is a Business Analyst and Strategist, specialized in modeling business processes and ERP solutions. With a strong background in marketing is working on adoption, partnerships and communication.</p>
                     </div>
                     <div class="our-team">
@@ -126,14 +126,14 @@
                             </div>
                         </div>
                         <span class="teamName">Issam Outaleb</span>
-                        <h5 class="teamRole">MANAGEMENT ADVISOR</h5>
+                        <span class="teamRole">MANAGEMENT ADVISOR</span>
                         <p>Issam is a Business Management Senior Consultant and Strategist who partners with top tier executives and marketers. Issam knows what truly drives conversions, product launches, and successful strategic and operational planning.</p>
                     </div>
 
                 </div>
 
                 <a href="https://t.me/WebDollar">
-                    <h3 class="textAlignCenter">Join our community on Telegram</h3>
+                    <span style="width: 100%" class="textAlignCenter">Join our community on Telegram</span>
                 </a>
 
             </div>
