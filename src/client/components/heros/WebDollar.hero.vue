@@ -3,7 +3,7 @@
     <div id="mainSection" class="fullSection">
         <div class="verticalAlignMiddle alignCenter modifyTop verticalAlignMiddleMobileFix">
 
-            <img src="/public/WebDollar-logo-white.png" alt="webDollar-logo" title="webDollar-logo" class="mainLogo fadeIn">
+            <img src="/public/assets/images/WebDollar-logo-white.png" alt="webDollar-logo" title="webDollar-logo" class="mainLogo fadeIn">
 
             <h1 class="fadeIn fadeIn2">WebDollar <b class="testnet">TEST NET# 3.1</b></h1>
             <h2 v-show="this.maintenance" class="fadeIn fadeIn2"><b class="testnet">UNDER MAINTENANCE</b></h2>
