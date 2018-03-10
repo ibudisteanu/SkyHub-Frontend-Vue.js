@@ -6,7 +6,7 @@
 
             <div class="fullHeight">
 
-                <h1 class="alignCenter bigMarginTop" >WebDollar Core Team</h1>
+                <span class="pageTitle alignCenter bigMarginTop" >Core Team</span>
 
                 <div class="teamWrapper">
 
@@ -26,7 +26,7 @@
 
                         </div>
 
-                        <h4>ALEXANDRU IONUT BUDISTEANU</h4>
+                        <span class="teamName">Alexandru Ionut Budisteanu</span>
                         <h5 class="teamRole">Founder</h5>
                         <p class="description">
                             Alexandru is a Forbes Europe 30 under 30 nominee in industry category. In 2013, he was nominated by Time Magazine as one of the most influential teens of the world. MIT named an asteroid with his name.</a>
@@ -34,7 +34,23 @@
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
-                            <img src="/public/assets/images/team/cosminOprea.jpg">
+                            <img src="/public/assets/images/team/PanaitAlexandru.jpg" alt="Alexandru Ionut Panait" title="Alexandru Ionut Panait">
+                            <img src="/public/assets/images/team/cosminOprea.jpg" alt="Oprea Cosmin">
+                            <div class="over-layer">
+                                <ul class="social-link">
+                                    <li><a href="https://www.facebook.com/Ionut.Alex.Panait" target="_blank"  class="fa fa-facebook"></a></li>
+                                    <li><a href="https://www.linkedin.com/in/panait-alexandru-ionut-64181ba7/" target="_blank" class="fa fa-linkedin2"></a></li>
+                                    <li><a href="https://twitter.com/AlexandruPanai" target="_blank" class="fa fa-twitter"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <span class="teamName">Alexandru Ionut Panait</span>
+                        <h5 class="teamRole">PLATFORM DEVELOPER</h5>
+                        <p>Alexandru is a young entrepreneur interested in technology and business. General Manager and Founder of a hiring Artificial Intelligence platform and a software agency.</p>
+                    </div>
+                    <div class="our-team">
+                        <div class="team-pic">
+                            <img src="/public/assets/images/team/cosminOprea.jpg" alt="Oprea Cosmin">
                             <div class="over-layer">
                                 <ul class="social-link">
                                     <li><a href="https://www.facebook.com/opreacosmind" class="fa fa-facebook" target="_blank"></a></li>
@@ -42,29 +58,13 @@
                                 </ul>
                             </div>
                         </div>
-                        <h4>COSMIN-DUMITRU OPREA</h4>
+                        <span class="teamName">Cosmin-Dumitru Oprea</span>
                         <h5 class="teamRole">PROTOCOL DEVELOPER</h5>
                         <p>Cosmin is a Teaching Assistant at Politehnica University of Bucharest, Software Engineer with lot of knowledge in algorithms. Cosmin has won three Honorable Mentions at the ACM-ICPC SEERC.</p>
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
-                            <img src="/public/assets/images/team/PanaitAlexandru.jpg" alt="Alexandru Ionut Panait" title="Alexandru Ionut Panait">
-
-                            <div class="over-layer">
-                                <ul class="social-link">
-                                    <li><a href="https://www.facebook.com/Ionut.Alex.Panait" target="_blank"  class="fa fa-facebook"></a></li>
-                                    <li><a href="https://www.linkedin.com/in/alexandru-ionut-panait-64181ba7/" target="_blank" class="fa fa-linkedin2"></a></li>
-                                    <li><a href="https://twitter.com/AlexandruPanai" target="_blank" class="fa fa-twitter"/></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <h4>Alexandru IONUT Panait</h4>
-                        <h5 class="teamRole">PLATFORM DEVELOPER</h5>
-                        <p>Alexandru is a young entrepreneur interested in technology and business. General Manager and Founder of a hiring Artificial Intelligence platform and a software agency.</p>
-                    </div>
-                    <div class="our-team">
-                        <div class="team-pic">
-                            <img src="/public/assets/images/team/Adrian-Stratulat.jpg">
+                            <img src="/public/assets/images/team/Adrian-Stratulat.jpg" alt="Adrian Stratulat">
                             <div class="over-layer">
                                 <ul class="social-link">
                                     <li><a href="https://www.linkedin.com/in/adrianstratulat/" target="_blank" class="fa fa-linkedin2"></a></li>
@@ -72,39 +72,39 @@
                                 </ul>
                             </div>
                         </div>
-                        <h4>ADRIAN STRATULAT</h4>
+                        <span class="teamName">Adrian Stratulat</span>
                         <h5 class="teamRole">EVANGELIST</h5>
                         <p>Philosopher by vocation and diplomat by training, Adrian is a social entrepreneur specialized in innovative emerging technologies and blockchain applications. Also acting as economy advisor.</p>
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
-                            <img src="/public/assets/images/team/Patrick-McCullough.jpg">
+                            <img src="/public/assets/images/team/Patrick-McCullough.jpg" alt="Patrick McCullough">
                             <div class="over-layer">
                                 <ul class="social-link">
                                     <li> <a href="https://www.linkedin.com/in/patrick-mccullough-982643b/" target="_blank" class="fa fa-linkedin2"></a> </li>
                                 </ul>
                             </div>
                         </div>
-                        <h4 style="text-transform: none; ">PATRICK McCULLOUGH</h4>
+                        <span class="teamName">Patrick McCullough</span>
                         <h5 class="teamRole">ADVISOR</h5>
                         <p>Patrick is the presentation coach for Singularity University's SU Ventures in Silicon Valley. He recently joined the Unreasonable Group for their Project Literacy Lab with Pearson, and he coaches senior executives for GE in Europe.</p>
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
-                            <img src="/public/assets/images/team/Tudor-Smirna.jpeg">
+                            <img src="/public/assets/images/team/Tudor-Smirna.jpeg" alt="Tudor Smirna">
                             <div class="over-layer">
                                 <ul class="social-link">
                                     <li><a href="https://mises.org/profile/tudor-smirna" target="_blank" class="fa fa-globe"></a></li>
                                 </ul>
                             </div>
                         </div>
-                        <h4>TUDOR SMIRNA</h4>
+                        <span class="teamName">Tudor Smirna</span>
                         <h5 class="teamRole">Economic advisor</h5>
                         <p>Tudor Smirna, Ph.D., is an economist and entrepreneur specialized in money and banking. He is a fellow of the Ludwig von Mises Institute and teaches at the Bucharest University of Economic Studies.</p>
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
-                            <img src="/public/assets/images/team/AdrianRobescu.jpg">
+                            <img src="/public/assets/images/team/AdrianRobescu.jpg" alt="Adrian Robescu">
                             <div class="over-layer">
                                 <ul class="social-link">
                                     <li><a href="https://www.linkedin.com/in/robescu/" target="_blank"  class="fa fa-linkedin2"></a></li>
@@ -112,20 +112,20 @@
                                 </ul>
                             </div>
                         </div>
-                        <h4>ADRIAN ROBESCU</h4>
+                        <span class="teamName">Adrian Robescu</span>
                         <h5 class="teamRole">Blockchain business developer</h5>
-                        <p>Adrian is a Business Analyst and Strategist, specialized in modeling business processes and ERP solutions. With a strong background in marketing is working on WebDollar adoption, partnerships and communication.</p>
+                        <p>Adrian is a Business Analyst and Strategist, specialized in modeling business processes and ERP solutions. With a strong background in marketing is working on adoption, partnerships and communication.</p>
                     </div>
                     <div class="our-team">
                         <div class="team-pic">
-                            <img src="public/assets/images/team/Issam-Outaleb.jpg">
+                            <img src="public/assets/images/team/Issam-Outaleb.jpg" alt="Issam Outaleb">
                             <div class="over-layer">
                                 <ul class="social-link">
                                     <li> <a href="https://www.linkedin.com/in/issame-outaleb-phd-84442577/" target="_blank" class="fa fa-linkedin2"></a> </li>
                                 </ul>
                             </div>
                         </div>
-                        <h4>ISSAM OUTALEB</h4>
+                        <span class="teamName">Issam Outaleb</span>
                         <h5 class="teamRole">MANAGEMENT ADVISOR</h5>
                         <p>Issam is a Business Management Senior Consultant and Strategist who partners with top tier executives and marketers. Issam knows what truly drives conversions, product launches, and successful strategic and operational planning.</p>
                     </div>

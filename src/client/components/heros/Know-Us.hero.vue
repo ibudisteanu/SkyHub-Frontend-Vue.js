@@ -20,7 +20,7 @@
                 <a href ="https://www.facebook.com/webdollar.io/videos/131800187541413/" target="_blank">
 
                     <img src="public/assets/images/media/omega.jpg" alt="webDollar-omega-crypto-presentation" title="webDollar-omega-crypto-presentation">
-                    <h3>WebDollar Technology presentation</h3>
+                    <h3>Technology presentation</h3>
                     <span>Omega Crypto</span>
 
                 </a>
@@ -60,7 +60,7 @@
                 <a href ="https://youtu.be/vOt4HmL36gg" target="_blank">
 
                     <img alt="Web Dollar Alexandru Budisteanu" title="Web Dollar Alexandru Budisteanu" src="public/assets/images/media/webdollar-alexandru-budisteanu-kanal33.jpg">
-                    <h3>WebDollar interview with Budisteanu</h3>
+                    <h3>Interview with Budisteanu</h3>
                     <span>Kanal 33</span>
 
                 </a>
@@ -110,7 +110,7 @@
                 <a href ="https://www.facebook.com/webdollar.io/videos/127222761332489/" target="_blank">
 
                     <img alt="techhub" src="public/assets/images/media/techhub.jpg">
-                    <h3>WebDollar presentation</h3>
+                    <h3>Tehnical presentation</h3>
                     <span>Javascript Bucharest TechHub</span>
 
                 </a>
@@ -120,7 +120,7 @@
                 <a href ="https://ibitcoin.ro/exclusiv-interviu-cu-adrian-stratulat-lead-evangelist-la-webdollar-prima-criptomoneda-romaneasca/" target="_blank">
 
                     <img alt="itbitcoin" src="public/assets/images/media/ibitcoin.jpg">
-                    <h3>WebDollar interview</h3>
+                    <h3>Interview</h3>
                     <span>Bitcoin News Romania</span>
 
                 </a>

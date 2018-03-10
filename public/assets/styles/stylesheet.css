@@ -36,6 +36,7 @@ h1{
   text-transform: uppercase;
   line-height: 2.2em;
   font-size: 32px;
+  font-weight: 100!important;
   word-wrap: break-word;
   transition: all .5s linear;
 }
@@ -44,6 +45,7 @@ h2{
   color: #8e8e8e;
   letter-spacing: 5px;
   font-size: 22px;
+  font-weight: 100!important;
   line-height: 60px;
   transition: all .5s linear;
 }
@@ -53,6 +55,7 @@ h3{
   letter-spacing: 4px;
   font-size: 18px;
   margin-top: 30px;
+  font-weight: 100!important;
   line-height: 50px;
   color: #fff;
   transition: all .5s linear;
@@ -61,11 +64,13 @@ h3{
 h4{
   margin-bottom: 20px;
   font-size: 18px;
+  font-weight: 100!important;
   color: #fff;
 }
 
 h5{
   display: block;
+  font-weight: 100!important;
   padding: 10px 0;
   font-size: 16px;
 }
@@ -76,6 +81,7 @@ span{
   margin: 0 auto;
   width: 80%;
   display: block;
+  font-weight: 100!important;
   margin: 0 auto;
   line-height: 30px;
   letter-spacing: 1px;
@@ -1484,7 +1490,7 @@ svg path, svg rect{
 #knowUsSection h3{
   color: #ffdd8d;
   letter-spacing: 1px;
-  margin-bottom: 0;
+  margin-bottom: 10px;
 }
 
 .mediaContentBox{
@@ -1494,4 +1500,32 @@ svg path, svg rect{
 
 .mediaContentBox span{
   line-height: 18px;
+}
+
+.pageTitle{
+  letter-spacing: 2px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  vertical-align: baseline;
+  background: #9a9a9a24;
+  color: #ffc12c;
+  text-transform: uppercase;
+  line-height: 2.2em;
+  font-size: 32px;
+  width: 100%;
+  word-wrap: break-word;
+  transition: all .5s linear;
+}
+
+.removeBackground{
+  background: rgba(255, 34, 0, 0);
+}
+
+.teamName{
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 100!important;
+  color: #fff;
 }

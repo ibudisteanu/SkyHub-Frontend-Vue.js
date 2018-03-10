@@ -12,8 +12,8 @@
 
     <div id="timelineSection" >
 
-        <h1 class='alignCenter'>TIMELINE</h1>
-        <h3>Fast Development of the WebDollar Cryptocurrency</h3>
+        <span class='alignCenter pageTitle'>TIMELINE</span>
+        <h3>Fast Development of WEBD Cryptocurrency</h3>
 
         <div id="timeline" class="backgroundSection">
         <div class="main-timeline">

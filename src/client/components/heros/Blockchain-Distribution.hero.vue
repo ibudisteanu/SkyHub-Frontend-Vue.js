@@ -4,7 +4,7 @@
 
         <div class="verticalAlignMiddle">
 
-            <h1 class="alignCenter bigMarginBottom">COIN SUPPLY</h1>
+            <span class="pageTitle alignCenter bigMarginBottom">COIN SUPPLY</span>
 
             <div class="distributionContainer maxWidthSection">
 

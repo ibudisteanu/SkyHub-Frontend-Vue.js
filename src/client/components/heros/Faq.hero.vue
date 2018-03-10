@@ -2,7 +2,7 @@
 
     <div id="faqSection">
 
-        <h1 class="alignCenter bigMarginTop">FAQ</h1>
+        <span class="alignCenter bigMarginTop pageTitle">FAQ</span>
 
         <div class="faqContainer">
 
