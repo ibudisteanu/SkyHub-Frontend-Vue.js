@@ -297,11 +297,6 @@ a:hover{
   margin-top: 20px;
 }
 
-.bigMarginTop{
-  margin-top: 100px;
-  margin-bottom: 100px;
-}
-
 .bigMarginBottom{
   margin-bottom: 100px;
 }
@@ -1528,4 +1523,9 @@ svg path, svg rect{
   font-size: 18px;
   font-weight: 100!important;
   color: #fff;
+}
+
+.bigMarginTop{
+  margin-top: 100px;
+  margin-bottom: 100px;
 }
