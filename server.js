@@ -64,7 +64,7 @@ const serve = (path, cache) => express.static(resolve(path), {
 
 app.use(compression({ threshold: 0 }))
 app.use(cookieParser()); // cookie parser
-app.use(favicon('./public/logo-48.png'))
+app.use(favicon('./public/assets/images/logo-48.png'))
 app.use('/dist', serve('./dist', true))
 app.use('/public', serve('./public', true))
 app.use('/manifest.json', serve('./manifest.json', true))

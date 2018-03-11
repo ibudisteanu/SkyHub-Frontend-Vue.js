@@ -100,7 +100,7 @@
                 <a href ="" target="_blank">
 
                     <img alt="meetup" src="public/assets/images/media/meetup.jpg">
-                    <h3>First WebDollar community meetup</h3>
+                    <h3>First WebDollar Community Meetup</h3>
                     <span>Romania, Bucharest</span>
 
                 </a>

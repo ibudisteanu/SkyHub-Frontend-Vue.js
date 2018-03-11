@@ -5,7 +5,7 @@
         <div id="aboutSection" class="fullSection backgroundSection">
             <div class="verticalAlignMiddle">
 
-                <span class="pageTitle alignCenter titleMarginBottom removeBackground">What is WebDollar?</span>
+                <span class="pageTitle alignCenter titleMarginBottom removeBackground">WebDollar</span>
                 <div id="whatContainer">
                     <div>
                         <img src="public/assets/images/WebDollar-ming.png" alt="webdollar-mining">
@@ -14,7 +14,7 @@
                     </div>
                     <div>
                         <img src="public/assets/images/WebDollar-Security.png" alt="webdollar-security">
-                        <h4>Immediate Security and Privacy</h4>
+                        <h4>Secure and Private</h4>
                         <p>Built on the most advanced blockchain technology using NIPoPoW consensus, your information will be secure and anonymous</p>
                     </div>
                     <div>

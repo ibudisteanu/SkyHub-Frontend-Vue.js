@@ -1,12 +1,3 @@
-/**
-* Created by Alexandru Ionut Budisteanu
-
-    inspired from:
-
-    http://bestjquery.com/tutorial/timeline/demo16/
-
-
-*/
 
 <template>
 
@@ -69,7 +60,7 @@
                     </div>
                     <div class="timeline timelineUnfinishedMilestones">
                         <div class="timeline-icon unfinishedMilestones"><i class="fa fa-gift"></i></div>
-                        <span class="year">MAY-JUNE 2018</span>
+                        <span class="year">JUNE-JULY 2018</span>
                         <div class="timeline-content">
                             <h5 class="title">SMART CONTRACTS, ANONYMITY, EXCHANGE</h5>
                             <p class="description">
