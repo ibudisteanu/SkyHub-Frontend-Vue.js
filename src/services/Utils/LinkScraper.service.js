@@ -5,7 +5,6 @@
 
 import * as io from 'socket.io-client';
 
-import { Observable, Subscribable } from 'rxjs/Observable';
 
 import * as SocketStatusActions from '../../../../my-redux/actions/SocketStatus.actions';
 

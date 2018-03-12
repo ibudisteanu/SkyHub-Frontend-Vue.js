@@ -5,8 +5,6 @@
 
 import * as io from 'socket.io-client';
 
-import { Observable, Subscribable } from 'rxjs/Observable';
-
 var constants = require('root/constants.js');
 
 class ClientSocketServiceClass {
