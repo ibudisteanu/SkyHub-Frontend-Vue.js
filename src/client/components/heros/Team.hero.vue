@@ -20,7 +20,7 @@
                                     <li><a href="http://facebook.com/budisteanu.ionut" class="fa fa-facebook" target="_blank"></a></li>
                                     <li><a href="http://github.com/ibudisteanu" class="fa fa-github" target="_blank"></a></li>
                                     <li><a href="http://budisteanu.net" class="fa fa-globe" target="_blank"></a></li>
-                                    <li><a href="https://en.wikipedia.org/wiki/Ionu%C8%9B_Budi%C8%99teanu" class="fa fa-wikipedia" target="_blank"></a></li>
+                                    <li><a href="https://ro.wikipedia.org/wiki/Ionu%C8%9B_Budi%C8%99teanu" class="fa fa-wikipedia" target="_blank"></a></li>
                                 </ul>
                             </div>
 
