@@ -162,7 +162,7 @@
                 this.options = [];
                 console.log("calculating suggestions");
 
-                FetchService.sendRequestGetData("search/parents", {text: input}).then ((data)=>{
+                FetchService.sendRequestWaitOnce("search/parents", {text: input}).then ((data)=>{
 
                     if (data === null) { resolve ({options: []}); console.log("ERROR getting keywords "); }
                     else {

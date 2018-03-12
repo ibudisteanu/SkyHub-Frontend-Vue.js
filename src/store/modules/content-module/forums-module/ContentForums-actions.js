@@ -11,7 +11,7 @@ export default{
 
         if (reset === true) await commit('SET_CONTENT_FORUMS_RESET', {});
 
-        let answer = await FetchService.sendRequestGetData( "forums/get-top-forums",{parent: parent, pageIndex:pageIndex, pageCount: pageCount} );
+        let answer = await FetchService.sendRequestWaitOnce( "forums/get-top-forums",{parent: parent, pageIndex:pageIndex, pageCount: pageCount} );
 
         //console.log('CONTENT_FORUMS_FETCH_TOP',parent, pageIndex, pageCount, reset, answer);
 
@@ -36,7 +36,7 @@ export default{
 
     CONTENT_FORUMS_SUBMIT_ADD: async ( {commit, state, dispatch}, { parent, name, title, description,  keywords, country, language, city, latitude, longitude, timeZone }) =>{
         try{
-            let resData = await FetchService.sendRequestGetData("forums/add-forum",{parent, name, title, description, keywords ,
+            let resData = await FetchService.sendRequestWaitOnce("forums/add-forum",{parent, name, title, description, keywords ,
                                                                                     country, language, city , latitude, longitude,  timeZone});
 
 
@@ -56,7 +56,7 @@ export default{
     CONTENT_FORUMS_GET: async ({commit, state, dispatch}, {id}) =>{
 
         //Using Promise
-        return FetchService.sendRequestGetData("forums/get-forum",{id: id});
+        return FetchService.sendRequestWaitOnce("forums/get-forum",{id: id});
 
     }
 

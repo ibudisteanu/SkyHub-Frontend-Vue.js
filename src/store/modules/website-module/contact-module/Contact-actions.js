@@ -10,7 +10,7 @@ export default{
     CONTACT_SEND_EMAIL: async ({ commit, state, dispatch }, { parentId, name, emailAddress, authorId,  title, body,  country, language,  city, latitude, longitude, timezone}) => {
 
         if (sContentToSearchId !== '')
-            return await FetchService.sendRequestGetData('contact/send-email-content', {id: sContentToSearchId});
+            return await FetchService.sendRequestWaitOnce('contact/send-email-content', {id: sContentToSearchId});
 
         let res;
         res = await dispatch('CONTENT_FETCH_ROUTER_OBJECT', {url: url});

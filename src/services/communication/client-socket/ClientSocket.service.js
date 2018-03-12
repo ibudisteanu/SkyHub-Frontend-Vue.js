@@ -30,57 +30,42 @@ class ClientSocketServiceClass {
     createClientSocket() {
 
         this.socket = io.connect( constants.SERVICE_WEBSOCK_URL, {
-            //query: "token=aaa" //JWT Token
-            query: "token=" + this.storeState.authenticatedUser.sessionId //JWT Token
+            query: "token=" + this.storeState.authenticatedUser.sessionId
         });
 
-        this.setSocketReadObservable("connect").subscribe(response => {
-
+        this.socket.on("connect", ()=> {
             console.log('Client has connected to the server!');
             this.dispatch('SOCKET_CONNECTION_SUCCESSFULLY',{});
         });
 
-        this.socket.on("connect_failed",function () {
+        this.socket.on("connect_failed", () => {
             console.log('Connecting failed 222');
         });
 
-        this.setSocketReadObservable("connect_error").subscribe(response => {
+        this.socket.on("connect_error", (response) => {
             console.log('Connecting Error', response);
             this.dispatch('SOCKET_CONNECTING_ERROR',{error: response});
         });
 
-        this.socket.on("error",function () {
+        this.socket.on("error",() => {
             console.log('error 222');
         });
 
-
-        this.socket.on('api/news', function (res) {
-            console.log('news');
-            console.log(res);
-        });
-
         // THE SAME CODE written but using OBSERVABLE
-        this.setSocketReadObservable("connectionReady").subscribe(response => {
+        this.socket.on(constants.SERVICE_WEBSOCK_API+"connectionReady", (response) => {
+            console.log("Connection Ready: " + response);
 
-                console.log("Connection Ready: " + response);
+            this.socket.on(constants.SERVICE_WEBSOCK_API+"version", (response) => {
 
-                this.sendRequestObservable("version", '').subscribe(response => {
+                this.sServerSocketVersion = response.version;
 
-                    this.sServerSocketVersion = response.version;
-
-                    console.log("API VERSION: " + response.version);
-                });
+                console.log("API VERSION: " + response.version);
+            });
             }
         );
 
-
-        // Add a connect listener
-        this.socket.on('api/message', function (data) {
-            console.log('Received a message from the server!', data);
-        });
-
         // Add a disconnect listener
-        this.setSocketReadObservable("disconnect").subscribe(response => {
+        this.socket.on("disconnect", (response) => {
 
             console.log('The client has disconnected!');
             this.dispatch('SOCKET_DISCONNECTED', {});
@@ -102,9 +87,6 @@ class ClientSocketServiceClass {
             requestData.sessionId = sessionId;
         }
 
-        //console.log('sending 2'+sRequestName, requestData);
-
-
         if ((sRequestName !== '') || (requestData !== ''))
             return this.socket.emit( constants.SERVICE_WEBSOCK_API + sRequestName, requestData);
     }
@@ -112,7 +94,7 @@ class ClientSocketServiceClass {
     /*
      Sending the Request and Obtain the Promise to Wait Async
      */
-    sendRequestGetData(sRequestName, sRequestData, receivingSuffix) {
+    sendRequestWaitOnce(sRequestName, sRequestData, receivingSuffix) {
 
         if (typeof receivingSuffix === 'undefined') receivingSuffix = '';
 
@@ -120,10 +102,7 @@ class ClientSocketServiceClass {
 
             this.sendRequest(sRequestName, sRequestData);
 
-            this.socket.once(constants.SERVICE_WEBSOCK_API + sRequestName + (receivingSuffix !== '' ? '/'+receivingSuffix : ''), function (resData) {
-
-                /*console.log('SOCKET RECEIVED: ');
-                 console.log(resData);*/
+            this.socket.once(constants.SERVICE_WEBSOCK_API + sRequestName + (receivingSuffix !== '' ? '/'+receivingSuffix : ''),  (resData) => {
 
                 resolve(resData);
 
@@ -133,29 +112,16 @@ class ClientSocketServiceClass {
     }
 
     /*
-     Sending Request and Obtain the Observable Object
+         Sending the Request and Obtain the Promise to Wait Async
      */
-    sendRequestObservable(sRequestName, sRequestData) {
+    sendRequestOn(sRequestName, sRequestData, receivingSuffix, callback) {
 
-        var result = this.sendRequest(sRequestName, sRequestData);
+        if (typeof receivingSuffix === 'undefined') receivingSuffix = '';
 
-        return this.setSocketReadObservable(sRequestName);
-    }
+        this.sendRequest(sRequestName, sRequestData);
 
-    setSocketReadObservable(sRequestName) {
+        this.socket.on(constants.SERVICE_WEBSOCK_API + sRequestName + (receivingSuffix !== '' ? '/'+receivingSuffix : ''),  callback );
 
-        if ((sRequestName !== "connect") && (sRequestName !== "disconnect") && (sRequestName !== 'connect_failed')&&(sRequestName !== 'connect_error'))
-            sRequestName = constants.SERVICE_WEBSOCK_API + sRequestName;
-
-        //let observable = new Observable < Object > (observer => {
-        let observable = Observable.create(observer => {
-                this.socket.on(sRequestName, (data) => {
-                    observer.next(data);
-                });
-            });
-
-        //console.log("OBSERVABLE for "+sRequestName,observable,);
-        return observable;
     }
 
 }

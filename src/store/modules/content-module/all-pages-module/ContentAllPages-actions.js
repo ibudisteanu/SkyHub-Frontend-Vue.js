@@ -11,7 +11,7 @@ export default{
 
         if (reset === true) await commit('SET_CONTENT_ALL_PAGES_RESET', {});
 
-        let answer = await FetchService.sendRequestGetData( "pages/get-all-pages",{parent: parent, pageIndex:pageIndex, pageCount: pageCount} );
+        let answer = await FetchService.sendRequestWaitOnce( "pages/get-all-pages",{parent: parent, pageIndex:pageIndex, pageCount: pageCount} );
 
         //console.log('CONTENT_ALL_PAGES_FETCH',parent, pageIndex, pageCount, reset, answer);
 

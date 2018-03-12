@@ -15,7 +15,7 @@ export default{
 
         //  pageCount = 2;
 
-        let answer = await FetchService.sendRequestGetData( "content/get-top-content", {parent: parent, pageIndex:pageIndex, pageCount: pageCount } );
+        let answer = await FetchService.sendRequestWaitOnce( "content/get-top-content", {parent: parent, pageIndex:pageIndex, pageCount: pageCount } );
 
         console.log('CONTENT_TOPICS_FETCH_TOP',parent, pageIndex, pageCount, reset, answer);
 
@@ -54,7 +54,7 @@ export default{
         try {
 
             //Using Promise
-            let resData = await FetchService.sendRequestGetData("topics/add-topic",{parent : parentId, title: title, image:image, description: description,  attachments: attachments,
+            let resData = await FetchService.sendRequestWaitOnce("topics/add-topic",{parent : parentId, title: title, image:image, description: description,  attachments: attachments,
                                                                                     keywords : keywords,  country: countryCode, language:language, city : city,
                                                                                     latitude: latitude, longitude : longitude});
 
@@ -77,7 +77,7 @@ export default{
     CONTENT_TOPICS_GET: async ({commit, state, dispatch}, {id}) =>{
 
         //Using Promise
-        return FetchService.sendRequestGetData("topics/get-topic",{id: id});
+        return FetchService.sendRequestWaitOnce("topics/get-topic",{id: id});
 
     }
 

@@ -87,7 +87,7 @@
 
                 let answer = null;
                 try {
-                    answer = await FetchService.sendRequestGetData( request, data);
+                    answer = await FetchService.sendRequestWaitOnce( request, data);
                 } catch (Exception){
                     this.dataAnswer = "Exception raised... "+Exception.toString();
                 }

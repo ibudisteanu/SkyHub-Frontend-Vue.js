@@ -27,7 +27,7 @@ export default{
             return false; //the service has been finished
         }
 
-        let resData = await FetchService.sendRequestGetData("notifications/get-last-notifications", {});
+        let resData = await FetchService.sendRequestWaitOnce("notifications/get-last-notifications", {});
 
         if (resData.result){
             //console.log('#### USER_NOTIFICATIONS_FETCHING_SERVICE_EXECUTE ANSWER', resData);

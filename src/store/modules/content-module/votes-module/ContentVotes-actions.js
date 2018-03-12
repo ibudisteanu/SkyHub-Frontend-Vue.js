@@ -16,7 +16,7 @@ export default{
 
             await commit('SET_CONTENT_VOTE_LOADING_STATUS',{parentId: parentId, loadingStatus: true});
 
-            let resData = await FetchService.sendRequestGetData("voting/submit-vote",{parentId: parentId, voteType: voteType }, parentId);
+            let resData = await FetchService.sendRequestWaitOnce("voting/submit-vote",{parentId: parentId, voteType: voteType }, parentId);
             console.log('Answer from Votings ', resData);
 
             await commit('SET_CONTENT_VOTE_LOADING_STATUS',{parentId: parentId, loadingStatus: false});
@@ -43,7 +43,7 @@ export default{
 
         if (typeof state.votes.parentId !== 'undefined') return {result: true, vote: state.votes.parentId }; //already fetched previously...
 
-        let result  = await FetchService.sendRequestGetData("voting/get-vote", {parentId: parentId}, parentId);
+        let result  = await FetchService.sendRequestWaitOnce("voting/get-vote", {parentId: parentId}, parentId);
 
         if (result.result === true){
 
@@ -57,7 +57,7 @@ export default{
 
     CONTENT_VOTES_FETCH_ALL_VOTES: async ({commit, state, dispatch}, {parentId }) =>{
 
-        let result  = await FetchService.sendRequestGetData("voting/get-all-votes", {parentId: parentId}, parentId);
+        let result  = await FetchService.sendRequestWaitOnce("voting/get-all-votes", {parentId: parentId}, parentId);
 
         if (result.result === true){
 

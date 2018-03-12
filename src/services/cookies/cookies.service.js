@@ -4,29 +4,8 @@
 
 export default class CookiesService {
 
-    static getSessionCookie(){
-        return this.readCookie2('sessionId');
-    }
 
-    static readCookie(cookieName) {
 
-      if (typeof window ==="undefined") return '';
-
-      let theCookie=" "+window.document.cookie;
-      let ind=theCookie.indexOf(" "+cookieName+"=");
-      if (ind==-1) ind=theCookie.indexOf(";"+cookieName+"=");
-      if (ind==-1 || cookieName=="") return "";
-      let ind1=theCookie.indexOf(";",ind+1);
-      if (ind1==-1) ind1=theCookie.length;
-      return theCookie.substring(ind+cookieName.length+2,ind1);
-    }
-
-    static readCookie2(a) {
-      if (typeof window ==="undefined") return '';
-
-      let b = window.document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
-      return b ? b.pop() : '';
-    }
 
     static deleteCookie(name) {
       console.log('deleting cookie');
@@ -46,28 +25,6 @@ export default class CookiesService {
     }
 
 
-    static extractAuthCookie(cookies){
 
-        let sessionId = '';
-
-        //based on this https://stackoverflow.com/questions/3393854/get-and-set-a-single-cookie-with-node-js-http-server
-        cookies && cookies.split(';').forEach( function( cookie ) {
-            let parts = cookie.split('=');
-
-            let cookieName = parts.shift().trim();
-
-            if (cookieName === 'sessionId')
-                sessionId = decodeURI(parts.join('='));
-
-        });
-
-        if ((sessionId !== '')&&(sessionId.length > 5))
-
-            return sessionId;
-
-         else
-            return null;
-
-    }
 
 }

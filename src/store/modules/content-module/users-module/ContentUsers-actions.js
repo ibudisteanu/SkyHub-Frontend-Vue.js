@@ -25,7 +25,7 @@ export default{
             console.log('get-user', '#'+userId+'#');
 
             commit('SET_CONTENT_USER_AS_LOADING',{userId: userId, status: true});
-            let resData =  await FetchService.sendRequestGetData("users/get-user", {userId: userId }, userId);
+            let resData =  await FetchService.sendRequestWaitOnce("users/get-user", {userId: userId }, userId);
 
             console.log('get-user answer', resData);
 
@@ -50,7 +50,7 @@ export default{
 
             console.log('CONTENT_USERS_CHANGE_PROFILE_PIC 1',userId, profilePic);
 
-            let resData =  await FetchService.sendRequestGetData("users/set-profile-pic", {userId: userId, profilePic: profilePic }, userId);
+            let resData =  await FetchService.sendRequestWaitOnce("users/set-profile-pic", {userId: userId, profilePic: profilePic }, userId);
 
             console.log('CONTENT_USERS_CHANGE_PROFILE_PIC',resData);
 

@@ -50,7 +50,7 @@ export default{
         console.log("CONTENT_FETCH_ROUTER_OBJECT_AND_CONTENT", {url: sContentToSearchId});
 
         if (sContentToSearchId !== '')
-            return await FetchService.sendRequestGetData('content/get-content', {id: sContentToSearchId});
+            return await FetchService.sendRequestWaitOnce('content/get-content', {id: sContentToSearchId});
         else
             return {result: false, data: {content: null}};
     },
@@ -63,7 +63,7 @@ export default{
         try{
 
             if (objectId !== '') {
-                let answer = await FetchService.sendRequestGetData('content/delete-object', {id: objectId}, objectId);
+                let answer = await FetchService.sendRequestWaitOnce('content/delete-object', {id: objectId}, objectId);
 
                 console.log('------------------------- CONTENT DELETE OBJECT',answer);
                 if (answer.result === true){
@@ -86,11 +86,11 @@ export default{
 
 
     CONTENT_URL_SLUG: async ( {commit, store}, {parent, name}) => {
-        return FetchService.sendRequestGetData("content/get-URL-slug", {parent:parent, name: name} );
+        return FetchService.sendRequestWaitOnce("content/get-URL-slug", {parent:parent, name: name} );
     },
 
     CONTENT_URL_META: async ( {commit, store}, {link}) => {
-        return FetchService.sendRequestGetData("meta-extractor/extract-url", {link:link});
+        return FetchService.sendRequestWaitOnce("meta-extractor/extract-url", {link:link});
     },
 
 

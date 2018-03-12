@@ -18,7 +18,7 @@ export default{
         } else {
             commit('SET_USER_NOTIFICATION_AS_MARKED',{notificationId: notificationId, markedValue:markRead});
         }
-        FetchService.sendRequestGetData('notifications/mark-notification-read', {notificationId: notificationId, markAll:markAll, markValue: markRead });
+        FetchService.sendRequestWaitOnce('notifications/mark-notification-read', {notificationId: notificationId, markAll:markAll, markValue: markRead });
 
     },
 
@@ -26,14 +26,14 @@ export default{
 
         //console.log('##############, USER_NOTIFICATION_NOTIFICATION_SHOWN', notificationId);
 
-        FetchService.sendRequestGetData('notifications/mark-notification-shown', {notificationId: notificationId});
+        FetchService.sendRequestWaitOnce('notifications/mark-notification-shown', {notificationId: notificationId});
         commit('SET_USER_NOTIFICATION_AS_SHOWN', {notificationId: notificationId, shown: true});
 
     },
 
     USER_NOTIFICATIONS_RESET_UNREAD_COUNTER: async ({state, commit}, {notificationId})=> {
 
-        FetchService.sendRequestGetData('notifications/reset-notification-unread-counter', {});
+        FetchService.sendRequestWaitOnce('notifications/reset-notification-unread-counter', {});
         //commit('SET_USER_NOTIFICATION_RESET_UNREAD_COUNTER', {});
 
     },

@@ -18,7 +18,7 @@ export default {
 
         if (getters.isUserLoggedIn(state.user) === true) { console.log("user already logged in"); return {result:true, user:state.user} }; //already logged in
 
-        let resData = await FetchService.sendRequestGetData("auth/login",{emailUsername:sEmailUserName, password:sPassword});
+        let resData = await FetchService.sendRequestWaitOnce("auth/login",{emailUsername:sEmailUserName, password:sPassword});
 
         console.log('Answer from Server Auth Login', resData);
 
@@ -47,7 +47,7 @@ export default {
         // }
 
         console.log('Fetching session', sessionId, state.user.lastName);
-        let resData = await FetchService.sendRequestGetData("auth/login-session", {sessionId: sessionId });
+        let resData = await FetchService.sendRequestWaitOnce("auth/login-session", {sessionId: sessionId });
 
         console.log('Answer from Login sessionId Async', resData.result, state.user.lastName);
 
@@ -77,7 +77,7 @@ export default {
 
         console.log("LOGOUT ACTION");
 
-        FetchService.sendRequestGetData("auth/logout",{userId: state.user.id||''});
+        FetchService.sendRequestWaitOnce("auth/logout",{userId: state.user.id||''});
 
         CookiesService.deleteCookie("sessionId");
         await commit('SET_AUTHENTICATED_USER_SESSION', {sessionId: ''});
@@ -89,7 +89,7 @@ export default {
     AUTHENTICATE_REGISTER: async ({ commit, dispatch, state }, { sUsername, sEmailAddress, sPassword, sFirstName, sLastName, sCountry, sLanguage, sCity, sLatitude, sLongitude, iTimeZone }) => {
 
         //Using Promise
-        let resData = await FetchService.sendRequestGetData("auth/register", {
+        let resData = await FetchService.sendRequestWaitOnce("auth/register", {
             email: sEmailAddress,
             username: sUsername,
             password: sPassword,
@@ -116,7 +116,7 @@ export default {
 
     AUTHENTICATE_REGISTER_OAUTH: async ({ commit, dispatch, state }, { sSocialNetworkName,sSocialNetworkId, sAccessToken, sEmail, sFirstName, sLastName,sProfilePic, sCoverImage, sCountryCode, sLanguage, sCity, latitude, longitude, sShortBio, iAge, sGender, iTimeZone, bVerified }) => {
 
-        let resData = await FetchService.sendRequestGetData("auth/register-oauth", {
+        let resData = await FetchService.sendRequestWaitOnce("auth/register-oauth", {
             socialNetwork: sSocialNetworkName,
             socialNetworkId: sSocialNetworkId,
             accessToken: sAccessToken,

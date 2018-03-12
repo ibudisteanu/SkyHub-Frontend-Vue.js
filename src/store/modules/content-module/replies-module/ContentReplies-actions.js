@@ -11,7 +11,7 @@ export default{
 
         if (reset === true) await commit('SET_CONTENT_REPLIES_CLEAR', {});
 
-        let answer = await FetchService.sendRequestGetData( "replies/get-top-replies",{parent: parent, pageIndex:pageIndex, pageCount: pageCount} );
+        let answer = await FetchService.sendRequestWaitOnce( "replies/get-top-replies",{parent: parent, pageIndex:pageIndex, pageCount: pageCount} );
 
         if ((typeof answer !== "undefined")&&(answer.result === true)) {
 
@@ -29,7 +29,7 @@ export default{
 
         if (reset === true) await commit('SET_CONTENT_REPLIES_CLEAR', {});
 
-        let answer = await FetchService.sendRequestGetData( "replies/get-all-replies",{parent: parent} );
+        let answer = await FetchService.sendRequestWaitOnce( "replies/get-all-replies",{parent: parent} );
 
         console.log("@@@@@@@@@ REPLIES answer",answer);
 
@@ -43,7 +43,7 @@ export default{
 
     CONTENT_REPLIES_SUBMIT_ADD: async ( {commit, state, dispatch}, {parent, parentReply, title, description,  attachments, keywords, country, language, city, latitude, longitude}) =>{
         try{
-            let resData = await FetchService.sendRequestGetData("replies/add-reply",{parent : parent, parentReply:parentReply, title: title, description: description,  attachments: attachments,
+            let resData = await FetchService.sendRequestWaitOnce("replies/add-reply",{parent : parent, parentReply:parentReply, title: title, description: description,  attachments: attachments,
                                                                                      keywords : keywords,  country: country, language:language, city : city,
                                                                                      latitude: latitude, longitude : longitude});
 
@@ -67,7 +67,7 @@ export default{
     CONTENT_REPLIES_GET: async ({commit, state, dispatch}, {id}) =>{
 
         //Using Promise
-        return FetchService.sendRequestGetData("forums/get-forum",{id: id});
+        return FetchService.sendRequestWaitOnce("forums/get-forum",{id: id});
 
     }
 

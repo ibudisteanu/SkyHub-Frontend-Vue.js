@@ -18,7 +18,7 @@ class HTTPServiceClass {
         this.storeState = storeState;
     }
 
-    async sendRequestGetData(sRequest, requestData){
+    async sendRequestWaitOnce(sRequest, requestData){
 
         if (typeof requestData.sessionId === "undefined") {
             let sessionId = this.storeState.authenticatedUser.sessionId;
@@ -40,7 +40,7 @@ class HTTPServiceClass {
         }
     }
 
-    async sendRequestGetDataURL(sRequest, req){
+    async sendRequestWaitOnceURL(sRequest, req){
 
         req = {data: req};
 
