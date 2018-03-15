@@ -100,7 +100,7 @@
                                 <path style=" fill:rgb(124,124,124);" d="M 34.585938 14.585938 L 21.015625 28.171875 L 15.414063 22.585938 L 12.585938 25.414063 L 21.019531 33.828125 L 37.414063 17.414063 Z "/>
                             </g>
                         </svg>
-                        <span class="newCryptoText">Multi-Sig using Social / Fingerprint and Facial Recognition ID</span>
+                        <span class="newCryptoText">Multi-Sig using Fingerprint and Facial Recognition ID</span>
                     </div>
                 </div>
                 <div>
