@@ -64,7 +64,7 @@ const serve = (path, cache) => express.static(resolve(path), {
 
 app.use(compression({ threshold: 0 }))
 app.use(cookieParser()); // cookie parser
-app.use(favicon('./public/logo-48.png'))
+app.use(favicon('./public/assets/images/logo-48.png'))
 app.use('/dist', serve('./dist', true))
 app.use('/public', serve('./public', true))
 app.use('/manifest.json', serve('./manifest.json', true))
@@ -124,57 +124,57 @@ function render (req, res) {
    //let ip = requestIp.getClientIp(req);
    console.log('IP::'); console.log(ip);
 
-  const context = {
-    SEOMixinTitle: {
-      title:'WebDollar - Currency of the Internet',
-      facebook: 'WebDollar - Currency of the Internet',
-      twitter: 'WebDollar - Currency of the Internet',
-    }, // default title
-    SEOMixinDescription: {
-      description:'WebDollar - disrupting Blockchain',
-      facebook:'WebDollar - disrupting Blockchain',
-      twitter: 'WebDollar - disrupting Blockchain', // default title
-    },
-    SEOMixinKeywords: 'webdollar, blockchain, bitcoin, blockchain in browser',
-    SEOMixinImages:
-      '<meta property="og:image"  content="http://webdollar.io/public/images/WebDollar-Landing-image.png"  /> ' +
-      '<meta property="og:image:alt" content="WebDollar - Currency of Internet" />' +
-      '<meta property="twitter:image"  content="http://webdollar.io/public/images/WebDollar-Landing-image.png" />'+
-      '<meta property="twitter:image:alt" content="WebDollar - Currency of the Internet"   />',
-    SEOMixinSchemaMarkup:{
-        "@context": "http://schema.org",
-        "@type": "WebSite",
-        name: "SkyHub",
-        alternateName: "WebDollar Currency of the Internet",
-        url: "http://webdollar.io/",
-        potentialAction: {
-            "@type": "SearchAction",
-            target: "http://skyhub.me/search/{query}",
-            "query-input": "required"
-        }
-    },
-    SEOMixinBreadcrumbsSchemaMarkup:{
-        "@context": "http://schema.org",
-        "@type": "BreadcrumbList",
-        itemListElement: [{
-            "@type": "ListItem",
-            position: 1,
-            item: {
-                "@id": "https://webolldar.io/",
-                name: "Home",
-                image: "http://webdollar.io/public/WebDollar-logo.jpg"
+    const context = {
+        SEOMixinTitle: {
+            title:'WebDollar - Currency of the Internet disrupting Blockchain and money',
+            facebook: 'WebDollar - Currency of the Internet disrupting Blockchain and money',
+            twitter: 'WebDollar - Currency of the Internet disrupting Blockchain and money',
+        }, // default title
+        SEOMixinDescription: {
+            description:'WebDollar is a criptocurrency native to the browser. No installs and downloads. Mining and wallet incorporated in your browser. WebDollar is aiming for cryptocurrency mass the adoption.',
+            facebook:'WebDollar is a criptocurrency native to the browser. No installs and downloads. Mining and wallet incorporated in your browser. WebDollar is aiming for cryptocurrency mass the adoption.',
+            twitter: 'WWebDollar is a criptocurrency native to the browser. No installs and downloads. Mining and wallet incorporated in your browser. WebDollar is aiming for cryptocurrency mass the adoption.', // default title
+        },
+        SEOMixinKeywords: 'webdollar, blockchain, blockchain in browser, browser mining',
+        SEOMixinImages:
+        '<meta property="og:image"  content="http://webdollar.io/public/assets/images/WebDollar-Landing-image.png"  /> ' +
+        '<meta property="og:image:alt" content="WebDollar - Currency of Internet" />' +
+        '<meta property="twitter:image"  content="http://webdollar.io/public/assets/images/WebDollar-Landing-image.png" />'+
+        '<meta property="twitter:image:alt" content="WebDollar - Currency of the Internet"/>',
+        SEOMixinSchemaMarkup:{
+            "@context": "http://schema.org",
+            "@type": "WebSite",
+            name: "WebDollar",
+            alternateName: "WebDollar Currency of the Internet",
+            url: "http://webdollar.io/",
+            potentialAction: {
+                "@type": "SearchAction",
+                // target: "http://skyhub.me/search/{query}",
+                "query-input": "required"
             }
-        }],
-    },
-    SEOMixinWebPageType: 'website',
-    SEOMixinCopyright: 'WebDollar',
-    SEOMixinLanguage: 'en-US',
-    pageType: 'article',
+        },
+        SEOMixinBreadcrumbsSchemaMarkup:{
+            "@context": "http://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [{
+                "@type": "ListItem",
+                position: 1,
+                item: {
+                    "@id": "https://webolldar.io/",
+                    name: "Home",
+                    image: "http://webdollar.io/public/WebDollar-logo.jpg"
+                }
+            }],
+        },
+        SEOMixinWebPageType: 'website',
+        SEOMixinCopyright: 'WebDollar',
+        SEOMixinLanguage: 'en-US',
+        pageType: 'article',
 
-    cookies: req.cookies,   //signedCookies instead
-    ip: ip,   //the ip
-    url: req.url
-  };
+        cookies: req.cookies,   //signedCookies instead
+        ip: ip,   //the ip
+        url: req.url
+    };
 
   renderer.renderToString(context, (err, html) => {
     if (err) {

@@ -19,7 +19,7 @@ export default context => {
     //processing the AUTHENTICATION
     //store.dispatch('LOCALIZATION_NEW_IP', { ip: context.ip } ); //Dispatching the Context IP
 
-    let cookie =   context.cookies.sessionId || context.cookies.credential; //credential is the old SkyHub session Id
+    let cookie =   context.cookies.sessionId || context.cookies.credential; //WebDollar session id
 
     // store.commit('SET_AUTHENTICATED_USER_SESSION', { sessionId: cookie } ); //Dispatching the Context IP
     // console.log("SERVERSIDE     AUTHENTICATE_USER_BY_SESSION", cookie ) ;

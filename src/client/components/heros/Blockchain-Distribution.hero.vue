@@ -4,13 +4,13 @@
 
         <div class="verticalAlignMiddle">
 
-            <h1 class="alignCenter bigMarginBottom">COIN SUPPLY</h1>
+            <span class="pageTitle alignCenter bigMarginBottom">COIN SUPPLY</span>
 
             <div class="distributionContainer maxWidthSection">
 
                 <div class="distributionGrid">
                     <div class="webdCoin spin">
-                        <img src="/public/WebDollar-logo-black.png" class="coinLogo">
+                        <img src="/public/assets/images/WebDollar-logo-black.png" alt="webDollar logo black" title="webDollar black logo" class="coinLogo">
                     </div>
                 </div>
                 <div class="distributionGrid">

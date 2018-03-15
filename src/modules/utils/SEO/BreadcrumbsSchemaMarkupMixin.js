@@ -34,7 +34,7 @@ function getBreadcrumbsMarkup (vm) {
             item: {
             "@id": "https://webdollar.io/",
                 name: "Home",
-                image: "http://webdollar.io/public/SkyHub-logo-square.png"
+                // image: "http://webdollar.io/public/square.png"
         }});
 
         for (let i=0; i<breadcrumbsData.length; i++){

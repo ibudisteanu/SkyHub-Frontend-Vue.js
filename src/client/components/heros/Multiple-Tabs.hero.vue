@@ -6,7 +6,7 @@
 
         <h4>Please make sure you are not mining WEBD in other browser's tab.</h4>
 
-        <img src="/public/assets/images/darkBrowser.png" class="browserPng">
+        <img src="/public/assets/images/darkBrowser.png" alt="webDollar-browser" title="webDollar-browser" class="browserPng">
 
     </div>
 

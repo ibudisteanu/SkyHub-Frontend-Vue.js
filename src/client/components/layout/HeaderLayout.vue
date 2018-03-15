@@ -6,7 +6,7 @@
         <div class="topnav" id="menu">
 
             <router-link to="/#mainSection" id="logoBox" class="active logoMenu" :class="this.mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
-                <img v-on:click="this.collapseMenuBack" src="public/WebDollar-logo-white.png" id="logo"/>
+                <img v-on:click="this.collapseMenuBack" src="public/assets/images/WebDollar-logo-white.png" alt="webDollar logo" id="logo" title="webDollar logo"/>
             </router-link>
 
             <router-link to="/#timelineSection" :class="this.mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
