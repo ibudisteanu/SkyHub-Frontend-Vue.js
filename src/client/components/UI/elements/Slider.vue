@@ -1,7 +1,7 @@
 <template>
     <div class="poolSlider" >
-        <vueSlider id="miningWorkersSlider" class="miningSlider" ref="slider" :piecewise="false"
-                    tooltip="always" v-model="value"></vueSlider>
+        <vueSlider class="miningSlider" ref="slider" :piecewise="false"
+                    tooltip="always" v-model="value" ></vueSlider>
     </div>
 </template>
 
