@@ -1,6 +1,6 @@
 @font-face {
   font-family: avenir;
-  src: url(../fonts/avenir-light.woff);
+  src: url(https://cdn.rawgit.com/lokesh/instapicker/bd9a933e/fonts/avenir-light.woff);
 }
 
 * {

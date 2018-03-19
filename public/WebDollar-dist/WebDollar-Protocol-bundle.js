@@ -1922,8 +1922,8 @@ consts.TERMINATED = false;
 
 consts.UUID = uuid.v4();
 
-consts.NODE_VERSION = "0.255";
-consts.NODE_VERSION_COMPATIBILITY = "0.255";
+consts.NODE_VERSION = "0.258";
+consts.NODE_VERSION_COMPATIBILITY = "0.258";
 
 consts.WALLET_VERSION = "0.1";
 
@@ -1953,7 +1953,8 @@ consts.BLOCKCHAIN = {
     HARD_FORKS : {
 
         TEST_NET_3:{
-            DIFFICULTY_HARD_FORK: 121789
+            DIFFICULTY_HARD_FORK: 121769
+            //DIFFICULTY_HARD_FORK: 121789
             //DIFFICULTY_HARD_FORK: 83949
         },
 
@@ -2006,7 +2007,7 @@ consts.ADDRESSES = {
         LENGTH : 32, //ending BASE64 HEX
     },
     PUBLIC_KEY:{
-        LENGTH : 32, //ending BASE64 HEX
+        LENGTH : 33, //ending BASE64 HEX
     },
     ADDRESS:{
 
@@ -2073,6 +2074,11 @@ consts.DATABASE_NAMES = {
     TESTS_DATABASE: "testDB",
     TRANSACTIONS_DATABASE: "transactionsDB"
 
+};
+
+consts.MINING_POOL = {
+    WINDOW_SIZE: 16,
+    BASE_HASH_STRING: "00978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (consts);
@@ -17230,6 +17236,7 @@ class InterfaceBlockchainFork {
         // It don't validate the Fork Blocks again
 
         console.log("save Fork before validateFork");
+
         if (! (await this._validateFork(false))) {
             console.error("validateFork was not passed");
             return false
@@ -17241,12 +17248,30 @@ class InterfaceBlockchainFork {
         let success = await this.blockchain.semaphoreProcessing.processSempahoreCallback( async () => {
 
             //making a copy of the current blockchain
-            this._blocksCopy = [];
-            for (let i = this.forkStartingHeight; i < this.blockchain.blocks.length; i++) {
-                this._blocksCopy.push(this.blockchain.blocks[i]);
+
+            try {
+                this._blocksCopy = [];
+
+                for (let i = this.forkStartingHeight; i < this.blockchain.blocks.length; i++)
+                    this._blocksCopy.push(this.blockchain.blocks[i]);
+
+            } catch (exception){
+                console.error("_blockCopy raised an error");
+                return false;
             }
 
-            this.preFork();
+            try {
+                this.preForkClone();
+            } catch (exception){
+                console.error("preForkBefore raised an error");
+            }
+
+            try {
+                this.preFork();
+            } catch (exception){
+                this.revertFork();
+                console.error("preFork raised an error");
+            }
 
             this.blockchain.blocks.spliceBlocks(this.forkStartingHeight);
 
@@ -17263,8 +17288,7 @@ class InterfaceBlockchainFork {
 
                 for (index = 0; index < this.forkBlocks.length; index++) {
 
-                    if (index % 2 === 0)
-                        __WEBPACK_IMPORTED_MODULE_3_common_events_Status_Events__["a" /* default */].emit( "agent/status", {message: "Synchronizing - Including Block", blockHeight: this.forkBlocks[index].height, blockHeightMax: this.forkChainLength } );
+                    __WEBPACK_IMPORTED_MODULE_3_common_events_Status_Events__["a" /* default */].emit( "agent/status", {message: "Synchronizing - Including Block", blockHeight: this.forkBlocks[index].height, blockHeightMax: this.forkChainLength } );
 
                     this.forkBlocks[index].blockValidation = this._createBlockValidation_BlockchainValidation( this.forkBlocks[index].height , index);
 
@@ -17280,8 +17304,9 @@ class InterfaceBlockchainFork {
                 forkedSuccessfully = false;
             }
 
-
-            await this.postForkBefore(forkedSuccessfully);
+            //reverting back to the clones
+            if (!forkedSuccessfully)
+                await this.revertFork();
 
             //revert the last K blocks
             if (!forkedSuccessfully) {
@@ -17323,15 +17348,15 @@ class InterfaceBlockchainFork {
         console.log("FORK SOLVER SUCCESS", success);
 
         if (success){
-
             //propagate last block
             this.blockchain.propagateBlocks( this.blockchain.blocks.length-1, this.sockets );
-
-            //this.blockchain.propagateBlocks(this.forkStartingHeight, this.sockets);
-
         }
 
         return success;
+    }
+
+    preForkClone(){
+
     }
 
     preFork(){
@@ -17339,7 +17364,7 @@ class InterfaceBlockchainFork {
     }
 
 
-    postForkBefore(forkedSuccessfully){
+    revertFork(){
 
     }
 
@@ -27091,10 +27116,14 @@ class MiniBlockchainFork extends inheritFork{
         return new __WEBPACK_IMPORTED_MODULE_3_common_blockchain_interface_blockchain_blocks_validation_Interface_Blockchain_Block_Validation__["a" /* default */](this.getForkDifficultyTarget.bind(this), this.getForkTimeStamp.bind(this), this.getForkPrevHash.bind(this), validationType );
     }
 
-    preFork(){
+    preForkClone(){
 
         //clone the Accountant Tree
         this._accountantTreeClone = this.blockchain.accountantTree.serializeMiniAccountant();
+
+    }
+
+    preFork(){
 
         console.log("preFork root before", this.blockchain.accountantTree.calculateNodeCoins());
         console.log("preFork positions", this.forkStartingHeight, this.blockchain.blocks.length-1);
@@ -27102,28 +27131,20 @@ class MiniBlockchainFork extends inheritFork{
         //remove transactions and rewards from each blocks
         for (let i = this.blockchain.blocks.length - 1; i >= this.forkStartingHeight; i--) {
 
-
             //remove reward
 
             console.log("preFork block ", this.blockchain.blocks[i].reward.toString(),"+");
             this.blockchain.accountantTree.updateAccount(this.blockchain.blocks[i].data.minerAddress, this.blockchain.blocks[i].reward.negated() );
 
-            //remove transactions
-            // !!!!!!!!!!!!
-            //this.blockchain.blocks[i] =
+            //TODO remove transactions
+
         }
 
-        // console.log("this.forkStartingHeight", this.forkStartingHeight);
-        // console.log("root", this.blockchain.accountantTree.root);
-        // console.log("root.edges", this.blockchain.accountantTree.root.edges[0]);
-        console.log("preFork root after ", this.blockchain.accountantTree.calculateNodeCoins());
 
+        console.log("preFork root after ", this.blockchain.accountantTree.calculateNodeCoins());
     }
 
-    postForkBefore(forkedSuccessfully){
-
-        if (forkedSuccessfully)
-            return true;
+    revertFork(){
 
         //recover to the original Accountant Tree
         this.blockchain.accountantTree.deserializeMiniAccountant(this._accountantTreeClone);
@@ -89731,37 +89752,55 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
         return new __WEBPACK_IMPORTED_MODULE_2_common_blockchain_interface_blockchain_blocks_validation_Interface_Blockchain_Block_Validation__["a" /* default */](this.getForkDifficultyTarget.bind(this), this.getForkTimeStamp.bind(this), this.getForkPrevHash.bind(this), validationType );
     }
 
-    preFork() {
+    preForkClone(){
 
-        // I have a new accountant Tree, so it is a new [:-m] light proof
         if (this.forkChainStartingPoint === this.forkStartingHeight &&
             this.forkPrevAccountantTree !== null && Buffer.isBuffer(this.forkPrevAccountantTree)){
 
             console.log("preFork!!!!!!!!!!!!!!!!!! 2222222");
             let diffIndex = this.forkDifficultyCalculation.difficultyAdditionalBlocks[0];
-            console.log("this.forkDiff", diffIndex);
 
             this._accountantTreeClone = this.blockchain.lightAccountantTreeSerializations[diffIndex];
+
             if (this._accountantTreeClone === undefined || this._accountantTreeClone === null)
                 this._accountantTreeClone = new Buffer(0);
-
-            console.log("preFork1 accountantTree sum all", this.blockchain.accountantTree.calculateNodeCoins() );
-            //console.log("preFork hashAccountantTree", this.forkPrevAccountantTree.toString("hex"));
-
-            this.blockchain.accountantTree.deserializeMiniAccountant( this.forkPrevAccountantTree );
-
-            //console.log("preFork hashAccountantTree", this.blockchain.accountantTree.root.hash.sha256.toString("hex"));
-            console.log("preFork2 accountantTree sum all", this.blockchain.accountantTree.calculateNodeCoins() );
-
-            console.log("this.forkPrevDifficultyTarget", this.forkPrevDifficultyTarget.toString("hex"));
-            console.log("this.forkPrevTimeStamp", this.forkPrevTimeStamp);
-            console.log("this.forkPrevHashPrev", this.forkPrevHashPrev.toString("hex"));
 
             this._lightAccountantTreeSerializationsHeightClone = new Buffer(this.blockchain.lightAccountantTreeSerializations[diffIndex] !== undefined ? this.blockchain.lightAccountantTreeSerializations[diffIndex] : 0);
             this._blocksStartingPointClone = this.blockchain.blocks.blocksStartingPoint;
             this._lightPrevDifficultyTargetClone = new Buffer(this.blockchain.lightPrevDifficultyTargets[diffIndex] !== undefined ? this.blockchain.lightPrevDifficultyTargets[diffIndex] : 0);
             this._lightPrevTimeStampClone = this.blockchain.lightPrevTimeStamps[diffIndex];
             this._lightPrevHashPrevClone = new Buffer(this.blockchain.lightPrevHashPrevs[diffIndex] !== undefined ? this.blockchain.lightPrevHashPrevs[diffIndex] : 0);
+
+        } else
+        //it is just a simple fork
+            return __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Fork__["a" /* default */].prototype.preForkClone.call(this);
+
+    }
+
+    preFork() {
+
+        // I have a new accountant Tree, so it is a new [:-m] light proof
+
+        if (this.forkChainStartingPoint === this.forkStartingHeight &&
+            this.forkPrevAccountantTree !== null && Buffer.isBuffer(this.forkPrevAccountantTree)){
+
+            let diffIndex = this.forkDifficultyCalculation.difficultyAdditionalBlocks[0];
+
+            let currentSum = this.blockchain.accountantTree.calculateNodeCoins();
+
+            //validate sum
+            this.blockchain.accountantTree.deserializeMiniAccountant( this.forkPrevAccountantTree );
+
+            let sum = this.blockchain.accountantTree.calculateNodeCoins();
+            console.log("preFork2 accountantTree sum all", sum );
+
+            if (sum.isLessThanOrEqualTo(currentSum) || sum.isLessThanOrEqualTo(0)){
+                throw "Accountant Tree sum is smaller than previous accountant Tree!!! Impossible";
+            }
+
+            console.log("this.forkPrevDifficultyTarget", this.forkPrevDifficultyTarget.toString("hex") );
+            console.log("this.forkPrevTimeStamp", this.forkPrevTimeStamp );
+            console.log("this.forkPrevHashPrev", this.forkPrevHashPrev.toString("hex") );
 
             this.blockchain.blocks.blocksStartingPoint = this.forkChainStartingPoint;
             this.blockchain.lightPrevDifficultyTargets[diffIndex] = this.forkPrevDifficultyTarget;
@@ -89770,31 +89809,24 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
 
             this.blockchain.lightAccountantTreeSerializations[diffIndex] = this.forkPrevAccountantTree;
 
-            //add dummy blocks between [beginning to where it starts]
-            // while (this.blockchain.blocks.length < this.forkStartingHeight)
-            //     this.blockchain.addBlock(undefined);
-
         } else
             //it is just a simple fork
             return __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Fork__["a" /* default */].prototype.preFork.call(this);
     }
 
-    postForkBefore(forkedSuccessfully){
-
-        if (forkedSuccessfully)
-            return true;
+    revertFork(){
 
         //recover to the original Accountant Tree & state
         if (this.forkPrevAccountantTree !== null && Buffer.isBuffer(this.forkPrevAccountantTree)){
 
             //recover to the original Accountant Tree
-            console.log("postForkBefore1 accountantTree sum all", this.blockchain.accountantTree.calculateNodeCoins() );
+            //console.log("revertFork1 accountantTree sum all", this.blockchain.accountantTree.calculateNodeCoins() );
             this.blockchain.accountantTree.deserializeMiniAccountant(this._accountantTreeClone);
-            console.log("postForkBefore2 accountantTree sum all", this.blockchain.accountantTree.calculateNodeCoins() );
+            //console.log("revertFork2 accountantTree sum all", this.blockchain.accountantTree.calculateNodeCoins() );
 
             this.blockchain.blocks.blocksStartingPoint = this._blocksStartingPointClone;
 
-            let diffIndex = this.forkStartingHeight ;
+            let diffIndex = this.forkStartingHeight;
 
             this.blockchain.lightPrevDifficultyTargets[diffIndex] = this._lightPrevDifficultyTargetClone;
             this.blockchain.lightPrevTimeStamps[diffIndex] = this._lightPrevTimeStampClone;
@@ -89803,7 +89835,7 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
 
             //if (! (await this.blockchain._recalculateLightPrevs( this.blockchain.blocks.length - consts.BLOCKCHAIN.LIGHT.VALIDATE_LAST_BLOCKS - 1))) throw "_recalculateLightPrevs failed";
         } else
-            return __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Fork__["a" /* default */].prototype.postForkBefore.call(this, forkedSuccessfully);
+            return __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Fork__["a" /* default */].prototype.revertFork.call(this);
     }
 
     async postFork(forkedSuccessfully){
@@ -89811,7 +89843,6 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
         if (forkedSuccessfully) {
 
             //saving the Light Settings
-
             return true;
         }
 
