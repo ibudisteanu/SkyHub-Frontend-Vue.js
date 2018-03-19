@@ -35,7 +35,6 @@
                     <div class="our-team">
                         <div class="team-pic">
                             <img src="/public/assets/images/team/PanaitAlexandru.jpg" alt="Alexandru Ionut Panait" title="Alexandru Ionut Panait">
-                            <img src="/public/assets/images/team/cosminOprea.jpg" alt="Oprea Cosmin">
                             <div class="over-layer">
                                 <ul class="social-link">
                                     <li><a href="https://www.facebook.com/Ionut.Alex.Panait" target="_blank"  class="fa fa-facebook"></a></li>
