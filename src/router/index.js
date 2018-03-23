@@ -12,7 +12,7 @@ const NetworkPage = () => import('client/pages/Pool.page.vue');
 const FaqPage = () => import('client/pages/Faq.page.vue');
 const ClearIndexedDBPage = () => import('client/pages/ClearIndexedDB.page.vue');
 
-export function createRouter () {
+export function createRouter (){
 
     return new Router({
         mode: 'history',
