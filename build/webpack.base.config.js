@@ -25,6 +25,7 @@ module.exports = {
       'root': path.resolve(__dirname, '../'),
       'public': path.resolve(__dirname, '../public'),
       'src': path.resolve(__dirname + '/../src'),
+      'consts': path.resolve(__dirname + '/../src/consts'),
       'models': path.resolve(__dirname + '/../src/models'),
       'client': path.resolve(__dirname + '/../src/client'),
       'store': path.resolve(__dirname + '/../src/store'),

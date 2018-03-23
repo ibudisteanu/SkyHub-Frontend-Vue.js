@@ -1,0 +1,82 @@
+<template>
+
+    <div>
+
+        <div class="list">
+
+            <div class="listHead listElement facebookElement">
+                <div>
+                    No.
+                </div>
+
+                <div class="title">
+                    User Name
+                </div>
+
+                <div>
+                    Likes
+                </div>
+
+                <div>
+                    Shares
+                </div>
+
+                <div>
+                    Comments
+                </div>
+
+                <div>
+                    Score
+                </div>
+            </div>
+
+            <div class="listElement facebookElement" v-for="(element, index) in list" :key="'FacebookRankingListElement '+index">
+                <div>
+                  {{index+1}}
+                </div>
+                <div class="title">
+                    {{element.description.substring(0, 50)}}
+                </div>
+                <div>
+                    {{element.likes}}
+                </div>
+                <div>
+                    {{element.shares}}
+                </div>
+                <div>
+                    {{element.comments}}
+                </div>
+                <div class="score">
+                    {{element.score}}
+                </div>
+                <!--<div>-->
+                <!--{{element.status}}-->
+                <!--</div>-->
+                <!--<div>-->
+                <!--{{element.dtCreation}}-->
+                <!--</div>-->
+            </div>
+
+        </div>
+
+    </div>
+
+</template>
+
+<script>
+
+    export default{
+
+        props:{
+            list: {default: function (){ return { } }},
+        },
+
+        methods:{
+        },
+
+
+
+
+    }
+
+</script>

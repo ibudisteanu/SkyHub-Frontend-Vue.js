@@ -1529,3 +1529,169 @@ svg path, svg rect{
   margin-top: 100px;
   margin-bottom: 100px;
 }
+
+.bountyPage{
+  /*display: grid;*/
+  /*grid-template-columns: 300px 1fr;*/
+  margin-top: 75px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+.bountyCampains{
+  display: block;
+  text-align: center;
+}
+
+.bountyCampains span{
+  padding: 10px 0;
+  width: 100%;
+  background-color: #484848;
+  margin: 1px 0;
+  cursor: pointer;
+  transition: all .5s linear;
+}
+
+.bountyCampains span:hover{
+  background-color: #313131;
+  color: #d5d5d5;
+  transition: all .5s linear;
+}
+
+.selectedCampaign{
+  background-color: #fec02c!important;
+  color: #232323!important;
+  transition: all .5s linear;
+}
+
+.bountySide{
+  width:300px;
+  display: inline-block;
+  vertical-align: top;
+  position: fixed;
+}
+
+.bountyMain{
+  padding: 0 10px 10px 310px;
+  width: 100%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.bountyPage .register{
+  display: block;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+.bountyPage .register .inputs{
+  display: block;
+  margin-bottom: 10px;
+}
+
+.bountyPage .register input{
+  width: 100%;
+  background-color: #313131;
+  border: none;
+  border-radius: 5px;
+  margin: 5px 0;
+  color: #fff;
+  padding: 7px;
+}
+
+.bountyPage .register button{
+  background-color: #fec02c;
+  border: none;
+  margin: 0 auto;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 12px;
+  width: 80%;
+  display: block;
+  transition: all .5s linear;
+}
+
+.bountyPage .register button:hover{
+  background-color: #d1bd36;
+  transition: all .5s linear;
+}
+
+.register h2{
+  text-align: center;
+  letter-spacing: 2px;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+.listElement{
+  display: grid;
+  border:solid 1px #313131;
+  text-align: center;
+  padding: 0 5px;
+  border-top:none;
+  box-sizing: border-box;
+  color: #777;
+  background-color: #171717d9;
+}
+
+.listElement div{
+  padding: 5px 0;
+  border-right: solid 1px #313131;
+}
+
+.listElement div:last-child{
+  border:none
+}
+
+.list .listElement:first-child{
+  border-top:solid 1px #313131;
+}
+
+.youtubeElement{
+  grid-template-columns: 50px 1fr 120px 120px 70px  70px 100px;
+}
+
+.facebookElement{
+  grid-template-columns: 50px 1fr 80px 80px 90px 120px;
+}
+
+.twitterElement{
+  grid-template-columns: 50px 1fr 180px 80px 80px 90px 120px;
+}
+
+.telegramElement{
+  grid-template-columns: 50px 1fr 150px 100px 150px;
+}
+
+
+.webSiteElement{
+  grid-template-columns: 50px 1fr 120px 120px;
+}
+
+.listElement .title{
+  text-align: left;
+  padding-left: 5px;
+}
+
+.listHead{
+  background-color: #1b1b1b;
+}
+
+.score{
+  color: #fec02c!important;
+}
+
+.countDown{
+  text-align: center;
+  background-color: #1b1b1b;
+  padding: 10px;
+}
+
+.countDownTitle{
+  text-align: center;
+  text-transform: capitalize;
+  color: #fff;
+  font-size: 18px;
+  line-height: 50px;
+}
