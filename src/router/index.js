@@ -6,6 +6,7 @@ Vue.use(Router)
 // route-level code splitting
 
 const HomePage = () => import('client/pages/Home.page.vue');
+const Bounty = () => import('client/pages/Bounty.page.vue');
 const TransactionsPage = () => import('client/pages/Transactions.page.vue');
 const NetworkPage = () => import('client/pages/Pool.page.vue');
 const FaqPage = () => import('client/pages/Faq.page.vue');
@@ -31,6 +32,7 @@ export function createRouter () {
         },
         routes: [
 
+            { path: '/bounty', component: Bounty },
             { path: '/faq', component: FaqPage },
             { path: '/mypool', component: NetworkPage },
             { path: '/clearIndexedDB', component: ClearIndexedDBPage },
