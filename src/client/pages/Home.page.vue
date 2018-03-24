@@ -12,6 +12,10 @@
 
                 <peer-to-peer-hero/>
 
+                <newsletter/>
+
+                <mining-pool/>
+
                 <new-crypto-generation-hero/>
 
                 <blockchain-distribution-hero/>
@@ -36,6 +40,8 @@
 
     import Layout from "client/components/layout/Layout.vue";
 
+    import MiningPool from "client/components/heros/miningPool.hero.vue";
+    import Newsletter from "client/components/heros/newsletter.hero.vue";
     import TeamHero from "client/components/heros/Team.hero.vue";
     import WebDollarHero from "client/components/heros/WebDollar.hero.vue";
     import WhatIsHero from "client/components/heros/What-Is.hero.vue";
@@ -63,7 +69,9 @@
             "faq-hero": FaqHero,
             "new-crypto-generation-hero":NewCryptoGenerationHero,
             "blockchain-distribution-hero":BlockChainDistributionHero,
-            "MultipleTabs":MultipleTabs
+            "MultipleTabs":MultipleTabs,
+            Newsletter,
+            MiningPool
         },
 
         data: () => {

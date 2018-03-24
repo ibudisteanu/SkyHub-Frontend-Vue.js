@@ -1403,6 +1403,10 @@ svg path, svg rect{
   margin: 0 auto;
 }
 
+#newsLetter{
+  padding: 20px 0;
+}
+
 #miningPoolController h2{
   text-align: center;
   font-size: 16px;
@@ -1755,4 +1759,46 @@ svg path, svg rect{
 
 .infoLine{
   width: 100%;
+}
+
+#newsletterSection{
+  display: block;
+  padding: 40px 0;
+}
+
+.websiteButton{
+  color: #262626;
+  text-align: center;
+  font-size: 14px;
+  background-color: #fec02c;
+  width: 200px;
+  margin: 0 auto;
+  font-weight: bolder;
+  line-height: 40px;
+  cursor:pointer;
+  border-radius: 10px;
+  margin-top: 40px;
+  transition: all 0.30s ease 0s;
+}
+
+.websiteButton:hover{
+  background-color: #fed600;
+  transition: all 0.30s ease 0s;
+}
+
+#newsletterContainer input{
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  display: block;
+  border: none;
+  background-color: #262626;
+  padding: 10px;
+  color: #fff;
+  border-radius: 2px;
+}
+
+.newsletterText{
+  text-align: center;
+  margin-bottom: 20px;
 }
