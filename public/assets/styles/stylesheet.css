@@ -1810,3 +1810,15 @@ svg path, svg rect{
 .capitalize{
   text-transform: capitalize;
 }
+
+#newsletterContainer .error{
+  text-align: center;
+  color: #c7503e;
+  display: block;
+  margin-top: 8px;
+}
+
+#newsletterContainer .success{
+  text-align: center;
+  color: #57af51;
+}

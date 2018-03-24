@@ -12,11 +12,14 @@
                 <div v-if="this.success === ''" >
                     <input v-model="email" placeholder="Email"  />
 
+                    <span class="error">
+                        {{this.error}}
+                    </span>
+
                     <span class="websiteButton" @click="subscribeEmail">Subscribe</span>
-                    {{this.error}}
                 </div>
 
-                <div v-if="this.success !== ''">
+                <div class="success" v-if="this.success !== ''">
                     {{this.success}}
                 </div>
 
