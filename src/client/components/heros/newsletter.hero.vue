@@ -9,9 +9,16 @@
 
                 <span CLASS="newsletterText">Subscribe to our newsletter you will be noticed about all new released</span>
 
-                <input placeholder="Email"/>
+                <div v-if="this.success === ''" >
+                    <input v-model="email" placeholder="Email"  />
 
-                <span class="websiteButton">Subscribe</span>
+                    <span class="websiteButton" @click="subscribeEmail">Subscribe</span>
+                    {{this.error}}
+                </div>
+
+                <div v-if="this.success !== ''">
+                    {{this.success}}
+                </div>
 
             </div>
 
@@ -23,9 +30,38 @@
 
 <script>
 
+    const axios = require('axios');
+    import consts from "consts/constants";
+
     export default{
 
+        data:()=>{
+            return {
+                email: '',
+                error:'',
+                success: '',
+            }
+        },
 
+        methods:{
+
+            async subscribeEmail(){
+
+                let answer = await axios.post(consts.SERVER_API+"subscribe-newsletter",{email: this.email});
+
+                answer = answer.data;
+
+                if (answer.result === false){
+                    this.error = answer.message;
+                    this.success = '';
+                } else {
+                    this.error = '';
+                    this.success = answer.message;
+                }
+
+            }
+
+        }
 
     }
 
