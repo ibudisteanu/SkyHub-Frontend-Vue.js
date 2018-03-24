@@ -23,7 +23,13 @@
                     <b>Score formula:</b> (Views/10 + ThumbsUp - ThumbsDown*3 + Comments*2)/40
                 </span>
                 <span class="infoLine">
+                    <b>Classament Update:</b> Every 3 minutes
+                </span>
+                <span class="infoLine">
                     <b>Reward:</b> You will be contacted by our team for providing your wallet Address
+                </span>
+                <span class="infoLine">
+                    <b class="capitalize">{{this.type}} bounty Ammount:</b> 10.000 WEBD
                 </span>
 
             </div>
@@ -33,13 +39,19 @@
                     <b>Bounty registration:</b> Register post link
                 </span>
                 <span class="infoLine">
-                    <b>Conditions of participation:</b> Containing WebDollar/webd in description and content
+                    <b>Conditions of participation:</b> Containing WebDollar in description and content
                 </span>
                 <span class="infoLine">
                     <b>Score formula:</b> (Likes + 3*shares + 1.5*comments)/30
                 </span>
                 <span class="infoLine">
+                    <b>Classament Update:</b> Every 3 minutes
+                </span>
+                <span class="infoLine">
                     <b>Reward:</b> You will be contacted by our team for providing your wallet Address
+                </span>
+                <span class="infoLine">
+                    <b class="capitalize">{{this.type}} bounty Ammount:</b> 10.000 WEBD
                 </span>
 
             </div>
@@ -55,7 +67,13 @@
                     <b>Score formula:</b> (Likes + 2*comments)/10
                 </span>
                 <span class="infoLine">
+                    <b>Classament Update:</b> Every 3 minutes
+                </span>
+                <span class="infoLine">
                     <b>Reward:</b> You will be contacted by our team for providing your wallet Address
+                </span>
+                <span class="infoLine">
+                    <b class="capitalize">{{this.type}} bounty Ammount:</b> 10.000 WEBD
                 </span>
 
             </div>
@@ -65,13 +83,19 @@
                     <b>Bounty registration:</b> Automatically
                 </span>
                 <span class="infoLine">
-                    <b>Conditions of participation:</b> Containing WebDollar/webd in post
+                    <b>Conditions of participation:</b> Containing WebDollar in post
                 </span>
                 <span class="infoLine">
                     <b>Score formula:</b> (Followers/100 + Friends/100 + Likes + Shares*5 + Comments*2)/10
                 </span>
                 <span class="infoLine">
+                    <b>Classament Update:</b> Every 3 minutes
+                </span>
+                <span class="infoLine">
                     <b>Reward:</b> You will be contacted by our team for providing your wallet Address
+                </span>
+                <span class="infoLine">
+                    <b class="capitalize">{{this.type}} bounty Ammount:</b> 10.000 WEBD
                 </span>
 
             </div>
@@ -87,7 +111,13 @@
                     <b>Score formula:</b> (Messages/100 + Invitations)
                 </span>
                 <span class="infoLine">
+                    <b>Classament Update:</b> Every day
+                </span>
+                <span class="infoLine">
                     <b>Reward:</b> You will be contacted by our team for providing your wallet Address
+                </span>
+                <span class="infoLine">
+                    <b class="capitalize">{{this.type}} bounty Ammount:</b> 10.000 WEBD
                 </span>
 
             </div>
@@ -103,7 +133,13 @@
                     <b>Score formula:</b> (Messages/100 + Invitations)
                 </span>
                 <span class="infoLine">
+                    <b>Classament Update:</b> Every day
+                </span>
+                <span class="infoLine">
                     <b>Reward:</b> You will be contacted by our team for providing your wallet Address
+                </span>
+                <span class="infoLine">
+                    <b class="capitalize">{{this.type}} bounty Ammount:</b> 10.000 WEBD
                 </span>
 
             </div>
@@ -113,13 +149,19 @@
                     <b>Bounty registration:</b> Automatically
                 </span>
                 <span class="infoLine">
-                    <b>Conditions of participation:</b> Containing WebDollar/webd in description and content
+                    <b>Conditions of participation:</b> Containing WebDollar in description and content
                 </span>
                 <span class="infoLine">
-                    <b>Score formula:</b> (Likes + 3*shares + 1.5*comments)/30
+                    <b>Score formula:</b> (ValueScore*2 + comments)/10
+                </span>
+                <span class="infoLine">
+                    <b>Classament Update:</b> Every 3 minutes
                 </span>
                 <span class="infoLine">
                     <b>Reward:</b> You will be contacted by our team for providing your wallet Address
+                </span>
+                <span class="infoLine">
+                    <b class="capitalize">{{this.type}} bounty Ammount:</b> 10.000 WEBD
                 </span>
 
             </div>
@@ -135,7 +177,13 @@
                     <b>Score formula:</b> (Likes + 3*shares + 1.5*comments)/30
                 </span>
                 <span class="infoLine">
+                    <b>Classament Update:</b> Every 3 minutes
+                </span>
+                <span class="infoLine">
                     <b>Reward:</b> You will be contacted by our team for providing your wallet Address
+                </span>
+                <span class="infoLine">
+                    <b class="capitalize">{{this.type}} bounty Ammount:</b> 10.000 WEBD
                 </span>
 
             </div>

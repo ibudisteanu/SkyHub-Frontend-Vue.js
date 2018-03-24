@@ -33,7 +33,7 @@
                     {{element.link}}
                 </div>
                 <div>
-                    {{element.alexaScore}}
+                    {{element.alexaScore.toFixed(2)}}
                 </div>
 
 

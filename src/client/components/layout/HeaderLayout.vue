@@ -25,16 +25,16 @@
                 <div v-on:click="this.collapseMenuBack">White Paper</div>
             </a>
 
-            <router-link to="/#what-is-WebDollar" :class="mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
-                <div v-on:click="this.collapseMenuBack">About</div>
-            </router-link>
-
             <router-link to="/#p2p-network" :class="mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
                 <div v-on:click="this.collapseMenuBack">Network</div>
             </router-link>
 
             <router-link to="/bounties" :class="mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
                 <div v-on:click="this.collapseMenuBack">Bounties</div>
+            </router-link>
+
+            <router-link to="/#what-is-WebDollar" :class="mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
+                <div v-on:click="this.collapseMenuBack">About</div>
             </router-link>
 
             <a href="javascript:void(0);" style="font-size:15px;" :style="{display: (mobileMenuOpened || isMobile==false) ? 'none':'block'}" class="icon showMenu" @click="this.showMobileMenu" :class="mobileMenuOpened ? 'openedMenuLink' : '' ">&#9776;</a>
