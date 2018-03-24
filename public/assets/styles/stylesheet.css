@@ -1115,22 +1115,20 @@ svg path, svg rect{
 #myBar {
   width: 70%;
   height: 25px;
-  background-color: #fec02c;
+  background-color: #fec249;
   border-radius: 30px;
 }
 
 .webdCoin{
-  background-color: #fec02c;
   border-radius: 50%;
-  width: 200px;
-  height: 200px;
+  width: 220px;
+  height: 220px;
   margin: 0 auto;
-  margin-top: 60px;
+  margin-top: 40px;
 }
 
 .coinLogo{
-  width: 160px;
-  margin: 21px;
+  width: 220px;
 }
 
 .maxWidthSection{

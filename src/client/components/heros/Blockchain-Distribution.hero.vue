@@ -10,7 +10,7 @@
 
                 <div class="distributionGrid">
                     <div class="webdCoin spin">
-                        <img src="/public/assets/images/WebDollar-logo-black.png" alt="webDollar logo black" title="webDollar black logo" class="coinLogo">
+                        <img src="/public/assets/images/logo-coin.png" alt="webDollar logo black" title="webDollar black logo" class="coinLogo">
                     </div>
                 </div>
                 <div class="distributionGrid">
