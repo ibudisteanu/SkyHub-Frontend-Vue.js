@@ -91,7 +91,7 @@
                 </span>
 
             </div>
-            <div v-if="this.type === 'telegram-ro'">
+            <div v-if="this.type === 'telegram RO'">
 
                 <span class="infoLine">
                     <b>Bounty registration:</b> Automatically

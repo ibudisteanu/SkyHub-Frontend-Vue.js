@@ -1673,6 +1673,9 @@ svg path, svg rect{
   grid-template-columns: 50px 1fr 150px 100px 150px;
 }
 
+.redditElement{
+    grid-template-columns: 50px 1fr 80px 100px 90px 120px;
+}
 
 .webSiteElement{
   grid-template-columns: 50px 1fr 120px 120px;
@@ -1703,7 +1706,7 @@ svg path, svg rect{
 
 .countDown span{
     width: 100%;
-    margin-top: -5px;
+    margin-top: -15px;
 }
 
 .countDownTitle{

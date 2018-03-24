@@ -15,7 +15,7 @@
                 <span @click="this.handleChangeToWebsite" :class="this.type==='website' ? 'selectedCampaign' : ''">Websites</span>
             </div>
 
-            <submit-link class="submitLink" v-if=" this.type !== 'telegram' && this.type !== 'Telegram-WebDollarRO' && this.type !== 'twitter' && this.type !== 'youtube' " :type="this.type"  @onLinkSubmitted="this.linkSubmitted"> </submit-link>  
+            <submit-link class="submitLink" v-if="this.type !== 'reddit' && this.type !== 'instagram' && this.type !== 'telegram' && this.type !== 'telegram RO' && this.type !== 'Telegram-WebDollarRO' && this.type !== 'twitter' && this.type !== 'youtube' " :type="this.type"  @onLinkSubmitted="this.linkSubmitted"> </submit-link>
 
         </div>
         <div class="bountyMain">

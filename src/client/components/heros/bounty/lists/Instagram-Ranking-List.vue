@@ -42,12 +42,6 @@
                 <div class="score">
                     {{element.score}}
                 </div>
-                <!--<div>-->
-                <!--{{element.status}}-->
-                <!--</div>-->
-                <!--<div>-->
-                <!--{{element.dtCreation}}-->
-                <!--</div>-->
             </div>
 
         </div>

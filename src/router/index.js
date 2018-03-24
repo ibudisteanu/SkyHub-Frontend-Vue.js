@@ -32,7 +32,7 @@ export function createRouter (){
         },
         routes: [
 
-            { path: '/bounty', component: Bounty },
+            { path: '/bounties', component: Bounty },
             { path: '/faq', component: FaqPage },
             { path: '/mypool', component: NetworkPage },
             { path: '/clearIndexedDB', component: ClearIndexedDBPage },
