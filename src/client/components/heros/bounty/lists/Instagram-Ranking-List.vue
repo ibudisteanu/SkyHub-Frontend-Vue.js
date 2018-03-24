@@ -40,7 +40,7 @@
                     {{element.comments}}
                 </div>
                 <div class="score">
-                    {{element.score}}
+                    {{element.score.toFixed(2)}}
                 </div>
             </div>
 

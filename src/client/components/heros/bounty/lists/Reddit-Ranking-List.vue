@@ -18,7 +18,7 @@
                 </div>
 
                 <div>
-                    Reddit Score
+                    Value Score
                 </div>
 
                 <div>
@@ -38,7 +38,7 @@
                     {{element.title.substring(0,50) || element.description.substring(0, 50)}}
                 </div>
                 <div>
-                    {{element.username}}
+                    {{element.username.substring(0,20)}}
                 </div>
                 <div>
                     {{element.scoreValue}}
@@ -47,7 +47,7 @@
                     {{element.comments}}
                 </div>
                 <div class="score">
-                    {{element.score}}
+                    {{element.score.toFixed(2)}}
                 </div>
                 <!--<div>-->
                 <!--{{element.status}}-->
