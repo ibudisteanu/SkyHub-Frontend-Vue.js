@@ -1678,7 +1678,7 @@ svg path, svg rect{
 }
 
 .redditElement{
-    grid-template-columns: 50px 1fr 80px 100px 90px 120px;
+    grid-template-columns: 50px 1fr 130px 90px 90px 120px;
 }
 
 .webSiteElement{

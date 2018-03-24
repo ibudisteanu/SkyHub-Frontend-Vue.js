@@ -14,15 +14,15 @@
                 </div>
 
                 <div>
-                    Posts
+                    User
+                </div>
+
+                <div>
+                    Reddit Score
                 </div>
 
                 <div>
                     Comments
-                </div>
-
-                <div>
-                    Votes
                 </div>
 
                 <div>
@@ -35,13 +35,13 @@
                   {{index+1}}
                 </div>
                 <div class="title">
-                    {{element.description.substring(0, 50)}}
+                    {{element.title.substring(0,50) || element.description.substring(0, 50)}}
                 </div>
                 <div>
-                    {{element.likes}}
+                    {{element.username}}
                 </div>
                 <div>
-                    {{element.shares}}
+                    {{element.scoreValue}}
                 </div>
                 <div>
                     {{element.comments}}

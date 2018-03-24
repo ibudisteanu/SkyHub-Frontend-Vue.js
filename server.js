@@ -131,9 +131,9 @@ function render (req, res) {
             twitter: 'WebDollar - Currency of the Internet disrupting Blockchain and money',
         }, // default title
         SEOMixinDescription: {
-            description:'WebDollar is a criptocurrency native to the browser. No installs and downloads. Mining and wallet incorporated in your browser. WebDollar is aiming for cryptocurrency mass the adoption.',
-            facebook:'WebDollar is a criptocurrency native to the browser. No installs and downloads. Mining and wallet incorporated in your browser. WebDollar is aiming for cryptocurrency mass the adoption.',
-            twitter: 'WWebDollar is a criptocurrency native to the browser. No installs and downloads. Mining and wallet incorporated in your browser. WebDollar is aiming for cryptocurrency mass the adoption.', // default title
+            description:'WebDollar is a cryptocurrency native to the browser. No installs or downloads. Mining and Wallets are incorporated in your browser. WebDollar is aiming for mass adoption',
+            facebook:'WebDollar is a cryptocurrency native to the browser. No installs or downloads. Mining and Wallets are incorporated in your browser. WebDollar is aiming for mass adoption',
+            twitter: 'WebDollar is a cryptocurrency native to the browser. No installs or downloads. Mining and Wallets are incorporated in your browser. WebDollar is aiming for mass adoption', // default title
         },
         SEOMixinKeywords: 'webdollar, blockchain, blockchain in browser, browser mining',
         SEOMixinImages:
