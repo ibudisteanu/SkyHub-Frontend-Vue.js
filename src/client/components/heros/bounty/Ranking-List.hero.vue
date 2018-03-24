@@ -11,23 +11,26 @@
                 <span @click="this.handleChangeToTwitter" :class="this.type==='twitter' ? 'selectedCampaign' : ''">Twitter</span>
                 <span @click="this.handleChangeToTelegramWebDollar" :class="this.type==='telegram' ? 'selectedCampaign' : ''">Telegram</span>
                 <span @click="this.handleChangeToTelegramWebDollarRO" :class="this.type==='telegram RO' ? 'selectedCampaign' : ''">Telegram RO</span>
+                <span @click="this.handleChangeToReddit" :class="this.type==='reddit' ? 'selectedCampaign' : ''">Reddit</span>
                 <span @click="this.handleChangeToWebsite" :class="this.type==='website' ? 'selectedCampaign' : ''">Websites</span>
-            </div>
-
-            <div class="bountySideScroll">
-                <info-link :type="this.type" :deadline="this.deadline"> </info-link>
-                <submit-link v-if=" this.type !== 'telegram' && this.type !== 'Telegram-WebDollarRO' && this.type !== 'twitter' && this.type !== 'youtube' " :type="this.type"  @onLinkSubmitted="this.linkSubmitted"> </submit-link>
             </div>
 
         </div>
         <div class="bountyMain">
-            <div class="error" v-html="this.error"></div>
+
+            <div class="bountySideScroll">
+                <div class="error" v-html="this.error"></div>
+                <info-link class="infoLink" :type="this.type" :deadline="this.deadline"> </info-link>
+                <submit-link class="submitLink" v-if=" this.type !== 'telegram' && this.type !== 'Telegram-WebDollarRO' && this.type !== 'twitter' && this.type !== 'youtube' " :type="this.type"  @onLinkSubmitted="this.linkSubmitted"> </submit-link>
+            </div>
 
             <facebook-ranking-list v-if="this.type === 'facebook'" :list="this.sortedArray" :type="this.type" ></facebook-ranking-list>
             <youtube-ranking-list v-if="this.type === 'youtube'" :list="this.sortedArray" :type="this.type" ></youtube-ranking-list>
+            <instagram-ranking-list v-if="this.type === 'instagram'" :list="this.sortedArray" :type="this.type" ></instagram-ranking-list>
             <twitter-ranking-list v-if="this.type === 'twitter'" :list="this.sortedArray" :type="this.type" ></twitter-ranking-list>
             <telegram-ranking-list v-if="this.type === 'telegram'" :list="this.sortedArray" :type="this.type" ></telegram-ranking-list>
             <telegram-ranking-list v-if="this.type === 'telegram RO'" :list="this.sortedArray" :type="this.type" ></telegram-ranking-list>
+            <reddit-ranking-list v-if="this.type === 'reddit'" :list="this.sortedArray" :type="this.type" ></reddit-ranking-list>
             <website-ranking-list v-if="this.type === 'website'" :list="this.sortedArray" :type="this.type" ></website-ranking-list>
 
         </div>
@@ -38,6 +41,7 @@
 
 <script>
 
+    import RedditRankingList from "./lists/Reddit-Ranking-List.vue"
     import InstagramRankingList from "./lists/Instagram-Ranking-List.vue"
     import YoutubeRankingList from "./lists/Youtube-Ranking-List.vue"
     import FacebookRankingList from "./lists/Facebook-Ranking-List.vue"
@@ -59,7 +63,7 @@
                 error: '',
                 list: {},
                 page:0,
-                deadline:'March 30, 2018'
+                deadline:'March 31, 2018'
             }
         },
 
@@ -70,6 +74,7 @@
             TelegramRankingList,
             WebsiteRankingList,
             InstagramRankingList,
+            RedditRankingList,
             SubmitLink,
             InfoLink
         },
@@ -113,7 +118,8 @@
 
             },
 
-            handleChangeToInstagram(){this.handleChangeType('instagram')}
+            handleChangeToReddit(){ this.handleChangeType('reddit')},
+            handleChangeToInstagram(){ this.handleChangeType('instagram')},
             handleChangeToYoutube(){ this.handleChangeType('youtube')},
             handleChangeToFacebook(){ this.handleChangeType('facebook')},
             handleChangeToTwitter(){ this.handleChangeType('twitter')},

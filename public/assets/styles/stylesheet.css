@@ -412,6 +412,11 @@ a:hover{
   bottom:0;
 }
 
+.bountySideScroll .info{
+  padding-bottom: 0;
+}
+
+
 #copyright{
   display: inline-block;
   font-size: 12px;
@@ -1585,7 +1590,6 @@ svg path, svg rect{
 
 .bountyPage .register{
   display: block;
-  margin-top: 10px;
   padding: 5px;
 }
 
@@ -1623,8 +1627,8 @@ svg path, svg rect{
 
 .register h2{
   text-align: center;
-  letter-spacing: 2px;
-  font-size: 18px;
+  letter-spacing: 0;
+  font-size: 16px;
   text-transform: uppercase;
 }
 
@@ -1703,4 +1707,39 @@ svg path, svg rect{
 .bountySideScroll{
   display: block;
   overflow: scroll;
+}
+
+.button{
+  background-color: #fec02c;
+  border: none;
+  margin: 0 auto;
+  border-radius: 5px;
+  padding: 10px;
+  cursor:pointer;
+  font-size: 12px;
+  width: 80%;
+  display: block;
+  transition: all .5s linear;
+}
+
+.button:hover{
+  background-color: #d1bd36;
+  transition: all .5s linear;
+}
+
+.buttonMargin{
+  margin: 15px 0 10px 0;
+}
+
+.infoBounty{
+  display: grid;
+  grid-template-columns: 300px 1fr;
+}
+
+.campaignInfo{
+  padding: 5px 10px;
+}
+
+.infoLine{
+  width: 100%;
 }
