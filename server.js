@@ -205,8 +205,8 @@ var options = {
     cert: fs.readFileSync('./server.crt', 'utf8')
 };
 
-// app.listen(port, () => {
-//   console.log(`server started at localhost:${port}`)
-// });
+app.listen(port, () => {
+  console.log(`server started at localhost:${port}`)
+});
 
-https.createServer(options, app).listen(port);
+// https.createServer(options, app).listen(port);

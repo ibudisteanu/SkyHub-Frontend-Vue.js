@@ -28,7 +28,7 @@
     "es6-promise": "^4.1.0",
     "express": "^4.15.2",
     "extract-text-webpack-plugin": "^2.1.0",
-    "https": "*",
+    "https": "^1.0.0",
     "jsonp": "^0.2.1",
     "koa": "^2.3.0",
     "lru-cache": "^4.0.2",
