@@ -7,7 +7,7 @@
             <span class="pageTitle alignCenter titleMarginBottom removeBackground">Newsletter</span>
             <div id="newsletterContainer">
 
-                <span CLASS="newsletterText">Subscribe to our newsletter you will be noticed about all new released</span>
+                <span CLASS="newsletterText">Subscribe to our newsletter</span>
 
                 <div v-if="this.success === ''" >
                     <input v-model="email" placeholder="Email"  />
