@@ -117,6 +117,16 @@
             </div>
 
             <div class="mediaContentBox">
+                <a href ="https://medium.com/@adrianmihaistratulat/get-ready-for-the-pool-party-d497049c6db4" target="_blank">
+
+                    <img alt="itbitcoin" src="public/assets/images/media/poolparty.jpeg">
+                    <h3>Get Ready for the Pool Party!</h3>
+                    <span>Medium</span>
+
+                </a>
+            </div>
+
+            <div class="mediaContentBox">
                 <a href ="https://ibitcoin.ro/exclusiv-interviu-cu-adrian-stratulat-lead-evangelist-la-webdollar-prima-criptomoneda-romaneasca/" target="_blank">
 
                     <img alt="itbitcoin" src="public/assets/images/media/ibitcoin.jpg">

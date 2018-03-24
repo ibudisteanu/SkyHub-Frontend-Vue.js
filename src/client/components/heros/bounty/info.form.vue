@@ -3,43 +3,141 @@
     <div class="infoBounty">
 
         <div class="countDown">
-            <span class="countDownTitle">{{this.type}} bounty end:</span>
-            <countdown :deadline="this.deadline"></countdown>
+            <div class="verticalAlignMiddle">
+                <span class="countDownTitle">{{this.type}} bounty end:</span>
+                <countdown :deadline="this.deadline"></countdown>
+            </div>
         </div>
 
         <div class="campaignInfo">
 
             <div v-if="this.type === 'youtube'">
 
+                 <span class="infoLine">
+                    <b>Bounty registration:</b> Automatically
+                </span>
+                <span class="infoLine">
+                    <b>Conditions of participation:</b> Containing WebDollar/webd in description and content
+                </span>
                 <span class="infoLine">
                     <b>Score formula:</b> (Views/10 + ThumbsUp - ThumbsDown*3 + Comments*2)/40
                 </span>
                 <span class="infoLine">
-                    <b>Conditions of participation:</b> WebDollar/webd in description and content
+                    <b>Reward:</b> You will be contacted by our team for providing your wallet Address
                 </span>
 
             </div>
             <div v-if="this.type === 'facebook'">
-                <b>Score formula:</b> (Likes + 3*shares + 1.5*comments)/30
-                <b>Conditions of participation:</b> WebDollar/webd in description and content
+
+                <span class="infoLine">
+                    <b>Bounty registration:</b> Register post link
+                </span>
+                <span class="infoLine">
+                    <b>Conditions of participation:</b> Containing WebDollar/webd in description and content
+                </span>
+                <span class="infoLine">
+                    <b>Score formula:</b> (Likes + 3*shares + 1.5*comments)/30
+                </span>
+                <span class="infoLine">
+                    <b>Reward:</b> You will be contacted by our team for providing your wallet Address
+                </span>
+
             </div>
             <div v-if="this.type === 'instagram'">
-                f
+
+                <span class="infoLine">
+                    <b>Bounty registration:</b> Automatically
+                </span>
+                <span class="infoLine">
+                    <b>Conditions of participation:</b> Containing #WebDollar in post
+                </span>
+                <span class="infoLine">
+                    <b>Score formula:</b> (Likes + 2*comments)/10
+                </span>
+                <span class="infoLine">
+                    <b>Reward:</b> You will be contacted by our team for providing your wallet Address
+                </span>
+
             </div>
             <div v-if="this.type === 'twitter'">
-                f
+
+                <span class="infoLine">
+                    <b>Bounty registration:</b> Automatically
+                </span>
+                <span class="infoLine">
+                    <b>Conditions of participation:</b> Containing WebDollar/webd in post
+                </span>
+                <span class="infoLine">
+                    <b>Score formula:</b> (Followers/100 + Friends/100 + Likes + Shares*5 + Comments*2)/10
+                </span>
+                <span class="infoLine">
+                    <b>Reward:</b> You will be contacted by our team for providing your wallet Address
+                </span>
+
             </div>
             <div v-if="this.type === 'telegram'">
-                f
+
+                <span class="infoLine">
+                    <b>Bounty registration:</b> Automatically
+                </span>
+                <span class="infoLine">
+                    <b>Conditions of participation:</b> Be a member in the group
+                </span>
+                <span class="infoLine">
+                    <b>Score formula:</b> (Messages/100 + Invitations)
+                </span>
+                <span class="infoLine">
+                    <b>Reward:</b> You will be contacted by our team for providing your wallet Address
+                </span>
+
             </div>
             <div v-if="this.type === 'telegram-ro'">
-                f
+
+                <span class="infoLine">
+                    <b>Bounty registration:</b> Automatically
+                </span>
+                <span class="infoLine">
+                    <b>Conditions of participation:</b> Be a member in the group
+                </span>
+                <span class="infoLine">
+                    <b>Score formula:</b> (Messages/100 + Invitations)
+                </span>
+                <span class="infoLine">
+                    <b>Reward:</b> You will be contacted by our team for providing your wallet Address
+                </span>
+
             </div>
             <div v-if="this.type === 'reddit'">
-                f
+
+                <span class="infoLine">
+                    <b>Bounty registration:</b> Automatically
+                </span>
+                <span class="infoLine">
+                    <b>Conditions of participation:</b> Containing WebDollar/webd in description and content
+                </span>
+                <span class="infoLine">
+                    <b>Score formula:</b> (Likes + 3*shares + 1.5*comments)/30
+                </span>
+                <span class="infoLine">
+                    <b>Reward:</b> You will be contacted by our team for providing your wallet Address
+                </span>
+
             </div>
             <div v-if="this.type === 'website'">
-                f
+
+                <span class="infoLine">
+                    <b>Bounty registration:</b> Automatically
+                </span>
+                <span class="infoLine">
+                    <b>Conditions of participation:</b> Containing WebDollar/webd in description and content
+                </span>
+                <span class="infoLine">
+                    <b>Score formula:</b> (Likes + 3*shares + 1.5*comments)/30
+                </span>
+                <span class="infoLine">
+                    <b>Reward:</b> You will be contacted by our team for providing your wallet Address
+                </span>
+
             </div>
 
         </div>

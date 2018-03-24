@@ -15,13 +15,14 @@
                 <span @click="this.handleChangeToWebsite" :class="this.type==='website' ? 'selectedCampaign' : ''">Websites</span>
             </div>
 
+            <submit-link class="submitLink" v-if=" this.type !== 'telegram' && this.type !== 'Telegram-WebDollarRO' && this.type !== 'twitter' && this.type !== 'youtube' " :type="this.type"  @onLinkSubmitted="this.linkSubmitted"> </submit-link>  
+
         </div>
         <div class="bountyMain">
 
             <div class="bountySideScroll">
                 <div class="error" v-html="this.error"></div>
                 <info-link class="infoLink" :type="this.type" :deadline="this.deadline"> </info-link>
-                <submit-link class="submitLink" v-if=" this.type !== 'telegram' && this.type !== 'Telegram-WebDollarRO' && this.type !== 'twitter' && this.type !== 'youtube' " :type="this.type"  @onLinkSubmitted="this.linkSubmitted"> </submit-link>
             </div>
 
             <facebook-ranking-list v-if="this.type === 'facebook'" :list="this.sortedArray" :type="this.type" ></facebook-ranking-list>

@@ -4,7 +4,7 @@
 
         <div class="list">
 
-            <div class="listHead listElement facebookElement">
+            <div class="listHead listElement instagramElement">
                 <div>
                     No.
                 </div>
@@ -26,7 +26,7 @@
                 </div>
             </div>
 
-            <div class="listElement facebookElement" v-for="(element, index) in list" :key="'FacebookRankingListElement '+index">
+            <div class="listElement instagramElement" v-for="(element, index) in list" :key="'FacebookRankingListElement '+index">
                 <div>
                   {{index+1}}
                 </div>
