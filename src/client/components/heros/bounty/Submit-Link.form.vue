@@ -13,6 +13,7 @@
         </div>
 
         <button type="submit" @click="this.sendLink">Participate</button>
+
     </div>
 
 </template>

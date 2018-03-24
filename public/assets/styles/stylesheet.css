@@ -404,8 +404,12 @@ a:hover{
   height: 52px;
   display: block;
   padding-bottom:82px;
-  position: relative;
   border-top: solid 1px #444444;
+}
+
+.bountyProgramPage #footer{
+  position: fixed;
+  bottom:0;
 }
 
 #copyright{
@@ -1573,7 +1577,7 @@ svg path, svg rect{
 }
 
 .bountyMain{
-  padding: 0 10px 10px 310px;
+  padding: 0 10px 100px 310px;
   width: 100%;
   display: inline-block;
   vertical-align: top;
@@ -1649,7 +1653,7 @@ svg path, svg rect{
 }
 
 .youtubeElement{
-  grid-template-columns: 50px 1fr 120px 120px 70px  70px 100px;
+  grid-template-columns: 50px 1fr 120px 120px 80px 80px 100px;
 }
 
 .facebookElement{
@@ -1694,4 +1698,9 @@ svg path, svg rect{
   color: #fff;
   font-size: 18px;
   line-height: 50px;
+}
+
+.bountySideScroll{
+  display: block;
+  overflow: scroll;
 }

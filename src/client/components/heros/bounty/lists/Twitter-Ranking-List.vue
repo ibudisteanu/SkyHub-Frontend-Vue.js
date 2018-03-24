@@ -8,7 +8,7 @@
             </div>
 
             <div class="title">
-                Body
+                Tweet content
             </div>
 
             <div>
@@ -36,10 +36,11 @@
                 {{index+1}}
             </div>
             <div class="title">
-                {{element.description.substr(0, 100)}}
+                {{element.description.substr(0, 50).replace(/\n/g,'')}}
             </div>
             <div>
-                {{element.username}} {{element.name}}
+                {{element.username}}
+                <!--{{element.name}}-->
             </div>
 
             <div>

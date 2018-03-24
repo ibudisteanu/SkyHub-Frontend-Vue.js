@@ -7,8 +7,8 @@
             <div class="title">Title</div>
             <div>Views</div>
             <div>Comments</div>
-            <div>Thumbs Up</div>
-            <div>Thumbs Down</div>
+            <div>T-Up</div>
+            <div>T-Down</div>
             <div>Score</div>
         </div>
 
@@ -17,7 +17,7 @@
                 {{index+1}}
             </div>
             <div class="title">
-                {{element.title.substring(0, 200)}}
+                {{element.title.substring(0, 50)}}
             </div>
             <div>
                 {{numberWithCommas(element.views)}}

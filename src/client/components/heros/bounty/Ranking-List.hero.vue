@@ -7,14 +7,17 @@
             <div class="bountyCampains">
                 <span @click="this.handleChangeToYoutube" :class="this.type==='youtube' ? 'selectedCampaign' : ''">Youtube</span>
                 <span @click="this.handleChangeToFacebook" :class="this.type==='facebook' ? 'selectedCampaign' : ''">Facebook</span>
+                <span @click="this.handleChangeToInstagram" :class="this.type==='instagram' ? 'selectedCampaign' : ''">Instagram</span>
                 <span @click="this.handleChangeToTwitter" :class="this.type==='twitter' ? 'selectedCampaign' : ''">Twitter</span>
                 <span @click="this.handleChangeToTelegramWebDollar" :class="this.type==='telegram' ? 'selectedCampaign' : ''">Telegram</span>
                 <span @click="this.handleChangeToTelegramWebDollarRO" :class="this.type==='telegram RO' ? 'selectedCampaign' : ''">Telegram RO</span>
                 <span @click="this.handleChangeToWebsite" :class="this.type==='website' ? 'selectedCampaign' : ''">Websites</span>
             </div>
 
-            <info-link :type="this.type" :deadline="this.deadline"> </info-link>
-            <submit-link v-if=" this.type !== 'telegram' && this.type !== 'Telegram-WebDollarRO' && this.type !== 'twitter' && this.type !== 'youtube' " :type="this.type"  @onLinkSubmitted="this.linkSubmitted"> </submit-link>
+            <div class="bountySideScroll">
+                <info-link :type="this.type" :deadline="this.deadline"> </info-link>
+                <submit-link v-if=" this.type !== 'telegram' && this.type !== 'Telegram-WebDollarRO' && this.type !== 'twitter' && this.type !== 'youtube' " :type="this.type"  @onLinkSubmitted="this.linkSubmitted"> </submit-link>
+            </div>
 
         </div>
         <div class="bountyMain">
@@ -35,6 +38,7 @@
 
 <script>
 
+    import InstagramRankingList from "./lists/Instagram-Ranking-List.vue"
     import YoutubeRankingList from "./lists/Youtube-Ranking-List.vue"
     import FacebookRankingList from "./lists/Facebook-Ranking-List.vue"
     import TwitterRankingList from "./lists/Twitter-Ranking-List.vue"
@@ -65,6 +69,7 @@
             TwitterRankingList,
             TelegramRankingList,
             WebsiteRankingList,
+            InstagramRankingList,
             SubmitLink,
             InfoLink
         },
@@ -108,6 +113,7 @@
 
             },
 
+            handleChangeToInstagram(){this.handleChangeType('instagram')}
             handleChangeToYoutube(){ this.handleChangeType('youtube')},
             handleChangeToFacebook(){ this.handleChangeType('facebook')},
             handleChangeToTwitter(){ this.handleChangeType('twitter')},

@@ -18,10 +18,6 @@
                 </div>
 
                 <div>
-                    Shares
-                </div>
-
-                <div>
                     Comments
                 </div>
 
@@ -39,9 +35,6 @@
                 </div>
                 <div>
                     {{element.likes}}
-                </div>
-                <div>
-                    {{element.shares}}
                 </div>
                 <div>
                     {{element.comments}}

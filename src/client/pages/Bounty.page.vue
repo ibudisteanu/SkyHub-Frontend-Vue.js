@@ -2,7 +2,7 @@
 
     <div>
 
-        <layout v-show="!protocolUsedOnMultipleTabs">
+        <layout class="bountyProgramPage" v-show="!protocolUsedOnMultipleTabs">
 
             <div slot="content">
 
