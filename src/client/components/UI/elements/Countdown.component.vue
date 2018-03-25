@@ -1,12 +1,30 @@
 <template>
 
     <div>
-        <span v-if="this.message === ''">
-            {{d}} {{h}} {{m}} {{s}}
-        </span>
+
+        <ul class="vuejs-countdown" v-if="this.message === ''">
+            <li>
+                <p class="digit">{{d}}</p>
+                <p class="text">days</p>
+            </li>
+            <li>
+                <p class="digit">{{h}}</p>
+                <p class="text">hours</p>
+            </li>
+            <li>
+                <p class="digit">{{m}}</p>
+                <p class="text">min</p>
+            </li>
+            <li>
+                <p class="digit">{{s}}</p>
+                <p class="text">Sec</p>
+            </li>
+        </ul>
+
         <span v-if="this.message !== ''">
             {{message}}
         </span>
+
     </div>
 
 </template>
@@ -62,6 +80,20 @@
                 this.h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 this.m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 this.s = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Estetic redefine
+                if (this.h < 10){
+                    this.h = '0' + this.h;
+                }
+                if (this.d < 10){
+                    this.d = '0' + this.d;
+                }
+                if (this.m < 10){
+                    this.m = '0' + this.m;
+                }
+                if (this.s < 10){
+                    this.s = '0' + this.s;
+                }
 
                 // If the count down is finished, write some text
                 if (distance < 0) {

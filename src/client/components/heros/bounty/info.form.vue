@@ -42,6 +42,7 @@
 
     import consts from "consts/constants"
     import countdown from "client/components/UI/elements/Countdown.component.vue"
+//    import countdown from 'vuejs-countdown'
 
     let axios = require('axios');
 
