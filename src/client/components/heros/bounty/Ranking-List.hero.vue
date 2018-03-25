@@ -22,7 +22,7 @@
 
             <div class="bountySideScroll">
                 <div class="error" v-html="this.error"></div>
-                <info-link class="infoLink" :type="this.type" :deadline="this.deadline"> </info-link>
+                <info-link  class="infoLink" :type="this.type"> </info-link>
             </div>
 
             <facebook-ranking-list v-if="this.type === 'facebook'" :list="this.sortedArray" :type="this.type" :fetchingList="this.fetchingList" ></facebook-ranking-list>
@@ -64,7 +64,6 @@
                 error: '',
                 list: {},
                 page:0,
-                deadline:'April 1, 2018 00:00',
                 fetchingList: true
             }
         },
@@ -91,7 +90,6 @@
                 if (page === undefined)
                     page = 0;
 
-                console.log("this.fetchingList", 'true');
                 this.fetchingList = true;
 
                 let answer = await axios.get(consts.SERVER_API+"get-ranking/"+this.type+"/"+page);
@@ -101,8 +99,6 @@
                 if (answer.result){
 
                     this.fetchingList = false;
-
-                    console.log("this.fetchingList", 'false');
 
                     for (let i=0; i<answer.data.length; i++)
                         Vue.set(this.list, answer.data[i].id, answer.data[i])
@@ -139,6 +135,8 @@
             async fetchNewData(){
 
                 await this.downloadList(this.page);
+
+                this.$store.dispatch('BOUNTY_COUNT_DOWN_FETCHING_NEW_LIST', {bountyCountDownDate: new Date().getTime() + 30*1000 })
 
                 setTimeout( async ()=>{
                     await this.fetchNewData();

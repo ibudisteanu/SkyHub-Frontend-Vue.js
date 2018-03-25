@@ -5,7 +5,7 @@
         <div class="countDown">
             <div class="verticalAlignMiddle">
                 <span class="countDownTitle">{{this.type}} bounty end:</span>
-                <countdown :deadline="this.deadline" ></countdown>
+                <countdown :deadline="this.info.deadline" ></countdown>
             </div>
         </div>
 
@@ -27,6 +27,9 @@
                 <b>Reward:</b> {{this.info.redeem}}
             </span>
             <span class="infoLine">
+                <b>Refresh Countdown:</b> {{this.refreshCountDownSeconds}}
+            </span>
+            <span class="infoLine">
                 <b class="capitalize">{{this.type}} bounty Amount:</b> {{this.info.reward}}
             </span>
 
@@ -41,7 +44,6 @@
 
     import consts from "consts/constants"
     import countdown from "client/components/UI/elements/Countdown.component.vue"
-//    import countdown from 'vuejs-countdown'
 
     let axios = require('axios');
 
@@ -53,6 +55,8 @@
 
             return {
 
+                refreshCountDownSeconds: 0,
+
                 youtube:{
                     type: "Automatically",
                     requirement: 'Include "WebDollar" in description and title',
@@ -60,6 +64,7 @@
                     update: "Every 3 minutes",
                     redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address",
                     reward: "10.000 WEBD",
+                    deadline: 'April 1, 2018 00:00',
                 },
                 facebook:{
                     type: "Register post link",
@@ -68,6 +73,7 @@
                     update: "Every 3 minutes",
                     redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address",
                     reward: "10.000 WEBD",
+                    deadline: 'April 1, 2018 00:00',
                 },
                 instagram:{
                     type: "Automatically",
@@ -76,6 +82,7 @@
                     update: "Every 3 minutes",
                     redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address",
                     reward: "10.000 WEBD",
+                    deadline: 'April 1, 2018 00:00',
                 },
                 twitter:{
                     type: "Automatically",
@@ -84,6 +91,7 @@
                     update: "Every 3 minutes",
                     redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address",
                     reward: "10.000 WEBD",
+                    deadline: 'April 1, 2018 00:00',
                 },
                 telegram:{
                     type: "Automatically",
@@ -92,6 +100,7 @@
                     update: "Every day",
                     redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address",
                     reward: "10.000 WEBD",
+                    deadline: 'April 1, 2018 00:00',
                 },
                 telegramRO:{
                     type: "Automatically",
@@ -100,6 +109,7 @@
                     update: "Every day",
                     redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address",
                     reward: "10.000 WEBD",
+                    deadline: 'April 1, 2018 00:00',
                 },
                 reddit:{
                     type: "Automatically",
@@ -108,6 +118,7 @@
                     update: "Every 3 minutes",
                     redeem: "To redeem your bounty, you will need to contact the team for providing your wallet Address",
                     reward: "10.000 WEBD",
+                    deadline: 'April 1, 2018 00:00',
                 },
                 website:{
                     type: "Automatically",
@@ -116,6 +127,7 @@
                     update: "Every day",
                     redeem: "To redeem your bounty, you will need to contact the team for providing your wallet Address",
                     reward: "10.000 WEBD",
+                    deadline: 'April 1, 2018 00:00',
                 },
 
             }
@@ -127,16 +139,32 @@
 
                 if (this.type !== '')
                     return this[this.type];
+                else
+                    return this.youtube;
             }
 
         },
 
         props:{
             type: {default: ''},
-            deadline: {default: ''}
         },
 
         methods:{
+
+        },
+
+        mounted(){
+
+            setInterval(()=>{
+
+                // Get todays date and time
+                let now = new Date().getTime();
+                // Find the distance between now an the count down date
+                let distance = this.$store.state.global.bountyCountDownDateFetchingNewList - now;
+
+                this.refreshCountDownSeconds = Math.max(0, Math.floor((distance % (1000 * 60)) / 1000));
+
+            }, 1000);
 
         }
 

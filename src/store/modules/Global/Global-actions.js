@@ -14,4 +14,11 @@ export default {
     },
 
 
+    BOUNTY_COUNT_DOWN_FETCHING_NEW_LIST: ({ commit, dispatch, state }, { bountyCountDownDate}) => {
+
+        return commit( "SET_BOUNTY_COUNT_DOWN_FETCHING_NEW_LIST", { bountyCountDownDate } );
+
+    },
+
+
 }
