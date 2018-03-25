@@ -37,7 +37,7 @@
 
             <div class="bountySideScroll">
                 <div class="error" v-html="this.error"></div>
-                <info-link  class="infoLink" :type="this.type" @onLinkSubmitted="linkSubmitted"> </info-link>
+                <info-link  class="infoLink" :type="this.type" :onLinkSubmitted="this.linkSubmitted"> </info-link>
             </div>
 
             <facebook-ranking-list v-if="this.type === 'facebook'" :list="this.sortedArray" :type="this.type" :fetchingList="this.fetchingList" ></facebook-ranking-list>

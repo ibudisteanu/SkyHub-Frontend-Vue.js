@@ -6,10 +6,11 @@
 
         <div class="inputs">
             <input placeholder="Promote Link URL" type="text" v-model="url"><br>
-            <input placeholder="Rewarded Address" type="text" v-model="walletAddress" ><br>
+            <!--<input placeholder="Rewarded Address" type="text" v-model="walletAddress" ><br>-->
 
             <div class="error" v-html="this.error">
             </div>
+
         </div>
 
         <button type="submit" @click="this.sendLink">Participate</button>
@@ -35,7 +36,7 @@
 
         props:{
             type: {default: ''},
-            onLinkSubmitted: {default: ()=>{} }
+            onLinkSubmitted: {default: ()=>{}},
         },
 
         //@onLinkSubmitted
