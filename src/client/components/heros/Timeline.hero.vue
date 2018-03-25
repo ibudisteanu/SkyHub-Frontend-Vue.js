@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <div class="timeline">
-                        <div class="timeline-icon"><i class="fa fa-network"></i></div>
+                        <div class="timeline-icon"><i class="fa fa-earth"></i></div>
                         <span class="year">DEC 2017</span>
                         <div class="timeline-content">
                             <h5 class="title">P2P AND MINI-BLOCKCHAIN</h5>
@@ -78,6 +78,7 @@
 
 
 <script>
+
 
     export default{
 

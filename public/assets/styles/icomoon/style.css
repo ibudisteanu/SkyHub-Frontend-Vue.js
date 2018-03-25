@@ -1,15 +1,15 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?tra34w');
-  src:  url('fonts/icomoon.eot?tra34w#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?tra34w') format('truetype'),
-    url('fonts/icomoon.woff?tra34w') format('woff'),
-    url('fonts/icomoon.svg?tra34w#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?1gbgi4');
+  src:  url('fonts/icomoon.eot?1gbgi4#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?1gbgi4') format('truetype'),
+    url('fonts/icomoon.woff?1gbgi4') format('woff'),
+    url('fonts/icomoon.svg?1gbgi4#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^="fa-"], [class*=" fa-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
   speak: none;
@@ -24,75 +24,75 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-rocket:before {
+.fa-rocket:before {
   content: "\e901";
 }
-.icon-reddit-alien:before {
+.fa-reddit-alien:before {
   content: "\e902";
 }
-.icon-flask:before {
+.fa-flask:before {
   content: "\e903";
 }
-.icon-chevron-down:before {
+.fa-chevron-down:before {
   content: "\e904";
 }
-.icon-chevron-up:before {
+.fa-chevron-up:before {
   content: "\e905";
 }
-.icon-chevron-down2:before {
+.fa-chevron-down2:before {
   content: "\e906";
 }
-.icon-home:before {
+.fa-home:before {
   content: "\e900";
 }
-.icon-pencil:before {
+.fa-pencil:before {
   content: "\e907";
 }
-.icon-file-empty:before {
+.fa-file-empty:before {
   content: "\e924";
 }
-.icon-file-text2:before {
+.fa-file-text2:before {
   content: "\e926";
 }
-.icon-folder-download:before {
+.fa-folder-download:before {
   content: "\e933";
 }
-.icon-hammer:before {
+.fa-hammer:before {
   content: "\e996";
 }
-.icon-trophy:before {
+.fa-trophy:before {
   content: "\e99e";
 }
-.icon-gift:before {
+.fa-gift:before {
   content: "\e99f";
 }
-.icon-download3:before {
+.fa-download3:before {
   content: "\e9c7";
 }
-.icon-upload3:before {
+.fa-upload3:before {
   content: "\e9c8";
 }
-.icon-earth:before {
+.fa-earth:before {
   content: "\e9ca";
 }
-.icon-arrow-up:before {
+.fa-arrow-up:before {
   content: "\ea32";
 }
-.icon-arrow-down:before {
+.fa-arrow-down:before {
   content: "\ea36";
 }
-.icon-facebook2:before {
+.fa-facebook2:before {
   content: "\ea91";
 }
-.icon-instagram:before {
+.fa-instagram:before {
   content: "\ea92";
 }
-.icon-telegram:before {
+.fa-telegram:before {
   content: "\ea95";
 }
-.icon-twitter:before {
+.fa-twitter:before {
   content: "\ea96";
 }
-.icon-reddit:before {
+.fa-reddit:before {
   content: "\eac6";
 }
