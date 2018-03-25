@@ -37,7 +37,7 @@
                   {{index+1}}
                 </div>
                 <div class="title">
-                    {{element.description.substring(0, 50)}}
+                    {{element.description !== undefined ? element.description.substring(0, 50) : ''}}
                 </div>
                 <div>
                     {{element.likes}}

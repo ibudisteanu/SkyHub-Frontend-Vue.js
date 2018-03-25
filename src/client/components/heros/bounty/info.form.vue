@@ -37,7 +37,8 @@
 
         </div>
 
-        <submit-link class="submitLink" v-if="this.type !== 'reddit' && this.type !== 'instagram' && this.type !== 'telegram' && this.type !== 'telegram RO' && this.type !== 'twitter' && this.type !== 'youtube' " :type="this.type" @onLinkSubmitted="this.onLinkSubmitted"> </submit-link>
+        <submit-link class="submitLink" v-if="this.type !== 'reddit' && this.type !== 'instagram' && this.type !== 'telegram' && this.type !== 'telegram RO' && this.type !== 'twitter' && this.type !== 'youtube' " :type="this.type" :onLinkSubmitted="this.onLinkSubmitted"> </submit-link>
+
 
     </div>
 
@@ -153,7 +154,7 @@
 
         props:{
             type: {default: ''},
-            onLinkSubmitted: {default: ()=>{} }
+            onLinkSubmitted: {default: ()=>{}},
         },
 
         methods:{
