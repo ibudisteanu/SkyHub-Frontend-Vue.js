@@ -19,6 +19,8 @@ export default {
         statusType: '',
         statusMessage: '',
 
+        bountyCountDownDateFetchingNewList: 0,
+
     },
     actions,
     mutations,
