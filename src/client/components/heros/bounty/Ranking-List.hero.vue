@@ -24,7 +24,7 @@
                     <i class="fa fa-telegram"></i>
                 </span>
                 <span @click="this.handleChangeToReddit" :class="this.type==='reddit' ? 'selectedCampaign' : ''">
-                    <i class="fa fa-reddit"></i>
+                    <i class="fa fa-reddit-alien"></i>
                 </span>
                 <span @click="this.handleChangeToWebsite" :class="this.type==='website' ? 'selectedCampaign' : ''">
                     <i class="fa fa-earth"></i>
