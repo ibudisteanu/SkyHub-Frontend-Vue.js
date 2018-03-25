@@ -2,7 +2,9 @@
 
     <div>
 
-        <div class="list">
+        <loading-spinner v-if="fetchingList" />
+
+        <div v-if="!fetchingList" class="list">
 
             <div class="listHead listElement redditElement">
                 <div>
@@ -65,16 +67,19 @@
 
 <script>
 
+    import LoadingSpinner from "client/components/UI/elements/Loading-Spinner.vue"
+
     export default{
 
+        components:{ LoadingSpinner },
+
         props:{
+            fetchingList: {default: true},
             list: {default: function (){ return { } }},
         },
 
         methods:{
         },
-
-
 
 
     }

@@ -1,38 +1,44 @@
 <template>
 
-    <div class="list">
+    <div>
 
-        <div class="listHead listElement youtubeElement">
-            <div>No.</div>
-            <div class="title">Title</div>
-            <div>Views</div>
-            <div>Comments</div>
-            <div>T-Up</div>
-            <div>T-Down</div>
-            <div>Score</div>
-        </div>
+        <loading-spinner v-if="fetchingList" />
 
-        <div class="listElement youtubeElement" v-for="(element, index) in this.list" :key="'YoutubeRankingListElement '+index">
-            <div>
-                {{index+1}}
+        <div v-if="!fetchingList" class="list">
+
+            <div class="listHead listElement youtubeElement">
+                <div>No.</div>
+                <div class="title">Title</div>
+                <div>Views</div>
+                <div>Comments</div>
+                <div>T-Up</div>
+                <div>T-Down</div>
+                <div>Score</div>
             </div>
-            <div class="title">
-                {{element.title.substring(0, 50)}}
-            </div>
-            <div>
-                {{numberWithCommas(element.views)}}
-            </div>
-            <div>
-                {{element.comments}}
-            </div>
-            <div>
-                {{element.thumbsUp}}
-            </div>
-            <div>
-                {{element.thumbsDown}}
-            </div>
-            <div class="score">
-                {{element.score !== undefined ? element.score.toFixed(2) : 'na'}}
+
+            <div class="listElement youtubeElement" v-for="(element, index) in this.list" :key="'YoutubeRankingListElement '+index">
+                <div>
+                    {{index+1}}
+                </div>
+                <div class="title">
+                    {{element.title.substring(0, 50)}}
+                </div>
+                <div>
+                    {{numberWithCommas(element.views)}}
+                </div>
+                <div>
+                    {{element.comments}}
+                </div>
+                <div>
+                    {{element.thumbsUp}}
+                </div>
+                <div>
+                    {{element.thumbsDown}}
+                </div>
+                <div class="score">
+                    {{element.score !== undefined ? element.score.toFixed(2) : 'na'}}
+                </div>
+
             </div>
 
         </div>
@@ -43,9 +49,14 @@
 
 <script>
 
+    import LoadingSpinner from "client/components/UI/elements/Loading-Spinner.vue"
+
     export default{
 
+        components:{ LoadingSpinner },
+
         props:{
+            fetchingList: {default: true},
             list: {default: function (){ return { } }},
         },
 

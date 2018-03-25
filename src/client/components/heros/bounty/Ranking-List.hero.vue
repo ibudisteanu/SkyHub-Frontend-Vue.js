@@ -25,14 +25,14 @@
                 <info-link class="infoLink" :type="this.type" :deadline="this.deadline"> </info-link>
             </div>
 
-            <facebook-ranking-list v-if="this.type === 'facebook'" :list="this.sortedArray" :type="this.type" ></facebook-ranking-list>
-            <youtube-ranking-list v-if="this.type === 'youtube'" :list="this.sortedArray" :type="this.type" ></youtube-ranking-list>
-            <instagram-ranking-list v-if="this.type === 'instagram'" :list="this.sortedArray" :type="this.type" ></instagram-ranking-list>
-            <twitter-ranking-list v-if="this.type === 'twitter'" :list="this.sortedArray" :type="this.type" ></twitter-ranking-list>
-            <telegram-ranking-list v-if="this.type === 'telegram'" :list="this.sortedArray" :type="this.type" ></telegram-ranking-list>
-            <telegram-ranking-list v-if="this.type === 'telegram RO'" :list="this.sortedArray" :type="this.type" ></telegram-ranking-list>
-            <reddit-ranking-list v-if="this.type === 'reddit'" :list="this.sortedArray" :type="this.type" ></reddit-ranking-list>
-            <website-ranking-list v-if="this.type === 'website'" :list="this.sortedArray" :type="this.type" ></website-ranking-list>
+            <facebook-ranking-list v-if="this.type === 'facebook'" :list="this.sortedArray" :type="this.type" :fetchingList="this.fetchingList" ></facebook-ranking-list>
+            <youtube-ranking-list v-if="this.type === 'youtube'" :list="this.sortedArray" :type="this.type" :fetchingList="this.fetchingList"></youtube-ranking-list>
+            <instagram-ranking-list v-if="this.type === 'instagram'" :list="this.sortedArray" :type="this.type" :fetchingList="this.fetchingList"></instagram-ranking-list>
+            <twitter-ranking-list v-if="this.type === 'twitter'" :list="this.sortedArray" :type="this.type" :fetchingList="this.fetchingList"></twitter-ranking-list>
+            <telegram-ranking-list v-if="this.type === 'telegram'" :list="this.sortedArray" :type="this.type" :fetchingList="this.fetchingList"></telegram-ranking-list>
+            <telegram-ranking-list v-if="this.type === 'telegram RO'" :list="this.sortedArray" :type="this.type" :fetchingList="this.fetchingList"></telegram-ranking-list>
+            <reddit-ranking-list v-if="this.type === 'reddit'" :list="this.sortedArray" :type="this.type" :fetchingList="this.fetchingList"></reddit-ranking-list>
+            <website-ranking-list v-if="this.type === 'website'" :list="this.sortedArray" :type="this.type" :fetchingList="this.fetchingList"></website-ranking-list>
 
         </div>
 
@@ -64,7 +64,8 @@
                 error: '',
                 list: {},
                 page:0,
-                deadline:'April 1, 2018 00:00'
+                deadline:'April 1, 2018 00:00',
+                fetchingList: true
             }
         },
 
@@ -90,11 +91,18 @@
                 if (page === undefined)
                     page = 0;
 
+                console.log("this.fetchingList", 'true');
+                this.fetchingList = true;
+
                 let answer = await axios.get(consts.SERVER_API+"get-ranking/"+this.type+"/"+page);
 
                 answer = answer.data;
 
                 if (answer.result){
+
+                    this.fetchingList = false;
+
+                    console.log("this.fetchingList", 'false');
 
                     for (let i=0; i<answer.data.length; i++)
                         Vue.set(this.list, answer.data[i].id, answer.data[i])

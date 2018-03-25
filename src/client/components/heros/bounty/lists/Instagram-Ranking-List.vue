@@ -1,8 +1,9 @@
 <template>
 
     <div>
+        <loading-spinner v-if="fetchingList" />
 
-        <div class="list">
+        <div v-if="!fetchingList" class="list">
 
             <div class="listHead listElement instagramElement">
                 <div>
@@ -52,16 +53,19 @@
 
 <script>
 
+    import LoadingSpinner from "client/components/UI/elements/Loading-Spinner.vue"
+
     export default{
 
+        components:{ LoadingSpinner },
+
         props:{
+            fetchingList: {default: true},
             list: {default: function (){ return { } }},
         },
 
         methods:{
         },
-
-
 
 
     }
