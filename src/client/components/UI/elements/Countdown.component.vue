@@ -39,13 +39,14 @@
 
 
             // Update the count down every 1 second
-            this.interval = setInterval( this.countDown(), 1000);
+            this.interval = setInterval( this.countDown, 1000);
 
             this.countDown();
 
         },
 
         methods: {
+
             countDown(){
 
                 let countDownDate = new Date(this.deadline).getTime();
@@ -69,6 +70,7 @@
                 }
 
             }
+            
         }
 
     }
