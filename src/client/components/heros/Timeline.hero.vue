@@ -9,7 +9,7 @@
         <div id="timeline" class="backgroundSection">
         <div class="main-timeline">
                     <div class="timeline">
-                        <div class="timeline-icon"><icon icon="document" :width="'48px'" :height="'48px'" /></div>
+                        <div class="timeline-icon"><icon icon="document" :width="'48px'" :height="'auto'" /></div>
                         <span class="year">10 OCT 2017</span>
                         <div class="timeline-content">
                             <h5 class="title">WHITE PAPER DRAFT</h5>
