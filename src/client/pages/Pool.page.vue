@@ -1,22 +1,27 @@
 <template>
 
-    <Layout>
+    <div>
 
-        <div slot="content">
+        <Layout v-show="!protocolUsedOnMultipleTabs">
 
-            <network-hero/>
+            <div slot="content">
 
-        </div>
+                <network-hero/>
 
-    </Layout>
+            </div>
+
+        </Layout>
+
+        <multiple-tabs v-show="protocolUsedOnMultipleTabs"/>
+
+    </div>
 
 </template>
 
 <script>
 
-    import Layout from "client/components/layout/sampleLayout.vue"
+    import Layout from "client/components/layout/Layout.vue"
     import NetworkHero from "client/components/heros/Network.hero.vue"
-
 
     export default {
 
@@ -25,7 +30,6 @@
         components:{
             "layout": Layout,
             "network-hero": NetworkHero,
-
         }
 
     }

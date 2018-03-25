@@ -1,7 +1,7 @@
 <template>
 
     <div>
-        <loading-spinner v-if="fetchingList" />
+        <loading-spinner class="bountySpinner" v-if="fetchingList" />
 
         <div v-if="!fetchingList" class="list">
 
