@@ -24,7 +24,6 @@
         <span class="finishedCount" v-if="this.message !== ''">
             {{message}}
         </span>
-
     </div>
 
 </template>
@@ -47,13 +46,14 @@
 
         },
 
-        props: {
-            deadline: {default: 'September 31, 2018'}
+        props:{
+            deadline : {default: "Sep 5, 2018 15:37:25" },
         },
 
         mounted(){
 
             if (typeof window === "undefined") return false;
+
 
             // Update the count down every 1 second
             if (this.interval !== undefined)
