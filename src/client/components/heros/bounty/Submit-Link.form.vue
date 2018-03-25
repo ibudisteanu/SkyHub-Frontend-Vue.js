@@ -34,7 +34,8 @@
         },
 
         props:{
-            type: {default: ''}
+            type: {default: ''},
+            onLinkSubmitted: {default: ()=>{} }
         },
 
         //@onLinkSubmitted

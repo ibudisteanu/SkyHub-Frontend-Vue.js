@@ -49,7 +49,7 @@
                     {{element.comments}}
                 </div>
                 <div class="score">
-                    {{element.score.toFixed(2)}}
+                    <!--{{element.score.toFixed(2)}}-->
                 </div>
                 <!--<div>-->
                 <!--{{element.status}}-->
@@ -81,8 +81,11 @@
         methods:{
         },
 
+        computed(){
 
+            console.log(element);
 
+        },
 
     }
 

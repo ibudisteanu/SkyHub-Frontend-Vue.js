@@ -5,24 +5,39 @@
         <div class="bountySide">
 
             <div class="bountyCampains">
-                <span @click="this.handleChangeToYoutube" :class="this.type==='youtube' ? 'selectedCampaign' : ''">Youtube</span>
-                <span @click="this.handleChangeToFacebook" :class="this.type==='facebook' ? 'selectedCampaign' : ''">Facebook</span>
-                <span @click="this.handleChangeToInstagram" :class="this.type==='instagram' ? 'selectedCampaign' : ''">Instagram</span>
-                <span @click="this.handleChangeToTwitter" :class="this.type==='twitter' ? 'selectedCampaign' : ''">Twitter</span>
-                <span @click="this.handleChangeToTelegramWebDollar" :class="this.type==='telegram' ? 'selectedCampaign' : ''">Telegram</span>
-                <span @click="this.handleChangeToTelegramWebDollarRO" :class="this.type==='telegram RO' ? 'selectedCampaign' : ''">Telegram RO</span>
-                <span @click="this.handleChangeToReddit" :class="this.type==='reddit' ? 'selectedCampaign' : ''">Reddit</span>
-                <span @click="this.handleChangeToWebsite" :class="this.type==='website' ? 'selectedCampaign' : ''">Websites</span>
+                <span @click="this.handleChangeToYoutube" :class="this.type==='youtube' ? 'selectedCampaign' : ''">
+                    <i class="fa fa-youtube2"></i>
+                </span>
+                <span @click="this.handleChangeToFacebook" :class="this.type==='facebook' ? 'selectedCampaign' : ''">
+                    <i class="fa fa-facebook2"></i>
+                </span>
+                <span @click="this.handleChangeToInstagram" :class="this.type==='instagram' ? 'selectedCampaign' : ''">
+                    <i class="fa fa-instagram"></i>
+                </span>
+                <span @click="this.handleChangeToTwitter" :class="this.type==='twitter' ? 'selectedCampaign' : ''">
+                    <i class="fa fa-twitter"></i>
+                </span>
+                <span @click="this.handleChangeToTelegramWebDollar" :class="this.type==='telegram' ? 'selectedCampaign' : ''">
+                    <i class="fa fa-telegram"></i>
+                </span>
+                <span @click="this.handleChangeToTelegramWebDollarRO" :class="this.type==='telegram RO' ? 'selectedCampaign' : ''">
+                    <i class="fa fa-telegram"></i>
+                </span>
+                <span @click="this.handleChangeToReddit" :class="this.type==='reddit' ? 'selectedCampaign' : ''">
+                    <i class="fa fa-reddit"></i>
+                </span>
+                <span @click="this.handleChangeToWebsite" :class="this.type==='website' ? 'selectedCampaign' : ''">
+                    <i class="fa fa-earth"></i>
+                </span>
             </div>
 
-            <submit-link class="submitLink" v-if="this.type !== 'reddit' && this.type !== 'instagram' && this.type !== 'telegram' && this.type !== 'telegram RO' && this.type !== 'Telegram-WebDollarRO' && this.type !== 'twitter' && this.type !== 'youtube' " :type="this.type"  @onLinkSubmitted="this.linkSubmitted"> </submit-link>
 
         </div>
         <div class="bountyMain">
 
             <div class="bountySideScroll">
                 <div class="error" v-html="this.error"></div>
-                <info-link  class="infoLink" :type="this.type"> </info-link>
+                <info-link  class="infoLink" :type="this.type" @onLinkSubmitted="linkSubmitted"> </info-link>
             </div>
 
             <facebook-ranking-list v-if="this.type === 'facebook'" :list="this.sortedArray" :type="this.type" :fetchingList="this.fetchingList" ></facebook-ranking-list>
@@ -50,7 +65,6 @@
     import TelegramRankingList from "./lists/Telegram-Ranking-List.vue"
     import WebsiteRankingList from "./lists/Telegram-Ranking-List.vue"
 
-    import SubmitLink from "./Submit-Link.form.vue";
     import InfoLink from "./info.form.vue"
     import consts from "consts/constants";
     import Vue from 'vue'
@@ -76,14 +90,10 @@
             WebsiteRankingList,
             InstagramRankingList,
             RedditRankingList,
-            SubmitLink,
             InfoLink
         },
 
         methods:{
-            linkSubmitted (link){
-                Vue.set(this.list, link.id, link);
-            },
 
             async downloadList(page=0){
 
@@ -131,6 +141,10 @@
             handleChangeToTelegramWebDollar(){ this.handleChangeType('telegram')},
             handleChangeToTelegramWebDollarRO(){ this.handleChangeType('telegram RO')},
             handleChangeToWebsite(){ this.handleChangeType('website')},
+
+            linkSubmitted (link){
+                Vue.set(this.list, link.id, link);
+            },
 
             async fetchNewData(){
 

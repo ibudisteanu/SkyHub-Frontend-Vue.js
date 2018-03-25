@@ -21,20 +21,23 @@
                 <b>Score formula:</b> {{this.info.formula}}
             </span>
             <span class="infoLine">
-                <b>Ranking Update:</b> {{this.info.update}}
+                <div v-if="this.info.update == ''">
+                    <b>List Update:</b> {{this.refreshCountDownSeconds + ' seconds left'}}
+                </div>
+                <div v-if="this.info.update != ''">
+                    <b>List Update:</b> {{this.info.update}}
+                </div>
             </span>
             <span class="infoLine">
                 <b>Reward:</b> {{this.info.redeem}}
             </span>
             <span class="infoLine">
-                <b>Refresh Countdown:</b> {{this.refreshCountDownSeconds}}
-            </span>
-            <span class="infoLine">
                 <b class="capitalize">{{this.type}} bounty Amount:</b> {{this.info.reward}}
             </span>
 
-
         </div>
+
+        <submit-link class="submitLink" v-if="this.type !== 'reddit' && this.type !== 'instagram' && this.type !== 'telegram' && this.type !== 'telegram RO' && this.type !== 'twitter' && this.type !== 'youtube' " :type="this.type" @onLinkSubmitted="this.onLinkSubmitted"> </submit-link>
 
     </div>
 
@@ -43,13 +46,16 @@
 <script>
 
     import consts from "consts/constants"
+    import SubmitLink from "./Submit-Link.form.vue";
     import countdown from "client/components/UI/elements/Countdown.component.vue"
 
     let axios = require('axios');
 
     export default{
 
-        components: { countdown },
+        components: { countdown,
+            SubmitLink
+        },
 
         data: () => {
 
@@ -61,7 +67,7 @@
                     type: "Automatically",
                     requirement: 'Include "WebDollar" in description and title',
                     formula: "( Views/10 + ThumbsUp - ThumbsDown*3 + Comments*2 )/40",
-                    update: "Every 3 minutes",
+                    update: "",
                     redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address",
                     reward: "10.000 WEBD",
                     deadline: 'April 1, 2018 00:00',
@@ -70,7 +76,7 @@
                     type: "Register post link",
                     requirement: 'Include WebDollar in the content',
                     formula: " (Likes + 3*shares + 1.5*comments)/30",
-                    update: "Every 3 minutes",
+                    update: "",
                     redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address",
                     reward: "10.000 WEBD",
                     deadline: 'April 1, 2018 00:00',
@@ -79,7 +85,7 @@
                     type: "Automatically",
                     requirement: 'Include #WebDollar in post',
                     formula: " (Likes + 3*shares + 1.5*comments)/30",
-                    update: "Every 3 minutes",
+                    update: "",
                     redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address",
                     reward: "10.000 WEBD",
                     deadline: 'April 1, 2018 00:00',
@@ -88,7 +94,7 @@
                     type: "Automatically",
                     requirement: 'Include #WebDollar in post',
                     formula: " (Followers/100 + Friends/100 + Likes + Shares*5 + Comments*2)/10",
-                    update: "Every 3 minutes",
+                    update: "",
                     redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address",
                     reward: "10.000 WEBD",
                     deadline: 'April 1, 2018 00:00',
@@ -115,7 +121,7 @@
                     type: "Automatically",
                     requirement: 'Discus on the /r/WebDollar subreddit',
                     formula: " (RedditScore*2 + comments)/10 ",
-                    update: "Every 3 minutes",
+                    update: "",
                     redeem: "To redeem your bounty, you will need to contact the team for providing your wallet Address",
                     reward: "10.000 WEBD",
                     deadline: 'April 1, 2018 00:00',
@@ -124,7 +130,7 @@
                     type: "Automatically",
                     requirement: 'Discus on the WebDollar in Title and Description',
                     formula: " Google PageRank + Score*2 ",
-                    update: "Every day",
+                    update: "",
                     redeem: "To redeem your bounty, you will need to contact the team for providing your wallet Address",
                     reward: "10.000 WEBD",
                     deadline: 'April 1, 2018 00:00',
@@ -147,9 +153,12 @@
 
         props:{
             type: {default: ''},
+            onLinkSubmitted: {default: ()=>{} }
         },
 
         methods:{
+
+
 
         },
 

@@ -1544,7 +1544,7 @@ svg path, svg rect{
 .bountyPage{
   /*display: grid;*/
   /*grid-template-columns: 300px 1fr;*/
-  margin-top: 75px;
+  margin-top: 65px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -1577,18 +1577,26 @@ svg path, svg rect{
 }
 
 .bountySide{
-  width:300px;
+  width:70px;
   display: inline-block;
   vertical-align: top;
   position: fixed;
+  background-color: #484848;
+  height: 100%;
 }
 
 .bountyMain{
-  padding: 0 10px 100px 310px;
+  padding: 10px 10px 100px 80px;
   width: 100%;
     min-width: 1200px;
   display: inline-block;
   vertical-align: top;
+}
+
+.bountyCampains span{
+  color:#f9f9f9;
+  font-size:20px;
+  border-bottom: solid 1px#3a3a3a;
 }
 
 .bountyPage .register{
@@ -1867,3 +1875,10 @@ svg path, svg rect{
   margin-top: 120px;
 }
 
+.bountySpinner{
+  margin: 0 auto;
+  display: block;
+  width: 150px;
+  height: 150px;
+  margin-top: 150px;
+}
