@@ -9,7 +9,7 @@
         <div id="timeline" class="backgroundSection">
         <div class="main-timeline">
                     <div class="timeline">
-                        <div class="timeline-icon"><i class="fa fa-file-text2"></i></div>
+                        <div class="timeline-icon"><icon icon="document" :width="'48px'" :height="'48px'" /></div>
                         <span class="year">10 OCT 2017</span>
                         <div class="timeline-content">
                             <h5 class="title">WHITE PAPER DRAFT</h5>
@@ -19,7 +19,7 @@
                         </div>
                     </div>
                     <div class="timeline">
-                        <div class="timeline-icon"><i class="fa fa-trophy"></i></div>
+                        <div class="timeline-icon"><icon icon="trophy" :width="'48px'" :height="'48px'" /></div>
                         <span class="year">22 OCT 2017</span>
                         <div class="timeline-content">
                             <h5 class="title">TECH HUB JS HACKATHON</h5>
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <div class="timeline">
-                        <div class="timeline-icon"><i class="fa fa-network"></i></div>
+                        <div class="timeline-icon"><icon icon="network" :width="'48px'" :height="'48px'" /></div>
                         <span class="year">DEC 2017</span>
                         <div class="timeline-content">
                             <h5 class="title">P2P AND MINI-BLOCKCHAIN</h5>
@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     <div class="timeline">
-                        <div class="timeline-icon"><i class="fa fa-flask"></i></div>
+                        <div class="timeline-icon"><icon icon="flask" :width="'48px'" :height="'48px'" /></div>
                         <span class="year">IAN 2018</span>
                         <div class="timeline-content">
                             <h5 class="title">LAUNCH TEST NET</h5>
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="timeline timelineUnfinishedMilestones">
-                        <div class="timeline-icon unfinishedMilestones"><i class="fa fa-rocket"></i></div>
+                        <div class="timeline-icon unfinishedMilestones"><icon icon="rocket" :width="'48px'" :height="'48px'" /></div>
                         <span class="year">TBA</span>
                         <div class="timeline-content">
                             <h5 class="title">SECURITY + LAUNCH MAIN NET</h5>
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                     <div class="timeline timelineUnfinishedMilestones">
-                        <div class="timeline-icon unfinishedMilestones"><i class="fa fa-gift"></i></div>
+                        <div class="timeline-icon unfinishedMilestones"><icon icon="gift" :width="'48px'" :height="'48px'" /></div>
                         <span class="year">JUNE-JULY 2018</span>
                         <div class="timeline-content">
                             <h5 class="title">SMART CONTRACTS, ANONYMITY, EXCHANGE</h5>
@@ -79,13 +79,14 @@
 
 <script>
 
+    import Icon from "client/components/UI/elements/icon.vue";
 
     export default{
 
         name: 'CommunityHero',
 
         components: {
-
+            Icon,
         },
 
         params:{

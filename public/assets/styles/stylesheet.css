@@ -519,9 +519,16 @@ a:hover{
   bottom: 0;
   right: 0;
 }
-.main-timeline .timeline-icon i{
+.main-timeline .timeline-icon svg{
   font-size: 35px;
   color: #fff;
+  line-height: 80px;
+  z-index: 1;
+  position: relative;
+}
+.main-timeline .timeline-icon svg path{
+  font-size: 35px;
+  fill: #fff;
   line-height: 80px;
   z-index: 1;
   position: relative;
