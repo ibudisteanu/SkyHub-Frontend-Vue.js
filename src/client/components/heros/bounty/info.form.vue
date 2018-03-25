@@ -5,7 +5,7 @@
         <div class="countDown">
             <div class="verticalAlignMiddle">
                 <span class="countDownTitle">{{this.type}} bounty end:</span>
-                <countdown :deadline="this.deadline"></countdown>
+                <countdown :deadline="this.deadline" ></countdown>
             </div>
         </div>
 
@@ -41,12 +41,13 @@
 <script>
 
     import consts from "consts/constants"
-    import Countdown from 'vuejs-countdown'
+    import countdown from "client/components/UI/elements/Countdown.component.vue"
+
     let axios = require('axios');
 
     export default{
 
-        components: { Countdown },
+        components: { countdown },
 
         data: () => {
 
