@@ -1822,3 +1822,33 @@ svg path, svg rect{
   text-align: center;
   color: #57af51;
 }
+
+.vuejs-countdown {
+  padding: 0;
+  margin: 0;
+}
+
+.vuejs-countdown li p {
+  margin: 0;
+}
+
+.vuejs-countdown li {
+  display: inline-block;
+  margin: 0 8px;
+  text-align: center;
+  position: relative;
+}
+
+.vuejs-countdown .digit {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 0;
+}
+
+.vuejs-countdown .text {
+  text-transform: uppercase;
+  margin-bottom: 0;
+  font-size: 10px;
+}
+
