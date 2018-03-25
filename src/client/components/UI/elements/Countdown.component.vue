@@ -21,7 +21,7 @@
             </li>
         </ul>
 
-        <span v-if="this.message !== ''">
+        <span class="finishedCount" v-if="this.message !== ''">
             {{message}}
         </span>
 
@@ -54,7 +54,6 @@
         mounted(){
 
             if (typeof window === "undefined") return false;
-
 
             // Update the count down every 1 second
             if (this.interval !== undefined)

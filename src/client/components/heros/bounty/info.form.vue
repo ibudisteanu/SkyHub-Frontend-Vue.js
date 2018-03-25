@@ -11,7 +11,6 @@
 
         <div class="campaignInfo">
 
-
             <span class="infoLine">
                 <b>Bounty registration:</b> {{ this.info.type }}
             </span>
