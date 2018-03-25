@@ -109,7 +109,7 @@
                     reward: "10.000 WEBD",
                     deadline: 'April 1, 2018 00:00',
                 },
-                telegramRO:{
+                "telegram RO":{
                     type: "Automatically",
                     requirement: 'Be a member in the group, Write messages and Invite 2 by 2 people',
                     formula: " (Messages/100 + Invitations) ",
