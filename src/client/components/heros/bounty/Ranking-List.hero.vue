@@ -133,9 +133,9 @@
 
                 await this.downloadList(this.page);
 
-                setTimeout( ()=>{
-                    this.fetchNewData();
-                }, 60*1000);
+                setTimeout( async ()=>{
+                    await this.fetchNewData();
+                }, 30*1000);
 
             }
         },
