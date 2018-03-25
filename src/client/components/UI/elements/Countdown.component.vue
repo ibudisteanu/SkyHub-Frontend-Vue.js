@@ -47,8 +47,8 @@
 
         },
 
-        props:{
-            deadline : {default: "Sep 5, 2018 15:37:25" },
+        props: {
+            deadline: {default: 'September 31, 2018'}
         },
 
         mounted(){
@@ -57,6 +57,9 @@
 
 
             // Update the count down every 1 second
+            if (this.interval !== undefined)
+                clearInterval(this.interval);
+
             this.interval = setInterval( this.countDown, 1000);
 
             this.countDown();
@@ -82,28 +85,30 @@
                 this.s = Math.floor((distance % (1000 * 60)) / 1000);
 
                 // Estetic redefine
-                if (this.h < 10){
+                if (this.h < 10)
                     this.h = '0' + this.h;
-                }
-                if (this.d < 10){
+
+                if (this.d < 10)
                     this.d = '0' + this.d;
-                }
-                if (this.m < 10){
+
+                if (this.m < 10)
                     this.m = '0' + this.m;
-                }
-                if (this.s < 10){
+
+                if (this.s < 10)
                     this.s = '0' + this.s;
-                }
 
                 // If the count down is finished, write some text
                 if (distance < 0) {
                     clearInterval(this.interval);
+                    this.interval = undefined;
                     this.message = 'FINISHED';
                 }
 
             }
-            
-        }
+
+        },
+
+
 
     }
 
