@@ -408,8 +408,7 @@ a:hover{
 }
 
 .bountyProgramPage #footer{
-  position: fixed;
-  bottom:0;
+  display: none;
 }
 
 .bountySideScroll .info{
@@ -1588,7 +1587,7 @@ svg path, svg rect{
 .bountyMain{
   padding: 10px 10px 100px 80px;
   width: 100%;
-    min-width: 1200px;
+  min-width: 1200px;
   display: inline-block;
   vertical-align: top;
 }
@@ -1735,7 +1734,7 @@ svg path, svg rect{
 
 .bountySideScroll{
   display: block;
-  overflow: scroll;
+  background-color: #121012b3;
 }
 
 .button{
@@ -1765,12 +1764,20 @@ svg path, svg rect{
   grid-template-columns: 300px 1fr;
 }
 
+.infoBountyPlus{
+  grid-template-columns: 300px 1fr 300px;
+}
+
 .campaignInfo{
   padding: 5px 10px;
 }
 
 .infoLine{
   width: 100%;
+}
+
+.infoLine b{
+  color:#e2c98e!important
 }
 
 #newsletterSection{
@@ -1881,4 +1888,28 @@ svg path, svg rect{
   width: 150px;
   height: 150px;
   margin-top: 150px;
+}
+
+.submitLink{
+  background-color: #1c1c1c;
+  padding: 10px 20px!important;
+}
+
+.socialLinksNewsletter{
+  display: block;
+  text-align: center;
+}
+
+.socialLinksNewsletter .socialLinkWEBD{
+  font-size: 26px;
+  padding: 10px;
+  cursor: pointer;
+  color: #fff;
+  margin-bottom: 10px;
+  display: inline-block;
+  transition: all 0.30s ease 0s;
+}
+.socialLinksNewsletter .socialLinkWEBD:hover{
+  color: #fec02c;
+  transition: all 0.30s ease 0s;
 }

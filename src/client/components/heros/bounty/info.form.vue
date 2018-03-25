@@ -1,6 +1,6 @@
 <template>
 
-    <div class="infoBounty">
+    <div class="infoBounty" :class="this.showSubscription === 'yes' ? 'infoBountyPlus' : ''">
 
         <div class="countDown">
             <div class="verticalAlignMiddle">
@@ -37,7 +37,7 @@
 
         </div>
 
-        <submit-link class="submitLink" v-if="this.type !== 'reddit' && this.type !== 'instagram' && this.type !== 'telegram' && this.type !== 'telegram RO' && this.type !== 'twitter' && this.type !== 'youtube' " :type="this.type" @onLinkSubmitted="this.onLinkSubmitted"> </submit-link>
+        <submit-link class="submitLink" v-if="this.showSubscription == 'yes'" :type="this.type" @onLinkSubmitted="this.onLinkSubmitted"> </submit-link>
 
     </div>
 
@@ -68,7 +68,7 @@
                     requirement: 'Include "WebDollar" in description and title',
                     formula: "( Views/10 + ThumbsUp - ThumbsDown*3 + Comments*2 )/40",
                     update: "",
-                    redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address",
+                    redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address after main net",
                     reward: "10.000 WEBD",
                     deadline: 'April 1, 2018 00:00',
                 },
@@ -77,7 +77,7 @@
                     requirement: 'Include WebDollar in the content',
                     formula: " (Likes + 3*shares + 1.5*comments)/30",
                     update: "",
-                    redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address",
+                    redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address after main net",
                     reward: "10.000 WEBD",
                     deadline: 'April 1, 2018 00:00',
                 },
@@ -86,7 +86,7 @@
                     requirement: 'Include #WebDollar in post',
                     formula: " (Likes + 3*shares + 1.5*comments)/30",
                     update: "",
-                    redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address",
+                    redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address after main net",
                     reward: "10.000 WEBD",
                     deadline: 'April 1, 2018 00:00',
                 },
@@ -95,7 +95,7 @@
                     requirement: 'Include #WebDollar in post',
                     formula: " (Followers/100 + Friends/100 + Likes + Shares*5 + Comments*2)/10",
                     update: "",
-                    redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address",
+                    redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address after main net",
                     reward: "10.000 WEBD",
                     deadline: 'April 1, 2018 00:00',
                 },
@@ -104,7 +104,7 @@
                     requirement: 'Be a member in the group, Write messages and Invite 2 by 2 people',
                     formula: " (Messages/100 + Invitations) ",
                     update: "Every day",
-                    redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address",
+                    redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address after main net",
                     reward: "10.000 WEBD",
                     deadline: 'April 1, 2018 00:00',
                 },
@@ -113,7 +113,7 @@
                     requirement: 'Be a member in the group, Write messages and Invite 2 by 2 people',
                     formula: " (Messages/100 + Invitations) ",
                     update: "Every day",
-                    redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address",
+                    redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address after main net",
                     reward: "10.000 WEBD",
                     deadline: 'April 1, 2018 00:00',
                 },
@@ -122,7 +122,7 @@
                     requirement: 'Discus on the /r/WebDollar subreddit',
                     formula: " (RedditScore*2 + comments)/10 ",
                     update: "",
-                    redeem: "To redeem your bounty, you will need to contact the team for providing your wallet Address",
+                    redeem: "To redeem your bounty, you will need to contact the team for providing your wallet Address after main net",
                     reward: "10.000 WEBD",
                     deadline: 'April 1, 2018 00:00',
                 },
@@ -131,7 +131,7 @@
                     requirement: 'Discus on the WebDollar in Title and Description',
                     formula: " Google PageRank + Score*2 ",
                     update: "",
-                    redeem: "To redeem your bounty, you will need to contact the team for providing your wallet Address",
+                    redeem: "To redeem your bounty, you will need to contact the team for providing your wallet Address after main net",
                     reward: "10.000 WEBD",
                     deadline: 'April 1, 2018 00:00',
                 },
@@ -139,15 +139,25 @@
             }
         },
 
-        computed:{
+        computed: {
 
-            info(){
+            info() {
 
                 if (this.type !== '')
                     return this[this.type];
                 else
                     return this.youtube;
-            }
+            },
+
+            showSubscription() {
+
+                if (this.type !== 'reddit' && this.type !== 'instagram' && this.type !== 'telegram' && this.type !== 'telegram RO' && this.type !== 'twitter' && this.type !== 'youtube'){
+                    return 'yes'
+                }else{
+                    return 'no'
+                }
+
+            },
 
         },
 

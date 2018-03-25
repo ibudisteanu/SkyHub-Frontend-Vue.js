@@ -15,6 +15,26 @@
     #mediaContainer{
         grid-template-columns: 1fr 1fr 1fr;
     }
+    .bountySide{
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+    .bountyPage{
+        display: block;
+    }
+    .bountyCampains span{
+        display: inline-block;
+        width: 60px;
+        border-left: solid 1px#3a3a3a;
+    }
+    .bountyCampains span:last-child{
+        border-right: solid 1px#3a3a3a;
+    }
+    .bountyMain{
+        min-width: 1100px;
+        padding: 70px 10px 100px 20px;
+    }
 }
 
 @media only screen and (max-width : 992px) {
@@ -92,6 +112,9 @@
 }
 
 @media only screen and (max-width : 831px) {
+    .bountyProgramPage #footer{
+        display: none;
+    }
 
     #footer{
         padding-bottom: 125px;
@@ -333,6 +356,10 @@
 
     .distributionContainer .stats{
         padding-bottom: 20px;
+    }
+
+    .bountyCampains span {
+        width: 12%;
     }
 
 }
