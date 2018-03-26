@@ -59,7 +59,7 @@
 
         data: () => {
 
-            let commonDeadline = 'March 1, 2018 00:00';
+            let commonDeadline = 'April 2, 2018 00:00';
 
             return {
 
