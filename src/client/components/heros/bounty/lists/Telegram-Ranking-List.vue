@@ -19,8 +19,8 @@
 
                 <div>{{index+1}}</div>
                 <div class="title">{{element.username.substring(0, 50)}}</div>
-                <div class="score">{{element.invitesCount}}</div>
-                <div class="score">{{element.messages}}</div>
+                <div>{{element.invitesCount}}</div>
+                <div>{{element.messages}}</div>
                 <div>{{element.score !== undefined ? element.score.toFixed(2) : 'na'}}</div>
                 <div class="score">{{element.reward !== undefined ? element.reward.toFixed(2) : 'na'}}</div>
             </div>

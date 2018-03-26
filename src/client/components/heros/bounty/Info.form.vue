@@ -89,7 +89,7 @@
                     formula: " (Likes + 3*shares + 1.5*comments)/30",
                     update: "",
                     redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address after main net",
-                    reward: "10.000 WEBD",
+                    reward: "5.000 WEBD",
                     deadline: commonDeadline,
                 },
                 twitter:{
@@ -98,7 +98,7 @@
                     formula: " (Followers/100 + Friends/100 + Likes + Shares*5 + Comments*2)/10",
                     update: "",
                     redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address after main net",
-                    reward: "10.000 WEBD",
+                    reward: "15.000 WEBD",
                     deadline: commonDeadline,
                 },
                 telegram:{
@@ -107,7 +107,7 @@
                     formula: " (Messages/100 + Invitations) ",
                     update: "Every day",
                     redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address after main net",
-                    reward: "10.000 WEBD",
+                    reward: "22.000 WEBD",
                     deadline: commonDeadline,
                 },
                 "telegram RO":{
@@ -116,7 +116,7 @@
                     formula: " (Messages/100 + Invitations) ",
                     update: "Every day",
                     redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address after main net",
-                    reward: "10.000 WEBD",
+                    reward: "3.000 WEBD",
                     deadline: commonDeadline,
                 },
                 reddit:{
@@ -134,7 +134,7 @@
                     formula: " Google PageRank + Score*2 ",
                     update: "",
                     redeem: "To redeem your bounty, you will need to contact the team for providing your wallet Address after main net",
-                    reward: "10.000 WEBD",
+                    reward: "5.000 WEBD",
                     deadline: commonDeadline,
                 },
 
