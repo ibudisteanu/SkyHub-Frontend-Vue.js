@@ -23,12 +23,12 @@
     .bountyPage{
         display: block;
     }
-    .bountyCampains span{
+    .bountyCampaigns span{
         display: inline-block;
         width: 60px;
         border-left: solid 1px#3a3a3a;
     }
-    .bountyCampains span:last-child{
+    .bountyCampaigns span:last-child{
         border-right: solid 1px#3a3a3a;
     }
     .bountyMain{
@@ -358,7 +358,7 @@
         padding-bottom: 20px;
     }
 
-    .bountyCampains span {
+    .bountyCampaigns span {
         width: 12%;
     }
 

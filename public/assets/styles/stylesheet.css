@@ -1549,12 +1549,12 @@ svg path, svg rect{
 }
 
 
-.bountyCampains{
+.bountyCampaigns{
   display: block;
   text-align: center;
 }
 
-.bountyCampains span{
+.bountyCampaigns span{
   padding: 10px 0;
   width: 100%;
   background-color: #484848;
@@ -1563,7 +1563,7 @@ svg path, svg rect{
   transition: all .5s linear;
 }
 
-.bountyCampains span:hover{
+.bountyCampaigns span:hover{
   background-color: #313131;
   color: #d5d5d5;
   transition: all .5s linear;
@@ -1592,7 +1592,7 @@ svg path, svg rect{
   vertical-align: top;
 }
 
-.bountyCampains span{
+.bountyCampaigns span{
   color:#f9f9f9;
   font-size:20px;
   border-bottom: solid 1px#3a3a3a;
@@ -1673,31 +1673,31 @@ svg path, svg rect{
 }
 
 .youtubeElement{
-  grid-template-columns: 50px 1fr 120px 120px 80px 80px 100px;
+  grid-template-columns: 50px 1fr 120px 120px 80px 80px 100px 130px;
 }
 
 .facebookElement{
-  grid-template-columns: 50px 1fr 80px 80px 90px 120px;
+  grid-template-columns: 50px 1fr 80px 80px 90px 120px 130px;
 }
 
 .twitterElement{
-  grid-template-columns: 50px 1fr 180px 80px 80px 90px 120px;
+  grid-template-columns: 50px 1fr 180px 80px 80px 90px 120px 130px;
 }
 
 .telegramElement{
-  grid-template-columns: 50px 1fr 150px 100px 100px;
+  grid-template-columns: 50px 1fr 150px 100px 100px 130px;
 }
 
 .redditElement{
-    grid-template-columns: 50px 1fr 200px 120px 90px 120px;
+    grid-template-columns: 50px 1fr 200px 120px 90px 120px 130px;
 }
 
 .webSiteElement{
-  grid-template-columns: 50px 1fr 120px 120px;
+  grid-template-columns: 50px 1fr 120px 120px 130px;
 }
 
 .instagramElement{
-    grid-template-columns: 50px 1fr 80px 90px 100px;
+    grid-template-columns: 50px 1fr 80px 90px 100px 130px;
 }
 
 .listElement .title{

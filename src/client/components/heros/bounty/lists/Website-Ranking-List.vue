@@ -8,36 +8,20 @@
 
             <div class="listHead listElement webSiteElement">
 
-                <div>
-                    No.
-                </div>
-
-                <div class="title">
-                    Post Link
-                </div>
-
-                <div>
-                    Alexa Score
-                </div>
-
-                <div>
-                    Score
-                </div>
+                <div>No.</div>
+                <div class="title">Post Link</div>
+                <div>Alexa Score</div>
+                <div>Score</div>
+                <div>Reward WEBD</div>
 
             </div>
 
             <div class="listElement webSiteElement" v-for="(element, index) in list" :key="'FacebookRankingListElement '+index">
-                <div>
-                    {{index+1}}
-                </div>
 
-                <div class="title">
-                    {{element.link}}
-                </div>
-                <div>
-                    {{element.alexaScore.toFixed(2)}}
-                </div>
-
+                <div>{{index+1}}</div>
+                <div class="title">{{element.link}}</div>
+                <div>{{element.alexaScore.toFixed(2)}}</div>
+                <div class="score">{{element.reward !== undefined ? element.reward.toFixed(2) : 'na'}}</div>
 
             </div>
 

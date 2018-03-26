@@ -59,6 +59,8 @@
 
         data: () => {
 
+            let commonDeadline = 'March 1, 2018 00:00';
+
             return {
 
                 refreshCountDownSeconds: 0,
@@ -70,7 +72,7 @@
                     update: "",
                     redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address after main net",
                     reward: "10.000 WEBD",
-                    deadline: 'April 1, 2018 00:00',
+                    deadline: commonDeadline,
                 },
                 facebook:{
                     type: "Register post link",
@@ -79,7 +81,7 @@
                     update: "",
                     redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address after main net",
                     reward: "10.000 WEBD",
-                    deadline: 'April 1, 2018 00:00',
+                    deadline: commonDeadline,
                 },
                 instagram:{
                     type: "Automatically",
@@ -88,7 +90,7 @@
                     update: "",
                     redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address after main net",
                     reward: "10.000 WEBD",
-                    deadline: 'April 1, 2018 00:00',
+                    deadline: commonDeadline,
                 },
                 twitter:{
                     type: "Automatically",
@@ -97,7 +99,7 @@
                     update: "",
                     redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address after main net",
                     reward: "10.000 WEBD",
-                    deadline: 'April 1, 2018 00:00',
+                    deadline: commonDeadline,
                 },
                 telegram:{
                     type: "Automatically",
@@ -106,7 +108,7 @@
                     update: "Every day",
                     redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address after main net",
                     reward: "10.000 WEBD",
-                    deadline: 'April 1, 2018 00:00',
+                    deadline: commonDeadline,
                 },
                 "telegram RO":{
                     type: "Automatically",
@@ -115,7 +117,7 @@
                     update: "Every day",
                     redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address after main net",
                     reward: "10.000 WEBD",
-                    deadline: 'April 1, 2018 00:00',
+                    deadline: commonDeadline,
                 },
                 reddit:{
                     type: "Automatically",
@@ -124,7 +126,7 @@
                     update: "",
                     redeem: "To redeem your bounty, you will need to contact the team for providing your wallet Address after main net",
                     reward: "10.000 WEBD",
-                    deadline: 'April 1, 2018 00:00',
+                    deadline: commonDeadline,
                 },
                 website:{
                     type: "Automatically",
@@ -133,7 +135,7 @@
                     update: "",
                     redeem: "To redeem your bounty, you will need to contact the team for providing your wallet Address after main net",
                     reward: "10.000 WEBD",
-                    deadline: 'April 1, 2018 00:00',
+                    deadline: commonDeadline,
                 },
 
             }

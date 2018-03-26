@@ -4,13 +4,13 @@
 
         <div class="bountySide">
 
-            <div class="bountyCampains">
+            <div class="bountyCampaigns">
                 <span @click="this.handleChangeToYoutube" :class="this.type==='youtube' ? 'selectedCampaign' : ''">
                     <i class="fa fa-youtube2"></i>
                 </span>
-                <span @click="this.handleChangeToFacebook" :class="this.type==='facebook' ? 'selectedCampaign' : ''">
-                    <i class="fa fa-facebook2"></i>
-                </span>
+                <!--<span @click="this.handleChangeToFacebook" :class="this.type==='facebook' ? 'selectedCampaign' : ''">-->
+                    <!--<i class="fa fa-facebook2"></i>-->
+                <!--</span>-->
                 <span @click="this.handleChangeToInstagram" :class="this.type==='instagram' ? 'selectedCampaign' : ''">
                     <i class="fa fa-instagram"></i>
                 </span>
@@ -65,7 +65,7 @@
     import TelegramRankingList from "./lists/Telegram-Ranking-List.vue"
     import WebsiteRankingList from "./lists/Telegram-Ranking-List.vue"
 
-    import InfoLink from "./info.form.vue"
+    import InfoLink from "./Info.form.vue"
     import consts from "consts/constants";
     import Vue from 'vue'
     let axios = require('axios');
