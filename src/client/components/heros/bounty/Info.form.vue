@@ -5,8 +5,11 @@
         <div class="countDown">
             <div class="verticalAlignMiddle">
                 <span class="countDownTitle">{{this.type}} bounty end:</span>
-                <countdown :deadline="this.info.deadline" ></countdown>
-                <countdown2 :deadline="this.info.deadline" ></countdown2>
+
+                TEST
+                <test2 :deadline="this.info.deadline" ></test2>
+                <!--<countdown :deadline="this.info.deadline" ></countdown>-->
+
             </div>
         </div>
 
@@ -49,7 +52,7 @@
     import consts from "consts/constants"
     import SubmitLink from "./Submit-Link.form.vue";
     import countdown from "client/components/UI/elements/Countdown.component.vue"
-    import countdown2 from "client/components/UI/elements/Countdown2.component.vue"
+    import test2 from "client/components/UI/elements/Test2.component.vue"
 
     let axios = require('axios');
 
@@ -57,7 +60,7 @@
 
         components: {
             countdown,
-            countdown2,
+            test2,
             SubmitLink
         },
 
