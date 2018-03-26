@@ -54,16 +54,16 @@
 
         mounted(){
 
-            if (typeof window === "undefined") return false;
-
-
-            // Update the count down every 1 second
-            if (this.interval !== undefined)
-                clearInterval(this.interval);
-
-            this.interval = setInterval( this.countDown, 1000);
-
-            this.countDown();
+//            if (typeof window === "undefined") return false;
+//
+//
+//            // Update the count down every 1 second
+//            if (this.interval !== undefined)
+//                clearInterval(this.interval);
+//
+//            this.interval = setInterval( this.countDown, 1000);
+//
+//            this.countDown();
 
         },
 
