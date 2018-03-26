@@ -2,6 +2,8 @@
 
     <div>
 
+        COUNT DOWN {{this.deadline}}
+
         <ul class="vuejs-countdown" v-if="this.message === ''">
             <li>
                 <p class="digit">{{d}}</p>

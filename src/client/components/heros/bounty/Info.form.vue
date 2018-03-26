@@ -1,11 +1,10 @@
 <template>
 
-    <div class="infoBounty" :class="this.showSubscription === 'yes' ? 'infoBountyPlus' : ''">
+    <div class="infoBounty" :class="this.showSubscription ? 'infoBountyPlus' : ''">
 
         <div class="countDown">
             <div class="verticalAlignMiddle">
                 <span class="countDownTitle">{{this.type}} bounty end:</span>
-                Countdown {{this.info.deadline}}
                 <countdown :deadline="this.info.deadline" ></countdown>
             </div>
         </div>
