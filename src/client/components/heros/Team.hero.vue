@@ -131,9 +131,6 @@
 
                 </div>
 
-                <a href="https://t.me/WebDollar">
-                    <span style="width: 100%" class="textAlignCenter">Join our community on Telegram</span>
-                </a>
 
             </div>
         </div>
