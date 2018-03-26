@@ -18,18 +18,18 @@
                 <b>Conditions of participation:</b> {{ this.info.requirement }}
             </span>
             <span class="infoLine">
-                <b>Score formula:</b> {{this.info.formula}}
+                <b>Scoring formula:</b> {{this.info.formula}}
             </span>
             <span class="infoLine">
                 <div v-if="this.info.update == ''">
-                    <b>List Update:</b> {{this.refreshCountDownSeconds + ' seconds left'}}
+                    <b>Next list update:</b> {{this.refreshCountDownSeconds + ' seconds left'}}
                 </div>
                 <div v-if="this.info.update != ''">
-                    <b>List Update:</b> {{this.info.update}}
+                    <b>Next list update:</b> {{this.info.update}}
                 </div>
             </span>
             <span class="infoLine">
-                <b>Reward:</b> {{this.info.redeem}}
+                <b>Obtain the reward:</b> {{this.info.redeem}}
             </span>
             <span class="infoLine">
                 <b class="capitalize">{{this.type}} bounty Amount:</b> {{this.info.reward}}
@@ -70,7 +70,7 @@
                     requirement: 'Include "WebDollar" in description and title',
                     formula: "( Views/10 + ThumbsUp - ThumbsDown*3 + Comments*2 )/40",
                     update: "",
-                    redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address after main net",
+                    redeem: "At the end of the bounty campaign period, please send a email to bounties@webdollar.io with the post link and your position in the list and after the launch of the main net you will receive the reward",
                     reward: "10.000 WEBD",
                     deadline: commonDeadline,
                 },
@@ -79,7 +79,7 @@
                     requirement: 'Include WebDollar in the content',
                     formula: " (Likes + 3*shares + 1.5*comments)/30",
                     update: "",
-                    redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address after main net",
+                    redeem: "At the end of the bounty campaign period, please send a email to bounties@webdollar.io with the post link and your position in the list and after the launch of the main net you will receive the reward",
                     reward: "10.000 WEBD",
                     deadline: commonDeadline,
                 },
@@ -88,7 +88,7 @@
                     requirement: 'Include #WebDollar in post',
                     formula: " (Likes + 3*shares + 1.5*comments)/30",
                     update: "",
-                    redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address after main net",
+                    redeem: "At the end of the bounty campaign period, please send a email to bounties@webdollar.io with the post link and your position in the list and after the launch of the main net you will receive the reward",
                     reward: "5.000 WEBD",
                     deadline: commonDeadline,
                 },
@@ -97,7 +97,7 @@
                     requirement: 'Include #WebDollar in post',
                     formula: " (Followers/100 + Friends/100 + Likes + Shares*5 + Comments*2)/10",
                     update: "",
-                    redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address after main net",
+                    redeem: "At the end of the bounty campaign period, please send a email to bounties@webdollar.io with the post link and your position in the list and after the launch of the main net you will receive the reward",
                     reward: "15.000 WEBD",
                     deadline: commonDeadline,
                 },
@@ -106,8 +106,8 @@
                     requirement: 'Be a member in the group, Write messages and Invite 2 by 2 people',
                     formula: " (Messages/100 + Invitations) ",
                     update: "Every day",
-                    redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address after main net",
-                    reward: "22.000 WEBD",
+                    redeem: "At the end of the bounty campaign period, please send a email to bounties@webdollar.io with the post link and your position in the list and after the launch of the main net you will receive the reward",
+                    reward: "20.000 WEBD",
                     deadline: commonDeadline,
                 },
                 "telegram RO":{
@@ -115,8 +115,8 @@
                     requirement: 'Be a member in the group, Write messages and Invite 2 by 2 people',
                     formula: " (Messages/100 + Invitations) ",
                     update: "Every day",
-                    redeem: "To redeem your bounty, you'll need to contact the team for providing your wallet Address after main net",
-                    reward: "3.000 WEBD",
+                    redeem: "At the end of the bounty campaign period, please send a email to bounties@webdollar.io with the post link and your position in the list and after the launch of the main net you will receive the reward",
+                    reward: "5.000 WEBD",
                     deadline: commonDeadline,
                 },
                 reddit:{
@@ -124,7 +124,7 @@
                     requirement: 'Discus on the /r/WebDollar subreddit',
                     formula: " (RedditScore*2 + comments)/10 ",
                     update: "",
-                    redeem: "To redeem your bounty, you will need to contact the team for providing your wallet Address after main net",
+                    redeem: "At the end of the bounty campaign period, please send a email to bounties@webdollar.io with the post link and your position in the list and after the launch of the main net you will receive the reward",
                     reward: "10.000 WEBD",
                     deadline: commonDeadline,
                 },
@@ -133,8 +133,8 @@
                     requirement: 'Discus on the WebDollar in Title and Description',
                     formula: " Google PageRank + Score*2 ",
                     update: "",
-                    redeem: "To redeem your bounty, you will need to contact the team for providing your wallet Address after main net",
-                    reward: "5.000 WEBD",
+                    redeem: "At the end of the bounty campaign period, please send a email to bounties@webdollar.io with the post link and your position in the list and after the launch of the main net you will receive the reward",
+                    reward: "1.000 WEBD",
                     deadline: commonDeadline,
                 },
 
