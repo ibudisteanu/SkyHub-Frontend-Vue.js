@@ -86,7 +86,7 @@
                 instagram:{
                     type: "Automatically",
                     requirement: 'Include #WebDollar in post',
-                    formula: " (Likes + 3*shares + 1.5*comments)/30",
+                    formula: " (Likes + 2*comments)/10",
                     update: "",
                     redeem: "At the end of the bounty campaign period, please send a email to bounties@webdollar.io with the post link and your position in the list and after the launch of the main net you will receive the reward",
                     reward: "5.000 WEBD",
@@ -103,7 +103,7 @@
                 },
                 telegram:{
                     type: "Automatically",
-                    requirement: 'Be a member in the group, Write messages and Invite 2 by 2 people',
+                    requirement: 'Be a member in the group, promote meaningful conversations and invite people (maximum 2 at a time)',
                     formula: " (Messages/100 + Invitations) ",
                     update: "Every day",
                     redeem: "At the end of the bounty campaign period, please send a email to bounties@webdollar.io with the post link and your position in the list and after the launch of the main net you will receive the reward",
@@ -112,7 +112,7 @@
                 },
                 "telegram RO":{
                     type: "Automatically",
-                    requirement: 'Be a member in the group, Write messages and Invite 2 by 2 people',
+                    requirement: 'Be a member in the group, promote meaningful conversations and invite people (maximum 2 at a time)',
                     formula: " (Messages/100 + Invitations) ",
                     update: "Every day",
                     redeem: "At the end of the bounty campaign period, please send a email to bounties@webdollar.io with the post link and your position in the list and after the launch of the main net you will receive the reward",
