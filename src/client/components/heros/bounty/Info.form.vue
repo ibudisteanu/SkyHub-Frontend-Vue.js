@@ -5,6 +5,7 @@
         <div class="countDown">
             <div class="verticalAlignMiddle">
                 <span class="countDownTitle">{{this.type}} bounty end:</span>
+                Countdown {{this.info.deadline}}
                 <countdown :deadline="this.info.deadline" ></countdown>
             </div>
         </div>
@@ -37,7 +38,7 @@
 
         </div>
 
-        <submit-link class="submitLink" v-if="this.showSubscription == 'yes'" :type="this.type" @onLinkSubmitted="this.onLinkSubmitted"> </submit-link>
+        <submit-link class="submitLink" v-if="this.showSubscription" :type="this.type" @onLinkSubmitted="this.onLinkSubmitted"> </submit-link>
 
     </div>
 
@@ -145,19 +146,22 @@
 
             info() {
 
+                let answer;
                 if (this.type !== '')
-                    return this[this.type];
-                else
-                    return this.youtube;
+                    answer = this[this.type];
+
+                if (answer === undefined)
+                    answer = this.youtube;
+
+                return answer;
             },
 
             showSubscription() {
 
-                if (this.type !== 'reddit' && this.type !== 'instagram' && this.type !== 'telegram' && this.type !== 'telegram RO' && this.type !== 'twitter' && this.type !== 'youtube'){
-                    return 'yes'
-                }else{
-                    return 'no'
-                }
+                if (this.type !== 'reddit' && this.type !== 'instagram' && this.type !== 'telegram' && this.type !== 'telegram RO' && this.type !== 'twitter' && this.type !== 'youtube')
+                    return true;
+
+                return false;
 
             },
 
