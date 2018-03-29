@@ -17,18 +17,21 @@
                 <div>Reward WEBD</div>
             </div>
 
-            <div class="listElement twitterElement" v-for="(element, index) in list" :key="'TwitterRankingListElement '+index">
 
-                <div>{{index+1}}</div>
-                <div class="title">{{element.description.substr(0, 50).replace(/\n/g,'')}}</div>
-                <div>{{element.username}}</div>
-                <div>{{element.likes}}</div>
-                <div>{{element.shares}}</div>
-                <div>{{element.comments}}</div>
-                <div>{{element.score !== undefined ? element.score.toFixed(2) : 'na'}}</div>
-                <div class="score">{{element.reward !== undefined ? element.reward.toFixed(2) : 'na'}}</div>
+            <a v-for="(element, index) in list" :key="'TwitterRankingListElement '+index" :href="element.url" target="_blank">
+                <div class="listElement twitterElement">
 
-            </div>
+                    <div>{{index+1}}</div>
+                    <div class="title">{{element.description.substr(0, 50).replace(/\n/g,'')}}</div>
+                    <div>{{element.username}}</div>
+                    <div>{{element.likes}}</div>
+                    <div>{{element.shares}}</div>
+                    <div> - </div>
+                    <div>{{element.score !== undefined ? element.score.toFixed(2) : 'na'}}</div>
+                    <div class="score">{{element.reward !== undefined ? element.reward.toFixed(2) : 'na'}}</div>
+
+                </div>
+            </a>
 
         </div>
     </div>

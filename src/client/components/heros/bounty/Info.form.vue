@@ -97,7 +97,7 @@
                 youtube:{
                     type: "Automatically",
                     requirement: 'Include "WebDollar" in description and title',
-                    formula: "( Views/10 + ThumbsUp - ThumbsDown*3 + Comments*2 )/40",
+                    formula: "( Views/10 + Comments*2 )*( ThumbsUp / ThumbsDown*2 )/40",
                     update: "",
                     redeem: "At the end of the bounty campaign period, please send a email to bounties@webdollar.io with the post link and your position in the list and after the launch of the main net you will receive the reward",
                     reward: "10.000 WEBD",
@@ -124,7 +124,7 @@
                 twitter:{
                     type: "Automatically",
                     requirement: 'Include #WebDollar in post',
-                    formula: " (Followers/100 + Friends/100 + Likes + Shares*5 + Comments*2)/10",
+                    formula: " (Followers/100 + Friends/100 + Likes + Shares*5)/10",
                     update: "",
                     redeem: "At the end of the bounty campaign period, please send a email to bounties@webdollar.io with the post link and your position in the list and after the launch of the main net you will receive the reward",
                     reward: "15.000 WEBD",
