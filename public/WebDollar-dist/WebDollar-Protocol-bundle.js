@@ -49669,7 +49669,6 @@ class InterfaceBlockchainTransactions extends __WEBPACK_IMPORTED_MODULE_5__Inter
 
 
 
-
     setWallet(newWallet){
         this.wallet = newWallet;
         this.wizard.wallet = newWallet;
@@ -77741,6 +77740,23 @@ class InterfaceBlockchainBlocks{
 
     }
 
+    get startingPosition(){
+
+        if (this.blockchain.agent.light)
+            return this.blockchain.blocks.length-1  - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.VALIDATE_LAST_BLOCKS;
+        else
+            //full node
+            return 0;
+    }
+
+    get endingPosition(){
+
+        if (this.blockchain.agent.light)
+            return this.blockchain.blocks.length;
+        else //full node
+            return this.blockchain.blocks.length;
+    }
+
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (InterfaceBlockchainBlocks);
@@ -79796,7 +79812,7 @@ class InterfaceTransactionsPendingQueue {
 
             try{
 
-                if ( this.blockchain.blocks.length > this.list[i].pendingDateBlockHeight + __WEBPACK_IMPORTED_MODULE_1_consts_const_global__["a" /* default */].SETTINGS.MEM_POOL.TRANSACTIONS_MAX_LIFE_TIME_IN_POOL_AFTER_EXPIRATION &&
+                if ( this.blockchain.blocks.length > this.list[i].pendingDateBlockHeight + __WEBPACK_IMPORTED_MODULE_1_consts_const_global__["a" /* default */].SETTINGS.MEM_POOL.TIME_LOCK.TRANSACTIONS_MAX_LIFE_TIME_IN_POOL_AFTER_EXPIRATION &&
                      !this.list[i].validateTransactionEveryTime(undefined, blockValidationType ) &&
                      ( this.list[i].timeLock === 0 || this.list[i].timeLock < this.blockchain.blocks.length )
                 ) {
@@ -80134,6 +80150,27 @@ class InterfaceBlockchainTransactionsEvents{
 
     }
 
+    findTransaction(txId){
+
+        if (typeof txId !== "string")
+            txId = new Buffer(txId, "hex")
+
+        for (let i=this.blockchain.blocks.startingPosition; i<this.blockchain.blocks.endingPosition; i++) {
+
+            let block = this.blockchain.blocks[i];
+            if (block === undefined) continue;
+
+            block.data.transactions.transactions.forEach((transaction)=>{
+
+                if (transaction.txId.equals(txId))
+                    return transaction;
+
+            });
+        }
+
+        return null;
+    }
+
     listTransactions(addressWIF){
 
         if (addressWIF === '' || addressWIF === undefined || addressWIF === null || addressWIF==='')
@@ -80144,22 +80181,9 @@ class InterfaceBlockchainTransactionsEvents{
 
         let unencodedAddress = __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__["a" /* default */].getUnencodedAddressFromWIF(addressWIF);
 
-        let indexStart, indexEnd;
-        if (this.blockchain.agent.light){
-
-            indexStart = this.blockchain.blocks.length-1  - __WEBPACK_IMPORTED_MODULE_2_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.VALIDATE_LAST_BLOCKS;
-            indexEnd = this.blockchain.blocks.length;
-
-        } else {
-
-            //full node
-            indexStart = 0;
-            indexEnd = this.blockchain.blocks.length;
-        }
-
         let result = {};
 
-        for (let i=indexStart; i<indexEnd; i++){
+        for (let i=this.blockchain.blocks.startingPosition; i<this.blockchain.blocks.endingPosition; i++){
 
             let block = this.blockchain.blocks[i];
             if (block === undefined) continue;
@@ -80274,6 +80298,11 @@ class InterfaceBlockchainTransactionsEvents{
     }
 
     emitTransactionChangeEvent(transaction, deleted=false){
+
+        if (deleted){
+            if (this.findTransaction(transaction.txId) !== null) //I found a transaction already in Blockchain
+                return false;
+        }
 
         transaction.from.addresses.forEach((address)=>{
             if (this._checkTransactionIsSubscribed(address.unencodedAddress)) {
@@ -90568,7 +90597,7 @@ class FallBackObject {
   "nodes": [
     {
       "addr": ["webdollar.ddns.net"],
-       "port": 80,
+       "port": 2095,
     },
     {
         "addr": ["192.168.2.8"],
