@@ -17200,6 +17200,9 @@ class InterfaceBlockchainFork {
             this.forkBlocks.forEach((block)=> {
                 block.data.transactions.transactions.forEach((transaction) => {
                     transaction.confirmed = true;
+
+                    this.blockchain.transactions.pendingQueue._removePendingTransaction(transaction);
+
                 });
             });
 
@@ -17208,6 +17211,9 @@ class InterfaceBlockchainFork {
             this._blocksCopy.forEach( (block) => {
                 block.data.transactions.transactions.forEach((transaction) => {
                     transaction.confirmed = true;
+
+                    this.blockchain.transactions.pendingQueue._removePendingTransaction(transaction);
+
                 });
             });
 
