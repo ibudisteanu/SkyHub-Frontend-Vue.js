@@ -14,15 +14,17 @@
                 <div>Reward WEBD</div>
             </div>
 
-            <div class="listElement instagramElement" v-for="(element, index) in list" :key="'FacebookRankingListElement '+index">
+            <a v-for="(element, index) in list" :key="'InstagramRankingListElement '+index" :href="element.url" target="_blank">
+                <div class="listElement instagramElement">
 
-                <div>{{index+1}}</div>
-                <div class="title">{{element.description.substring(0, 50)}}</div>
-                <div>{{element.likes}}</div>
-                <div>{{element.comments}}</div>
-                <div>{{element.score !== undefined ? element.score.toFixed(2) : 'na'}}</div>
-                <div class="score">{{element.reward !== undefined ? element.reward.toFixed(2) : 'na'}}</div>
-            </div>
+                    <div>{{index+1}}</div>
+                    <div class="title">{{element.description.substring(0, 50)}}</div>
+                    <div>{{element.likes}}</div>
+                    <div>{{element.comments}}</div>
+                    <div>{{element.score !== undefined ? element.score.toFixed(2) : 'na'}}</div>
+                    <div class="score">{{element.reward !== undefined ? element.reward.toFixed(2) : 'na'}}</div>
+                </div>
+            </a>
 
         </div>
 

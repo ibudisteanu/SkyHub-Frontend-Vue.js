@@ -17,18 +17,20 @@
                 <div>Reward WEBD</div>
             </div>
 
-            <div class="listElement youtubeElement" v-for="(element, index) in this.list" :key="'YoutubeRankingListElement '+index">
+            <a v-for="(element, index) in this.list" :key="'YoutubeRankingListElement '+index" :href="element.url" target="_blank">
+                <div class="listElement youtubeElement">
 
-                <div>{{index+1}}</div>
-                <div class="title">{{element.title.substring(0, 50)}}</div>
-                <div>{{numberWithCommas(element.views)}}</div>
-                <div>{{element.comments}}</div>
-                <div>{{element.thumbsUp}}</div>
-                <div>{{element.thumbsDown}}</div>
-                <div>{{element.score !== undefined ? element.score.toFixed(2) : 'na'}}</div>
-                <div class="score">{{element.reward !== undefined ? element.reward.toFixed(2) : 'na'}}</div>
+                    <div>{{index+1}}</div>
+                    <div class="title">{{element.title.substring(0, 50)}}</div>
+                    <div>{{numberWithCommas(element.views)}}</div>
+                    <div>{{element.comments}}</div>
+                    <div>{{element.thumbsUp}}</div>
+                    <div>{{element.thumbsDown}}</div>
+                    <div>{{element.score !== undefined ? element.score.toFixed(2) : 'na'}}</div>
+                    <div class="score">{{element.reward !== undefined ? element.reward.toFixed(2) : 'na'}}</div>
 
-            </div>
+                </div>
+            </a>
 
         </div>
 
@@ -54,6 +56,8 @@
             numberWithCommas(x){
                 return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             },
+
+
 
         },
 

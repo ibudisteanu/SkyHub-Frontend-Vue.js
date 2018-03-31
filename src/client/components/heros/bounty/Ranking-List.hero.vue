@@ -26,9 +26,9 @@
                 <span @click="this.handleChangeToReddit" :class="this.type==='reddit' ? 'selectedCampaign' : ''">
                     <i class="fa fa-reddit-alien"></i>
                 </span>
-                <span @click="this.handleChangeToWebsite" :class="this.type==='website' ? 'selectedCampaign' : ''">
-                    <i class="fa fa-earth"></i>
-                </span>
+                <!--<span @click="this.handleChangeToWebsite" :class="this.type==='website' ? 'selectedCampaign' : ''">-->
+                    <!--<i class="fa fa-earth"></i>-->
+                <!--</span>-->
             </div>
 
 
@@ -40,7 +40,7 @@
                 <info-link  class="infoLink" :type="this.type" :onLinkSubmitted="this.linkSubmitted"> </info-link>
             </div>
 
-            <facebook-ranking-list v-if="this.type === 'facebook'" :list="this.sortedArray" :type="this.type" :fetchingList="this.fetchingList" ></facebook-ranking-list>
+            <facebook-ranking-list v-if="this.type === 'facebook'" :list="this.sortedArray" :type="this.type" :fetchingList="this.fetchingList"></facebook-ranking-list>
             <youtube-ranking-list v-if="this.type === 'youtube'" :list="this.sortedArray" :type="this.type" :fetchingList="this.fetchingList"></youtube-ranking-list>
             <instagram-ranking-list v-if="this.type === 'instagram'" :list="this.sortedArray" :type="this.type" :fetchingList="this.fetchingList"></instagram-ranking-list>
             <twitter-ranking-list v-if="this.type === 'twitter'" :list="this.sortedArray" :type="this.type" :fetchingList="this.fetchingList"></twitter-ranking-list>
