@@ -13,7 +13,7 @@
                         What is WebDollar?
                     </div>
                     <div slot="collapse-body">
-                        WebDollar is a digital currency that can be mined in your browser with a click of a button.
+                        WebDollar is a browser digital currency that can be mined in your browser with a click of a button.
                     </div>
                 </collapse>
 

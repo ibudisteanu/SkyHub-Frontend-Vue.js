@@ -51,11 +51,11 @@ function getSchemaMarkup (vm) {
             ? url.call(vm)
             : url;
 
-        if ((typeof imagesData === 'undefined')||(imagesData === null)||(imagesData.length === 0)) imagesData = [ {url: "http://webdollar.io/public/images/WebDollar-Landing-image.png", alt:"SkyHub Forum 2.0 Social Network - Change the World"}];
-        if ((typeof titleData === 'undefined')||(titleData === '')) titleData = 'WebDollar Currency of the Internet';
-        if ((typeof descriptionData === 'undefined')||(descriptionData === '')) descriptionData = 'Change the world together!';
+        if ((typeof imagesData === 'undefined')||(imagesData === null)||(imagesData.length === 0)) imagesData = [ {url: "http://webdollar.io/public/images/WebDollar-Landing-image.png", alt:"WebDollar Browser Blockchain Mining"}];
+        if ((typeof titleData === 'undefined')||(titleData === '')) titleData = '"WebDollar Currency of the Internet - Browser Blockchain Mining';
+        if ((typeof descriptionData === 'undefined')||(descriptionData === '')) descriptionData = '"WebDollar - Currency of the Internet. WebDollar - Browser based Blockchain mining & ecosystem ';
         if ((typeof webPageTypeData === 'undefined')||(webPageTypeData === '')) webPageTypeData = 'website';
-        if ((typeof keywordsData === 'undefined')||(keywordsData === null)||(keywordsData.length === 0)) keywordsData = ['social network, forum 2.0, forums, discussions, networks, communities'];
+        if ((typeof keywordsData === 'undefined')||(keywordsData === null)||(keywordsData.length === 0)) keywordsData = ['webdollar, browser blockchain, browser mining, online mining'];
         if ((typeof dateCreationData === 'undefined')||(dateCreationData === '')) dateCreationData = '';
         if ((typeof dateLastActivityData === 'undefined')||(dateLastActivityData === '')) dateLastActivityData = '';
         if ((typeof urlData === 'undefined')||(urlData==='')) urlData = "http://webdollar.io/";
@@ -77,11 +77,6 @@ function getSchemaMarkup (vm) {
                     author: authorData,
                     description: descriptionData,
                     publisher: "WebDollar.io",
-                    potentialAction:{
-                        "@type": "SearchAction",
-                        target: "http://webdollar.io/search/{query}",
-                        "query-input": "required name=query"
-                    }
                 };
                 return mixinSchemas;
             case 'article':

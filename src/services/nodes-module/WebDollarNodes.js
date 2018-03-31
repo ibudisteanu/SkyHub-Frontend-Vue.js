@@ -12,7 +12,6 @@
     }
 
     test(){
-        console.log("########################");
         console.log(WebDollar.Node.NodeClientsService);
     }
 

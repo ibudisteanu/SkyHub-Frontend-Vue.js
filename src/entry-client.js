@@ -52,11 +52,6 @@ if (window.__INITIAL_STATE__) {
 
 //send the store and dispatch to the FetchService (SocketClient needs store.socketStatus
 
-store.dispatch('SYSTEM_NOTIFICATIONS_CHECK_PERMISSION',{});
-store.dispatch('USER_NOTIFICATIONS_FETCHING_SERVICE_START',{});
-
-console.log("@@@@@@@@@ STORE", store);
-
 // wait until router has resolved all async before hooks
 // and async components...
 router.onReady(() => {
