@@ -2077,8 +2077,8 @@ consts.SETTINGS = {
     UUID: uuid.v4(),
 
     NODE: {
-        VERSION: "0.260",
-        VERSION_COMPATIBILITY: "0.260",
+        VERSION: "0.262",
+        VERSION_COMPATIBILITY: "0.262",
         PROTOCOL: "WebDollar",
 
 
@@ -17054,14 +17054,18 @@ class InterfaceBlockchainFork {
             try {
                 this.preForkClone();
             } catch (exception){
-                console.error("preForkBefore raised an error");
+                console.error("-----------------------");
+                console.error("preForkBefore raised an error", exception);
+                console.error("-----------------------");
             }
 
             try {
                 this.preFork();
             } catch (exception){
                 this.revertFork();
-                console.error("preFork raised an error");
+                console.error("-----------------------");
+                console.error("preFork raised an error", exception);
+                console.error("-----------------------");
             }
 
             this.blockchain.blocks.spliceBlocks(this.forkStartingHeight);
@@ -17076,7 +17080,7 @@ class InterfaceBlockchainFork {
 
                 for (index = 0; index < this.forkBlocks.length; index++) {
 
-                    __WEBPACK_IMPORTED_MODULE_3_common_events_Status_Events__["a" /* default */].emit( "agent/status", {message: "Synchronizing - Including Block", blockHeight: this.forkBlocks[index].height, blockHeightMax: this.forkChainLength } );
+                    __WEBPACK_IMPORTED_MODULE_3_common_events_Status_Events__["a" /* default */].emit( "agent/status", { message: "Synchronizing - Including Block", blockHeight: this.forkBlocks[index].height, blockHeightMax: this.forkChainLength } );
 
                     this.forkBlocks[index].blockValidation = this._createBlockValidation_BlockchainValidation( this.forkBlocks[index].height , index);
 
@@ -17104,8 +17108,13 @@ class InterfaceBlockchainFork {
                 try {
 
                     for (let i = 0; i < this._blocksCopy.length; i++)
+
                         if (! (await this.blockchain.includeBlockchainBlock(this._blocksCopy[index], false, "all", false))) {
+
+                            console.error("----------------------------------------------------------");
                             console.error("blockchain couldn't restored after fork included in main Blockchain ", i);
+                            console.error("----------------------------------------------------------");
+
                             break;
                         }
 
@@ -25866,11 +25875,14 @@ class MiniBlockchainFork extends inheritFork{
 
             // remove reward
 
-            this.blockchain.accountantTree.updateAccount(block.data.minerAddress, block.reward.negated() );
+            let answer = this.blockchain.accountantTree.updateAccount(block.data.minerAddress, block.reward.negated() );
+            //force to delete first time miner
+            if (answer === null && this.blockchain.accountantTree.getAccountNonce(block.data.minerAddress) === 0)
+                this.blockchain.accountantTree.delete(block.data.minerAddress);
 
             // remove transactions
-            for (let j=block.transactions.transactions.length-1; j>=0; j--){
-                let transaction = block.transactions.transactions[j];
+            for (let j=block.data.transactions.transactions.length-1; j>=0; j--){
+                let transaction = block.data.transactions.transactions[j];
                 transaction.processTransaction(-1);
             }
 
@@ -48104,8 +48116,14 @@ class MiniBlockchain extends  inheritBlockchain{
                 block.blockValidation.blockValidationType['skip-validation-transactions-from-values'] = undefined;
 
                 //revert reward
-                if (revert.reward)
-                    this.accountantTree.updateAccount( block.data.minerAddress, block.reward.negated(), undefined );
+                if (revert.reward) {
+                    let answer = this.accountantTree.updateAccount(block.data.minerAddress, block.reward.negated(), undefined);
+
+                    //force to delete first time miner
+                    if (answer === null && this.accountantTree.getAccountNonce(block.data.minerAddress) === 0)
+                        this.accountantTree.delete(block.data.minerAddress);
+                }
+
 
                 if (revert.revertNow)
                     return false;
@@ -77899,19 +77917,20 @@ class InterfaceBlockchainBlockDataTransactions {
         let i;
         for (i=0; i<block.data.transactions.transactions.length; i++)
             if ( ! this._processBlockDataTransaction(block.height, block.data.transactions.transactions[i], multiplicationFactor, block.data.minerAddress))
-                return i;
+                return i-1;
 
-        return i-1;
+        return block.data.transactions.transactions.length-1;
     }
 
     processBlockDataTransactionsRevert(endPos, startPos, block, multiplicationFactor = -1){
 
         let i;
         for (i = endPos; i >= startPos; i--)
-            if ( ! this._processBlockDataTransaction(block.height, block.data.transactions.transactions[i], multiplicationFactor, block.data.minerAddress))
-                return i;
+            if (i >= 0)
+                if ( ! this._processBlockDataTransaction(block.height, block.data.transactions.transactions[i], multiplicationFactor, block.data.minerAddress))
+                    return i;
 
-        return i+1;
+        return i;
 
     }
 
@@ -80152,20 +80171,19 @@ class InterfaceBlockchainTransactionsEvents{
 
     findTransaction(txId){
 
-        if (typeof txId !== "string")
-            txId = new Buffer(txId, "hex")
+        if (typeof txId === "string")
+            txId = new Buffer(txId, "hex");
 
         for (let i=this.blockchain.blocks.startingPosition; i<this.blockchain.blocks.endingPosition; i++) {
 
             let block = this.blockchain.blocks[i];
             if (block === undefined) continue;
 
-            block.data.transactions.transactions.forEach((transaction)=>{
+            for (let i=0; i<block.data.transactions.transactions.length; i++){
+                if (block.data.transactions.transactions[i].txId.equals(txId))
+                    return block.data.transactions.transactions[i];
+            }
 
-                if (transaction.txId.equals(txId))
-                    return transaction;
-
-            });
         }
 
         return null;
@@ -83548,7 +83566,7 @@ class InterfaceBlockchainMining extends  __WEBPACK_IMPORTED_MODULE_4__Interface_
             if (answer.result && this.blockchain.blocks.length === block.height ){
 
                 console.warn( "----------------------------------------------------------------------------");
-                console.warn( "WebDollar Block ", block.height ," mined (", answer.nonce+")", answer.hash.toString("hex"), " reward", block.reward, "WEBD", block.data.minerAddress.toString("hex"));
+                console.warn( "WebDollar Block was mined ", block.height ," nonce (", answer.nonce+")", answer.hash.toString("hex"), " reward", block.reward, "WEBD", block.data.minerAddress.toString("hex"));
                 console.warn( "----------------------------------------------------------------------------");
 
                 try {
@@ -83563,6 +83581,13 @@ class InterfaceBlockchainMining extends  __WEBPACK_IMPORTED_MODULE_4__Interface_
 
                             return this.blockchain.includeBlockchainBlock(block, false, [], true);
                         }) === false) throw {message: "Mining2 returned false"};
+
+                    //confirming transactions
+                    block.data.transactions.transactions.forEach((transaction) => {
+                        transaction.confirmed = true;
+
+                        this.blockchain.transactions.pendingQueue._removePendingTransaction(transaction);
+                    });
 
                 } catch (exception){
 
@@ -85179,8 +85204,8 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
             let sum = this.blockchain.accountantTree.calculateNodeCoins();
             console.log("preFork2 accountantTree sum all", sum );
 
-            if (sum.isLessThanOrEqualTo(currentSum) || sum.isLessThanOrEqualTo(0)){
-                throw {message: "Accountant Tree sum is smaller than previous accountant Tree!!! Impossible"};
+            if (sum.isLessThan(currentSum) || sum.isLessThanOrEqualTo(0)){
+                throw {message: "Accountant Tree sum is smaller than previous accountant Tree!!! Impossible", forkSum: currentSum, blockchainSum: sum};
             }
 
             console.log("this.forkPrevDifficultyTarget", this.forkPrevDifficultyTarget.toString("hex") );
@@ -90597,10 +90622,10 @@ class FallBackObject {
   "nodes": [
     {
       "addr": ["webdollar.ddns.net"],
-       "port": 2095,
+       "port": 8080,
     },
     {
-        "addr": ["192.168.2.8"],
+        "addr": ["192.168.2.0"],
         "port": 2095,
     },
     {
