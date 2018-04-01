@@ -2076,8 +2076,8 @@ consts.SETTINGS = {
     UUID: uuid.v4(),
 
     NODE: {
-        VERSION: "0.262",
-        VERSION_COMPATIBILITY: "0.262",
+        VERSION: "0.263",
+        VERSION_COMPATIBILITY: "0.263",
         PROTOCOL: "WebDollar",
 
 
@@ -49922,9 +49922,9 @@ class MiniBlockchainAccountantTree extends __WEBPACK_IMPORTED_MODULE_5__Mini_Blo
         });
 
         //purging empty addresses
-        //TODO Window Transactions for Purging
         if (resultUpdate === null) {
 
+            //TODO Window Transactions for Purging
             if (this.root.deleteEmptyAddresses) { //purging automatically
                 this.delete(address);
                 return null;
@@ -80168,7 +80168,7 @@ class InterfaceBlockchainTransactionsEvents{
 
         this.blockchain = blockchain;
         this.emitter = new EventEmitter();
-
+        this.emitter.setMaxListeners(200);
     }
 
     findTransaction(txId){
@@ -81727,7 +81727,8 @@ class MiniBlockchainAccountantTreeEvents extends __WEBPACK_IMPORTED_MODULE_2_com
 
         super(db);
 
-        this.emitter = new EventEmitter()
+        this.emitter = new EventEmitter();
+        this.emitter.setMaxListeners(200);
     }
 
 
