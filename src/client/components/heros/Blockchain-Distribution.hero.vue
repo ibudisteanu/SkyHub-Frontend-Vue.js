@@ -79,7 +79,7 @@
                 return this.formatMoneyNumber(this.distributionProgressBarMax, 0)
             },
             distributionAmount(){
-                return this.formatMoneyNumber(this.blocksLength*2500, 0)
+                return this.formatMoneyNumber(this.blocksLength*3000, 0)
             },
 
             distributionBlocks(){
@@ -103,7 +103,7 @@
 
                 this.blocksLength = blocksLength;
 
-                this.$refs['refDistributionProgressBar'].style.width = blocksLength*2500 / this.distributionProgressBarMax * 100  +'%'
+                this.$refs['refDistributionProgressBar'].style.width = blocksLength*3000 / this.distributionProgressBarMax * 100  +'%'
 
             });
 
