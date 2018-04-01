@@ -79,7 +79,7 @@
                 return this.formatMoneyNumber(this.distributionProgressBarMax, 0)
             },
             distributionAmount(){
-                return this.formatMoneyNumber(this.blocksLength*2500, 0)
+                return this.formatMoneyNumber(this.blocksLength*3000, 0)
             },
 
             distributionBlocks(){
