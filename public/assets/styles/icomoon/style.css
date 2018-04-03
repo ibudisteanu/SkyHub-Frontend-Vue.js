@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?fi5rfu');
-  src:  url('fonts/icomoon.eot?fi5rfu#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?fi5rfu') format('truetype'),
-    url('fonts/icomoon.woff?fi5rfu') format('woff'),
-    url('fonts/icomoon.svg?fi5rfu#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?lbcj5w');
+  src:  url('fonts/icomoon.eot?lbcj5w#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?lbcj5w') format('truetype'),
+    url('fonts/icomoon.woff?lbcj5w') format('woff'),
+    url('fonts/icomoon.svg?lbcj5w#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -87,6 +87,9 @@
 .fa-arrow-down:before {
   content: "\ea36";
 }
+.fa-facebook:before {
+  content: "\ea90";
+}
 .fa-facebook2:before {
   content: "\ea91";
 }
@@ -107,4 +110,10 @@
 }
 .fa-reddit:before {
   content: "\eac6";
+}
+.fa-wikipedia:before {
+  content: "\eac8";
+}
+.fa-linkedin2:before {
+  content: "\eaca";
 }
