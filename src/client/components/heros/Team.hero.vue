@@ -19,7 +19,7 @@
                                 <ul class="social-link social-link-4">
                                     <li><a href="http://facebook.com/budisteanu.ionut" class="fa fa-facebook" target="_blank"></a></li>
                                     <li><a href="http://github.com/ibudisteanu" class="fa fa-github" target="_blank"></a></li>
-                                    <li><a href="http://budisteanu.net" class="fa fa-globe" target="_blank"></a></li>
+                                    <li><a href="http://budisteanu.net" class="fa fa-earth" target="_blank"></a></li>
                                     <li><a href="https://ro.wikipedia.org/wiki/Ionu%C8%9B_Budi%C8%99teanu" class="fa fa-wikipedia" target="_blank"></a></li>
                                 </ul>
                             </div>
@@ -38,7 +38,7 @@
                             <div class="over-layer">
                                 <ul class="social-link">
                                     <li><a href="https://www.facebook.com/Ionut.Alex.Panait" target="_blank"  class="fa fa-facebook"></a></li>
-                                    <li><a href="https://www.linkedin.com/in/panait-alexandru-ionut-64181ba7/" target="_blank" class="fa fa-linkedin2"></a></li>
+                                    <li><a href="https://www.linkedin.com/in/panait-alexandru-ionut-64181ba7/" target="_blank" class="fa fa-linkedin"></a></li>
                                     <li><a href="https://twitter.com/AlexandruPanai" target="_blank" class="fa fa-twitter"/></li>
                                 </ul>
                             </div>
