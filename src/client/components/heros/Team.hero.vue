@@ -38,7 +38,7 @@
                             <div class="over-layer">
                                 <ul class="social-link">
                                     <li><a href="https://www.facebook.com/Ionut.Alex.Panait" target="_blank"  class="fa fa-facebook"></a></li>
-                                    <li><a href="https://www.linkedin.com/in/panait-alexandru-ionut-64181ba7/" target="_blank" class="fa fa-linkedin"></a></li>
+                                    <li><a href="https://www.linkedin.com/in/panait-alexandru-ionut-64181ba7/" target="_blank" class="fa fa-linkedin2"></a></li>
                                     <li><a href="https://twitter.com/AlexandruPanai" target="_blank" class="fa fa-twitter"/></li>
                                 </ul>
                             </div>
@@ -93,7 +93,7 @@
                             <img src="/public/assets/images/team/Tudor-Smirna.jpeg" alt="Tudor Smirna">
                             <div class="over-layer">
                                 <ul class="social-link">
-                                    <li><a href="https://mises.org/profile/tudor-smirna" target="_blank" class="fa fa-globe"></a></li>
+                                    <li><a href="https://mises.org/profile/tudor-smirna" target="_blank" class="fa fa-earth"></a></li>
                                 </ul>
                             </div>
                         </div>
