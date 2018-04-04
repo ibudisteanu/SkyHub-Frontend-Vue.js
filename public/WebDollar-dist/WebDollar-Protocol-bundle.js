@@ -1922,7 +1922,7 @@ consts.BLOCKCHAIN = {
 
     DIFFICULTY:{
         NO_BLOCKS : 10,
-        TIME_PER_BLOCK : 5, //in s, timestamp in UNIX format
+        TIME_PER_BLOCK : 20, //in s, timestamp in UNIX format
     },
 
     TIMESTAMP:{
@@ -2100,8 +2100,8 @@ consts.SETTINGS = {
     UUID: uuid.v4(),
 
     NODE: {
-        VERSION: "0.271",
-        VERSION_COMPATIBILITY: "0.271",
+        VERSION: "0.272",
+        VERSION_COMPATIBILITY: "0.272",
         PROTOCOL: "WebDollar",
 
 
