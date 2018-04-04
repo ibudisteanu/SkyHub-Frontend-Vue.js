@@ -65,6 +65,15 @@
 
             if (typeof window === "undefined") return;
 
+            WebDollarUserInterface.initializeParams.createElements();
+
+            if (WebDollar.Blockchain.synchronized){
+                this.loaded= true;
+                this.status = "Mining Blockchain...";
+
+                return false;
+            }
+
             if (process.env.NODE_ENV === 'development')
                 WebDollarUserInterface.initializeParams.mining.startAutomatically = false;
 

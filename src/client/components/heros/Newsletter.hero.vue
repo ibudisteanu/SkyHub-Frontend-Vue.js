@@ -2,6 +2,7 @@
 
     <div >
 
+        <a id="newsletter"> </a>
         <div id="newsletterSection" class="backgroundSection">
 
             <span class="pageTitle alignCenter titleMarginBottom removeBackground">Follow us on</span>
