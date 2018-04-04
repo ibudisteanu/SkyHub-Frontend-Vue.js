@@ -95,7 +95,7 @@
                 refreshCountDownSeconds: 0,
 
                 youtube:{
-                    type: "Automatically",
+                    type: "Automatic",
                     requirement: 'Include "WebDollar" in description and title',
                     formula: "( Views/10 + Comments*2 )*( ThumbsUp / ThumbsDown*2 )/40",
                     update: "",
@@ -113,7 +113,7 @@
                     deadline: commonDeadline,
                 },
                 instagram:{
-                    type: "Automatically",
+                    type: "Automatic",
                     requirement: 'Include #WebDollar in post',
                     formula: " (Likes + 2*comments)/10",
                     update: "",
@@ -122,7 +122,7 @@
                     deadline: commonDeadline,
                 },
                 twitter:{
-                    type: "Automatically",
+                    type: "Automatic",
                     requirement: 'Include #WebDollar in post',
                     formula: " (Followers/100 + Friends/100 + Likes + Shares*5)/10",
                     update: "",
@@ -131,7 +131,7 @@
                     deadline: commonDeadline,
                 },
                 telegram:{
-                    type: "Automatically",
+                    type: "Automatic",
                     requirement: 'Be a member in the group, promote meaningful conversations and invite people (maximum 2 at a time)',
                     formula: " (Messages/100 + Invitations) ",
                     update: "Every day",
@@ -140,7 +140,7 @@
                     deadline: commonDeadline,
                 },
                 "telegram RO":{
-                    type: "Automatically",
+                    type: "Automatic",
                     requirement: 'Be a member in the group, promote meaningful conversations and invite people (maximum 2 at a time)',
                     formula: " (Messages/100 + Invitations) ",
                     update: "Every day",
@@ -149,7 +149,7 @@
                     deadline: commonDeadline,
                 },
                 reddit:{
-                    type: "Automatically",
+                    type: "Automatic",
                     requirement: 'Discus on the /r/WebDollar subreddit',
                     formula: " (RedditScore*2 + comments)/10 ",
                     update: "",
@@ -158,7 +158,7 @@
                     deadline: commonDeadline,
                 },
                 website:{
-                    type: "Automatically",
+                    type: "Automatic",
                     requirement: 'Discus on the WebDollar in Title and Description',
                     formula: " Google PageRank + Score*2 ",
                     update: "",
