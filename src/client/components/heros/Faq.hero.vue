@@ -59,7 +59,7 @@
                     </div>
                     <div slot="collapse-body">
                         1. You can mine directly in your browser.
-                        2. You can invite others to mine for you (Here is the documentation link).
+                        2. You can invite others to mine for you (when the pools will be functional).
                         3. Or you can buy from the exchanges.
                     </div>
                 </collapse>
@@ -78,7 +78,7 @@
                         How much WEBD can I earn in 24 hours of mining?
                     </div>
                     <div slot="collapse-body">
-                        The amount of WEBD you can mine in 24 hours is solely based on the computational power of your devices. WebDollar uses NiPoPoW, and it is a computation competition.
+                        The amount of WEBD you can mine in 24 hours is solely based on the computational power of your devices. WebDollar uses NiPoPoW, and there is a computation competition.
                     </div>
                 </collapse>
 
@@ -91,13 +91,13 @@
                         Why is WebDollar different than other cryptocurrencies?
                     </div>
                     <div slot="collapse-body">
-                        WebDollar is the easiest and fastest way to earn cryptocurrencies. You don’t need technical knowledge or dedicated hardware resources. WebDollar wants to make mining available for every laptop user, which is why we implemented algorithms that make mining with special hardware (so called GPU farms), unprofitable. Giving everyone the opportunity to mine and take part in the new world of cryptocurrency.
+                        WebDollar is the easiest and fastest way to earn cryptocurrencies. You don’t need technical knowledge or dedicated hardware resources. WebDollar wants to make mining available for every laptop user, which is why we implemented algorithms that make mining with special hardware (so called GPU farms), unprofitable. We want to give everyone the opportunity to mine and take part in the new world of cryptocurrency.
                     </div>
                 </collapse>
 
                 <collapse :selected="false">
                     <div slot="collapse-header">
-                        What protocol is using WebDollar?
+                        What is using WebDollar?
                     </div>
                     <div slot="collapse-body">
                         WebDollar is a p2p currency that is native to the internet. The WebDollar protocol and blockchain were designed to be light and not require the installation of any additional software or plugins for wallets or mining. A mini-blockchain is downloaded directly in your browser, while your wallet is securely stored and encrypted directly on your computer. Full consensus is achieved in a matter of seconds by using a novel PPoW - Proofs of Proof of Work algorithm to allow light nodes to check the balance validating transactions in seconds. Being native to the internet, WebDollar will enable miners to start their own mining pools with a click of a button. WebDollar will also deploy a semi-anonymous transaction solution to increase the privacy of transactions.
@@ -118,7 +118,7 @@
                         Where are the wallets stored?
                     </div>
                     <div slot="collapse-body">
-                        The Wallets are stored and managed securely by the Browser by using the Indexed DB API. The location where the wallet is stored differs from one Browser to another.
+                        The Wallets are stored and managed securely by the Browser, by using the Indexed DB API. The location where the wallet is stored differs from one Browser to another.
                     </div>
                 </collapse>
 
@@ -127,13 +127,13 @@
                         Can I use other wallets to store WEBD, for example NanoLedger, etc?
                     </div>
                     <div slot="collapse-body">
-                        Yes! Now, you can download your wallet and store on an external device and when it is required to make a Transaction, you can import or sign the transaction with the wallet from the stored device. In time, WebDollar will be also integrated with other ledgers.
+                        Yes! Now, you can download your wallet and store on an external device and when it is required to make a Transaction, you can import or sign the transaction with the wallet from the stored device. In time, WebDollar will be also integrated with other devices.
                     </div>
                 </collapse>
 
                 <collapse :selected="false">
                     <div slot="collapse-header">
-                        Does WebDollar supports smartcontracts?
+                        Does WebDollar support smart contracts?
                     </div>
                     <div slot="collapse-body">
                         Yes, in the near future WebDollar will incorporate a native smart contract system.
@@ -145,7 +145,7 @@
                         Can I import an existing wallet in the browser?
                     </div>
                     <div slot="collapse-body">
-                        Yes, the wallet is AES192B encrypted. You will be able to import and export your wallet from one browser to another one. The wallet is managed by the Browser not by WebDollar Protocol.
+                        Yes, the wallet is AES192B encrypted. You will be able to import and export your wallet from one browser to another "one. The wallet is managed by the Browser not by the WebDollar Protocol.
                     </div>
                 </collapse>
             </div>
