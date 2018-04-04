@@ -86,6 +86,15 @@
 
             });
 
+            WebDollar.StatusEvents.emitter.on("mining/status-changed", (data)=>{
+
+                if (data === true)
+                    this.status = "Mining Blockchain...";
+                else
+                    this.status = "Mining Blockchain has been suspended"
+
+            })
+
         }
 
     }
