@@ -81,7 +81,7 @@
 
             WebDollar.StatusEvents.emitter.on("blockchain/status", (data)=>{
 
-                if (data.message === "You are already mining...")
+                if (data.message === "Blockchain Ready to Mine")
                     this.loaded = true;
 
             });
