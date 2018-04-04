@@ -42,6 +42,8 @@
 
             <div class="poolSectionContainer">
 
+                <span class="disclaimer"><span class="attention">ATTENTION!</span> This page is just a mock up for mining pool management system.</span>
+
                 <div class="poolContainer">
 
                     <div class="miner">

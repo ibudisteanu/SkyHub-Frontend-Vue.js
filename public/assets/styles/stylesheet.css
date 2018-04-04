@@ -1913,3 +1913,14 @@ svg path, svg rect{
   color: #fec02c;
   transition: all 0.30s ease 0s;
 }
+
+.disclaimer{
+  text-align: center;
+  color: #fec02c;
+  font-size: 30px;
+  margin-bottom: 80px;
+}
+
+.attention{
+  color: #f20;
+}
