@@ -32,6 +32,33 @@
             Layout,
             NetworkHero,
             MultipleTabs,
+        },
+
+        data: ()=> {
+            return {
+                protocolUsedOnMultipleTabs: false,
+            }
+        },
+
+        mouted(){
+
+            if (typeof window === "undefined") return false;
+
+            WebDollar.StatusEvents.on("blockchain/status", (data)=>{
+
+                if (data.message === "Single Window") {
+
+                    this.protocolUsedOnMultipleTabs= false;
+
+                }else
+                if (data.message === "Multiple Windows Detected"){
+
+                    this.protocolUsedOnMultipleTabs=true;
+
+                }
+
+            });
+
         }
 
     }
