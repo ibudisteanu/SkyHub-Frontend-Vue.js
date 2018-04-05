@@ -44,12 +44,12 @@
     import Newsletter from "client/components/heros/Newsletter.hero.vue";
     import TeamHero from "client/components/heros/Team.hero.vue";
     import WebDollarHero from "client/components/heros/WebDollar.hero.vue";
-    import WhatIsHero from "client/components/heros/What-Is.hero.vue";
+    import WhatIsHero from "client/components/heros/About.hero.vue";
     import PeerToPeerHero from "client/components/heros/Peer-To-Peer.hero.vue";
     import TimelineHero from "client/components/heros/Timeline.hero.vue";
-    import KnowUsHero from "client/components/heros/Know-Us.hero.vue";
+    import KnowUsHero from "client/components/heros/Media.hero.vue";
     import FaqHero from "client/components/heros/Faq.hero.vue";
-    import NewCryptoGenerationHero from "client/components/heros/New-Crypto-Generation.hero.vue";
+    import NewCryptoGenerationHero from "client/components/heros/Features.hero.vue";
     import BlockChainDistributionHero from "client/components/heros/Blockchain-Distribution.hero.vue";
     import WebdollarHero from "../components/heros/WebDollar.hero.vue";
     import MultipleTabs from "../components/heros/Multiple-Tabs.hero.vue";
