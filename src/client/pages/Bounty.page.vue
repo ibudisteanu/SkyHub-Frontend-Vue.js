@@ -22,14 +22,16 @@
 
     import Layout from "client/components/layout/Layout.vue";
     import RankingList from "client/components/heros/bounty/Ranking-List.hero.vue";
+    import MultipleTabs from "../components/heros/Multiple-Tabs.hero.vue";
 
     export default {
 
         name: "ViewHome",
 
         components:{
-            "layout": Layout,
-            RankingList
+            Layout,
+            RankingList,
+            MultipleTabs
         },
 
         data: () => {
@@ -39,6 +41,8 @@
         },
 
         mounted(){
+
+            if (typeof window === "undefined") return false;
 
             WebDollar.StatusEvents.on("blockchain/status", (data)=>{
 

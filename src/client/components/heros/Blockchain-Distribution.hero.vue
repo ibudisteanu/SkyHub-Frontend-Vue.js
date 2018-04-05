@@ -103,7 +103,8 @@
 
                 this.blocksLength = blocksLength;
 
-                this.$refs['refDistributionProgressBar'].style.width = blocksLength*3000 / this.distributionProgressBarMax * 100  +'%'
+                if (this.$refs['refDistributionProgressBar'] !== undefined)
+                    this.$refs['refDistributionProgressBar'].style.width = blocksLength*3000 / this.distributionProgressBarMax * 100  +'%'
 
             });
 
