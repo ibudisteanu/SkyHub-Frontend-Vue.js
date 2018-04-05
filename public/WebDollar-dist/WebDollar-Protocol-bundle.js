@@ -14431,7 +14431,7 @@ class InterfaceBlockchainFork {
             //making a copy of the current blockchain
 
             let hashAccountantTree = [];
-            hashAccountantTree[0] = this.blockchain.accountantTree.serializeMiniAccountant();
+            // hashAccountantTree[0] = this.blockchain.accountantTree.serializeMiniAccountant();
 
             try {
 
@@ -14498,7 +14498,7 @@ class InterfaceBlockchainFork {
                 //reverting back to the clones, especially light settings
                 await this.revertFork();
 
-                hashAccountantTree[3] = this.blockchain.accountantTree.serializeMiniAccountant();
+                // hashAccountantTree[3] = this.blockchain.accountantTree.serializeMiniAccountant();
             }
 
 
@@ -14514,20 +14514,20 @@ class InterfaceBlockchainFork {
                 this.blockchain.mining.resetMining();
             }
 
-            if (!forkedSuccessfully) {
-                console.log("interface-blockchain-fork");
-                for (let i = 0; i < hashAccountantTree.length; i++)
-                    if (hashAccountantTree [i] !== undefined) {
-                        console.warn("accountantTree", i, "   ", hashAccountantTree[i].toString("hex"));
-
-                        if (!forkedSuccessfully)
-                            if (!this.blockchain.accountantTree.serializeMiniAccountant().equals(hashAccountantTree[i])) {
-                                console.error("************************************************");
-                                console.error("accountantTree", i, "    ", this.blockchain.accountantTree.serializeMiniAccountant().toString("hex"));
-                                console.error("************************************************");
-                            }
-                    }
-            }
+            // if (!forkedSuccessfully) {
+            //     console.log("interface-blockchain-fork");
+            //     for (let i = 0; i < hashAccountantTree.length; i++)
+            //         if (hashAccountantTree [i] !== undefined) {
+            //             console.warn("accountantTree", i, "   ", hashAccountantTree[i].toString("hex"));
+            //
+            //             if (!forkedSuccessfully)
+            //                 if (!this.blockchain.accountantTree.serializeMiniAccountant().equals(hashAccountantTree[i])) {
+            //                     console.error("************************************************");
+            //                     console.error("accountantTree", i, "    ", this.blockchain.accountantTree.serializeMiniAccountant().toString("hex"));
+            //                     console.error("************************************************");
+            //                 }
+            //         }
+            // }
 
             return forkedSuccessfully;
         });
@@ -45554,7 +45554,7 @@ class MiniBlockchain extends  inheritBlockchain{
         try{
 
 
-            hashAccountantTree[0] = this.accountantTree.serializeMiniAccountant();
+            // hashAccountantTree[0] = this.accountantTree.serializeMiniAccountant();
 
             //updating reward
             let result = this.accountantTree.updateAccount( block.data.minerAddress, block.reward, undefined, revertActions )
@@ -45593,21 +45593,21 @@ class MiniBlockchain extends  inheritBlockchain{
 
                 revertActions.revertOperations();
 
-                hashAccountantTree[1] = this.accountantTree.serializeMiniAccountant();
-
-                if (revertActions) {
-                    console.log("mini blockchain-fork");
-                    for (let i = 0; i < hashAccountantTree.length; i++) {
-                        console.warn("accountantTree", i, "   ", hashAccountantTree[i].toString("hex"), revertException);
-
-                        if (revertException)
-                            if (!this.accountantTree.serializeMiniAccountant().equals(hashAccountantTree[i])) {
-                                console.error("************************************************");
-                                console.error("accountantTree", i, "    ", this.accountantTree.serializeMiniAccountant());
-                                console.error("************************************************");
-                            }
-                    }
-                }
+                // hashAccountantTree[1] = this.accountantTree.serializeMiniAccountant();
+                //
+                // if (revertActions) {
+                //     console.log("mini blockchain-fork");
+                //     for (let i = 0; i < hashAccountantTree.length; i++) {
+                //         console.warn("accountantTree", i, "   ", hashAccountantTree[i].toString("hex"), revertException);
+                //
+                //         if (revertException)
+                //             if (!this.accountantTree.serializeMiniAccountant().equals(hashAccountantTree[i])) {
+                //                 console.error("************************************************");
+                //                 console.error("accountantTree", i, "    ", this.accountantTree.serializeMiniAccountant());
+                //                 console.error("************************************************");
+                //             }
+                //     }
+                // }
 
                 if (revertException)
                     return false;
@@ -75729,6 +75729,33 @@ class InterfaceBlockchainBlockDataTransactions {
 
     _processBlockDataTransaction(blockHeight, transaction, multiplicationFactor = 1 , minerAddress = undefined, revertActions = undefined ){
 
+        try {
+
+            //skipping checking the Transaction in case it requires reverting
+            if (multiplicationFactor === 1) {
+                if (!transaction.validateTransactionOnce(blockHeight))
+                    throw {message: "couldn't process the transaction ", transaction: transaction};
+            }
+
+            transaction.processTransaction(multiplicationFactor, revertActions );
+
+            transaction.processTransactionFees( multiplicationFactor, minerAddress, revertActions);
+
+            return true;
+        } catch (exception){
+            console.error("couldn't process the transaction ", transaction, exception);
+            return false;
+        }
+    }
+
+    processBlockDataTransactions( block, multiplicationFactor = 1, revertActions){
+
+        for (let i=0; i<block.data.transactions.transactions.length; i++)
+            this._processBlockDataTransaction( block.height, block.data.transactions.transactions[i], multiplicationFactor, block.data.minerAddress, revertActions, );
+    }
+
+    /*_processBlockDataTransaction(blockHeight, transaction, multiplicationFactor = 1 , minerAddress = undefined, revertActions = undefined ){
+
         //skipping checking the Transaction in case it requires reverting
         if (multiplicationFactor === 1) {
             if (!transaction.validateTransactionOnce(blockHeight))
@@ -75750,7 +75777,7 @@ class InterfaceBlockchainBlockDataTransactions {
                 return false;
 
         return true;
-    }
+    }*/
 
 
 
