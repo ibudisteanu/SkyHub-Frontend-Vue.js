@@ -47,7 +47,7 @@
             </div>
 
             <div class="mediaContentBox">
-                <a href ="http://www.startupcafe.ro/idei-si-antreprenori/bitcoin-romanesc-webdollar-castigi-bani-pierzi-timp-net.html" target="_blank">
+                <a href ="https://www.startupcafe.ro/idei-si-antreprenori/bitcoin-romanesc-webdollar-castigi-bani-pierzi-timp-net.htm" target="_blank">
 
                     <img alt="WebDollar team - Alexandru Panait Cosmin Oprea Adrian Stratulat" title="WebDollar team - Alexandru Panait Cosmin Oprea Adrian Stratulat" src="public/assets/images/media/webdollar-alexandru-panait-adrian-stratulat-oprea-cosmin.jpg">
                     <h3>WebDollar concept interview</h3>
