@@ -2101,8 +2101,8 @@ consts.SETTINGS = {
     UUID: uuid.v4(),
 
     NODE: {
-        VERSION: "0.272",
-        VERSION_COMPATIBILITY: "0.272",
+        VERSION: "0.274",
+        VERSION_COMPATIBILITY: "0.274",
         PROTOCOL: "WebDollar",
 
 
@@ -17017,7 +17017,7 @@ class InterfaceBlockchainProtocol {
 
                 try {
 
-                    if (data === null || data.result !== true)
+                    if (data === null )
                         throw {message: "last block is not valid"};
 
                     console.log("blockchain/header/new-block received", data.chainLength||0);
@@ -75121,7 +75121,7 @@ let inheritedBlockchain;
 if (true) inheritedBlockchain = __WEBPACK_IMPORTED_MODULE_1_common_blockchain_mini_blockchain_blockchain_Mini_Blockchain_Light__["a" /* default */]
 else inheritedBlockchain = MiniBlockchain;
 
-inheritedBlockchain = __WEBPACK_IMPORTED_MODULE_1_common_blockchain_mini_blockchain_blockchain_Mini_Blockchain_Light__["a" /* default */];
+//inheritedBlockchain = MiniBlockchainLight;
 
 class MainBlockchain extends  inheritedBlockchain{
 
@@ -75733,7 +75733,7 @@ class InterfaceBlockchainBlockDataTransactions {
         return offset;
     }
 
-    _processBlockDataTransaction(blockHeight, transaction, multiplicationFactor = 1 , minerAddress = undefined, revertActions = undefined ){
+    /*_processBlockDataTransaction(blockHeight, transaction, multiplicationFactor = 1 , minerAddress = undefined, revertActions = undefined ){
 
         try {
 
@@ -75758,9 +75758,9 @@ class InterfaceBlockchainBlockDataTransactions {
 
         for (let i=0; i<block.data.transactions.transactions.length; i++)
             this._processBlockDataTransaction( block.height, block.data.transactions.transactions[i], multiplicationFactor, block.data.minerAddress, revertActions, );
-    }
+    }*/
 
-    /*_processBlockDataTransaction(blockHeight, transaction, multiplicationFactor = 1 , minerAddress = undefined, revertActions = undefined ){
+    _processBlockDataTransaction(blockHeight, transaction, multiplicationFactor = 1 , minerAddress = undefined, revertActions = undefined ){
 
         //skipping checking the Transaction in case it requires reverting
         if (multiplicationFactor === 1) {
@@ -75783,8 +75783,7 @@ class InterfaceBlockchainBlockDataTransactions {
                 return false;
 
         return true;
-    }*/
-
+    }
 
 
 }
@@ -91402,7 +91401,7 @@ class NodeWebPeersService {
 
 class NodeWebPeersDiscoveryService {
 
-    constructor(){
+    constructor() {
 
         console.log("NodeWebPeersDiscoveryService constructor");
 

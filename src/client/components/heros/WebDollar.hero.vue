@@ -5,7 +5,7 @@
 
             <img src="/public/assets/images/WebDollar-logo-white.png" alt="webDollar-logo" title="webDollar-logo" class="mainLogo fadeIn">
 
-            <h1 class="fadeIn fadeIn2">WebDollar <b class="testnet">TEST NET #3.4</b></h1>
+            <h1 class="fadeIn fadeIn2">WebDollar <b class="testnet">TEST NET #3.5</b></h1>
             <h2 v-show="this.maintenance" class="fadeIn fadeIn2"><b class="testnet">UNDER MAINTENANCE</b></h2>
             <h3 class="fadeIn fadeIn3" :style="{marginTop: !this.mainNet ? '0': '30px'}">Currency of the Internet</h3>
 
@@ -56,7 +56,7 @@
             return {
                 status: 'Starting...',
                 loaded: false,
-                maintenance: false,
+                maintenance: true,
                 mainNet: true
             }
         },
