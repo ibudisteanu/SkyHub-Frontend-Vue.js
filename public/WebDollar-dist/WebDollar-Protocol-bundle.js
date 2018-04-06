@@ -91570,7 +91570,7 @@ class FallBackObject {
   "nodes": [
     {
       "addr": ["webdollar.ddns.net"],
-       "port": 2095,
+       "port": 80,
     },
     {
         "addr": ["192.168.2.55"],
