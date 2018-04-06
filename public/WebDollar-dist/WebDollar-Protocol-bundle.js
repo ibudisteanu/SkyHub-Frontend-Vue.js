@@ -2101,8 +2101,8 @@ consts.SETTINGS = {
     UUID: uuid.v4(),
 
     NODE: {
-        VERSION: "0.276",
-        VERSION_COMPATIBILITY: "0.276",
+        VERSION: "0.277",
+        VERSION_COMPATIBILITY: "0.277",
         PROTOCOL: "WebDollar",
 
 
@@ -2139,6 +2139,10 @@ consts.SETTINGS = {
 
             WEBRTC: {
                 MAXIMUM_CONNECTIONS: 5,
+            },
+
+            FORKS:{
+                MAXIMUM_BLOCKS_TO_DOWNLOAD: 50,
             }
 
         },
@@ -23437,6 +23441,13 @@ class InterfaceBlockchainProtocolForkSolver{
 
                 }
 
+            //maximum blocks to download
+            if (!this.blockchain.agent.light){
+                    if (newChainLength > this.blockchain.blocks.length + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.FORKS.MAXIMUM_BLOCKS_TO_DOWNLOAD){
+                        newChainLength = this.blockchain.blocks.length + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.FORKS.MAXIMUM_BLOCKS_TO_DOWNLOAD;
+                    }
+            }
+
             //its a fork... starting from position
             console.log("fork position", binarySearchResult.position, "newChainStartingPoint", newChainStartingPoint, "newChainLength", newChainLength);
 
@@ -25592,32 +25603,27 @@ class CLI{
         let miningAddress = __WEBPACK_IMPORTED_MODULE_0__index_js__["Blockchain"].blockchain.mining.minerAddress;
         if (miningAddress === undefined)
             miningAddress = 'not specified';
-
-        console.log("miningAddress=", miningAddress);
-
+        
         console.log(addressHeader);
         for (let i = 0; i < __WEBPACK_IMPORTED_MODULE_0__index_js__["Blockchain"].Wallet.addresses.length; ++i) {
 
             let address = __WEBPACK_IMPORTED_MODULE_0__index_js__["Blockchain"].Wallet.addresses[i].address;
 
             let balance = __WEBPACK_IMPORTED_MODULE_0__index_js__["Blockchain"].blockchain.accountantTree.getBalance(address, undefined);
-            if (balance === null)
-                balance = 0;
-            balance /= __WEBPACK_IMPORTED_MODULE_2_common_utils_coins_WebDollar_Coins__["a" /* default */].WEBD;
             
+            balance = (balance === null) ? 0 : (balance / __WEBPACK_IMPORTED_MODULE_2_common_utils_coins_WebDollar_Coins__["a" /* default */].WEBD);
+
             if (address === miningAddress) {
                 console.log(((i < 10) ? "|  *" : "| *") + i + "   |  " + address + "  | " + balance + lineSeparator);
             } else {
                 console.log(((i < 10) ? "|   " : "|  ")+ i + "   |  " + address + "  | " + balance + lineSeparator);
             }
         }
-
+        
         let balance = 0;
         if (miningAddress !== 'not specified') {
             balance = __WEBPACK_IMPORTED_MODULE_0__index_js__["Blockchain"].blockchain.accountantTree.getBalance(miningAddress, undefined);
-            if (balance === null)
-                balance = 0;
-            balance /= __WEBPACK_IMPORTED_MODULE_2_common_utils_coins_WebDollar_Coins__["a" /* default */].WEBD;
+            balance = (balance === null) ? 0 : (balance / __WEBPACK_IMPORTED_MODULE_2_common_utils_coins_WebDollar_Coins__["a" /* default */].WEBD);
         }
         console.log( "| MINING|  " + miningAddress + "  | " + balance + lineSeparator);
 
@@ -25630,11 +25636,12 @@ class CLI{
         try {
             let address = await __WEBPACK_IMPORTED_MODULE_0__index_js__["Blockchain"].Wallet.createNewAddress();
             console.info("Address was created: " + address.address);
+            return true;
         } catch(err) {
             console.err(err);
+            return false;
         }
 
-        return true;
     }
 
     async deleteAddress() {
@@ -25745,6 +25752,7 @@ class CLI{
     }
 
     async encryptAddress() {
+
         console.info('Encrypt address.');
 
         let addressId = await this._chooseAddress();
@@ -25767,6 +25775,7 @@ class CLI{
     }
 
     async setMiningAddress() {
+
         console.info('Set mining address.');
 
         let addressId = await this._chooseAddress();
