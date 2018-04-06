@@ -1099,7 +1099,7 @@ a:hover{
   margin-bottom: 20px;
 }
 
-svg path, svg rect{
+#webDollar svg path, #webDollar svg rect{
   fill: #fec02c;
 }
 
