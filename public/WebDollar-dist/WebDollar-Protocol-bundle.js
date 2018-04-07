@@ -13810,10 +13810,12 @@ class Blockchain{
         });
         __WEBPACK_IMPORTED_MODULE_8_common_events_Status_Events__["a" /* default */].emit('blockchain/status', {message: "Single Window"});
 
+
+        await this.initializeBlockchain();
+
         if (typeof initializationCallback === "function")
             initializationCallback();
 
-        await this.initializeBlockchain();
     }
 
     async loadWallet(){
@@ -91581,7 +91583,7 @@ class FallBackObject {
   "nodes": [
     {
       "addr": ["webdollar.ddns.net"],
-       "port": 443,
+       "port": 80,
     },
     {
         "addr": ["192.168.2.55"],
