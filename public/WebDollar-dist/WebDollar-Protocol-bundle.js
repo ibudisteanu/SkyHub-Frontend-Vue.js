@@ -1916,7 +1916,11 @@ function isnan (val) {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {const uuid = __webpack_require__(241);
 
-let consts = {};
+let consts = {
+
+    DEBUG: false,
+
+};
 
 consts.BLOCKCHAIN = {
 
@@ -2104,6 +2108,7 @@ consts.SETTINGS = {
         VERSION: "0.277",
         VERSION_COMPATIBILITY: "0.277",
         PROTOCOL: "WebDollar",
+        SSL: true,
 
 
         PORT: 80, //port
@@ -2124,7 +2129,10 @@ consts.SETTINGS = {
 
         MAX_SIZE: {
             BLOCKS_MAX_SIZE_BYTES : 1 * 1024 * 1024 ,       // in bytes
-            SOCKET_MAX_SIZE_BYRES : 3 * 1024 * 1024 + 50    // in bytes
+            SOCKET_MAX_SIZE_BYRES : 3 * 1024 * 1024 + 50,    // in bytes
+
+            SPLIT_CHUNKS_BUFFER_SOCKETS_SIZE_BYTES: 32 * 1024, //32 kb
+            MINIMUM_SPLIT_CHUNKS_BUFFER_SOCKETS_SIZE_BYTES: 32 *1024, //32 kb
         },
 
         WALLET:{
@@ -2163,7 +2171,11 @@ consts.SETTINGS = {
 
 
 
-
+if ( consts.DEBUG === true ){
+    consts.SETTINGS.NODE.VERSION += "1";
+    consts.SETTINGS.NODE.VERSION_COMPATIBILITY += "1";
+    consts.SETTINGS.NODE.SSL = false;
+}
 
 
 /* harmony default export */ __webpack_exports__["a"] = (consts);
@@ -2262,12 +2274,11 @@ class BufferExtended {
         if (length-index <= 0)
             throw {message: "length-index <= 0...", buffer: buffer.toString("hex"), index:index, length:length, count: count};
 
-        let array = new Buffer(length - index);
+        let buf = new Buffer(length-index);
+        buffer.copy(buf, 0, index, length);
+        
+        return buf;
 
-        for (let i = index; i < length; i++)
-            array[i-index] = buffer[i];
-
-        return array;
     }
 
     longestMatch(buffer, buffer2, startIndex){
@@ -23683,7 +23694,11 @@ class InterfaceBlockchainAgentFullNode extends __WEBPACK_IMPORTED_MODULE_0__Inte
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Mini_Blockchain_Protocol__ = __webpack_require__(193);
+/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Mini_Blockchain_Protocol__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_BufferExtended__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
+
+
 
 
 class MiniBlockchainAdvancedProtocol extends __WEBPACK_IMPORTED_MODULE_0__Mini_Blockchain_Protocol__["a" /* default */]{
@@ -23715,13 +23730,39 @@ class MiniBlockchainAdvancedProtocol extends __WEBPACK_IMPORTED_MODULE_0__Mini_B
                     throw {message: "height is not valid"};
 
                 let serialization = this.blockchain.getSerializedAccountantTree(data.height);
+                let moreChunks = false;
 
-                //console.log("get/blockchain/accountant-tree/get-accountant-tree", serialization.toString("hex"))
+                if (typeof data.substr === "object" && data.substr !== null) {
 
-                socket.node.sendRequest("get/blockchain/accountant-tree/get-accountant-tree/" + data.height, {
-                    result: true,
-                    accountantTree: serialization,
-                });
+                    if (typeof data.substr.startIndex === "number" && typeof data.substr.count === "number") {
+
+                        if (data.substr.count < __WEBPACK_IMPORTED_MODULE_2_consts_const_global__["a" /* default */].SETTINGS.PARAMS.MAX_SIZE.MINIMUM_SPLIT_CHUNKS_BUFFER_SOCKETS_SIZE_BYTES) throw {message:"way to few messages"};
+
+
+                        if ((serialization.length - data.substr.startIndex) > data.substr.count)
+                            moreChunks = true
+                        else
+                            moreChunks = false;
+
+                        if (serialization.length - 1 - data.substr.startIndex > 0)
+                            serialization = __WEBPACK_IMPORTED_MODULE_1__utils_BufferExtended__["a" /* default */].substr(serialization, data.substr.startIndex, Math.min(data.substr.count, serialization.length - 1 - data.substr.startIndex));
+                        else
+                            serialization = new Buffer(0);
+
+                        return socket.node.sendRequest("get/blockchain/accountant-tree/get-accountant-tree/" + data.height, {
+                            result: true,
+                            accountantTree: serialization,
+                            moreChunks: moreChunks,
+                        });
+                        
+                    }
+
+                } else {
+                    return socket.node.sendRequest("get/blockchain/accountant-tree/get-accountant-tree/" + data.height, {
+                        result: true,
+                        accountantTree:serialization,
+                    }); 
+                }
 
 
             } catch (exception){
@@ -23781,10 +23822,64 @@ class MiniBlockchainAdvancedProtocol extends __WEBPACK_IMPORTED_MODULE_0__Mini_B
 
     }
 
+    async getAccountantTree( socket, height, timeoutCount = 1000 ){
+
+        let downloading = true;
+        let pos = 0;
+        let buffers = [];
+
+        //can not be more than 1000
+        while (downloading && pos < timeoutCount) {
+
+            let answer = await socket.node.sendRequestWaitOnce("get/blockchain/accountant-tree/get-accountant-tree", {
+                    height: height,
+
+                    substr: {
+                        startIndex: pos * __WEBPACK_IMPORTED_MODULE_2_consts_const_global__["a" /* default */].SETTINGS.PARAMS.MAX_SIZE.SPLIT_CHUNKS_BUFFER_SOCKETS_SIZE_BYTES,
+                        count: __WEBPACK_IMPORTED_MODULE_2_consts_const_global__["a" /* default */].SETTINGS.PARAMS.MAX_SIZE.SPLIT_CHUNKS_BUFFER_SOCKETS_SIZE_BYTES,
+                    }
+
+                },
+
+                height, 10000);
+
+            if (answer === null) throw {message: "get-accountant-tree never received ", forkStartingHeight: height};
+            if (!answer.result) throw {message: "get-accountant-tree return false ", answer: answer.message };
+
+            if ( !Buffer.isBuffer(answer.accountantTree) )
+                throw {message: "accountantTree data is not a buffer"};
+
+            if (answer.accountantTree.length === __WEBPACK_IMPORTED_MODULE_2_consts_const_global__["a" /* default */].SETTINGS.PARAMS.MAX_SIZE.SPLIT_CHUNKS_BUFFER_SOCKETS_SIZE_BYTES ||
+                (answer.accountantTree.length <= __WEBPACK_IMPORTED_MODULE_2_consts_const_global__["a" /* default */].SETTINGS.PARAMS.MAX_SIZE.SPLIT_CHUNKS_BUFFER_SOCKETS_SIZE_BYTES && !answer.moreChunks))
+            {
+
+                buffers.push(answer.accountantTree);
+
+                if (!answer.moreChunks)
+                    downloading = false;
+
+            }
+
+            pos++;
+
+        }
+
+        if (pos === timeoutCount)
+            throw {message: "accountantTree too many trials"};
+
+        if (buffers.length === 0)
+            throw {message: "accountantTree is empty"};
+
+        let buffer = Buffer.concat(buffers);
+
+        return buffer;
+
+    }
 
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (MiniBlockchainAdvancedProtocol);
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
 /* 198 */
@@ -46228,10 +46323,10 @@ class InterfaceBlockchain {
 
                 if (this.blocks[i] !== undefined && this.blocks[i] !== null) {
 
-                    console.warn("Saving Block ",i)
                     if (! ( await this.blocks[i].saveBlock()) )
                         break
                 }
+            console.warn("Successfully saving blocks ", startingHeight, endingHeight);
         }
 
         return result;
@@ -50571,7 +50666,7 @@ class SocketExtend{
         Sending the Request and return the Promise to Wait Async
     */
 
-    sendRequestWaitOnce (socket, request, requestData, answerSuffix, timeOutInterval=3000) {
+    sendRequestWaitOnce (socket, request, requestData, answerSuffix, timeOutInterval=4000) {
 
         if ( answerSuffix !== undefined) answerSuffix = String(answerSuffix); //in case it is a number
 
@@ -85862,12 +85957,9 @@ class MiniBlockchainLightProtocolForkSolver extends inheritForkSolver{
             //downloading the accountant tree
             __WEBPACK_IMPORTED_MODULE_3_common_events_Status_Events__["a" /* default */].emit( "agent/status", {message: "Downloading Accountant Tree", blockHeight: fork.forkStartingHeight } );
 
-            let answer = await socket.node.sendRequestWaitOnce( "get/blockchain/accountant-tree/get-accountant-tree", { height: fork.forkStartingHeight }, fork.forkStartingHeight, 10000 );
+            let answer = await this.protocol.getAccountantTree(socket, fork.forkStartingHeight);
 
-            if (answer === null) throw {message: "get-accountant-tree never received ", forkStartingHeight: fork.forkStartingHeight};
-            if (!answer.result) throw {message: "get-accountant-tree return false ", answer: answer.message};
-
-            fork.forkPrevAccountantTree = answer.accountantTree;
+            fork.forkPrevAccountantTree = answer;
 
             //downloading the light settings
             answer = await socket.node.sendRequestWaitOnce("get/blockchain/light/get-light-settings", {height: fork.forkStartingHeight  }, fork.forkStartingHeight );
@@ -86721,7 +86813,8 @@ class NodeClient {
 
                 // in case the port is not included
                 if (address.indexOf(":") === -1 || address.indexOf(":") === (address.length-1) )  address += ":"+port;
-                if (address.indexOf("https://") === -1 )  address = "https://"+address;
+
+                if (address.indexOf("http" + (__WEBPACK_IMPORTED_MODULE_1_consts_const_global__["a" /* default */].SETTINGS.NODE.SSL ? 's' : '') +"://") === -1 )  address = "http"+ (__WEBPACK_IMPORTED_MODULE_1_consts_const_global__["a" /* default */].SETTINGS.NODE.SSL ? 's' : '') +"://"+address;
 
                 console.log("connecting... to:                ", address);
 
@@ -86730,10 +86823,12 @@ class NodeClient {
 
                     // params described in the documentation https://socket.io/docs/client-api#manager
                     socket = __WEBPACK_IMPORTED_MODULE_0_socket_io_client__(address, {
+
                         reconnection: false, //no reconnection because it is managed automatically by the WaitList
                         maxHttpBufferSize: __WEBPACK_IMPORTED_MODULE_1_consts_const_global__["a" /* default */].SOCKET_MAX_SIZE_BYRES,
                         timeout: 5000, //10 sec, default 20 sec
-                        secure: true, //https
+
+                        secure: __WEBPACK_IMPORTED_MODULE_1_consts_const_global__["a" /* default */].SETTINGS.NODE.SSL, //https
                     });
 
                 }  catch (Exception){
@@ -91586,7 +91681,7 @@ class FallBackObject {
        "port": 80,
     },
     {
-        "addr": ["192.168.2.55"],
+        "addr": ["192.168.2.8"],
         "port": 2095,
     },
     {

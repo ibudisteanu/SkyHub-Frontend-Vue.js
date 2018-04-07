@@ -83,8 +83,19 @@
 
             WebDollar.StatusEvents.on("agent/status", (data)=>{
 
-                if ( !this.loaded )
-                    this.status = data.message + " " + data.blockHeight + " / " + (data.blockHeightMax-1);
+                if ( !this.loaded ) {
+
+                    this.status = data.message  ;
+
+                    if (data.blockHeight !== undefined) {
+                        this.status = this.status + " " + data.blockHeight;
+                    }
+
+                    if (data.blockHeightMax !== undefined) {
+                        this.status = this.status +  " / " + (data.blockHeightMax-1);
+                    }
+
+                }
 
             });
 
