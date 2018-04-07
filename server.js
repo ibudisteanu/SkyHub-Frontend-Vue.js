@@ -2,13 +2,13 @@ const fs = require('fs')
 const path = require('path')
 const LRU = require('lru-cache')
 const express = require('express')
-var cookieParser = require('cookie-parser');
+const pem = require('pem')
 const favicon = require('serve-favicon')
 const compression = require('compression')
 const resolve = file => path.resolve(__dirname, file)
 const { createBundleRenderer } = require('vue-server-renderer')
 const https = require('https');
-
+const cors = require('cors');
 
 const isProd = process.env.NODE_ENV === 'production'
 const useMicroCache = process.env.MICRO_CACHE !== 'false'
@@ -63,13 +63,11 @@ const serve = (path, cache) => express.static(resolve(path), {
 })
 
 app.use(compression({ threshold: 0 }))
-app.use(cookieParser()); // cookie parser
 app.use(favicon('./public/assets/images/logo-48.png'))
 app.use('/dist', serve('./dist', true))
 app.use('/public', serve('./public', true))
 app.use('/manifest.json', serve('./manifest.json', true))
-app.use('/service-worker.js', serve('./dist/service-worker.js'))
-
+app.use(cors({credentials: true,}));
 
 //starting the SocketWorkerService
 // var ServerSocketWorkerService = require('./src/services/communication/server-socket-worker/ServerSocketWorker.service.js');
@@ -200,13 +198,20 @@ let port = process.env.PORT;
 if (process.env.NODE_ENV === 'production') port = port || 80;
 else port = port || 8084;
 
+
 var options = {
-    key: fs.readFileSync('./key.pem', 'utf8'),
-    cert: fs.readFileSync('./server.crt', 'utf8')
+    key: fs.readFileSync('./certificates/private.key', 'utf8'),
+    cert: fs.readFileSync('./certificates/certificate.crt', 'utf8'),
+    ca: fs.readFileSync('./certificates/ca_bundle.crt', 'utf8')
 };
 
+//cloudflare generates its own SSL certificate
+port = 80;
 app.listen(port, () => {
-  console.log(`server started at localhost:${port}`)
+    console.log(`server started at localhost:${port}`)
 });
 
-// https.createServer(options, app).listen(port);
+// https.createServer(options, app).listen(port, ()=>{
+//     console.log(`server started at localhost:${port}`)
+// });
+

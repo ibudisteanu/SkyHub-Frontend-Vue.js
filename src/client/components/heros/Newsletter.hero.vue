@@ -70,7 +70,15 @@
 
             async subscribeEmail(){
 
-                let answer = await axios.post(consts.SERVER_API+"subscribe-newsletter",{email: this.email});
+                let answer;
+                try {
+                    answer = await axios.post(consts.SERVER_API + "subscribe-newsletter", {email: this.email});
+                } catch (exception){
+
+                    this.error = "There is a problem subscribing to newsletter";
+                    return false;
+
+                }
 
                 answer = answer.data;
 
