@@ -65,6 +65,7 @@ app.use(favicon('./public/assets/images/logo-48.png'))
 app.use('/dist', serve('./dist', true))
 app.use('/public', serve('./public', true))
 app.use('/manifest.json', serve('./manifest.json', true))
+app.use('/.well-known/acme-challenge', serve('./certificates/well-known/acme-challenge', true) );
 app.use(cors({credentials: true,}));
 
 //starting the SocketWorkerService
@@ -196,8 +197,6 @@ let port = process.env.PORT;
 if (process.env.NODE_ENV === 'production') port = port || 80;
 else port = port || 8084;
 
-app.use('/.well-known/acme-challenge/', serve('./certificates/.well-known/acme-challenge/', true) );
-
 let options = { };
 
 try{
@@ -215,7 +214,7 @@ try{
 
     //cloudflare generates its own SSL certificate
     app.listen(port, () => {
-        console.log(`server started at localhost:${port}`)
+        console.log(`http server started at localhost:${port}`)
     });
 
 }
