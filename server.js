@@ -207,7 +207,7 @@ try{
     options.ca = fs.readFileSync('./certificates/ca_bundle.crt', 'utf8');
 
     https.createServer(options, app).listen(port, ()=>{
-        console.log(`server started at localhost:${port}`)
+        console.log(`https server started at localhost:${port}`)
     });
 
 
