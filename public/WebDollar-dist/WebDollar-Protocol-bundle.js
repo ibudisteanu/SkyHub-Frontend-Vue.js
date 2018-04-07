@@ -2106,7 +2106,7 @@ consts.SETTINGS = {
         PROTOCOL: "WebDollar",
 
 
-        PORT: 12320, //port
+        PORT: 80, //port
     },
 
     PARAMS: {
@@ -13811,10 +13811,7 @@ class Blockchain{
         __WEBPACK_IMPORTED_MODULE_8_common_events_Status_Events__["a" /* default */].emit('blockchain/status', {message: "Single Window"});
 
 
-        await this.initializeBlockchain();
-
-        if (typeof initializationCallback === "function")
-            initializationCallback();
+        await this.initializeBlockchain( initializationCallback );
 
     }
 
@@ -13830,12 +13827,15 @@ class Blockchain{
         }
     }
 
-    async initializeBlockchain(){
+    async initializeBlockchain(initializationCallback){
 
         await this.loadWallet();
 
         //loading the blockchain
         let blockchainLoaded = await this.loadBlockchain();
+
+        if (typeof initializationCallback === "function")
+            initializationCallback();
 
         await this.Agent.initializeStartAgent();
 
@@ -91591,7 +91591,7 @@ class FallBackObject {
     },
     {
       "addr": ["webdollar.io", "149.56.14.37"],
-      "port": 2095
+      "port": 443
     },
 
     {
