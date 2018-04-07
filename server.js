@@ -197,18 +197,18 @@ let port = process.env.PORT;
 if (process.env.NODE_ENV === 'production') port = port || 80;
 else port = port || 8084;
 
-
-var options = {
-    key: fs.readFileSync('./certificates/private.key', 'utf8'),
-    cert: fs.readFileSync('./certificates/certificate.crt', 'utf8'),
-    ca: fs.readFileSync('./certificates/ca_bundle.crt', 'utf8')
-};
-
 //cloudflare generates its own SSL certificate
-port = 80;
 app.listen(port, () => {
     console.log(`server started at localhost:${port}`)
 });
+
+
+// var options = {
+//     key: fs.readFileSync('./certificates/private.key', 'utf8'),
+//     cert: fs.readFileSync('./certificates/certificate.crt', 'utf8'),
+//     ca: fs.readFileSync('./certificates/ca_bundle.crt', 'utf8')
+// };
+
 
 // https.createServer(options, app).listen(port, ()=>{
 //     console.log(`server started at localhost:${port}`)
