@@ -2,13 +2,12 @@ const fs = require('fs')
 const path = require('path')
 const LRU = require('lru-cache')
 const express = require('express')
-var cookieParser = require('cookie-parser');
 const favicon = require('serve-favicon')
 const compression = require('compression')
 const resolve = file => path.resolve(__dirname, file)
 const { createBundleRenderer } = require('vue-server-renderer')
 const https = require('https');
-
+const cors = require('cors');
 
 const isProd = process.env.NODE_ENV === 'production'
 const useMicroCache = process.env.MICRO_CACHE !== 'false'
@@ -58,18 +57,16 @@ if (isProd) {
 }
 
 const serve = (path, cache) => express.static(resolve(path), {
-
   maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0
 })
 
 app.use(compression({ threshold: 0 }))
-app.use(cookieParser()); // cookie parser
 app.use(favicon('./public/assets/images/logo-48.png'))
 app.use('/dist', serve('./dist', true))
 app.use('/public', serve('./public', true))
 app.use('/manifest.json', serve('./manifest.json', true))
-app.use('/service-worker.js', serve('./dist/service-worker.js'))
-
+app.use('/.well-known/acme-challenge', serve('./certificates/well-known/acme-challenge', true) );
+app.use(cors({credentials: true,}));
 
 //starting the SocketWorkerService
 // var ServerSocketWorkerService = require('./src/services/communication/server-socket-worker/ServerSocketWorker.service.js');
@@ -200,13 +197,30 @@ let port = process.env.PORT;
 if (process.env.NODE_ENV === 'production') port = port || 80;
 else port = port || 8084;
 
-var options = {
-    key: fs.readFileSync('./key.pem', 'utf8'),
-    cert: fs.readFileSync('./server.crt', 'utf8')
-};
+let options = { };
 
-app.listen(port, () => {
-  console.log(`server started at localhost:${port}`)
-});
+try{
 
-// https.createServer(options, app).listen(port);
+    options.key = fs.readFileSync('./certificates/private.key', 'utf8');
+    options.cert = fs.readFileSync('./certificates/certificate.crt', 'utf8');
+    options.ca = fs.readFileSync('./certificates/ca_bundle.crt', 'utf8');
+
+    https.createServer(options, app).listen(port, ()=>{
+        console.log(`https server started at localhost:${port}`)
+    });
+
+
+} catch (exception){
+
+    //cloudflare generates its own SSL certificate
+    app.listen(port, () => {
+        console.log(`http server started at localhost:${port}`)
+    });
+
+}
+
+
+
+
+
+

@@ -13,8 +13,6 @@ const config = merge(base, {
   },
   resolve: {
     alias: {
-        createApi: path.resolve(__dirname + '/../src/services/hackernews-api/create-api-server.js'),
-        communicationService: path.resolve(__dirname + '/../src/services/communication/client-socket/ClientSocket.service.js'),
     }
   },
   plugins: [
@@ -49,32 +47,7 @@ const config = merge(base, {
 
 if (process.env.NODE_ENV === 'production') {
   config.plugins.push(
-    // auto generate service worker
-    new SWPrecachePlugin({
-      cacheId: 'vue-hn',
-      filename: 'service-worker.js',
-      minify: true,
-      dontCacheBustUrlsMatching: /./,
-      staticFileGlobsIgnorePatterns: [/\.map$/, /\.json$/],
-      runtimeCaching: [
-        {
-          urlPattern: '/',
-          handler: 'networkFirst'
-        },
-        {
-          urlPattern: /\/(top|new|show|ask|jobs)/,
-          handler: 'networkFirst'
-        },
-        {
-          urlPattern: '/item/:id',
-          handler: 'networkFirst'
-        },
-        {
-          urlPattern: '/user/:id',
-          handler: 'networkFirst'
-        }
-      ]
-    })
+
   )
 }
 

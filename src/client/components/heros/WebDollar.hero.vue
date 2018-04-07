@@ -40,7 +40,7 @@
 
 <script>
 
-    import Countdown from 'vuejs-countdown';
+    import countdown from "client/components/UI/elements/Countdown.component.vue"
     import LoadingSpinner from "client/components/UI/elements/Loading-Spinner.vue"
 
     export default{
@@ -48,7 +48,7 @@
         name: "WebDollarHero",
 
         components: {
-            Countdown,
+            countdown,
             LoadingSpinner,
         },
 
@@ -56,7 +56,7 @@
             return {
                 status: 'Starting...',
                 loaded: false,
-                maintenance: true,
+                maintenance: false,
                 mainNet: true
             }
         },

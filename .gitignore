@@ -11,3 +11,7 @@ accounts.txt
 public/hidden
 package-lock\.json
 
+certificates/ca_bundle.crt
+certificates/certificate.crt
+certificates/private.key
+
