@@ -56,7 +56,7 @@
             return {
                 status: 'Starting...',
                 loaded: false,
-                maintenance: true,
+                maintenance: false,
                 mainNet: true
             }
         },

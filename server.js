@@ -57,7 +57,6 @@ if (isProd) {
 }
 
 const serve = (path, cache) => express.static(resolve(path), {
-
   maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0
 })
 
@@ -197,20 +196,32 @@ let port = process.env.PORT;
 if (process.env.NODE_ENV === 'production') port = port || 80;
 else port = port || 8084;
 
-//cloudflare generates its own SSL certificate
-app.listen(port, () => {
-    console.log(`server started at localhost:${port}`)
-});
+app.use('/.well-known/acme-challenge/', serve('./certificates/.well-known/acme-challenge/', true) );
+
+let options = { };
+
+try{
+
+    options.key = fs.readFileSync('./certificates/private.key', 'utf8');
+    options.cert = fs.readFileSync('./certificates/certificate.crt', 'utf8');
+    options.ca = fs.readFileSync('./certificates/ca_bundle.crt', 'utf8');
+
+    https.createServer(options, app).listen(port, ()=>{
+        console.log(`server started at localhost:${port}`)
+    });
 
 
-// var options = {
-//     key: fs.readFileSync('./certificates/private.key', 'utf8'),
-//     cert: fs.readFileSync('./certificates/certificate.crt', 'utf8'),
-//     ca: fs.readFileSync('./certificates/ca_bundle.crt', 'utf8')
-// };
+} catch (exception){
+
+    //cloudflare generates its own SSL certificate
+    app.listen(port, () => {
+        console.log(`server started at localhost:${port}`)
+    });
+
+}
 
 
-// https.createServer(options, app).listen(port, ()=>{
-//     console.log(`server started at localhost:${port}`)
-// });
+
+
+
 
