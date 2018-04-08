@@ -27,7 +27,7 @@
 
             <div id="newsletterContainer">
 
-                <span CLASS="newsletterText">Subscribe to our newsletter for the latest news</span>
+                <span class="newsletterText">Subscribe to our newsletter for the latest news</span>
 
                 <div v-if="this.success === ''" >
                     <input v-model="email" placeholder="Email"  />
