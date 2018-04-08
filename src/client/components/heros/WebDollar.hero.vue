@@ -70,8 +70,6 @@
             if (WebDollar.Blockchain.synchronized){
                 this.loaded= true;
                 this.status = "Mining Blockchain...";
-
-                return false;
             }
 
             if (process.env.NODE_ENV === 'development')

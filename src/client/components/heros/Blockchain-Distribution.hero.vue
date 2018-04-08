@@ -33,7 +33,7 @@
                     </div>
 
                     <div id="myProgress">
-                        <div id="myBar" ref="refDistributionProgressBar"></div>
+                        <div id="myBar" :style="{width: blocksLength*3000 / this.distributionProgressBarMax * 100  + '%' }"></div>
                     </div>
                     <span class="minValue">{{this.distributionProgressBarMinString}} WEBD</span>
                     <span class="maxValue">{{this.distributionProgressBarMaxString}} WEBD</span>
@@ -91,9 +91,16 @@
 
             if (typeof window === "undefined") return;
 
-            WebDollar.Blockchain.Chain.accountantTree.emitter.on("accountant-tree/root/total",(totalAmount)=>{
+            if (WebDollar.Blockchain.synchronized){
 
-                this.totalAmountCoins = totalAmount;
+                this.verifyIfContainData(WebDollar.Blockchain.Chain.accountantTree.calculateNodeCoins());
+
+                this.blocksLength = WebDollar.Blockchain.Chain.blocks.length;
+
+            }
+
+
+            WebDollar.Blockchain.Chain.accountantTree.emitter.on("accountant-tree/root/total",(totalAmount)=>{
 
                 this.verifyIfContainData(totalAmount);
 
@@ -102,9 +109,6 @@
             WebDollar.StatusEvents.on("blockchain/blocks-count-changed", (blocksLength)=>{
 
                 this.blocksLength = blocksLength;
-
-                if (this.$refs['refDistributionProgressBar'] !== undefined)
-                    this.$refs['refDistributionProgressBar'].style.width = blocksLength*3000 / this.distributionProgressBarMax * 100  +'%'
 
             });
 
@@ -120,12 +124,12 @@
 
             verifyIfContainData(amount){
 
+                this.totalAmountCoins = amount;
+
                 if (amount!==0)
                     this.loaded=true;
-                else {
+                else
                     this.loaded = false;
-                    console.error("verifyIfContainData", amount)
-                }
 
             }
 
