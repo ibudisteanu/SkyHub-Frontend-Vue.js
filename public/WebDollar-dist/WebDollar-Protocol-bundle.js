@@ -1918,7 +1918,7 @@ function isnan (val) {
 
 let consts = {
 
-    DEBUG: true,
+    DEBUG: false,
 
 };
 
@@ -2108,8 +2108,8 @@ consts.SETTINGS = {
     UUID: uuid.v4(),
 
     NODE: {
-        VERSION: "0.277",
-        VERSION_COMPATIBILITY: "0.277",
+        VERSION: "0.278",
+        VERSION_COMPATIBILITY: "0.278",
         PROTOCOL: "WebDollar",
         SSL: true,
 
