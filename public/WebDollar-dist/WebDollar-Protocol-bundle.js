@@ -14506,7 +14506,7 @@ class InterfaceBlockchainFork {
 
 
                 //revert the accountant tree
-                //revert the last K blocks
+                //revert the last K block
                 revertActions.revertOperations();
 
                 //reverting back to the clones, especially light settings
@@ -22063,7 +22063,6 @@ class InterfaceBlockchainBlock {
     async loadBlock(){
 
         let key = "block" + this.height;
-        console.log("block load", key);
 
         try{
 
@@ -22595,6 +22594,7 @@ class InterfaceBlockchainTransaction{
         } else if (multiplicationFactor === -1) {
 
             if (this._processTransactionFees(multiplicationFactor, minerAddress, revertActions) === null) return false;
+
             if (!this.to.processTransactionTo(multiplicationFactor, revertActions)) return false;
             if (!this.from.processTransactionFrom(multiplicationFactor, revertActions)) return false;
 
@@ -46417,8 +46417,12 @@ class InterfaceBlockchain {
 
             //it will include the block, but it will not ask to save, because it was already saved before
 
-            if (await this.includeBlockchainBlock( block, undefined, "all", false, revertActions) )
-                console.warn("blockchain loaded successfully index ", i);
+            if (await this.includeBlockchainBlock( block, undefined, "all", false, revertActions) ) {
+
+                if (i % 100 === 0)
+                    console.warn("blockchain loaded successfully index ", i);
+
+            }
             else {
                 console.error("blockchain is invalid at index " + i);
                 throw {message: "blockchain is invalid at index ", height: i};
@@ -91711,8 +91715,10 @@ class FallBackObject {
     },
 
     {
-      "addr": ["skyhub.me", "92.222.85.90"]
+      "addr": ["skyhub.me", "92.222.85.90"],
+       "port": 443,
     }
+
   ]
 });
 
