@@ -23533,16 +23533,16 @@ class InterfaceBlockchainProtocolForkSolver{
                 //it is a totally new blockchain (maybe genesis was mined)
                 console.log("fork is something new");
 
-        } catch (Exception){
+        } catch ( exception ){
 
-            console.error("discoverAndProcessFork raised an exception", Exception );
-            result = false;
+            console.error("discoverAndProcessFork raised an exception", exception );
+            return {result:false, error: exception };
 
         }
 
         this.blockchain.forksAdministrator.deleteFork(fork);
 
-        return result;
+        return { result: true };
     }
 
 
@@ -84484,7 +84484,7 @@ class InterfaceBlockchainMining extends  __WEBPACK_IMPORTED_MODULE_5__Interface_
                 //check if I mined all the last K blocks
                 let i = this.blockchain.blocks.length-1;
                 let count = 0;
-                while (i >= 0 && this.blockchain.blocks[i].minerAddress.equals(this.minerAddress)){
+                while (i >= 0 && this.blockchain.blocks[i].minerAddress.equals(this.unencodedMinerAddress)){
 
                     count ++;
                     i--;
@@ -85485,7 +85485,6 @@ class InterfaceBlockchainProtocolTipsManager {
     }
 
 
-
     async processTips(){
 
         if (this.blockchain === undefined) {
@@ -85517,7 +85516,8 @@ class InterfaceBlockchainProtocolTipsManager {
             console.log("AFTER");
             bestTip.toString();
 
-            if (!forkAnswer) {
+            if (!forkAnswer.result) {
+
                 console.log("BANNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
                 this.blockchain.tipsAdministrator.addBan(bestTip.socket.node.sckAddress);
 
