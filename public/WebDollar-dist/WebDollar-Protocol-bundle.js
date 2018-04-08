@@ -84484,7 +84484,8 @@ class InterfaceBlockchainMining extends  __WEBPACK_IMPORTED_MODULE_5__Interface_
                 //check if I mined all the last K blocks
                 let i = this.blockchain.blocks.length-1;
                 let count = 0;
-                while (i >= 0 && this.blockchain.blocks[i].minerAddress.equals(this.unencodedMinerAddress)){
+
+                while ( i >= 0 && this.blockchain.blocks[i].minerAddress.equals( this.unencodedMinerAddress ) ){
 
                     count ++;
                     i--;
