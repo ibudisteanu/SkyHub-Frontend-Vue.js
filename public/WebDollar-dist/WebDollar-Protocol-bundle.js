@@ -1918,7 +1918,7 @@ function isnan (val) {
 
 let consts = {
 
-    DEBUG: false,
+    DEBUG: true,
 
 };
 
@@ -83610,7 +83610,7 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_3__Mini_Blockchain_
         __WEBPACK_IMPORTED_MODULE_3__Mini_Blockchain_Advanced__["a" /* default */].prototype._onBlockCreated.call(this, block, saveBlock);
 
         if (! (await this._recalculateLightPrevs( block.height, block, undefined, saveBlock)))
-        throw {message: "_recalculateLightPrevs failed"};
+            throw {message: "_recalculateLightPrevs failed"};
 
         /*console.log(" hash", block.hash.toString("hex"));
         console.log(" difficulty", block.difficultyTarget.toString("hex"));
@@ -83894,8 +83894,8 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_3__Mini_Blockchain_
             delete this.lightPrevHashPrevs[index];
             delete this.lightPrevTimeStamps[index];
 
-            if ( this.blockchain.blocksStartingPoint === index )
-                this.blockchain.blocksStartingPoint++;
+            if ( this.blocksStartingPoint === index )
+                this.blocksStartingPoint++;
 
             index--;
         }
