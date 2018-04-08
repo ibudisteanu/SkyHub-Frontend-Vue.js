@@ -1918,7 +1918,7 @@ function isnan (val) {
 
 let consts = {
 
-    DEBUG: false,
+    DEBUG: true,
 
 };
 
@@ -16888,6 +16888,8 @@ class InterfaceBlockchainProtocol {
 
         // validating data
         if (typeof data.chainLength !== 'number') throw {message: 'chainLength is not specified'};
+        if (typeof data.chainStartingPoint !== 'number') throw {message: 'chainStartingPoint is not specified'};
+
         if (typeof data.height !== 'number') throw {message: 'height is not specified'};
         if (typeof data.header !== 'object') throw {message: 'header is not specified'};
         if (data.header === undefined ) throw {message:'header.header is not specified'};
@@ -16913,7 +16915,10 @@ class InterfaceBlockchainProtocol {
             data.header.data.hashData = new Buffer(data.header.data.hashData);
 
         if (data.header.chainLength < data.header.height)
-            throw {message: 'chainLength is smaller than block height ?? ', dataHeaderChainLength: data.header.chainLength, dataHeaderHeight: data.header.height};
+            throw {message: 'chainLength is smaller than block height ?? ', dataChainLength: data.header.chainLength, dataHeaderHeight: data.header.height};
+
+        if (data.header.chainStartingPoint > data.header.height )
+            throw {message: 'chainLength is smaller than block height ?? ', dataChainStartingPoint: data.header.chainStartingPoint, dataHeaderHeight: data.header.height};
 
     }
 
@@ -16999,7 +17004,7 @@ class InterfaceBlockchainProtocol {
 
                     console.log("blockchain/header/new-block discoverNewForkTip");
 
-                    let result = await this.tipsManager.discoverNewForkTip(socket, data.chainLength, data.header);
+                    let result = await this.tipsManager.discoverNewForkTip(socket, data.chainLength, data.chainStartingPoint, data.header);
 
                     socket.node.sendRequest("blockchain/header/new-block/answer/" + data.height || 0, {
                         result: true,
@@ -17020,28 +17025,6 @@ class InterfaceBlockchainProtocol {
 
 
             });
-
-        socket.node.on("blockchain/info/request-blockchain-info", (data)=>{
-
-            try{
-
-                socket.node.sendRequest("blockchain/info/request-blockchain-info"+"/answer", {
-                    result: true,
-                    chainStartingPoint: this.blockchain.getBlockchainStartingPoint(),
-                    chainLength: this.blockchain.blocks.length
-                });
-
-            } catch (exception) {
-
-                console.error("Socket Error - blockchain/info/request-blockchain-info", exception);
-
-                socket.node.sendRequest("blockchain/info/request-blockchain-info"+"/answer", {
-                    result: false,
-                    message: exception,
-                });
-            }
-
-        });
 
         if (this.acceptBlockHeaders)
             socket.node.on("blockchain/headers-info/request-header-info-by-height", (data) => {
@@ -17160,7 +17143,7 @@ class InterfaceBlockchainProtocol {
 
             }
 
-            let result = await this.tipsManager.discoverNewForkTip(socket, data.chainLength, data.header);
+            let result = await this.tipsManager.discoverNewForkTip(socket, data.chainLength, data.chainStartingPoint, data.header);
 
             socket.node.sendRequest("blockchain/header/new-block/answer/" + data.height || 0, {
                 result: true,
@@ -22111,6 +22094,7 @@ class InterfaceBlockchainBlock {
         return {
             height: this.height,
             chainLength: this.blockchain.blocks.length,
+            chainStartingPoint: this.blockchain.blocks.blocksStartingPoint,
             header: {
                 hash: this.hash,
                 hashPrev: this.hashPrev,
@@ -23384,16 +23368,15 @@ class InterfaceBlockchainProtocolForkSolver{
      */
     async discoverAndProcessFork(tip){
 
-        let fork, result = null, newChainStartingPoint = 0;
+        let fork, result = null;
         let binarySearchResult = {position: -1, header: null };
         let currentBlockchainLength = this.blockchain.blocks.length;
 
         let socket = tip.socket;
-        let newChainLength = tip.forkChainLength;
 
         try{
 
-            if (currentBlockchainLength > newChainLength)
+            if (currentBlockchainLength > tip.forkChainLength)
                 throw {message: "discoverAndProcessFork a smaller fork than I have"};
 
             let forkFound = this.blockchain.forksAdministrator.findForkBySockets(socket);
@@ -23404,7 +23387,7 @@ class InterfaceBlockchainProtocolForkSolver{
             }
 
             //check if n-2 was ok, but I need at least 1 block
-            if (currentBlockchainLength === newChainLength-1 && currentBlockchainLength-2  >= 0 && currentBlockchainLength > 0){
+            if (currentBlockchainLength === tip.forkChainLength-1 && currentBlockchainLength-2  >= 0 && currentBlockchainLength > 0){
 
                 let answer = await socket.node.sendRequestWaitOnce("blockchain/headers-info/request-header-info-by-height", { height: currentBlockchainLength-1 }, currentBlockchainLength-1 );
 
@@ -23430,26 +23413,16 @@ class InterfaceBlockchainProtocolForkSolver{
 
             if ( binarySearchResult.position === -1 ) {
 
-                console.warn("blockchain/info/request-blockchain-info");
-                let answer = await socket.node.sendRequestWaitOnce( "blockchain/info/request-blockchain-info", { }, "answer" );
-
-                if (answer === null) throw {message: "connection dropped info"};
-
-                if (answer === undefined || typeof answer.chainStartingPoint !== "number" )
-                    throw {message: "request-blockchain-info couldn't return real values"};
-
-                newChainStartingPoint = answer.chainStartingPoint;
-
                 if (this.blockchain.agent.light) {
-                    if (newChainLength - newChainStartingPoint > __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.VALIDATE_LAST_BLOCKS) {
-                        console.warn("LIGHT CHANGES from ", newChainStartingPoint, " to ", newChainLength - __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.VALIDATE_LAST_BLOCKS - 1);
-                        newChainStartingPoint = newChainLength - __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.VALIDATE_LAST_BLOCKS - 1;
+                    if (tip.forkChainLength - tip.forkChainStartingPoint > __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.VALIDATE_LAST_BLOCKS) {
+                        console.warn("LIGHT CHANGES from ", tip.forkChainStartingPoint, " to ", tip.forkChainLength - __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.VALIDATE_LAST_BLOCKS - 1);
+                        tip.forkChainStartingPoint = tip.forkChainLength - __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.VALIDATE_LAST_BLOCKS - 1;
                     }
                 }
 
-                console.warn("discoverFork 6666" + newChainStartingPoint);
+                console.warn("discoverFork 6666" + tip.forkChainStartingPoint);
 
-                binarySearchResult = await this._calculateForkBinarySearch(socket, newChainStartingPoint, newChainLength, currentBlockchainLength );
+                binarySearchResult = await this._calculateForkBinarySearch(socket, tip.forkChainStartingPoint, tip.forkChainLength, currentBlockchainLength );
 
                 if (binarySearchResult.position === null)
                     throw {message: "connection dropped discoverForkBinarySearch"}
@@ -23464,28 +23437,27 @@ class InterfaceBlockchainProtocolForkSolver{
 
             // probably for mini-blockchain light
             if (this.blockchain.agent.light)
-                if (binarySearchResult.position === -1 && currentBlockchainLength < newChainLength){
+                if (binarySearchResult.position === -1 && currentBlockchainLength < tip.forkChainLength){
 
-                    let answer = await socket.node.sendRequestWaitOnce("blockchain/headers-info/request-header-info-by-height", { height: newChainStartingPoint }, newChainStartingPoint );
+                    let answer = await socket.node.sendRequestWaitOnce("blockchain/headers-info/request-header-info-by-height", { height: tip.forkChainStartingPoint }, tip.forkChainStartingPoint );
 
                     if (answer === null || answer === undefined )
-                        throw {message: "connection dropped headers-info newChainStartingPoint"};
+                        throw {message: "connection dropped headers-info tip.forkChainStartingPoint"};
                     if (answer.result !== true || answer.header === undefined)
                         throw {message: "headers-info 0 malformed"}
 
-                    binarySearchResult = {position: newChainStartingPoint, header: answer.header};
+                    binarySearchResult = {position: tip.forkChainStartingPoint, header: answer.header};
 
                 }
 
             //maximum blocks to download
             if (!this.blockchain.agent.light){
-                    if (newChainLength > this.blockchain.blocks.length + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.FORKS.MAXIMUM_BLOCKS_TO_DOWNLOAD){
-                        newChainLength = this.blockchain.blocks.length + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.FORKS.MAXIMUM_BLOCKS_TO_DOWNLOAD;
-                    }
+                if (tip.forkChainLength > this.blockchain.blocks.length + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.FORKS.MAXIMUM_BLOCKS_TO_DOWNLOAD)
+                    tip.forkChainLength = this.blockchain.blocks.length + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.FORKS.MAXIMUM_BLOCKS_TO_DOWNLOAD;
             }
 
             //its a fork... starting from position
-            console.log("fork position", binarySearchResult.position, "newChainStartingPoint", newChainStartingPoint, "newChainLength", newChainLength);
+            console.log("fork position", binarySearchResult.position, "tip.forkChainStartingPoint", tip.forkChainStartingPoint, "newChainLength", tip.forkChainLength);
 
             if (binarySearchResult.position === -1 || (binarySearchResult.position > 0 && binarySearchResult.header !== undefined && binarySearchResult.header !== null) ){
 
@@ -23499,7 +23471,7 @@ class InterfaceBlockchainProtocolForkSolver{
                     if ( forkFound !== null )
                         return forkFound;
 
-                    fork = await this.blockchain.forksAdministrator.createNewFork(socket, binarySearchResult.position, newChainStartingPoint, newChainLength, binarySearchResult.header);
+                    fork = await this.blockchain.forksAdministrator.createNewFork(socket, binarySearchResult.position, tip.forkChainStartingPoint, tip.forkChainLength, binarySearchResult.header);
 
 
                 } catch (Exception){
@@ -46240,9 +46212,6 @@ class InterfaceBlockchain {
         return true;
     }
 
-    getBlockchainStartingPoint(){
-        return this.blocks.blocksStartingPoint;
-    }
 
 
     getDifficultyTarget(height){
@@ -79180,13 +79149,13 @@ class InterfaceBlockchainTipsAdministrator {
 
 
 
-    addTip(socket,  forkChainLength, forkLastBlockHeader) {
+    addTip(socket,  forkChainLength, forkChainStartingPoint,  forkLastBlockHeader) {
 
         let tip = this.findTip(socket);
 
         if ( tip === null) {
 
-            tip = new __WEBPACK_IMPORTED_MODULE_0__Interface_Blockchain_Tip__["a" /* default */](this.blockchain, socket, forkChainLength, forkLastBlockHeader);
+            tip = new __WEBPACK_IMPORTED_MODULE_0__Interface_Blockchain_Tip__["a" /* default */](this.blockchain, socket, forkChainLength, forkChainStartingPoint, forkLastBlockHeader);
 
             if (!tip.validateTip())
                 return null;
@@ -79197,7 +79166,7 @@ class InterfaceBlockchainTipsAdministrator {
         return tip;
     }
 
-    updateTipNewForkLength(tip, forkToDoChainLength, forkToDoLastBlockHeader ){
+    updateTipNewForkLength(tip, forkToDoChainLength, forkToDoChainStartingPoint, forkToDoLastBlockHeader ){
 
         if (tip === null)
             return null;
@@ -79211,6 +79180,7 @@ class InterfaceBlockchainTipsAdministrator {
         }
 
         tip.forkToDoChainLength = forkToDoChainLength;
+        tip.forkToDoChainStartingPoint = forkToDoChainStartingPoint;
         tip.forkToDoLastBlockHeader = forkToDoLastBlockHeader;
 
         if (tip.forkToDoPromise === undefined){
@@ -79310,19 +79280,21 @@ class InterfaceBlockchainTipsAdministrator {
 "use strict";
 class InterfaceBlockchainTip{
 
-    constructor(blockchain, socket, forkChainLength, forkLastBlockHeader){
+    constructor(blockchain, socket, forkChainLength,forkChainStartingPoint, forkLastBlockHeader){
 
         this.blockchain = blockchain;
 
         this.socket = socket;
         this.forkChainLength = forkChainLength;
+        this.forkChainStartingPoint = forkChainStartingPoint;
         this.forkLastBlockHeader = forkLastBlockHeader;
 
         this.forkPromise = new Promise((resolve)=>{
             this.forkResolve = resolve;
-        })
+        });
 
         this.forkToDoChainLength = -1;
+        this.forkToDoChainStartingPoint = -1;
         this.forkToDoLastBlockHeader = undefined;
         this.forkToDoPromise = undefined;
         this.forkToDoResolve = undefined;
@@ -79336,12 +79308,14 @@ class InterfaceBlockchainTip{
                 this.forkResolve(false);
 
             this.forkChainLength = this.forkToDoChainLength;
+            this.forkChainStartingPoint = this.forkToDoChainStartingPoint;
             this.forkLastBlockHeader = this.forkToDoLastBlockHeader;
             this.forkPromise = this.forkToDoPromise;
             this.forkResolve = this.forkToDoResolve;
 
 
             this.forkToDoChainLength = -1;
+            this.forkToDoChainStartingPoint = -1;
             this.forkToDoLastBlockHeader = undefined;
             this.forkToDoPromise = undefined;
             this.forkToDoResolve = undefined;
@@ -84485,7 +84459,7 @@ class InterfaceBlockchainMining extends  __WEBPACK_IMPORTED_MODULE_5__Interface_
                 let i = this.blockchain.blocks.length-1;
                 let count = 0;
 
-                while ( i >= 0 && this.blockchain.blocks[i].minerAddress.equals( this.unencodedMinerAddress ) ){
+                while ( i >= 0 && this.blockchain.blocks[i].data.minerAddress.equals( this.unencodedMinerAddress ) ){
 
                     count ++;
                     i--;
@@ -85545,23 +85519,30 @@ class InterfaceBlockchainProtocolTipsManager {
     /*
         may the fork be with you Otto
      */
-    async discoverNewForkTip(socket, newChainLength, forkLastBlockHeader){
+    async discoverNewForkTip(socket, newChainLength, newChainStartingPoint, forkLastBlockHeader){
 
         if (typeof newChainLength !== "number") throw {message: "newChainLength is not a number"};
+        if (typeof newChainStartingPoint !== "number") throw {message: "newChainStartingPoint is not a number"};
+
         if (newChainLength < this.blockchain.blocks.length){
 
             socket.node.sendRequest( "blockchain/header/new-block", this.blockchain.blocks.last.getBlockHeader() );
             throw {message: "Your blockchain is smaller than mine"};
+
         }
+
+        if (newChainStartingPoint > newChainLength) throw {message: "Incorrect newChainStartingPoint"};
+        if (newChainStartingPoint < 0 ) throw {message: "Incorrect2 newChainStartingPoint"};
+        if (newChainStartingPoint > forkLastBlockHeader.height ) throw {message: "Incorrect3 newChainStartingPoint"};
 
         let tip = this.blockchain.tipsAdministrator.getTip(socket);
 
         if (tip !== null) {
-            this.blockchain.tipsAdministrator.updateTipNewForkLength(tip, newChainLength, forkLastBlockHeader);
+            this.blockchain.tipsAdministrator.updateTipNewForkLength(tip, newChainLength, newChainStartingPoint, forkLastBlockHeader);
             return tip.forkToDoPromise;
         }
 
-        tip = this.blockchain.tipsAdministrator.addTip(socket, newChainLength, forkLastBlockHeader);
+        tip = this.blockchain.tipsAdministrator.addTip(socket, newChainLength, newChainStartingPoint, forkLastBlockHeader);
 
         if (tip === null)
             return false; // the tip is not valid
