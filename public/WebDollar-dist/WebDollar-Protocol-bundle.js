@@ -17053,7 +17053,8 @@ class InterfaceBlockchainProtocol {
                             height: block.height,
                             prevHash: block.hashPrev,
                             hash: block.hash,
-                            chainLength: this.blockchain.blocks.length
+                            chainLength: this.blockchain.blocks.length,
+                            chainStartingPoint: this.blockchain.blocks.blocksStartingPoint
                         }
                     });
 
@@ -23485,7 +23486,10 @@ class InterfaceBlockchainProtocolForkSolver{
 
                     if (fork !== null) {
                         console.log("solveFork1");
-                        result = await this.solveFork(fork);
+
+                        if (! (await this.solveFork(fork) ))
+                            throw "Fork Solved was failed"
+
                     }
 
 
@@ -75913,15 +75917,6 @@ class InterfaceBlockchainBlocks{
 
     }
 
-    get startingPosition(){
-
-        if (this.blockchain.agent.light)
-            return this.blockchain.blocks.length-1  - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.VALIDATE_LAST_BLOCKS;
-        else
-            //full node
-            return 0;
-    }
-
     get endingPosition(){
 
         if (this.blockchain.agent.light)
@@ -81108,7 +81103,7 @@ class InterfaceBlockchainTransactionsEvents{
         if (typeof txId === "string")
             txId = new Buffer(txId, "hex");
 
-        for (let i=this.blockchain.blocks.startingPosition; i<this.blockchain.blocks.endingPosition; i++) {
+        for (let i=this.blockchain.blocks.blocksStartingPoint; i<this.blockchain.blocks.endingPosition; i++) {
 
             let block = this.blockchain.blocks[i];
             if (block === undefined) continue;
@@ -81135,7 +81130,7 @@ class InterfaceBlockchainTransactionsEvents{
 
         let result = {};
 
-        for (let i=this.blockchain.blocks.startingPosition; i<this.blockchain.blocks.endingPosition; i++){
+        for (let i=this.blockchain.blocks.blocksStartingPoint; i<this.blockchain.blocks.endingPosition; i++){
 
             let block = this.blockchain.blocks[i];
             if (block === undefined) continue;
