@@ -23943,7 +23943,7 @@ class MiniBlockchainFork extends inheritFork{
 
         __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__["a" /* default */].prototype.preForkClone.call(this, cloneBlocks);
 
-        if (!cloneAccountantTree) {
+        if (cloneAccountantTree) {
 
             try {
                 //clone the Accountant Tree
@@ -24677,7 +24677,10 @@ class NodeSignalingClientProtocol {
                 let webPeerSignalingClientListObject = __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].registerWebPeerSignalingClientListBySignal(undefined, undefined, data.remoteUUID);
                 let webPeer = webPeerSignalingClientListObject.webPeer;
 
-                webPeer.createPeer(true, socket, data.id, (iceCandidate) => {this.sendInitiatorIceCandidate(socket, data.id, iceCandidate) }, data.remoteAddress, data.remoteUUID, socket.level+1);
+                if (webPeer.peer === null){
+                    webPeer.createPeer(true, socket, data.id, (iceCandidate) => {this.sendInitiatorIceCandidate(socket, data.id, iceCandidate) }, data.remoteAddress, data.remoteUUID, socket.level+1);
+                    webPeer.peer.signalInitiatorData = data.initiatorSignal;
+                }
 
                 let answer;
 
@@ -24749,10 +24752,8 @@ class NodeSignalingClientProtocol {
 
                 //arrived earlier than  /receive-initiator-signal
                 if (webPeer.peer === null) {
-
                     webPeer.createPeer(false, socket, data.id, (iceCandidate) => { this.sendInitiatorIceCandidate(socket, data.id, iceCandidate) }, data.remoteAddress, data.remoteUUID, socket.level + 1);
                     webPeer.peer.signalInitiatorData = data.initiatorSignal;
-
                 }
 
                 let answer = await webPeer.createSignal(data.iceCandidate);
@@ -24796,10 +24797,8 @@ class NodeSignalingClientProtocol {
                 let webPeer = webPeerSignalingClientListObject.webPeer;
 
                 if (webPeer.peer === null) { //arrived earlier than  /receive-initiator-signal
-
                     webPeer.createPeer(false, socket, data.id, (iceCandidate) => {this.sendAnswerIceCandidate(socket, data.id, iceCandidate)}, data.remoteAddress, data.remoteUUID, socket.level + 1);
                     webPeer.peer.signalInitiatorData = data.initiatorSignal;
-
                 }
 
                 let answer = await webPeer.createSignal(data.initiatorSignal);
@@ -51296,7 +51295,7 @@ class NodeSignalingServerProtocol {
         let previousEstablishedConnection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnection(client1, client2);
 
         if (previousEstablishedConnection === null
-            || (previousEstablishedConnection.checkLastTimeChecked(60*1000) && previousEstablishedConnection.status in [ __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionNotEstablished] )
+            || (previousEstablishedConnection.checkLastTimeChecked(20*1000) && previousEstablishedConnection.status in [ __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionNotEstablished] )
             || (previousEstablishedConnection.checkLastTimeChecked(60*1000) && previousEstablishedConnection.status in [ __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError] )){
 
             let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].setSignalingServerRoomConnectionStatus(client1, client2, __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.initiatorSignalGenerating );
@@ -86948,11 +86947,11 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
             this._lightPrevHashPrevClone = new Buffer(this.blockchain.lightPrevHashPrevs[diffIndex] !== undefined ? this.blockchain.lightPrevHashPrevs[diffIndex] : 0);
 
             //it is just a simple fork
-            return __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Fork__["a" /* default */].prototype.preForkClone.call(this, true, false);
+            return __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Fork__["a" /* default */].prototype.preForkClone.call(this, true, true );
 
         } else
         //it is just a simple fork
-            return __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Fork__["a" /* default */].prototype.preForkClone.call(this, true, true);
+            return __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Fork__["a" /* default */].prototype.preForkClone.call(this, true, false );
 
     }
 
@@ -91033,7 +91032,7 @@ class SignalingClientPeerObject {
 
             __WEBPACK_IMPORTED_MODULE_1__Node_Signaling_Client_Protocol__["a" /* default */].sendErrorConnection(webPeer);
 
-        }, 15000);
+        }, 10000);
 
         webPeer.emitter.on("connect",()=>{
 
@@ -91152,7 +91151,7 @@ class NodeWebPeerRTC {
         this.peer.signaling.socketSignaling = socketSignaling;
         this.peer.signaling.connectionId =  signalingServerConnectionId;
 
-        console.log('Created webRTC peer');
+        console.log('Created webRTC peer', "initiator", initiator, "signalingServerConnectionId", signalingServerConnectionId, "remoteAddress", remoteAddress, "remoteUUID", remoteUUID, "remotePort", remotePort);
 
         this.peer.disconnect = () => {  }
 
