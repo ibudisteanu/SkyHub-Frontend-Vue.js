@@ -11597,7 +11597,7 @@ if (false) {(function () {
 
             //Waitlist p2p
             WebDollar.Node.NodesWaitlist.emitter.on("waitlist/new-node", async (nodesWaitlistObject)=>{
-                this._showWaiLlistNode(nodesWaitlistObject);
+                this._showWaitListNode(nodesWaitlistObject);
             });
 
             WebDollar.Node.NodesWaitlist.emitter.on("waitlist/delete-node", async (nodesWaitlistObject)=>{
@@ -11613,7 +11613,7 @@ if (false) {(function () {
             });
 
             WebDollar.Node.NodesWaitlist.waitlist.forEach(async (nodesWaitlistObject)=>{
-                this._showWaiLlistNode(nodesWaitlistObject);
+                this._showWaitListNode(nodesWaitlistObject);
             });
 
             await this._showMyself();
@@ -11626,7 +11626,7 @@ if (false) {(function () {
             this._addMarker(geoLocation, nodesListObject.socket);
         },
 
-        async _showWaiLlistNode(nodesWaitlistObject){
+        async _showWaitListNode(nodesWaitlistObject){
             let geoLocation = await nodesWaitlistObject.sckAddresses[0].geoLocation;
 
             this._addMarker(geoLocation, nodesWaitlistObject);
@@ -11745,13 +11745,11 @@ if (false) {(function () {
                 status = "connected";
 
                 switch (socket.node.type) {
-                    case 'client':
+                    case WebDollar.Applications.NodesType.NODE_TERMINAL:
                         nodeType = 'terminal';
                         break;
-                    case 'server' :
-                        nodeType = 'terminal';
-                        break;
-                    case 'webpeer' :
+
+                    case WebDollar.Applications.NodesType.NODE_WEB_PEER:
                         nodeType = 'browser';
                         break;
                 }
@@ -11765,11 +11763,12 @@ if (false) {(function () {
                 uuid = socket.sckAddresses[0].uuid;
 
                 switch (socket.type) {
-                    case WebDollar.Node.NodesWaitlist.NODES_WAITLIST_OBJECT_TYPE.WEB_RTC_PEER:
-                        nodeType = 'browser';
-                        break;
-                    case WebDollar.Node.NodesWaitlist.NODES_WAITLIST_OBJECT_TYPE.NODE_PEER_TERMINAL_SERVER:
+                    case WebDollar.Applications.NodesType.NODE_TERMINAL:
                         nodeType = 'terminal';
+                        break;
+
+                    case WebDollar.Applications.NodesType.NODE_WEB_PEER:
+                        nodeType = 'browser';
                         break;
                 }
 
