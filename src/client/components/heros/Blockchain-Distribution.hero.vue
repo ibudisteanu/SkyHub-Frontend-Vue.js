@@ -9,7 +9,7 @@
             <div class="distributionContainer maxWidthSection">
 
                 <div class="distributionGrid">
-                    <div class="webdCoin spin">
+                    <div class="webdCoin spinCoin">
                         <img src="/public/assets/images/logo-coin.png" alt="webDollar logo black" title="webDollar black logo" class="coinLogo">
                     </div>
                 </div>
