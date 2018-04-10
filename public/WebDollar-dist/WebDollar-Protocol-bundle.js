@@ -12897,8 +12897,10 @@ class NodesWaitlist {
 
             if (this.waitlist[i].errorTrial > this.MAX_ERROR_TRIALS ||
                 this.waitlist[i].type === __WEBPACK_IMPORTED_MODULE_2__nodes_waitlist_object__["a" /* default */].NODES_WAITLIST_OBJECT_TYPE.WEB_RTC_PEER) {
+
                 this.emitter.emit("waitlist/delete-node", this.waitlist[i]);
                 this.waitlist.splice(i, 1);
+
             }
 
         }
@@ -12910,8 +12912,16 @@ class NodesWaitlist {
         let index = this._findNodesWaitlist(address, port);
 
         if (index !== -1) {
-            this.emitter.emit("waitlist/delete-node", this.waitlist[index]);
-            this.waitlist.splice(index, 1);
+
+            this.waitlist[index].removeBackedBy(backedBy);
+
+            if ( this.waitlist[index].length === 0) {
+
+                this.emitter.emit("waitlist/delete-node", this.waitlist[index]);
+                this.waitlist.splice(index, 1);
+
+            }
+
             return true;
         }
 
@@ -90719,11 +90729,11 @@ class NodePropagationProtocol {
 
         socket.node.sendRequestWaitOnce("propagation/request-all-wait-list-nodes");
 
-        __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__["a" /* default */].emitter.on("nodes-list/connected", nodeListObject => { this._newNodeConnected(nodeListObject) } );
-        __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__["a" /* default */].emitter.on("nodes-list/disconnected", nodeListObject => { this._nodeDisconnected(nodeListObject) });
+        __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__["a" /* default */].emitter.on("nodes-list/connected", nodeListObject => { this._newNodeConnected(socket, nodeListObject) } );
+        __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__["a" /* default */].emitter.on("nodes-list/disconnected", nodeListObject => { this._nodeDisconnected(socket, nodeListObject) });
 
-        __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__["a" /* default */].emitter.on("waitlist/new-node", nodeWaitListObject => { this._newNodeConnected(nodeWaitListObject) } );
-        __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__["a" /* default */].emitter.on("waitlist/delete-node", nodeWaitListObject => { this._nodeDisconnected(nodeWaitListObject) });
+        __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__["a" /* default */].emitter.on("waitlist/new-node", nodeWaitListObject => { this._newNodeConnected(socket, nodeWaitListObject) } );
+        __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__["a" /* default */].emitter.on("waitlist/delete-node", nodeWaitListObject => { this._nodeDisconnected(socket, nodeWaitListObject) });
 
     }
 
@@ -90753,6 +90763,7 @@ class NodePropagationProtocol {
 
             try {
                 console.log("NodePropagation", socket.node.sckAddress.getAddress());
+                console.log("NodePropagation", response);
 
                 let addresses = response.addresses || [];
                 if (typeof addresses === "string") addresses = [addresses];
@@ -90789,12 +90800,12 @@ class NodePropagationProtocol {
         });
     }
 
-    _newNodeConnected(address){
-        __WEBPACK_IMPORTED_MODULE_1_common_sockets_protocol_node_protocol__["a" /* default */].broadcastRequest("propagation/nodes", {op: "new-nodes", addresses: [address.toJSON() ]},)
+    _newNodeConnected(socket, address){
+        socket.node.sendRequest("propagation/nodes", {op: "new-nodes", addresses: [address.toJSON() ]},)
     }
 
-    _nodeDisconnected(address){
-        __WEBPACK_IMPORTED_MODULE_1_common_sockets_protocol_node_protocol__["a" /* default */].broadcastRequest("propagation/nodes", {op: "deleted-nodes", addresses: [address.toJSON() ]},)
+    _nodeDisconnected(socket, address){
+        socket.node.sendRequest("propagation/nodes", {op: "deleted-nodes", addresses: [address.toJSON() ]},)
     }
 
 }
