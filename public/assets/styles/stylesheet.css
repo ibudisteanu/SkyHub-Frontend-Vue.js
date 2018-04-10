@@ -310,6 +310,38 @@ a:hover{
   margin: 0 auto 25px;
 }
 
+#mediaContainer:hover h1{
+display:none;
+background-color:#ff2200}
+
+ibudisteanu:hover .panait, .budisteanu:hover .oprea, .budisteanu:hover .stratulat, .budisteanu:hover .patrick, .budisteanu:hover .smirna, .budisteanu:hover .robescu, .budisteanu:hover .issam  {
+  pointer-events: none;
+  transition: .75s ease-out 2s;
+}
+
+.our-team{
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transition:.6s cubic-bezier(0,1.5,.5,1);
+  -moz-transition:.6s cubic-bezier(0,1.5,.5,1);
+  -o-transition:.6s cubic-bezier(0,1.5,.5,1);
+  transition:1s cubic-bezier(0,1.5,.5,1)
+}
+
+.our-team:hover{
+  width: 30%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  top: 360px;
+  background-color: #1c1c1c;
+  z-index: 100;
+  display: block;
+  border-radius: 10px;
+  padding: 20px 10px 10px 10px;
+  position: fixed;
+  transform:scale(1.5);
+}
 
 .teamWrapper .our-team .team-pic img{
   width: 150px;
@@ -331,7 +363,7 @@ a:hover{
   transition: all 0.30s ease 0s;
 }
 
-.teamWrapper .our-team:hover .over-layer{
+.teamWrapper .our-team .over-layer:hover{
   opacity:1;
 }
 
@@ -344,7 +376,7 @@ a:hover{
   list-style:none;
   transition:all 0.50s ease 0s;
 }
-.teamWrapper .our-team:hover .social-link{
+.teamWrapper .our-team .over-layer:hover .social-link{
   top:45%;
 }
 .teamWrapper .our-team .social-link li{
@@ -1143,14 +1175,14 @@ a:hover{
   grid-column-gap: 40px;
 }
 
-.spin {
+.spinCoin {
   cursor: pointer;
   transform-style: preserve-3d;
 }
-.spin {
-  animation: spin 5s linear infinite;
+.spinCoin {
+  animation: spinCoin 5s linear infinite;
 }
-@keyframes spin {
+@keyframes spinCoin {
   0% {
     transform: rotateY(0deg);
   }

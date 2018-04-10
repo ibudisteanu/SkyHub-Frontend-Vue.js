@@ -10,7 +10,7 @@
 
                 <div class="teamWrapper">
 
-                    <div class="our-team">
+                    <div class="our-team budisteanu">
 
                         <div class="team-pic">
                             <img src="/public/assets/images/team/Alexandru-Ionut-Budisteanu.jpg" alt="Budisteanu Ionut Alexandru" title="Budisteanu Ionut Alexandru">
@@ -32,7 +32,7 @@
                             Alexandru is a Forbes Europe 30 under 30 nominee in industry category. In 2013, he was nominated by Time Magazine as one of the most influential teens of the world. MIT named an asteroid with his name.</a>
                         </p>
                     </div>
-                    <div class="our-team">
+                    <div class="our-team panait">
                         <div class="team-pic">
                             <img src="/public/assets/images/team/PanaitAlexandru.jpg" alt="Alexandru Ionut Panait" title="Alexandru Ionut Panait">
                             <div class="over-layer">
@@ -47,7 +47,7 @@
                         <span class="teamRole">PLATFORM DEVELOPER</span>
                         <p>Alexandru is a young entrepreneur interested in technology and business. General Manager and Founder of a hiring Artificial Intelligence platform and a software agency.</p>
                     </div>
-                    <div class="our-team">
+                    <div class="our-team oprea">
                         <div class="team-pic">
                             <img src="/public/assets/images/team/cosminOprea.jpg" alt="Oprea Cosmin">
                             <div class="over-layer">
@@ -61,7 +61,7 @@
                         <span class="teamRole">PROTOCOL DEVELOPER</span>
                         <p>Cosmin is a Teaching Assistant at Politehnica University of Bucharest, Software Engineer with lot of knowledge in algorithms. Cosmin has won three Honorable Mentions at the ACM-ICPC SEERC.</p>
                     </div>
-                    <div class="our-team">
+                    <div class="our-team stratulat">
                         <div class="team-pic">
                             <img src="/public/assets/images/team/Adrian-Stratulat.jpg" alt="Adrian Stratulat">
                             <div class="over-layer">
@@ -75,7 +75,7 @@
                         <span class="teamRole">EVANGELIST</span>
                         <p>Philosopher by vocation and diplomat by training, Adrian is a social entrepreneur specialized in innovative emerging technologies and blockchain applications. Also acting as economy advisor.</p>
                     </div>
-                    <div class="our-team">
+                    <div class="our-team patrick">
                         <div class="team-pic">
                             <img src="/public/assets/images/team/Patrick-McCullough.jpg" alt="Patrick McCullough">
                             <div class="over-layer">
@@ -88,7 +88,7 @@
                         <span class="teamRole">ADVISOR</span>
                         <p>Patrick is the presentation coach for Singularity University's SU Ventures in Silicon Valley. He recently joined the Unreasonable Group for their Project Literacy Lab with Pearson, and he coaches senior executives for GE in Europe.</p>
                     </div>
-                    <div class="our-team">
+                    <div class="our-team smirna">
                         <div class="team-pic">
                             <img src="/public/assets/images/team/Tudor-Smirna.jpeg" alt="Tudor Smirna">
                             <div class="over-layer">
@@ -101,7 +101,7 @@
                         <span class="teamRole">Economic advisor</span>
                         <p>Tudor Smirna, Ph.D., is an economist and entrepreneur specialized in money and banking. He is a fellow of the Ludwig von Mises Institute and teaches at the Bucharest University of Economic Studies.</p>
                     </div>
-                    <div class="our-team">
+                    <div class="our-team robescu">
                         <div class="team-pic">
                             <img src="/public/assets/images/team/AdrianRobescu.jpg" alt="Adrian Robescu">
                             <div class="over-layer">
@@ -115,7 +115,7 @@
                         <span class="teamRole">Blockchain business developer</span>
                         <p>Adrian is a Business Analyst and Strategist, specialized in modeling business processes and ERP solutions. With a strong background in marketing is working on adoption, partnerships and communication.</p>
                     </div>
-                    <div class="our-team">
+                    <div class="our-team issam">
                         <div class="team-pic">
                             <img src="public/assets/images/team/Issam-Outaleb.jpg" alt="Issam Outaleb">
                             <div class="over-layer">
