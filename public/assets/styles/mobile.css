@@ -112,6 +112,11 @@
 }
 
 @media only screen and (max-width : 831px) {
+
+    .backgroundVideoWrap{
+        display: none;
+    }
+
     .bountyProgramPage #footer{
         display: none;
     }
