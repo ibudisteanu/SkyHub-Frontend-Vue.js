@@ -1918,7 +1918,7 @@ function isnan (val) {
 
 let consts = {
 
-    DEBUG: true,
+    DEBUG: false,
 
 };
 
@@ -14455,8 +14455,6 @@ class InterfaceBlockchainFork {
         console.log("save Fork after validateFork");
 
 
-
-
         let revertActions = new __WEBPACK_IMPORTED_MODULE_4_common_utils_Revert_Actions_Revert_Actions__["a" /* default */](this.blockchain);
 
         let success = await this.blockchain.semaphoreProcessing.processSempahoreCallback( async () => {
@@ -14482,7 +14480,8 @@ class InterfaceBlockchainFork {
                 console.error("preFork raised an error", exception);
                 console.error('----------------------------------------');
 
-                revertActions.revertOperations();
+                revertActions.revertOperations('', "all");
+                this._blocksCopy = []; //We didn't use them so far
                 await this.revertFork();
 
                 return false;
@@ -14524,7 +14523,7 @@ class InterfaceBlockchainFork {
 
                 //revert the accountant tree
                 //revert the last K block
-                revertActions.revertOperations();
+                revertActions.revertOperations('', "all");
 
                 //reverting back to the clones, especially light settings
                 await this.revertFork();
@@ -22666,7 +22665,7 @@ class RevertActions {
         this._actions .push(data);
     }
 
-    revertOperations(actionName=''){
+    revertOperations(actionName='', all=''){
 
         for (let i=this._actions .length-1; i>=0; i--) {
 
@@ -22677,7 +22676,7 @@ class RevertActions {
 
             if (action.name === "revert-updateAccount" && (actionName === '' || actionName === action.name)) {
 
-                this.blockchain.accountantTree.updateAccount(action.address, -action.value, action.tokenId);
+                let balance = this.blockchain.accountantTree.updateAccount(action.address, -action.value, action.tokenId);
 
             }
             else
@@ -22700,7 +22699,9 @@ class RevertActions {
             if (action.name === "breakpoint"  && (actionName === '' || actionName === action.name)) {
 
                 this._actions.splice(i,1);
-                break;
+
+                if (all !== 'all')
+                    break;
 
             }
             else done = false;
