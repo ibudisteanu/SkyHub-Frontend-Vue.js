@@ -11592,7 +11592,6 @@ if (false) {(function () {
 
                 //deleting the marker
                 let markerIndex = this._findMarkerIndexBySocket(nodesListObject.socket);
-
                 if (markerIndex !== -1) this._removeMarker(this._markers[markerIndex])
             });
 
@@ -11622,13 +11621,13 @@ if (false) {(function () {
         },
 
         async _showNodesListNode(nodesListObject){
-            let geoLocation = await nodesListObject.socket.node.sckAddress.getGeoLocation();
+            let geoLocation = await nodesListObject.socket.node.sckAddress.geoLocation;
 
             this._addMarker(geoLocation, nodesListObject.socket);
         },
 
         async _showWaiLlistNode(nodesWaitlistObject){
-            let geoLocation = await nodesWaitlistObject.sckAddresses[0].getGeoLocation();
+            let geoLocation = await nodesWaitlistObject.sckAddresses[0].geoLocation;
 
             this._addMarker(geoLocation, nodesWaitlistObject);
         },
@@ -11683,6 +11682,10 @@ if (false) {(function () {
 
         highlightConnectedPeer(marker){
 
+            if (marker.desc.nodeType === "browser")
+                console.log("browser");
+                //marker.desc.pos.lat = 33;
+
             let cell = this._circleMap.getCellByLocation(marker.desc.pos.lat, marker.desc.pos.lng);
             if (cell) {
 
@@ -11694,13 +11697,16 @@ if (false) {(function () {
                 if (marker.desc.nodeType === "browser") cellClass = "peer-connected-browser";
                 if (marker.desc.nodeType === "terminal") cellClass = "peer-connected-terminal";
 
+
+
                 this._circleMap.highlightCell(cell, cellClass , marker.desc, marker.desc.uuid);
 
                 this._circles.inc(cell);
 
                 //add links to the myselfMarker
                 if (marker.desc.status === "connected")
-                    if (this._markerMyself !== null && this._markerMyself !== undefined && this._markerMyself !== marker && !this._markers.linked) {
+                    if (this._markerMyself !== null && this._markerMyself !== undefined && this._markerMyself !== marker && !marker.linked) {
+                        marker.linked = true;
                         this._circleMap.addLink(cell, this._markerMyself.cell);
                     }
 
@@ -18267,9 +18273,8 @@ class CircleMap {
 
     highlightCell(cell, className, data, index) {
 
-        if (cell.getAttribute('class') === 'peer-own') return;
-
-        cell.setAttribute('class', className);
+        if (cell.getAttribute('class') !== 'peer-own')
+            cell.setAttribute('class', className);
 
         // deleted
 
