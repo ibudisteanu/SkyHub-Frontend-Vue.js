@@ -1918,7 +1918,7 @@ function isnan (val) {
 
 let consts = {
 
-    DEBUG: false,
+    DEBUG: true,
 
 };
 
@@ -24637,6 +24637,8 @@ class NodeSignalingClientProtocol {
     _initializeSimpleProtocol(socket){
 
         socket.node.on("signals/client/do-you-have-free-room", (data)=>{
+
+            console.warn("free room: I have ", __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].connected.length, "max", __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.WEBRTC.MAXIMUM_CONNECTIONS);
 
             socket.node.sendRequest("signals/client/do-you-have-free-room"+"/answer", {
                 result: true,
@@ -51295,8 +51297,8 @@ class NodeSignalingServerProtocol {
         let previousEstablishedConnection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnection(client1, client2);
 
         if (previousEstablishedConnection === null
-            || (previousEstablishedConnection.checkLastTimeChecked(20*1000) && previousEstablishedConnection.status in [ __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionNotEstablished] )
-            || (previousEstablishedConnection.checkLastTimeChecked(60*1000) && previousEstablishedConnection.status in [ __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError] )){
+            || (previousEstablishedConnection.checkLastTimeChecked(10*1000) && [ __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionNotEstablished].indexOf( previousEstablishedConnection.status) !== -1   )
+            || (previousEstablishedConnection.checkLastTimeChecked(20*1000) && [ __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError ].indexOf( previousEstablishedConnection.status) !== -1 )){
 
             let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].setSignalingServerRoomConnectionStatus(client1, client2, __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.initiatorSignalGenerating );
 
@@ -77028,8 +77030,6 @@ class BlockchainDifficulty{
             return  BigInteger( prevBlockDifficulty.toString(16), 16 );
         else {
 
-            console.warn("new difficulty mean recalculated", blockNumber);
-
             let how_much_it_should_have_taken_X_Blocks = __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.NO_BLOCKS * __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK;
             let how_much_it_took_to_mine_X_Blocks = 0;
 
@@ -77061,7 +77061,7 @@ class BlockchainDifficulty{
             ratio = BigNumber.minimum(ratio, 8);
             ratio = BigNumber.maximum(ratio, 0.05);
 
-            console.warn( "ratio2", ratio, ratio.toString() );
+            console.warn( "ratio2", ratio.toString() );
             console.warn( "how_much_it_should_have_taken_X_Blocks", how_much_it_should_have_taken_X_Blocks );
             console.warn( "how_much_it_took_to_mine_X_Blocks", how_much_it_took_to_mine_X_Blocks );
 
@@ -91382,7 +91382,7 @@ class NodeWebPeerRTC {
             }
         }
 
-        if (this.peer.dataChannel.readyState === 'close') {
+        if (this.peer.dataChannel.readyState === 'closed') {
             if (this.peer.connected){
                 this.peer.connected = false;
                 this.emitter.emit("disconnect", {});
