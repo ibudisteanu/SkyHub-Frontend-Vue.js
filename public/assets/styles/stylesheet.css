@@ -328,21 +328,6 @@ ibudisteanu:hover .panait, .budisteanu:hover .oprea, .budisteanu:hover .stratula
   transition:1s cubic-bezier(0,1.5,.5,1)
 }
 
-.our-team:hover{
-  width: 30%;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-  top: 360px;
-  background-color: #1c1c1c;
-  z-index: 100;
-  display: block;
-  border-radius: 10px;
-  padding: 20px 10px 10px 10px;
-  position: fixed;
-  transform:scale(1.5);
-}
-
 .teamWrapper .our-team .team-pic img{
   width: 150px;
   height: 150px;
