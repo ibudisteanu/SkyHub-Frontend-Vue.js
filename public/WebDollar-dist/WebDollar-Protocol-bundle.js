@@ -24679,15 +24679,23 @@ class NodeSignalingClientProtocol {
                 let webPeerSignalingClientListObject = __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].registerWebPeerSignalingClientListBySignal(undefined, undefined, data.remoteUUID);
                 let webPeer = webPeerSignalingClientListObject.webPeer;
 
-                if (webPeer.peer === null){
+                if (webPeer.peer === null)
                     webPeer.createPeer(true, socket, data.id, (iceCandidate) => {this.sendInitiatorIceCandidate(socket, data.id, iceCandidate) }, data.remoteAddress, data.remoteUUID, socket.level+1);
-                    webPeer.peer.signalInitiatorData = data.initiatorSignal;
-                }
 
                 let answer;
 
-                answer = await webPeer.createSignalInitiator();
+                for (let trials=0; trials<3; trials++) {
 
+                    answer = await webPeer.createSignalInitiator();
+
+                    console.log("###################### signals/client/initiator/generate-initiator-signal/" + data.id, answer, webPeer.peer, typeof answer);
+
+                    if (answer.signal === undefined)
+                        console.log("WEBRTC 1 is not supported !!!! being the initiator");
+                    else
+                        break;
+
+                }
                 if (!answer.result )
                     throw {message: "Failed to Get a initiatorSignal: " +answer.message};
 
@@ -24704,14 +24712,14 @@ class NodeSignalingClientProtocol {
 
             try {
                 if (data.remoteUUID === undefined || data.remoteUUID === null)
-                    throw {message: "remoteUUID was not specified"};
+                    throw { message: "remoteUUID was not specified" };
 
                 //search if the new protocol was already connected in the past
                 if (__WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__["a" /* default */].searchNodeSocketByAddress(data.remoteUUID, 'all', ["uuid"]) !== null) //already connected in the past
-                    throw {message: "Already Connected"};
+                    throw { message: "Already Connected" };
 
                 if (__WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].connected.length > __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].computeMaxWebPeersConnected( data.remoteUUID ))
-                    throw {message: "I can't accept WebPeers anymore"};
+                    throw { message: "I can't accept WebPeers anymore" };
 
 
 
@@ -24720,7 +24728,10 @@ class NodeSignalingClientProtocol {
 
                 let answer = await webPeer.joinAnswer(data.answerSignal);
 
-                socket.node.sendRequest("signals/client/initiator/join-answer-signal/" + data.id, {established: false, answer: answer });
+                if (!answer.result)
+                    throw {message: answer.message};
+
+                socket.node.sendRequest("signals/client/initiator/join-answer-signal/" + data.id, {established: true });
 
             } catch (exception){
 
