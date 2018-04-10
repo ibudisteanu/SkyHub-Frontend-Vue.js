@@ -51385,7 +51385,7 @@ class NodeSignalingServerProtocol {
 
                         client2.node.on("signals/server/new-answer-ice-candidate/" + connection.id, async (iceCandidate) => {
 
-                            let answer = await client1.node.sendRequestWaitOnce("signals/client/initiator/receive-ice-candidate/"+connection.id,{
+                            let answer = await client1.node.sendRequestWaitOnce("signals/client/initiator/receive-ice-candidate",{
                                 id: connection.id,
 
                                 initiatorSignal: initiatorAnswer.initiatorSignal,
@@ -51393,14 +51393,14 @@ class NodeSignalingServerProtocol {
 
                                 remoteAddress: client2.node.sckAddress.getAddress(false),
                                 remoteUUID: client2.node.sckAddress.uuid,
-                            });
+                            }, "connection.id");
 
 
                             if ( answer === null || answer === undefined )
                                 connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
                             else
                             if ( answer.established === false && initiatorAnswer.message === "I can't accept WebPeers anymore") {
-                                this.clientIsNotAcceptingAnymoreWebPeers(client1, connection);
+                                this.clientIsNotAcceptingAnymoreWebPeers(client2, connection);
                                 return false;
                             }
 
@@ -51426,7 +51426,7 @@ class NodeSignalingServerProtocol {
                             connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
                         else
                         if ( answer.established === false && initiatorAnswer.message === "I can't accept WebPeers anymore") {
-                            this.clientIsNotAcceptingAnymoreWebPeers(client1, connection);
+                            this.clientIsNotAcceptingAnymoreWebPeers(client2, connection);
                             return false;
                         }
 
