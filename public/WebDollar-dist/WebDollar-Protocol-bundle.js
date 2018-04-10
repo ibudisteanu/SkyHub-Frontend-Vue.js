@@ -2149,7 +2149,7 @@ consts.SETTINGS = {
             },
 
             WEBRTC: {
-                MAXIMUM_CONNECTIONS: 5,
+                MAXIMUM_CONNECTIONS: 7,
             },
 
             FORKS:{
@@ -14445,16 +14445,12 @@ class InterfaceBlockchainFork {
         if (__WEBPACK_IMPORTED_MODULE_1_consts_global__["a" /* default */].TERMINATED)
             return false;
 
-        // It don't validate the hashes of the Fork Blocks again
-
         if (! (await this._validateFork(false))) {
             console.error("validateFork was not passed");
             return false
         }
 
         console.log("save Fork after validateFork");
-
-
 
 
         let revertActions = new __WEBPACK_IMPORTED_MODULE_4_common_utils_Revert_Actions_Revert_Actions__["a" /* default */](this.blockchain);
@@ -14482,7 +14478,8 @@ class InterfaceBlockchainFork {
                 console.error("preFork raised an error", exception);
                 console.error('----------------------------------------');
 
-                revertActions.revertOperations();
+                revertActions.revertOperations('', "all");
+                this._blocksCopy = []; //We didn't use them so far
                 await this.revertFork();
 
                 return false;
@@ -14505,6 +14502,7 @@ class InterfaceBlockchainFork {
                     __WEBPACK_IMPORTED_MODULE_3_common_events_Status_Events__["a" /* default */].emit( "agent/status", { message: "Synchronizing - Including Block", blockHeight: this.forkBlocks[index].height, blockHeightMax: this.forkChainLength } );
 
                     this.forkBlocks[index].blockValidation = this._createBlockValidation_BlockchainValidation( this.forkBlocks[index].height , index);
+                    this.forkBlocks[index].blockValidation.blockValidationType['skip-validation-PoW-hash'] = true; //It already validated the hash
 
                     if (! (await this.saveIncludeBlock(index, revertActions)) )
                         throw({message: "fork couldn't be included in main Blockchain ", index: index});
@@ -14524,7 +14522,7 @@ class InterfaceBlockchainFork {
 
                 //revert the accountant tree
                 //revert the last K block
-                revertActions.revertOperations();
+                revertActions.revertOperations('', "all");
 
                 //reverting back to the clones, especially light settings
                 await this.revertFork();
@@ -21848,7 +21846,7 @@ class InterfaceBlockchainBlock {
 
         //validate hash
         //skip the validation, if the blockValidationType is provided
-        if ( !this.blockValidation.blockValidationType['skip-validation']) {
+        if (!this.blockValidation.blockValidationType['skip-validation-PoW-hash']) {
 
             console.log("_validateBlockHash");
 
@@ -22666,7 +22664,7 @@ class RevertActions {
         this._actions .push(data);
     }
 
-    revertOperations(actionName=''){
+    revertOperations(actionName='', all=''){
 
         for (let i=this._actions .length-1; i>=0; i--) {
 
@@ -22677,7 +22675,7 @@ class RevertActions {
 
             if (action.name === "revert-updateAccount" && (actionName === '' || actionName === action.name)) {
 
-                this.blockchain.accountantTree.updateAccount(action.address, -action.value, action.tokenId);
+                let balance = this.blockchain.accountantTree.updateAccount(action.address, -action.value, action.tokenId);
 
             }
             else
@@ -22700,7 +22698,9 @@ class RevertActions {
             if (action.name === "breakpoint"  && (actionName === '' || actionName === action.name)) {
 
                 this._actions.splice(i,1);
-                break;
+
+                if (all !== 'all')
+                    break;
 
             }
             else done = false;
@@ -23943,7 +23943,7 @@ class MiniBlockchainFork extends inheritFork{
 
         __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__["a" /* default */].prototype.preForkClone.call(this, cloneBlocks);
 
-        if (!cloneAccountantTree) {
+        if (cloneAccountantTree) {
 
             try {
                 //clone the Accountant Tree
@@ -24638,6 +24638,8 @@ class NodeSignalingClientProtocol {
 
         socket.node.on("signals/client/do-you-have-free-room", (data)=>{
 
+            console.warn("free room: I have ", __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].connected.length, "max", __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.WEBRTC.MAXIMUM_CONNECTIONS);
+
             socket.node.sendRequest("signals/client/do-you-have-free-room"+"/answer", {
                 result: true,
                 acceptWebPeers: __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].connected.length < __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.WEBRTC.MAXIMUM_CONNECTIONS,
@@ -24659,6 +24661,8 @@ class NodeSignalingClientProtocol {
         socket.node.on("signals/client/initiator/generate-initiator-signal", async (data) => {
 
             try{
+                console.warn("WEBRTC# 1 Generate Initiator Signal");
+
                 if (data.remoteUUID === undefined || data.remoteUUID === null)
                     throw {message: "remoteUUID was not specified"};
 
@@ -24673,16 +24677,26 @@ class NodeSignalingClientProtocol {
                     throw {message: "I can not accept connections anymore" };
 
 
-
                 let webPeerSignalingClientListObject = __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].registerWebPeerSignalingClientListBySignal(undefined, undefined, data.remoteUUID);
                 let webPeer = webPeerSignalingClientListObject.webPeer;
 
-                webPeer.createPeer(true, socket, data.id, (iceCandidate) => {this.sendInitiatorIceCandidate(socket, data.id, iceCandidate) }, data.remoteAddress, data.remoteUUID, socket.level+1);
+                if (webPeer.peer === null)
+                    webPeer.createPeer(true, socket, data.id, (iceCandidate) => {this.sendInitiatorIceCandidate(socket, data.id, iceCandidate) }, data.remoteAddress, data.remoteUUID, socket.level+1);
 
                 let answer;
 
-                answer = await webPeer.createSignalInitiator();
+                for (let trials=0; trials<3; trials++) {
 
+                    answer = await webPeer.createSignalInitiator();
+
+                    console.log("###################### signals/client/initiator/generate-initiator-signal/" + data.id, answer, webPeer.peer, typeof answer);
+
+                    if (answer.signal === undefined)
+                        console.log("WEBRTC 1 is not supported !!!! being the initiator");
+                    else
+                        break;
+
+                }
                 if (!answer.result )
                     throw {message: "Failed to Get a initiatorSignal: " +answer.message};
 
@@ -24698,24 +24712,24 @@ class NodeSignalingClientProtocol {
         socket.node.on("signals/client/initiator/join-answer-signal", async (data) => {
 
             try {
+                console.warn("WEBRTC# 1_2");
+
                 if (data.remoteUUID === undefined || data.remoteUUID === null)
-                    throw {message: "remoteUUID was not specified"};
-
-                //search if the new protocol was already connected in the past
-                if (__WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__["a" /* default */].searchNodeSocketByAddress(data.remoteUUID, 'all', ["uuid"]) !== null) //already connected in the past
-                    throw {message: "Already Connected"};
-
-                if (__WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].connected.length > __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].computeMaxWebPeersConnected( data.remoteUUID ))
-                    throw {message: "I can't accept WebPeers anymore"};
-
-
+                    throw { message: "remoteUUID was not specified" };
 
                 let webPeerSignalingClientListObject = __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].searchWebPeerSignalingClientList(data.initiatorSignal, undefined, data.remoteUUID);
+
+                if (webPeerSignalingClientListObject === null)
+                    throw { message: "WebRTC Client was not found"};
+
                 let webPeer = webPeerSignalingClientListObject.webPeer;
 
                 let answer = await webPeer.joinAnswer(data.answerSignal);
 
-                socket.node.sendRequest("signals/client/initiator/join-answer-signal/" + data.id, {established: false, answer: answer });
+                if (!answer.result)
+                    throw {message: answer.message};
+
+                socket.node.sendRequest("signals/client/initiator/join-answer-signal/" + data.id, {established: true });
 
             } catch (exception){
 
@@ -24729,30 +24743,25 @@ class NodeSignalingClientProtocol {
         socket.node.on("signals/client/initiator/receive-ice-candidate", async (data) => {
 
             try {
+                console.warn("WEBRTC# 1_3");
+
                 if (data.remoteUUID === undefined || data.remoteUUID === null)
                     throw {message: "data.remoteUUID 4 was not specified"};
 
                 if (data.iceCandidate === undefined)
                     throw {message: "data.iceCandidate 4 was not specified"};
 
-                //search if the new protocol was already connected in the past
-                if (__WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__["a" /* default */].searchNodeSocketByAddress(data.remoteUUID, 'all', ["uuid"]) !== null) //already connected in the past
-                    throw {message: "Already connected"};
-
-                if (__WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].connected.length > __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].computeMaxWebPeersConnected( data.remoteUUID ))
-                    throw {message: "I can't accept WebPeers anymore"};
-
-
-
                 let webPeerSignalingClientListObject = __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].searchWebPeerSignalingClientList(data.initiatorSignal, undefined, data.remoteUUID);
+
+                if ( webPeerSignalingClientListObject === null )
+                    throw { message: "WebRTC Client was not found"};
+
                 let webPeer = webPeerSignalingClientListObject.webPeer;
 
                 //arrived earlier than  /receive-initiator-signal
                 if (webPeer.peer === null) {
-
                     webPeer.createPeer(false, socket, data.id, (iceCandidate) => { this.sendInitiatorIceCandidate(socket, data.id, iceCandidate) }, data.remoteAddress, data.remoteUUID, socket.level + 1);
                     webPeer.peer.signalInitiatorData = data.initiatorSignal;
-
                 }
 
                 let answer = await webPeer.createSignal(data.iceCandidate);
@@ -24777,6 +24786,8 @@ class NodeSignalingClientProtocol {
         socket.node.on("signals/client/answer/receive-initiator-signal", async (data) => {
 
             try {
+                console.warn("WEBRTC# 2");
+
                 if (data.remoteUUID === undefined || data.remoteUUID === null)
                     throw {message: "data.remoteUUID 2 was not specified"}
 
@@ -24790,16 +24801,12 @@ class NodeSignalingClientProtocol {
                 if (__WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].connected.length > __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].computeMaxWebPeersConnected( data.remoteUUID ))
                     throw {message: "I can't accept WebPeers anymore" };
 
-
-
                 let webPeerSignalingClientListObject = __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].registerWebPeerSignalingClientListBySignal( data.initiatorSignal, undefined , data.remoteUUID );
                 let webPeer = webPeerSignalingClientListObject.webPeer;
 
                 if (webPeer.peer === null) { //arrived earlier than  /receive-initiator-signal
-
                     webPeer.createPeer(false, socket, data.id, (iceCandidate) => {this.sendAnswerIceCandidate(socket, data.id, iceCandidate)}, data.remoteAddress, data.remoteUUID, socket.level + 1);
                     webPeer.peer.signalInitiatorData = data.initiatorSignal;
-
                 }
 
                 let answer = await webPeer.createSignal(data.initiatorSignal);
@@ -24822,20 +24829,16 @@ class NodeSignalingClientProtocol {
         socket.node.on("signals/client/answer/receive-ice-candidate", async (data) => {
 
             try{
+                console.warn("WEBRTC# 2_2");
 
                 if (data.remoteUUID === undefined || data.remoteUUID === null)
                     throw {message: "data.remoteUUID 3 is empty"};
 
-                //search if the new protocol was already connected in the past
-                if (__WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__["a" /* default */].searchNodeSocketByAddress(data.remoteUUID, 'all', ["uuid"] ) !== null) //already connected in the past
-                    throw {message: "Already connected" };
+                if (__WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].connected.length > __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].computeMaxWebPeersConnected( data.remoteUUID ))
+                    throw {message: "I can't accept WebPeers anymore" };
 
-                if ( __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].connected.length > __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].computeMaxWebPeersConnected( data.remoteUUID ) )
-                    throw {message: "I can't accept WebPeers anymore" }
+                let webPeerSignalingClientListObject = __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].registerWebPeerSignalingClientListBySignal( data.initiatorSignal, undefined , data.remoteUUID );
 
-
-
-                let webPeerSignalingClientListObject = __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].searchWebPeerSignalingClientList(data.initiatorSignal, undefined, data.remoteUUID);
                 let webPeer = webPeerSignalingClientListObject.webPeer;
 
                 if (webPeer.peer === null) { //arrived earlier than  /receive-initiator-signal
@@ -24992,7 +24995,7 @@ class SignalingClientList {
 
     deleteWebPeerSignalingClientList(uuid){
 
-        for (let i=0; i<this.connected; i++)
+        for (let i=0; i<this.connected.length; i++)
             if (this.connected[i].uuid === uuid ){
                 this.connected.splice(i,1);
                 return true;
@@ -25002,7 +25005,7 @@ class SignalingClientList {
     }
 
     computeMaxWebPeersConnected( uuid ){
-        return __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.WEBRTC.MAXIMUM_CONNECTIONS + (this.findWebPeerSignalingClientList( uuid ) === -1 ? -1 : 0 )
+        return __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.WEBRTC.MAXIMUM_CONNECTIONS + (this.findWebPeerSignalingClientList( uuid ) !== -1 ? -1 : 0 )
     }
 
 }
@@ -51296,7 +51299,8 @@ class NodeSignalingServerProtocol {
         let previousEstablishedConnection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnection(client1, client2);
 
         if (previousEstablishedConnection === null
-            || (previousEstablishedConnection.checkLastTimeChecked(60*1000) && previousEstablishedConnection.status in [ __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionNotEstablished, __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionAlreadyConnected] )){
+            || (previousEstablishedConnection.checkLastTimeChecked(10*1000) && [ __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionNotEstablished].indexOf( previousEstablishedConnection.status) !== -1   )
+            || (previousEstablishedConnection.checkLastTimeChecked(20*1000) && [ __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError ].indexOf( previousEstablishedConnection.status) !== -1 )){
 
             let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].setSignalingServerRoomConnectionStatus(client1, client2, __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.initiatorSignalGenerating );
 
@@ -51381,7 +51385,7 @@ class NodeSignalingServerProtocol {
 
                         client2.node.on("signals/server/new-answer-ice-candidate/" + connection.id, async (iceCandidate) => {
 
-                            let answer = await client1.node.sendRequestWaitOnce("signals/client/initiator/receive-ice-candidate/"+connection.id,{
+                            let answer = await client1.node.sendRequestWaitOnce("signals/client/initiator/receive-ice-candidate",{
                                 id: connection.id,
 
                                 initiatorSignal: initiatorAnswer.initiatorSignal,
@@ -51389,14 +51393,14 @@ class NodeSignalingServerProtocol {
 
                                 remoteAddress: client2.node.sckAddress.getAddress(false),
                                 remoteUUID: client2.node.sckAddress.uuid,
-                            });
+                            }, "connection.id");
 
 
                             if ( answer === null || answer === undefined )
                                 connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
                             else
                             if ( answer.established === false && initiatorAnswer.message === "I can't accept WebPeers anymore") {
-                                this.clientIsNotAcceptingAnymoreWebPeers(client1, connection);
+                                this.clientIsNotAcceptingAnymoreWebPeers(client2, connection);
                                 return false;
                             }
 
@@ -51422,7 +51426,7 @@ class NodeSignalingServerProtocol {
                             connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
                         else
                         if ( answer.established === false && initiatorAnswer.message === "I can't accept WebPeers anymore") {
-                            this.clientIsNotAcceptingAnymoreWebPeers(client1, connection);
+                            this.clientIsNotAcceptingAnymoreWebPeers(client2, connection);
                             return false;
                         }
 
@@ -77028,8 +77032,6 @@ class BlockchainDifficulty{
             return  BigInteger( prevBlockDifficulty.toString(16), 16 );
         else {
 
-            console.warn("new difficulty mean recalculated", blockNumber);
-
             let how_much_it_should_have_taken_X_Blocks = __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.NO_BLOCKS * __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK;
             let how_much_it_took_to_mine_X_Blocks = 0;
 
@@ -77061,7 +77063,7 @@ class BlockchainDifficulty{
             ratio = BigNumber.minimum(ratio, 8);
             ratio = BigNumber.maximum(ratio, 0.05);
 
-            console.warn( "ratio2", ratio, ratio.toString() );
+            console.warn( "ratio2", ratio.toString() );
             console.warn( "how_much_it_should_have_taken_X_Blocks", how_much_it_should_have_taken_X_Blocks );
             console.warn( "how_much_it_took_to_mine_X_Blocks", how_much_it_took_to_mine_X_Blocks );
 
@@ -86947,11 +86949,11 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
             this._lightPrevHashPrevClone = new Buffer(this.blockchain.lightPrevHashPrevs[diffIndex] !== undefined ? this.blockchain.lightPrevHashPrevs[diffIndex] : 0);
 
             //it is just a simple fork
-            return __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Fork__["a" /* default */].prototype.preForkClone.call(this, true, false);
+            return __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Fork__["a" /* default */].prototype.preForkClone.call(this, true, true );
 
         } else
         //it is just a simple fork
-            return __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Fork__["a" /* default */].prototype.preForkClone.call(this, true, true);
+            return __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Fork__["a" /* default */].prototype.preForkClone.call(this, true, false );
 
     }
 
@@ -91032,7 +91034,7 @@ class SignalingClientPeerObject {
 
             __WEBPACK_IMPORTED_MODULE_1__Node_Signaling_Client_Protocol__["a" /* default */].sendErrorConnection(webPeer);
 
-        }, 30000);
+        }, 10000);
 
         webPeer.emitter.on("connect",()=>{
 
@@ -91151,7 +91153,7 @@ class NodeWebPeerRTC {
         this.peer.signaling.socketSignaling = socketSignaling;
         this.peer.signaling.connectionId =  signalingServerConnectionId;
 
-        console.log('Created webRTC peer');
+        console.log('Created webRTC peer', "initiator", initiator, "signalingServerConnectionId", signalingServerConnectionId, "remoteAddress", remoteAddress, "remoteUUID", remoteUUID, "remotePort", remotePort);
 
         this.peer.disconnect = () => {  }
 
@@ -91382,7 +91384,7 @@ class NodeWebPeerRTC {
             }
         }
 
-        if (this.peer.dataChannel.readyState === 'close') {
+        if (this.peer.dataChannel.readyState === 'closed') {
             if (this.peer.connected){
                 this.peer.connected = false;
                 this.emitter.emit("disconnect", {});
