@@ -2106,8 +2106,8 @@ consts.SETTINGS = {
     UUID: uuid.v4(),
 
     NODE: {
-        VERSION: "0.284",
-        VERSION_COMPATIBILITY: "0.284",
+        VERSION: "0.286",
+        VERSION_COMPATIBILITY: "0.286",
         PROTOCOL: "WebDollar",
         SSL: true,
 
@@ -2586,13 +2586,13 @@ class NodesList {
 
         for (let i=0; i<this.nodes.length; i++)
 
-            if (typeof connectionType === 'string') { // in case type is just a simple string
-                if (connectionType === this.nodes[i].connectionType || connectionType === "all")
-                    list.push(this.nodes[i]);
-            }
-            else if (Array.isArray(connectionType)) //in case type is an Array
+            if (Array.isArray(connectionType)) { //in case type is an Array
                 if (this.nodes[i].connectionType in connectionType)
                     list.push(this.nodes[i]);
+            } else
+            // in case type is just a simple string
+            if (connectionType === this.nodes[i].connectionType || connectionType === "all")
+                list.push(this.nodes[i]);
 
         return list;
     }
@@ -2604,14 +2604,13 @@ class NodesList {
         let count = 0;
 
         for (let i=0; i<this.nodes.length; i++)
-
-            if (typeof type === 'string') { // in case type is just a simple string
-                if (type === this.nodes[i].connectionType || connectionType === "all")
-                    count++;
-            }
-            else if (Array.isArray(type)) //in case type is an Array
+            if (Array.isArray(connectionType)) { //in case type is an Array
                 if (this.nodes[i].connectionType in connectionType)
                     count++;
+            }
+            else
+            if (connectionType === this.nodes[i].connectionType || connectionType === "all")
+                count++;
 
         return count;
     }
@@ -14363,7 +14362,6 @@ class InterfaceBlockchainFork {
             console.log( "FORK STATUS", index );
             console.log( "FORK STATUS SUCCESS1: ", forkedSuccessfully );
 
-
             await this.postForkTransactions(forkedSuccessfully);
 
             this.postFork(forkedSuccessfully);
@@ -22117,7 +22115,7 @@ class InterfaceBlockchainBlock {
                 return false;
             }
 
-            this.deserializeBlock(buffer, this.height, __WEBPACK_IMPORTED_MODULE_3_common_blockchain_global_Blockchain_Mining_Reward__["a" /* default */].getReward(this.height), this.blockchain.getDifficultyTarget() );
+            this.deserializeBlock(buffer, this.height, __WEBPACK_IMPORTED_MODULE_3_common_blockchain_global_Blockchain_Mining_Reward__["a" /* default */].getReward(this.height), this.blockValidation.getDifficultyCallback(this.height) );
 
             return true;
         }
@@ -23653,7 +23651,7 @@ class InterfaceBlockchainProtocolForkSolver{
 
 
                 let blockValidation = fork._createBlockValidation_ForkValidation(nextBlockHeight, fork.forkBlocks.length-1);
-                let block = this._deserializeForkBlock(answer.block, nextBlockHeight, blockValidation );
+                let block = this._deserializeForkBlock(fork, answer.block, nextBlockHeight, blockValidation );
 
                 let result;
 
@@ -23661,6 +23659,9 @@ class InterfaceBlockchainProtocolForkSolver{
 
 
                     result = await fork.includeForkBlock(block);
+
+                    if (block.interlink !== undefined)
+                        console.log("block.interlink", block.interlink.length);
 
                 } catch (Exception) {
 
@@ -23704,7 +23705,7 @@ class InterfaceBlockchainProtocolForkSolver{
 
     }
 
-    _deserializeForkBlock( blockData, blockHeight, validationBlock){
+    _deserializeForkBlock( fork, blockData, blockHeight, validationBlock){
 
         let block = undefined;
 
@@ -23715,7 +23716,7 @@ class InterfaceBlockchainProtocolForkSolver{
             if (!this.protocol.acceptBlocks && this.protocol.acceptBlockHeaders)
                 block.data._onlyHeader = true; //avoiding to store the transactions
 
-            block.deserializeBlock( blockData, blockHeight, __WEBPACK_IMPORTED_MODULE_1_common_blockchain_global_Blockchain_Mining_Reward__["a" /* default */].getReward(block.height), new Buffer(32) );
+            block.deserializeBlock( blockData, blockHeight, __WEBPACK_IMPORTED_MODULE_1_common_blockchain_global_Blockchain_Mining_Reward__["a" /* default */].getReward(block.height), fork.getForkDifficultyTarget(block.height)  );
 
         } catch (Exception) {
             console.error("Error deserializing blocks ", Exception, blockData);
@@ -76417,10 +76418,10 @@ class PPoWBlockchain extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_inter
 
     }
 
-    /**
+/*    /!**
      * Algorithm 8 The verify algorithm for the NIPoPoW infix protocol
      * @param provers
-     */
+     *!/
 
     verifyInfix(provers){
 
@@ -76446,24 +76447,37 @@ class PPoWBlockchain extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_inter
 
     }
 
+    */
+
+
+    /**
+     * predicateQ validates the last blocks L
+     * @param C - Chain
+     * @returns Boolean
+     */
     predicateQ(C){
 
         // undefined, if |C[: −k]| < l, otherwise:
-        if (C.length - __WEBPACK_IMPORTED_MODULE_2_consts_const_global__["a" /* default */].POPOW_PARAMS.k < __WEBPACK_IMPORTED_MODULE_2_consts_const_global__["a" /* default */].POPOW_PARAMS.l )
-            return undefined;
-
-        let CTest = C.splice(C.length - __WEBPACK_IMPORTED_MODULE_2_consts_const_global__["a" /* default */].POPOW_PARAMS.k);
-
-        // TODO
+        if (C.lastBlocks.length < __WEBPACK_IMPORTED_MODULE_2_consts_const_global__["a" /* default */].POPOW_PARAMS.l )
+            throw {message: "Error, the Chain C doesn't have at least l security param blocks", l: __WEBPACK_IMPORTED_MODULE_2_consts_const_global__["a" /* default */].POPOW_PARAMS.l}
 
         // true, if ∃C1 ⊆ C[: −k] : |C1 | ≤ d ∧ D(C1)
+        if (this.predicateD(C.accountantTree, C.lastBlocks))
+            return true;
 
-        return false;
+        throw {message: "predicateQ is invalid"};
 
     }
 
-    D(){
+    /**
+     * validate the accountantTree and the lastBlocks
+     * @param accountantTree
+     * @param lastBlocks
+     */
 
+    predicateD(accountantTree, lastBlocks){
+
+        throw {message: "predicateD is invalid"}
     }
 
     /**
@@ -82533,11 +82547,17 @@ class PPoWBlockchainProver{
     }
 
 
-    /**
+
+
+
+
+    /*
+
+    /!**
      *
      * @param superblock - hi
      * @param regularblock lo
-     */
+     *!/
     followDown(superblock, regularblock, blockById ){
 
         let B = superblock;
@@ -82563,11 +82583,11 @@ class PPoWBlockchainProver{
 
     }
 
-    /**
+    /!**
      *
      * @param C
      * @param C1
-     */
+     *!/
     proveInfix(C, C1){
 
         let prove = this.createProve(C);
@@ -82603,7 +82623,7 @@ class PPoWBlockchainProver{
     }
 
 
-
+*/
 
 
 
@@ -83698,6 +83718,7 @@ class PPoWBlockchainBlock extends __WEBPACK_IMPORTED_MODULE_1_common_blockchain_
             return this.level;
 
         let T = this.difficultyTarget;
+
         if (Buffer.isBuffer(T))
             T = __WEBPACK_IMPORTED_MODULE_3_common_utils_Convert__["a" /* default */].bufferToBigIntegerHex(this.difficultyTarget);
 
@@ -83716,8 +83737,6 @@ class PPoWBlockchainBlock extends __WEBPACK_IMPORTED_MODULE_1_common_blockchain_
         console.log('L=', u);
         console.log('P=', id.multiply(1 << u).toString());
 
-        this.level = u;
-
         return u;
     }
 
@@ -83733,6 +83752,7 @@ class PPoWBlockchainBlock extends __WEBPACK_IMPORTED_MODULE_1_common_blockchain_
                 this.interlink[i] = prevBlock.interlink[i];
             blockLevel = prevBlock.getLevel();
         }
+        this.level = blockLevel
 
         //add new interlinks for current block
         //Every block of level u needs a pointer to the previous block with level <= u.
@@ -83750,33 +83770,37 @@ class PPoWBlockchainBlock extends __WEBPACK_IMPORTED_MODULE_1_common_blockchain_
     
     _validateInterlink() {
 
-        if (this.interlink[0].height !== -1 || ! __WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].safeCompare(this.interlink[0].blockId, __WEBPACK_IMPORTED_MODULE_2_common_blockchain_global_Blockchain_Genesis__["a" /* default */].hashPrev)){
-            console.error("Interlink to Genesis is wrong! ");
-            return false;
-        }
 
-        for (let i = 1; i < this.interlink.length; ++i){
-            let link = this.interlink[i];
+
+        //validate interlinks array
+        let level = this.interlink.length-1;
+        while (level >= 0){
+
+            let link = this.interlink[level];
             let linkedBlock = this.blockchain.blocks[link.height];
 
-            if (! __WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].safeCompare(linkedBlock.hash, link.blockId)){
-                console.error("Interlink to Genesis is wrong! ");
-                return false;
+            if (level !== 0) {
+                if (! __WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].safeCompare(linkedBlock.hash, link.blockId))
+                    throw {message: "Interlink to Genesis is wrong! "};
+
+                let linkedBlockLevel = linkedBlock.getLevel();
+
+                if (linkedBlockLevel !== level )
+                    throw {message: "Interlink level error", level: level}
+
+                //TODO verify that the interlinks are actually the last on the same level
+
+            } else {
+
+                if (linkedBlock !== undefined || this.interlink[0].height !== -1 || ! __WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].safeCompare(this.interlink[0].blockId, __WEBPACK_IMPORTED_MODULE_2_common_blockchain_global_Blockchain_Genesis__["a" /* default */].hashPrev))
+                    throw {message: "Interlink to Genesis is wrong! "}
+
             }
+
+            level--;
+
+
         }
-
-        //TODO: verify if interlinks points to blocks with highest difficulty
-/*        let crtLevel = this.getLevel();
-        let lastLink = this.interlink[this.interlink.length-1];
-        let linkLevel = this.blockchain[lastLink.height].getLevel();
-
-        if (linkLevel + 1 < crtLevel) {
-            console.error('Interlink level errors');
-            return false;
-        }*/
-
-        //TODO: Verify proof of proofs
-
 
         return true;
     }
@@ -83804,13 +83828,13 @@ class PPoWBlockchainBlock extends __WEBPACK_IMPORTED_MODULE_1_common_blockchain_
 
         let list = [__WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].serializeNumber1Byte(this.interlink.length)];
 
-        for (let i = 0; i < this.interlink.length; ++i) {
+        for (let i = 0; i < this.interlink.length; i++) {
 
             //optimize storage
             if (i > 0 && this.interlink[i-1].height === this.interlink[i].height){
                 list.push(__WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].serializeNumber4Bytes(__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.MAX_UINT32));
             } else {
-                let heightBuffer = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].serializeNumber4Bytes(this.interlink[i].height + 1);
+                let heightBuffer = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].serializeNumber4Bytes(this.interlink[i].height + 1 );
                 let blockIdBuffer = this.interlink[i].blockId;
                 list.push(heightBuffer);
                 list.push(blockIdBuffer);
@@ -83855,7 +83879,7 @@ class PPoWBlockchainBlock extends __WEBPACK_IMPORTED_MODULE_1_common_blockchain_
     deserializeBlock(buffer, height, reward, difficultyTarget, offset){
 
 
-        offset = __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block__["a" /* default */].prototype.deserializeBlock.call(this, buffer, undefined, undefined, undefined, offset);
+        offset = __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block__["a" /* default */].prototype.deserializeBlock.call(this, buffer, height, reward, difficultyTarget, offset);
 
         try {
 
@@ -86874,7 +86898,7 @@ class MiniBlockchainLightProtocolForkSolver extends inheritForkSolver{
                     throw {message: "block for difficulty never received ", blockRequested: blockRequested};
 
                 let blockValidation = fork._createBlockValidation_ForkValidation(blockRequested, fork.forkBlocks.length-1);
-                let block = this._deserializeForkBlock( answer.block, blockRequested , blockValidation);
+                let block = this._deserializeForkBlock( fork, answer.block, blockRequested , blockValidation);
 
                 if (blockRequested < fork.forkDifficultyCalculation.difficultyCalculationStarts)
                     block.difficultyTarget = fork.forkDifficultyCalculation.difficultyAdditionalBlockFirstDifficulty;
@@ -87046,8 +87070,8 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
 
             let diffIndex = this.forkDifficultyCalculation.difficultyAdditionalBlocks[0];
 
-            this._lightAccountantTreeSerializationsHeightClone = new Buffer(this.blockchain.lightAccountantTreeSerializations[diffIndex] !== undefined ? this.blockchain.lightAccountantTreeSerializations[diffIndex] : 0);
             this._blocksStartingPointClone = this.blockchain.blocks.blocksStartingPoint;
+            this._lightAccountantTreeSerializationsHeightClone = new Buffer(this.blockchain.lightAccountantTreeSerializations[diffIndex] !== undefined ? this.blockchain.lightAccountantTreeSerializations[diffIndex] : 0);
             this._lightPrevDifficultyTargetClone = new Buffer(this.blockchain.lightPrevDifficultyTargets[diffIndex] !== undefined ? this.blockchain.lightPrevDifficultyTargets[diffIndex] : 0);
             this._lightPrevTimeStampClone = this.blockchain.lightPrevTimeStamps[diffIndex];
             this._lightPrevHashPrevClone = new Buffer(this.blockchain.lightPrevHashPrevs[diffIndex] !== undefined ? this.blockchain.lightPrevHashPrevs[diffIndex] : 0);
@@ -87074,9 +87098,8 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
             this.blockchain.accountantTree.deserializeMiniAccountant( this.forkPrevAccountantTree );
             let forkSum = this.blockchain.accountantTree.calculateNodeCoins();
 
-            if ( forkSum !== __WEBPACK_IMPORTED_MODULE_3_common_blockchain_global_Blockchain_Mining_Reward__["a" /* default */].getSumReward(diffIndex) || forkSum <= 0 ){
+            if ( forkSum !== __WEBPACK_IMPORTED_MODULE_3_common_blockchain_global_Blockchain_Mining_Reward__["a" /* default */].getSumReward(diffIndex) || forkSum <= 0 )
                 throw {message: "Accountant Tree sum is smaller than previous accountant Tree!!! Impossible", forkSum: forkSum, rewardShould: __WEBPACK_IMPORTED_MODULE_3_common_blockchain_global_Blockchain_Mining_Reward__["a" /* default */].getSumReward(diffIndex)};
-            }
 
             this.blockchain.blocks.blocksStartingPoint = diffIndex;
             this.blockchain.lightPrevDifficultyTargets[diffIndex] = this.forkPrevDifficultyTarget;
@@ -87097,7 +87120,7 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
 
             this.blockchain.blocks.blocksStartingPoint = this._blocksStartingPointClone;
 
-            let diffIndex = this.forkStartingHeight;
+            let diffIndex = this.forkDifficultyCalculation.difficultyAdditionalBlocks[0];
 
             this.blockchain.lightPrevDifficultyTargets[diffIndex] = this._lightPrevDifficultyTargetClone;
             this.blockchain.lightPrevTimeStamps[diffIndex] = this._lightPrevTimeStampClone;
@@ -92078,7 +92101,10 @@ class FallBackObject {
       "addr": ["webdollar.ddns.net"],
        "port": 80,
     },
-
+    {
+        "addr": ["192.168.2.8"],
+        "port": 2095,
+    },
     {
       "addr": ["webdollar.io", "149.56.14.37"],
       "port": 443
@@ -92222,9 +92248,9 @@ class NodesStats {
 
     _recalculateStats(nodesListObject){
 
-        this.statsClients = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].getNodes(__WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_CLIENT_SOCKET).length;
-        this.statsServer = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].getNodes(__WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_SERVER_SOCKET).length;
-        this.statsWebPeers = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].getNodes(__WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_WEBRTC).length;
+        this.statsClients = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].countNodes(__WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_CLIENT_SOCKET);
+        this.statsServer = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].countNodes(__WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_SERVER_SOCKET);
+        this.statsWebPeers = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].countNodes(__WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_WEBRTC);
         this.statsWaitlist = __WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_nodes_waitlist__["a" /* default */].waitlist.length;
 
         this._printStats();
