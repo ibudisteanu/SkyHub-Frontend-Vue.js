@@ -92076,7 +92076,7 @@ class FallBackObject {
   "nodes": [
     {
       "addr": ["webdollar.ddns.net"],
-       "port": 2095,
+       "port": 80,
     },
 
     {
