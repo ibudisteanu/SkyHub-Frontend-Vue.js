@@ -1917,9 +1917,7 @@ function isnan (val) {
 /* WEBPACK VAR INJECTION */(function(Buffer) {const uuid = __webpack_require__(245);
 
 let consts = {
-
     DEBUG: false,
-
 };
 
 consts.BLOCKCHAIN = {
@@ -2108,8 +2106,8 @@ consts.SETTINGS = {
     UUID: uuid.v4(),
 
     NODE: {
-        VERSION: "0.282",
-        VERSION_COMPATIBILITY: "0.282",
+        VERSION: "0.284",
+        VERSION_COMPATIBILITY: "0.284",
         PROTOCOL: "WebDollar",
         SSL: true,
 
@@ -14373,7 +14371,6 @@ class InterfaceBlockchainFork {
             //propagating valid blocks
             if (forkedSuccessfully) {
 
-
                 await this.blockchain.saveBlockchain( this.forkStartingHeight );
                 console.log("FORK STATUS SUCCESS5: ", forkedSuccessfully);
 
@@ -22630,21 +22627,31 @@ class InterfaceBlockchainTransaction{
      * It will update the Accountant Tree
      */
 
+    _preProcessTransaction(multiplicationFactor = 1 , minerAddress, revertActions){
+        return true;
+    }
+
     processTransaction(multiplicationFactor = 1 , minerAddress, revertActions){
 
         if ( multiplicationFactor === 1 ) {
 
+            //nonce
+            if (!this._preProcessTransaction(multiplicationFactor, minerAddress, revertActions)) return false;
+
             if (!this.from.processTransactionFrom(multiplicationFactor, revertActions)) return false;
             if (!this.to.processTransactionTo(multiplicationFactor, revertActions)) return false;
 
-            if (this._processTransactionFees(multiplicationFactor, minerAddress, revertActions) === null);
+            if (this._processTransactionFees(multiplicationFactor, minerAddress, revertActions) === null) return false;
 
         } else if (multiplicationFactor === -1) {
 
+            //nonce
             if (this._processTransactionFees(multiplicationFactor, minerAddress, revertActions) === null) return false;
 
             if (!this.to.processTransactionTo(multiplicationFactor, revertActions)) return false;
             if (!this.from.processTransactionFrom(multiplicationFactor, revertActions)) return false;
+
+            if (!this._preProcessTransaction(multiplicationFactor, minerAddress, revertActions)) return false;
 
 
         }else
@@ -22654,6 +22661,7 @@ class InterfaceBlockchainTransaction{
     }
 
     _processTransactionFees(){
+
         let inputSum = this.from.calculateInputSum();
         let outputSum = this.to.calculateOutputSum();
 
@@ -22661,6 +22669,8 @@ class InterfaceBlockchainTransaction{
 
         if (!__WEBPACK_IMPORTED_MODULE_7_common_utils_coins_WebDollar_Coins__["a" /* default */].validateCoinsNumber(diffInFees))
             throw {message:"Fees are invalid"};
+
+        if (diffInFees < 0) throw {message: "Fee is illegal"};
 
         return {fees: diffInFees, currencyTokenId: this.from.currencyTokenId};
     }
@@ -23477,7 +23487,7 @@ class InterfaceBlockchainProtocolForkSolver{
 
             // in case it was you solved previously && there is something in the blockchain
 
-            console.warn("discoverFork 555" , binarySearchResult);
+            //console.warn("discoverFork 555" , binarySearchResult);
 
             if ( binarySearchResult.position === -1 ) {
 
@@ -23579,8 +23589,7 @@ class InterfaceBlockchainProtocolForkSolver{
 
             console.error("discoverAndProcessFork raised an exception", exception );
 
-            if (fork !== undefined && fork !== null)
-                this.blockchain.forksAdministrator.deleteFork(fork);
+            this.blockchain.forksAdministrator.deleteFork(fork);
 
             return {result:false, error: exception };
 
@@ -24031,7 +24040,6 @@ class MiniBlockchainFork extends inheritFork{
 
             // remove reward
             this.blockchain.accountantTree.updateAccount( block.data.minerAddress, - block.reward, undefined, revertActions);
-
 
         }
 
@@ -24764,7 +24772,10 @@ class NodeSignalingClientProtocol {
                 socket.node.sendRequest("signals/client/initiator/generate-initiator-signal/" + data.id, {accepted: true, initiatorSignal: answer.signal});
 
             } catch (exception){
-                console.error("signals/client/initiator/generate-initiator-signal", exception);
+
+                if (exception.message !== "Already connected" && exception.message !== "I can't accept WebPeers anymore")
+                    console.error("signals/client/initiator/generate-initiator-signal", exception);
+
                 socket.node.sendRequest("signals/client/initiator/generate-initiator-signal/" + data.id, {accepted:false, initiatorSignal: undefined, message: exception.message });
             }
 
@@ -24794,7 +24805,9 @@ class NodeSignalingClientProtocol {
 
             } catch (exception){
 
-                console.error("signals/client/initiator/join-answer-signal/" + data.id, exception);
+                if (exception.message !== "Already connected" && exception.message !== "I can't accept WebPeers anymore")
+                    console.error("signals/client/initiator/join-answer-signal/" + data.id, exception);
+
                 socket.node.sendRequest("signals/client/initiator/join-answer-signal/" + data.id, {established: false, message: exception.message });
 
             }
@@ -24833,7 +24846,10 @@ class NodeSignalingClientProtocol {
                 socket.node.sendRequest("signals/client/initiator/receive-ice-candidate/" + data.id, {accepted: true, answerSignal: answer.signal} );
 
             } catch (exception){
-                console.error("signals/client/initiator/receive-ice-candidate/" + data.id, exception);
+
+                if (exception.message !== "Already connected" && exception.message !== "I can't accept WebPeers anymore")
+                    console.error("signals/client/initiator/receive-ice-candidate/" + data.id, exception);
+
                 socket.node.sendRequest("signals/client/initiator/receive-ice-candidate/" + data.id, { accepted: false,  message: exception.message });
             }
 
@@ -24881,7 +24897,10 @@ class NodeSignalingClientProtocol {
                 socket.node.sendRequest("signals/client/answer/receive-initiator-signal/" + data.id, {accepted: true, answerSignal: answer.signal} );
 
             } catch (exception){
-                console.error("signals/client/answer/receive-initiator-signal", exception);
+
+                if (exception.message !== "Already connected" && exception.message !== "I can't accept WebPeers anymore")
+                    console.error("signals/client/answer/receive-initiator-signal", exception);
+
                 socket.node.sendRequest("signals/client/answer/receive-initiator-signal/" + data.id, {accepted:false, answerSignal: undefined });
             }
 
@@ -24916,7 +24935,10 @@ class NodeSignalingClientProtocol {
                 socket.node.sendRequest("signals/client/answer/receive-ice-candidate/" + data.id, { accepted: true, answerSignal: answer.signal} );
 
             } catch (exception){
-                console.error("signals/client/answer/receive-ice-candidate/"+ data.id, exception);
+
+                if (exception.message !== "Already connected" && exception.message !== "I can't accept WebPeers anymore")
+                    console.error("signals/client/answer/receive-ice-candidate/"+ data.id, exception);
+
                 socket.node.sendRequest("signals/client/answer/receive-ice-candidate/" + data.id, {accepted:false, answerSignal: undefined, message: exception.message });
             }
 
@@ -49216,6 +49238,7 @@ class InterfaceBlockchainAgent{
         this._synchronizeComplete = false;
 
         this._eventEmitter = new EventEmitter();
+        this._eventEmitter.setMaxListeners(100);
 
         this.synchronized = false;
 
@@ -51473,7 +51496,7 @@ class NodeSignalingServerProtocol {
                     client1.node.on("signals/server/new-initiator-ice-candidate/" + connection.id, async (iceCandidate) => {
 
 
-                        let answer = await client2.node.sendRequestWaitOnce("signals/client/answer/receive-ice-candidate",{
+                        let answer = await client2.node.sendRequest("signals/client/answer/receive-ice-candidate",{ //sendRequestWaitOnce returns errors
                             id: connection.id,
 
                             initiatorSignal: initiatorAnswer.initiatorSignal,
@@ -51483,13 +51506,13 @@ class NodeSignalingServerProtocol {
                             remoteUUID: client1.node.sckAddress.uuid,
                         });
 
-                        if ( answer === null || answer === undefined )
-                            connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
-                        else
-                        if ( answer.established === false && initiatorAnswer.message === "I can't accept WebPeers anymore") {
-                            this.clientIsNotAcceptingAnymoreWebPeers(client2, connection);
-                            return false;
-                        }
+                        // if ( answer === null || answer === undefined )
+                        //     connection.status = SignalingServerRoomConnectionObject.ConnectionStatus.peerConnectionError;
+                        // else
+                        // if ( answer.established === false && initiatorAnswer.message === "I can't accept WebPeers anymore") {
+                        //     this.clientIsNotAcceptingAnymoreWebPeers(client2, connection);
+                        //     return false;
+                        // }
 
                     });
 
@@ -76145,15 +76168,10 @@ class MiniBlockchain extends  inheritBlockchain{
 
         let revertException = false;
 
-        let hashAccountantTree = [];
-
         try{
 
-
-            // hashAccountantTree[0] = this.accountantTree.serializeMiniAccountant();
-
             //updating reward
-            let result = this.accountantTree.updateAccount( block.data.minerAddress, block.reward, undefined, revertActions )
+            let result = this.accountantTree.updateAccount( block.data.minerAddress, block.reward, undefined, revertActions );
 
             //reward
             if (result === null || result === undefined)
@@ -76189,22 +76207,6 @@ class MiniBlockchain extends  inheritBlockchain{
 
                 revertActions.revertOperations();
 
-                // hashAccountantTree[1] = this.accountantTree.serializeMiniAccountant();
-                //
-                // if (revertActions) {
-                //     console.log("mini blockchain-fork");
-                //     for (let i = 0; i < hashAccountantTree.length; i++) {
-                //         console.warn("accountantTree", i, "   ", hashAccountantTree[i].toString("hex"), revertException);
-                //
-                //         if (revertException)
-                //             if (!this.accountantTree.serializeMiniAccountant().equals(hashAccountantTree[i])) {
-                //                 console.error("************************************************");
-                //                 console.error("accountantTree", i, "    ", this.accountantTree.serializeMiniAccountant());
-                //                 console.error("************************************************");
-                //             }
-                //     }
-                // }
-
                 if (revertException)
                     return false;
             }
@@ -76238,8 +76240,6 @@ class MiniBlockchain extends  inheritBlockchain{
                 }
 
             )===false) throw {message: "Error includeBlockchainBlock MiniBlockchain "};
-
-
 
         return true;
     }
@@ -76278,7 +76278,7 @@ class MiniBlockchain extends  inheritBlockchain{
             return true;
 
         } catch (exception){
-            console.error("Couldn't save MiniBlockchain", exception)
+            console.error("Couldn't save MiniBlockchain", exception);
             return false;
         }
     }
@@ -76300,9 +76300,8 @@ class MiniBlockchain extends  inheritBlockchain{
 
             result = result && await inheritBlockchain.prototype.loadBlockchain.call( this  );
 
-            if (result === false){
+            if ( result === false )
                 throw {message: "Problem loading the blockchain"};
-            }
 
             //check the accountant Tree if matches
             console.log("this.accountantTree final", this.accountantTree.root.hash.sha256);
@@ -76953,7 +76952,7 @@ class InterfaceBlockchainBlockDataTransactions {
     processBlockDataTransactions( block, multiplicationFactor = 1, revertActions){
 
         for (let i=0; i<block.data.transactions.transactions.length; i++)
-            if (!this._processBlockDataTransaction( block.height, block.data.transactions.transactions[i], multiplicationFactor, block.data.minerAddress, revertActions, ))
+            if (! this._processBlockDataTransaction( block.height, block.data.transactions.transactions[i], multiplicationFactor, block.data.minerAddress, revertActions ) )
                 return false;
 
         return true;
@@ -84104,13 +84103,12 @@ class MiniBlockchainTransaction extends  __WEBPACK_IMPORTED_MODULE_0_common_bloc
         return new __WEBPACK_IMPORTED_MODULE_2__Mini_Blockchain_Transaction_To__["a" /* default */](this, to);
     }
 
-    processTransaction(multiplicationFactor = 1, minerAddress, revertActions){
+    _preProcessTransaction(multiplicationFactor = 1 , minerAddress, revertActions){
 
         let nonce = this.blockchain.accountantTree.updateAccountNonce(this.from.addresses[0].unencodedAddress, multiplicationFactor, revertActions);
-
         if (nonce === undefined || nonce === null) throw { message: "nonce is empty in process transaction" };
 
-        return __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_transactions_transaction_Interface_Blockchain_Transaction__["a" /* default */].prototype.processTransaction.call(this, multiplicationFactor, minerAddress, revertActions);
+        return true;
     }
 
     _validateNonce(blockValidationType){
@@ -87080,7 +87078,7 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
                 throw {message: "Accountant Tree sum is smaller than previous accountant Tree!!! Impossible", forkSum: forkSum, rewardShould: __WEBPACK_IMPORTED_MODULE_3_common_blockchain_global_Blockchain_Mining_Reward__["a" /* default */].getSumReward(diffIndex)};
             }
 
-            this.blockchain.blocks.blocksStartingPoint = this.forkChainStartingPoint;
+            this.blockchain.blocks.blocksStartingPoint = diffIndex;
             this.blockchain.lightPrevDifficultyTargets[diffIndex] = this.forkPrevDifficultyTarget;
             this.blockchain.lightPrevTimeStamps[diffIndex] = this.forkPrevTimeStamp;
             this.blockchain.lightPrevHashPrevs[diffIndex] = this.forkPrevHashPrev;
@@ -87112,10 +87110,6 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
     }
 
     postFork(forkedSuccessfully){
-
-        //setting the blocksStartingPoint
-        if (forkedSuccessfully)
-            this.blockchain.blocks.blocksStartingPoint = this.forkBlocks[0].height;
 
     }
 
@@ -92082,12 +92076,9 @@ class FallBackObject {
   "nodes": [
     {
       "addr": ["webdollar.ddns.net"],
-       "port": 80,
+       "port": 2095,
     },
-    {
-        "addr": ["192.168.2.8"],
-        "port": 2095,
-    },
+
     {
       "addr": ["webdollar.io", "149.56.14.37"],
       "port": 443
