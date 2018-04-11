@@ -1608,6 +1608,7 @@ ibudisteanu:hover .panait, .budisteanu:hover .oprea, .budisteanu:hover .stratula
   min-width: 1200px;
   display: inline-block;
   vertical-align: top;
+  box-sizing: border-box!important;
 }
 
 .bountyCampaigns span{
