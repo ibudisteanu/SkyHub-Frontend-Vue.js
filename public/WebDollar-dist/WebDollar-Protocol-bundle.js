@@ -2106,8 +2106,8 @@ consts.SETTINGS = {
     UUID: uuid.v4(),
 
     NODE: {
-        VERSION: "0.286",
-        VERSION_COMPATIBILITY: "0.286",
+        VERSION: "0.287",
+        VERSION_COMPATIBILITY: "0.287",
         PROTOCOL: "WebDollar",
         SSL: true,
 
@@ -22744,13 +22744,13 @@ class RevertActions {
 
             if (action.name === "revert-updateAccount" && (actionName === '' || actionName === action.name)) {
 
-                let balance = this.blockchain.accountantTree.updateAccount(action.address, -action.value, action.tokenId);
+                this.blockchain.accountantTree.updateAccount(action.address, -action.value, action.tokenId);
 
             }
             else
             if (action.name === "revert-updateAccountNonce" && (actionName === '' || actionName === action.name)) {
 
-                let nonce = this.blockchain.accountantTree.updateAccountNonce(action.address, -action.nonceChange, action.tokenId);
+                this.blockchain.accountantTree.updateAccountNonce(action.address, -action.nonceChange, action.tokenId);
 
             }
             else
@@ -46674,7 +46674,7 @@ class InterfaceBlockchain {
 
         this.blocks.addBlock(block);
 
-        if (revertActions !== undefined)
+        if ( revertActions !== undefined )
             revertActions.push({name: "block-added", height: this.blocks.length-1 });
 
         await this._blockIncluded( block);
@@ -51470,7 +51470,7 @@ class NodeSignalingServerProtocol {
 
                         client2.node.on("signals/server/new-answer-ice-candidate/" + connection.id, async (iceCandidate) => {
 
-                            let answer = await client1.node.sendRequestWaitOnce("signals/client/initiator/receive-ice-candidate",{
+                            await client1.node.sendRequest("signals/client/initiator/receive-ice-candidate",{  //sendRequestWaitOnce returns errors
                                 id: connection.id,
 
                                 initiatorSignal: initiatorAnswer.initiatorSignal,
@@ -51481,13 +51481,13 @@ class NodeSignalingServerProtocol {
                             }, "connection.id");
 
 
-                            if ( answer === null || answer === undefined )
-                                connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
-                            else
-                            if ( answer.established === false && initiatorAnswer.message === "I can't accept WebPeers anymore") {
-                                this.clientIsNotAcceptingAnymoreWebPeers(client2, connection);
-                                return false;
-                            }
+                            // if ( answer === null || answer === undefined )
+                            //     connection.status = SignalingServerRoomConnectionObject.ConnectionStatus.peerConnectionError;
+                            // else
+                            // if ( answer.established === false && initiatorAnswer.message === "I can't accept WebPeers anymore") {
+                            //     this.clientIsNotAcceptingAnymoreWebPeers(client2, connection);
+                            //     return false;
+                            // }
 
                         });
 
@@ -51497,7 +51497,7 @@ class NodeSignalingServerProtocol {
                     client1.node.on("signals/server/new-initiator-ice-candidate/" + connection.id, async (iceCandidate) => {
 
 
-                        let answer = await client2.node.sendRequest("signals/client/answer/receive-ice-candidate",{ //sendRequestWaitOnce returns errors
+                        await client2.node.sendRequest("signals/client/answer/receive-ice-candidate",{ //sendRequestWaitOnce returns errors
                             id: connection.id,
 
                             initiatorSignal: initiatorAnswer.initiatorSignal,
@@ -76188,7 +76188,7 @@ class MiniBlockchain extends  inheritBlockchain{
                 revertActions.push( { name: "revert-skip-validation-transactions-from-values", block:block, value: true} );
             }
 
-            if (!block.data.transactions.processBlockDataTransactions( block, 1, revertActions))
+            if (!block.data.transactions.processBlockDataTransactions( block, +1, revertActions))
                 throw {message: "Process Block Data Transactions failed"};
 
             let callbackDone = await callback();
@@ -76232,12 +76232,12 @@ class MiniBlockchain extends  inheritBlockchain{
      * @param socketsAvoidBroadcast
      * @returns {Promise.<*>}
      */
-    async includeBlockchainBlock(block, resetMining, socketsAvoidBroadcast, saveBlock, revertActions){
+    async includeBlockchainBlock( block, resetMining, socketsAvoidBroadcast, saveBlock, revertActions ){
 
         if (await this.simulateNewBlock(block, false, revertActions,
 
                 async ()=>{
-                    return await inheritBlockchain.prototype.includeBlockchainBlock.call(this, block, resetMining, socketsAvoidBroadcast, saveBlock, revertActions );
+                    return await inheritBlockchain.prototype.includeBlockchainBlock.call( this, block, resetMining, socketsAvoidBroadcast, saveBlock, revertActions );
                 }
 
             )===false) throw {message: "Error includeBlockchainBlock MiniBlockchain "};
@@ -84129,8 +84129,7 @@ class MiniBlockchainTransaction extends  __WEBPACK_IMPORTED_MODULE_0_common_bloc
 
     _preProcessTransaction(multiplicationFactor = 1 , minerAddress, revertActions){
 
-        let nonce = this.blockchain.accountantTree.updateAccountNonce(this.from.addresses[0].unencodedAddress, multiplicationFactor, revertActions);
-        if (nonce === undefined || nonce === null) throw { message: "nonce is empty in process transaction" };
+        this.blockchain.accountantTree.updateAccountNonce(this.from.addresses[0].unencodedAddress, multiplicationFactor, revertActions);
 
         return true;
     }
@@ -84212,9 +84211,7 @@ class MiniBlockchainTransaction extends  __WEBPACK_IMPORTED_MODULE_0_common_bloc
             throw {message: "Accountant Tree is negative" };
 
 
-        let result = this.blockchain.accountantTree.updateAccount( minerAddress, diffInFees * multiplicationFactor, this.from.currencyTokenId, revertActions);
-
-        if (result === null) throw {message: "processTransactionTo - Error Updating Account for Fees"};
+        this.blockchain.accountantTree.updateAccount( minerAddress, diffInFees * multiplicationFactor, this.from.currencyTokenId, revertActions);
 
         return {fees: diffInFees, currencyTokenId: this.currencyTokenId};
 
@@ -90813,8 +90810,6 @@ class NodePropagationProtocol {
         socket.node.on("propagation/nodes", response => {
 
             try {
-                console.log("NodePropagation", socket.node.sckAddress.getAddress());
-                console.log("NodePropagation", response);
 
                 let addresses = response.addresses || [];
                 if (typeof addresses === "string") addresses = [addresses];
