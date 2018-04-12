@@ -2101,6 +2101,7 @@ consts.MINING_POOL = {
 
 
 
+
 consts.SETTINGS = {
 
     UUID: uuid.v4(),
