@@ -73,7 +73,7 @@
                         </div>
                         <span class="teamName">Adrian Stratulat</span>
                         <span class="teamRole">EVANGELIST</span>
-                        <p>Philosopher by vocation and diplomat by training, Adrian is a social entrepreneur specialized in innovative emerging technologies and blockchain applications. Also acting as economy advisor.</p>
+                        <p>Entrepreneur by vocation and diplomat by training, Adrian is the Executive Director of the Romanian Blockchain Association and oversees the Marketing Strategy & Implementation for WebDollar.</p>
                     </div>
                     <div class="our-team patrick">
                         <div class="team-pic">
