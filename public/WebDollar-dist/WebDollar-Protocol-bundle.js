@@ -24369,6 +24369,8 @@ class MiniBlockchainFork extends inheritFork{
 
         }
 
+        return inheritFork.prototype.preFork.call(this, revertActions);
+
     }
 
     revertFork(){
@@ -24377,7 +24379,7 @@ class MiniBlockchainFork extends inheritFork{
         if (this._accountantTreeClone !== null)
             this.blockchain.accountantTree.deserializeMiniAccountant(this._accountantTreeClone);
 
-        inheritFork.prototype.revertFork.call(this);
+        return inheritFork.prototype.revertFork.call(this);
 
     }
 
@@ -86873,7 +86875,7 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
     }
 
     async _validateFork(validateHashesAgain){
-        
+
         await this._validateProofXi();
 
         return await __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__["a" /* default */].prototype._validateFork.call(this, validateHashesAgain );
@@ -86909,7 +86911,7 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
             this._forkProofPiClone = this.blockchain.proofPi;
         }
 
-        __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__["a" /* default */].prototype.preForkClone.call(this, cloneBlocks);
+        return __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__["a" /* default */].prototype.preForkClone.call(this, cloneBlocks);
 
     }
 
@@ -86919,7 +86921,7 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
             this.blockchain.proofPi = this.forkProofPi;
         }
 
-        __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__["a" /* default */].prototype.preFork.call(this, revertActions);
+        return __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__["a" /* default */].prototype.preFork.call(this, revertActions);
     }
 
     revertFork(){
@@ -86928,7 +86930,7 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
             this.blockchain.proofPi = this._forkProofPiClone;
         }
 
-        __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__["a" /* default */].prototype.revertFork.call(this);
+        return __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__["a" /* default */].prototype.revertFork.call(this);
 
     }
 
