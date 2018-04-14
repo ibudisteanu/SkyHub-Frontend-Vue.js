@@ -8,6 +8,8 @@
 
                     <h1 class="alignCenter bigMarginBottom">CREATE YOUR OWN MINING POOL</h1>
 
+                    <h2 class="alignCenter bigMarginBottom">will be activated very soon</h2>
+
                     <div class="distributionContainer">
 
                         <div class="distributionGrid">
