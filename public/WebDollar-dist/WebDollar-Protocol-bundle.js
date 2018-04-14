@@ -2109,8 +2109,8 @@ consts.SETTINGS = {
     UUID: uuid.v4(),
 
     NODE: {
-        VERSION: "0.31",
-        VERSION_COMPATIBILITY: "0.31",
+        VERSION: "0.40",
+        VERSION_COMPATIBILITY: "0.40",
         PROTOCOL: "WebDollar",
         SSL: true,
 
@@ -9029,7 +9029,7 @@ class BlockchainGenesis{
 
     constructor(){
 
-        this.hashPrev = new Buffer("7bb3e84e6892c7e76be2beedb94a1035b7f095d50b5462806b92be0cbccd31fc", "hex");
+        this.hashPrev = new Buffer("653E87D0EF242774835C2BAE5111F052FEEA59049DF3D7746665F1640B03F7E0", "hex");
 
         this.timeStamp = 0;
         this.timeStampOffset = 1523697509;
@@ -14336,24 +14336,29 @@ class BlockchainMiningReward{
 
         let blocksPerCycle = 6307200;
 
-        if (height > 0){
 
-            if (height <= 40) {
-                return __WEBPACK_IMPORTED_MODULE_0_common_utils_coins_WebDollar_Coins__["a" /* default */].WEBD * Math.trunc( 1949770302 / Math.pow(1.01645589, 41.5 * height - height * height / 2 - 41) );
-            }
-            else {
+        if (height <= 40) {
 
-                let cycleNumber = Math.trunc( height / blocksPerCycle );
-                let reward = __WEBPACK_IMPORTED_MODULE_0_common_utils_coins_WebDollar_Coins__["a" /* default */].WEBD * 3000 / (1 << cycleNumber);
-                let smallestReward = 1;
+            //return WebDollarCoins.WEBD * Math.trunc( 1949770302 / Math.pow(1.01645589, 41.5 * height - height * height / 2 - 41) );
 
-                if (reward < smallestReward)
-                    reward = smallestReward;
+            let v = [1, 1949770302, 1014943763, 537018249, 288818259, 157887877, 87732693, 49552169, 28448044,
+                16600864, 9846854, 5936806, 3638285, 2266361, 1434994, 923548, 604168, 401739, 271531, 186544,
+                130267, 92464, 66712, 48924, 36469, 27632, 21281, 16660, 13256, 10722, 8815, 7366, 6257, 5402,
+                4740, 4229, 3834, 3534, 3310, 3152, 3051];
 
-                return reward;
-            }
+            return v[height] * __WEBPACK_IMPORTED_MODULE_0_common_utils_coins_WebDollar_Coins__["a" /* default */].WEBD;
+        }
+        else {
 
-        } else return  __WEBPACK_IMPORTED_MODULE_0_common_utils_coins_WebDollar_Coins__["a" /* default */].WEBD * 1;
+            let cycleNumber = Math.trunc( height / blocksPerCycle );
+            let reward = __WEBPACK_IMPORTED_MODULE_0_common_utils_coins_WebDollar_Coins__["a" /* default */].WEBD * 3000 / (1 << cycleNumber);
+            let smallestReward = 1;
+
+            if (reward < smallestReward)
+                reward = smallestReward;
+
+            return reward;
+        }
 
     }
     
