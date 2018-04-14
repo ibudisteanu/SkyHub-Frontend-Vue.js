@@ -86660,7 +86660,7 @@ class PPoWBlockchainProtocolForksManager extends __WEBPACK_IMPORTED_MODULE_0_com
 
                     bestFork = fork;
 
-                } else if ( bestFork !== null && bestFork.forkProofPi !== null && fork.forkProofPi !== null ) {
+                } else if ( bestFork !==  null && bestFork.forkProofPi !== null && fork.forkProofPi !== null ) {
 
                     let compare = await this.blockchain.verifier.compareProofs(bestFork.forkProofPi, fork.forkProofPi);
 
@@ -86671,7 +86671,7 @@ class PPoWBlockchainProtocolForksManager extends __WEBPACK_IMPORTED_MODULE_0_com
 
                     }
 
-                } else if (bestFork === null && bestFork.forkProofPi === null && fork.forkProofPi !== null){
+                } else if (bestFork ===  null && bestFork.forkProofPi === null && fork.forkProofPi !== null){
 
                     bestFork = fork.forkProofPi;
 
