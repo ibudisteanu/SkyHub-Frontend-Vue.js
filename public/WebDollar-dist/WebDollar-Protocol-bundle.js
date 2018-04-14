@@ -14648,8 +14648,6 @@ class InterfaceBlockchainFork {
                 //successfully, let's delete the backup blocks
                 this._deleteBackupBlocks();
 
-                this.blockchain.mining.resetMining();
-
             } catch (exception){
 
                 console.error('-----------------------------------------');
@@ -14672,8 +14670,10 @@ class InterfaceBlockchainFork {
 
             await this.postForkTransactions(forkedSuccessfully);
 
-            if (forkedSuccessfully)
-                this._forkPromiseResolver(true);
+            if (forkedSuccessfully) {
+                this.blockchain.mining.resetMining();
+                setTimeout( ()=>{ this._forkPromiseResolver(true) } , 10 ); //making it async
+            }
 
             return forkedSuccessfully;
         });
@@ -14717,7 +14717,7 @@ class InterfaceBlockchainFork {
     async revertFork(){
         try {
 
-            for (let i=0; i<this._blocksCopy; i++)
+            for (let i=0; i<this._blocksCopy.length; i++)
                 if (! (await this.blockchain.includeBlockchainBlock(this._blocksCopy[i], false, "all", false))) {
 
                     console.error("----------------------------------------------------------");
@@ -47078,11 +47078,10 @@ class InterfaceBlockchain {
             this.propagateBlocks(block.height, socketsAvoidBroadcast)
         }
 
+        this._onBlockCreated(block,  saveBlock);
 
         if (resetMining && this.mining !== undefined  && this.mining !== null) //reset mining
             this.mining.resetMining();
-
-        this._onBlockCreated(block,  saveBlock);
 
         return true;
     }
@@ -83924,7 +83923,7 @@ class PPoWBlockchainBlock extends __WEBPACK_IMPORTED_MODULE_1_common_blockchain_
 
         //first pointer is to Genesis
         this.interlink = [{height: -1, blockId: __WEBPACK_IMPORTED_MODULE_2_common_blockchain_global_Blockchain_Genesis__["a" /* default */].hashPrev}];
-        this.level = 0;
+        this.level = undefined;
     }
 
     getLevel(computeLevel = true){
@@ -83972,7 +83971,7 @@ class PPoWBlockchainBlock extends __WEBPACK_IMPORTED_MODULE_1_common_blockchain_
                 this.interlink[i] = prevBlock.interlink[i];
             blockLevel = prevBlock.getLevel(false);
         }
-        this.level = blockLevel
+        this.level = blockLevel;
 
         //add new interlinks for current block
         //Every block of level u needs a pointer to the previous block with level <= u.
@@ -84023,7 +84022,7 @@ class PPoWBlockchainBlock extends __WEBPACK_IMPORTED_MODULE_1_common_blockchain_
         return true;
     }
     
-    async _supplementaryValidation() {
+    _supplementaryValidation() {
         
         return this._validateInterlink();
     }
@@ -86656,8 +86655,7 @@ class PPoWBlockchainProtocolForksManager extends __WEBPACK_IMPORTED_MODULE_0_com
 
                 fork = this.blockchain.forksAdministrator.forks[i];
 
-                if (bestFork === null
-                    || (fork.forkChainStartingPoint < fork.forkStartingHeight && bestFork.forkChainLength < fork.forkChainLength )) //it is a small fork that I already have the first forks, but I will download the remaning blocks
+                if (fork.forkChainStartingPoint < fork.forkStartingHeight && (bestFork === null || bestFork.forkChainLength < fork.forkChainLength) ) //it is a small fork that I already have the first forks, but I will download the remaning blocks
                 {
 
                     bestFork = fork;
@@ -86852,7 +86850,7 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
     }
 
     //light validation Proof Xi
-    async _validateProofXi(){
+    _validateProofXi(){
         
         if (!this.blockchain.agent.light) return true;
         if (this.forkChainStartingPoint !== this.forkStartingHeight || this.forkProofPi === null) return true;
@@ -86874,11 +86872,11 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
 
     }
 
-    async _validateFork(validateHashesAgain){
+    _validateFork(validateHashesAgain){
 
-        await this._validateProofXi();
+        this._validateProofXi();
 
-        return await __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__["a" /* default */].prototype._validateFork.call(this, validateHashesAgain );
+        return __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__["a" /* default */].prototype._validateFork.call(this, validateHashesAgain );
 
     }
 
