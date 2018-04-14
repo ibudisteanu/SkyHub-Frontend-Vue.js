@@ -1937,8 +1937,8 @@ consts.BLOCKCHAIN = {
     BLOCKS_NONCE : 4,
 
     LIGHT:{
-        VALIDATE_LAST_BLOCKS: undefined , //overwrite below
-        SAFETY_LAST_BLOCKS: undefined, //overwrite below
+        VALIDATE_LAST_BLOCKS: 10 , //overwrite below
+        SAFETY_LAST_BLOCKS: 40, //overwrite below
 
         SAFETY_LAST_BLOCKS_DELETE: 400, //overwrite below
     },
@@ -1950,7 +1950,7 @@ consts.BLOCKCHAIN = {
 
 };
 
-consts.BLOCKCHAIN.LIGHT.VALIDATE_LAST_BLOCKS = consts.BLOCKCHAIN.DIFFICULTY.NO_BLOCKS * 2 ;
+consts.BLOCKCHAIN.LIGHT.VALIDATE_LAST_BLOCKS = consts.BLOCKCHAIN.DIFFICULTY.NO_BLOCKS * 1 ;
 consts.BLOCKCHAIN.LIGHT.SAFETY_LAST_BLOCKS = consts.BLOCKCHAIN.LIGHT.VALIDATE_LAST_BLOCKS + 2* consts.BLOCKCHAIN.DIFFICULTY.NO_BLOCKS ;
 
 consts.MINI_BLOCKCHAIN = {
@@ -2073,7 +2073,8 @@ consts.DATABASE_NAMES = {
 
     DEFAULT_DATABASE: "defaultDB",
 
-    WALLET_DATABASE: "walletDB", //IT SHOULD BE REPALCED BY IN TEST NET 4 "walletDB",
+    //WALLET_DATABASE: "walletDB", //IT SHOULD BE REPALCED BY IN TEST NET 4 "walletDB",
+    WALLET_DATABASE: "defaultDB2", //IT SHOULD BE REPALCED BY IN TEST NET 4 "walletDB",
 
     BLOCKCHAIN_DATABASE:{
         FOLDER:"blockchainDB3",
