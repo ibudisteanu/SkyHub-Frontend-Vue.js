@@ -93,7 +93,7 @@
 
             if (WebDollar.Blockchain.synchronized){
 
-                this.verifyIfContainData(WebDollar.Blockchain.Chain.accountantTree.calculateNodeCoins());
+                this.verifyIfContainData( WebDollar.Blockchain.Chain.accountantTree.calculateNodeCoins() );
 
                 this.blocksLength = WebDollar.Blockchain.Chain.blocks.length;
 
