@@ -4,7 +4,7 @@
     <div id="timelineSection" >
 
         <span class='alignCenter pageTitle'>TIMELINE</span>
-        <h3>Fast Development of WEBD Cryptocurrency</h3>
+        <h3>Fast Development of a Browser-Based Cryptocurrency</h3>
 
         <div id="timeline" class="backgroundSection">
         <div class="main-timeline">
