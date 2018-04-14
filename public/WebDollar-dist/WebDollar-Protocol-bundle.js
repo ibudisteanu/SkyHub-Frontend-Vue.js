@@ -86671,7 +86671,7 @@ class PPoWBlockchainProtocolForksManager extends __WEBPACK_IMPORTED_MODULE_0_com
 
                     }
 
-                } else if (bestFork ===  null && bestFork.forkProofPi === null && fork.forkProofPi !== null){
+                } else if ( (bestFork ===  null || bestFork.forkProofPi === null) && fork.forkProofPi !== null){
 
                     bestFork = fork.forkProofPi;
 
