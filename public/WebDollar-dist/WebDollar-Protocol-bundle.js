@@ -14407,7 +14407,7 @@ class InterfaceBlockchainFork {
      * initializeConstructor is used to initialize the constructor dynamically using .apply method externally passing the arguments
      */
 
-    initializeConstructor(blockchain, forkId, sockets, forkStartingHeight, forkChainStartingPoint, newChainLength, header){
+    initializeConstructor(blockchain, forkId, sockets, forkStartingHeight, forkChainStartingPoint, newChainLength, headers){
 
         this.blockchain = blockchain;
 
@@ -14423,7 +14423,9 @@ class InterfaceBlockchainFork {
         this.forkChainStartingPoint = forkChainStartingPoint;
         this.forkChainLength = newChainLength||0;
         this.forkBlocks = [];
-        this.forkHeader = header;
+
+        if (!Array.isArray(headers)) headers = [headers];
+        this.forkHeaders = headers;
 
         this.forkPromise = new Promise ((resolve)=>{
             this._forkPromiseResolver = resolve;
@@ -23649,7 +23651,7 @@ class InterfaceBlockchainProtocolForkSolver{
      */
 
     //TODO it will not update positions
-    async discoverFork(socket, forkChainLength, forkChainStartingPoint){
+    async discoverFork(socket, forkChainLength, forkChainStartingPoint, forkLastBlockHeader ){
 
         let fork;
         let binarySearchResult = {position: -1, header: null };
@@ -23663,7 +23665,14 @@ class InterfaceBlockchainProtocolForkSolver{
             let forkFound = this.blockchain.forksAdministrator.findForkBySockets(socket);
 
             if ( forkFound !== null ) {
-                console.error("discoverAndProcessFork - fork already found");
+                console.error("discoverAndProcessFork - fork already found by socket");
+                return {result: true, fork: forkFound};
+            }
+
+            forkFound = this.blockchain.forksAdministrator.findForkByHeaders(forkLastBlockHeader);
+
+            if ( forkFound !== null ) {
+                console.error("discoverAndProcessFork - fork already found by forkLastBlockHeader");
                 return {result: true, fork: forkFound};
             }
 
@@ -23734,7 +23743,7 @@ class InterfaceBlockchainProtocolForkSolver{
                     if (!this.blockchain.agent.light)
                         forkChainLength = Math.min(forkChainLength, this.blockchain.blocks.length + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.FORKS.MAXIMUM_BLOCKS_TO_DOWNLOAD);
 
-                    fork = await this.blockchain.forksAdministrator.createNewFork(socket, binarySearchResult.position, forkChainStartingPoint, forkChainLength, binarySearchResult.header);
+                    fork = await this.blockchain.forksAdministrator.createNewFork(socket, binarySearchResult.position, forkChainStartingPoint, forkChainLength, [ binarySearchResult.header, forkLastBlockHeader] );
 
                 } catch (exception){
 
@@ -80024,17 +80033,17 @@ class InterfaceBlockchainForksAdministrator {
         this.socketsProcessing = [];
     }
 
-    createNewFork(sockets, forkStartingHeight, forkChainStartingPoint, forkChainLength, header){
+    createNewFork(sockets, forkStartingHeight, forkChainStartingPoint, forkChainLength, headers){
 
         if (!Array.isArray(sockets)) sockets = [sockets];
 
         let fork = this.findForkBySockets(sockets);
         if ( fork !== null ) return fork;
 
-        fork = this.findForkByHeader(header);
+        fork = this.findForkByHeaders(headers);
         if ( fork !== null) return fork;
 
-        fork = this.blockchain.agent.newFork( this.blockchain, this.forksId++, sockets, forkStartingHeight, forkChainStartingPoint, forkChainLength, header );
+        fork = this.blockchain.agent.newFork( this.blockchain, this.forksId++, sockets, forkStartingHeight, forkChainStartingPoint, forkChainLength, headers );
 
         this.forks.push(fork);
         return fork;
@@ -80072,20 +80081,40 @@ class InterfaceBlockchainForksAdministrator {
      * @param header
      * @returns {*}
      */
-    findForkByHeader(header){
+    findForkByHeaders(headers){
 
-        if (header === null || header === undefined)
+        if (headers === null || headers === undefined)
             return null;
+
+        if (Array.isArray(headers))
+            for (let i=0; i<headers.length; i++) {
+
+                let fork = this._findForkyByHeader(headers[i]);
+                if (fork !== null)
+                    return fork;
+            }
+        else
+            return this._findForkyByHeader(headers);
+
+        return null;
+
+    }
+
+    _findForkyByHeader(header){
 
         if (header.hash === null || header.hash === undefined)
             return null;
 
         for (let i = 0; i < this.forks.length; i++)
-            if ( this.forks[i].forkHeader !== null && this.forks[i].forkHeader.hash !== undefined && this.forks[i].forkHeader.hash !== null &&
-                (this.forks[i].forkHeader === header || __WEBPACK_IMPORTED_MODULE_1_common_utils_BufferExtended__["a" /* default */].safeCompare(this.forks[i].forkHeader.hash, header.hash )) )
-                return this.forks[i];
+            for (let j=0; j<this.forks[i].forkHeaders.length; j++) {
+
+                if (this.forks[i].forkHeaders[j] !== null && this.forks[i].forkHeaders[j].hash !== undefined && this.forks[i].forkHeaders[j].hash !== null &&
+                    (this.forks[i].forkHeaders[j] === header || __WEBPACK_IMPORTED_MODULE_1_common_utils_BufferExtended__["a" /* default */].safeCompare(this.forks[i].forkHeaders[j].hash, header.hash)))
+                    return this.forks[i];
+            }
 
         return null;
+
     }
 
     findForkByProofs(proof){
@@ -86817,9 +86846,9 @@ class VersionChecker{
 
 class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__["a" /* default */] {
 
-    async initializeConstructor(blockchain, forkId, sockets, forkStartingHeight, forkChainStartingPoint, newChainLength, header){
+    async initializeConstructor(blockchain, forkId, sockets, forkStartingHeight, forkChainStartingPoint, newChainLength, headers){
 
-        __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__["a" /* default */].prototype.initializeConstructor.call(this, blockchain, forkId, sockets, forkStartingHeight, forkChainStartingPoint, newChainLength, header);
+        __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__["a" /* default */].prototype.initializeConstructor.call(this, blockchain, forkId, sockets, forkStartingHeight, forkChainStartingPoint, newChainLength, headers);
 
         this.forkProofPi = null;
         this._forkProofPiClone = null;
