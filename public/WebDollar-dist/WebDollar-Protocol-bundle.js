@@ -2147,7 +2147,7 @@ consts.SETTINGS = {
 
             SOCKETS: {
                 MAXIMUM_CONNECTIONS_IN_BROWSER: 1,
-                MAXIMUM_CONNECTIONS_IN_TERMINAL: 3,
+                MAXIMUM_CONNECTIONS_IN_TERMINAL: 4,
             },
 
             WEBRTC: {
@@ -12801,7 +12801,7 @@ class NodesWaitlist {
 
     _tryToConnectNextNode(nextWaitListObject){
 
-        if ( true && this._connectedQueue.length > __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.SOCKETS.MAXIMUM_CONNECTIONS_IN_BROWSER ) return; else
+        if ( true && (this._connectedQueue.length + __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].countNodes(__WEBPACK_IMPORTED_MODULE_6__types_Connections_Type__["a" /* default */].CONNECTION_CLIENT_SOCKET)) > __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.SOCKETS.MAXIMUM_CONNECTIONS_IN_BROWSER ) return;
         if ( false ) return;
 
         //connect only to TERMINAL NODES
@@ -17057,21 +17057,15 @@ class InterfaceBlockchainProtocol {
 
         if (typeof data.header.hashPrev === 'string')
             data.header.hashPrev = __WEBPACK_IMPORTED_MODULE_3_common_utils_Serialization__["a" /* default */].fromBase(data.header.hashPrev);
-        else
-            data.header.hashPrev = new Buffer(data.header.hashPrev);
 
         if (typeof data.header.hash === 'string')
             data.header.hash = __WEBPACK_IMPORTED_MODULE_3_common_utils_Serialization__["a" /* default */].fromBase(data.header.hash);
-        else
-            data.header.hash = new Buffer(data.header.hash);
 
         if ((typeof data.header.nonce === 'number' || Buffer.isBuffer(data.header.nonce)) === false)
             throw {message: 'nonce is not specified'};
 
         if (typeof data.header.data.hashData === 'string')
             data.header.data.hashData = __WEBPACK_IMPORTED_MODULE_3_common_utils_Serialization__["a" /* default */].fromBase(data.header.data.hashData);
-        else
-            data.header.data.hashData = new Buffer(data.header.data.hashData);
 
         if (data.header.chainLength < data.header.height)
             throw {message: 'chainLength is smaller than block height ?? ', dataChainLength: data.header.chainLength, dataHeaderHeight: data.header.height};
@@ -17140,9 +17134,6 @@ class InterfaceBlockchainProtocol {
 
                     this._validateBlockchainHeader(data);
 
-                    //validate header
-                    //TODO !!!
-
                     if (data.height < 0)
                         throw {message: "your block is invalid"};
 
@@ -17161,23 +17152,13 @@ class InterfaceBlockchainProtocol {
 
                     console.log("blockchain/header/new-block newForkTip");
 
-                    let result = await this.forksManager.newForkTip(socket, data.chainLength, data.chainStartingPoint, data.header);
-
-                    socket.node.sendRequest("blockchain/header/new-block/answer/" + data.height || 0, {
-                        result: true,
-                        forkAnswer: (result !== null)
-                    });
-
+                    await this.forksManager.newForkTip(socket, data.chainLength, data.chainStartingPoint, data.header);
 
                 } catch (exception) {
 
                     if (! (typeof exception === "object" && exception.message === "your block is not new, because I have the same block at same height"))
                         console.error("Socket Error - blockchain/new-block-header", socket.node.sckAddress.addressString, exception, data);
 
-                    socket.node.sendRequest("blockchain/header/new-block/answer/" + data.height || 0, {
-                        result: false,
-                        message: exception,
-                    });
                 }
 
 
@@ -17305,10 +17286,6 @@ class InterfaceBlockchainProtocol {
 
             let result = await this.forksManager.newForkTip(socket, data.chainLength, data.chainStartingPoint, data.header);
 
-            socket.node.sendRequest("blockchain/header/new-block/answer/" + data.height || 0, {
-                result: true,
-                forkAnswer: (result !== null)
-            });
 
             return result;
 
@@ -52513,7 +52490,6 @@ class InterfaceBlockchainProtocolForksManager {
 
             socket.node.sendRequest( "blockchain/header/new-block", this.blockchain.blocks.last.getBlockHeaderWithInformation() );
 
-
             if (newChainLength < this.blockchain.blocks.length - 50)
                 __WEBPACK_IMPORTED_MODULE_0_common_utils_bans_BansList__["a" /* default */].addBan( socket, 500, "Your blockchain is smaller than mine" );
 
@@ -80116,14 +80092,15 @@ class InterfaceBlockchainForksAdministrator {
 
     _findForkyByHeader(header){
 
-        if (header.hash === null || header.hash === undefined)
+        if (header === null || header === undefined || header.hash === null || header.hash === undefined)
             return null;
 
         for (let i = 0; i < this.forks.length; i++)
+            if (this.forks[i] !== null)
             for (let j=0; j<this.forks[i].forkHeaders.length; j++) {
 
                 if (this.forks[i].forkHeaders[j] !== null && this.forks[i].forkHeaders[j].hash !== undefined && this.forks[i].forkHeaders[j].hash !== null &&
-                    (this.forks[i].forkHeaders[j] === header || __WEBPACK_IMPORTED_MODULE_1_common_utils_BufferExtended__["a" /* default */].safeCompare(this.forks[i].forkHeaders[j].hash, header.hash)))
+                    __WEBPACK_IMPORTED_MODULE_1_common_utils_BufferExtended__["a" /* default */].safeCompare(this.forks[i].forkHeaders[j].hash, header.hash))
                     return this.forks[i];
             }
 
