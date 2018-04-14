@@ -53,7 +53,8 @@
     }
 
     .vue-slider-component .vue-slider-process {
-        background: #fec02c !important;
+        /*background: #fec02c !important;*/
+        background: linear-gradient(to right, #3e3623 29%, #422d2d 100%) !important;
     }
 
     .vue-slider-component .vue-slider-tooltip{
@@ -61,6 +62,9 @@
         color: #262626!important;
         border: 1px solid #fec02c!important;
         background-color: #fec02c!important;
+        border: 1px solid #bdbdbd2e!important;
+        background-color: #bdbdbd2e!important;
+        color: #585858!important;
     }
 
 </style>

@@ -425,7 +425,7 @@ ibudisteanu:hover .panait, .budisteanu:hover .oprea, .budisteanu:hover .stratula
   width: 100%;
   height: 52px;
   display: block;
-  padding-bottom:82px;
+  padding-bottom:52px;
   border-top: solid 1px #444444;
 }
 
@@ -1942,4 +1942,14 @@ ibudisteanu:hover .panait, .budisteanu:hover .oprea, .budisteanu:hover .stratula
 
 .attention{
   color: #f20;
+}
+
+.dezactivatedColors{
+  background-color: #bdbdbd2e!important;
+  color: #585858!important;
+}
+
+.vue-slider-component .vue-slider-process {
+  /*background: #fec02c !important;*/
+  background: linear-gradient(to right, #3e3623 29%, #422d2d 100%) !important;
 }
