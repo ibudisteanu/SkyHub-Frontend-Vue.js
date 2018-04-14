@@ -1974,8 +1974,8 @@ consts.MINI_BLOCKCHAIN = {
 consts.POPOW_PARAMS={
     m: 30, //length proof Pi for validating the Genesis
 
-    k: 6, //length proof Xi for Accountant Tree
-    k1: 6, //length
+    k: 5, //length proof Xi for Accountant Tree
+    k1: 5, //length
 
     d: 0.5,
 
@@ -2109,8 +2109,8 @@ consts.SETTINGS = {
     UUID: uuid.v4(),
 
     NODE: {
-        VERSION: "0.40",
-        VERSION_COMPATIBILITY: "0.40",
+        VERSION: "0.49",
+        VERSION_COMPATIBILITY: "0.49",
         PROTOCOL: "WebDollar",
         SSL: true,
 
@@ -9029,12 +9029,12 @@ class BlockchainGenesis{
 
     constructor(){
 
-        this.hashPrev = new Buffer("653E87D0EF242774835C2BAE5111F052FEEA59049DF3D7746665F1640B03F7E0", "hex");
+        this.hashPrev = new Buffer("DAF6B9F26A99938A5B5785E74434484170140F9503260F7934897A1FEC0DF88D", "hex");
 
         this.timeStamp = 0;
         this.timeStampOffset = 1523697509;
 
-        this.difficultyTarget = new Buffer ( "00898112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb", "hex" ); //hard difficulty
+        this.difficultyTarget = new Buffer ( "00498112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb", "hex" ); //hard difficulty
 
         this.address = __WEBPACK_IMPORTED_MODULE_1_common_utils_BufferExtended__["a" /* default */].fromBase("WEBD$gBzsiV+$FARK8qSGqs09V6AEDBi#@fP6n7$"); // genesis address
     }
@@ -17261,7 +17261,7 @@ class InterfaceBlockchainProtocol {
 
         let data = await socket.node.sendRequestWaitOnce("get/blockchain/header/last-block", undefined, "answer");
 
-        console.log("get/blockchain/header/last-block2", data);
+        //console.log("get/blockchain/header/last-block2", data);
 
         try {
 
