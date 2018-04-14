@@ -65,7 +65,7 @@
                 blocksLength: 0,
                 loaded:false,
 
-                distributionProgressBarMax : 1000000000,
+                distributionProgressBarMax : 42000000000,
                 distributionProgressBarMin : 0
             }
         },
