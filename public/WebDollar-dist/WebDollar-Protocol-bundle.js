@@ -2159,7 +2159,7 @@ consts.SETTINGS = {
             },
 
             TIMEOUT: {
-                WAIT_ASYNC_DISCOVERY_TIMEOUT: 5000,
+                WAIT_ASYNC_DISCOVERY_TIMEOUT: 4500,
             }
 
         },
@@ -52528,7 +52528,7 @@ class InterfaceBlockchainProtocolForksManager {
 
         let answer = await this.protocol.forkSolver.discoverFork(socket, newChainLength, newChainStartingPoint, forkLastBlockHeader);
 
-        if (answer.result)
+        if (answer.result && answer.fork !== undefined)
             return answer.fork.forkPromise;
         else
             return false;
