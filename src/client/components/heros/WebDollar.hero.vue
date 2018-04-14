@@ -5,7 +5,7 @@
 
             <img src="/public/assets/images/WebDollar-logo-white.png" alt="webDollar-logo" title="webDollar-logo" class="mainLogo fadeIn">
 
-            <h1 class="fadeIn fadeIn2">WebDollar TEST NET #4.999</h1>
+            <h1 class="fadeIn fadeIn2">WebDollar TEST NET #4.x</h1>
             <h2 v-show="this.maintenance" class="fadeIn fadeIn2"><b class="testnet">UNDER MAINTENANCE</b></h2>
             <h3 class="fadeIn fadeIn3" :style="{marginTop: !this.mainNet ? '0': '30px'}">Currency of the Internet</h3>
 

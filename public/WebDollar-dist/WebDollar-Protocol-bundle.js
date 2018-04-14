@@ -2109,8 +2109,8 @@ consts.SETTINGS = {
     UUID: uuid.v4(),
 
     NODE: {
-        VERSION: "0.49",
-        VERSION_COMPATIBILITY: "0.49",
+        VERSION: "0.499",
+        VERSION_COMPATIBILITY: "0.499",
         PROTOCOL: "WebDollar",
         SSL: true,
 
@@ -26460,7 +26460,7 @@ class CLI{
             return;
         }
 
-        let answer = '9'//await this.question('Command: ');
+        let answer =  await this.question('Command: ');
 
         switch(answer.trim()) {
             case '1':
@@ -26498,7 +26498,7 @@ class CLI{
                 break;
         }
 
-        //await this._runMenu();
+        await this._runMenu();
     };
 
     async _start() {
@@ -51773,7 +51773,7 @@ class InterfaceTree{
         if (parent === null || parent === undefined)
             parent = this.root;
 
-        let node = this.root.createNewNode( parent, undefined, [], data )
+        let node = this.root.createNewNode( parent,  [], data )
         parent.edges.push( this.root.createNewEdge( node ) );
 
         node._changedNode();
@@ -82969,7 +82969,7 @@ class InterfaceRadixTree extends __WEBPACK_IMPORTED_MODULE_3_common_trees_Interf
 
                                 // Adding the new nodeMatch by edge Match
 
-                                nodeMatch = nodeCurrent.createNewNode( nodeCurrent, undefined, [], value);
+                                nodeMatch = nodeCurrent.createNewNode( nodeCurrent, [], value);
                                 nodeCurrent.edges.push( this.root.createNewEdge( match, nodeMatch ));
 
                                 // Adding the new nodeEdge to the nodeMatch
@@ -82983,7 +82983,7 @@ class InterfaceRadixTree extends __WEBPACK_IMPORTED_MODULE_3_common_trees_Interf
 
                                 // Adding the new nodeMatch by edge Match
 
-                                nodeMatch = nodeCurrent.createNewNode( nodeCurrent, undefined, [], null);
+                                nodeMatch = nodeCurrent.createNewNode( nodeCurrent,  [], null);
                                 nodeCurrent.edges.push( this.root.createNewEdge( match, nodeMatch ));
 
                                 // Adding the new nodeEdge to the nodeMatch
@@ -82991,7 +82991,7 @@ class InterfaceRadixTree extends __WEBPACK_IMPORTED_MODULE_3_common_trees_Interf
                                 edge.targetNode.parent = nodeMatch;
 
                                 // Adding thew new nodeChild with current Value
-                                let nodeChild = nodeMatch.createNewNode( nodeMatch, undefined, [], value);
+                                let nodeChild = nodeMatch.createNewNode( nodeMatch, [], value);
                                 nodeMatch.edges.push( this.root.createNewEdge(__WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__["a" /* default */].substr(input, i+match.length), nodeChild));
 
                                 nodeCurrent = nodeChild;
@@ -83041,7 +83041,7 @@ class InterfaceRadixTree extends __WEBPACK_IMPORTED_MODULE_3_common_trees_Interf
 
                 // no more Children...
 
-                let nodeChild = nodeCurrent.createNewNode(nodeCurrent, undefined, [], value);
+                let nodeChild = nodeCurrent.createNewNode(nodeCurrent,  [], value);
                 nodeCurrent.edges.push( this.root.createNewEdge( __WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__["a" /* default */].substr(input, i), nodeChild ));
 
                 //console.log("nodeChild2", nodeChild)
@@ -83748,6 +83748,7 @@ class MiniBlockchainAccountantTreeNode extends __WEBPACK_IMPORTED_MODULE_3_commo
 
     isLeaf(){
         return this.balances !== undefined
+        //return this.isLeafBasedOnParents();
     }
 
     isLeafBasedOnParents(){
@@ -83762,6 +83763,7 @@ class MiniBlockchainAccountantTreeNode extends __WEBPACK_IMPORTED_MODULE_3_commo
                         count += node.parent.edges[i].label.length;
                         break;
                     }
+
 
             node = node.parent;
         }
