@@ -44,7 +44,7 @@
                             </div>
                         </div>
                         <span class="teamName">Alexandru Ionut Panait</span>
-                        <span class="teamRole">PLATFORM DEVELOPER</span>
+                        <span class="teamRole">Co-founder</span>
                         <p>Alexandru is a young entrepreneur interested in technology and business. General Manager and Founder of a hiring Artificial Intelligence platform and a software agency.</p>
                     </div>
                     <div class="our-team oprea">
@@ -98,7 +98,7 @@
                             </div>
                         </div>
                         <span class="teamName">Tudor Smirna</span>
-                        <span class="teamRole">Economic advisor</span>
+                        <span class="teamRole">Economic Advisor</span>
                         <p>Tudor Smirna, Ph.D., is an economist and entrepreneur specialized in money and banking. He is a fellow of the Ludwig von Mises Institute and teaches at the Bucharest University of Economic Studies.</p>
                     </div>
                     <div class="our-team robescu">
