@@ -33,7 +33,7 @@
                     </div>
 
                     <div id="myProgress">
-                        <div id="myBar" :style="{width: blocksLength*3000 / this.distributionProgressBarMax * 100  + '%' }"></div>
+                        <div id="myBar" :style="{width: this.totalAmountCoins / this.distributionProgressBarMax * 100  + '%' }"></div>
                     </div>
                     <span class="minValue">{{this.distributionProgressBarMinString}} WEBD</span>
                     <span class="maxValue">{{this.distributionProgressBarMaxString}} WEBD</span>
@@ -79,7 +79,7 @@
                 return this.formatMoneyNumber(this.distributionProgressBarMax, 0)
             },
             distributionAmount(){
-                return this.formatMoneyNumber(this.blocksLength*3000, 0)
+                return this.formatMoneyNumber(this.totalAmountCoins, 0)
             },
 
             distributionBlocks(){
@@ -93,21 +93,16 @@
 
             if (WebDollar.Blockchain.synchronized){
 
-                this.verifyIfContainData( WebDollar.Blockchain.Chain.accountantTree.calculateNodeCoins() );
+                this.verifyIfContainData( WebDollar.Blockchain.Chain.accountantTree.calculateNodeCoins() / 10000 );
 
                 this.blocksLength = WebDollar.Blockchain.Chain.blocks.length;
 
             }
 
 
-            WebDollar.Blockchain.Chain.accountantTree.emitter.on("accountant-tree/root/total",(totalAmount)=>{
-
-                this.verifyIfContainData(totalAmount);
-
-            });
-
             WebDollar.StatusEvents.on("blockchain/blocks-count-changed", (blocksLength)=>{
 
+                this.verifyIfContainData( WebDollar.Blockchain.Chain.accountantTree.calculateNodeCoins() / 10000 );
                 this.blocksLength = blocksLength;
 
             });
@@ -117,6 +112,9 @@
         methods:{
 
             formatMoneyNumber(n, decimals=2) {
+
+                if (n === undefined) return '';
+
                 return n.toFixed(decimals).replace(/./g, function(c, i, a) {
                     return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;
                 });
