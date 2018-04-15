@@ -2109,8 +2109,8 @@ consts.SETTINGS = {
     UUID: uuid.v4(),
 
     NODE: {
-        VERSION: "0.499",
-        VERSION_COMPATIBILITY: "0.499",
+        VERSION: "0.4999",
+        VERSION_COMPATIBILITY: "0.4999",
         PROTOCOL: "WebDollar",
         SSL: true,
 
@@ -15616,7 +15616,7 @@ class InterfaceTreeNode {
 
                     let edge = new this.root.createNewEdge(null);
                     edge.deserializeEdge(buffer, offset, this.createNewNode);
-                    this.edges.push(edge);
+                    this.edgesPush(edge);
                 }
 
             }
@@ -15674,6 +15674,38 @@ class InterfaceTreeNode {
 
     _changedNode(node){
         //no changes in a simple tree
+    }
+
+    //lexicographic order
+    edgesPush(edge){
+
+        let position = 0;
+
+        if (typeof edge.label === "string" ) {
+            for (let i = 0; i < this.edges.length; i++) {
+                position = 0;
+                while (position >= 0 && position < this.edges.length) {
+
+                    if (edge.label > this.edges[position].label)
+                        position++;
+                    else
+                        break
+                }
+            }
+        } else if (Buffer.isBuffer(edge.label)){
+
+            position = 0;
+            while (position >= 0 && position < this.edges.length) {
+
+                if (Buffer.compare(edge.label, this.edges[position].label) > 0)
+                    position++;
+                else
+                    break
+            }
+        }
+
+        this.edges.splice(position, 0, edge);
+
     }
 
 
@@ -51634,7 +51666,7 @@ class InterfaceRadixTreeNode extends __WEBPACK_IMPORTED_MODULE_0_common_trees_In
                     offset += valueLength;
 
                     let targetNode = this.createNewNode();
-                    this.edges.push( this.root.createNewEdge(label, targetNode) );
+                    this.edgesPush( this.root.createNewEdge(label, targetNode) );
 
 
                     arguments[1] = offset;
@@ -51774,7 +51806,7 @@ class InterfaceTree{
             parent = this.root;
 
         let node = this.root.createNewNode( parent,  [], data )
-        parent.edges.push( this.root.createNewEdge( node ) );
+        parent.edgesPush( this.root.createNewEdge( node ) );
 
         node._changedNode();
         return node;
@@ -51813,7 +51845,7 @@ class InterfaceTree{
             // incase the current node has children, let's move the childrens
             if (node.edges.length > 0)
                 for (let i = 0; i < node.edges.length; i++) {
-                    nodeParent.edges.push(this.root.createNewEdge(node.edges[i].targetNode))
+                    nodeParent.edgesPush( this.root.createNewEdge(node.edges[i].targetNode))
                     node.edges[i].targetNode.parent = nodeParent;
                 }
 
@@ -82970,10 +83002,10 @@ class InterfaceRadixTree extends __WEBPACK_IMPORTED_MODULE_3_common_trees_Interf
                                 // Adding the new nodeMatch by edge Match
 
                                 nodeMatch = nodeCurrent.createNewNode( nodeCurrent, [], value);
-                                nodeCurrent.edges.push( this.root.createNewEdge( match, nodeMatch ));
+                                nodeCurrent.edgesPush( this.root.createNewEdge( match, nodeMatch ));
 
                                 // Adding the new nodeEdge to the nodeMatch
-                                nodeMatch.edges.push( this.root.createNewEdge( __WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__["a" /* default */].substr(edge.label, match.length), edge.targetNode), );
+                                nodeMatch.edgesPush( this.root.createNewEdge( __WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__["a" /* default */].substr(edge.label, match.length), edge.targetNode), );
                                 edge.targetNode.parent = nodeMatch;
 
                                 nodeCurrent = edge.targetNode;
@@ -82984,15 +83016,15 @@ class InterfaceRadixTree extends __WEBPACK_IMPORTED_MODULE_3_common_trees_Interf
                                 // Adding the new nodeMatch by edge Match
 
                                 nodeMatch = nodeCurrent.createNewNode( nodeCurrent,  [], null);
-                                nodeCurrent.edges.push( this.root.createNewEdge( match, nodeMatch ));
+                                nodeCurrent.edgesPush( this.root.createNewEdge( match, nodeMatch ));
 
                                 // Adding the new nodeEdge to the nodeMatch
-                                nodeMatch.edges.push( this.root.createNewEdge( __WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__["a" /* default */].substr(edge.label, match.length), edge.targetNode), );
+                                nodeMatch.edgesPush( this.root.createNewEdge( __WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__["a" /* default */].substr(edge.label, match.length), edge.targetNode), );
                                 edge.targetNode.parent = nodeMatch;
 
                                 // Adding thew new nodeChild with current Value
                                 let nodeChild = nodeMatch.createNewNode( nodeMatch, [], value);
-                                nodeMatch.edges.push( this.root.createNewEdge(__WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__["a" /* default */].substr(input, i+match.length), nodeChild));
+                                nodeMatch.edgesPush( this.root.createNewEdge(__WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__["a" /* default */].substr(input, i+match.length), nodeChild));
 
                                 nodeCurrent = nodeChild;
 
@@ -83042,7 +83074,7 @@ class InterfaceRadixTree extends __WEBPACK_IMPORTED_MODULE_3_common_trees_Interf
                 // no more Children...
 
                 let nodeChild = nodeCurrent.createNewNode(nodeCurrent,  [], value);
-                nodeCurrent.edges.push( this.root.createNewEdge( __WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__["a" /* default */].substr(input, i), nodeChild ));
+                nodeCurrent.edgesPush( this.root.createNewEdge( __WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__["a" /* default */].substr(input, i), nodeChild ));
 
                 //console.log("nodeChild2", nodeChild)
                 nodeChild._changedNode();
@@ -83125,7 +83157,7 @@ class InterfaceRadixTree extends __WEBPACK_IMPORTED_MODULE_3_common_trees_Interf
                     // prefix slow => slowly
                     if ( node._previousEdges.length === 1 ){
 
-                        nodeParent.edges.push(  this.root.createNewEdge( Buffer.concat( [ deletedParentEdge.label,  node._previousEdges[0].label  ] ), node._previousEdges[0].targetNode) );
+                        nodeParent.edgesPush(  this.root.createNewEdge( Buffer.concat( [ deletedParentEdge.label,  node._previousEdges[0].label  ] ), node._previousEdges[0].targetNode) );
 
                         node = node._previousEdges[0].targetNode;
                         node.parent = nodeParent;
@@ -83138,7 +83170,7 @@ class InterfaceRadixTree extends __WEBPACK_IMPORTED_MODULE_3_common_trees_Interf
                     if ( node._previousEdges.length > 1 ){
 
                         node.edges = node._previousEdges;
-                        nodeParent.edges.push( deletedParentEdge ) ;
+                        nodeParent.edgesPush( deletedParentEdge ) ;
 
                         //console.log("this._changedNode 1_1");
 
@@ -83155,12 +83187,9 @@ class InterfaceRadixTree extends __WEBPACK_IMPORTED_MODULE_3_common_trees_Interf
 
                             //replace grand parent edge child
                             for (let i = 0; i < grandParent.edges.length; i++)
-                                if (grandParent.edges[i].targetNode === nodeParent){
+                                if (grandParent.edges[i].targetNode === nodeParent) {
 
-                                    grandParent.edges[i].label =  Buffer.concat( [ grandParent.edges[i].label, edge.label  ] );
-                                    grandParent.edges[i].targetNode = node;
-
-                                    node.parent = grandParent;
+                                    grandParent.edgesPush( this.root.createNewEdge( Buffer.concat( [ grandParent.edges[i].label, edge.label  ] ), node ) );
 
                                     // it is not necessary its parent
                                     //console.log("this._changedNode 1_2");
