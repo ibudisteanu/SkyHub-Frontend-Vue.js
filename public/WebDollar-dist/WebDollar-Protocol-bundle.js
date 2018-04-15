@@ -23897,13 +23897,7 @@ class InterfaceBlockchainProtocolForkSolver{
 
                 console.error("Error including block " + nextBlockHeight + " in fork ", Exception);
 
-                try {
-                    console.log("block.serialization ", block.serializeBlock().toString("hex"));
-                } catch (exception) {
-                    console.error("Error serializing fork block", block);
-                }
-
-                return false;
+                throw {message: "fork.includeForkBlock returned an exception", Exception}
 
             }
 
@@ -84249,7 +84243,7 @@ class PPoWBlockchainBlock extends __WEBPACK_IMPORTED_MODULE_1_common_blockchain_
 
     async validateBlock(height){
 
-        let answer = __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block__["a" /* default */].prototype.validateBlock.call(this, height);
+        let answer = await __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block__["a" /* default */].prototype.validateBlock.call(this, height);
 
         if (!answer) return answer;
 
