@@ -44,7 +44,7 @@
                             </div>
                         </div>
                         <span class="teamName">Alexandru Ionut Panait</span>
-                        <span class="teamRole">Co-founder</span>
+                        <span class="teamRole">Platform Developer</span>
                         <p>Alexandru is a young entrepreneur interested in technology and business. General Manager and Founder of a hiring Artificial Intelligence platform and a software agency.</p>
                     </div>
                     <div class="our-team oprea">
