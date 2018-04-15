@@ -47,6 +47,20 @@
                         <span class="teamRole">Platform Developer</span>
                         <p>Alexandru is a young entrepreneur interested in technology and business. General Manager and Founder of a hiring Artificial Intelligence platform and a software agency.</p>
                     </div>
+                    <div class="our-team oprea">
+                        <div class="team-pic">
+                            <img src="/public/assets/images/team/cosminOprea.jpg" alt="Oprea Cosmin">
+                            <div class="over-layer">
+                                <ul class="social-link">
+                                    <li><a href="https://www.facebook.com/opreacosmind" class="fa fa-facebook" target="_blank"></a></li>
+                                    <li><a href="https://ro.linkedin.com/in/cosmin-dumitru-oprea-045a7353" class="fa fa-linkedin2" target="_blank"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <span class="teamName">Cosmin-Dumitru Oprea</span>
+                        <span class="teamRole">PROTOCOL DEVELOPER</span>
+                        <p>Cosmin is a Teaching Assistant at Politehnica University of Bucharest, Software Engineer with lot of knowledge in algorithms. Cosmin has won three Honorable Mentions at the ACM-ICPC SEERC.</p>
+                    </div>
                     <div class="our-team stratulat">
                         <div class="team-pic">
                             <img src="/public/assets/images/team/Adrian-Stratulat.jpg" alt="Adrian Stratulat">

@@ -84228,12 +84228,6 @@ class PPoWBlockchainBlock extends __WEBPACK_IMPORTED_MODULE_1_common_blockchain_
                 if (!__WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].safeCompare(interlink[i].blockId, this.interlink[i].blockId)) throw {message: "interlink prevBlock height is different"};
             }
 
-            console.warn("****************************************************", this.height)
-            console.warn("****************************************************", this.difficultyTargetPrev.toString("hex"))
-            console.warn("****************************************************", this.getLevel())
-            console.warn("****************************************************", this.interlink.length)
-            console.warn("****************************************************", this.interlink)
-
         }
 
 
@@ -92687,7 +92681,11 @@ class FallBackObject {
     },
     {
       "addr": ["skyhub.me", "92.222.85.90"],
-       "port": 443,
+       "port": 80,
+    },
+    {
+        "addr": ["webdollar.ddns.net"],
+        "port": 443,
     }
 
   ]
