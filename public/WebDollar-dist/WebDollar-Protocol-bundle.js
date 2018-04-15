@@ -14705,6 +14705,9 @@ class InterfaceBlockchainFork {
         if (success){
             //propagate last block
             this.blockchain.propagateBlocks( this.blockchain.blocks.length-1, this.sockets );
+
+            this.blockchain.agent.protocol.askBlockchain(this.getSocket());
+
         }
 
         return success;
@@ -52595,6 +52598,8 @@ class InterfaceBlockchainProtocolForksManager {
 
                 fork = this.blockchain.forksAdministrator.forks[i];
 
+                if (!fork.ready) continue;
+
                 if (bestFork === null || bestFork.forkChainLength < fork.forkChainLength)
                     bestFork = fork;
 
@@ -84228,12 +84233,6 @@ class PPoWBlockchainBlock extends __WEBPACK_IMPORTED_MODULE_1_common_blockchain_
                 if (!__WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].safeCompare(interlink[i].blockId, this.interlink[i].blockId)) throw {message: "interlink prevBlock height is different"};
             }
 
-            console.warn("****************************************************", this.height)
-            console.warn("****************************************************", this.difficultyTargetPrev.toString("hex"))
-            console.warn("****************************************************", this.getLevel())
-            console.warn("****************************************************", this.interlink.length)
-            console.warn("****************************************************", this.interlink)
-
         }
 
 
@@ -92681,14 +92680,15 @@ class FallBackObject {
   "name": "fallback nodes",
 
   "nodes": [
+
     {
       "addr": ["webdollar.ddns.net"],
        "port": 80,
     },
     {
       "addr": ["skyhub.me", "92.222.85.90"],
-       "port": 443,
-    }
+       "port": 80,
+    },
 
   ]
 });
