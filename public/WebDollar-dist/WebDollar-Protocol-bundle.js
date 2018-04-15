@@ -79663,10 +79663,15 @@ class MiniBlockchain extends  inheritBlockchain{
         try {
 
             let finalAccountantTree = new __WEBPACK_IMPORTED_MODULE_3__state_Mini_Blockchain_Accountant_Tree__["a" /* default */](this.db);
-            let result = await finalAccountantTree.loadMiniAccountant(undefined, undefined, true);
-            //let serializationAccountantTreeFinal = this.accountantTree.serializeMiniAccountant();
+            let result;
 
-            result = result && await inheritBlockchain.prototype.loadBlockchain.call( this  );
+            try {
+                result = await finalAccountantTree.loadMiniAccountant(undefined, undefined, true);
+            } catch (exception){
+                console.error("accountant Tree returned an error", exception);
+            }
+
+            result = await inheritBlockchain.prototype.loadBlockchain.call( this  );
 
             if ( result === false )
                 throw {message: "Problem loading the blockchain"};
@@ -83189,7 +83194,12 @@ class InterfaceRadixTree extends __WEBPACK_IMPORTED_MODULE_3_common_trees_Interf
                             for (let i = 0; i < grandParent.edges.length; i++)
                                 if (grandParent.edges[i].targetNode === nodeParent) {
 
-                                    grandParent.edgesPush( this.root.createNewEdge( Buffer.concat( [ grandParent.edges[i].label, edge.label  ] ), node ) );
+
+                                    let label =  Buffer.concat( [ grandParent.edges[i].label, edge.label  ]);
+                                    grandParent.edges.splice(i,1);
+                                    grandParent.edgesPush( this.root.createNewEdge( label, node )) ;
+
+                                    node.parent = grandParent;
 
                                     // it is not necessary its parent
                                     //console.log("this._changedNode 1_2");
