@@ -2109,8 +2109,8 @@ consts.SETTINGS = {
     UUID: uuid.v4(),
 
     NODE: {
-        VERSION: "0.49",
-        VERSION_COMPATIBILITY: "0.49",
+        VERSION: "0.4999",
+        VERSION_COMPATIBILITY: "0.4999",
         PROTOCOL: "WebDollar",
         SSL: true,
 
@@ -15524,7 +15524,7 @@ class InterfaceTreeNode {
     // value : data
     // edges : [ of Edges]
 
-    constructor(root, parent, parentEdge, edges, value){
+    constructor(root, parent, edges, value){
 
         if (edges === undefined)
             edges = [];
@@ -15537,7 +15537,6 @@ class InterfaceTreeNode {
         this.root = root;
 
         this.parent = parent;
-        this.parentEdge = parentEdge;
 
         this.edges = edges;
 
@@ -15617,7 +15616,7 @@ class InterfaceTreeNode {
 
                     let edge = new this.root.createNewEdge(null);
                     edge.deserializeEdge(buffer, offset, this.createNewNode);
-                    this.edges.push(edge);
+                    this.edgesPush(edge);
                 }
 
             }
@@ -15634,10 +15633,10 @@ class InterfaceTreeNode {
         return new __WEBPACK_IMPORTED_MODULE_2__Interface_Tree_Edge__["a" /* default */](node);
     }
 
-    createNewNode(parent, parentEdge, edges=[], value=null, hash = null){
+    createNewNode(parent,  edges=[], value=null, hash = null){
 
         if (parent === undefined ) parent = this;
-        return new this.constructor (this.root, parent,parentEdge, edges, value, hash);
+        return new this.constructor (this.root, parent, edges, value, hash);
     }
 
     validateTreeNode(){
@@ -15675,6 +15674,38 @@ class InterfaceTreeNode {
 
     _changedNode(node){
         //no changes in a simple tree
+    }
+
+    //lexicographic order
+    edgesPush(edge){
+
+        let position = 0;
+
+        if (typeof edge.label === "string" ) {
+            for (let i = 0; i < this.edges.length; i++) {
+                position = 0;
+                while (position >= 0 && position < this.edges.length) {
+
+                    if (edge.label > this.edges[position].label)
+                        position++;
+                    else
+                        break
+                }
+            }
+        } else if (Buffer.isBuffer(edge.label)){
+
+            position = 0;
+            while (position >= 0 && position < this.edges.length) {
+
+                if (Buffer.compare(edge.label, this.edges[position].label) > 0)
+                    position++;
+                else
+                    break
+            }
+        }
+
+        this.edges.splice(position, 0, edge);
+
     }
 
 
@@ -23210,7 +23241,7 @@ class PPowBlockchainProofPi extends __WEBPACK_IMPORTED_MODULE_0__PPoW_Blockchain
 class MiniBlockchainAccountantTree extends __WEBPACK_IMPORTED_MODULE_5__Mini_Blockchain_Accountant_Tree_Events__["a" /* default */] {
 
     createRoot(){
-        this.root = new __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Accountant_Tree_Node__["a" /* default */](null, null, null, [], null);
+        this.root = new __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Accountant_Tree_Node__["a" /* default */](null, null,  [], null);
         this.root.autoMerklify = true;
         this.root.deleteEmptyAddresses = false;
         this.root.root = this.root;
@@ -23460,7 +23491,6 @@ class InterfaceTreeEdge {
             throw {message: "Target Node is not a Node"};
 
         this.targetNode = targetNode;
-        this.targetNode.parentEdge = this;
 
     }
 
@@ -26462,7 +26492,7 @@ class CLI{
             return;
         }
 
-        let answer = '9'//await this.question('Command: ');
+        let answer =  await this.question('Command: ');
 
         switch(answer.trim()) {
             case '1':
@@ -26500,7 +26530,7 @@ class CLI{
                 break;
         }
 
-        //await this._runMenu();
+        await this._runMenu();
     };
 
     async _start() {
@@ -51547,7 +51577,7 @@ class InterfaceRadixMerkleTree extends __WEBPACK_IMPORTED_MODULE_0__Interface_Ra
     }
 
     createRoot(){
-        this.root = new __WEBPACK_IMPORTED_MODULE_1__Interface_Merkle_Radix_Tree_Node__["a" /* default */](null, null,null, [], null);
+        this.root = new __WEBPACK_IMPORTED_MODULE_1__Interface_Merkle_Radix_Tree_Node__["a" /* default */](null, null, [], null);
         this.root.autoMerklify = true;
         this.root.root = this.root;
     }
@@ -51585,8 +51615,8 @@ class InterfaceRadixTreeNode extends __WEBPACK_IMPORTED_MODULE_0_common_trees_In
     // value : data
     // edges : [ of Edges]
 
-    constructor(root, parent, parentEdge, edges, value){
-        super(root, parent, parentEdge, edges, value);
+    constructor(root, parent,  edges, value){
+        super(root, parent,  edges, value);
     }
 
     serializeNode(includeEdges){
@@ -51636,7 +51666,7 @@ class InterfaceRadixTreeNode extends __WEBPACK_IMPORTED_MODULE_0_common_trees_In
                     offset += valueLength;
 
                     let targetNode = this.createNewNode();
-                    this.edges.push( this.root.createNewEdge(label, targetNode) );
+                    this.edgesPush( this.root.createNewEdge(label, targetNode) );
 
 
                     arguments[1] = offset;
@@ -51753,7 +51783,7 @@ class InterfaceTree{
     }
 
     createRoot(){
-        this.root = new __WEBPACK_IMPORTED_MODULE_1__Interface_Tree_Node__["a" /* default */](null, null, null, [], null);
+        this.root = new __WEBPACK_IMPORTED_MODULE_1__Interface_Tree_Node__["a" /* default */](null, null,  [], null);
         this.root.root = this.root;
     }
 
@@ -51775,8 +51805,8 @@ class InterfaceTree{
         if (parent === null || parent === undefined)
             parent = this.root;
 
-        let node = this.root.createNewNode( parent, undefined, [], data )
-        parent.edges.push( this.root.createNewEdge( node ) );
+        let node = this.root.createNewNode( parent,  [], data )
+        parent.edgesPush( this.root.createNewEdge( node ) );
 
         node._changedNode();
         return node;
@@ -51815,7 +51845,7 @@ class InterfaceTree{
             // incase the current node has children, let's move the childrens
             if (node.edges.length > 0)
                 for (let i = 0; i < node.edges.length; i++) {
-                    nodeParent.edges.push(this.root.createNewEdge(node.edges[i].targetNode))
+                    nodeParent.edgesPush( this.root.createNewEdge(node.edges[i].targetNode))
                     node.edges[i].targetNode.parent = nodeParent;
                 }
 
@@ -52126,9 +52156,9 @@ class InterfaceMerkleRadixTreeNode extends __WEBPACK_IMPORTED_MODULE_0_common_tr
     // edges : [ of Edges]
     // hash
 
-    constructor(root, parent, parentEdge, edges, value, hash){
+    constructor(root, parent,  edges, value, hash){
 
-        super(root, parent, parentEdge, edges, value);
+        super(root, parent,  edges, value);
 
         this.hash = hash;
 
@@ -52246,9 +52276,9 @@ class InterfaceMerkleTreeNode extends __WEBPACK_IMPORTED_MODULE_0_common_trees_I
     // edges : [ of Edges]
     // hash
 
-    constructor(root, parent, parentEdge, edges, value, hash){
+    constructor(root, parent, edges, value, hash){
 
-        super(root, parent, parentEdge, edges, value);
+        super(root, parent,  edges, value);
 
         if (hash === undefined)
             hash = {sha256: new Buffer(32)};
@@ -79633,10 +79663,15 @@ class MiniBlockchain extends  inheritBlockchain{
         try {
 
             let finalAccountantTree = new __WEBPACK_IMPORTED_MODULE_3__state_Mini_Blockchain_Accountant_Tree__["a" /* default */](this.db);
-            let result = await finalAccountantTree.loadMiniAccountant(undefined, undefined, true);
-            //let serializationAccountantTreeFinal = this.accountantTree.serializeMiniAccountant();
+            let result;
 
-            result = result && await inheritBlockchain.prototype.loadBlockchain.call( this  );
+            try {
+                result = await finalAccountantTree.loadMiniAccountant(undefined, undefined, true);
+            } catch (exception){
+                console.error("accountant Tree returned an error", exception);
+            }
+
+            result = await inheritBlockchain.prototype.loadBlockchain.call( this  );
 
             if ( result === false )
                 throw {message: "Problem loading the blockchain"};
@@ -82912,7 +82947,7 @@ class PPoWBlockchainVerifier{
 class InterfaceRadixTree extends __WEBPACK_IMPORTED_MODULE_3_common_trees_Interface_Tree__["a" /* default */]{
 
     createRoot(){
-        this.root = new __WEBPACK_IMPORTED_MODULE_1__Interface_Radix_Tree_Node__["a" /* default */](null, null,null, [], null);
+        this.root = new __WEBPACK_IMPORTED_MODULE_1__Interface_Radix_Tree_Node__["a" /* default */](null, null, [], null);
         this.root.root = this.root;
     }
 
@@ -82971,11 +83006,11 @@ class InterfaceRadixTree extends __WEBPACK_IMPORTED_MODULE_3_common_trees_Interf
 
                                 // Adding the new nodeMatch by edge Match
 
-                                nodeMatch = nodeCurrent.createNewNode( nodeCurrent, undefined, [], value);
-                                nodeCurrent.edges.push( this.root.createNewEdge( match, nodeMatch ));
+                                nodeMatch = nodeCurrent.createNewNode( nodeCurrent, [], value);
+                                nodeCurrent.edgesPush( this.root.createNewEdge( match, nodeMatch ));
 
                                 // Adding the new nodeEdge to the nodeMatch
-                                nodeMatch.edges.push( this.root.createNewEdge( __WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__["a" /* default */].substr(edge.label, match.length), edge.targetNode), );
+                                nodeMatch.edgesPush( this.root.createNewEdge( __WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__["a" /* default */].substr(edge.label, match.length), edge.targetNode), );
                                 edge.targetNode.parent = nodeMatch;
 
                                 nodeCurrent = edge.targetNode;
@@ -82985,16 +83020,16 @@ class InterfaceRadixTree extends __WEBPACK_IMPORTED_MODULE_3_common_trees_Interf
 
                                 // Adding the new nodeMatch by edge Match
 
-                                nodeMatch = nodeCurrent.createNewNode( nodeCurrent, undefined, [], null);
-                                nodeCurrent.edges.push( this.root.createNewEdge( match, nodeMatch ));
+                                nodeMatch = nodeCurrent.createNewNode( nodeCurrent,  [], null);
+                                nodeCurrent.edgesPush( this.root.createNewEdge( match, nodeMatch ));
 
                                 // Adding the new nodeEdge to the nodeMatch
-                                nodeMatch.edges.push( this.root.createNewEdge( __WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__["a" /* default */].substr(edge.label, match.length), edge.targetNode), );
+                                nodeMatch.edgesPush( this.root.createNewEdge( __WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__["a" /* default */].substr(edge.label, match.length), edge.targetNode), );
                                 edge.targetNode.parent = nodeMatch;
 
                                 // Adding thew new nodeChild with current Value
-                                let nodeChild = nodeMatch.createNewNode( nodeMatch, undefined, [], value);
-                                nodeMatch.edges.push( this.root.createNewEdge(__WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__["a" /* default */].substr(input, i+match.length), nodeChild));
+                                let nodeChild = nodeMatch.createNewNode( nodeMatch, [], value);
+                                nodeMatch.edgesPush( this.root.createNewEdge(__WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__["a" /* default */].substr(input, i+match.length), nodeChild));
 
                                 nodeCurrent = nodeChild;
 
@@ -83043,8 +83078,8 @@ class InterfaceRadixTree extends __WEBPACK_IMPORTED_MODULE_3_common_trees_Interf
 
                 // no more Children...
 
-                let nodeChild = nodeCurrent.createNewNode(nodeCurrent, undefined, [], value);
-                nodeCurrent.edges.push( this.root.createNewEdge( __WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__["a" /* default */].substr(input, i), nodeChild ));
+                let nodeChild = nodeCurrent.createNewNode(nodeCurrent,  [], value);
+                nodeCurrent.edgesPush( this.root.createNewEdge( __WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__["a" /* default */].substr(input, i), nodeChild ));
 
                 //console.log("nodeChild2", nodeChild)
                 nodeChild._changedNode();
@@ -83127,7 +83162,7 @@ class InterfaceRadixTree extends __WEBPACK_IMPORTED_MODULE_3_common_trees_Interf
                     // prefix slow => slowly
                     if ( node._previousEdges.length === 1 ){
 
-                        nodeParent.edges.push(  this.root.createNewEdge( Buffer.concat( [ deletedParentEdge.label,  node._previousEdges[0].label  ] ), node._previousEdges[0].targetNode) );
+                        nodeParent.edgesPush(  this.root.createNewEdge( Buffer.concat( [ deletedParentEdge.label,  node._previousEdges[0].label  ] ), node._previousEdges[0].targetNode) );
 
                         node = node._previousEdges[0].targetNode;
                         node.parent = nodeParent;
@@ -83140,7 +83175,7 @@ class InterfaceRadixTree extends __WEBPACK_IMPORTED_MODULE_3_common_trees_Interf
                     if ( node._previousEdges.length > 1 ){
 
                         node.edges = node._previousEdges;
-                        nodeParent.edges.push( deletedParentEdge ) ;
+                        nodeParent.edgesPush( deletedParentEdge ) ;
 
                         //console.log("this._changedNode 1_1");
 
@@ -83157,13 +83192,14 @@ class InterfaceRadixTree extends __WEBPACK_IMPORTED_MODULE_3_common_trees_Interf
 
                             //replace grand parent edge child
                             for (let i = 0; i < grandParent.edges.length; i++)
-                                if (grandParent.edges[i].targetNode === nodeParent){
+                                if (grandParent.edges[i].targetNode === nodeParent) {
 
-                                    grandParent.edges[i].label =  Buffer.concat( [ grandParent.edges[i].label, edge.label  ] );
-                                    grandParent.edges[i].targetNode = node;
+
+                                    let label =  Buffer.concat( [ grandParent.edges[i].label, edge.label  ]);
+                                    grandParent.edges.splice(i,1);
+                                    grandParent.edgesPush( this.root.createNewEdge( label, node )) ;
 
                                     node.parent = grandParent;
-                                    node.parentEdge = grandParent.edges[i];
 
                                     // it is not necessary its parent
                                     //console.log("this._changedNode 1_2");
@@ -83338,7 +83374,7 @@ class InterfaceMerkleTree extends __WEBPACK_IMPORTED_MODULE_1_common_trees_Inter
     }
 
     createRoot(){
-        this.root = new __WEBPACK_IMPORTED_MODULE_2__Interface_Merkle_Tree_Node__["a" /* default */](null, null, null, [], null);
+        this.root = new __WEBPACK_IMPORTED_MODULE_2__Interface_Merkle_Tree_Node__["a" /* default */](null, null,  [], null);
         this.root.autoMerklify = true;
         this.root.root = this.root;
     }
@@ -83399,9 +83435,9 @@ class InterfaceMerkleTree extends __WEBPACK_IMPORTED_MODULE_1_common_trees_Inter
 
 class MiniBlockchainAccountantTreeNode extends __WEBPACK_IMPORTED_MODULE_3_common_trees_radix_tree_merkle_tree_Interface_Merkle_Radix_Tree_Node__["a" /* default */]{
 
-    constructor (root, parent, parentEdge, edges, value){
+    constructor (root, parent, edges, value){
 
-        super(root, parent, parentEdge, edges);
+        super(root, parent, edges);
 
         //console.log("value", value);
         this.hash = { sha256: new Buffer(32) };
@@ -83751,23 +83787,25 @@ class MiniBlockchainAccountantTreeNode extends __WEBPACK_IMPORTED_MODULE_3_commo
 
     isLeaf(){
         return this.balances !== undefined
+        //return this.isLeafBasedOnParents();
     }
 
     isLeafBasedOnParents(){
 
-        let edge = this.parentEdge;
         let node = this;
-
         let count = 0;
+        while (node !== null){
 
-        while (node !== null && edge !== null){
+            if (node.parent !== null)
+                for (let i=0; i<node.parent.edges.length; i++)
+                    if (node.parent.edges[i].targetNode === node){
+                        count += node.parent.edges[i].label.length;
+                        break;
+                    }
 
-            count += edge.label.length;
+
             node = node.parent;
-            edge = node.parentEdge;
         }
-
-
 
         if (count === __WEBPACK_IMPORTED_MODULE_2_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.LENGTH)
             return true;
