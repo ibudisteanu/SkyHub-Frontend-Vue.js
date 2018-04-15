@@ -92691,7 +92691,7 @@ class FallBackObject {
     },
     {
         "addr": ["webdollar.zapto.org"],
-        "port": 80,
+        "port": 8080,
     },
 
   ]
