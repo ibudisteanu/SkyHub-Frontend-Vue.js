@@ -92689,6 +92689,10 @@ class FallBackObject {
       "addr": ["skyhub.me", "92.222.85.90"],
        "port": 80,
     },
+    {
+        "addr": ["webdollar.zapto.org"],
+        "port": 80,
+    },
 
   ]
 });
