@@ -14705,6 +14705,9 @@ class InterfaceBlockchainFork {
         if (success){
             //propagate last block
             this.blockchain.propagateBlocks( this.blockchain.blocks.length-1, this.sockets );
+
+            this.blockchain.agent.protocol.askBlockchain(this.getSocket());
+
         }
 
         return success;
@@ -52594,6 +52597,8 @@ class InterfaceBlockchainProtocolForksManager {
             for (let i = 0; i < this.blockchain.forksAdministrator.forks.length; i++) {
 
                 fork = this.blockchain.forksAdministrator.forks[i];
+
+                if (!fork.ready) continue;
 
                 if (bestFork === null || bestFork.forkChainLength < fork.forkChainLength)
                     bestFork = fork;
