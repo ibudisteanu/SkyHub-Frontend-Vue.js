@@ -50,7 +50,7 @@
                     </div>
                     <div class="timeline timelineUnfinishedMilestones">
                         <div class="timeline-icon unfinishedMilestones"><i class="fa fa-rocket"></i></div>
-                        <span class="year">TBA</span>
+                        <span class="year">APRIL 15</span>
                         <div class="timeline-content">
                             <h5 class="title">SECURITY + LAUNCH MAIN NET</h5>
                             <p class="description">
