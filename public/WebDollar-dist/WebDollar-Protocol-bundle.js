@@ -12742,10 +12742,14 @@ class NodesWaitlist {
 
             let sckAddress = __WEBPACK_IMPORTED_MODULE_3_common_sockets_socket_address__["a" /* default */].createSocketAddress(addresses[i], port);
 
-            let foundWaitList = this._searchNodesWaitlist(sckAddress);
+            if (backedBy !==  "fallback" ) {
 
-            if ( foundWaitList !== null)  foundWaitList.pushBackedBy(backedBy);
-            else  sckAddresses.push(sckAddress);
+                let foundWaitList = this._searchNodesWaitlist(sckAddress);
+
+                if (foundWaitList !== null) foundWaitList.pushBackedBy(backedBy);
+                else sckAddresses.push(sckAddress);
+
+            }
 
         }
 
@@ -88207,6 +88211,9 @@ class NodeClient {
 
                         reconnection: false, //no reconnection because it is managed automatically by the WaitList
                         maxHttpBufferSize: __WEBPACK_IMPORTED_MODULE_1_consts_const_global__["a" /* default */].SOCKET_MAX_SIZE_BYRES,
+
+                        connection_timeout : 20000,
+                        timeout: 20000,
 
                         secure: __WEBPACK_IMPORTED_MODULE_1_consts_const_global__["a" /* default */].SETTINGS.NODE.SSL, //https
                     });
