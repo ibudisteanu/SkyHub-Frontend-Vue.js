@@ -2152,7 +2152,7 @@ consts.SETTINGS = {
             },
 
             SERVER: {
-                MAXIMUM_CLIENT_CONNECTIONS: 60,
+                MAXIMUM_CLIENT_CONNECTIONS: 50,
             },
 
             WEBRTC: {
@@ -92647,7 +92647,7 @@ class FallBackObject {
     "nodes": [
 
         {
-            "addr": ["webdollar.ddns.net:80", "webdollar.ddns.net:8081"],
+            "addr": ["webdollar.ddns.net:80", "webdollar.ddns.net:8081", "webdollar.ddns.net:8082"],
         },
 
     ]
