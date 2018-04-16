@@ -2150,6 +2150,10 @@ consts.SETTINGS = {
                 MAXIMUM_CONNECTIONS_IN_TERMINAL: 4,
             },
 
+            SERVER: {
+                MAXIMUM_CLIENT_CONNECTIONS: 80,
+            },
+
             WEBRTC: {
                 MAXIMUM_CONNECTIONS: 7,
             },
@@ -12832,29 +12836,29 @@ class NodesWaitlist {
         nextWaitListObject.connecting = true;
 
         //trying to connect to each sckAddresses
-        for (let i=0; i<nextWaitListObject.sckAddresses.length; i++) {
 
-            //search if the new protocol was already connected in the past
-            let nodeClient = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].searchNodeSocketByAddress(nextWaitListObject.sckAddresses[i], 'all', ["id","uuid"]);
-            if (nodeClient !== null) return nodeClient;
+        let index = Math.floor( Math.random() * nextWaitListObject.sckAddresses.length );
 
-            if (nextWaitListObject.socket !== null) nodeClient = nextWaitListObject.socket;
-            else nodeClient = new __WEBPACK_IMPORTED_MODULE_0_node_sockets_node_clients_socket_Node_Client__["a" /* default */]();
+        //search if the new protocol was already connected in the past
+        let nodeClient = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].searchNodeSocketByAddress(nextWaitListObject.sckAddresses[index], 'all', ["id","uuid"]);
+        if (nodeClient !== null) return nodeClient;
 
-            try {
-                let answer = await nodeClient.connectTo(nextWaitListObject.sckAddresses[i], undefined, nextWaitListObject.level+1);
+        if (nextWaitListObject.socket !== null) nodeClient = nextWaitListObject.socket;
+        else nodeClient = new __WEBPACK_IMPORTED_MODULE_0_node_sockets_node_clients_socket_Node_Client__["a" /* default */]();
 
-                if (answer) nextWaitListObject.socketConnected(nodeClient);
-                else nextWaitListObject.socketErrorConnected();
+        try {
+            let answer = await nodeClient.connectTo(nextWaitListObject.sckAddresses[index], undefined, nextWaitListObject.level+1);
 
-                nextWaitListObject.connecting = false;
-                return answer;
-            }
-            catch (Exception) {
-                console.log("Error connecting to new protocol waitlist", Exception)
-            }
+            if (answer) nextWaitListObject.socketConnected(nodeClient);
+            else nextWaitListObject.socketErrorConnected();
 
+            nextWaitListObject.connecting = false;
+            return answer;
         }
+        catch (Exception) {
+            console.log("Error connecting to new protocol waitlist", Exception)
+        }
+
         nextWaitListObject.connecting = false;
         return false;
     }
@@ -23144,11 +23148,15 @@ class GeoHelper {
 
     async getLocationFromAddress(address, skipSocketAddress){
 
+        if (false)
+            return null;
+
         if ( skipSocketAddress === undefined) skipSocketAddress = false;
 
         let sckAddress = null;
 
         if (!skipSocketAddress) {
+
             sckAddress = __WEBPACK_IMPORTED_MODULE_1_common_sockets_socket_address__["a" /* default */].createSocketAddress(address);
             address = sckAddress.getAddress(false);
 
@@ -88225,7 +88233,7 @@ class NodeClient {
 
             try
             {
-                if (address.length < 3){
+                if ( address.length < 3 ){
                     console.log("rejecting address... invalid ",address);
                     resolve(false);
                     return false;
@@ -88242,7 +88250,7 @@ class NodeClient {
                 try {
 
                     // params described in the documentation https://socket.io/docs/client-api#manager
-                    socket = __WEBPACK_IMPORTED_MODULE_0_socket_io_client__(address, {
+                    socket = __WEBPACK_IMPORTED_MODULE_0_socket_io_client__( address, {
 
                         reconnection: false, //no reconnection because it is managed automatically by the WaitList
                         maxHttpBufferSize: __WEBPACK_IMPORTED_MODULE_1_consts_const_global__["a" /* default */].SOCKET_MAX_SIZE_BYRES,
@@ -88258,7 +88266,7 @@ class NodeClient {
                 this.socket = socket;
 
 
-                socket.once("connect", (response) =>{
+                socket.once("connect", ( response ) =>{
 
                     //Connection Established
 
@@ -92676,16 +92684,14 @@ class FallBackObject {
     "nodes": [
 
         {
-            "addr": ["webdollar.ddns.net"],
-            "port": 80,
+            "addr": ["webdollar.ddns.net:80", "webdollar.ddns.net:2024"],
         },
         {
             "addr": ["skyhub.me", "92.222.85.90"],
             "port": 80,
         },
         {
-            "addr": ["webdollar.zapto.org"],
-            "port": 8080,
+            "addr": ["webdollar.zapto.org:8080", "webdollar.zapto.org:8085"],
         },
         {
             "addr": ["presa7.ro"],
@@ -92825,18 +92831,18 @@ class NodesStats {
 
         console.log(" connected to: ", this.statsClients," , from: ", this.statsServer , " web peers", this.statsWebPeers," Waitlist:",this.statsWaitlist,  "    GeoLocationContinents: ", __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geolocation_lists__["a" /* default */].countGeoLocationContinentsLists );
 
-        let string1 = "";
-        let clients = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].getNodes(__WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_CLIENT_SOCKET);
-        for (let i=0; i<clients.length; i++)
-            string1 += '('+clients[i].socket.node.sckAddress.address+' , '+clients[i].socket.node.sckAddress.uuid+')   ';
-
-        let string2 = "";
-        let server = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].getNodes( __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_SERVER_SOCKET );
-        for (let i=0; i<server.length; i++)
-            string2 += '(' + server[i].socket.node.sckAddress.address + ' , ' + server[i].socket.node.sckAddress.uuid + ')   ';
-
-        console.log("clients: ",string1);
-        console.log("server: ",string2);
+        // let string1 = "";
+        // let clients = NodesList.getNodes(ConnectionsType.CONNECTION_CLIENT_SOCKET);
+        // for (let i=0; i<clients.length; i++)
+        //     string1 += '('+clients[i].socket.node.sckAddress.address+' , '+clients[i].socket.node.sckAddress.uuid+')   ';
+        //
+        // let string2 = "";
+        // let server = NodesList.getNodes( ConnectionsType.CONNECTION_SERVER_SOCKET );
+        // for (let i=0; i<server.length; i++)
+        //     string2 += '(' + server[i].socket.node.sckAddress.address + ' , ' + server[i].socket.node.sckAddress.uuid + ')   ';
+        //
+        // console.log("clients: ",string1);
+        // console.log("server: ",string2);
 
     }
 
