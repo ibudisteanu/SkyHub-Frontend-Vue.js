@@ -2151,7 +2151,7 @@ consts.SETTINGS = {
             },
 
             SERVER: {
-                MAXIMUM_CLIENT_CONNECTIONS: 80,
+                MAXIMUM_CLIENT_CONNECTIONS: 150,
             },
 
             WEBRTC: {
@@ -14616,6 +14616,9 @@ class InterfaceBlockchainFork {
         if (height === this.forkChainLength-1)
             validationType["validation-timestamp-adjusted-time"] = true;
 
+        if (height !== this.forkChainLength-1)
+            validationType["avoid-calculating-proofs"] = true;
+
         return new __WEBPACK_IMPORTED_MODULE_0__blocks_validation_Interface_Blockchain_Block_Validation__["a" /* default */](this.getForkBlock.bind(this), this.getForkDifficultyTarget.bind(this), this.getForkTimeStamp.bind(this), this.getForkPrevHash.bind(this), validationType );
     }
 
@@ -14644,7 +14647,7 @@ class InterfaceBlockchainFork {
         let success = await this.blockchain.semaphoreProcessing.processSempahoreCallback( async () => {
 
             //make a copy of the current accountant tree
-            let accountantTreeCopy = this.blockchain.accountantTree.serializeMiniAccountant(false);
+            //let accountantTreeCopy = this.blockchain.accountantTree.serializeMiniAccountant(false);
 
             //making a copy of the current blockchain
 
@@ -14654,7 +14657,7 @@ class InterfaceBlockchainFork {
 
             } catch (exception){
                 console.error("preForkBefore raised an error", exception);
-                this.blockchain.accountantTree.deserializeMiniAccountant(accountantTreeCopy, undefined, false);
+                //this.blockchain.accountantTree.deserializeMiniAccountant(accountantTreeCopy, undefined, false);
                 return false;
             }
 
@@ -14671,7 +14674,8 @@ class InterfaceBlockchainFork {
                 revertActions.revertOperations('', "all");
                 this._blocksCopy = []; //We didn't use them so far
                 await this.revertFork();
-                this.blockchain.accountantTree.deserializeMiniAccountant(accountantTreeCopy, undefined, false);
+
+                //this.blockchain.accountantTree.deserializeMiniAccountant(accountantTreeCopy, undefined, false);
 
                 return false;
             }
@@ -14724,7 +14728,7 @@ class InterfaceBlockchainFork {
                 //reverting back to the clones, especially light settings
                 await this.revertFork();
 
-                this.blockchain.accountantTree.deserializeMiniAccountant( accountantTreeCopy, undefined, false);
+                //this.blockchain.accountantTree.deserializeMiniAccountant( accountantTreeCopy, undefined, false);
             }
 
             await this.postForkTransactions(forkedSuccessfully);
@@ -79738,8 +79742,16 @@ class PPoWBlockchain extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_inter
         block.level = block.getLevel(); //computing the level
 
         //TODO generate proofs as a LightNode
-        if (!this.agent.light)
-            this.prover.createProofs();
+        if (!this.agent.light) {
+
+            if (!block.blockValidation.blockValidationType["avoid-calculating-proofs"]){
+
+                this.prover.createProofs();
+
+            }
+
+
+        }
 
     }
 
@@ -83991,8 +84003,7 @@ class PPoWBlockchainBlock extends __WEBPACK_IMPORTED_MODULE_1_common_blockchain_
 
     getLevel(){
 
-        //TODO optimization
-        //if (this._level !== undefined) return this._level;
+        if (this._level !== undefined) return this._level;
 
         //we use difficultyTargetPrev instead of current difficultyTarget
         let T = this.difficultyTargetPrev;
@@ -92684,14 +92695,11 @@ class FallBackObject {
     "nodes": [
 
         {
-            "addr": ["webdollar.ddns.net:80", "webdollar.ddns.net:2024", "webdollar.ddns.net:2022", "webdollar.ddns.net:8081"],
+            "addr": ["webdollar.ddns.net:80", "webdollar.ddns.net:8081"],
         },
         {
             "addr": ["skyhub.me", "92.222.85.90"],
             "port": 80,
-        },
-        {
-            "addr": ["webdollar.zapto.org:8080", "webdollar.zapto.org:8085"],
         },
         {
             "addr": ["presa7.ro"],
