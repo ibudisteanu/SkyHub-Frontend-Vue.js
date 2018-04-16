@@ -7946,32 +7946,24 @@ class InterfaceBlockchainAddressHelper{
 
         return new Promise( async (resolve) => {
 
-            if (true){
-                let answer =  prompt(message||"Please enter your last password (12 words separated by space):");
-                
-                let oldPassword = answer.trim().split(' ');
+            let answer;
 
-                if (oldPassword.length !== 12) {
-                    __WEBPACK_IMPORTED_MODULE_5_node_menu_Advanced_Messages__["a" /* default */].alert('Your old password has ' + oldPassword.length + ' words. It must have 12!');
-                    resolve(null);
-                    return;
-                }
-                
-                resolve(oldPassword);
+            if (true)
+                answer =  prompt(message||"Please enter your last password (12 words separated by space):");
+            else
+                answer =  await CLI.question(message||"Please enter your last password (12 words separated by space):");
+
+            let oldPassword = answer.trim().split(' ');
+
+            if (oldPassword.length !== 12) {
+                __WEBPACK_IMPORTED_MODULE_5_node_menu_Advanced_Messages__["a" /* default */].alert('Your old password has ' + oldPassword.length + ' words. It must have 12!');
+                resolve(null);
+                return;
             }
-            else {
-                let answer =  await CLI.question(message||"Please enter your last password (12 words separated by space):");
-                    
-                let oldPassword = answer.trim().split(' ');
 
-                if (oldPassword.length !== 12) {
-                    console.log('Your old password has ' + oldPassword.length + ' words. It must have 12!');
-                    resolve(null);
-                    return;
-                }
+            resolve(oldPassword);
 
-                resolve(oldPassword);
-            }
+
         });
 
     }
@@ -14002,12 +13994,12 @@ class Blockchain{
 
 class AdvancedMessages{
 
-    alert(){
+    alert(param){
 
         if (true)
-            alert(arguments);
+            alert(param);
         else
-            console.warn(arguments);
+            console.warn(param);
     }
 
     async confirm(message){
@@ -61811,11 +61803,6 @@ class InterfaceBlockchainAddress{
                 password = await __WEBPACK_IMPORTED_MODULE_3__Interface_Blockchain_Address_Helper__["a" /* default */].askForPassword();
             if (password === null)
                 return null;
-
-            if( password.trim().split(' ').length !== 12 ){
-                __WEBPACK_IMPORTED_MODULE_0_node_menu_Advanced_Messages__["a" /* default */].alert("Your password doesn't have 12 words");
-                return null;
-            }
 
         } else password = undefined;
 
