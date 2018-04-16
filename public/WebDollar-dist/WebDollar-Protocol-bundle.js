@@ -2151,7 +2151,7 @@ consts.SETTINGS = {
             },
 
             SERVER: {
-                MAXIMUM_CLIENT_CONNECTIONS: 150,
+                MAXIMUM_CLIENT_CONNECTIONS: 60,
             },
 
             WEBRTC: {
@@ -16904,13 +16904,19 @@ class NodeProtocol {
 
         // Waiting for Protocol Confirmation
 
-        let response = node.sendRequestWaitOnce("HelloNode", {
-            version: __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.NODE.VERSION,
-            uuid: __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.UUID,
-            nodeType:  true ? __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER : NodesType.NODE_TERMINAL
-        });
+        let response;
+        for (let i=0; i< 4; i++) {
 
-        response = await response;
+            response = await node.sendRequestWaitOnce("HelloNode", {
+                version: __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.NODE.VERSION,
+                uuid: __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.UUID,
+                nodeType:  true ? __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER : NodesType.NODE_TERMINAL
+            });
+
+            if ( typeof response === "object" && response !== null && response.hasOwnProperty("uuid") )
+                break;
+
+        }
 
         if (typeof response !== "object")
             return false;
