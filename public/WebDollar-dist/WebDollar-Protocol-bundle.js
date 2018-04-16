@@ -91395,8 +91395,8 @@ class NodePropagationProtocol {
 
                     case "deleted-nodes":
 
-                        for (let i = 0; i < addresses.length; i++)
-                            __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__["a" /* default */].removedWaitListElement( addresses[i].addr, addresses[i].port, socket );
+                        // for (let i = 0; i < addresses.length; i++)
+                        //     NodesWaitlist.removedWaitListElement( addresses[i].addr, addresses[i].port, socket );
 
                         break;
 
@@ -92684,7 +92684,7 @@ class FallBackObject {
     "nodes": [
 
         {
-            "addr": ["webdollar.ddns.net:80", "webdollar.ddns.net:2024"],
+            "addr": ["webdollar.ddns.net:80", "webdollar.ddns.net:2024", "webdollar.ddns.net:2022", "webdollar.ddns.net:8081"],
         },
         {
             "addr": ["skyhub.me", "92.222.85.90"],
