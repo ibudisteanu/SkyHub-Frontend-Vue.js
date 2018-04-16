@@ -12742,18 +12742,17 @@ class NodesWaitlist {
 
             let sckAddress = __WEBPACK_IMPORTED_MODULE_3_common_sockets_socket_address__["a" /* default */].createSocketAddress(addresses[i], port);
 
-            let foundWaitList
             if (backedBy !==  "fallback" ) {
 
-                foundWaitList = this._searchNodesWaitlist(sckAddress);
+                let foundWaitList = this._searchNodesWaitlist(sckAddress);
 
+                if (foundWaitList !== null) foundWaitList.pushBackedBy(backedBy);
+                else sckAddresses.push(sckAddress);
 
             } else {
-                foundWaitList = true;
+                sckAddresses.push(sckAddress);
             }
 
-            if (foundWaitList !== null) foundWaitList.pushBackedBy(backedBy);
-            else sckAddresses.push(sckAddress);
 
         }
 
