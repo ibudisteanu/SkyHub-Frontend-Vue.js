@@ -2152,7 +2152,8 @@ consts.SETTINGS = {
             },
 
             SERVER: {
-                MAXIMUM_CLIENT_CONNECTIONS: 50,
+                MAXIMUM_CONNECTIONS_FROM_BROWSER: 40,
+                MAXIMUM_CONNECTIONS_FROM_TERMINAL: 10,
             },
 
             WEBRTC: {
@@ -2867,6 +2868,24 @@ class NodesList {
             }
             else
             if (connectionType === this.nodes[i].connectionType || connectionType === "all")
+                count++;
+
+        return count;
+    }
+
+    countNodesByType(connectionType){
+
+        if ( connectionType === undefined) connectionType = 'all';
+
+        let count = 0;
+
+        for (let i=0; i<this.nodes.length; i++)
+            if (Array.isArray(connectionType)) { //in case type is an Array
+                if (this.nodes[i].nodeType in connectionType)
+                    count++;
+            }
+            else
+            if (connectionType === this.nodes[i].nodeType || connectionType === "all")
                 count++;
 
         return count;
@@ -16931,7 +16950,7 @@ class NodeProtocol {
 
         // Waiting for Protocol Confirmation
 
-        console.log("sendHello")
+        console.log("sendHello");
 
         let response;
         for (let i=0; i< 4; i++) {
@@ -16950,10 +16969,11 @@ class NodeProtocol {
         if (typeof response !== "object")
             return false;
 
-        if (response === null || !response.hasOwnProperty("uuid") ){
+        if (response === null || !response.hasOwnProperty("uuid") ) {
             console.error("hello received, but there is not uuid", response);
             return false;
         }
+
 
         if (response.hasOwnProperty("version")){
 
@@ -16964,6 +16984,16 @@ class NodeProtocol {
 
             if ( [__WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL, __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER].indexOf( response.nodeType ) === -1 ){
                 console.error("invalid node type", response);
+                return false;
+            }
+
+            if (__WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].countNodesByType(__WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL) > __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.SERVER.MAXIMUM_CONNECTIONS_FROM_TERMINAL){
+                node.disconnect();
+                return false;
+            }
+
+            if (__WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].countNodesByType(__WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER) > __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.SERVER.MAXIMUM_CONNECTIONS_FROM_BROWSER){
+                node.disconnect();
                 return false;
             }
 
@@ -23581,7 +23611,7 @@ class InterfaceBlockchainProtocolForkSolver{
             answer = await socket.node.sendRequestWaitOnce("head/hash", mid, mid, __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.TIMEOUT.WAIT_ASYNC_DISCOVERY_TIMEOUT);
 
             if (left < 0 || answer === null || !Buffer.isBuffer(answer.hash) )
-                return {position: null, header: answer.hash };
+                return {position: null, header: answer };
 
             //i have finished the binary search
             if (left >= right) {
@@ -23612,7 +23642,7 @@ class InterfaceBlockchainProtocolForkSolver{
 
         } catch (Exception){
 
-            console.error("_discoverForkBinarySearch raised an exception" , Exception, answer.hash);
+            console.error("_discoverForkBinarySearch raised an exception" , Exception, answer);
 
             return {position: null, header: null};
 
@@ -92783,18 +92813,18 @@ class NodesStats {
 
         console.log(" connected to: ", this.statsClients," , from: ", this.statsServer , " web peers", this.statsWebPeers," Waitlist:",this.statsWaitlist,  "    GeoLocationContinents: ", __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geolocation_lists__["a" /* default */].countGeoLocationContinentsLists );
 
-        // let string1 = "";
-        // let clients = NodesList.getNodes(ConnectionsType.CONNECTION_CLIENT_SOCKET);
-        // for (let i=0; i<clients.length; i++)
-        //     string1 += '('+clients[i].socket.node.sckAddress.address+' , '+clients[i].socket.node.sckAddress.uuid+')   ';
-        //
-        // let string2 = "";
-        // let server = NodesList.getNodes( ConnectionsType.CONNECTION_SERVER_SOCKET );
-        // for (let i=0; i<server.length; i++)
-        //     string2 += '(' + server[i].socket.node.sckAddress.address + ' , ' + server[i].socket.node.sckAddress.uuid + ')   ';
-        //
-        // console.log("clients: ",string1);
-        // console.log("server: ",string2);
+        let string1 = "";
+        let clients = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].getNodes(__WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_CLIENT_SOCKET);
+        for (let i=0; i<clients.length; i++)
+            string1 += '('+clients[i].socket.node.sckAddress.address+' , '+clients[i].socket.node.sckAddress.uuid+')   ';
+
+        let string2 = "";
+        let server = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].getNodes( __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_SERVER_SOCKET );
+        for (let i=0; i<server.length; i++)
+            string2 += '(' + server[i].socket.node.sckAddress.address + ' , ' + server[i].socket.node.sckAddress.uuid + ')   ';
+
+        console.log("clients: ",string1);
+        console.log("server: ",string2);
 
     }
 
