@@ -11354,32 +11354,45 @@ class SocketAddress {
 
         if (address === undefined)
             address = '';
-        
-        if (typeof address === 'string')
-            address = address.toLowerCase();
 
         if (port === undefined)
             port = __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.NODE.PORT;
 
         try {
-            if (typeof address === 'string') {
-                if (address.lastIndexOf(":")>0) {
-                    port = address.substr(address.lastIndexOf(":")+1)
-                    address = address.substr(0, address.lastIndexOf(":"));
-                }
-                address = ipaddr.parse(address);
-            }
-            else
-            if (Array.isArray(address))
-                address = ipaddr.fromByteArray(address);
+            if (ipaddr.IPv6.isIPv6(address)) {
 
-        } catch (Exception){
+                let ip = ipaddr.IPv6.parse(address);
+
+                if (ip.isIPv4MappedAddress()) // ip.toIPv4Address().toString() is IPv4
+                    address = ip.toIPv4Address().toNormalizedString();
+                else // ipString is IPv6
+                    address = ip.toNormalizedString();
+
+            }
+
+
+            if (address.lastIndexOf(":") > 0) {//port
+                port = address.substr(address.lastIndexOf(":") + 1);
+                address = address.substr(0, address.lastIndexOf(":"));
+            }
+
+            if (ipaddr.IPv4.isIPv4(address)) {
+
+                let ip = ipaddr.IPv4.parse(address);
+                address = ip.toNormalizedString(); //IPv4
+
+            } else {
+            }// it is a domain
+
+        } catch (exception){
+
+            address = "0.0.0.0";
+
         }
 
-        if (typeof address === "string") this.addressString = address;
-        else this.addressString = address.toNormalizedString();
 
-        this.address = address;
+        this.address = address; //always ipv6
+
         this.port = port;
         this._geoLocation = null;
 
@@ -11427,54 +11440,10 @@ class SocketAddress {
     /*
         returns ipv6 ip standard
      */
-    getAddress(includePort){
+    getAddress(includePort=true){
 
-        try {
-            if ( includePort === undefined)
-                includePort = true;
+        return this.address + (includePort ? ':'+this.port : '');
 
-            if (typeof this.address === 'object') {
-
-                let initialAddress;
-
-                if (typeof this.address === "string") initialAddress = this.address;
-                else initialAddress = this.address.toNormalizedString();
-
-                let addressString =  '';
-
-                //avoiding ipv4 shows as ipv6
-                if (ipaddr.IPv4.isValid(initialAddress)) {
-                    // ipString is IPv4
-                    addressString = initialAddress;
-                } else if (ipaddr.IPv6.isValid(initialAddress)) {
-                    let ip = ipaddr.IPv6.parse(initialAddress);
-                    if (ip.isIPv4MappedAddress()) {
-                        // ip.toIPv4Address().toString() is IPv4
-                        addressString = ip.toIPv4Address().toString();
-                    } else {
-                        // ipString is IPv6
-                        addressString = initialAddress;
-                    }
-                } else {
-                    // ipString is invalid
-                    throw {message: "NO VALID IP", address: this.address};
-                }
-
-
-                return addressString + (includePort ? ':' + this.port : '');
-            }
-
-            let initialAddress;
-
-            if (typeof this.address === "string") initialAddress = this.address;
-            else initialAddress = this.address.toNormalizedString();
-
-            return initialAddress + (includePort ? ':'+this.port : '');
-
-        } catch(Exception){
-            console.error("getAddress exception", Exception, this.address);
-            return '';
-        }
     }
 
     get geoLocation(){
@@ -16966,8 +16935,10 @@ class NodeProtocol {
 
         }
 
-        if (typeof response !== "object")
+        if (typeof response !== "object" || response === null) {
+            console.error("No Hello");
             return false;
+        }
 
         if (response === null || !response.hasOwnProperty("uuid") ) {
             console.error("hello received, but there is not uuid", response);
@@ -22245,9 +22216,11 @@ class InterfaceBlockchainBlock {
             offset += __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_NONCE;
 
 
+            //TODO 1 byte version
             this.version = __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 2) );
             offset += 2;
 
+            //TODO  put hashPrev into block.data
             this.hashPrev = __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_POW_LENGTH);
             offset += __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_POW_LENGTH;
 
@@ -24023,7 +23996,7 @@ class BansList{
 
         console.info("BANNNNNNNNNNNNNNS");
         for (let i=0; i<this.bans.length; i++)
-            console.warn( "Address", this.bans[i].sckAddress.addressString,
+            console.warn( "Address", this.bans[i].sckAddress.toString(),
                           "banTime", this.bans[i].banTime,
                           "timeLeft", new Date().getTime() -  (this.bans[i].banTimestamp + this.bans[i].banTime) ,
                           "messages", this.bans[i].banReasons );
@@ -52563,7 +52536,7 @@ class InterfaceBlockchainProtocolForksManager {
             } catch (exception) {
 
                 console.error("processForksQueue returned an error", exception);
-                console.warn("BANNNNNNNNNNNNNNNNN", bestFork.getSocket().node.sckAddress.addressString, exception.message);
+                console.warn("BANNNNNNNNNNNNNNNNN", bestFork.getSocket().node.sckAddress.toString(), exception.message);
 
             }
 
@@ -55124,7 +55097,7 @@ class NodesWaitlistObject {
         return {
 
             type: this.type,
-            addr: this.sckAddresses[0].addressString,
+            addr: this.sckAddresses[0].toString(),
             port: this.sckAddresses[0].port,
 
         }
@@ -81802,7 +81775,7 @@ class NodesListObject {
 
         return {
             type: this.type,
-            addr: this.socket.node.sckAddress.addressString,
+            addr: this.socket.node.sckAddress.toString(),
             port: this.socket.node.sckAddress.port,
             connected: true,
         }
@@ -91315,7 +91288,7 @@ class NodePropagationProtocol {
             }
         }
 
-        setTimeout(this.processNewNodeInterval.bind(this), 300);
+        setTimeout( this.processNewNodeInterval.bind(this), 300);
 
     }
 
@@ -91388,8 +91361,8 @@ class NodePropagationProtocol {
 
                     case "deleted-nodes":
 
-                        // for (let i = 0; i < addresses.length; i++)
-                        //     NodesWaitlist.removedWaitListElement( addresses[i].addr, addresses[i].port, socket );
+                        for (let i = 0; i < addresses.length; i++)
+                            __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__["a" /* default */].removedWaitListElement( addresses[i].addr, addresses[i].port, socket );
 
                         break;
 
@@ -92705,13 +92678,10 @@ class NodeWebPeersService {
 
         //after
         __WEBPACK_IMPORTED_MODULE_1_main_blockchain_Blockchain__["a" /* default */].onLoaded.then((answer)=>{
+
             // in case the Blockchain was not loaded, I will not be interested in transactions
 
-            // setTimeout(()=>{
-            //
-            //     NodeWebPeersDiscoveryService.startDiscovery();
-            //
-            // }, 3000)
+            __WEBPACK_IMPORTED_MODULE_0_node_webrtc_service_discovery_node_web_peers_discovery_service__["a" /* default */].startDiscovery();
 
         });
 
@@ -92768,7 +92738,7 @@ class NodeWebPeersDiscoveryService {
 
 }
 
-/* unused harmony default export */ var _unused_webpack_default_export = (new NodeWebPeersDiscoveryService());
+/* harmony default export */ __webpack_exports__["a"] = (new NodeWebPeersDiscoveryService());
 
 
 
@@ -92808,7 +92778,6 @@ class NodesStats {
         setInterval( () => { return this._printStats() }, __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.PARAMS.STATUS_INTERVAL)
     }
 
-
     _printStats(){
 
         console.log(" connected to: ", this.statsClients," , from: ", this.statsServer , " web peers", this.statsWebPeers," Waitlist:",this.statsWaitlist,  "    GeoLocationContinents: ", __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geolocation_lists__["a" /* default */].countGeoLocationContinentsLists );
@@ -92816,12 +92785,12 @@ class NodesStats {
         let string1 = "";
         let clients = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].getNodes(__WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_CLIENT_SOCKET);
         for (let i=0; i<clients.length; i++)
-            string1 += '('+clients[i].socket.node.sckAddress.address+' , '+clients[i].socket.node.sckAddress.uuid+')   ';
+            string1 += '('+clients[i].socket.node.sckAddress.toString()+' , '+clients[i].socket.node.sckAddress.uuid+')   ';
 
         let string2 = "";
         let server = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].getNodes( __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_SERVER_SOCKET );
         for (let i=0; i<server.length; i++)
-            string2 += '(' + server[i].socket.node.sckAddress.address + ' , ' + server[i].socket.node.sckAddress.uuid + ')   ';
+            string2 += '(' + server[i].socket.node.sckAddress.toString() + ' , ' + server[i].socket.node.sckAddress.uuid + ')   ';
 
         console.log("clients: ",string1);
         console.log("server: ",string2);
