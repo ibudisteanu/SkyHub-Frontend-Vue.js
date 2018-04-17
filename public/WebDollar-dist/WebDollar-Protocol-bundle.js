@@ -17297,7 +17297,7 @@ class InterfaceBlockchainProtocol {
 
                 }
 
-                console.log("newForkTip");
+                console.log("newForkTip", data.l);
 
                 this.forksManager.newForkTip( socket, data.l, data.s, data.h );
 
@@ -52472,8 +52472,12 @@ class InterfaceBlockchainProtocolForksManager {
     */
     async newForkTip(socket, newChainLength, newChainStartingPoint, forkLastBlockHeader){
 
-        if (typeof newChainLength !== "number") throw {message: "newChainLength is not a number"};
-        if (typeof newChainStartingPoint !== "number") throw {message: "newChainStartingPoint is not a number"};
+        if (typeof newChainLength !== "number") throw "newChainLength is not a number";
+        if (typeof newChainStartingPoint !== "number") throw "newChainStartingPoint is not a number";
+
+        if (newChainStartingPoint > newChainLength) throw "Incorrect newChainStartingPoint";
+        if (newChainStartingPoint < 0 ) throw "Incorrect2 newChainStartingPoint";
+        if (newChainStartingPoint > forkLastBlockHeader.height ) throw "Incorrect3 newChainStartingPoint";
 
         if (newChainLength < this.blockchain.blocks.length){
 
@@ -52486,14 +52490,9 @@ class InterfaceBlockchainProtocolForksManager {
             if (newChainLength < this.blockchain.blocks.length - 50)
                 __WEBPACK_IMPORTED_MODULE_0_common_utils_bans_BansList__["a" /* default */].addBan( socket, 500, "Your blockchain is smaller than mine" );
 
-            throw {message: "Your blockchain is smaller than mine"};
+            throw "Your blockchain is smaller than mine";
 
         }
-
-        if (newChainStartingPoint > newChainLength) throw {message: "Incorrect newChainStartingPoint"};
-        if (newChainStartingPoint < 0 ) throw {message: "Incorrect2 newChainStartingPoint"};
-        if (newChainStartingPoint > forkLastBlockHeader.height ) throw {message: "Incorrect3 newChainStartingPoint"};
-
 
         let answer = await this.protocol.forkSolver.discoverFork(socket, newChainLength, newChainStartingPoint, forkLastBlockHeader);
 
@@ -80216,7 +80215,6 @@ class BlockchainDifficulty{
             how_much_it_took_to_mine_X_Blocks += blockTimestamp - getTimeStampCallback(blockNumber);
 
             console.warn("blocktimestamp", blockTimestamp);
-            console.warn("how_much_it_took_to_mine_X_Blocks ", how_much_it_took_to_mine_X_Blocks );
 
             if ( how_much_it_took_to_mine_X_Blocks <= __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK )
                 throw {message: "how_much_it_took_to_mine_X_Blocks kess than consts.BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK", how_much_it_took_to_mine_X_Blocks: how_much_it_took_to_mine_X_Blocks};
@@ -80229,7 +80227,6 @@ class BlockchainDifficulty{
             ratio = BigNumber.minimum(ratio, 8);
             ratio = BigNumber.maximum(ratio, 0.05);
 
-            console.warn( "ratio2", ratio.toString() );
             console.warn( "should_have_taken_X_Blocks / took_to_mine_X_Blocks", how_much_it_should_have_taken_X_Blocks, "/", how_much_it_took_to_mine_X_Blocks );
 
             let newBlockDifficulty = prevBlockDifficulty.multipliedBy(ratio);
