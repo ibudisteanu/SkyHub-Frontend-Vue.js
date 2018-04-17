@@ -2157,7 +2157,7 @@ consts.SETTINGS = {
             },
 
             WEBRTC: {
-                MAXIMUM_CONNECTIONS: 25,
+                MAXIMUM_CONNECTIONS: 7,
             },
 
             FORKS:{
@@ -2718,9 +2718,9 @@ module.exports = typeforce
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_geolocation_lists_geolocation_lists__ = __webpack_require__(304);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_geolocation_lists_geolocation_lists__ = __webpack_require__(303);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_sockets_socket_address__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_list_object_js__ = __webpack_require__(722);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_list_object_js__ = __webpack_require__(720);
 
 
 
@@ -8259,8 +8259,8 @@ assert.equal = function assertEqual(l, r, msg) {
 "use strict";
 
 
-var bind = __webpack_require__(305);
-var isBuffer = __webpack_require__(702);
+var bind = __webpack_require__(304);
+var isBuffer = __webpack_require__(700);
 
 /*global toString:true*/
 
@@ -22986,7 +22986,7 @@ class RevertActions {
 /* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(701);
+module.exports = __webpack_require__(699);
 
 /***/ }),
 /* 192 */
@@ -22996,7 +22996,7 @@ module.exports = __webpack_require__(701);
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(38);
-var normalizeHeaderName = __webpack_require__(704);
+var normalizeHeaderName = __webpack_require__(702);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -23012,10 +23012,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(306);
+    adapter = __webpack_require__(305);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(306);
+    adapter = __webpack_require__(305);
   }
   return adapter;
 }
@@ -23093,10 +23093,10 @@ module.exports = defaults;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__data_continents_js__ = __webpack_require__(720);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__data_continents_js__ = __webpack_require__(718);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__data_continents_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__data_continents_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_sockets_socket_address__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_helpers_Download_Helper__ = __webpack_require__(721);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_helpers_Download_Helper__ = __webpack_require__(719);
 const ipaddr = __webpack_require__(101);
 
 
@@ -46933,7 +46933,7 @@ class MiniBlockchainAdvanced extends  __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_blockchain_global_Blockchain_Mining_Reward__ = __webpack_require__(99);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__forks_Interface_Blockchain_Forks_Administrator__ = __webpack_require__(697);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_common_satoshmindb_Interface_SatoshminDB__ = __webpack_require__(81);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_transactions_Interface_Blockchain_Transactions__ = __webpack_require__(303);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_transactions_Interface_Blockchain_Transactions__ = __webpack_require__(309);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_consts_global__ = __webpack_require__(75);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_common_utils_Serialization__ = __webpack_require__(17);
@@ -50678,64 +50678,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;;(function (globalObject) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pending_Interface_Transactions_Pending_Queue__ = __webpack_require__(699);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__transaction_Interface_Blockchain_Transaction__ = __webpack_require__(189);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_satoshmindb_Interface_SatoshminDB__ = __webpack_require__(81);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__wizard_Interface_Blockchain_Transactions_Wizard__ = __webpack_require__(723);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Interface_Blockchain_Transactions_Events__ = __webpack_require__(724);
-
-
-
-
-
-
-
-class InterfaceBlockchainTransactions extends __WEBPACK_IMPORTED_MODULE_5__Interface_Blockchain_Transactions_Events__["a" /* default */] {
-
-    constructor( blockchain, wallet ){
-
-        super(blockchain);
-
-        this.wallet = wallet;
-
-        let db = new __WEBPACK_IMPORTED_MODULE_3_common_satoshmindb_Interface_SatoshminDB__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DATABASE_NAMES.TRANSACTIONS_DATABASE);
-
-        //the Queue is an inverted Queue, because elements are added at the end of the List (queue)
-        this.pendingQueue = new __WEBPACK_IMPORTED_MODULE_1__pending_Interface_Transactions_Pending_Queue__["a" /* default */](this, blockchain, db);
-
-        this.wizard = new __WEBPACK_IMPORTED_MODULE_4__wizard_Interface_Blockchain_Transactions_Wizard__["a" /* default */](this, blockchain, wallet);
-    }
-
-    _createTransaction(from, to, nonce, timeLock, version, txId, validateFrom, validateTo){
-        return new __WEBPACK_IMPORTED_MODULE_2__transaction_Interface_Blockchain_Transaction__["a" /* default */](this.blockchain, from, to, nonce, timeLock, txId, validateFrom, validateTo);
-    }
-
-    _createTransactionFromBuffer(buffer, offset = 0){
-
-        let transaction = this._createTransaction ( undefined, undefined, 0, 0xFFFFFFFF, 0x00, new Buffer(32), false, false );
-        offset = transaction.deserializeTransaction(buffer, offset);
-        return {transaction: transaction, offset: offset};
-    }
-
-
-
-    setWallet(newWallet){
-        this.wallet = newWallet;
-        this.wizard.wallet = newWallet;
-    }
-
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (InterfaceBlockchainTransactions);
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
-
-/***/ }),
-/* 304 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__geolocation_address_object_js__ = __webpack_require__(719);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__geolocation_address_object_js__ = __webpack_require__(717);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_sockets_socket_address__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geo_helpers_geo_helper__ = __webpack_require__(193);
 const axios = __webpack_require__(191);
@@ -50848,7 +50791,7 @@ class GeoLocationLists {
 /* harmony default export */ __webpack_exports__["a"] = (new GeoLocationLists());
 
 /***/ }),
-/* 305 */
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50866,19 +50809,19 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 306 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(38);
-var settle = __webpack_require__(705);
-var buildURL = __webpack_require__(707);
-var parseHeaders = __webpack_require__(708);
-var isURLSameOrigin = __webpack_require__(709);
-var createError = __webpack_require__(307);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(710);
+var settle = __webpack_require__(703);
+var buildURL = __webpack_require__(705);
+var parseHeaders = __webpack_require__(706);
+var isURLSameOrigin = __webpack_require__(707);
+var createError = __webpack_require__(306);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(708);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -50975,7 +50918,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(711);
+      var cookies = __webpack_require__(709);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -51053,13 +50996,13 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 307 */
+/* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var enhanceError = __webpack_require__(706);
+var enhanceError = __webpack_require__(704);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -51078,7 +51021,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 308 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51090,7 +51033,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 309 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51114,6 +51057,63 @@ Cancel.prototype.__CANCEL__ = true;
 
 module.exports = Cancel;
 
+
+/***/ }),
+/* 309 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pending_Interface_Transactions_Pending_Queue__ = __webpack_require__(721);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__transaction_Interface_Blockchain_Transaction__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_satoshmindb_Interface_SatoshminDB__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__wizard_Interface_Blockchain_Transactions_Wizard__ = __webpack_require__(723);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Interface_Blockchain_Transactions_Events__ = __webpack_require__(724);
+
+
+
+
+
+
+
+class InterfaceBlockchainTransactions extends __WEBPACK_IMPORTED_MODULE_5__Interface_Blockchain_Transactions_Events__["a" /* default */] {
+
+    constructor( blockchain, wallet ){
+
+        super(blockchain);
+
+        this.wallet = wallet;
+
+        let db = new __WEBPACK_IMPORTED_MODULE_3_common_satoshmindb_Interface_SatoshminDB__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DATABASE_NAMES.TRANSACTIONS_DATABASE);
+
+        //the Queue is an inverted Queue, because elements are added at the end of the List (queue)
+        this.pendingQueue = new __WEBPACK_IMPORTED_MODULE_1__pending_Interface_Transactions_Pending_Queue__["a" /* default */](this, blockchain, db);
+
+        this.wizard = new __WEBPACK_IMPORTED_MODULE_4__wizard_Interface_Blockchain_Transactions_Wizard__["a" /* default */](this, blockchain, wallet);
+    }
+
+    _createTransaction(from, to, nonce, timeLock, version, txId, validateFrom, validateTo){
+        return new __WEBPACK_IMPORTED_MODULE_2__transaction_Interface_Blockchain_Transaction__["a" /* default */](this.blockchain, from, to, nonce, timeLock, txId, validateFrom, validateTo);
+    }
+
+    _createTransactionFromBuffer(buffer, offset = 0){
+
+        let transaction = this._createTransaction ( undefined, undefined, 0, 0xFFFFFFFF, 0x00, new Buffer(32), false, false );
+        offset = transaction.deserializeTransaction(buffer, offset);
+        return {transaction: transaction, offset: offset};
+    }
+
+
+
+    setWallet(newWallet){
+        this.wallet = newWallet;
+        this.wizard.wallet = newWallet;
+    }
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (InterfaceBlockchainTransactions);
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
 /* 310 */
@@ -80010,6 +80010,8 @@ class InterfaceBlockchainBlockDataTransactions {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Interface_Blockchain_Fork__ = __webpack_require__(100);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_utils_BufferExtended__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(13);
+
 
 
 
@@ -80029,6 +80031,18 @@ class InterfaceBlockchainForksAdministrator {
         this.forksId = 0;
 
         this.socketsProcessing = [];
+
+        __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__["a" /* default */].emitter.on("nodes-list/disconnected", async (nodesListObject) => {
+
+            for (let i=0; i<this.forks.length; i++)
+                for (let j=0; j<this.forks[i].sockets.length; j++)
+                    if (this.forks[i].sockets[j].sckAddress.matchAddress(nodesListObject.socket.sckAddress)){
+                        this.forks[i].sockets.splice(j,1);
+                        break;
+                    }
+
+        });
+
     }
 
     createNewFork(sockets, forkStartingHeight, forkChainStartingPoint, forkChainLength, headers, ready){
@@ -80251,315 +80265,14 @@ class BlockchainDifficulty{
 
 /***/ }),
 /* 699 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__protocol_Interface_Blockchain_Transactions_Protocol__ = __webpack_require__(700);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__ = __webpack_require__(4);
-
-
-
-
-
-class InterfaceTransactionsPendingQueue {
-
-    constructor(transactions, blockchain, db){
-
-        this.transactions = transactions;
-        this.blockchain = blockchain;
-        this.list = [];
-
-        this.db = db;
-    }
-
-    includePendingTransaction (transaction, exceptSockets){
-
-        if (this.findPendingTransaction(transaction) !== -1)
-            return false;
-
-        let blockValidationType = {
-            "take-transactions-list-in-consideration": {
-                validation: true
-            }
-        };
-
-        if (!transaction.validateTransactionOnce(this.blockchain.blocks.length-1, blockValidationType ))
-            return false;
-
-        this._insertPendingTransaction(transaction);
-
-        this.propagateTransaction(transaction, exceptSockets);
-
-        return true;
-
-    }
-
-    _insertPendingTransaction(transaction){
-
-        let inserted = false;
-
-        for (let i=0; i<this.list.length; i++ ) {
-            let compare = transaction.from.addresses[0].unencodedAddress.compare(this.list[i].from.addresses[0].unencodedAddress);
-
-            if (compare < 0) // next
-                continue;
-            else
-            if (compare === 0){ //order by nonce
-
-
-                if (transaction.nonce === this.list[i].nonce){
-                    this.list[i] = transaction;
-                    inserted = true;break;
-                } else if (transaction.nonce < this.list[i].nonce){
-                    this.list.splice(i, 0, transaction);
-                    inserted = true;break;
-                }
-
-            }
-            else
-            if (compare > 0) { // i will add it
-                this.list.splice(i, 0, transaction);
-                inserted = true;break;
-            }
-
-        }
-
-        if ( inserted === false)
-            this.list.push(transaction);
-
-        transaction.confirmed = false;
-        transaction.pendingDateBlockHeight = this.blockchain.blocks.length-1;
-        
-        this.transactions.emitTransactionChangeEvent( transaction );
-    }
-
-    findPendingTransaction(transaction){
-
-
-        for (let i = 0; i < this.list.length; i++)
-            if ( __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].safeCompare ( this.list[i].txId, transaction.txId ))
-                return i;
-
-        return -1;
-    }
-
-    _removePendingTransaction (transaction){
-
-        let index;
-
-        if (typeof transaction === "object") index = this.findPendingTransaction(transaction);
-        else if (typeof transaction === "number") {
-            index = transaction;
-            transaction = this.list[index];
-        }
-
-        if (index === -1)
-            return true;
-
-        this.list.splice(index, 1);
-
-        this.transactions.emitTransactionChangeEvent(transaction, true);
-    }
-
-    removeOldTransactions (){
-
-        let blockValidationType = {
-            "take-transactions-list-in-consideration": {
-                validation: true
-            }
-        };
-
-        for (let i=this.list.length-1; i >= 0; i--) {
-
-            try{
-
-                if ( this.blockchain.blocks.length > this.list[i].pendingDateBlockHeight + __WEBPACK_IMPORTED_MODULE_1_consts_const_global__["a" /* default */].SETTINGS.MEM_POOL.TIME_LOCK.TRANSACTIONS_MAX_LIFE_TIME_IN_POOL_AFTER_EXPIRATION &&
-                     !this.list[i].validateTransactionEveryTime(undefined, blockValidationType ) &&
-                     ( this.list[i].timeLock === 0 || this.list[i].timeLock < this.blockchain.blocks.length )
-                ) {
-                    this._removePendingTransaction(i);
-                }
-
-            } catch (exception){
-                console.warn("Old Transaction removed because of exception ", exception);
-                this.list.splice(i, 1);
-            }
-
-        }
-
-    }
-
-    propagateTransaction(transaction, exceptSocket){
-        __WEBPACK_IMPORTED_MODULE_0__protocol_Interface_Blockchain_Transactions_Protocol__["a" /* default */].propagateNewPendingTransaction(transaction, exceptSocket)
-    }
-
-
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (InterfaceTransactionsPendingQueue);
-
-/***/ }),
-/* 700 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_sockets_protocol_node_protocol__ = __webpack_require__(127);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__ = __webpack_require__(91);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_events_Status_Events__ = __webpack_require__(21);
-
-
-
-
-
-
-class InterfaceBlockchainTransactionsProtocol{
-
-    constructor(){
-        //if a new client || or || web peer is established then, I should register for accepting WebPeer connections
-        __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].emitter.on("nodes-list/connected", (result) => { this._newSocketCreateProtocol(result) } );
-    }
-
-    _newSocketCreateProtocol(nodesListObject){
-
-        let socket = nodesListObject.socket;
-
-        if (__WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].loaded){
-            this.initializeTransactionsPropagation(socket);
-            return;
-        }
-
-        //after
-        __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].onLoaded.then((answer)=>{
-            // in case the Blockchain was not loaded, I will not be interested in transactions
-
-            setTimeout(()=>{
-
-                this.initializeTransactionsPropagation(socket);
-
-            }, 8000)
-
-        });
-
-    }
-
-    async initializeTransactionsPropagation(socket){
-
-        // in case the Blockchain was not loaded, I will not be interested in transactions
-        let node = socket.node;
-
-        node.on("transactions/new-pending-transaction", response =>{
-
-            try {
-
-                let transaction;
-
-                if (response.format !== "json") response.format = "buffer";
-
-                if (response.format === 'json') {
-
-                    let json = response.json;
-                    transaction = __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions._createTransaction(json.from, json.to, json.nonce, json.timeLock, json.version);
-
-                } else
-                if (response.format === 'buffer')
-                    transaction = __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions._createTransactionFromBuffer(response.buffer).transaction;
-
-
-                if (transaction === undefined) throw {message: "Transaction was not specified"};
-
-                transaction.isTransactionOK();
-
-                if (!__WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions.pendingQueue.includePendingTransaction(transaction, socket))
-                    throw {message: "I already have this transaction"};
-
-            } catch (exception){
-
-                if (typeof exception === "object" && exception.message === "I already have this transaction" )
-                    return false;
-
-                console.error("Transaction is wrong. It should ban the user", exception);
-            }
-
-        });
-
-        node.on("transactions/get-all-pending-transactions", response => {
-
-            try{
-
-                if (response.format !== "json") response.format = "buffer";
-
-                let list = [];
-
-                console.warn("pendingQueue length", __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions.pendingQueue.list.length);
-                __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions.pendingQueue.list.forEach((pendingTransaction)=>{
-
-                    if (response.format === "json")
-                        list.push(pendingTransaction.toJSON());
-                    else
-                    if (response.format === "buffer")
-                        list.push(pendingTransaction.serializeTransaction());
-
-                });
-
-                node.sendRequest('transactions/get-all-pending-transactions/answer', {result: true, format: response.format, transactions: list });
-
-            } catch (exception){
-            }
-
-        });
-
-
-        try {
-            let answer = await node.sendRequestWaitOnce("transactions/get-all-pending-transactions", {format: "buffer"}, 'answer');
-            if (answer !== null && answer !== undefined && answer.result && answer.transactions !== null && Array.isArray(answer.transactions)) {
-                let transactions = answer.transactions;
-
-                for (let i = 0; i < transactions.length; i++) {
-
-                    let transaction = __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions._createTransactionFromBuffer(transactions[i]).transaction;
-
-                    try {
-                        if (!transaction.isTransactionOK())
-                            continue;
-
-                        if (!__WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions.pendingQueue.includePendingTransaction(transaction, socket))
-                            ; //console.warn("I already have this transaction", transaction.txId.toString("hex"))
-
-                    } catch (exception){
-
-                    }
-
-                }
-            }
-        } catch (exception){
-            console.error("Error Getting All Pending Transactions", exception);
-        }
-
-    }
-
-
-    propagateNewPendingTransaction(transaction, exceptSockets){
-
-        __WEBPACK_IMPORTED_MODULE_0_common_sockets_protocol_node_protocol__["a" /* default */].broadcastRequest("transactions/new-pending-transaction", { format: "buffer", buffer: transaction.serializeTransaction() }, undefined, exceptSockets );
-
-    }
-
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (new InterfaceBlockchainTransactionsProtocol());
-
-/***/ }),
-/* 701 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(38);
-var bind = __webpack_require__(305);
-var Axios = __webpack_require__(703);
+var bind = __webpack_require__(304);
+var Axios = __webpack_require__(701);
 var defaults = __webpack_require__(192);
 
 /**
@@ -80593,15 +80306,15 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(309);
-axios.CancelToken = __webpack_require__(717);
-axios.isCancel = __webpack_require__(308);
+axios.Cancel = __webpack_require__(308);
+axios.CancelToken = __webpack_require__(715);
+axios.isCancel = __webpack_require__(307);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(718);
+axios.spread = __webpack_require__(716);
 
 module.exports = axios;
 
@@ -80610,7 +80323,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 702 */
+/* 700 */
 /***/ (function(module, exports) {
 
 /*!
@@ -80637,7 +80350,7 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 703 */
+/* 701 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80645,10 +80358,10 @@ function isSlowBuffer (obj) {
 
 var defaults = __webpack_require__(192);
 var utils = __webpack_require__(38);
-var InterceptorManager = __webpack_require__(712);
-var dispatchRequest = __webpack_require__(713);
-var isAbsoluteURL = __webpack_require__(715);
-var combineURLs = __webpack_require__(716);
+var InterceptorManager = __webpack_require__(710);
+var dispatchRequest = __webpack_require__(711);
+var isAbsoluteURL = __webpack_require__(713);
+var combineURLs = __webpack_require__(714);
 
 /**
  * Create a new instance of Axios
@@ -80730,7 +80443,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 704 */
+/* 702 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80749,13 +80462,13 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 705 */
+/* 703 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var createError = __webpack_require__(307);
+var createError = __webpack_require__(306);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -80782,7 +80495,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 706 */
+/* 704 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80810,7 +80523,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 707 */
+/* 705 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80885,7 +80598,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 708 */
+/* 706 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80929,7 +80642,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 709 */
+/* 707 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81004,7 +80717,7 @@ module.exports = (
 
 
 /***/ }),
-/* 710 */
+/* 708 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81047,7 +80760,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 711 */
+/* 709 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81107,7 +80820,7 @@ module.exports = (
 
 
 /***/ }),
-/* 712 */
+/* 710 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81166,15 +80879,15 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 713 */
+/* 711 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(38);
-var transformData = __webpack_require__(714);
-var isCancel = __webpack_require__(308);
+var transformData = __webpack_require__(712);
+var isCancel = __webpack_require__(307);
 var defaults = __webpack_require__(192);
 
 /**
@@ -81252,7 +80965,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 714 */
+/* 712 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81279,7 +80992,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 715 */
+/* 713 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81300,7 +81013,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 716 */
+/* 714 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81321,13 +81034,13 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 717 */
+/* 715 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Cancel = __webpack_require__(309);
+var Cancel = __webpack_require__(308);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -81385,7 +81098,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 718 */
+/* 716 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81419,7 +81132,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 719 */
+/* 717 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -81474,7 +81187,7 @@ class GeoLocationAddressObject  {
 /* harmony default export */ __webpack_exports__["a"] = (GeoLocationAddressObject);
 
 /***/ }),
-/* 720 */
+/* 718 */
 /***/ (function(module, exports) {
 
 let continents = {
@@ -81671,7 +81384,7 @@ exports.getContinentFromCountry = (countryCode) =>{
 }
 
 /***/ }),
-/* 721 */
+/* 719 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -81752,7 +81465,7 @@ class DownloadHelper{
 /* harmony default export */ __webpack_exports__["a"] = (DownloadHelper);
 
 /***/ }),
-/* 722 */
+/* 720 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -81789,6 +81502,307 @@ class NodesListObject {
 
 
 /* harmony default export */ __webpack_exports__["a"] = (NodesListObject);
+
+/***/ }),
+/* 721 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__protocol_Interface_Blockchain_Transactions_Protocol__ = __webpack_require__(722);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_consts_const_global__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__ = __webpack_require__(4);
+
+
+
+
+
+class InterfaceTransactionsPendingQueue {
+
+    constructor(transactions, blockchain, db){
+
+        this.transactions = transactions;
+        this.blockchain = blockchain;
+        this.list = [];
+
+        this.db = db;
+    }
+
+    includePendingTransaction (transaction, exceptSockets){
+
+        if (this.findPendingTransaction(transaction) !== -1)
+            return false;
+
+        let blockValidationType = {
+            "take-transactions-list-in-consideration": {
+                validation: true
+            }
+        };
+
+        if (!transaction.validateTransactionOnce(this.blockchain.blocks.length-1, blockValidationType ))
+            return false;
+
+        this._insertPendingTransaction(transaction);
+
+        this.propagateTransaction(transaction, exceptSockets);
+
+        return true;
+
+    }
+
+    _insertPendingTransaction(transaction){
+
+        let inserted = false;
+
+        for (let i=0; i<this.list.length; i++ ) {
+            let compare = transaction.from.addresses[0].unencodedAddress.compare(this.list[i].from.addresses[0].unencodedAddress);
+
+            if (compare < 0) // next
+                continue;
+            else
+            if (compare === 0){ //order by nonce
+
+
+                if (transaction.nonce === this.list[i].nonce){
+                    this.list[i] = transaction;
+                    inserted = true;break;
+                } else if (transaction.nonce < this.list[i].nonce){
+                    this.list.splice(i, 0, transaction);
+                    inserted = true;break;
+                }
+
+            }
+            else
+            if (compare > 0) { // i will add it
+                this.list.splice(i, 0, transaction);
+                inserted = true;break;
+            }
+
+        }
+
+        if ( inserted === false)
+            this.list.push(transaction);
+
+        transaction.confirmed = false;
+        transaction.pendingDateBlockHeight = this.blockchain.blocks.length-1;
+        
+        this.transactions.emitTransactionChangeEvent( transaction );
+    }
+
+    findPendingTransaction(transaction){
+
+
+        for (let i = 0; i < this.list.length; i++)
+            if ( __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].safeCompare ( this.list[i].txId, transaction.txId ))
+                return i;
+
+        return -1;
+    }
+
+    _removePendingTransaction (transaction){
+
+        let index;
+
+        if (typeof transaction === "object") index = this.findPendingTransaction(transaction);
+        else if (typeof transaction === "number") {
+            index = transaction;
+            transaction = this.list[index];
+        }
+
+        if (index === -1)
+            return true;
+
+        this.list.splice(index, 1);
+
+        this.transactions.emitTransactionChangeEvent(transaction, true);
+    }
+
+    removeOldTransactions (){
+
+        let blockValidationType = {
+            "take-transactions-list-in-consideration": {
+                validation: true
+            }
+        };
+
+        for (let i=this.list.length-1; i >= 0; i--) {
+
+            try{
+
+                if ( this.blockchain.blocks.length > this.list[i].pendingDateBlockHeight + __WEBPACK_IMPORTED_MODULE_1_consts_const_global__["a" /* default */].SETTINGS.MEM_POOL.TIME_LOCK.TRANSACTIONS_MAX_LIFE_TIME_IN_POOL_AFTER_EXPIRATION &&
+                     !this.list[i].validateTransactionEveryTime(undefined, blockValidationType ) &&
+                     ( this.list[i].timeLock === 0 || this.list[i].timeLock < this.blockchain.blocks.length )
+                ) {
+                    this._removePendingTransaction(i);
+                }
+
+            } catch (exception){
+                console.warn("Old Transaction removed because of exception ", exception);
+                this.list.splice(i, 1);
+            }
+
+        }
+
+    }
+
+    propagateTransaction(transaction, exceptSocket){
+        __WEBPACK_IMPORTED_MODULE_0__protocol_Interface_Blockchain_Transactions_Protocol__["a" /* default */].propagateNewPendingTransaction(transaction, exceptSocket)
+    }
+
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (InterfaceTransactionsPendingQueue);
+
+/***/ }),
+/* 722 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_sockets_protocol_node_protocol__ = __webpack_require__(127);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_events_Status_Events__ = __webpack_require__(21);
+
+
+
+
+
+
+class InterfaceBlockchainTransactionsProtocol{
+
+    constructor(){
+        //if a new client || or || web peer is established then, I should register for accepting WebPeer connections
+        __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].emitter.on("nodes-list/connected", (result) => { this._newSocketCreateProtocol(result) } );
+    }
+
+    _newSocketCreateProtocol(nodesListObject){
+
+        let socket = nodesListObject.socket;
+
+        if (__WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].loaded){
+            this.initializeTransactionsPropagation(socket);
+            return;
+        }
+
+        //after
+        __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].onLoaded.then((answer)=>{
+            // in case the Blockchain was not loaded, I will not be interested in transactions
+
+            setTimeout(()=>{
+
+                this.initializeTransactionsPropagation(socket);
+
+            }, 8000)
+
+        });
+
+    }
+
+    async initializeTransactionsPropagation(socket){
+
+        // in case the Blockchain was not loaded, I will not be interested in transactions
+        let node = socket.node;
+
+        node.on("transactions/new-pending-transaction", response =>{
+
+            try {
+
+                let transaction;
+
+                if (response.format !== "json") response.format = "buffer";
+
+                if (response.format === 'json') {
+
+                    let json = response.json;
+                    transaction = __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions._createTransaction(json.from, json.to, json.nonce, json.timeLock, json.version);
+
+                } else
+                if (response.format === 'buffer')
+                    transaction = __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions._createTransactionFromBuffer(response.buffer).transaction;
+
+
+                if (transaction === undefined) throw {message: "Transaction was not specified"};
+
+                transaction.isTransactionOK();
+
+                if (!__WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions.pendingQueue.includePendingTransaction(transaction, socket))
+                    throw {message: "I already have this transaction"};
+
+            } catch (exception){
+
+                if (typeof exception === "object" && exception.message === "I already have this transaction" )
+                    return false;
+
+                console.error("Transaction is wrong. It should ban the user", exception);
+            }
+
+        });
+
+        node.on("transactions/get-all-pending-transactions", response => {
+
+            try{
+
+                if (response.format !== "json") response.format = "buffer";
+
+                let list = [];
+
+                console.warn("pendingQueue length", __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions.pendingQueue.list.length);
+                __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions.pendingQueue.list.forEach((pendingTransaction)=>{
+
+                    if (response.format === "json")
+                        list.push(pendingTransaction.toJSON());
+                    else
+                    if (response.format === "buffer")
+                        list.push(pendingTransaction.serializeTransaction());
+
+                });
+
+                node.sendRequest('transactions/get-all-pending-transactions/answer', {result: true, format: response.format, transactions: list });
+
+            } catch (exception){
+            }
+
+        });
+
+
+        try {
+            let answer = await node.sendRequestWaitOnce("transactions/get-all-pending-transactions", {format: "buffer"}, 'answer');
+            if (answer !== null && answer !== undefined && answer.result && answer.transactions !== null && Array.isArray(answer.transactions)) {
+                let transactions = answer.transactions;
+
+                for (let i = 0; i < transactions.length; i++) {
+
+                    let transaction = __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions._createTransactionFromBuffer(transactions[i]).transaction;
+
+                    try {
+                        if (!transaction.isTransactionOK())
+                            continue;
+
+                        if (!__WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions.pendingQueue.includePendingTransaction(transaction, socket))
+                            ; //console.warn("I already have this transaction", transaction.txId.toString("hex"))
+
+                    } catch (exception){
+
+                    }
+
+                }
+            }
+        } catch (exception){
+            console.error("Error Getting All Pending Transactions", exception);
+        }
+
+    }
+
+
+    propagateNewPendingTransaction(transaction, exceptSockets){
+
+        __WEBPACK_IMPORTED_MODULE_0_common_sockets_protocol_node_protocol__["a" /* default */].broadcastRequest("transactions/new-pending-transaction", { format: "buffer", buffer: transaction.serializeTransaction() }, undefined, exceptSockets );
+
+    }
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (new InterfaceBlockchainTransactionsProtocol());
 
 /***/ }),
 /* 723 */
@@ -84405,7 +84419,7 @@ class PPoWBlockchainBlockData extends __WEBPACK_IMPORTED_MODULE_0_common_blockch
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_transactions_Interface_Blockchain_Transactions__ = __webpack_require__(303);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_transactions_Interface_Blockchain_Transactions__ = __webpack_require__(309);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__trasanction_Mini_Blockchain_Transaction__ = __webpack_require__(741);
 
 
@@ -92758,7 +92772,7 @@ class NodeWebPeersDiscoveryService {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geolocation_lists__ = __webpack_require__(304);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geolocation_lists__ = __webpack_require__(303);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_nodes_waitlist__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__ = __webpack_require__(53);
 

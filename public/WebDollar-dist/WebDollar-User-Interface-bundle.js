@@ -11616,11 +11616,11 @@ if (false) {(function () {
             });
 
             //Waitlist p2p
-            WebDollar.Node.NodesWaitlist.emitter.on("waitlist/new-node", async (nodesWaitlistObject)=>{
+            WebDollar.Node.NodesWaitlist.emitter.on("waitlist/new-node",  (nodesWaitlistObject)=>{
                 this._showWaitListNode(nodesWaitlistObject);
             });
 
-            WebDollar.Node.NodesWaitlist.emitter.on("waitlist/delete-node", async (nodesWaitlistObject)=>{
+            WebDollar.Node.NodesWaitlist.emitter.on("waitlist/delete-node",  (nodesWaitlistObject)=>{
 
                 //deleting the marker
                 let markerIndex = this._findMarkerIndexBySocket(nodesWaitlistObject);
@@ -11632,7 +11632,11 @@ if (false) {(function () {
                 this._showNodesListNode(nodesListObject);
             });
 
-            WebDollar.Node.NodesWaitlist.waitlist.forEach(async (nodesWaitlistObject)=>{
+            WebDollar.Node.NodesWaitlist.waitListFullNodes.forEach( (nodesWaitlistObject)=>{
+                this._showWaitListNode(nodesWaitlistObject);
+            });
+
+            WebDollar.Node.NodesWaitlist.waitListLightNodes.forEach( (nodesWaitlistObject)=>{
                 this._showWaitListNode(nodesWaitlistObject);
             });
 
