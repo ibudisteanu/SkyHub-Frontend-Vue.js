@@ -2121,7 +2121,7 @@ consts.SETTINGS = {
 
     PARAMS: {
         FALLBACK_INTERVAL: 10 * 1000,                     //miliseconds
-        STATUS_INTERVAL: 60 * 1000,                      //miliseconds
+        STATUS_INTERVAL: 20 * 1000,                      //miliseconds
 
         WAITLIST: {
             TRY_RECONNECT_AGAIN: 30 * 1000,             //miliseconds
@@ -2157,7 +2157,7 @@ consts.SETTINGS = {
             },
 
             WEBRTC: {
-                MAXIMUM_CONNECTIONS: 7,
+                MAXIMUM_CONNECTIONS: 25,
             },
 
             FORKS:{
@@ -2769,7 +2769,7 @@ class NodesList {
         if (type === undefined) throw {message: "type is necessary"};
 
         if (!socket.node || !socket.node.protocol || !socket.node.protocol.helloValidated ) {
-            socket.disconnect(true);
+            socket.disconnect();
             return false;
         }
 
@@ -2794,7 +2794,7 @@ class NodesList {
         }
 
         console.error("Already connected to ", socket.node.sckAddress.getAddress(true));
-        socket.disconnect(true);
+        socket.disconnect();
         return false;
     }
 
@@ -2806,7 +2806,7 @@ class NodesList {
 
             //console.error("Error - disconnectSocket rejected by invalid helloValidated");
             //if (socket.hasOwnProperty("node")) console.log("hello validated value",socket.node.protocol.helloValidated);
-            socket.disconnect(true);
+            socket.disconnect();
             return false;
         }
 
@@ -2825,13 +2825,13 @@ class NodesList {
 
                 this.emitter.emit("nodes-list/disconnected", nodeToBeDeleted);
 
-                socket.disconnect(true);
+                socket.disconnect();
                 return true;
             }
 
         //console.error("Disconnecting Socket but it was not validated before...", socket.node.sckAddress.getAddress());
 
-        socket.disconnect(true);
+        socket.disconnect();
         return false;
     }
 
@@ -14515,7 +14515,7 @@ class InterfaceBlockchainFork {
             throw {message: "my blockchain is larger than yours", position: this.forkStartingHeight + this.forkBlocks.length, blockchain: this.blockchain.blocks.length};
         else
         if (this.blockchain.blocks.length === this.forkStartingHeight + this.forkBlocks.length + 1) //I need to check
-            if ( this.forkBlocks[this.forkBlocks.length - 1].hash.compare(this.blockchain.getHashPrev(this.blockchain.blocks.length)) < 0)
+            if ( this.forkBlocks[0].hash.compare(this.blockchain.getHashPrev(this.forkStartingHeight)) < 0)
                 throw { message: "blockchain has same length, but your block is not better than mine" };
 
         if (validateHashesAgain)
@@ -23671,18 +23671,16 @@ class InterfaceBlockchainProtocolForkSolver{
 
             //optimization
             //check if n-2 was ok, but I need at least 1 block
-            if (currentBlockchainLength === forkChainLength-1 && currentBlockchainLength-2  >= 0 && currentBlockchainLength > 0){
+            if (currentBlockchainLength === forkChainLength-1 && currentBlockchainLength-2  >= 0 ){
 
                 let answer = await socket.node.sendRequestWaitOnce( "head/hash", currentBlockchainLength-1, currentBlockchainLength-1, __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.TIMEOUT.WAIT_ASYNC_DISCOVERY_TIMEOUT );
                 if (answer === null || answer.hash === undefined) throw {message: "connection dropped headers-info", height: currentBlockchainLength-1 };
 
-                if (  Buffer.compare ( this.blockchain.blocks.last.hash , answer.hash ) < 0 )
-                    throw {message: "hash is bigger than mine" };
-
-                binarySearchResult = {
-                    position : currentBlockchainLength,
-                    header: answer.hash,
-                };
+                if (  this.blockchain.blocks.last.hash.equals( answer.hash ) )
+                    binarySearchResult = {
+                        position : currentBlockchainLength,
+                        header: answer.hash,
+                    };
 
             }
 
@@ -52472,34 +52470,40 @@ class InterfaceBlockchainProtocolForksManager {
     */
     async newForkTip(socket, newChainLength, newChainStartingPoint, forkLastBlockHeader){
 
-        if (typeof newChainLength !== "number") throw "newChainLength is not a number";
-        if (typeof newChainStartingPoint !== "number") throw "newChainStartingPoint is not a number";
+        try {
+            if (typeof newChainLength !== "number") throw "newChainLength is not a number";
+            if (typeof newChainStartingPoint !== "number") throw "newChainStartingPoint is not a number";
 
-        if (newChainStartingPoint > newChainLength) throw "Incorrect newChainStartingPoint";
-        if (newChainStartingPoint < 0 ) throw "Incorrect2 newChainStartingPoint";
-        if (newChainStartingPoint > forkLastBlockHeader.height ) throw "Incorrect3 newChainStartingPoint";
+            if (newChainStartingPoint > newChainLength) throw "Incorrect newChainStartingPoint";
+            if (newChainStartingPoint < 0) throw "Incorrect2 newChainStartingPoint";
+            if (newChainStartingPoint > forkLastBlockHeader.height) throw "Incorrect3 newChainStartingPoint";
 
-        if (newChainLength < this.blockchain.blocks.length){
+            if (newChainLength < this.blockchain.blocks.length) {
 
-            socket.node.sendRequest( "head/new-block", {
-                l: this.blockchain.blocks.length,
-                h: this.blockchain.blocks.last.hash,
-                s: this.blockchain.blocks.blocksStartingPoint,
-            } );
+                socket.node.sendRequest("head/new-block", {
+                    l: this.blockchain.blocks.length,
+                    h: this.blockchain.blocks.last.hash,
+                    s: this.blockchain.blocks.blocksStartingPoint,
+                });
 
-            if (newChainLength < this.blockchain.blocks.length - 50)
-                __WEBPACK_IMPORTED_MODULE_0_common_utils_bans_BansList__["a" /* default */].addBan( socket, 500, "Your blockchain is smaller than mine" );
+                if (newChainLength < this.blockchain.blocks.length - 50)
+                    __WEBPACK_IMPORTED_MODULE_0_common_utils_bans_BansList__["a" /* default */].addBan(socket, 500, "Your blockchain is way smaller than mine");
 
-            throw "Your blockchain is smaller than mine";
+                throw "Your blockchain is smaller than mine";
 
-        }
+            }
 
-        let answer = await this.protocol.forkSolver.discoverFork(socket, newChainLength, newChainStartingPoint, forkLastBlockHeader);
+            let answer = await this.protocol.forkSolver.discoverFork(socket, newChainLength, newChainStartingPoint, forkLastBlockHeader);
 
-        if (answer.result && answer.fork !== undefined)
-            return answer.fork.forkPromise;
-        else
+            if (answer.result && answer.fork !== undefined)
+                return answer.fork.forkPromise;
+            else
+                return false;
+
+        } catch (exception){
+            console.warn(exception);
             return false;
+        }
 
     }
 
@@ -54634,7 +54638,7 @@ class NodeSignalingServerProtocol {
 
         console.log("NodeSignalingServerProtocol constructor");
 
-       // NodeSignalingServerService.startConnectingWebPeers();
+       __WEBPACK_IMPORTED_MODULE_4__signaling_server_service_Node_Signaling_Server_Service__["a" /* default */].startConnectingWebPeers();
     }
 
     /*
@@ -88239,9 +88243,10 @@ class NodeClient {
 
                     socket.node.protocol.sendHello(["ip","uuid"]).then( (answer)=>{
 
-                        if (answer) {
+                        if (answer)
                             this.initializeSocket(socket, ["ip", "uuid"]);
-                        }
+                        else
+                            socket.disconnect();
 
                         resolve(answer);
                     });
@@ -91840,7 +91845,7 @@ class NodeWebPeerRTC {
 
         console.log('Created webRTC peer', "initiator", initiator, "signalingServerConnectionId", signalingServerConnectionId, "remoteAddress", remoteAddress, "remoteUUID", remoteUUID, "remotePort", remotePort);
 
-        this.peer.disconnect = () => {  }
+        this.peer.disconnect = () => { this.peer.close()  };
 
         this.socket =  this.peer;
         this.peer.signalData = null;
@@ -91866,6 +91871,8 @@ class NodeWebPeerRTC {
 
                 if (answer)
                     this.initializePeer(["uuid"]);
+                else
+                    this.peer.disconnect()
 
             });
 
@@ -92771,13 +92778,13 @@ class NodesStats {
         this.statsWebPeers = 0;
         this.statsWaitlist = 0;
 
-        __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].emitter.on("nodes-list/connected", (nodesListObject) => { this._recalculateStats(nodesListObject) } );
-        __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].emitter.on("nodes-list/disconnected", (nodesListObject ) => { this._recalculateStats(nodesListObject ) });
+        __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].emitter.on("nodes-list/connected", (nodesListObject) => { this._recalculateStats(nodesListObject, false ) } );
+        __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].emitter.on("nodes-list/disconnected", (nodesListObject ) => { this._recalculateStats(nodesListObject, false ) });
 
         __WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_nodes_waitlist__["a" /* default */].emitter.on("waitlist/new-node", (nodesListObject ) => { this._recalculateStats(nodesListObject, false ) });
         __WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_nodes_waitlist__["a" /* default */].emitter.on("waitlist/delete-node", (nodesListObject ) => { this._recalculateStats(nodesListObject, false ) });
 
-        setInterval( () => { return this._printStats() }, __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.PARAMS.STATUS_INTERVAL)
+        setInterval( this._printStats.bind(this), __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.PARAMS.STATUS_INTERVAL)
     }
 
     _printStats(){
@@ -92787,12 +92794,12 @@ class NodesStats {
         let string1 = "";
         let clients = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].getNodes(__WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_CLIENT_SOCKET);
         for (let i=0; i<clients.length; i++)
-            string1 += '('+clients[i].socket.node.sckAddress.toString()+' , '+clients[i].socket.node.sckAddress.uuid+')   ';
+            string1 += '('+clients[i].socket.node.sckAddress.toString() + ')   ';
 
         let string2 = "";
         let server = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].getNodes( __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_SERVER_SOCKET );
         for (let i=0; i<server.length; i++)
-            string2 += '(' + server[i].socket.node.sckAddress.toString() + ' , ' + server[i].socket.node.sckAddress.uuid + ')   ';
+            string2 += '(' + server[i].socket.node.sckAddress.toString() + ')   ';
 
         console.log("clients: ",string1);
         console.log("server: ",string2);
