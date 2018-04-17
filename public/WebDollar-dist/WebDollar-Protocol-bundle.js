@@ -2152,7 +2152,8 @@ consts.SETTINGS = {
             },
 
             SERVER: {
-                MAXIMUM_CLIENT_CONNECTIONS: 50,
+                MAXIMUM_CONNECTIONS_FROM_BROWSER: 40,
+                MAXIMUM_CONNECTIONS_FROM_TERMINAL: 10,
             },
 
             WEBRTC: {
@@ -2867,6 +2868,24 @@ class NodesList {
             }
             else
             if (connectionType === this.nodes[i].connectionType || connectionType === "all")
+                count++;
+
+        return count;
+    }
+
+    countNodesByType(connectionType){
+
+        if ( connectionType === undefined) connectionType = 'all';
+
+        let count = 0;
+
+        for (let i=0; i<this.nodes.length; i++)
+            if (Array.isArray(connectionType)) { //in case type is an Array
+                if (this.nodes[i].nodeType in connectionType)
+                    count++;
+            }
+            else
+            if (connectionType === this.nodes[i].nodeType || connectionType === "all")
                 count++;
 
         return count;
@@ -11335,32 +11354,45 @@ class SocketAddress {
 
         if (address === undefined)
             address = '';
-        
-        if (typeof address === 'string')
-            address = address.toLowerCase();
 
         if (port === undefined)
             port = __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.NODE.PORT;
 
         try {
-            if (typeof address === 'string') {
-                if (address.lastIndexOf(":")>0) {
-                    port = address.substr(address.lastIndexOf(":")+1)
-                    address = address.substr(0, address.lastIndexOf(":"));
-                }
-                address = ipaddr.parse(address);
-            }
-            else
-            if (Array.isArray(address))
-                address = ipaddr.fromByteArray(address);
+            if (ipaddr.IPv6.isIPv6(address)) {
 
-        } catch (Exception){
+                let ip = ipaddr.IPv6.parse(address);
+
+                if (ip.isIPv4MappedAddress()) // ip.toIPv4Address().toString() is IPv4
+                    address = ip.toIPv4Address().toNormalizedString();
+                else // ipString is IPv6
+                    address = ip.toNormalizedString();
+
+            }
+
+
+            if (address.lastIndexOf(":") > 0) {//port
+                port = address.substr(address.lastIndexOf(":") + 1);
+                address = address.substr(0, address.lastIndexOf(":"));
+            }
+
+            if (ipaddr.IPv4.isIPv4(address)) {
+
+                let ip = ipaddr.IPv4.parse(address);
+                address = ip.toNormalizedString(); //IPv4
+
+            } else {
+            }// it is a domain
+
+        } catch (exception){
+
+            address = "0.0.0.0";
+
         }
 
-        if (typeof address === "string") this.addressString = address;
-        else this.addressString = address.toNormalizedString();
 
-        this.address = address;
+        this.address = address; //always ipv6
+
         this.port = port;
         this._geoLocation = null;
 
@@ -11408,54 +11440,10 @@ class SocketAddress {
     /*
         returns ipv6 ip standard
      */
-    getAddress(includePort){
+    getAddress(includePort=true){
 
-        try {
-            if ( includePort === undefined)
-                includePort = true;
+        return this.address + (includePort ? ':'+this.port : '');
 
-            if (typeof this.address === 'object') {
-
-                let initialAddress;
-
-                if (typeof this.address === "string") initialAddress = this.address;
-                else initialAddress = this.address.toNormalizedString();
-
-                let addressString =  '';
-
-                //avoiding ipv4 shows as ipv6
-                if (ipaddr.IPv4.isValid(initialAddress)) {
-                    // ipString is IPv4
-                    addressString = initialAddress;
-                } else if (ipaddr.IPv6.isValid(initialAddress)) {
-                    let ip = ipaddr.IPv6.parse(initialAddress);
-                    if (ip.isIPv4MappedAddress()) {
-                        // ip.toIPv4Address().toString() is IPv4
-                        addressString = ip.toIPv4Address().toString();
-                    } else {
-                        // ipString is IPv6
-                        addressString = initialAddress;
-                    }
-                } else {
-                    // ipString is invalid
-                    throw {message: "NO VALID IP", address: this.address};
-                }
-
-
-                return addressString + (includePort ? ':' + this.port : '');
-            }
-
-            let initialAddress;
-
-            if (typeof this.address === "string") initialAddress = this.address;
-            else initialAddress = this.address.toNormalizedString();
-
-            return initialAddress + (includePort ? ':'+this.port : '');
-
-        } catch(Exception){
-            console.error("getAddress exception", Exception, this.address);
-            return '';
-        }
     }
 
     get geoLocation(){
@@ -14524,11 +14512,11 @@ class InterfaceBlockchainFork {
     async _validateFork(validateHashesAgain){
 
         if (this.blockchain.blocks.length > this.forkStartingHeight + this.forkBlocks.length + 1)
-            throw {message: "my blockchain is larger than yours", position: this.forkStartingHeight + this.forkBlocks.length};
+            throw {message: "my blockchain is larger than yours", position: this.forkStartingHeight + this.forkBlocks.length, blockchain: this.blockchain.blocks.length};
         else
-        if (this.blockchain.blocks.length === this.forkStartingHeight + this.forkBlocks.length) //I need to check
-            if (this.forkBlocks[this.forkBlocks.length-1].hash.compare( this.blockchain.getHashPrev(this.blockchain.blocks.length) ) >= 0)
-                throw {message: "blockchain has same length, but your block is not better than mine"}
+        if (this.blockchain.blocks.length === this.forkStartingHeight + this.forkBlocks.length + 1) //I need to check
+            if ( this.forkBlocks[this.forkBlocks.length - 1].hash.compare(this.blockchain.getHashPrev(this.blockchain.blocks.length)) < 0)
+                throw { message: "blockchain has same length, but your block is not better than mine" };
 
         if (validateHashesAgain)
             for (let i = 0; i < this.forkBlocks.length; i++){
@@ -16931,7 +16919,7 @@ class NodeProtocol {
 
         // Waiting for Protocol Confirmation
 
-        console.log("sendHello")
+        console.log("sendHello");
 
         let response;
         for (let i=0; i< 4; i++) {
@@ -16947,13 +16935,16 @@ class NodeProtocol {
 
         }
 
-        if (typeof response !== "object")
+        if (typeof response !== "object" || response === null) {
+            console.error("No Hello");
             return false;
+        }
 
-        if (response === null || !response.hasOwnProperty("uuid") ){
+        if (response === null || !response.hasOwnProperty("uuid") ) {
             console.error("hello received, but there is not uuid", response);
             return false;
         }
+
 
         if (response.hasOwnProperty("version")){
 
@@ -16964,6 +16955,16 @@ class NodeProtocol {
 
             if ( [__WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL, __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER].indexOf( response.nodeType ) === -1 ){
                 console.error("invalid node type", response);
+                return false;
+            }
+
+            if (__WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].countNodesByType(__WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL) > __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.SERVER.MAXIMUM_CONNECTIONS_FROM_TERMINAL){
+                node.disconnect();
+                return false;
+            }
+
+            if (__WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].countNodesByType(__WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER) > __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.SERVER.MAXIMUM_CONNECTIONS_FROM_BROWSER){
+                node.disconnect();
                 return false;
             }
 
@@ -17296,7 +17297,7 @@ class InterfaceBlockchainProtocol {
 
                 }
 
-                console.log("newForkTip");
+                console.log("newForkTip", data.l);
 
                 this.forksManager.newForkTip( socket, data.l, data.s, data.h );
 
@@ -22215,9 +22216,11 @@ class InterfaceBlockchainBlock {
             offset += __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_NONCE;
 
 
+            //TODO 1 byte version
             this.version = __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 2) );
             offset += 2;
 
+            //TODO  put hashPrev into block.data
             this.hashPrev = __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_POW_LENGTH);
             offset += __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_POW_LENGTH;
 
@@ -23581,7 +23584,7 @@ class InterfaceBlockchainProtocolForkSolver{
             answer = await socket.node.sendRequestWaitOnce("head/hash", mid, mid, __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.TIMEOUT.WAIT_ASYNC_DISCOVERY_TIMEOUT);
 
             if (left < 0 || answer === null || !Buffer.isBuffer(answer.hash) )
-                return {position: null, header: answer.hash };
+                return {position: null, header: answer };
 
             //i have finished the binary search
             if (left >= right) {
@@ -23612,7 +23615,7 @@ class InterfaceBlockchainProtocolForkSolver{
 
         } catch (Exception){
 
-            console.error("_discoverForkBinarySearch raised an exception" , Exception, answer.hash);
+            console.error("_discoverForkBinarySearch raised an exception" , Exception, answer);
 
             return {position: null, header: null};
 
@@ -23666,25 +23669,25 @@ class InterfaceBlockchainProtocolForkSolver{
                 return {result: true, fork: forkFound};
             }
 
+            //optimization
+            //check if n-2 was ok, but I need at least 1 block
+            if (currentBlockchainLength === forkChainLength-1 && currentBlockchainLength-2  >= 0 && currentBlockchainLength > 0){
+
+                let answer = await socket.node.sendRequestWaitOnce( "head/hash", currentBlockchainLength-1, currentBlockchainLength-1, __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.TIMEOUT.WAIT_ASYNC_DISCOVERY_TIMEOUT );
+                if (answer === null || answer.hash === undefined) throw {message: "connection dropped headers-info", height: currentBlockchainLength-1 };
+
+                if (  Buffer.compare ( this.blockchain.blocks.last.hash , answer.hash ) < 0 )
+                    throw {message: "hash is bigger than mine" };
+
+                binarySearchResult = {
+                    position : currentBlockchainLength,
+                    header: answer.hash,
+                };
+
+            }
+
             fork = await this.blockchain.forksAdministrator.createNewFork( socket, undefined, undefined, undefined, [forkLastBlockHeader], false );
             fork.ready = false;
-
-            // //optimization
-            // //check if n-2 was ok, but I need at least 1 block
-            // if (currentBlockchainLength === forkChainLength-1 && currentBlockchainLength-2  >= 0 && currentBlockchainLength > 0){
-            //
-            //     let answer = await socket.node.sendRequestWaitOnce( "head/hash", currentBlockchainLength-1, currentBlockchainLength-1, consts.SETTINGS.PARAMS.CONNECTIONS.TIMEOUT.WAIT_ASYNC_DISCOVERY_TIMEOUT );
-            //     if (answer === null || answer.hash === undefined) throw {message: "connection dropped headers-info", height: currentBlockchainLength-1 };
-            //
-            //     if (  Buffer.compare ( this.blockchain.blocks.last.hash , answer.hash ) <= 0 )
-            //         throw {message: "hash is bigger than mine" };
-            //
-            //     binarySearchResult = {
-            //         position : currentBlockchainLength,
-            //         header: answer.hash,
-            //     };
-            //
-            // }
 
             // in case it was you solved previously && there is something in the blockchain
 
@@ -23751,7 +23754,7 @@ class InterfaceBlockchainProtocolForkSolver{
 
             this.blockchain.forksAdministrator.deleteFork(fork);
 
-            console.error("discoverAndProcessFork raised an exception", exception );
+            console.error("discoverAndProcessFork", exception );
 
             __WEBPACK_IMPORTED_MODULE_6_common_utils_bans_BansList__["a" /* default */].addBan(socket, 2000, exception.message);
 
@@ -23993,7 +23996,7 @@ class BansList{
 
         console.info("BANNNNNNNNNNNNNNS");
         for (let i=0; i<this.bans.length; i++)
-            console.warn( "Address", this.bans[i].sckAddress.addressString,
+            console.warn( "Address", this.bans[i].sckAddress.toString(),
                           "banTime", this.bans[i].banTime,
                           "timeLeft", new Date().getTime() -  (this.bans[i].banTimestamp + this.bans[i].banTime) ,
                           "messages", this.bans[i].banReasons );
@@ -52469,8 +52472,12 @@ class InterfaceBlockchainProtocolForksManager {
     */
     async newForkTip(socket, newChainLength, newChainStartingPoint, forkLastBlockHeader){
 
-        if (typeof newChainLength !== "number") throw {message: "newChainLength is not a number"};
-        if (typeof newChainStartingPoint !== "number") throw {message: "newChainStartingPoint is not a number"};
+        if (typeof newChainLength !== "number") throw "newChainLength is not a number";
+        if (typeof newChainStartingPoint !== "number") throw "newChainStartingPoint is not a number";
+
+        if (newChainStartingPoint > newChainLength) throw "Incorrect newChainStartingPoint";
+        if (newChainStartingPoint < 0 ) throw "Incorrect2 newChainStartingPoint";
+        if (newChainStartingPoint > forkLastBlockHeader.height ) throw "Incorrect3 newChainStartingPoint";
 
         if (newChainLength < this.blockchain.blocks.length){
 
@@ -52483,14 +52490,9 @@ class InterfaceBlockchainProtocolForksManager {
             if (newChainLength < this.blockchain.blocks.length - 50)
                 __WEBPACK_IMPORTED_MODULE_0_common_utils_bans_BansList__["a" /* default */].addBan( socket, 500, "Your blockchain is smaller than mine" );
 
-            throw {message: "Your blockchain is smaller than mine"};
+            throw "Your blockchain is smaller than mine";
 
         }
-
-        if (newChainStartingPoint > newChainLength) throw {message: "Incorrect newChainStartingPoint"};
-        if (newChainStartingPoint < 0 ) throw {message: "Incorrect2 newChainStartingPoint"};
-        if (newChainStartingPoint > forkLastBlockHeader.height ) throw {message: "Incorrect3 newChainStartingPoint"};
-
 
         let answer = await this.protocol.forkSolver.discoverFork(socket, newChainLength, newChainStartingPoint, forkLastBlockHeader);
 
@@ -52533,7 +52535,7 @@ class InterfaceBlockchainProtocolForksManager {
             } catch (exception) {
 
                 console.error("processForksQueue returned an error", exception);
-                console.warn("BANNNNNNNNNNNNNNNNN", bestFork.getSocket().node.sckAddress.addressString, exception.message);
+                console.warn("BANNNNNNNNNNNNNNNNN", bestFork.getSocket().node.sckAddress.toString(), exception.message);
 
             }
 
@@ -55094,7 +55096,7 @@ class NodesWaitlistObject {
         return {
 
             type: this.type,
-            addr: this.sckAddresses[0].addressString,
+            addr: this.sckAddresses[0].toString(),
             port: this.sckAddresses[0].port,
 
         }
@@ -80213,7 +80215,6 @@ class BlockchainDifficulty{
             how_much_it_took_to_mine_X_Blocks += blockTimestamp - getTimeStampCallback(blockNumber);
 
             console.warn("blocktimestamp", blockTimestamp);
-            console.warn("how_much_it_took_to_mine_X_Blocks ", how_much_it_took_to_mine_X_Blocks );
 
             if ( how_much_it_took_to_mine_X_Blocks <= __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK )
                 throw {message: "how_much_it_took_to_mine_X_Blocks kess than consts.BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK", how_much_it_took_to_mine_X_Blocks: how_much_it_took_to_mine_X_Blocks};
@@ -80226,7 +80227,6 @@ class BlockchainDifficulty{
             ratio = BigNumber.minimum(ratio, 8);
             ratio = BigNumber.maximum(ratio, 0.05);
 
-            console.warn( "ratio2", ratio.toString() );
             console.warn( "should_have_taken_X_Blocks / took_to_mine_X_Blocks", how_much_it_should_have_taken_X_Blocks, "/", how_much_it_took_to_mine_X_Blocks );
 
             let newBlockDifficulty = prevBlockDifficulty.multipliedBy(ratio);
@@ -81772,7 +81772,7 @@ class NodesListObject {
 
         return {
             type: this.type,
-            addr: this.socket.node.sckAddress.addressString,
+            addr: this.socket.node.sckAddress.toString(),
             port: this.socket.node.sckAddress.port,
             connected: true,
         }
@@ -88239,9 +88239,11 @@ class NodeClient {
 
                     socket.node.protocol.sendHello(["ip","uuid"]).then( (answer)=>{
 
-                        this.initializeSocket(socket, ["ip","uuid"]);
+                        if (answer) {
+                            this.initializeSocket(socket, ["ip", "uuid"]);
+                        }
 
-                        resolve(true);
+                        resolve(answer);
                     });
 
                 });
@@ -91285,7 +91287,7 @@ class NodePropagationProtocol {
             }
         }
 
-        setTimeout(this.processNewNodeInterval.bind(this), 300);
+        setTimeout( this.processNewNodeInterval.bind(this), 300);
 
     }
 
@@ -91358,8 +91360,8 @@ class NodePropagationProtocol {
 
                     case "deleted-nodes":
 
-                        // for (let i = 0; i < addresses.length; i++)
-                        //     NodesWaitlist.removedWaitListElement( addresses[i].addr, addresses[i].port, socket );
+                        for (let i = 0; i < addresses.length; i++)
+                            __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__["a" /* default */].removedWaitListElement( addresses[i].addr, addresses[i].port, socket );
 
                         break;
 
@@ -91861,7 +91863,10 @@ class NodeWebPeerRTC {
             __WEBPACK_IMPORTED_MODULE_0_common_sockets_socket_extend__["a" /* default */].extendSocket(this.peer, this.peer.remoteAddress,  this.peer.remotePort, this.peer.remoteUUID, socketSignaling.node.level + 1 );
 
             this.peer.node.protocol.sendHello(["uuid"]).then( (answer)=>{
-                this.initializePeer(["uuid"]);
+
+                if (answer)
+                    this.initializePeer(["uuid"]);
+
             });
 
         });
@@ -92647,7 +92652,7 @@ class FallBackObject {
     "nodes": [
 
         {
-            "addr": ["webdollar.ddns.net:80", "webdollar.ddns.net:8081", "webdollar.ddns.net:8082"],
+            "addr": ["webdollar.ddns.net:80", "webdollar.ddns.net:8081", "webdollar.ddns.net:8082", "webdollar.ddns.net:2024"],
         },
 
     ]
@@ -92675,13 +92680,10 @@ class NodeWebPeersService {
 
         //after
         __WEBPACK_IMPORTED_MODULE_1_main_blockchain_Blockchain__["a" /* default */].onLoaded.then((answer)=>{
+
             // in case the Blockchain was not loaded, I will not be interested in transactions
 
-            // setTimeout(()=>{
-            //
-            //     NodeWebPeersDiscoveryService.startDiscovery();
-            //
-            // }, 3000)
+            __WEBPACK_IMPORTED_MODULE_0_node_webrtc_service_discovery_node_web_peers_discovery_service__["a" /* default */].startDiscovery();
 
         });
 
@@ -92738,7 +92740,7 @@ class NodeWebPeersDiscoveryService {
 
 }
 
-/* unused harmony default export */ var _unused_webpack_default_export = (new NodeWebPeersDiscoveryService());
+/* harmony default export */ __webpack_exports__["a"] = (new NodeWebPeersDiscoveryService());
 
 
 
@@ -92778,23 +92780,22 @@ class NodesStats {
         setInterval( () => { return this._printStats() }, __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.PARAMS.STATUS_INTERVAL)
     }
 
-
     _printStats(){
 
         console.log(" connected to: ", this.statsClients," , from: ", this.statsServer , " web peers", this.statsWebPeers," Waitlist:",this.statsWaitlist,  "    GeoLocationContinents: ", __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geolocation_lists__["a" /* default */].countGeoLocationContinentsLists );
 
-        // let string1 = "";
-        // let clients = NodesList.getNodes(ConnectionsType.CONNECTION_CLIENT_SOCKET);
-        // for (let i=0; i<clients.length; i++)
-        //     string1 += '('+clients[i].socket.node.sckAddress.address+' , '+clients[i].socket.node.sckAddress.uuid+')   ';
-        //
-        // let string2 = "";
-        // let server = NodesList.getNodes( ConnectionsType.CONNECTION_SERVER_SOCKET );
-        // for (let i=0; i<server.length; i++)
-        //     string2 += '(' + server[i].socket.node.sckAddress.address + ' , ' + server[i].socket.node.sckAddress.uuid + ')   ';
-        //
-        // console.log("clients: ",string1);
-        // console.log("server: ",string2);
+        let string1 = "";
+        let clients = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].getNodes(__WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_CLIENT_SOCKET);
+        for (let i=0; i<clients.length; i++)
+            string1 += '('+clients[i].socket.node.sckAddress.toString()+' , '+clients[i].socket.node.sckAddress.uuid+')   ';
+
+        let string2 = "";
+        let server = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].getNodes( __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_SERVER_SOCKET );
+        for (let i=0; i<server.length; i++)
+            string2 += '(' + server[i].socket.node.sckAddress.toString() + ' , ' + server[i].socket.node.sckAddress.uuid + ')   ';
+
+        console.log("clients: ",string1);
+        console.log("server: ",string2);
 
     }
 
