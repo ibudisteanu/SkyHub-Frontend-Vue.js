@@ -88245,9 +88245,11 @@ class NodeClient {
 
                     socket.node.protocol.sendHello(["ip","uuid"]).then( (answer)=>{
 
-                        this.initializeSocket(socket, ["ip","uuid"]);
+                        if (answer) {
+                            this.initializeSocket(socket, ["ip", "uuid"]);
+                        }
 
-                        resolve(true);
+                        resolve(answer);
                     });
 
                 });
@@ -91867,7 +91869,10 @@ class NodeWebPeerRTC {
             __WEBPACK_IMPORTED_MODULE_0_common_sockets_socket_extend__["a" /* default */].extendSocket(this.peer, this.peer.remoteAddress,  this.peer.remotePort, this.peer.remoteUUID, socketSignaling.node.level + 1 );
 
             this.peer.node.protocol.sendHello(["uuid"]).then( (answer)=>{
-                this.initializePeer(["uuid"]);
+
+                if (answer)
+                    this.initializePeer(["uuid"]);
+
             });
 
         });
