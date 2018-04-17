@@ -14512,14 +14512,11 @@ class InterfaceBlockchainFork {
     async _validateFork(validateHashesAgain){
 
         if (this.blockchain.blocks.length > this.forkStartingHeight + this.forkBlocks.length + 1)
-            throw {message: "my blockchain is larger than yours", position: this.forkStartingHeight + this.forkBlocks.length};
+            throw {message: "my blockchain is larger than yours", position: this.forkStartingHeight + this.forkBlocks.length, blockchain: this.blockchain.blocks.length};
         else
-        if (this.blockchain.blocks.length === this.forkStartingHeight + this.forkBlocks.length) { //I need to check
-
-            if ( this.forkBlocks[this.forkBlocks.length - 1].hash.compare(this.blockchain.getHashPrev(this.blockchain.blocks.length)) >= 0) throw { message: "blockchain has same length, but your block is not better than mine" };
-            else return false;
-
-        }
+        if (this.blockchain.blocks.length === this.forkStartingHeight + this.forkBlocks.length + 1) //I need to check
+            if ( this.forkBlocks[this.forkBlocks.length - 1].hash.compare(this.blockchain.getHashPrev(this.blockchain.blocks.length)) < 0)
+                throw { message: "blockchain has same length, but your block is not better than mine" };
 
         if (validateHashesAgain)
             for (let i = 0; i < this.forkBlocks.length; i++){
@@ -23672,25 +23669,25 @@ class InterfaceBlockchainProtocolForkSolver{
                 return {result: true, fork: forkFound};
             }
 
+            //optimization
+            //check if n-2 was ok, but I need at least 1 block
+            if (currentBlockchainLength === forkChainLength-1 && currentBlockchainLength-2  >= 0 && currentBlockchainLength > 0){
+
+                let answer = await socket.node.sendRequestWaitOnce( "head/hash", currentBlockchainLength-1, currentBlockchainLength-1, __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.TIMEOUT.WAIT_ASYNC_DISCOVERY_TIMEOUT );
+                if (answer === null || answer.hash === undefined) throw {message: "connection dropped headers-info", height: currentBlockchainLength-1 };
+
+                if (  Buffer.compare ( this.blockchain.blocks.last.hash , answer.hash ) < 0 )
+                    throw {message: "hash is bigger than mine" };
+
+                binarySearchResult = {
+                    position : currentBlockchainLength,
+                    header: answer.hash,
+                };
+
+            }
+
             fork = await this.blockchain.forksAdministrator.createNewFork( socket, undefined, undefined, undefined, [forkLastBlockHeader], false );
             fork.ready = false;
-
-            // //optimization
-            // //check if n-2 was ok, but I need at least 1 block
-            // if (currentBlockchainLength === forkChainLength-1 && currentBlockchainLength-2  >= 0 && currentBlockchainLength > 0){
-            //
-            //     let answer = await socket.node.sendRequestWaitOnce( "head/hash", currentBlockchainLength-1, currentBlockchainLength-1, consts.SETTINGS.PARAMS.CONNECTIONS.TIMEOUT.WAIT_ASYNC_DISCOVERY_TIMEOUT );
-            //     if (answer === null || answer.hash === undefined) throw {message: "connection dropped headers-info", height: currentBlockchainLength-1 };
-            //
-            //     if (  Buffer.compare ( this.blockchain.blocks.last.hash , answer.hash ) <= 0 )
-            //         throw {message: "hash is bigger than mine" };
-            //
-            //     binarySearchResult = {
-            //         position : currentBlockchainLength,
-            //         header: answer.hash,
-            //     };
-            //
-            // }
 
             // in case it was you solved previously && there is something in the blockchain
 
@@ -23757,7 +23754,7 @@ class InterfaceBlockchainProtocolForkSolver{
 
             this.blockchain.forksAdministrator.deleteFork(fork);
 
-            console.error("discoverAndProcessFork raised an exception", exception );
+            console.error("discoverAndProcessFork", exception );
 
             __WEBPACK_IMPORTED_MODULE_6_common_utils_bans_BansList__["a" /* default */].addBan(socket, 2000, exception.message);
 
