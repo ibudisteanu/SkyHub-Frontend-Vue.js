@@ -14482,6 +14482,8 @@ class InterfaceBlockchainFork {
             sockets = [sockets];
 
         this.sockets = sockets;
+
+        this.forkIsSaving = false;
         this.forkStartingHeight = forkStartingHeight||0;
         this.forkStartingHeightDownloading = forkStartingHeight||0;
 
@@ -14659,18 +14661,16 @@ class InterfaceBlockchainFork {
 
         let success = await this.blockchain.semaphoreProcessing.processSempahoreCallback( async () => {
 
-            //make a copy of the current accountant tree
-            //let accountantTreeCopy = this.blockchain.accountantTree.serializeMiniAccountant(false);
-
-            //making a copy of the current blockchain
+            this.forkIsSaving = true;
 
             try {
 
+                //making a copy of the current blockchain
                 this.preForkClone();
 
             } catch (exception){
                 console.error("preForkBefore raised an error", exception);
-                //this.blockchain.accountantTree.deserializeMiniAccountant(accountantTreeCopy, undefined, false);
+                this.forkIsSaving = false;
                 return false;
             }
 
@@ -14680,16 +14680,13 @@ class InterfaceBlockchainFork {
 
             } catch (exception){
 
-                console.error('----------------------------------------');
                 console.error("preFork raised an error", exception);
-                console.error('----------------------------------------');
 
                 revertActions.revertOperations('', "all");
                 this._blocksCopy = []; //We didn't use them so far
                 await this.revertFork();
 
-                //this.blockchain.accountantTree.deserializeMiniAccountant(accountantTreeCopy, undefined, false);
-
+                this.forkIsSaving = false;
                 return false;
             }
 
@@ -14741,7 +14738,6 @@ class InterfaceBlockchainFork {
                 //reverting back to the clones, especially light settings
                 await this.revertFork();
 
-                //this.blockchain.accountantTree.deserializeMiniAccountant( accountantTreeCopy, undefined, false);
             }
 
             await this.postForkTransactions(forkedSuccessfully);
@@ -14753,6 +14749,7 @@ class InterfaceBlockchainFork {
                 setTimeout( ()=>{ this._forkPromiseResolver(true) } , 10 ); //making it async
             }
 
+            this.forkIsSaving = false;
             return forkedSuccessfully;
         });
 
@@ -23588,6 +23585,7 @@ class InterfaceBlockchainProtocolForkSolver{
 
             //i have finished the binary search
             if (left >= right) {
+
                 //it the block actually is the same
                 if (answer.hash.equals( this.blockchain.getHashPrev( mid+1 ) ) )
                     return {position: mid, header: answer.hash };
@@ -23601,9 +23599,12 @@ class InterfaceBlockchainProtocolForkSolver{
                         if ( answer !== null && Buffer.isBuffer(answer.hash) )
                             if (answer.hash.equals( this.blockchain.getHashPrev(mid-1 +1) ) )
                                 return {position: mid-1, header: answer.hash };
+
                     }
-                    return {position: -1, header: answer.hash};
+
+                    return {position: -1, header: answer.hash}
                 }
+
             }
 
             //was not not found, search left because it must be there
@@ -23613,9 +23614,9 @@ class InterfaceBlockchainProtocolForkSolver{
             //was found, search right because the fork must be there
                 return await this._discoverForkBinarySearch(socket, initialLeft, mid + 1, right);
 
-        } catch (Exception){
+        } catch (exception){
 
-            console.error("_discoverForkBinarySearch raised an exception" , Exception, answer);
+            console.error("_discoverForkBinarySearch raised an exception" , exception, answer);
 
             return {position: null, header: null};
 
@@ -23804,6 +23805,10 @@ class InterfaceBlockchainProtocolForkSolver{
 
         let nextBlockHeight = fork.forkStartingHeightDownloading;
 
+        //maybe it was deleted before
+        if (fork.sockets.length === 0){
+            return false;
+        }
 
         //interval timer
         let socket = fork.sockets[Math.floor(Math.random() * fork.sockets.length)];
@@ -23925,12 +23930,7 @@ class BansList{
 
         __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].emitter.on("nodes-list/disconnected", async (nodesListObject) => {
 
-            for (let i=0; i<this.bans.length; i++)
-                for (let j=0; j<this.bans[i].sockets.length; j++)
-                    if (this.bans[i].sockets[j].sckAddress === undefined || this.bans[i].sockets[j].sckAddress.matchAddress(nodesListObject.socket.sckAddress)){
-                        this.bans[i].sockets.splice(j,1);
-                        break;
-                    }
+            //sckAddresses shouldn't be deleted after a socket is disconnected
 
         });
 
@@ -23999,7 +23999,7 @@ class BansList{
     _removeEmptyBans(){
 
         for (let i=this.bans.length-1; i>=0; i--)
-            if (!this.bans[i].isBanned() )
+            if (this.bans[i].sckAddress === undefined || !this.bans[i].isBanned() )
                 this.bans.splice(i,1)
 
     }
@@ -80049,11 +80049,16 @@ class InterfaceBlockchainForksAdministrator {
         __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__["a" /* default */].emitter.on("nodes-list/disconnected", async (nodesListObject) => {
 
             for (let i=0; i<this.forks.length; i++)
-                for (let j=0; j<this.forks[i].sockets.length; j++)
-                    if (this.forks[i].sockets[j].sckAddress === undefined || this.forks[i].sockets[j].sckAddress.matchAddress(nodesListObject.socket.sckAddress)){
-                        this.forks[i].sockets.splice(j,1);
-                        break;
-                    }
+                if (!this.forks[i].forkIsSaving) {
+                    for (let j = 0; j < this.forks[i].sockets.length; j++)
+                        if (this.forks[i].sockets[j].sckAddress === undefined || this.forks[i].sockets[j].sckAddress.matchAddress(nodesListObject.socket.sckAddress)) {
+                            this.forks[i].sockets.splice(j, 1);
+                            break;
+                        }
+
+                    if (this.forks[i].sockets.length === 0)
+                        this.forks.splice(i, 1);
+                }
 
         });
 
@@ -82228,11 +82233,14 @@ class BlockchainNetworkAdjustedTime {
         try {
 
 
-            this.blockchainTimestamp._sendUTC(socket);
-            let answer = socket.node.sendRequestWaitOnce( "timestamp/request-timeUTC", {}, 'answer' );
-            this.blockchainTimestamp._sendUTC(socket);
+            let answer;
+            for (let i=0; i<2; i++) {
 
-            answer = await answer;
+                this.blockchainTimestamp._sendUTC(socket);
+                answer = await socket.node.sendRequestWaitOnce("timestamp/request-timeUTC", {}, 'answer');
+                if (answer !== null) break;
+
+            }
 
             if (answer === null || answer === undefined) throw {message: "The node answer for timestamp returned null or empty"};
 
