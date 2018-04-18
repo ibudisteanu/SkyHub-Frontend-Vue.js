@@ -92929,22 +92929,22 @@ class FallBackObject {
     "name": "fallback nodes",
 
     "nodes": [
+        //
+        // {
+        //     "addr": ["192.168.2.8:2095"],
+        // },
 
         {
-            "addr": ["192.168.2.8:2095"],
+            "addr": ["webdollar.ddns.net:80", "webdollar.ddns.net:8081", "webdollar.ddns.net:8082"],
         },
 
-        // {
-        //     "addr": ["webdollar.ddns.net:80", "webdollar.ddns.net:8081", "webdollar.ddns.net:8082"],
-        // },
-        //
-        // {
-        //     "addr": ["skyhub.me:80"],
-        // },
-        //
-        // {
-        //     "addr": ["robitza.ddns.net:12345"]
-        // },
+        {
+            "addr": ["skyhub.me:80"],
+        },
+
+        {
+            "addr": ["robitza.ddns.net:12345"]
+        },
 
     ]
 });
