@@ -2471,6 +2471,198 @@ $exports.store = store;
 
 /***/ }),
 /* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_geolocation_lists_geolocation_lists__ = __webpack_require__(303);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_sockets_socket_address__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_list_object_js__ = __webpack_require__(720);
+
+
+
+
+const EventEmitter = __webpack_require__(31);
+
+/*
+    The List is populated with Node Sockets only if the socket pass the Hello Message
+ */
+
+class NodesList {
+
+    // nodes = []               - storing the connected sockets
+    // events = []              - used for callbacks
+
+    constructor(){
+
+        console.log("NodesList constructor");
+
+        this.emitter = new EventEmitter();
+        this.emitter.setMaxListeners(100);
+
+        this.nodes = [];
+        this.nodesTotal = 0;
+
+        this.removeDisconnectedSockets();
+    }
+
+
+    searchNodeSocketByAddress(sckAddress, connectionType, validationDoubleConnectionsTypes){
+
+        if (connectionType === undefined) connectionType = 'all';
+
+        sckAddress = __WEBPACK_IMPORTED_MODULE_1_common_sockets_socket_address__["a" /* default */].createSocketAddress(sckAddress);
+
+        for (let i=0; i<this.nodes.length; i++)
+            if ( (this.nodes[i].connectionType === connectionType || connectionType === "all") && (this.nodes[i].socket.node.sckAddress.matchAddress(sckAddress, validationDoubleConnectionsTypes))){
+                return this.nodes[i];
+            }
+
+        return null;
+    }
+
+    registerUniqueSocket(socket, connectionType, type, validationDoubleConnectionsTypes){
+
+        if (type === undefined) throw {message: "type is necessary"};
+
+        if (!socket.node || !socket.node.protocol || !socket.node.protocol.helloValidated ) {
+            socket.disconnect();
+            return false;
+        }
+
+        socket.node.connectionType = connectionType;
+        socket.node.type = type;
+
+        socket.node.index = ++this.nodesTotal;
+
+        // avoiding double connections                              unless it is allowed to double connections
+        if ( this.searchNodeSocketByAddress(socket, undefined, validationDoubleConnectionsTypes ) === null ) {
+
+            // it is a unique connection, I should register this connection
+
+            let object = new __WEBPACK_IMPORTED_MODULE_2__node_list_object_js__["a" /* default */](socket, connectionType, type);
+            this.nodes.push(object);
+
+            this.emitter.emit("nodes-list/connected", object);
+
+            __WEBPACK_IMPORTED_MODULE_0_node_lists_geolocation_lists_geolocation_lists__["a" /* default */].includeSocket(socket);
+
+            return true;
+        }
+
+        console.error("Already connected to ", socket.node.sckAddress.getAddress(true));
+        socket.disconnect();
+        return false;
+    }
+
+    //Removing socket from the list (the connection was terminated)
+    disconnectSocket(socket, connectionType){
+
+
+        if (socket !== null && !socket.hasOwnProperty("node") ) {
+
+            //console.error("Error - disconnectSocket rejected by invalid helloValidated");
+            //if (socket.hasOwnProperty("node")) console.log("hello validated value",socket.node.protocol.helloValidated);
+            socket.disconnect();
+            return false;
+        }
+
+        if (connectionType === undefined) connectionType = 'all';
+
+        //console.log("disconnecting", socket, this.nodes);
+
+        for (let i=this.nodes.length-1; i>=0; i--)
+            if ((this.nodes[i].connectionType === connectionType || connectionType  === "all") &&
+                (this.nodes[i].socket === socket  || this.nodes[i].socket.node.sckAddress.uuid === socket.node.sckAddress.uuid   )) {
+
+                console.error('deleting client socket '+ i +" "+ socket.node.sckAddress.toString());
+
+                let nodeToBeDeleted = this.nodes[i];
+                this.nodes.splice(i, 1);
+
+                this.emitter.emit("nodes-list/disconnected", nodeToBeDeleted);
+
+                socket.disconnect();
+                return true;
+            }
+
+        //console.error("Disconnecting Socket but it was not validated before...", socket.node.sckAddress.getAddress());
+
+        socket.disconnect();
+        return false;
+    }
+
+    //return the JOIN of the clientSockets and serverSockets
+    getNodes(connectionType){
+
+        if ( connectionType === undefined) connectionType = 'all';
+
+        let list = [];
+
+        for (let i=0; i<this.nodes.length; i++)
+
+            if (Array.isArray(connectionType)) { //in case type is an Array
+                if (this.nodes[i].connectionType in connectionType)
+                    list.push(this.nodes[i]);
+            } else
+            // in case type is just a simple string
+            if (connectionType === this.nodes[i].connectionType || connectionType === "all")
+                list.push(this.nodes[i]);
+
+        return list;
+    }
+
+    countNodes(connectionType){
+
+        if ( connectionType === undefined) connectionType = 'all';
+
+        let count = 0;
+
+        for (let i=0; i<this.nodes.length; i++)
+            if (Array.isArray(connectionType)) { //in case type is an Array
+                if (this.nodes[i].connectionType in connectionType)
+                    count++;
+            }
+            else
+            if (connectionType === this.nodes[i].connectionType || connectionType === "all")
+                count++;
+
+        return count;
+    }
+
+    countNodesByType(connectionType){
+
+        if ( connectionType === undefined) connectionType = 'all';
+
+        let count = 0;
+
+        for (let i=0; i<this.nodes.length; i++)
+            if (Array.isArray(connectionType)) { //in case type is an Array
+                if (this.nodes[i].nodeType in connectionType)
+                    count++;
+            }
+            else
+            if (connectionType === this.nodes[i].nodeType || connectionType === "all")
+                count++;
+
+        return count;
+    }
+
+
+    removeDisconnectedSockets(){
+
+        for (let i=this.nodes.length-1; i>=0; i--)
+            if (this.nodes[i].socket.disconnected)
+                this.nodes.splice(i,1);
+
+        setTimeout(()=>{this.removeDisconnectedSockets()}, 2000);
+    }
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (new NodesList());
+
+/***/ }),
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ERRORS = __webpack_require__(288)
@@ -2712,198 +2904,6 @@ typeforce.TfPropertyTypeError = TfPropertyTypeError
 
 module.exports = typeforce
 
-
-/***/ }),
-/* 13 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_geolocation_lists_geolocation_lists__ = __webpack_require__(303);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_sockets_socket_address__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_list_object_js__ = __webpack_require__(720);
-
-
-
-
-const EventEmitter = __webpack_require__(31);
-
-/*
-    The List is populated with Node Sockets only if the socket pass the Hello Message
- */
-
-class NodesList {
-
-    // nodes = []               - storing the connected sockets
-    // events = []              - used for callbacks
-
-    constructor(){
-
-        console.log("NodesList constructor");
-
-        this.emitter = new EventEmitter();
-        this.emitter.setMaxListeners(100);
-
-        this.nodes = [];
-        this.nodesTotal = 0;
-
-        this.removeDisconnectedSockets();
-    }
-
-
-    searchNodeSocketByAddress(sckAddress, connectionType, validationDoubleConnectionsTypes){
-
-        if (connectionType === undefined) connectionType = 'all';
-
-        sckAddress = __WEBPACK_IMPORTED_MODULE_1_common_sockets_socket_address__["a" /* default */].createSocketAddress(sckAddress);
-
-        for (let i=0; i<this.nodes.length; i++)
-            if ( (this.nodes[i].connectionType === connectionType || connectionType === "all") && (this.nodes[i].socket.node.sckAddress.matchAddress(sckAddress, validationDoubleConnectionsTypes))){
-                return this.nodes[i];
-            }
-
-        return null;
-    }
-
-    registerUniqueSocket(socket, connectionType, type, validationDoubleConnectionsTypes){
-
-        if (type === undefined) throw {message: "type is necessary"};
-
-        if (!socket.node || !socket.node.protocol || !socket.node.protocol.helloValidated ) {
-            socket.disconnect();
-            return false;
-        }
-
-        socket.node.connectionType = connectionType;
-        socket.node.type = type;
-
-        socket.node.index = ++this.nodesTotal;
-
-        // avoiding double connections                              unless it is allowed to double connections
-        if ( this.searchNodeSocketByAddress(socket, undefined, validationDoubleConnectionsTypes ) === null ) {
-
-            // it is a unique connection, I should register this connection
-
-            let object = new __WEBPACK_IMPORTED_MODULE_2__node_list_object_js__["a" /* default */](socket, connectionType, type);
-            this.nodes.push(object);
-
-            this.emitter.emit("nodes-list/connected", object);
-
-            __WEBPACK_IMPORTED_MODULE_0_node_lists_geolocation_lists_geolocation_lists__["a" /* default */].includeSocket(socket);
-
-            return true;
-        }
-
-        console.error("Already connected to ", socket.node.sckAddress.getAddress(true));
-        socket.disconnect();
-        return false;
-    }
-
-    //Removing socket from the list (the connection was terminated)
-    disconnectSocket(socket, connectionType){
-
-
-        if (socket !== null && !socket.hasOwnProperty("node") ) {
-
-            //console.error("Error - disconnectSocket rejected by invalid helloValidated");
-            //if (socket.hasOwnProperty("node")) console.log("hello validated value",socket.node.protocol.helloValidated);
-            socket.disconnect();
-            return false;
-        }
-
-        if (connectionType === undefined) connectionType = 'all';
-
-        //console.log("disconnecting", socket, this.nodes);
-
-        for (let i=this.nodes.length-1; i>=0; i--)
-            if ((this.nodes[i].connectionType === connectionType || connectionType  === "all") &&
-                (this.nodes[i].socket === socket  || this.nodes[i].socket.node.sckAddress.uuid === socket.node.sckAddress.uuid   )) {
-
-                console.error('deleting client socket '+ i +" "+ socket.node.sckAddress.toString());
-
-                let nodeToBeDeleted = this.nodes[i];
-                this.nodes.splice(i, 1);
-
-                this.emitter.emit("nodes-list/disconnected", nodeToBeDeleted);
-
-                socket.disconnect();
-                return true;
-            }
-
-        //console.error("Disconnecting Socket but it was not validated before...", socket.node.sckAddress.getAddress());
-
-        socket.disconnect();
-        return false;
-    }
-
-    //return the JOIN of the clientSockets and serverSockets
-    getNodes(connectionType){
-
-        if ( connectionType === undefined) connectionType = 'all';
-
-        let list = [];
-
-        for (let i=0; i<this.nodes.length; i++)
-
-            if (Array.isArray(connectionType)) { //in case type is an Array
-                if (this.nodes[i].connectionType in connectionType)
-                    list.push(this.nodes[i]);
-            } else
-            // in case type is just a simple string
-            if (connectionType === this.nodes[i].connectionType || connectionType === "all")
-                list.push(this.nodes[i]);
-
-        return list;
-    }
-
-    countNodes(connectionType){
-
-        if ( connectionType === undefined) connectionType = 'all';
-
-        let count = 0;
-
-        for (let i=0; i<this.nodes.length; i++)
-            if (Array.isArray(connectionType)) { //in case type is an Array
-                if (this.nodes[i].connectionType in connectionType)
-                    count++;
-            }
-            else
-            if (connectionType === this.nodes[i].connectionType || connectionType === "all")
-                count++;
-
-        return count;
-    }
-
-    countNodesByType(connectionType){
-
-        if ( connectionType === undefined) connectionType = 'all';
-
-        let count = 0;
-
-        for (let i=0; i<this.nodes.length; i++)
-            if (Array.isArray(connectionType)) { //in case type is an Array
-                if (this.nodes[i].nodeType in connectionType)
-                    count++;
-            }
-            else
-            if (connectionType === this.nodes[i].nodeType || connectionType === "all")
-                count++;
-
-        return count;
-    }
-
-
-    removeDisconnectedSockets(){
-
-        for (let i=this.nodes.length-1; i>=0; i--)
-            if (this.nodes[i].socket.disconnected)
-                this.nodes.splice(i,1);
-
-        setTimeout(()=>{this.removeDisconnectedSockets()}, 2000);
-    }
-
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (new NodesList());
 
 /***/ }),
 /* 14 */
@@ -6586,7 +6586,7 @@ class Serialization{
 var Buffer = __webpack_require__(3).Buffer
 var bip66 = __webpack_require__(286)
 var pushdata = __webpack_require__(287)
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 var types = __webpack_require__(22)
 var scriptNumber = __webpack_require__(289)
 
@@ -6847,7 +6847,7 @@ class StatusEvents{
 /* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 
 var UINT31_MAX = Math.pow(2, 31) - 1
 function UInt31 (value) {
@@ -12666,7 +12666,7 @@ const NODES_TYPE = {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_sockets_node_clients_socket_Node_Client__ = __webpack_require__(774);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__nodes_waitlist_object__ = __webpack_require__(339);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_sockets_socket_address__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_consts_const_global__ = __webpack_require__(2);
@@ -13775,7 +13775,7 @@ module.exports = function (it) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_main_blockchain_agents_Main_Blockchain_Agent__ = __webpack_require__(758);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_main_blockchain_balances_Main_Blockchain_Balances__ = __webpack_require__(769);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_common_utils_validation_Validations_Utils__ = __webpack_require__(771);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_common_events_Status_Events__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_node_lists_waitlist_nodes_waitlist__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_common_crypto_WebDollar_Crypto__ = __webpack_require__(33);
@@ -16901,7 +16901,7 @@ class InterfaceBlockchainBlockValidation {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_lists_types_Connections_Type__ = __webpack_require__(53);
 
@@ -17144,7 +17144,7 @@ class PPowBlockchainProofPi extends __WEBPACK_IMPORTED_MODULE_0__PPoW_Blockchain
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(13);
+/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Interface_Blockchain_Protocol_Fork_Solver__ = __webpack_require__(197);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Interface_Blockchain_Protocol_Forks_Manager__ = __webpack_require__(320);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_Serialization__ = __webpack_require__(17);
@@ -20563,7 +20563,7 @@ var bcrypto = __webpack_require__(83)
 var bscript = __webpack_require__(19)
 var bufferutils = __webpack_require__(293)
 var opcodes = __webpack_require__(24)
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 var types = __webpack_require__(22)
 var varuint = __webpack_require__(179)
 
@@ -21060,7 +21060,7 @@ var baddress = __webpack_require__(182)
 var bcrypto = __webpack_require__(83)
 var ecdsa = __webpack_require__(684)
 var randomBytes = __webpack_require__(72)
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 var types = __webpack_require__(22)
 var wif = __webpack_require__(689)
 
@@ -21199,7 +21199,7 @@ var bs58check = __webpack_require__(183)
 var bscript = __webpack_require__(19)
 var btemplates = __webpack_require__(175)
 var networks = __webpack_require__(98)
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 var types = __webpack_require__(22)
 
 function fromBase58Check (address) {
@@ -21814,7 +21814,7 @@ var objectKeys = Object.keys || function (obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var bip66 = __webpack_require__(286)
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 var types = __webpack_require__(22)
 
 var BigInteger = __webpack_require__(59)
@@ -23913,6 +23913,8 @@ class InterfaceBlockchainProtocolForkSolver{
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BanObject__ = __webpack_require__(756);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(12);
+
 
 
 class BansList{
@@ -23920,6 +23922,18 @@ class BansList{
     constructor(){
 
         this.bans = [];
+
+        __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].emitter.on("nodes-list/disconnected", async (nodesListObject) => {
+
+            for (let i=0; i<this.bans.length; i++)
+                for (let j=0; j<this.bans[i].sockets.length; j++)
+                    if (this.bans[i].sockets[j].sckAddress === undefined || this.bans[i].sockets[j].sckAddress.matchAddress(nodesListObject.socket.sckAddress)){
+                        this.bans[i].sockets.splice(j,1);
+                        break;
+                    }
+
+        });
+
 
     }
 
@@ -25000,7 +25014,7 @@ Transport.prototype.onClose = function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__ = __webpack_require__(207);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__signaling_client_service_Node_Signaling_Client_Service__ = __webpack_require__(338);
 
 
@@ -25317,7 +25331,7 @@ class NodeSignalingClientProtocol {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__signaling_client_peer_object__ = __webpack_require__(799);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_webrtc_web_peer_node_web_peer_webRTC__ = __webpack_require__(800);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__signaling_client_service_Node_Signaling_Client_Service__ = __webpack_require__(338);
 
 
@@ -44804,7 +44818,7 @@ module.exports = {
 
 var bscript = __webpack_require__(19)
 var types = __webpack_require__(22)
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 var OPS = __webpack_require__(24)
 var OP_INT_BASE = OPS.OP_RESERVED // OP_1 - 1
 
@@ -44874,7 +44888,7 @@ module.exports = {
 
 var bscript = __webpack_require__(19)
 var types = __webpack_require__(22)
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 var OPS = __webpack_require__(24)
 
 function check (script) {
@@ -44913,7 +44927,7 @@ module.exports = {
 
 var bscript = __webpack_require__(19)
 var types = __webpack_require__(22)
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 var OPS = __webpack_require__(24)
 
 function check (script) {
@@ -51185,7 +51199,7 @@ class SemaphoreProcessing{
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Blockchain_Network_Adjusted_Time__ = __webpack_require__(725);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_global_Blockchain_Genesis__ = __webpack_require__(50);
 
 
@@ -52607,7 +52621,7 @@ class PPoWBlockchainAgentFullNode extends __WEBPACK_IMPORTED_MODULE_0_common_blo
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__protocol_Interface_Blockchain_Protocol__ = __webpack_require__(129);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_mini_blockchain_protocol_Mini_Blockchain_Protocol__ = __webpack_require__(196);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__ = __webpack_require__(100);
@@ -54619,7 +54633,7 @@ class SocketExtend{
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__ = __webpack_require__(796);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__ = __webpack_require__(337);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__signaling_server_service_Node_Signaling_Server_Service__ = __webpack_require__(797);
@@ -54948,7 +54962,7 @@ SignalingServerRoomConnectionObject.ConnectionStatus = ConnectionStatus;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__ = __webpack_require__(207);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(12);
 
 
 
@@ -55006,7 +55020,7 @@ class NodeSignalingClientService {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_types_Nodes_Type__ = __webpack_require__(84);
 
 
@@ -76881,7 +76895,7 @@ module.exports = map
 var Buffer = __webpack_require__(3).Buffer
 var bscript = __webpack_require__(19)
 var p2mso = __webpack_require__(290)
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 var OPS = __webpack_require__(24)
 
 function partialSignature (value) {
@@ -76958,7 +76972,7 @@ module.exports = {
 
 var bscript = __webpack_require__(19)
 var types = __webpack_require__(22)
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 var OPS = __webpack_require__(24)
 
 function check (script) {
@@ -76997,7 +77011,7 @@ module.exports = {
 // {signature}
 
 var bscript = __webpack_require__(19)
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 
 function check (script) {
   var chunks = bscript.decompile(script)
@@ -77043,7 +77057,7 @@ module.exports = {
 // {pubKey} OP_CHECKSIG
 
 var bscript = __webpack_require__(19)
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 var OPS = __webpack_require__(24)
 
 function check (script) {
@@ -77082,7 +77096,7 @@ module.exports = {
 // {signature} {pubKey}
 
 var bscript = __webpack_require__(19)
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 
 function check (script) {
   var chunks = bscript.decompile(script)
@@ -77141,7 +77155,7 @@ module.exports = {
 
 var bscript = __webpack_require__(19)
 var types = __webpack_require__(22)
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 var OPS = __webpack_require__(24)
 
 function check (script) {
@@ -77199,7 +77213,7 @@ module.exports = {
 
 var Buffer = __webpack_require__(3).Buffer
 var bscript = __webpack_require__(19)
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 
 var p2ms = __webpack_require__(176)
 var p2pk = __webpack_require__(177)
@@ -77290,7 +77304,7 @@ module.exports = {
 
 var bscript = __webpack_require__(19)
 var types = __webpack_require__(22)
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 var OPS = __webpack_require__(24)
 
 function check (script) {
@@ -77339,7 +77353,7 @@ module.exports = {
 // {signature} {pubKey}
 
 var bscript = __webpack_require__(19)
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 
 function isCompressedCanonicalPubKey (pubKey) {
   return bscript.isCanonicalPubKey(pubKey) && pubKey.length === 33
@@ -77401,7 +77415,7 @@ module.exports = {
 
 var bscript = __webpack_require__(19)
 var types = __webpack_require__(22)
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 
 var p2ms = __webpack_require__(176)
 var p2pk = __webpack_require__(177)
@@ -77482,7 +77496,7 @@ module.exports = {
 var Buffer = __webpack_require__(3).Buffer
 var bscript = __webpack_require__(19)
 var types = __webpack_require__(22)
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 var OPS = __webpack_require__(24)
 
 var HEADER = Buffer.from('aa21a9ed', 'hex')
@@ -77528,7 +77542,7 @@ module.exports = {
 var Buffer = __webpack_require__(3).Buffer
 var bcrypto = __webpack_require__(83)
 var fastMerkleRoot = __webpack_require__(681)
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 var types = __webpack_require__(22)
 var varuint = __webpack_require__(179)
 
@@ -77952,7 +77966,7 @@ module.exports = function (checksumFn) {
 
 var Buffer = __webpack_require__(3).Buffer
 var createHmac = __webpack_require__(120)
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 var types = __webpack_require__(22)
 
 var BigInteger = __webpack_require__(59)
@@ -78328,7 +78342,7 @@ var Buffer = __webpack_require__(3).Buffer
 var base58check = __webpack_require__(183)
 var bcrypto = __webpack_require__(83)
 var createHmac = __webpack_require__(120)
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 var types = __webpack_require__(22)
 var NETWORKS = __webpack_require__(98)
 
@@ -78653,7 +78667,7 @@ var bscript = __webpack_require__(19)
 var btemplates = __webpack_require__(175)
 var networks = __webpack_require__(98)
 var ops = __webpack_require__(24)
-var typeforce = __webpack_require__(12)
+var typeforce = __webpack_require__(13)
 var types = __webpack_require__(22)
 var scriptTypes = btemplates.types
 var SIGNABLE = [btemplates.types.P2PKH, btemplates.types.P2PK, btemplates.types.MULTISIG]
@@ -80010,7 +80024,7 @@ class InterfaceBlockchainBlockDataTransactions {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Interface_Blockchain_Fork__ = __webpack_require__(100);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_utils_BufferExtended__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(12);
 
 
 
@@ -81659,7 +81673,7 @@ class InterfaceTransactionsPendingQueue {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_sockets_protocol_node_protocol__ = __webpack_require__(127);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_events_Status_Events__ = __webpack_require__(21);
 
@@ -82168,7 +82182,7 @@ class InterfaceBlockchainTransactionsEvents{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__clusters_Network_Adjusted_Time_Clusters__ = __webpack_require__(726);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_blockchain_global_Blockchain_Genesis__ = __webpack_require__(50);
@@ -88174,7 +88188,7 @@ class DetectMultipleWindows {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_sockets_socket_extend__ = __webpack_require__(335);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_sockets_socket_address__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Connections_Type__ = __webpack_require__(53);
 
 
@@ -91276,7 +91290,7 @@ Backoff.prototype.setJitter = function(jitter){
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_sockets_protocol_node_protocol__ = __webpack_require__(127);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(12);
 
 
 
@@ -91417,7 +91431,7 @@ class NodePropagationProtocol {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_sockets_socket_address__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__signaling_server_room_connection_object__ = __webpack_require__(337);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_types_Connections_Type__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Nodes_Type__ = __webpack_require__(84);
 
@@ -91530,7 +91544,7 @@ class SignalingServerRoomList {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Node_Signaling_Server_Waitlist_Object__ = __webpack_require__(798);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Node_Signaling_Server_Protocol__ = __webpack_require__(336);
 
@@ -91762,7 +91776,7 @@ class SignalingClientPeerObject {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_sockets_socket_extend__ = __webpack_require__(335);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_sockets_protocol_signaling_client_Node_Signaling_Client_Protocol__ = __webpack_require__(206);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_types_Connections_Type__ = __webpack_require__(53);
 /*
@@ -92369,7 +92383,7 @@ return isArrayBuffer;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_sockets_node_clients_service_node_clients_service__ = __webpack_require__(804);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_webrtc_service_node_web_peers_service__ = __webpack_require__(808);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_stats_nodes_stats__ = __webpack_require__(810);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_nodes_list__ = __webpack_require__(12);
 var NodeServer, NodeExpress;
 
 if (false) {
@@ -92412,7 +92426,7 @@ class Node{
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_sockets_node_clients_service_discovery_node_clients_discovery_service__ = __webpack_require__(805);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(12);
 
 
 
@@ -92447,7 +92461,7 @@ class NodeClientsService {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_waitlist_nodes_waitlist__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_waitlist_nodes_waitlist_object__ = __webpack_require__(339);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__fallbacks_fallback_object__ = __webpack_require__(806);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__fallbacks_fallback_nodes_list__ = __webpack_require__(807);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_node_lists_types_Nodes_Type__ = __webpack_require__(84);
@@ -92673,7 +92687,11 @@ class FallBackObject {
     "nodes": [
 
         {
-            "addr": ["webdollar.ddns.net:80", "webdollar.ddns.net:8081", "webdollar.ddns.net:8082", "webdollar.ddns.net:2024", "robitza.ddns.net:80"],
+            "addr": ["webdollar.ddns.net:80", "webdollar.ddns.net:8081", "webdollar.ddns.net:8082"],
+        },
+
+        {
+            "addr": ["skyhub.me:80"],
         },
 
     ]
@@ -92720,7 +92738,7 @@ class NodeWebPeersService {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Connections_Type__ = __webpack_require__(53);
 
@@ -92771,7 +92789,7 @@ class NodeWebPeersDiscoveryService {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geolocation_lists__ = __webpack_require__(303);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_nodes_waitlist__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__ = __webpack_require__(53);
