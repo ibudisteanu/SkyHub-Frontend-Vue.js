@@ -80036,7 +80036,7 @@ class InterfaceBlockchainForksAdministrator {
 
             for (let i=0; i<this.forks.length; i++)
                 for (let j=0; j<this.forks[i].sockets.length; j++)
-                    if (this.forks[i].sockets[j].sckAddress.matchAddress(nodesListObject.socket.sckAddress)){
+                    if (this.forks[i].sockets[j].sckAddress === undefined || this.forks[i].sockets[j].sckAddress.matchAddress(nodesListObject.socket.sckAddress)){
                         this.forks[i].sockets.splice(j,1);
                         break;
                     }
@@ -92673,7 +92673,7 @@ class FallBackObject {
     "nodes": [
 
         {
-            "addr": ["webdollar.ddns.net:80", "webdollar.ddns.net:8081", "webdollar.ddns.net:8082", "webdollar.ddns.net:2024"],
+            "addr": ["webdollar.ddns.net:80", "webdollar.ddns.net:8081", "webdollar.ddns.net:8082", "webdollar.ddns.net:2024", "robitza.ddns.net:80"],
         },
 
     ]
@@ -92753,7 +92753,7 @@ class NodeWebPeersDiscoveryService {
 
             //client Signaling for WebRTC
 
-            nodesListObject.socket.node.protocol.signaling.client.initializeSignalingClientService();
+            //nodesListObject.socket.node.protocol.signaling.client.initializeSignalingClientService();
 
         }
 
