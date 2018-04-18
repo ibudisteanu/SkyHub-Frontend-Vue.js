@@ -16919,13 +16919,13 @@ class NodeProtocol {
         console.log("sendHello");
 
         let response;
-        for (let i=0; i< 4; i++) {
+        for (let i=0; i < 3; i++) {
 
             response = await node.sendRequestWaitOnce("HelloNode", {
                 version: __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.NODE.VERSION,
                 uuid: __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.UUID,
                 nodeType:  true ? __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER : NodesType.NODE_TERMINAL
-            });
+            }, undefined, 1000);
 
             if ( typeof response === "object" && response !== null && response.hasOwnProperty("uuid") )
                 break;
@@ -82232,12 +82232,11 @@ class BlockchainNetworkAdjustedTime {
 
         try {
 
-
             let answer;
-            for (let i=0; i<2; i++) {
+            for (let i=0; i<=2; i++) {
 
                 this.blockchainTimestamp._sendUTC(socket);
-                answer = await socket.node.sendRequestWaitOnce("timestamp/request-timeUTC", {}, 'answer');
+                answer = await socket.node.sendRequestWaitOnce( "timestamp/request-timeUTC", {}, 'answer', 1000 );
                 if (answer !== null) break;
 
             }
@@ -88305,16 +88304,6 @@ class NodeClient {
                     resolve(false);
                 });
 
-                socket.on("disconnect", () => {
-
-                    //disconnect over the time, so it was connected before
-
-                    console.warn("Client disconnected ", address);
-                    __WEBPACK_IMPORTED_MODULE_4_node_lists_nodes_list__["a" /* default */].disconnectSocket(this.socket);
-
-                });
-
-
                 socket.connect();
 
             }
@@ -88338,6 +88327,16 @@ class NodeClient {
         }
 
         console.log('Socket Client Initialized ' + this.socket.node.sckAddress.getAddress(true));
+
+        this.socket.node.sckAddress.on("disconnect", () => {
+
+            //disconnect over the time, so it was connected before
+
+            console.warn("Client disconnected ", this.socket.node.sckAddress.getAddress(true) );
+            __WEBPACK_IMPORTED_MODULE_4_node_lists_nodes_list__["a" /* default */].disconnectSocket(this.socket);
+
+        });
+
 
         this.socket.node.protocol.propagation.initializePropagation();
 
@@ -92702,6 +92701,10 @@ class FallBackObject {
             "addr": ["skyhub.me:80"],
         },
 
+        {
+            "addr": ["robitza.ddns.net:12345"]
+        },
+
     ]
 });
 
@@ -92779,7 +92782,7 @@ class NodeWebPeersDiscoveryService {
 
             //client Signaling for WebRTC
 
-            //nodesListObject.socket.node.protocol.signaling.client.initializeSignalingClientService();
+            nodesListObject.socket.node.protocol.signaling.client.initializeSignalingClientService();
 
         }
 
@@ -92829,7 +92832,7 @@ class NodesStats {
 
     _printStats(){
 
-        console.log(" connected to: ", this.statsClients," , from: ", this.statsServer , " web peers", this.statsWebPeers," Waitlist:",this.statsWaitlist,  "    GeoLocationContinents: ", __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geolocation_lists__["a" /* default */].countGeoLocationContinentsLists );
+        console.log(" connected to: ", this.statsClients," , from: ", this.statsServer , " web peers", this.statsWebPeers," Network:",this.statsWaitlist,  "    GeoLocationContinents: ", __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geolocation_lists__["a" /* default */].countGeoLocationContinentsLists );
 
         let string1 = "";
         let clients = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].getNodes(__WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_CLIENT_SOCKET);
