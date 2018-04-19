@@ -91980,6 +91980,7 @@ class SignalingClientPeerObject {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_sockets_protocol_signaling_client_Node_Signaling_Client_Protocol__ = __webpack_require__(206);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_types_Connections_Type__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_consts_const_global__ = __webpack_require__(2);
 /*
     WEBRTC Node Peer
  */
@@ -91998,6 +91999,8 @@ let RTCPeerConnection = wrtc.RTCPeerConnection;
 let RTCSessionDescription = wrtc.RTCSessionDescription;
 let RTCIceCandidate = wrtc.RTCIceCandidate;
 
+
+__WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].DEBUG = true;
 
 const config = {
 
@@ -92223,15 +92226,17 @@ class NodeWebPeerRTC {
                             (desc)=>{
                                 this.peer.setLocalDescription(
                                     desc,
-                                    () => {
+                                    async () => {
 
                                         this.peer.signalData = {'sdp': this.peer.localDescription};
                                         this.peer.setLocalDescription2 = true;
 
                                         resolve(  {result: true, signal: this.peer.signalData}  );
 
-                                        for (let i=0; i<this.peer.inputSignalsQueue.length; i++)
-                                            this.createSignal(this.peer.inputSignalsQueue[i]);
+                                        for (let i=0; i<this.peer.inputSignalsQueue.length; i++) {
+                                            let answer = await this.createSignal(this.peer.inputSignalsQueue[i].inputSignal);
+                                            this.peer.inputSignalsQueue[i].resolve(answer);
+                                        }
 
                                     },
                                     (error) => {
@@ -92261,11 +92266,11 @@ class NodeWebPeerRTC {
                         let candidate = new RTCIceCandidate(inputSignal.candidate);
                         this.peer.addIceCandidate(candidate);
 
-                    } else {
-                        this.peer.inputSignalsQueue.push(inputSignal);
-                    }
+                        resolve({result: true, message:"iceCandidate successfully introduced"});
 
-                    resolve({result: true, message:"iceCandidate successfully introduced"});
+                    } else {
+                        this.peer.inputSignalsQueue.push( { inputSignal: inputSignal, resolve: resolve });
+                    }
 
                 } catch (Exception){
                     resolve({result:false, message: "iceCandidate error ", exception: Exception });
