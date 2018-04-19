@@ -14507,7 +14507,7 @@ class InterfaceBlockchainFork {
      * initializeConstructor is used to initialize the constructor dynamically using .apply method externally passing the arguments
      */
 
-    initializeConstructor(blockchain, forkId, sockets, forkStartingHeight, forkChainStartingPoint, newChainLength, headers, ready=false){
+    initializeConstructor(blockchain, forkId, sockets, forkStartingHeight, forkChainStartingPoint, newChainLength, headers, ready = false){
 
         this.blockchain = blockchain;
 
@@ -14517,6 +14517,8 @@ class InterfaceBlockchainFork {
             sockets = [sockets];
 
         this.sockets = sockets;
+
+        this.ready = false;
 
         this.forkIsSaving = false;
         this.forkStartingHeight = forkStartingHeight||0;
@@ -14534,16 +14536,6 @@ class InterfaceBlockchainFork {
         });
 
         this._blocksCopy = [];
-
-        this._ready = ready;
-    }
-
-    set ready(newValue){
-        this._ready = newValue;
-    }
-
-    get ready(){
-        return this._ready;
     }
 
     async _validateFork(validateHashesAgain){
@@ -14590,6 +14582,10 @@ class InterfaceBlockchainFork {
         let result = await this.blockchain.validateBlockchainBlock( block );
 
         return result;
+    }
+
+    initializeFork(){
+        this.ready = true;
     }
 
     getForkBlock(height){
@@ -23769,7 +23765,7 @@ class InterfaceBlockchainProtocolForkSolver{
                     fork.forkChainStartingPoint = forkChainStartingPoint;
                     fork.forkChainLength = forkChainLength;
                     fork.forkHeaders.push(binarySearchResult.header);
-                    fork.ready = true;
+                    fork.initializeFork();
 
                 } catch (exception){
 
@@ -25292,7 +25288,7 @@ class NodeSignalingClientProtocol {
             } catch (exception){
 
                 if (exception.message !== "Already connected" && exception.message !== "I can't accept WebPeers anymore")
-                    console.error("signals/client/answer/receive-ice-candidate/"+ data.connectionId, exception);
+                    console.error("signals/client/answer/receive-ice-candidate", data.connectionId, exception);
 
                 socket.node.sendRequest("signals/client/answer/receive-ice-candidate", {connectionId: data.connectionId, accepted:false, answerSignal: undefined, message: exception.message });
             }
@@ -54852,14 +54848,14 @@ class NodeSignalingServerProtocol {
 
             let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(iceCandidate.connectionId);
 
-            let answer = await connection.client1.node.sendRequest("signals/client/answer/receive-ice-candidate",{ //sendRequestWaitOnce returns errors
+            let answer = await connection.client2.node.sendRequest("signals/client/answer/receive-ice-candidate",{ //sendRequestWaitOnce returns errors
                 connectionId: connection.id,
 
                 initiatorSignal: connection.initiatorSignal,
                 iceCandidate: iceCandidate,
 
-                remoteAddress: connection.client2.node.sckAddress.getAddress(false),
-                remoteUUID: connection.client2.node.sckAddress.uuid,
+                remoteAddress: connection.client1.node.sckAddress.getAddress(false),
+                remoteUUID: connection.client1.node.sckAddress.uuid,
             });
 
             if ( answer === null || answer === undefined )
@@ -86968,18 +86964,13 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
 
     }
 
-    set ready(newValue){
-        this._ready = newValue;
+    async initializeFork(){
 
-        if (newValue)
-            if (this.blockchain.agent.light && (this.forkChainStartingPoint === this.forkStartingHeight) ) {
-                this._ready = false;
-                this._downloadProof();
-            }
-    }
+        if (this.blockchain.agent.light && (this.forkChainStartingPoint === this.forkStartingHeight) )
+            await this._downloadProof();
 
-    get ready(){
-        return this._ready;
+        __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__["a" /* default */].prototype.initializeFork.call(this);
+
     }
 
     async _downloadProof(){
@@ -87005,7 +86996,6 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
 
             __WEBPACK_IMPORTED_MODULE_5_common_events_Status_Events__["a" /* default */].emit( "agent/status", {message: "Proofs Validated", blockHeight: this.forkStartingHeight } );
 
-            this._ready = true;
         }
 
     }
