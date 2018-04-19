@@ -54736,6 +54736,8 @@ class NodeSignalingServerProtocol {
 
             let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(initiatorAnswer.connectionId);
 
+            if (connection === null) console.error("signals/client/initiator/generate-initiator-signal/answer connection is empty", initiatorAnswer.connectionId);
+
             if ( initiatorAnswer === null || initiatorAnswer.initiatorSignal === undefined )
                 connection.status =  __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
             else
@@ -54771,6 +54773,8 @@ class NodeSignalingServerProtocol {
 
             let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(answer.connectionId);
 
+            if ( connection === null ) console.error("signals/client/answer/receive-initiator-signal/answer connection is empty", answer.connectionId);
+
             if ( answer === null || answer === undefined || answer.answerSignal === undefined )
                 connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
             else
@@ -54803,6 +54807,8 @@ class NodeSignalingServerProtocol {
 
             let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(result.connectionId);
 
+            if ( connection === null ) console.error("signals/client/initiator/join-answer-signal connection is empty", result.connectionId);
+
             if ( result === null || result === undefined )
                 connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
             else
@@ -54821,7 +54827,9 @@ class NodeSignalingServerProtocol {
         //socket is client2
         socket.node.on("signals/server/new-answer-ice-candidate", async (iceCandidate) => {
 
-            let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(iceCandidate.connectionId);
+            let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById( iceCandidate.connectionId );
+
+            if ( connection === null ) console.error("signals/server/new-answer-ice-candidate connection is empty", iceCandidate.connectionId);
 
             let answer = await connection.client1.node.sendRequest("signals/client/initiator/receive-ice-candidate",{  //sendRequestWaitOnce returns errors
                 connectionId: connection.id,
@@ -54847,6 +54855,8 @@ class NodeSignalingServerProtocol {
         socket.node.on("signals/server/new-initiator-ice-candidate", async (iceCandidate) => {
 
             let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(iceCandidate.connectionId);
+
+            if ( connection === null ) console.error("signals/server/new-answer-ice-candidate connection is empty", iceCandidate.connectionId);
 
             let answer = await connection.client2.node.sendRequest("signals/client/answer/receive-ice-candidate",{ //sendRequestWaitOnce returns errors
                 connectionId: connection.id,
