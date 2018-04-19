@@ -14501,13 +14501,19 @@ class InterfaceBlockchainFork {
 
     constructor (){
 
+        // setTimeout(()=>{
+        //
+        //     this
+        //
+        // }, 60*1000)
+
     }
 
     /**
      * initializeConstructor is used to initialize the constructor dynamically using .apply method externally passing the arguments
      */
 
-    initializeConstructor(blockchain, forkId, sockets, forkStartingHeight, forkChainStartingPoint, newChainLength, headers, ready = false){
+    initializeConstructor(blockchain, forkId, sockets, forkStartingHeight, forkChainStartingPoint, newChainLength, headers, forkReady = false){
 
         this.blockchain = blockchain;
 
@@ -14518,7 +14524,7 @@ class InterfaceBlockchainFork {
 
         this.sockets = sockets;
 
-        this.ready = false;
+        this.forkReady = false;
 
         this.forkIsSaving = false;
         this.forkStartingHeight = forkStartingHeight||0;
@@ -14585,7 +14591,8 @@ class InterfaceBlockchainFork {
     }
 
     initializeFork(){
-        this.ready = true;
+        this.forkReady = true;
+        return true;
     }
 
     getForkBlock(height){
@@ -23717,11 +23724,9 @@ class InterfaceBlockchainProtocolForkSolver{
             }
 
             fork = await this.blockchain.forksAdministrator.createNewFork( socket, undefined, undefined, undefined, [forkLastBlockHeader], false );
-            fork.ready = false;
 
             // in case it was you solved previously && there is something in the blockchain
 
-            //console.warn("discoverFork 555" , binarySearchResult);
             //Binary Search to detect the Fork Position
             if ( binarySearchResult.position === -1 ) {
 
@@ -23740,8 +23745,6 @@ class InterfaceBlockchainProtocolForkSolver{
                     throw {message: "connection dropped discoverForkBinarySearch"}
 
             }
-
-            //console.warn("discoverFork 7777" , binarySearchResult);
 
             //process light and NiPoPow
             await this.optionalProcess(socket, binarySearchResult, currentBlockchainLength, forkChainLength, forkChainStartingPoint);
@@ -23763,7 +23766,11 @@ class InterfaceBlockchainProtocolForkSolver{
                 fork.forkChainStartingPoint = forkChainStartingPoint;
                 fork.forkChainLength = forkChainLength;
                 fork.forkHeaders.push(binarySearchResult.header);
-                fork.initializeFork(); //download the requirments and make it ready
+
+                await fork.initializeFork(); //download the requirements and make it ready
+
+                if (!fork.forkReady)
+                    throw {message:" FORK IS NOT READY "};
 
             } else {
                 //it is a totally new blockchain (maybe genesis was mined)
@@ -23792,30 +23799,6 @@ class InterfaceBlockchainProtocolForkSolver{
 
     }
 
-    async processFork(fork){
-
-        if (fork === null)
-            throw {message: "fork doesn't exist"};
-
-        try{
-
-            if (! (await this._solveFork(fork) ))
-                throw {message: "Fork Solved was failed"};
-
-            return true;
-
-        } catch (exception){
-
-            console.error("solving a fork raised an exception" , exception );
-
-            //let's ban the guy
-            __WEBPACK_IMPORTED_MODULE_6_common_utils_bans_BansList__["a" /* default */].addBan(fork.getSocket(), 10000, exception.message );
-
-            throw exception;
-        }
-
-    }
-
     /**
      * Solve Fork by Downloading  the blocks required in the fork
      * @param fork
@@ -23831,16 +23814,15 @@ class InterfaceBlockchainProtocolForkSolver{
         let nextBlockHeight = fork.forkStartingHeightDownloading;
 
         //maybe it was deleted before
-        if (fork.sockets.length === 0){
+        if (fork.sockets.length === 0 || !fork.forkReady)
             return false;
-        }
 
         //interval timer
         let socket = fork.sockets[Math.floor(Math.random() * fork.sockets.length)];
 
         console.log(" < fork.forkChainLength", fork.forkChainLength, "fork.forkBlocks.length", fork.forkBlocks.length);
 
-        while (fork.forkStartingHeight + fork.forkBlocks.length < fork.forkChainLength && !__WEBPACK_IMPORTED_MODULE_2_consts_global__["a" /* default */].TERMINATED ) {
+        while ( (fork.forkStartingHeight + fork.forkBlocks.length < fork.forkChainLength) && !__WEBPACK_IMPORTED_MODULE_2_consts_global__["a" /* default */].TERMINATED ) {
 
 
             // TODO you can paralyze the downloading code from multiple sockets
@@ -23852,11 +23834,8 @@ class InterfaceBlockchainProtocolForkSolver{
             //console.log("this.protocol.acceptBlocks", this.protocol.acceptBlocks);
 
             let onlyHeader;
-            if (this.protocol.acceptBlocks)
-                onlyHeader = false;
-            else
-            if (this.protocol.acceptBlockHeaders)
-                onlyHeader = true;
+            if (this.protocol.acceptBlocks) onlyHeader = false; else
+            if (this.protocol.acceptBlockHeaders) onlyHeader = true;
 
 
             let answer = await socket.node.sendRequestWaitOnce("blockchain/blocks/request-block-by-height", { height: nextBlockHeight }, nextBlockHeight);
@@ -23972,6 +23951,8 @@ class BansList{
     }
 
     addBan(sckAddress, banTime = 10000, banReason){
+
+        if (sckAddress === undefined || sckAddress === null) return false;
 
         if (typeof sckAddress === "object" && sckAddress.hasOwnProperty("node")) sckAddress = sckAddress.node.sckAddress;
         if (typeof sckAddress === "object" && sckAddress.hasOwnProperty("sckAddress")) sckAddress = sckAddress.node.sckAddress;
@@ -50739,7 +50720,7 @@ class GeoLocationLists {
         let location = await __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geo_helpers_geo_helper__["a" /* default */].getLocationFromAddress(sckAddress);
 
         if (location === null || location === undefined){
-            console.warn("LOCATION was not been able to get");
+            //console.warn("LOCATION was not been able to get");
             return null;
         }
 
@@ -51499,7 +51480,7 @@ class PPoWBlockchainProofBasic{
             throw {message: "proof blocks is invalid"};
 
         for (let i = this.blocks.length - lastElements; i < this.blocks.length; ++i)
-            if (!this.blocks[i]._validateInterlink())
+            if ( ! this.blocks[i]._validateInterlink() )
                 throw {message: "validate Interlink Failed"};
 
         return true;
@@ -52555,19 +52536,19 @@ class InterfaceBlockchainProtocolForksManager {
 
         if (bestFork !== null) {
 
-            let answer= false;
-
             try {
 
-                answer = await this.protocol.forkSolver.processFork( bestFork );
+                let answer = await this.protocol.forkSolver._solveFork ( bestFork );
 
                 if (!answer)
-                    throw { message: "Invalid Fork" }
+                    throw { message: "Fork couldn't be solved" }
 
             } catch (exception) {
 
                 console.error("processForksQueue returned an error", exception);
                 console.warn("BANNNNNNNNNNNNNNNNN", bestFork.getSocket().node.sckAddress.toString(), exception.message);
+
+                __WEBPACK_IMPORTED_MODULE_0_common_utils_bans_BansList__["a" /* default */].addBan(bestFork.getSocket(), 10000, exception.message );
 
             }
 
@@ -52587,16 +52568,21 @@ class InterfaceBlockchainProtocolForksManager {
         let fork = null;
 
         try {
-            for (let i = 0; i < this.blockchain.forksAdministrator.forks.length; i++) {
 
-                fork = this.blockchain.forksAdministrator.forks[i];
+            for (let i = 0; i < this.blockchain.forksAdministrator.forks.length; i++)
+                if (this.blockchain.forksAdministrator.forks[i].forkReady) {
 
-                if (!fork.ready) continue;
+                    fork = this.blockchain.forksAdministrator.forks[i];
 
-                if (bestFork === null || bestFork.forkChainLength < fork.forkChainLength)
-                    bestFork = fork;
+                    if (bestFork === null || bestFork.forkChainLength < fork.forkChainLength)
+                        bestFork = fork;
 
-            }
+                }
+
+
+            if (Math.random() < 0.1)
+            console.warn("forksAdministrator.forks.length", this.blockchain.forksAdministrator.forks.length, bestFork !== null)
+
         } catch (exception){
 
             console.error("_getBestFork returned an exception", exception );
@@ -80190,6 +80176,7 @@ class InterfaceBlockchainForksAdministrator {
         fork = this.blockchain.agent.newFork( this.blockchain, this.forksId++, sockets, forkStartingHeight, forkChainStartingPoint, forkChainLength, headers, ready );
 
         this.forks.push(fork);
+
         return fork;
     }
 
@@ -80283,11 +80270,9 @@ class InterfaceBlockchainForksAdministrator {
         if (fork === undefined || fork === null)
             return false;
 
-        for (let i=0; i<this.forks.length; i++)
-            if (this.forks[i] === fork || this.forks[i].forkId === fork) {
+        for (let i=this.forks.length-1; i>=0; i--)
+            if (this.forks[i] === undefined || this.forks[i] === null || this.forks[i] === fork || this.forks[i].forkId === fork)
                 this.forks.splice(i,1);
-                return true;
-            }
 
         return false;
     }
@@ -86870,34 +86855,34 @@ class PPoWBlockchainProtocolForksManager extends __WEBPACK_IMPORTED_MODULE_0_com
 
         try {
 
-            for (let i = 0; i < this.blockchain.forksAdministrator.forks.length; i++) {
+            for (let i = 0; i < this.blockchain.forksAdministrator.forks.length; i++)
+                if (this.blockchain.forksAdministrator.forks[i].forkReady) {
 
-                fork = this.blockchain.forksAdministrator.forks[i];
-                if (!fork.ready) continue;
+                    fork = this.blockchain.forksAdministrator.forks[i];
 
-                if (fork.forkChainStartingPoint < fork.forkStartingHeight && (bestFork === null || bestFork.forkChainLength < fork.forkChainLength) ) //it is a small fork that I already have the first forks, but I will download the remaning blocks
-                {
+                    //it is a small fork that I already have the first forks, but I will download the remaning blocks
+                    if (fork.forkChainStartingPoint <= fork.forkStartingHeight && (bestFork === null || bestFork.forkChainLength < fork.forkChainLength) ){
 
-                    bestFork = fork;
+                        bestFork = fork;
 
-                } else if ( bestFork !==  null && bestFork.forkProofPi !== null && fork.forkProofPi !== null ) {
+                    } else if ( bestFork !==  null && bestFork.forkProofPi !== null && fork.forkProofPi !== null ) {
 
-                    let compare = await this.blockchain.verifier.compareProofs(bestFork.forkProofPi, fork.forkProofPi);
+                        let compare = await this.blockchain.verifier.compareProofs(bestFork.forkProofPi, fork.forkProofPi);
 
-                    if (compare < 0 //better proof
-                        || (compare === 0 && bestFork.forkChainLength < fork.forkChainLength)) {
+                        if (compare < 0 //better proof
+                            || (compare === 0 && bestFork.forkChainLength < fork.forkChainLength)) {
+
+                            bestFork = fork;
+
+                        }
+
+                    } else if ( (bestFork ===  null || bestFork.forkProofPi === null) && fork.forkProofPi !== null){
 
                         bestFork = fork;
 
                     }
 
-                } else if ( (bestFork ===  null || bestFork.forkProofPi === null) && fork.forkProofPi !== null){
-
-                    bestFork = fork;
-
                 }
-
-            }
 
         } catch (exception){
             console.error("_getBestFork returned an exception", exception );
@@ -87037,9 +87022,9 @@ class VersionChecker{
 
 class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__["a" /* default */] {
 
-    async initializeConstructor(blockchain, forkId, sockets, forkStartingHeight, forkChainStartingPoint, newChainLength, headers, ready){
+    async initializeConstructor(blockchain, forkId, sockets, forkStartingHeight, forkChainStartingPoint, newChainLength, headers, forkReady){
 
-        __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__["a" /* default */].prototype.initializeConstructor.call(this, blockchain, forkId, sockets, forkStartingHeight, forkChainStartingPoint, newChainLength, headers, ready);
+        __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__["a" /* default */].prototype.initializeConstructor.call(this, blockchain, forkId, sockets, forkStartingHeight, forkChainStartingPoint, newChainLength, headers, forkReady);
 
         this.forkProofPi = null;
         this._forkProofPiClone = null;
@@ -87048,11 +87033,12 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
 
     async initializeFork(){
 
-        if (this.blockchain.agent.light && (this.forkChainStartingPoint === this.forkStartingHeight) )
-            await this._downloadProof();
+        if (this.blockchain.agent.light && (this.forkChainStartingPoint === this.forkStartingHeight) ) {
+            if (! (await this._downloadProof()))
+                return false;
+        }
 
-        __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__["a" /* default */].prototype.initializeFork.call(this);
-
+        return __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__["a" /* default */].prototype.initializeFork.call(this);
     }
 
     async _downloadProof(){
@@ -87064,7 +87050,8 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
             __WEBPACK_IMPORTED_MODULE_5_common_events_Status_Events__["a" /* default */].emit( "agent/status", {message: "Downloading Proofs", blockHeight: this.forkStartingHeight } );
 
             let answer = await this.getSocket().node.sendRequestWaitOnce("get/nipopow-blockchain/headers/get-proofs/pi", {}, "answer", __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.TIMEOUT.WAIT_ASYNC_DISCOVERY_TIMEOUT);
-            if (answer === null || answer === undefined) throw {message: "Proof is invalid"};
+
+            if (answer === null || answer === undefined) throw { message: "Proof is empty" };
 
             //importing Proof
             this.forkProofPi = new __WEBPACK_IMPORTED_MODULE_1__prover_proofs_PPoW_Blockchain_Proof_Pi__["a" /* default */](this.blockchain, []);
@@ -87074,9 +87061,12 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
             await this.importForkProofHeaders( answer );
 
             //this.forkProofPi.validateProof();
-            this.forkProofPi.validateProofLastElements(__WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].POPOW_PARAMS.m);
+            if (! this.forkProofPi.validateProofLastElements(__WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].POPOW_PARAMS.m))
+                throw {message: "Prof Pi is invalid"};
 
             __WEBPACK_IMPORTED_MODULE_5_common_events_Status_Events__["a" /* default */].emit( "agent/status", {message: "Proofs Validated", blockHeight: this.forkStartingHeight } );
+
+            return true;
 
         }
 
@@ -87527,7 +87517,7 @@ class MiniBlockchainLightProtocolForkSolver extends inheritForkSolver{
             fork.forkPrevHashPrev = null;
         }
 
-        return await inheritForkSolver.prototype._solveFork.call(this, fork);
+        return inheritForkSolver.prototype._solveFork.call(this, fork);
     }
 
 
@@ -87537,7 +87527,7 @@ class MiniBlockchainLightProtocolForkSolver extends inheritForkSolver{
 
             let hash = await socket.node.sendRequestWaitOnce("head/hash", forkChainStartingPoint, forkChainStartingPoint ).hash;
 
-            if (hash === null || hash === undefined) throw {message: "connection dropped headers-info forkChainStartingPoint"};
+            if (hash === null || hash === undefined) throw {message: "connection dropped headers-info optionalProcess"};
 
             binarySearchResult.position = {position: forkChainStartingPoint, header: hash.hash};
 
@@ -92828,7 +92818,7 @@ class FallBackObject {
         },
 
         {
-            "addr": ["robitza.ddns.net:12345"]
+            "addr": ["robitza.ddns.net:443"]
         },
 
     ]
