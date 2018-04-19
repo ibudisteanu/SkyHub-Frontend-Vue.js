@@ -25117,7 +25117,7 @@ class NodeSignalingClientProtocol {
 
                     answer = await webPeer.createSignalInitiator();
 
-                    console.log("###################### signals/client/initiator/generate-initiator-signal/answer" + data.connectionId, answer, webPeer.peer, typeof answer);
+                    console.log("###################### signals/client/initiator/generate-initiator-signal/answer" + data.connectionId, answer,  typeof answer);
 
                     if (answer.signal === undefined)
                         console.log("WEBRTC 1 is not supported !!!! being the initiator");
@@ -25447,6 +25447,7 @@ class SignalingClientList {
 
         for (let i=0; i<this.connected.length; i++)
             if (this.connected[i].uuid === uuid ){
+                this.connected[i].webpeer.peer.close();
                 this.connected.splice(i,1);
                 return true;
             }
@@ -87123,7 +87124,9 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
             let proofsList = [];
             while (i*length < proofPiData.length){
 
-                let answer = await this.getSocket().node.sendRequestWaitOnce( "get/nipopow-blockchain/headers/get-proofs/pi", {starting: i*length, length: length}, "answer", __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.TIMEOUT.WAIT_ASYNC_DISCOVERY_TIMEOUT );
+                __WEBPACK_IMPORTED_MODULE_5_common_events_Status_Events__["a" /* default */].emit( "agent/status", {message: "Proofs - Downloading", blockHeight: Math.min( i*length, proofPiData.length )  } );
+
+                let answer = await this.getSocket().node.sendRequestWaitOnce( "get/nipopow-blockchain/headers/get-proofs/pi", {starting: i * length, length: length}, "answer", __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.TIMEOUT.WAIT_ASYNC_DISCOVERY_TIMEOUT );
                 if (answer === null || answer === undefined) throw { message: "Proof is empty" };
 
                 for (let i=0; i<answer.length; i++)
@@ -87132,7 +87135,7 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
                 i++;
             }
 
-            __WEBPACK_IMPORTED_MODULE_5_common_events_Status_Events__["a" /* default */].emit( "agent/status", {message: "Preparing Proof", blockHeight: this.forkStartingHeight } );
+            __WEBPACK_IMPORTED_MODULE_5_common_events_Status_Events__["a" /* default */].emit( "agent/status", {message: "Proofs - Preparing", blockHeight: this.forkStartingHeight } );
 
             await this.importForkProofPiHeaders( proofsList );
 
@@ -91948,7 +91951,7 @@ class SignalingClientPeerObject {
 
             __WEBPACK_IMPORTED_MODULE_1__Node_Signaling_Client_Protocol__["a" /* default */].sendErrorConnection(webPeer);
 
-        }, 15000);
+        }, 30*1000);
 
         webPeer.emitter.on("connect",()=>{
 
@@ -92041,8 +92044,6 @@ class NodeWebPeerRTC {
 
     createPeer(initiator, socketSignaling, signalingServerConnectionId, callbackSignalingServerSendIceCandidate, remoteAddress, remoteUUID, remotePort, level){
 
-        let pcConstraint = null;
-        let dataConstraint = null;
         console.log('Using SCTP based data channels');
 
         // SCTP is supported from Chrome 31 and is supported in FF.
@@ -92051,16 +92052,19 @@ class NodeWebPeerRTC {
         // Add localConnection to global scope to make it visible
         // from the browser console.
 
-        this.peer =  new RTCPeerConnection(config, pcConstraint);
+        this.peer =  new RTCPeerConnection(config);
 
         this.peer.connected = false;
         this.enableEventsHandling();
 
         this.peer.onicecandidate = (event) => {
-            if (event.candidate) {
-                console.log("onicecandidate",event.candidate);
-                callbackSignalingServerSendIceCandidate(event.candidate);
-            }
+
+            if (!event || !event.candidate) return;
+
+
+            console.log("onicecandidate",event.candidate);
+            callbackSignalingServerSendIceCandidate(event.candidate);
+
         };
 
         /*
@@ -92069,6 +92073,7 @@ class NodeWebPeerRTC {
         this.peer.signaling = {};
         this.peer.signaling.socketSignaling = socketSignaling;
         this.peer.signaling.connectionId =  signalingServerConnectionId;
+        this.peer.inputSignalsQueue = [];
 
         console.log('Created webRTC peer', "initiator", initiator, "signalingServerConnectionId", signalingServerConnectionId, "remoteAddress", remoteAddress, "remoteUUID", remoteUUID, "remotePort", remotePort);
 
@@ -92150,7 +92155,11 @@ class NodeWebPeerRTC {
                                 this.peer.signalData = {"sdp": this.peer.localDescription};
                                 this.peer.signalInitiatorData = this.peer.signalData;
 
+                                this.peer.setLocalDescription1 = true;
+
                                 resolve(  {result: true, signal: this.peer.signalData} )
+
+
                             },
                             (error) => {
                                 resolve({result:false, message: "Generating Initiator - Error Setting Local Description " +error.toString()});
@@ -92215,8 +92224,15 @@ class NodeWebPeerRTC {
                                 this.peer.setLocalDescription(
                                     desc,
                                     () => {
+
                                         this.peer.signalData = {'sdp': this.peer.localDescription};
+                                        this.peer.setLocalDescription2 = true;
+
                                         resolve(  {result: true, signal: this.peer.signalData}  );
+
+                                        for (let i=0; i<this.peer.inputSignalsQueue.length; i++)
+                                            this.createSignal(this.peer.inputSignalsQueue[i]);
+
                                     },
                                     (error) => {
                                         resolve({result:false, message: "Error Setting Local Description"+error.toString()});
@@ -92240,8 +92256,14 @@ class NodeWebPeerRTC {
                 try {
                     console.log("inputSignal.candidate", inputSignal);
 
-                    let candidate = new RTCIceCandidate(inputSignal.candidate);
-                    this.peer.addIceCandidate(candidate);
+                    if (this.peer.setLocalDescription2 === true) {
+
+                        let candidate = new RTCIceCandidate(inputSignal.candidate);
+                        this.peer.addIceCandidate(candidate);
+
+                    } else {
+                        this.peer.inputSignalsQueue.push(inputSignal);
+                    }
 
                     resolve({result: true, message:"iceCandidate successfully introduced"});
 
