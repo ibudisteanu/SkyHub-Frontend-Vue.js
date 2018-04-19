@@ -25192,14 +25192,14 @@ class NodeSignalingClientProtocol {
                 if (!answer.result )
                     throw {message: answer.message};
 
-                socket.node.sendRequest("signals/client/initiator/receive-ice-candidate", { connectionId: data.connectionId, accepted: true, answerSignal: answer.signal} );
+                socket.node.sendRequest("signals/client/initiator/receive-ice-candidate"+"/answer", { connectionId: data.connectionId, accepted: true, answerSignal: answer.signal} );
 
             } catch (exception){
 
                 if (exception.message !== "Already connected" && exception.message !== "I can't accept WebPeers anymore")
                     console.error("signals/client/initiator/receive-ice-candidate/" + data.connectionId, exception);
 
-                socket.node.sendRequest("signals/client/initiator/receive-ice-candidate", { connectionId: data.connectionId, accepted: false,  message: exception.message });
+                socket.node.sendRequest("signals/client/initiator/receive-ice-candidate"+"/answer", { connectionId: data.connectionId, accepted: false,  message: exception.message });
             }
 
         });
@@ -25283,14 +25283,14 @@ class NodeSignalingClientProtocol {
                 if (!answer.result )
                     throw {message: answer.message};
 
-                socket.node.sendRequest("signals/client/answer/receive-ice-candidate", { connectionId: data.connectionId, accepted: true, answerSignal: answer.signal} );
+                socket.node.sendRequest("signals/client/answer/receive-ice-candidate"+"/answer", { connectionId: data.connectionId, accepted: true, answerSignal: answer.signal} );
 
             } catch (exception){
 
                 if (exception.message !== "Already connected" && exception.message !== "I can't accept WebPeers anymore")
-                    console.error("signals/client/answer/receive-ice-candidate", data.connectionId, exception);
+                    console.error("signals/client/answer/receive-ice-candidate"+"/answer", data.connectionId, exception);
 
-                socket.node.sendRequest("signals/client/answer/receive-ice-candidate", {connectionId: data.connectionId, accepted:false, answerSignal: undefined, message: exception.message });
+                socket.node.sendRequest("signals/client/answer/receive-ice-candidate"+"/answer", {connectionId: data.connectionId, accepted:false, answerSignal: undefined, message: exception.message });
             }
 
         });
@@ -54831,7 +54831,7 @@ class NodeSignalingServerProtocol {
 
             if ( connection === null ) console.error("signals/server/new-answer-ice-candidate connection is empty", iceCandidate.connectionId);
 
-            let answer = await connection.client1.node.sendRequest("signals/client/initiator/receive-ice-candidate",{  //sendRequestWaitOnce returns errors
+            let answer = await connection.client1.node.sendRequestWaitOnce("signals/client/initiator/receive-ice-candidate",{  //sendRequestWaitOnce returns errors
                 connectionId: connection.id,
 
                 initiatorSignal: connection.initiatorSignal,
@@ -54839,7 +54839,7 @@ class NodeSignalingServerProtocol {
 
                 remoteAddress: socket.node.sckAddress.getAddress(false),
                 remoteUUID: socket.node.sckAddress.uuid,
-            });
+            }, "answer");
 
 
             if ( answer === null || answer === undefined )
@@ -54858,7 +54858,7 @@ class NodeSignalingServerProtocol {
 
             if ( connection === null ) console.error("signals/server/new-answer-ice-candidate connection is empty", iceCandidate.connectionId);
 
-            let answer = await connection.client2.node.sendRequest("signals/client/answer/receive-ice-candidate",{ //sendRequestWaitOnce returns errors
+            let answer = await connection.client2.node.sendRequestWaitOnce("signals/client/answer/receive-ice-candidate",{ //sendRequestWaitOnce returns errors
                 connectionId: connection.id,
 
                 initiatorSignal: connection.initiatorSignal,
@@ -54866,7 +54866,7 @@ class NodeSignalingServerProtocol {
 
                 remoteAddress: connection.client1.node.sckAddress.getAddress(false),
                 remoteUUID: connection.client1.node.sckAddress.uuid,
-            });
+            }, "answer");
 
             if ( answer === null || answer === undefined )
                 connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
