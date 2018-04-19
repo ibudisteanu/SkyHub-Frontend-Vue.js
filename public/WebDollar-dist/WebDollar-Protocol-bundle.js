@@ -2110,8 +2110,9 @@ consts.SETTINGS = {
     UUID: uuid.v4(),
 
     NODE: {
-        VERSION: "1.01",
-        VERSION_COMPATIBILITY: "1.01",
+
+        VERSION: "1.02",
+        VERSION_COMPATIBILITY: "1.02",
         PROTOCOL: "WebDollar",
         SSL: true,
 
@@ -2157,7 +2158,7 @@ consts.SETTINGS = {
             },
 
             WEBRTC: {
-                MAXIMUM_CONNECTIONS: 7,
+                MAXIMUM_CONNECTIONS: 14,
             },
 
             FORKS:{
@@ -2454,6 +2455,23 @@ module.exports = function (it) {
 
 /***/ }),
 /* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var store = __webpack_require__(103)('wks');
+var uid = __webpack_require__(63);
+var Symbol = __webpack_require__(7).Symbol;
+var USE_SYMBOL = typeof Symbol == 'function';
+
+var $exports = module.exports = function (name) {
+  return store[name] || (store[name] =
+    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
+};
+
+$exports.store = store;
+
+
+/***/ }),
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2645,28 +2663,11 @@ class NodesList {
 /* harmony default export */ __webpack_exports__["a"] = (new NodesList());
 
 /***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var store = __webpack_require__(103)('wks');
-var uid = __webpack_require__(62);
-var Symbol = __webpack_require__(7).Symbol;
-var USE_SYMBOL = typeof Symbol == 'function';
-
-var $exports = module.exports = function (name) {
-  return store[name] || (store[name] =
-    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
-};
-
-$exports.store = store;
-
-
-/***/ }),
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ERRORS = __webpack_require__(288)
-var NATIVE = __webpack_require__(175)
+var NATIVE = __webpack_require__(174)
 
 // short-hand
 var tfJSON = ERRORS.tfJSON
@@ -6953,7 +6954,7 @@ module.exports = function (it, key) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(15);
-var createDesc = __webpack_require__(61);
+var createDesc = __webpack_require__(62);
 module.exports = __webpack_require__(14) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
 } : function (object, key, value) {
@@ -6969,7 +6970,7 @@ module.exports = __webpack_require__(14) ? function (object, key, value) {
 var global = __webpack_require__(7);
 var hide = __webpack_require__(27);
 var has = __webpack_require__(26);
-var SRC = __webpack_require__(62)('src');
+var SRC = __webpack_require__(63)('src');
 var TO_STRING = 'toString';
 var $toString = Function[TO_STRING];
 var TPL = ('' + $toString).split(TO_STRING);
@@ -7527,7 +7528,7 @@ function isUndefined(arg) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_crypto_ed25519__ = __webpack_require__(161);
+/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_crypto_ed25519__ = __webpack_require__(160);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_crypto_WebDollar_Crypto__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_menu_CLI_Menu__ = __webpack_require__(244);
@@ -8009,7 +8010,7 @@ class InterfaceBlockchainAddressHelper{
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_crypto_Argon2_Argon2__ = __webpack_require__(554);
 
-let crypto = ( true) ? __webpack_require__(162) : require('crypto');
+let crypto = ( true) ? __webpack_require__(161) : require('crypto');
 
 
 class WebDollarCrypto {
@@ -8199,7 +8200,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var pIE = __webpack_require__(89);
-var createDesc = __webpack_require__(61);
+var createDesc = __webpack_require__(62);
 var toIObject = __webpack_require__(34);
 var toPrimitive = __webpack_require__(44);
 var has = __webpack_require__(26);
@@ -8223,7 +8224,7 @@ exports.f = __webpack_require__(14) ? gOPD : function getOwnPropertyDescriptor(O
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
 var has = __webpack_require__(26);
 var toObject = __webpack_require__(20);
-var IE_PROTO = __webpack_require__(136)('IE_PROTO');
+var IE_PROTO = __webpack_require__(135)('IE_PROTO');
 var ObjectProto = Object.prototype;
 
 module.exports = Object.getPrototypeOf || function (O) {
@@ -8739,7 +8740,7 @@ var ctx = __webpack_require__(39);
 var IObject = __webpack_require__(88);
 var toObject = __webpack_require__(20);
 var toLength = __webpack_require__(16);
-var asc = __webpack_require__(153);
+var asc = __webpack_require__(152);
 module.exports = function (TYPE, $create) {
   var IS_MAP = TYPE == 1;
   var IS_FILTER = TYPE == 2;
@@ -9087,41 +9088,41 @@ class BlockchainGenesis{
 "use strict";
 
 if (__webpack_require__(14)) {
-  var LIBRARY = __webpack_require__(63);
+  var LIBRARY = __webpack_require__(64);
   var global = __webpack_require__(7);
   var fails = __webpack_require__(8);
   var $export = __webpack_require__(0);
   var $typed = __webpack_require__(113);
-  var $buffer = __webpack_require__(159);
+  var $buffer = __webpack_require__(158);
   var ctx = __webpack_require__(39);
-  var anInstance = __webpack_require__(69);
-  var propertyDesc = __webpack_require__(61);
+  var anInstance = __webpack_require__(70);
+  var propertyDesc = __webpack_require__(62);
   var hide = __webpack_require__(27);
-  var redefineAll = __webpack_require__(71);
+  var redefineAll = __webpack_require__(72);
   var toInteger = __webpack_require__(46);
   var toLength = __webpack_require__(16);
   var toIndex = __webpack_require__(235);
-  var toAbsoluteIndex = __webpack_require__(65);
+  var toAbsoluteIndex = __webpack_require__(66);
   var toPrimitive = __webpack_require__(44);
   var has = __webpack_require__(26);
   var classof = __webpack_require__(90);
   var isObject = __webpack_require__(10);
   var toObject = __webpack_require__(20);
-  var isArrayIter = __webpack_require__(150);
-  var create = __webpack_require__(66);
+  var isArrayIter = __webpack_require__(149);
+  var create = __webpack_require__(67);
   var getPrototypeOf = __webpack_require__(36);
-  var gOPN = __webpack_require__(67).f;
-  var getIterFn = __webpack_require__(152);
-  var uid = __webpack_require__(62);
-  var wks = __webpack_require__(12);
+  var gOPN = __webpack_require__(68).f;
+  var getIterFn = __webpack_require__(151);
+  var uid = __webpack_require__(63);
+  var wks = __webpack_require__(11);
   var createArrayMethod = __webpack_require__(48);
   var createArrayIncludes = __webpack_require__(104);
   var speciesConstructor = __webpack_require__(111);
-  var ArrayIterators = __webpack_require__(155);
-  var Iterators = __webpack_require__(78);
+  var ArrayIterators = __webpack_require__(154);
+  var Iterators = __webpack_require__(79);
   var $iterDetect = __webpack_require__(108);
-  var setSpecies = __webpack_require__(68);
-  var arrayFill = __webpack_require__(154);
+  var setSpecies = __webpack_require__(69);
+  var arrayFill = __webpack_require__(153);
   var arrayCopyWithin = __webpack_require__(225);
   var $DP = __webpack_require__(15);
   var $GOPD = __webpack_require__(35);
@@ -9643,7 +9644,7 @@ const CONNECTION_TYPE = {
 /* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var META = __webpack_require__(62)('meta');
+var META = __webpack_require__(63)('meta');
 var isObject = __webpack_require__(10);
 var has = __webpack_require__(26);
 var setDesc = __webpack_require__(15).f;
@@ -9703,7 +9704,7 @@ var meta = module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 22.1.3.31 Array.prototype[@@unscopables]
-var UNSCOPABLES = __webpack_require__(12)('unscopables');
+var UNSCOPABLES = __webpack_require__(11)('unscopables');
 var ArrayProto = Array.prototype;
 if (ArrayProto[UNSCOPABLES] == undefined) __webpack_require__(27)(ArrayProto, UNSCOPABLES, {});
 module.exports = function (key) {
@@ -9717,7 +9718,7 @@ module.exports = function (key) {
 
 var Buffer = __webpack_require__(3).Buffer
 var Transform = __webpack_require__(118).Transform
-var StringDecoder = __webpack_require__(167).StringDecoder
+var StringDecoder = __webpack_require__(166).StringDecoder
 var inherits = __webpack_require__(5)
 
 function CipherBase (hashMode) {
@@ -11308,7 +11309,7 @@ module.exports = BigInteger
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_geolocation_lists_geo_helpers_geo_helper__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_geolocation_lists_geo_helpers_geo_helper__ = __webpack_require__(193);
 const ipaddr = __webpack_require__(101);
 
 
@@ -11498,6 +11499,20 @@ class SocketAddress {
 
 /***/ }),
 /* 61 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const NODES_TYPE = {
+
+    NODE_WEB_PEER: 0,
+    NODE_TERMINAL: 1,
+
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (NODES_TYPE);
+
+/***/ }),
+/* 62 */
 /***/ (function(module, exports) {
 
 module.exports = function (bitmap, value) {
@@ -11511,7 +11526,7 @@ module.exports = function (bitmap, value) {
 
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports) {
 
 var id = 0;
@@ -11522,19 +11537,19 @@ module.exports = function (key) {
 
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports) {
 
 module.exports = false;
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.14 / 15.2.3.14 Object.keys(O)
 var $keys = __webpack_require__(211);
-var enumBugKeys = __webpack_require__(137);
+var enumBugKeys = __webpack_require__(136);
 
 module.exports = Object.keys || function keys(O) {
   return $keys(O, enumBugKeys);
@@ -11542,7 +11557,7 @@ module.exports = Object.keys || function keys(O) {
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var toInteger = __webpack_require__(46);
@@ -11555,27 +11570,27 @@ module.exports = function (index, length) {
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 var anObject = __webpack_require__(6);
 var dPs = __webpack_require__(212);
-var enumBugKeys = __webpack_require__(137);
-var IE_PROTO = __webpack_require__(136)('IE_PROTO');
+var enumBugKeys = __webpack_require__(136);
+var IE_PROTO = __webpack_require__(135)('IE_PROTO');
 var Empty = function () { /* empty */ };
 var PROTOTYPE = 'prototype';
 
 // Create object with fake `null` prototype: use iframe Object with cleared prototype
 var createDict = function () {
   // Thrash, waste and sodomy: IE GC bug
-  var iframe = __webpack_require__(134)('iframe');
+  var iframe = __webpack_require__(133)('iframe');
   var i = enumBugKeys.length;
   var lt = '<';
   var gt = '>';
   var iframeDocument;
   iframe.style.display = 'none';
-  __webpack_require__(138).appendChild(iframe);
+  __webpack_require__(137).appendChild(iframe);
   iframe.src = 'javascript:'; // eslint-disable-line no-script-url
   // createDict = iframe.contentWindow.Object;
   // html.removeChild(iframe);
@@ -11602,12 +11617,12 @@ module.exports = Object.create || function create(O, Properties) {
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
 var $keys = __webpack_require__(211);
-var hiddenKeys = __webpack_require__(137).concat('length', 'prototype');
+var hiddenKeys = __webpack_require__(136).concat('length', 'prototype');
 
 exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
   return $keys(O, hiddenKeys);
@@ -11615,7 +11630,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11623,7 +11638,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 var global = __webpack_require__(7);
 var dP = __webpack_require__(15);
 var DESCRIPTORS = __webpack_require__(14);
-var SPECIES = __webpack_require__(12)('species');
+var SPECIES = __webpack_require__(11)('species');
 
 module.exports = function (KEY) {
   var C = global[KEY];
@@ -11635,7 +11650,7 @@ module.exports = function (KEY) {
 
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports) {
 
 module.exports = function (it, Constructor, name, forbiddenField) {
@@ -11646,15 +11661,15 @@ module.exports = function (it, Constructor, name, forbiddenField) {
 
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ctx = __webpack_require__(39);
 var call = __webpack_require__(223);
-var isArrayIter = __webpack_require__(150);
+var isArrayIter = __webpack_require__(149);
 var anObject = __webpack_require__(6);
 var toLength = __webpack_require__(16);
-var getIterFn = __webpack_require__(152);
+var getIterFn = __webpack_require__(151);
 var BREAK = {};
 var RETURN = {};
 var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) {
@@ -11677,7 +11692,7 @@ exports.RETURN = RETURN;
 
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var redefine = __webpack_require__(28);
@@ -11688,7 +11703,7 @@ module.exports = function (target, src, safe) {
 
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11734,15 +11749,15 @@ function randomBytes (size, cb) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(30)))
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {
 var inherits = __webpack_require__(5)
-var md5 = __webpack_require__(163)
-var RIPEMD160 = __webpack_require__(164)
-var sha = __webpack_require__(168)
+var md5 = __webpack_require__(162)
+var RIPEMD160 = __webpack_require__(163)
+var sha = __webpack_require__(167)
 
 var Base = __webpack_require__(56)
 
@@ -11794,7 +11809,7 @@ module.exports = function createHash (alg) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11848,7 +11863,7 @@ util.inherits = __webpack_require__(5);
 /*</replacement>*/
 
 var Readable = __webpack_require__(250);
-var Writable = __webpack_require__(166);
+var Writable = __webpack_require__(165);
 
 util.inherits(Duplex, Readable);
 
@@ -11924,7 +11939,7 @@ function forEach(xs, f) {
 }
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11938,12 +11953,12 @@ global.SEMAPHORE_PROCESS_DONE = true;
 /* harmony default export */ __webpack_exports__["a"] = (global);
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var def = __webpack_require__(15).f;
 var has = __webpack_require__(26);
-var TAG = __webpack_require__(12)('toStringTag');
+var TAG = __webpack_require__(11)('toStringTag');
 
 module.exports = function (it, tag, stat) {
   if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
@@ -11951,13 +11966,13 @@ module.exports = function (it, tag, stat) {
 
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(0);
 var defined = __webpack_require__(45);
 var fails = __webpack_require__(8);
-var spaces = __webpack_require__(140);
+var spaces = __webpack_require__(139);
 var space = '[' + spaces + ']';
 var non = '\u200b\u0085';
 var ltrim = RegExp('^' + space + space + '*');
@@ -11987,14 +12002,14 @@ module.exports = exporter;
 
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports) {
 
 module.exports = {};
 
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(10);
@@ -12005,7 +12020,7 @@ module.exports = function (it, TYPE) {
 
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(3).Buffer
@@ -12092,7 +12107,7 @@ module.exports = Hash
 
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12410,7 +12425,7 @@ class InterfaceSatoshminDB {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/**
@@ -12612,10 +12627,10 @@ function localstorage() {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(30)))
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var createHash = __webpack_require__(73)
+var createHash = __webpack_require__(74)
 
 function ripemd160 (buffer) {
   return createHash('rmd160').update(buffer).digest()
@@ -12647,30 +12662,16 @@ module.exports = {
 
 
 /***/ }),
-/* 84 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-const NODES_TYPE = {
-
-    NODE_WEB_PEER: 0,
-    NODE_TERMINAL: 1,
-
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (NODES_TYPE);
-
-/***/ }),
 /* 85 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_sockets_node_clients_socket_Node_Client__ = __webpack_require__(776);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_sockets_node_clients_socket_Node_Client__ = __webpack_require__(774);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__nodes_waitlist_object__ = __webpack_require__(339);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_sockets_socket_address__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__types_Connections_Type__ = __webpack_require__(53);
 
 
@@ -12684,12 +12685,8 @@ const EventEmitter = __webpack_require__(31);
 
 class NodesWaitlist {
 
-    /*
-        waitlist = []     //Addresses where it should connect too
-        stated = false;
-    */
-
     constructor(){
+
         console.log("NodesWaitlist constructor");
 
         this.NodesWaitlistObject = __WEBPACK_IMPORTED_MODULE_2__nodes_waitlist_object__["a" /* default */];
@@ -12697,12 +12694,15 @@ class NodesWaitlist {
         this.emitter = new EventEmitter();
         this.emitter.setMaxListeners(100);
 
-        this.waitlist = [];
+        this.waitListFullNodes = [];
+        this.waitListLightNodes = [];
+
         this.started = false;
 
-        this._connectedQueue = []
+        this._connectedQueue = [];
 
-        this.MAX_WAITLIST_CONNECTIONS = 500;
+        this.MAX_FULLNODE_WAITLIST_CONNECTIONS = 500;
+        this.MAX_LIGHTNODE_WAITLIST_CONNECTIONS = 500;
         this.MAX_ERROR_TRIALS = 100;
 
     }
@@ -12719,62 +12719,72 @@ class NodesWaitlist {
 
     addNewNodeToWaitlist(addresses, port, type, nodeConnected, level, backedBy){
 
-        // addresses = "127.0.0.1";
-
-        if ( (typeof addresses === "string" && addresses === '') || (typeof addresses === "object" && (addresses === null || addresses===[]))) return false;
-
-        if (typeof addresses === "string" || !Array.isArray(addresses)) addresses = [addresses];
+        if ( (typeof addresses === "string" && addresses === '') || (typeof addresses === "object" && (addresses === null || addresses===[])) ) return false;
+        if ( typeof addresses === "string" || !Array.isArray(addresses) ) addresses = [addresses];
 
         let sckAddresses = [];
+
         for (let i=0; i<addresses.length; i++){
 
             let sckAddress = __WEBPACK_IMPORTED_MODULE_3_common_sockets_socket_address__["a" /* default */].createSocketAddress(addresses[i], port);
 
-            if (backedBy !==  "fallback" ) {
+            if (backedBy !==  "fallback") {
 
-                let foundWaitList = this._searchNodesWaitlist(sckAddress);
+                let foundWaitList = this._searchNodesWaitlist(sckAddress, port, type);
 
-                if (foundWaitList !== null) foundWaitList.pushBackedBy(backedBy);
+                if (foundWaitList !== null)foundWaitList.pushBackedBy(backedBy);
                 else sckAddresses.push(sckAddress);
 
-            } else {
+            } else
                 sckAddresses.push(sckAddress);
-            }
-
 
         }
 
         if (sckAddresses.length > 0){
 
             let waitListObject = new __WEBPACK_IMPORTED_MODULE_2__nodes_waitlist_object__["a" /* default */]( sckAddresses, type, nodeConnected, level, backedBy );
-            this.waitlist.push(waitListObject);
+
+            if (waitListObject.type === __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL)  this.waitListFullNodes.push(waitListObject);
+            else  if (waitListObject.type === __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER) this.waitListLightNodes.push(waitListObject);
 
             this.emitter.emit("waitlist/new-node", waitListObject);
             return waitListObject;
+
         }
         
         return null;
     }
 
-    _findNodesWaitlist(address, port){
+    _findNodesWaitlist(address, port, listType){
+
+        let list = [];
 
         let sckAddress = __WEBPACK_IMPORTED_MODULE_3_common_sockets_socket_address__["a" /* default */].createSocketAddress( address, port );
 
-        for (let i=0; i<this.waitlist.length; i++)
-            for (let j=0; j<this.waitlist[i].sckAddresses.length; j++)
-                if (this.waitlist[i].sckAddresses[j].matchAddress(sckAddress) )
+        if (listType === __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL )  list = this.waitListFullNodes;
+        else if( listType === __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER ) list = this.waitListLightNodes;
+
+        for (let i=0; i<list.length; i++)
+            for (let j=0; j<list[i].sckAddresses.length; j++)
+                if (list[i].sckAddresses[j].matchAddress(sckAddress) )
                     return i;
 
         return -1;
+
     }
 
-    _searchNodesWaitlist(address, port){
+    _searchNodesWaitlist(address, port, listType ){
 
-        let index = this._findNodesWaitlist(address, port);
+        let list = [];
+
+        if (listType === __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL ) list = this.waitListFullNodes;
+        else if( listType === __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER ) list = this.waitListLightNodes;
+
+        let index = this._findNodesWaitlist(address, port, listType);
 
         if (index === -1) return null;
 
-        return this.waitlist[index];
+        return list[index];
 
     }
 
@@ -12783,21 +12793,18 @@ class NodesWaitlist {
     */
     _connectNewNodesWaitlist(){
 
-        this._deleteUselessWaitlist();
-
-        //TODO shuffle them
+        this._deleteUselessWaitlist(__WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL);
 
         if (__WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].countNodes(__WEBPACK_IMPORTED_MODULE_6__types_Connections_Type__["a" /* default */].CONNECTION_CLIENT_SOCKET) === 0){
 
-            for (let i=0; i < this.waitlist.length; i++)
-                if ( this.waitlist[i].type === __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL && this.waitlist[i].findBackedBy("fallback") !== null)
-                    this._tryToConnectNextNode(this.waitlist[i]);
+            for (let i=0; i < this.waitListFullNodes.length; i++)
+                if ( this.waitListFullNodes[i].findBackedBy("fallback") !== null)
+                    this._tryToConnectNextNode(this.waitListFullNodes[i]);
 
         } else {
 
-            for (let i=0; i < this.waitlist.length; i++)
-                if ( this.waitlist[i].type === __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL )
-                    this._tryToConnectNextNode(this.waitlist[i]);
+            for (let i=0; i < this.waitListFullNodes.length; i++)
+                this._tryToConnectNextNode(this.waitListFullNodes[i]);
 
         }
 
@@ -12824,8 +12831,6 @@ class NodesWaitlist {
                 nextWaitListObject.blocked = true;
                 this._connectedQueue.push(nextWaitListObject);
 
-                //console.log("connectNewNodesWaitlist ", nextNode.sckAddresses.toString() );
-
                 this._connectNowToNewNode(nextWaitListObject).then((connected) => {
 
                     for (let i=0; i<this._connectedQueue.length; i++)
@@ -12837,6 +12842,7 @@ class NodesWaitlist {
                     nextWaitListObject.blocked = false;
                     nextWaitListObject.connected = connected;
                     nextWaitListObject.refreshLastTimeChecked();
+
                 });
 
             }
@@ -12881,37 +12887,59 @@ class NodesWaitlist {
      * It will delete addresses that tried way too much
      * @returns {boolean}
      */
-    _deleteUselessWaitlist(){
+    _deleteUselessWaitlist(listType){
 
-        if (this.waitlist.length < this.MAX_WAITLIST_CONNECTIONS)
-            return false;
+        let list = [];
 
-        for (let i=this.waitlist.length-1; i>=0; i--) {
+        if (listType === __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL ){
 
-            if (this.waitlist[i].errorTrial > this.MAX_ERROR_TRIALS ||
-                this.waitlist[i].type === __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER) {
+            list = this.waitListFullNodes;
 
-                this.emitter.emit("waitlist/delete-node", this.waitlist[i]);
-                this.waitlist.splice(i, 1);
+            if (list.length < this.MAX_FULLNODE_WAITLIST_CONNECTIONS)
+                return false;
+
+
+        }else if (listType === __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER ){
+
+            list = this.waitListFullNodes;
+
+            if (list.length < this.MAX_LIGHTNODE_WAITLIST_CONNECTIONS)
+                return false;
+
+        }
+
+        for (let i=list-1; i>=0; i--) {
+
+            if ( list[i].errorTrial > this.MAX_ERROR_TRIALS || list[i].type === __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER ) {
+
+                this.emitter.emit("waitlist/delete-node", list[i]);
+                list.splice(i, 1);
 
             }
 
         }
 
+        return false;
+
     }
 
-    removedWaitListElement(address, port, backedBy){
+    removedWaitListElement(address, port, backedBy, listType){
 
-        let index = this._findNodesWaitlist(address, port);
+        let list = [];
+
+        if( listType === __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL)  list = this.waitListFullNodes;
+        else if ( listType === __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER ) list = this.waitListLightNodes;
+
+        let index = this._findNodesWaitlist(address, port, listType);
 
         if (index !== -1) {
 
-            this.waitlist[index].removeBackedBy(backedBy);
+            list[index].removeBackedBy(backedBy);
 
-            if ( this.waitlist[index].length === 0) {
+            if ( list[index].length === 0) {
 
-                this.emitter.emit("waitlist/delete-node", this.waitlist[index]);
-                this.waitlist.splice(index, 1);
+                this.emitter.emit("waitlist/delete-node", list[index]);
+                list.splice(index, 1);
 
             }
 
@@ -12921,10 +12949,15 @@ class NodesWaitlist {
         return false;
     }
 
-    resetWaitlist(){
+    resetWaitlist(listType){
 
-        for (let i=0; i<this.waitlist.length; i++)
-            this.waitlist[i].resetWaitlistNode();
+        let list = [];
+
+        if( listType === __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL)  list = this.waitListFullNodes;
+        else if ( listType === __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER ) list = this.waitListLightNodes;
+
+        for (let i=0; i<list.length; i++)
+            list[i].resetWaitlistNode();
 
     }
 
@@ -13110,15 +13143,15 @@ Emitter.prototype.hasListeners = function(event){
  * Module dependencies.
  */
 
-var keys = __webpack_require__(786);
+var keys = __webpack_require__(784);
 var hasBinary = __webpack_require__(325);
-var sliceBuffer = __webpack_require__(787);
-var after = __webpack_require__(788);
-var utf8 = __webpack_require__(789);
+var sliceBuffer = __webpack_require__(785);
+var after = __webpack_require__(786);
+var utf8 = __webpack_require__(787);
 
 var base64encoder;
 if (global && global.ArrayBuffer) {
-  base64encoder = __webpack_require__(790);
+  base64encoder = __webpack_require__(788);
 }
 
 /**
@@ -13176,7 +13209,7 @@ var err = { type: 'error', data: 'parser error' };
  * Create a blob api even for blob builder when vendor prefixes exist
  */
 
-var Blob = __webpack_require__(791);
+var Blob = __webpack_require__(789);
 
 /**
  * Encodes a packet.
@@ -13740,7 +13773,7 @@ exports.f = {}.propertyIsEnumerable;
 
 // getting tag from 19.1.3.6 Object.prototype.toString()
 var cof = __webpack_require__(40);
-var TAG = __webpack_require__(12)('toStringTag');
+var TAG = __webpack_require__(11)('toStringTag');
 // ES3 wrong here
 var ARG = cof(function () { return arguments; }()) == 'Arguments';
 
@@ -13770,15 +13803,17 @@ module.exports = function (it) {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_main_blockchain_wallet_Main_Blockchain_Wallet__ = __webpack_require__(546);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_main_blockchain_chain_Main_Blockchain__ = __webpack_require__(692);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_main_blockchain_mining_Main_Blockchain_Mining__ = __webpack_require__(748);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_main_blockchain_blockchain_protocol_Main_Blockchain_Protocol__ = __webpack_require__(758);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_main_blockchain_agents_Main_Blockchain_Agent__ = __webpack_require__(760);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_main_blockchain_balances_Main_Blockchain_Balances__ = __webpack_require__(771);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_common_utils_validation_Validations_Utils__ = __webpack_require__(773);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_node_lists_nodes_list__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_main_blockchain_mining_Main_Blockchain_Mining__ = __webpack_require__(745);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_main_blockchain_blockchain_protocol_Main_Blockchain_Protocol__ = __webpack_require__(755);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_main_blockchain_agents_Main_Blockchain_Agent__ = __webpack_require__(758);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_main_blockchain_balances_Main_Blockchain_Balances__ = __webpack_require__(769);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_common_utils_validation_Validations_Utils__ = __webpack_require__(771);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_common_events_Status_Events__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_node_lists_waitlist_nodes_waitlist__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_common_crypto_WebDollar_Crypto__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__node_lists_types_Nodes_Type__ = __webpack_require__(61);
+
 
 
 
@@ -13954,7 +13989,7 @@ class Blockchain{
                 __WEBPACK_IMPORTED_MODULE_8_common_events_Status_Events__["a" /* default */].emit('blockchain/status', { message: "Error Synchronizing" });
 
                 if (__WEBPACK_IMPORTED_MODULE_7_node_lists_nodes_list__["a" /* default */].nodes.length === 0)
-                    __WEBPACK_IMPORTED_MODULE_9_node_lists_waitlist_nodes_waitlist__["a" /* default */].resetWaitlist();
+                    __WEBPACK_IMPORTED_MODULE_9_node_lists_waitlist_nodes_waitlist__["a" /* default */].resetWaitlist(__WEBPACK_IMPORTED_MODULE_11__node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER);
 
                 this.Agent.initializeAgentPromise();
             }
@@ -14447,10 +14482,10 @@ class BlockchainMiningReward{
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__blocks_validation_Interface_Blockchain_Block_Validation__ = __webpack_require__(126);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_consts_global__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_consts_global__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_global_Blockchain_Genesis__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_events_Status_Events__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_utils_Revert_Actions_Revert_Actions__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_utils_Revert_Actions_Revert_Actions__ = __webpack_require__(190);
 
 
 
@@ -15578,7 +15613,7 @@ class InterfaceBlockchainFork {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_Serialization__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_BufferExtended__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Interface_Tree_Edge__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Interface_Tree_Edge__ = __webpack_require__(195);
 
 
 
@@ -15802,7 +15837,7 @@ module.exports = function (key) {
 // true  -> Array#includes
 var toIObject = __webpack_require__(34);
 var toLength = __webpack_require__(16);
-var toAbsoluteIndex = __webpack_require__(65);
+var toAbsoluteIndex = __webpack_require__(66);
 module.exports = function (IS_INCLUDES) {
   return function ($this, el, fromIndex) {
     var O = toIObject($this);
@@ -15848,7 +15883,7 @@ module.exports = Array.isArray || function isArray(arg) {
 // 7.2.8 IsRegExp(argument)
 var isObject = __webpack_require__(10);
 var cof = __webpack_require__(40);
-var MATCH = __webpack_require__(12)('match');
+var MATCH = __webpack_require__(11)('match');
 module.exports = function (it) {
   var isRegExp;
   return isObject(it) && ((isRegExp = it[MATCH]) !== undefined ? !!isRegExp : cof(it) == 'RegExp');
@@ -15859,7 +15894,7 @@ module.exports = function (it) {
 /* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ITERATOR = __webpack_require__(12)('iterator');
+var ITERATOR = __webpack_require__(11)('iterator');
 var SAFE_CLOSING = false;
 
 try {
@@ -15913,7 +15948,7 @@ var hide = __webpack_require__(27);
 var redefine = __webpack_require__(28);
 var fails = __webpack_require__(8);
 var defined = __webpack_require__(45);
-var wks = __webpack_require__(12);
+var wks = __webpack_require__(11);
 
 module.exports = function (KEY, length, exec) {
   var SYMBOL = wks(KEY);
@@ -15945,7 +15980,7 @@ module.exports = function (KEY, length, exec) {
 // 7.3.20 SpeciesConstructor(O, defaultConstructor)
 var anObject = __webpack_require__(6);
 var aFunction = __webpack_require__(23);
-var SPECIES = __webpack_require__(12)('species');
+var SPECIES = __webpack_require__(11)('species');
 module.exports = function (O, D) {
   var C = anObject(O).constructor;
   var S;
@@ -15962,15 +15997,15 @@ module.exports = function (O, D) {
 var global = __webpack_require__(7);
 var $export = __webpack_require__(0);
 var redefine = __webpack_require__(28);
-var redefineAll = __webpack_require__(71);
+var redefineAll = __webpack_require__(72);
 var meta = __webpack_require__(54);
-var forOf = __webpack_require__(70);
-var anInstance = __webpack_require__(69);
+var forOf = __webpack_require__(71);
+var anInstance = __webpack_require__(70);
 var isObject = __webpack_require__(10);
 var fails = __webpack_require__(8);
 var $iterDetect = __webpack_require__(108);
-var setToStringTag = __webpack_require__(76);
-var inheritIfRequired = __webpack_require__(141);
+var setToStringTag = __webpack_require__(77);
+var inheritIfRequired = __webpack_require__(140);
 
 module.exports = function (NAME, wrapper, methods, common, IS_MAP, IS_WEAK) {
   var Base = global[NAME];
@@ -16051,7 +16086,7 @@ module.exports = function (NAME, wrapper, methods, common, IS_MAP, IS_WEAK) {
 
 var global = __webpack_require__(7);
 var hide = __webpack_require__(27);
-var uid = __webpack_require__(62);
+var uid = __webpack_require__(63);
 var TYPED = uid('typed_array');
 var VIEW = uid('view');
 var ABV = !!(global.ArrayBuffer && global.DataView);
@@ -16086,7 +16121,7 @@ module.exports = {
 "use strict";
 
 // Forced replacement prototype accessors methods
-module.exports = __webpack_require__(63) || !__webpack_require__(8)(function () {
+module.exports = __webpack_require__(64) || !__webpack_require__(8)(function () {
   var K = Math.random();
   // In FF throws only define methods
   // eslint-disable-next-line no-undef, no-useless-call
@@ -16124,7 +16159,7 @@ module.exports = function (COLLECTION) {
 var $export = __webpack_require__(0);
 var aFunction = __webpack_require__(23);
 var ctx = __webpack_require__(39);
-var forOf = __webpack_require__(70);
+var forOf = __webpack_require__(71);
 
 module.exports = function (COLLECTION) {
   $export($export.S, COLLECTION, { from: function from(source /* , mapFn, thisArg */) {
@@ -16186,7 +16221,7 @@ var EE = __webpack_require__(31).EventEmitter;
 var inherits = __webpack_require__(5);
 
 inherits(Stream, EE);
-Stream.Readable = __webpack_require__(165);
+Stream.Readable = __webpack_require__(164);
 Stream.Writable = __webpack_require__(568);
 Stream.Duplex = __webpack_require__(569);
 Stream.Transform = __webpack_require__(570);
@@ -16350,10 +16385,10 @@ var inherits = __webpack_require__(5)
 var Legacy = __webpack_require__(576)
 var Base = __webpack_require__(56)
 var Buffer = __webpack_require__(3).Buffer
-var md5 = __webpack_require__(163)
-var RIPEMD160 = __webpack_require__(164)
+var md5 = __webpack_require__(162)
+var RIPEMD160 = __webpack_require__(163)
 
-var sha = __webpack_require__(168)
+var sha = __webpack_require__(167)
 
 var ZEROS = Buffer.alloc(128)
 
@@ -16744,7 +16779,7 @@ curve.edwards = __webpack_require__(610);
 /* WEBPACK VAR INJECTION */(function(Buffer) {var asn1 = __webpack_require__(626)
 var aesid = __webpack_require__(637)
 var fixProc = __webpack_require__(638)
-var ciphers = __webpack_require__(169)
+var ciphers = __webpack_require__(168)
 var compat = __webpack_require__(257)
 module.exports = parseKeys
 
@@ -16898,8 +16933,8 @@ class InterfaceBlockchainBlockValidation {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_lists_types_Connections_Type__ = __webpack_require__(53);
 
 
@@ -17053,113 +17088,6 @@ class NodeProtocol {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BanObject__ = __webpack_require__(730);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(11);
-
-
-
-class BansList{
-
-    constructor(){
-
-        this.bans = [];
-
-        __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].emitter.on("nodes-list/disconnected", async (nodesListObject) => {
-
-            //sckAddresses shouldn't be deleted after a socket is disconnected
-
-        });
-
-
-    }
-
-    isBanned(sckAddress){
-
-        let ban = this.getBan(sckAddress);
-        if (ban === null)
-            return false;
-
-        return ban.isBanned(sckAddress);
-    }
-
-    addBan(sckAddress, banTime = 10000, banReason){
-
-        if (typeof sckAddress === "object" && sckAddress.hasOwnProperty("node")) sckAddress = sckAddress.node.sckAddress;
-        if (typeof sckAddress === "object" && sckAddress.hasOwnProperty("sckAddress")) sckAddress = sckAddress.node.sckAddress;
-
-        let ban = this.getBan(sckAddress);
-
-        if (ban === null) {
-
-            ban = new __WEBPACK_IMPORTED_MODULE_0__BanObject__["a" /* default */](sckAddress);
-            this.bans.push(ban);
-
-        }
-
-        ban.increaseBanTrials(banTime, banReason);
-
-        this._removeEmptyBans();
-
-        this._listBans();
-
-        return ban;
-    }
-
-    findBan(sckAddress){
-
-        for (let i = 0; i < this.bans.length; i++)
-            if (this.bans[i].sckAddress.matchAddress(sckAddress, ["uuid"]) )
-                return i;
-
-        return null;
-    }
-
-    getBan(sckAddress){
-
-        let index = this.findBan(sckAddress);
-        if (index !== null)
-            return this.bans[index];
-
-        return null;
-    }
-
-    deleteBan(sckAddress){
-
-        let ban = this.getBan(sckAddress);
-
-        if (ban !== null)
-            ban.upLiftBan();
-
-    }
-
-    _removeEmptyBans(){
-
-        for (let i=this.bans.length-1; i>=0; i--)
-            if (this.bans[i].sckAddress === undefined || !this.bans[i].isBanned() )
-                this.bans.splice(i,1)
-
-    }
-
-    _listBans(){
-
-        console.info("BANNNNNNNNNNNNNNS");
-        for (let i=0; i<this.bans.length; i++)
-            console.warn( "Address", this.bans[i].sckAddress.toString(),
-                          "banTime", this.bans[i].banTime,
-                          "timeLeft", new Date().getTime() -  (this.bans[i].banTimestamp + this.bans[i].banTime) ,
-                          "messages", this.bans[i].banReasons );
-
-    }
-
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (new BansList());
-
-/***/ }),
-/* 129 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__PPoW_Blockchain_Proof_Basic__ = __webpack_require__(313);
 /**
  * Known as π
@@ -17244,12 +17172,12 @@ class PPowBlockchainProofPi extends __WEBPACK_IMPORTED_MODULE_0__PPoW_Blockchain
 /* harmony default export */ __webpack_exports__["a"] = (PPowBlockchainProofPi);
 
 /***/ }),
-/* 130 */
+/* 129 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Interface_Blockchain_Protocol_Fork_Solver__ = __webpack_require__(198);
+/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Interface_Blockchain_Protocol_Fork_Solver__ = __webpack_require__(197);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Interface_Blockchain_Protocol_Forks_Manager__ = __webpack_require__(320);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_Serialization__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_sockets_protocol_node_protocol__ = __webpack_require__(127);
@@ -17499,7 +17427,7 @@ class InterfaceBlockchainProtocol {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 131 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/**
@@ -17508,7 +17436,7 @@ class InterfaceBlockchainProtocol {
  * Expose `debug()` as the module.
  */
 
-exports = module.exports = __webpack_require__(779);
+exports = module.exports = __webpack_require__(777);
 exports.log = log;
 exports.formatArgs = formatArgs;
 exports.save = save;
@@ -17691,7 +17619,7 @@ function localstorage() {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(30)))
 
 /***/ }),
-/* 132 */
+/* 131 */
 /***/ (function(module, exports) {
 
 /**
@@ -17734,7 +17662,7 @@ exports.decode = function(qs){
 
 
 /***/ }),
-/* 133 */
+/* 132 */
 /***/ (function(module, exports) {
 
 
@@ -17746,7 +17674,7 @@ module.exports = function(a, b){
 };
 
 /***/ }),
-/* 134 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(10);
@@ -17759,12 +17687,12 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 135 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(7);
 var core = __webpack_require__(43);
-var LIBRARY = __webpack_require__(63);
+var LIBRARY = __webpack_require__(64);
 var wksExt = __webpack_require__(210);
 var defineProperty = __webpack_require__(15).f;
 module.exports = function (name) {
@@ -17774,18 +17702,18 @@ module.exports = function (name) {
 
 
 /***/ }),
-/* 136 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var shared = __webpack_require__(103)('keys');
-var uid = __webpack_require__(62);
+var uid = __webpack_require__(63);
 module.exports = function (key) {
   return shared[key] || (shared[key] = uid(key));
 };
 
 
 /***/ }),
-/* 137 */
+/* 136 */
 /***/ (function(module, exports) {
 
 // IE 8- don't enum bug keys
@@ -17795,7 +17723,7 @@ module.exports = (
 
 
 /***/ }),
-/* 138 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var document = __webpack_require__(7).document;
@@ -17803,7 +17731,7 @@ module.exports = document && document.documentElement;
 
 
 /***/ }),
-/* 139 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Works with __proto__ only. Old v8 can't work with null proto objects.
@@ -17834,7 +17762,7 @@ module.exports = {
 
 
 /***/ }),
-/* 140 */
+/* 139 */
 /***/ (function(module, exports) {
 
 module.exports = '\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u2003' +
@@ -17842,11 +17770,11 @@ module.exports = '\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u20
 
 
 /***/ }),
-/* 141 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(10);
-var setPrototypeOf = __webpack_require__(139).set;
+var setPrototypeOf = __webpack_require__(138).set;
 module.exports = function (that, target, C) {
   var S = target.constructor;
   var P;
@@ -17857,7 +17785,7 @@ module.exports = function (that, target, C) {
 
 
 /***/ }),
-/* 142 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17876,7 +17804,7 @@ module.exports = function repeat(count) {
 
 
 /***/ }),
-/* 143 */
+/* 142 */
 /***/ (function(module, exports) {
 
 // 20.2.2.28 Math.sign(x)
@@ -17887,7 +17815,7 @@ module.exports = Math.sign || function sign(x) {
 
 
 /***/ }),
-/* 144 */
+/* 143 */
 /***/ (function(module, exports) {
 
 // 20.2.2.14 Math.expm1(x)
@@ -17903,7 +17831,7 @@ module.exports = (!$expm1
 
 
 /***/ }),
-/* 145 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var toInteger = __webpack_require__(46);
@@ -17926,21 +17854,21 @@ module.exports = function (TO_STRING) {
 
 
 /***/ }),
-/* 146 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var LIBRARY = __webpack_require__(63);
+var LIBRARY = __webpack_require__(64);
 var $export = __webpack_require__(0);
 var redefine = __webpack_require__(28);
 var hide = __webpack_require__(27);
 var has = __webpack_require__(26);
-var Iterators = __webpack_require__(78);
-var $iterCreate = __webpack_require__(147);
-var setToStringTag = __webpack_require__(76);
+var Iterators = __webpack_require__(79);
+var $iterCreate = __webpack_require__(146);
+var setToStringTag = __webpack_require__(77);
 var getPrototypeOf = __webpack_require__(36);
-var ITERATOR = __webpack_require__(12)('iterator');
+var ITERATOR = __webpack_require__(11)('iterator');
 var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
 var FF_ITERATOR = '@@iterator';
 var KEYS = 'keys';
@@ -18003,18 +17931,18 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
 
 
 /***/ }),
-/* 147 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var create = __webpack_require__(66);
-var descriptor = __webpack_require__(61);
-var setToStringTag = __webpack_require__(76);
+var create = __webpack_require__(67);
+var descriptor = __webpack_require__(62);
+var setToStringTag = __webpack_require__(77);
 var IteratorPrototype = {};
 
 // 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
-__webpack_require__(27)(IteratorPrototype, __webpack_require__(12)('iterator'), function () { return this; });
+__webpack_require__(27)(IteratorPrototype, __webpack_require__(11)('iterator'), function () { return this; });
 
 module.exports = function (Constructor, NAME, next) {
   Constructor.prototype = create(IteratorPrototype, { next: descriptor(1, next) });
@@ -18023,7 +17951,7 @@ module.exports = function (Constructor, NAME, next) {
 
 
 /***/ }),
-/* 148 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // helper for String#{startsWith, endsWith, includes}
@@ -18037,10 +17965,10 @@ module.exports = function (that, searchString, NAME) {
 
 
 /***/ }),
-/* 149 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var MATCH = __webpack_require__(12)('match');
+var MATCH = __webpack_require__(11)('match');
 module.exports = function (KEY) {
   var re = /./;
   try {
@@ -18055,12 +17983,12 @@ module.exports = function (KEY) {
 
 
 /***/ }),
-/* 150 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // check on default Array iterator
-var Iterators = __webpack_require__(78);
-var ITERATOR = __webpack_require__(12)('iterator');
+var Iterators = __webpack_require__(79);
+var ITERATOR = __webpack_require__(11)('iterator');
 var ArrayProto = Array.prototype;
 
 module.exports = function (it) {
@@ -18069,13 +17997,13 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 151 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var $defineProperty = __webpack_require__(15);
-var createDesc = __webpack_require__(61);
+var createDesc = __webpack_require__(62);
 
 module.exports = function (object, index, value) {
   if (index in object) $defineProperty.f(object, index, createDesc(0, value));
@@ -18084,12 +18012,12 @@ module.exports = function (object, index, value) {
 
 
 /***/ }),
-/* 152 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var classof = __webpack_require__(90);
-var ITERATOR = __webpack_require__(12)('iterator');
-var Iterators = __webpack_require__(78);
+var ITERATOR = __webpack_require__(11)('iterator');
+var Iterators = __webpack_require__(79);
 module.exports = __webpack_require__(43).getIteratorMethod = function (it) {
   if (it != undefined) return it[ITERATOR]
     || it['@@iterator']
@@ -18098,7 +18026,7 @@ module.exports = __webpack_require__(43).getIteratorMethod = function (it) {
 
 
 /***/ }),
-/* 153 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 9.4.2.3 ArraySpeciesCreate(originalArray, length)
@@ -18110,14 +18038,14 @@ module.exports = function (original, length) {
 
 
 /***/ }),
-/* 154 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 // 22.1.3.6 Array.prototype.fill(value, start = 0, end = this.length)
 
 var toObject = __webpack_require__(20);
-var toAbsoluteIndex = __webpack_require__(65);
+var toAbsoluteIndex = __webpack_require__(66);
 var toLength = __webpack_require__(16);
 module.exports = function fill(value /* , start = 0, end = @length */) {
   var O = toObject(this);
@@ -18132,21 +18060,21 @@ module.exports = function fill(value /* , start = 0, end = @length */) {
 
 
 /***/ }),
-/* 155 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var addToUnscopables = __webpack_require__(55);
 var step = __webpack_require__(226);
-var Iterators = __webpack_require__(78);
+var Iterators = __webpack_require__(79);
 var toIObject = __webpack_require__(34);
 
 // 22.1.3.4 Array.prototype.entries()
 // 22.1.3.13 Array.prototype.keys()
 // 22.1.3.29 Array.prototype.values()
 // 22.1.3.30 Array.prototype[@@iterator]()
-module.exports = __webpack_require__(146)(Array, 'Array', function (iterated, kind) {
+module.exports = __webpack_require__(145)(Array, 'Array', function (iterated, kind) {
   this._t = toIObject(iterated); // target
   this._i = 0;                   // next index
   this._k = kind;                // kind
@@ -18173,13 +18101,13 @@ addToUnscopables('entries');
 
 
 /***/ }),
-/* 156 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ctx = __webpack_require__(39);
 var invoke = __webpack_require__(216);
-var html = __webpack_require__(138);
-var cel = __webpack_require__(134);
+var html = __webpack_require__(137);
+var cel = __webpack_require__(133);
 var global = __webpack_require__(7);
 var process = global.process;
 var setTask = global.setImmediate;
@@ -18263,11 +18191,11 @@ module.exports = {
 
 
 /***/ }),
-/* 157 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(7);
-var macrotask = __webpack_require__(156).set;
+var macrotask = __webpack_require__(155).set;
 var Observer = global.MutationObserver || global.WebKitMutationObserver;
 var process = global.process;
 var Promise = global.Promise;
@@ -18337,7 +18265,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 158 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18362,26 +18290,26 @@ module.exports.f = function (C) {
 
 
 /***/ }),
-/* 159 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var global = __webpack_require__(7);
 var DESCRIPTORS = __webpack_require__(14);
-var LIBRARY = __webpack_require__(63);
+var LIBRARY = __webpack_require__(64);
 var $typed = __webpack_require__(113);
 var hide = __webpack_require__(27);
-var redefineAll = __webpack_require__(71);
+var redefineAll = __webpack_require__(72);
 var fails = __webpack_require__(8);
-var anInstance = __webpack_require__(69);
+var anInstance = __webpack_require__(70);
 var toInteger = __webpack_require__(46);
 var toLength = __webpack_require__(16);
 var toIndex = __webpack_require__(235);
-var gOPN = __webpack_require__(67).f;
+var gOPN = __webpack_require__(68).f;
 var dP = __webpack_require__(15).f;
-var arrayFill = __webpack_require__(154);
-var setToStringTag = __webpack_require__(76);
+var arrayFill = __webpack_require__(153);
+var setToStringTag = __webpack_require__(77);
 var ARRAY_BUFFER = 'ArrayBuffer';
 var DATA_VIEW = 'DataView';
 var PROTOTYPE = 'prototype';
@@ -18645,7 +18573,7 @@ exports[DATA_VIEW] = $DataView;
 
 
 /***/ }),
-/* 160 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(7);
@@ -18655,7 +18583,7 @@ module.exports = navigator && navigator.userAgent || '';
 
 
 /***/ }),
-/* 161 */
+/* 160 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -18728,14 +18656,14 @@ class ED25519{
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 162 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-exports.randomBytes = exports.rng = exports.pseudoRandomBytes = exports.prng = __webpack_require__(72)
-exports.createHash = exports.Hash = __webpack_require__(73)
+exports.randomBytes = exports.rng = exports.pseudoRandomBytes = exports.prng = __webpack_require__(73)
+exports.createHash = exports.Hash = __webpack_require__(74)
 exports.createHmac = exports.Hmac = __webpack_require__(120)
 
 var algos = __webpack_require__(577)
@@ -18832,7 +18760,7 @@ exports.constants = {
 
 
 /***/ }),
-/* 163 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18990,7 +18918,7 @@ module.exports = function md5 (buf) {
 
 
 /***/ }),
-/* 164 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19289,20 +19217,20 @@ module.exports = RIPEMD160
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 165 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(250);
 exports.Stream = exports;
 exports.Readable = exports;
-exports.Writable = __webpack_require__(166);
-exports.Duplex = __webpack_require__(74);
+exports.Writable = __webpack_require__(165);
+exports.Duplex = __webpack_require__(75);
 exports.Transform = __webpack_require__(253);
 exports.PassThrough = __webpack_require__(567);
 
 
 /***/ }),
-/* 166 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19406,7 +19334,7 @@ util.inherits(Writable, Stream);
 function nop() {}
 
 function WritableState(options, stream) {
-  Duplex = Duplex || __webpack_require__(74);
+  Duplex = Duplex || __webpack_require__(75);
 
   options = options || {};
 
@@ -19556,7 +19484,7 @@ if (typeof Symbol === 'function' && Symbol.hasInstance && typeof Function.protot
 }
 
 function Writable(options) {
-  Duplex = Duplex || __webpack_require__(74);
+  Duplex = Duplex || __webpack_require__(75);
 
   // Writable ctor is applied to Duplexes, too.
   // `realHasInstance` is necessary because using plain `instanceof`
@@ -19986,7 +19914,7 @@ Writable.prototype._destroy = function (err, cb) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(30), __webpack_require__(564).setImmediate, __webpack_require__(9)))
 
 /***/ }),
-/* 167 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20264,7 +20192,7 @@ function simpleEnd(buf) {
 }
 
 /***/ }),
-/* 168 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var exports = module.exports = function SHA (algorithm) {
@@ -20285,7 +20213,7 @@ exports.sha512 = __webpack_require__(255)
 
 
 /***/ }),
-/* 169 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ciphers = __webpack_require__(582)
@@ -20304,7 +20232,7 @@ exports.listCiphers = exports.getCiphers = getCiphers
 
 
 /***/ }),
-/* 170 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var modeModules = {
@@ -20328,7 +20256,7 @@ module.exports = modes
 
 
 /***/ }),
-/* 171 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20342,11 +20270,11 @@ exports.EDE = __webpack_require__(596);
 
 
 /***/ }),
-/* 172 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var bn = __webpack_require__(18);
-var randomBytes = __webpack_require__(72);
+var randomBytes = __webpack_require__(73);
 module.exports = crt;
 function blind(priv) {
   var r = getr(priv);
@@ -20389,7 +20317,7 @@ function getr(priv) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 173 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var hash = exports;
@@ -20410,7 +20338,7 @@ hash.ripemd160 = hash.ripemd.ripemd160;
 
 
 /***/ }),
-/* 174 */
+/* 173 */
 /***/ (function(module, exports) {
 
 
@@ -20425,7 +20353,7 @@ module.exports = function(arr, obj){
 };
 
 /***/ }),
-/* 175 */
+/* 174 */
 /***/ (function(module, exports) {
 
 var types = {
@@ -20452,14 +20380,14 @@ module.exports = types
 
 
 /***/ }),
-/* 176 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var decompile = __webpack_require__(19).decompile
-var multisig = __webpack_require__(177)
+var multisig = __webpack_require__(176)
 var nullData = __webpack_require__(666)
-var pubKey = __webpack_require__(178)
-var pubKeyHash = __webpack_require__(179)
+var pubKey = __webpack_require__(177)
+var pubKeyHash = __webpack_require__(178)
 var scriptHash = __webpack_require__(671)
 var witnessPubKeyHash = __webpack_require__(674)
 var witnessScriptHash = __webpack_require__(676)
@@ -20532,7 +20460,7 @@ module.exports = {
 
 
 /***/ }),
-/* 177 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
@@ -20542,7 +20470,7 @@ module.exports = {
 
 
 /***/ }),
-/* 178 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
@@ -20552,7 +20480,7 @@ module.exports = {
 
 
 /***/ }),
-/* 179 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
@@ -20562,7 +20490,7 @@ module.exports = {
 
 
 /***/ }),
-/* 180 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20659,17 +20587,17 @@ module.exports = { encode: encode, decode: decode, encodingLength: encodingLengt
 
 
 /***/ }),
-/* 181 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(3).Buffer
-var bcrypto = __webpack_require__(83)
+var bcrypto = __webpack_require__(84)
 var bscript = __webpack_require__(19)
 var bufferutils = __webpack_require__(293)
 var opcodes = __webpack_require__(24)
 var typeforce = __webpack_require__(13)
 var types = __webpack_require__(22)
-var varuint = __webpack_require__(180)
+var varuint = __webpack_require__(179)
 
 function varSliceSize (someScript) {
   var length = someScript.length
@@ -21157,13 +21085,13 @@ module.exports = Transaction
 
 
 /***/ }),
-/* 182 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baddress = __webpack_require__(183)
-var bcrypto = __webpack_require__(83)
+var baddress = __webpack_require__(182)
+var bcrypto = __webpack_require__(84)
 var ecdsa = __webpack_require__(684)
-var randomBytes = __webpack_require__(72)
+var randomBytes = __webpack_require__(73)
 var typeforce = __webpack_require__(13)
 var types = __webpack_require__(22)
 var wif = __webpack_require__(689)
@@ -21171,7 +21099,7 @@ var wif = __webpack_require__(689)
 var NETWORKS = __webpack_require__(98)
 var BigInteger = __webpack_require__(59)
 
-var ecurve = __webpack_require__(187)
+var ecurve = __webpack_require__(186)
 var secp256k1 = ecdsa.__curve
 
 function ECPair (d, Q, options) {
@@ -21294,14 +21222,14 @@ module.exports = ECPair
 
 
 /***/ }),
-/* 183 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(3).Buffer
 var bech32 = __webpack_require__(682)
-var bs58check = __webpack_require__(184)
+var bs58check = __webpack_require__(183)
 var bscript = __webpack_require__(19)
-var btemplates = __webpack_require__(176)
+var btemplates = __webpack_require__(175)
 var networks = __webpack_require__(98)
 var typeforce = __webpack_require__(13)
 var types = __webpack_require__(22)
@@ -21397,13 +21325,13 @@ module.exports = {
 
 
 /***/ }),
-/* 184 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var createHash = __webpack_require__(73)
+var createHash = __webpack_require__(74)
 var bs58checkBase = __webpack_require__(683)
 
 // SHA256(SHA256(buffer))
@@ -21416,7 +21344,7 @@ module.exports = bs58checkBase(sha256x2)
 
 
 /***/ }),
-/* 185 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21914,7 +21842,7 @@ var objectKeys = Object.keys || function (obj) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 186 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var bip66 = __webpack_require__(286)
@@ -22018,7 +21946,7 @@ module.exports = ECSignature
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 187 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Point = __webpack_require__(295)
@@ -22034,7 +21962,7 @@ module.exports = {
 
 
 /***/ }),
-/* 188 */
+/* 187 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -22464,7 +22392,7 @@ class InterfaceBlockchainBlock {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 189 */
+/* 188 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -22626,7 +22554,7 @@ class InterfaceBlockchainBlockData {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 190 */
+/* 189 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23009,7 +22937,7 @@ class InterfaceBlockchainTransaction{
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 191 */
+/* 190 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23087,13 +23015,13 @@ class RevertActions {
 /* harmony default export */ __webpack_exports__["a"] = (RevertActions);
 
 /***/ }),
-/* 192 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(699);
 
 /***/ }),
-/* 193 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23193,7 +23121,7 @@ module.exports = defaults;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(30)))
 
 /***/ }),
-/* 194 */
+/* 193 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23299,16 +23227,16 @@ class GeoHelper {
 /* harmony default export */ __webpack_exports__["a"] = (new GeoHelper());
 
 /***/ }),
-/* 195 */
+/* 194 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_trees_radix_tree_merkle_tree_Interface_Merkle_Radix_Tree__ = __webpack_require__(314);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Accountant_Tree_Node__ = __webpack_require__(736);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Accountant_Tree_Node__ = __webpack_require__(733);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Mini_Blockchain_Accountant_Tree_Events__ = __webpack_require__(737);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Mini_Blockchain_Accountant_Tree_Events__ = __webpack_require__(734);
 
 
 
@@ -23551,7 +23479,7 @@ class MiniBlockchainAccountantTree extends __WEBPACK_IMPORTED_MODULE_5__Mini_Blo
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 196 */
+/* 195 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23594,11 +23522,11 @@ class InterfaceTreeEdge {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 197 */
+/* 196 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_protocol_Interface_Blockchain_Protocol__ = __webpack_require__(130);
+/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_protocol_Interface_Blockchain_Protocol__ = __webpack_require__(129);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_utils_Serialization__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_blockchain_ppow_blockchain_protocol_PPoW_Blockchain_Protocol__ = __webpack_require__(199);
@@ -23645,17 +23573,17 @@ class MiniBlockchainProtocol extends inheritProtocol{
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 198 */
+/* 197 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__blockchain_forks_Interface_Blockchain_Fork__ = __webpack_require__(100);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_global_Blockchain_Mining_Reward__ = __webpack_require__(99);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_global__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_global__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_events_Status_Events__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_common_utils_bans_BansList__ = __webpack_require__(128);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_common_utils_bans_BansList__ = __webpack_require__(198);
 
 
 
@@ -24020,12 +23948,119 @@ class InterfaceBlockchainProtocolForkSolver{
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
+/* 198 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BanObject__ = __webpack_require__(756);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(12);
+
+
+
+class BansList{
+
+    constructor(){
+
+        this.bans = [];
+
+        __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].emitter.on("nodes-list/disconnected", async (nodesListObject) => {
+
+            //sckAddresses shouldn't be deleted after a socket is disconnected
+
+        });
+
+
+    }
+
+    isBanned(sckAddress){
+
+        let ban = this.getBan(sckAddress);
+        if (ban === null)
+            return false;
+
+        return ban.isBanned(sckAddress);
+    }
+
+    addBan(sckAddress, banTime = 10000, banReason){
+
+        if (typeof sckAddress === "object" && sckAddress.hasOwnProperty("node")) sckAddress = sckAddress.node.sckAddress;
+        if (typeof sckAddress === "object" && sckAddress.hasOwnProperty("sckAddress")) sckAddress = sckAddress.node.sckAddress;
+
+        let ban = this.getBan(sckAddress);
+
+        if (ban === null) {
+
+            ban = new __WEBPACK_IMPORTED_MODULE_0__BanObject__["a" /* default */](sckAddress);
+            this.bans.push(ban);
+
+        }
+
+        ban.increaseBanTrials(banTime, banReason);
+
+        this._removeEmptyBans();
+
+        this._listBans();
+
+        return ban;
+    }
+
+    findBan(sckAddress){
+
+        for (let i = 0; i < this.bans.length; i++)
+            if (this.bans[i].sckAddress.matchAddress(sckAddress, ["uuid"]) )
+                return i;
+
+        return null;
+    }
+
+    getBan(sckAddress){
+
+        let index = this.findBan(sckAddress);
+        if (index !== null)
+            return this.bans[index];
+
+        return null;
+    }
+
+    deleteBan(sckAddress){
+
+        let ban = this.getBan(sckAddress);
+
+        if (ban !== null)
+            ban.upLiftBan();
+
+    }
+
+    _removeEmptyBans(){
+
+        for (let i=this.bans.length-1; i>=0; i--)
+            if (this.bans[i].sckAddress === undefined || !this.bans[i].isBanned() )
+                this.bans.splice(i,1)
+
+    }
+
+    _listBans(){
+
+        console.info("BANNNNNNNNNNNNNNS");
+        for (let i=0; i<this.bans.length; i++)
+            console.warn( "Address", this.bans[i].sckAddress.toString(),
+                          "banTime", this.bans[i].banTime,
+                          "timeLeft", new Date().getTime() -  (this.bans[i].banTimestamp + this.bans[i].banTime) ,
+                          "messages", this.bans[i].banReasons );
+
+    }
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (new BansList());
+
+/***/ }),
 /* 199 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_protocol_Interface_Blockchain_Protocol__ = __webpack_require__(130);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PPoW_Blockchain_Protocol_Forks_Manager__ = __webpack_require__(759);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_protocol_Interface_Blockchain_Protocol__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PPoW_Blockchain_Protocol_Forks_Manager__ = __webpack_require__(757);
 
 
 
@@ -24101,7 +24136,7 @@ class InterfaceBlockchainAgentFullNode extends __WEBPACK_IMPORTED_MODULE_0__Inte
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Mini_Blockchain_Protocol__ = __webpack_require__(197);
+/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Mini_Blockchain_Protocol__ = __webpack_require__(196);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_BufferExtended__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
 
@@ -24293,7 +24328,7 @@ class MiniBlockchainAdvancedProtocol extends __WEBPACK_IMPORTED_MODULE_0__Mini_B
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_ppow_blockchain_blockchain_forks_PPoW_Blockchain_Fork__ = __webpack_require__(763);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_ppow_blockchain_blockchain_forks_PPoW_Blockchain_Fork__ = __webpack_require__(761);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__ = __webpack_require__(100);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_blockchain_interface_blockchain_blocks_validation_Interface_Blockchain_Block_Validation__ = __webpack_require__(126);
@@ -24395,10 +24430,10 @@ class MiniBlockchainFork extends inheritFork{
  * Module dependencies.
  */
 
-var debug = __webpack_require__(82)('socket.io-parser');
+var debug = __webpack_require__(83)('socket.io-parser');
 var Emitter = __webpack_require__(86);
 var hasBin = __webpack_require__(325);
-var binary = __webpack_require__(781);
+var binary = __webpack_require__(779);
 var isArray = __webpack_require__(326);
 var isBuf = __webpack_require__(327);
 
@@ -24806,7 +24841,7 @@ function error(msg) {
 
 /* WEBPACK VAR INJECTION */(function(global) {// browser shim for xmlhttprequest module
 
-var hasCORS = __webpack_require__(784);
+var hasCORS = __webpack_require__(782);
 
 module.exports = function (opts) {
   var xdomain = opts.xdomain;
@@ -25014,7 +25049,7 @@ Transport.prototype.onClose = function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__ = __webpack_require__(207);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__signaling_client_service_Node_Signaling_Client_Service__ = __webpack_require__(338);
 
 
@@ -25031,16 +25066,6 @@ class NodeSignalingClientProtocol {
 
     _initializeSimpleProtocol(socket){
 
-        socket.node.on("signals/client/do-you-have-free-room", (data)=>{
-
-            //console.warn("free room: I have ", SignalingClientList.connected.length, "max", consts.SETTINGS.PARAMS.CONNECTIONS.WEBRTC.MAXIMUM_CONNECTIONS);
-
-            socket.node.sendRequest("signals/client/do-you-have-free-room"+"/answer", {
-                result: true,
-                acceptWebPeers: __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].connected.length < __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.WEBRTC.MAXIMUM_CONNECTIONS,
-            })
-
-        })
 
     }
 
@@ -25057,8 +25082,7 @@ class NodeSignalingClientProtocol {
 
             try{
 
-                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG)
-                    console.warn("WEBRTC# 1 Generate Initiator Signal");
+                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC# 1 Generate Initiator Signal");
 
                 if (data.remoteUUID === undefined || data.remoteUUID === null)
                     throw {message: "remoteUUID was not specified"};
@@ -25078,7 +25102,7 @@ class NodeSignalingClientProtocol {
                 let webPeer = webPeerSignalingClientListObject.webPeer;
 
                 if (webPeer.peer === null)
-                    webPeer.createPeer(true, socket, data.id, (iceCandidate) => {this.sendInitiatorIceCandidate(socket, data.id, iceCandidate) }, data.remoteAddress, data.remoteUUID, socket.level+1);
+                    webPeer.createPeer(true, socket, data.connectionId, (iceCandidate) => { this.sendInitiatorIceCandidate(socket, data.connectionId, iceCandidate) }, data.remoteAddress, data.remoteUUID, socket.level+1);
 
                 let answer;
 
@@ -25086,7 +25110,7 @@ class NodeSignalingClientProtocol {
 
                     answer = await webPeer.createSignalInitiator();
 
-                    console.log("###################### signals/client/initiator/generate-initiator-signal/" + data.id, answer, webPeer.peer, typeof answer);
+                    console.log("###################### signals/client/initiator/generate-initiator-signal/answer" + data.connectionId, answer, webPeer.peer, typeof answer);
 
                     if (answer.signal === undefined)
                         console.log("WEBRTC 1 is not supported !!!! being the initiator");
@@ -25097,14 +25121,14 @@ class NodeSignalingClientProtocol {
                 if (!answer.result )
                     throw {message: "Failed to Get a initiatorSignal: " +answer.message};
 
-                socket.node.sendRequest("signals/client/initiator/generate-initiator-signal/" + data.id, {accepted: true, initiatorSignal: answer.signal});
+                socket.node.sendRequest("signals/client/initiator/generate-initiator-signal/answer", {connectionId: data.connectionId, accepted: true, initiatorSignal: answer.signal});
 
             } catch (exception){
 
                 if (exception.message !== "Already connected" && exception.message !== "I can't accept WebPeers anymore")
-                    console.error("signals/client/initiator/generate-initiator-signal", exception);
+                    console.error("signals/client/initiator/generate-initiator-signal/answer", exception);
 
-                socket.node.sendRequest("signals/client/initiator/generate-initiator-signal/" + data.id, {accepted:false, initiatorSignal: undefined, message: exception.message });
+                socket.node.sendRequest("signals/client/initiator/generate-initiator-signal/answer", {connectionId: data.connectionId, accepted:false, initiatorSignal: undefined, message: exception.message });
             }
 
         });
@@ -25113,8 +25137,7 @@ class NodeSignalingClientProtocol {
 
             try {
 
-                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG)
-                    console.warn("WEBRTC# 1_2");
+                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC# 1_2");
 
                 if (data.remoteUUID === undefined || data.remoteUUID === null)
                     throw { message: "remoteUUID was not specified" };
@@ -25131,15 +25154,14 @@ class NodeSignalingClientProtocol {
                 if (!answer.result)
                     throw {message: answer.message};
 
-                socket.node.sendRequest("signals/client/initiator/join-answer-signal/" + data.id, {established: true });
+                socket.node.sendRequest("signals/client/initiator/join-answer-signal", {connectionId: data.connectionId, established: true });
 
             } catch (exception){
 
                 if (exception.message !== "Already connected" && exception.message !== "I can't accept WebPeers anymore")
-                    console.error("signals/client/initiator/join-answer-signal/" + data.id, exception);
+                    console.error("signals/client/initiator/join-answer-signal",  data.connectionId, exception);
 
-                socket.node.sendRequest("signals/client/initiator/join-answer-signal/" + data.id, {established: false, message: exception.message });
-
+                socket.node.sendRequest("signals/client/initiator/join-answer-signal", {connectionId: data.connectionId, established: false, message: exception.message });
             }
 
         });
@@ -25148,8 +25170,7 @@ class NodeSignalingClientProtocol {
 
             try {
 
-                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG)
-                    console.warn("WEBRTC# 1_3");
+                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC# 1_3");
 
                 if (data.remoteUUID === undefined || data.remoteUUID === null)
                     throw {message: "data.remoteUUID 4 was not specified"};
@@ -25166,7 +25187,7 @@ class NodeSignalingClientProtocol {
 
                 //arrived earlier than  /receive-initiator-signal
                 if (webPeer.peer === null) {
-                    webPeer.createPeer(false, socket, data.id, (iceCandidate) => { this.sendInitiatorIceCandidate(socket, data.id, iceCandidate) }, data.remoteAddress, data.remoteUUID, socket.level + 1);
+                    webPeer.createPeer(false, socket, data.connectionId, (iceCandidate) => { this.sendInitiatorIceCandidate(socket, data.connectionId, iceCandidate) }, data.remoteAddress, data.remoteUUID, socket.level + 1);
                     webPeer.peer.signalInitiatorData = data.initiatorSignal;
                 }
 
@@ -25175,14 +25196,14 @@ class NodeSignalingClientProtocol {
                 if (!answer.result )
                     throw {message: answer.message};
 
-                socket.node.sendRequest("signals/client/initiator/receive-ice-candidate/" + data.id, {accepted: true, answerSignal: answer.signal} );
+                socket.node.sendRequest("signals/client/initiator/receive-ice-candidate", { connectionId: data.connectionId, accepted: true, answerSignal: answer.signal} );
 
             } catch (exception){
 
                 if (exception.message !== "Already connected" && exception.message !== "I can't accept WebPeers anymore")
-                    console.error("signals/client/initiator/receive-ice-candidate/" + data.id, exception);
+                    console.error("signals/client/initiator/receive-ice-candidate/" + data.connectionId, exception);
 
-                socket.node.sendRequest("signals/client/initiator/receive-ice-candidate/" + data.id, { accepted: false,  message: exception.message });
+                socket.node.sendRequest("signals/client/initiator/receive-ice-candidate", { connectionId: data.connectionId, accepted: false,  message: exception.message });
             }
 
         });
@@ -25196,8 +25217,7 @@ class NodeSignalingClientProtocol {
 
             try {
 
-                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG)
-                    console.warn("WEBRTC# 2");
+                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC# 2");
 
                 if (data.remoteUUID === undefined || data.remoteUUID === null)
                     throw {message: "data.remoteUUID 2 was not specified"}
@@ -25216,7 +25236,7 @@ class NodeSignalingClientProtocol {
                 let webPeer = webPeerSignalingClientListObject.webPeer;
 
                 if (webPeer.peer === null) { //arrived earlier than  /receive-initiator-signal
-                    webPeer.createPeer(false, socket, data.id, (iceCandidate) => {this.sendAnswerIceCandidate(socket, data.id, iceCandidate)}, data.remoteAddress, data.remoteUUID, socket.level + 1);
+                    webPeer.createPeer(false, socket, data.connectionId, (iceCandidate) => {this.sendAnswerIceCandidate(socket, data.connectionId, iceCandidate)}, data.remoteAddress, data.remoteUUID, socket.level + 1);
                     webPeer.peer.signalInitiatorData = data.initiatorSignal;
                 }
 
@@ -25228,14 +25248,14 @@ class NodeSignalingClientProtocol {
                 if (!answer.result )
                     throw {message: answer.message };
 
-                socket.node.sendRequest("signals/client/answer/receive-initiator-signal/" + data.id, {accepted: true, answerSignal: answer.signal} );
+                socket.node.sendRequest("signals/client/answer/receive-initiator-signal/answer" , {connectionId: data.connectionId , accepted: true, answerSignal: answer.signal} );
 
             } catch (exception){
 
                 if (exception.message !== "Already connected" && exception.message !== "I can't accept WebPeers anymore")
-                    console.error("signals/client/answer/receive-initiator-signal", exception);
+                    console.error("signals/client/answer/receive-initiator-signal/answer", exception);
 
-                socket.node.sendRequest("signals/client/answer/receive-initiator-signal/" + data.id, {accepted:false, answerSignal: undefined });
+                socket.node.sendRequest("signals/client/answer/receive-initiator-signal/answer", {connectionId:data.connectionId, accepted:false, answerSignal: undefined });
             }
 
         });
@@ -25244,8 +25264,7 @@ class NodeSignalingClientProtocol {
 
             try{
 
-                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG)
-                    console.warn("WEBRTC# 2_2");
+                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC# 2_2");
 
                 if (data.remoteUUID === undefined || data.remoteUUID === null)
                     throw {message: "data.remoteUUID 3 is empty"};
@@ -25258,7 +25277,7 @@ class NodeSignalingClientProtocol {
                 let webPeer = webPeerSignalingClientListObject.webPeer;
 
                 if (webPeer.peer === null) { //arrived earlier than  /receive-initiator-signal
-                    webPeer.createPeer(false, socket, data.id, (iceCandidate) => {this.sendAnswerIceCandidate(socket, data.id, iceCandidate) }, data.remoteAddress, data.remoteUUID, socket.level+1);
+                    webPeer.createPeer(false, socket, data.connectionId, (iceCandidate) => {this.sendAnswerIceCandidate(socket, data.connectionId, iceCandidate) }, data.remoteAddress, data.remoteUUID, socket.level+1);
                     webPeer.peer.signalInitiatorData = data.initiatorSignal;
                 }
 
@@ -25268,14 +25287,14 @@ class NodeSignalingClientProtocol {
                 if (!answer.result )
                     throw {message: answer.message};
 
-                socket.node.sendRequest("signals/client/answer/receive-ice-candidate/" + data.id, { accepted: true, answerSignal: answer.signal} );
+                socket.node.sendRequest("signals/client/answer/receive-ice-candidate", { connectionId: data.connectionId, accepted: true, answerSignal: answer.signal} );
 
             } catch (exception){
 
                 if (exception.message !== "Already connected" && exception.message !== "I can't accept WebPeers anymore")
-                    console.error("signals/client/answer/receive-ice-candidate/"+ data.id, exception);
+                    console.error("signals/client/answer/receive-ice-candidate/"+ data.connectionId, exception);
 
-                socket.node.sendRequest("signals/client/answer/receive-ice-candidate/" + data.id, {accepted:false, answerSignal: undefined, message: exception.message });
+                socket.node.sendRequest("signals/client/answer/receive-ice-candidate", {connectionId: data.connectionId, accepted:false, answerSignal: undefined, message: exception.message });
             }
 
         });
@@ -25296,27 +25315,29 @@ class NodeSignalingClientProtocol {
 
     sendInitiatorIceCandidate(socket, connectionId, iceCandidate){
         //console.warn("sendInitiatorIceCandidate", connectionId, iceCandidate);
-        socket.node.sendRequest("signals/server/new-initiator-ice-candidate/" + connectionId, {candidate: iceCandidate} )
+        socket.node.sendRequest("signals/server/new-initiator-ice-candidate", {connectionId: connectionId, candidate: iceCandidate} )
     }
 
     sendAnswerIceCandidate(socket, connectionId, iceCandidate){
         //console.warn("sendAnswerIceCandidate", connectionId, iceCandidate);
-        socket.node.sendRequest("signals/server/new-answer-ice-candidate/" + connectionId, {candidate: iceCandidate} )
+        socket.node.sendRequest("signals/server/new-answer-ice-candidate", {connectionId: connectionId, candidate: iceCandidate} )
     }
 
     webPeerDisconnected(webPeer){
 
-        webPeer.peer.signaling.socketSignaling.node.sendRequest("signals/server/connections/established-connection-was-dropped", {address: webPeer.remoteAddress, connectionId: webPeer.peer.signaling.connectionId} );
+        webPeer.peer.signaling.socketSignaling.node.sendRequest("signals/server/connections/established-connection-was-dropped", {connectionId: webPeer.peer.signaling.connectionId, address: webPeer.remoteAddress} );
         __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].desinitializeWebPeerConnection(webPeer);
 
     }
 
     sendSuccessConnection(webPeer){
-        webPeer.peer.signaling.socketSignaling.node.sendRequest("signals/server/connections/was-established-successfully", {connectionId: webPeer.peer.signaling.connectionId})
+        if (webPeer.peer !== null && webPeer.peer.signaling !== null)
+            webPeer.peer.signaling.socketSignaling.node.sendRequest("signals/server/connections/was-established-successfully", {connectionId: webPeer.peer.signaling.connectionId})
     }
 
     sendErrorConnection(webPeer){
-        webPeer.peer.signaling.socketSignaling.node.sendRequest("signals/server/connections/error-establishing-connection", {connectionId: webPeer.peer.signaling.connectionId})
+        if (webPeer.peer !== null && webPeer.peer.signaling !== null)
+            webPeer.peer.signaling.socketSignaling.node.sendRequest("signals/server/connections/error-establishing-connection", {connectionId: webPeer.peer.signaling.connectionId})
     }
 
 }
@@ -25329,9 +25350,9 @@ class NodeSignalingClientProtocol {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__signaling_client_peer_object__ = __webpack_require__(801);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_webrtc_web_peer_node_web_peer_webRTC__ = __webpack_require__(802);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_nodes_list__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__signaling_client_peer_object__ = __webpack_require__(799);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_webrtc_web_peer_node_web_peer_webRTC__ = __webpack_require__(800);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__signaling_client_service_Node_Signaling_Client_Service__ = __webpack_require__(338);
 
 
@@ -25481,7 +25502,7 @@ console.log("Node WebDollar End");
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = !__webpack_require__(14) && !__webpack_require__(8)(function () {
-  return Object.defineProperty(__webpack_require__(134)('div'), 'a', { get: function () { return 7; } }).a != 7;
+  return Object.defineProperty(__webpack_require__(133)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
 
@@ -25489,7 +25510,7 @@ module.exports = !__webpack_require__(14) && !__webpack_require__(8)(function ()
 /* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports.f = __webpack_require__(12);
+exports.f = __webpack_require__(11);
 
 
 /***/ }),
@@ -25499,7 +25520,7 @@ exports.f = __webpack_require__(12);
 var has = __webpack_require__(26);
 var toIObject = __webpack_require__(34);
 var arrayIndexOf = __webpack_require__(104)(false);
-var IE_PROTO = __webpack_require__(136)('IE_PROTO');
+var IE_PROTO = __webpack_require__(135)('IE_PROTO');
 
 module.exports = function (object, names) {
   var O = toIObject(object);
@@ -25521,7 +25542,7 @@ module.exports = function (object, names) {
 
 var dP = __webpack_require__(15);
 var anObject = __webpack_require__(6);
-var getKeys = __webpack_require__(64);
+var getKeys = __webpack_require__(65);
 
 module.exports = __webpack_require__(14) ? Object.defineProperties : function defineProperties(O, Properties) {
   anObject(O);
@@ -25540,7 +25561,7 @@ module.exports = __webpack_require__(14) ? Object.defineProperties : function de
 
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
 var toIObject = __webpack_require__(34);
-var gOPN = __webpack_require__(67).f;
+var gOPN = __webpack_require__(68).f;
 var toString = {}.toString;
 
 var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
@@ -25566,7 +25587,7 @@ module.exports.f = function getOwnPropertyNames(it) {
 "use strict";
 
 // 19.1.2.1 Object.assign(target, source, ...)
-var getKeys = __webpack_require__(64);
+var getKeys = __webpack_require__(65);
 var gOPS = __webpack_require__(105);
 var pIE = __webpack_require__(89);
 var toObject = __webpack_require__(20);
@@ -25659,8 +25680,8 @@ module.exports = function (fn, args, that) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var $parseInt = __webpack_require__(7).parseInt;
-var $trim = __webpack_require__(77).trim;
-var ws = __webpack_require__(140);
+var $trim = __webpack_require__(78).trim;
+var ws = __webpack_require__(139);
 var hex = /^[-+]?0[xX]/;
 
 module.exports = $parseInt(ws + '08') !== 8 || $parseInt(ws + '0x16') !== 22 ? function parseInt(str, radix) {
@@ -25674,9 +25695,9 @@ module.exports = $parseInt(ws + '08') !== 8 || $parseInt(ws + '0x16') !== 22 ? f
 /***/ (function(module, exports, __webpack_require__) {
 
 var $parseFloat = __webpack_require__(7).parseFloat;
-var $trim = __webpack_require__(77).trim;
+var $trim = __webpack_require__(78).trim;
 
-module.exports = 1 / $parseFloat(__webpack_require__(140) + '-0') !== -Infinity ? function parseFloat(str) {
+module.exports = 1 / $parseFloat(__webpack_require__(139) + '-0') !== -Infinity ? function parseFloat(str) {
   var string = $trim(String(str), 3);
   var result = $parseFloat(string);
   return result === 0 && string.charAt(0) == '-' ? -0 : result;
@@ -25721,7 +25742,7 @@ module.exports = Math.log1p || function log1p(x) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 20.2.2.16 Math.fround(x)
-var sign = __webpack_require__(143);
+var sign = __webpack_require__(142);
 var pow = Math.pow;
 var EPSILON = pow(2, -52);
 var EPSILON32 = pow(2, -23);
@@ -25805,7 +25826,7 @@ module.exports = function (that, callbackfn, aLen, memo, isRight) {
 // 22.1.3.3 Array.prototype.copyWithin(target, start, end = this.length)
 
 var toObject = __webpack_require__(20);
-var toAbsoluteIndex = __webpack_require__(65);
+var toAbsoluteIndex = __webpack_require__(66);
 var toLength = __webpack_require__(16);
 
 module.exports = [].copyWithin || function copyWithin(target /* = 0 */, start /* = 0, end = @length */) {
@@ -25869,7 +25890,7 @@ module.exports = function (exec) {
 
 var anObject = __webpack_require__(6);
 var isObject = __webpack_require__(10);
-var newPromiseCapability = __webpack_require__(158);
+var newPromiseCapability = __webpack_require__(157);
 
 module.exports = function (C, x) {
   anObject(C);
@@ -25888,7 +25909,7 @@ module.exports = function (C, x) {
 "use strict";
 
 var strong = __webpack_require__(231);
-var validate = __webpack_require__(79);
+var validate = __webpack_require__(80);
 var MAP = 'Map';
 
 // 23.1 Map Objects
@@ -25914,17 +25935,17 @@ module.exports = __webpack_require__(112)(MAP, function (get) {
 "use strict";
 
 var dP = __webpack_require__(15).f;
-var create = __webpack_require__(66);
-var redefineAll = __webpack_require__(71);
+var create = __webpack_require__(67);
+var redefineAll = __webpack_require__(72);
 var ctx = __webpack_require__(39);
-var anInstance = __webpack_require__(69);
-var forOf = __webpack_require__(70);
-var $iterDefine = __webpack_require__(146);
+var anInstance = __webpack_require__(70);
+var forOf = __webpack_require__(71);
+var $iterDefine = __webpack_require__(145);
 var step = __webpack_require__(226);
-var setSpecies = __webpack_require__(68);
+var setSpecies = __webpack_require__(69);
 var DESCRIPTORS = __webpack_require__(14);
 var fastKey = __webpack_require__(54).fastKey;
-var validate = __webpack_require__(79);
+var validate = __webpack_require__(80);
 var SIZE = DESCRIPTORS ? '_s' : 'size';
 
 var getEntry = function (that, key) {
@@ -26065,7 +26086,7 @@ module.exports = {
 "use strict";
 
 var strong = __webpack_require__(231);
-var validate = __webpack_require__(79);
+var validate = __webpack_require__(80);
 var SET = 'Set';
 
 // 23.2 Set Objects
@@ -26092,7 +26113,7 @@ var assign = __webpack_require__(214);
 var weak = __webpack_require__(234);
 var isObject = __webpack_require__(10);
 var fails = __webpack_require__(8);
-var validate = __webpack_require__(79);
+var validate = __webpack_require__(80);
 var WEAK_MAP = 'WeakMap';
 var getWeak = meta.getWeak;
 var isExtensible = Object.isExtensible;
@@ -26151,15 +26172,15 @@ if (fails(function () { return new $WeakMap().set((Object.freeze || Object)(tmp)
 
 "use strict";
 
-var redefineAll = __webpack_require__(71);
+var redefineAll = __webpack_require__(72);
 var getWeak = __webpack_require__(54).getWeak;
 var anObject = __webpack_require__(6);
 var isObject = __webpack_require__(10);
-var anInstance = __webpack_require__(69);
-var forOf = __webpack_require__(70);
+var anInstance = __webpack_require__(70);
+var forOf = __webpack_require__(71);
 var createArrayMethod = __webpack_require__(48);
 var $has = __webpack_require__(26);
-var validate = __webpack_require__(79);
+var validate = __webpack_require__(80);
 var arrayFind = createArrayMethod(5);
 var arrayFindIndex = createArrayMethod(6);
 var id = 0;
@@ -26258,7 +26279,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // all object keys, includes non-enumerable and symbols
-var gOPN = __webpack_require__(67);
+var gOPN = __webpack_require__(68);
 var gOPS = __webpack_require__(105);
 var anObject = __webpack_require__(6);
 var Reflect = __webpack_require__(7).Reflect;
@@ -26280,7 +26301,7 @@ var isArray = __webpack_require__(106);
 var isObject = __webpack_require__(10);
 var toLength = __webpack_require__(16);
 var ctx = __webpack_require__(39);
-var IS_CONCAT_SPREADABLE = __webpack_require__(12)('isConcatSpreadable');
+var IS_CONCAT_SPREADABLE = __webpack_require__(11)('isConcatSpreadable');
 
 function flattenIntoArray(target, original, source, sourceLen, start, depth, mapper, thisArg) {
   var targetIndex = start;
@@ -26321,7 +26342,7 @@ module.exports = flattenIntoArray;
 
 // https://github.com/tc39/proposal-string-pad-start-end
 var toLength = __webpack_require__(16);
-var repeat = __webpack_require__(142);
+var repeat = __webpack_require__(141);
 var defined = __webpack_require__(45);
 
 module.exports = function (that, maxLength, fillString, left) {
@@ -26341,7 +26362,7 @@ module.exports = function (that, maxLength, fillString, left) {
 /* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getKeys = __webpack_require__(64);
+var getKeys = __webpack_require__(65);
 var toIObject = __webpack_require__(34);
 var isEnum = __webpack_require__(89).f;
 module.exports = function (isEntries) {
@@ -26378,7 +26399,7 @@ module.exports = function (NAME) {
 /* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var forOf = __webpack_require__(70);
+var forOf = __webpack_require__(71);
 
 module.exports = function (iter, ITERATOR) {
   var result = [];
@@ -27609,7 +27630,7 @@ function prependListener(emitter, event, fn) {
 }
 
 function ReadableState(options, stream) {
-  Duplex = Duplex || __webpack_require__(74);
+  Duplex = Duplex || __webpack_require__(75);
 
   options = options || {};
 
@@ -27679,14 +27700,14 @@ function ReadableState(options, stream) {
   this.decoder = null;
   this.encoding = null;
   if (options.encoding) {
-    if (!StringDecoder) StringDecoder = __webpack_require__(167).StringDecoder;
+    if (!StringDecoder) StringDecoder = __webpack_require__(166).StringDecoder;
     this.decoder = new StringDecoder(options.encoding);
     this.encoding = options.encoding;
   }
 }
 
 function Readable(options) {
-  Duplex = Duplex || __webpack_require__(74);
+  Duplex = Duplex || __webpack_require__(75);
 
   if (!(this instanceof Readable)) return new Readable(options);
 
@@ -27835,7 +27856,7 @@ Readable.prototype.isPaused = function () {
 
 // backwards compatibility.
 Readable.prototype.setEncoding = function (enc) {
-  if (!StringDecoder) StringDecoder = __webpack_require__(167).StringDecoder;
+  if (!StringDecoder) StringDecoder = __webpack_require__(166).StringDecoder;
   this._readableState.decoder = new StringDecoder(enc);
   this._readableState.encoding = enc;
   return this;
@@ -28684,7 +28705,7 @@ module.exports = {
 
 module.exports = Transform;
 
-var Duplex = __webpack_require__(74);
+var Duplex = __webpack_require__(75);
 
 /*<replacement>*/
 var util = __webpack_require__(93);
@@ -28845,7 +28866,7 @@ function done(stream, er, data) {
  */
 
 var inherits = __webpack_require__(5)
-var Hash = __webpack_require__(80)
+var Hash = __webpack_require__(81)
 var Buffer = __webpack_require__(3).Buffer
 
 var K = [
@@ -28978,7 +28999,7 @@ module.exports = Sha256
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(5)
-var Hash = __webpack_require__(80)
+var Hash = __webpack_require__(81)
 var Buffer = __webpack_require__(3).Buffer
 
 var K = [
@@ -29300,9 +29321,9 @@ module.exports = defaultEncoding
 /* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var md5 = __webpack_require__(163)
-var rmd160 = __webpack_require__(164)
-var sha = __webpack_require__(168)
+var md5 = __webpack_require__(162)
+var rmd160 = __webpack_require__(163)
+var sha = __webpack_require__(167)
 
 var checkParameters = __webpack_require__(258)
 var defaultEncoding = __webpack_require__(259)
@@ -29626,7 +29647,7 @@ module.exports = StreamCipher
 /* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var randomBytes = __webpack_require__(72);
+var randomBytes = __webpack_require__(73);
 module.exports = findPrime;
 findPrime.simpleSieve = simpleSieve;
 findPrime.fermatTest = fermatTest;
@@ -31283,7 +31304,7 @@ module.exports = {"1.3.132.0.10":"secp256k1","1.3.132.0.33":"p224","1.2.840.1004
 /* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var createHash = __webpack_require__(73);
+/* WEBPACK VAR INJECTION */(function(Buffer) {var createHash = __webpack_require__(74);
 module.exports = function (seed, len) {
   var t = new Buffer('');
   var  i = 0, c;
@@ -31824,7 +31845,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_inherits__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_uuid__ = __webpack_require__(247);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_uuid___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_uuid__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_debug__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_debug__ = __webpack_require__(83);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_debug___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_debug__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_spark_md5__ = __webpack_require__(659);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_spark_md5___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_spark_md5__);
@@ -44630,7 +44651,7 @@ module.exports = {
 /* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var native = __webpack_require__(175)
+var native = __webpack_require__(174)
 
 function getTypeName (fn) {
   return fn.name || fn.toString().match(/function (.*?)\s*\(/)[1]
@@ -44963,7 +44984,7 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 var pushdata = __webpack_require__(287)
-var varuint = __webpack_require__(180)
+var varuint = __webpack_require__(179)
 
 // https://github.com/feross/buffer/blob/master/index.js#L1127
 function verifuint (value, max) {
@@ -46539,7 +46560,7 @@ module.exports = BigInteger
 /* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var assert = __webpack_require__(185)
+var assert = __webpack_require__(184)
 var Buffer = __webpack_require__(3).Buffer
 var BigInteger = __webpack_require__(59)
 
@@ -46789,7 +46810,7 @@ module.exports = Point
 /* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var assert = __webpack_require__(185)
+var assert = __webpack_require__(184)
 var BigInteger = __webpack_require__(59)
 
 var Point = __webpack_require__(295)
@@ -46875,7 +46896,7 @@ module.exports = Curve
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain__ = __webpack_require__(693);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__state_Mini_Blockchain_Accountant_Tree__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__state_Mini_Blockchain_Accountant_Tree__ = __webpack_require__(194);
 
 
 
@@ -46939,24 +46960,22 @@ class MiniBlockchainAdvanced extends  __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block__ = __webpack_require__(187);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Blocks__ = __webpack_require__(695);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Data__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Data__ = __webpack_require__(188);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_blockchain_global_Blockchain_Genesis__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Creator__ = __webpack_require__(301);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_blockchain_global_Blockchain_Mining_Reward__ = __webpack_require__(99);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__forks_Interface_Blockchain_Forks_Administrator__ = __webpack_require__(697);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_common_satoshmindb_Interface_SatoshminDB__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_common_satoshmindb_Interface_SatoshminDB__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_transactions_Interface_Blockchain_Transactions__ = __webpack_require__(309);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_consts_global__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_consts_global__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_common_utils_Serialization__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_common_utils_Semaphore_Processing__ = __webpack_require__(310);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_common_blockchain_interface_blockchain_blocks_validation_Interface_Blockchain_Block_Validation__ = __webpack_require__(126);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_common_blockchain_interface_blockchain_timestmap_Blockchain_Timestamp__ = __webpack_require__(311);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_common_utils_Revert_Actions_Revert_Actions__ = __webpack_require__(191);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__tips_Interface_Blockchain_Tips_Administrator__ = __webpack_require__(728);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_common_utils_Revert_Actions_Revert_Actions__ = __webpack_require__(190);
 
 
 
@@ -47003,7 +47022,6 @@ class InterfaceBlockchain {
         this.db = new __WEBPACK_IMPORTED_MODULE_7_common_satoshmindb_Interface_SatoshminDB__["a" /* default */](__WEBPACK_IMPORTED_MODULE_9_consts_const_global__["a" /* default */].DATABASE_NAMES.BLOCKCHAIN_DATABASE.FOLDER);
 
         this.forksAdministrator = new __WEBPACK_IMPORTED_MODULE_6__forks_Interface_Blockchain_Forks_Administrator__["a" /* default */] ( this );
-        this.tipsManager = new __WEBPACK_IMPORTED_MODULE_16__tips_Interface_Blockchain_Tips_Administrator__["a" /* default */] ( this );
 
         this._createBlockchainElements();
 
@@ -47394,7 +47412,7 @@ class InterfaceBlockchain {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_utils_Serialization__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_crypto_ed25519__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_crypto_ed25519__ = __webpack_require__(160);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_utils_coins_WebDollar_Coins__ = __webpack_require__(42);
 
 
@@ -50697,8 +50715,8 @@ var __WEBPACK_AMD_DEFINE_RESULT__;;(function (globalObject) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__geolocation_address_object_js__ = __webpack_require__(717);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_sockets_socket_address__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geo_helpers_geo_helper__ = __webpack_require__(194);
-const axios = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geo_helpers_geo_helper__ = __webpack_require__(193);
+const axios = __webpack_require__(191);
 const ipaddr = __webpack_require__(101);
 
 
@@ -51082,8 +51100,8 @@ module.exports = Cancel;
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pending_Interface_Transactions_Pending_Queue__ = __webpack_require__(721);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__transaction_Interface_Blockchain_Transaction__ = __webpack_require__(190);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_satoshmindb_Interface_SatoshminDB__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__transaction_Interface_Blockchain_Transaction__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_satoshmindb_Interface_SatoshminDB__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__wizard_Interface_Blockchain_Transactions_Wizard__ = __webpack_require__(723);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Interface_Blockchain_Transactions_Events__ = __webpack_require__(724);
 
@@ -51202,7 +51220,7 @@ class SemaphoreProcessing{
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Blockchain_Network_Adjusted_Time__ = __webpack_require__(725);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_global_Blockchain_Genesis__ = __webpack_require__(50);
 
 
@@ -51281,7 +51299,7 @@ class BlockchainTimestamp{
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_utils_BufferExtended__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__prover_proofs_PPoW_Blockchain_Proof_Pi__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__prover_proofs_PPoW_Blockchain_Proof_Pi__ = __webpack_require__(128);
 
 
 
@@ -51532,9 +51550,9 @@ class PPoWBlockchainProofBasic{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Interface_Radix_Tree__ = __webpack_require__(734);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Interface_Radix_Tree__ = __webpack_require__(731);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Interface_Merkle_Radix_Tree_Node__ = __webpack_require__(318);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_trees_merkle_tree_Interface_Merkle_Tree__ = __webpack_require__(735);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_trees_merkle_tree_Interface_Merkle_Tree__ = __webpack_require__(732);
 
 
 
@@ -51679,7 +51697,7 @@ class InterfaceRadixTreeNode extends __WEBPACK_IMPORTED_MODULE_0_common_trees_In
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_trees_Interface_Tree_Edge__ = __webpack_require__(196);
+/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_trees_Interface_Tree_Edge__ = __webpack_require__(195);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_trees_Interface_Tree_Node__ = __webpack_require__(102);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Serialization__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_BufferExtended__ = __webpack_require__(4);
@@ -51738,7 +51756,7 @@ class InterfaceRadixTreeEdge extends __WEBPACK_IMPORTED_MODULE_0_common_trees_In
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Interface_Tree_Edge__ = __webpack_require__(196);
+/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Interface_Tree_Edge__ = __webpack_require__(195);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Interface_Tree_Node__ = __webpack_require__(102);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_crypto_WebDollar_Crypto_Data__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_BufferExtended__ = __webpack_require__(4);
@@ -52466,7 +52484,7 @@ class InterfaceMerkleTreeNode extends __WEBPACK_IMPORTED_MODULE_0_common_trees_I
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_utils_bans_BansList__ = __webpack_require__(128);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_utils_bans_BansList__ = __webpack_require__(198);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_crypto_WebDollar_Crypto__ = __webpack_require__(33);
 
 
@@ -52624,11 +52642,11 @@ class PPoWBlockchainAgentFullNode extends __WEBPACK_IMPORTED_MODULE_0_common_blo
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__protocol_Interface_Blockchain_Protocol__ = __webpack_require__(130);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_mini_blockchain_protocol_Mini_Blockchain_Protocol__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__protocol_Interface_Blockchain_Protocol__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_mini_blockchain_protocol_Mini_Blockchain_Protocol__ = __webpack_require__(196);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__ = __webpack_require__(100);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_utils_helpers_Version_Checker__ = __webpack_require__(762);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_utils_helpers_Version_Checker__ = __webpack_require__(760);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__node_lists_types_Connections_Type__ = __webpack_require__(53);
 
 
@@ -52805,7 +52823,7 @@ class InterfaceBlockchainAgent{
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Interface_Blockchain_Agent__ = __webpack_require__(322);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__protocol_Interface_Blockchain_Protocol__ = __webpack_require__(130);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__protocol_Interface_Blockchain_Protocol__ = __webpack_require__(129);
 
 
 
@@ -52877,7 +52895,7 @@ module.exports = function parseuri(str) {
  * Module requirements.
  */
 
-var isArray = __webpack_require__(780);
+var isArray = __webpack_require__(778);
 
 var toString = Object.prototype.toString;
 var withNativeBlob = typeof global.Blob === 'function' || toString.call(global.Blob) === '[object BlobConstructor]';
@@ -52976,15 +52994,15 @@ function isBuf(obj) {
  * Module dependencies.
  */
 
-var eio = __webpack_require__(782);
+var eio = __webpack_require__(780);
 var Socket = __webpack_require__(332);
 var Emitter = __webpack_require__(86);
 var parser = __webpack_require__(203);
 var on = __webpack_require__(333);
 var bind = __webpack_require__(334);
-var debug = __webpack_require__(131)('socket.io-client:manager');
-var indexOf = __webpack_require__(174);
-var Backoff = __webpack_require__(796);
+var debug = __webpack_require__(130)('socket.io-client:manager');
+var indexOf = __webpack_require__(173);
+var Backoff = __webpack_require__(794);
 
 /**
  * IE6+ hasOwnProperty
@@ -53555,9 +53573,9 @@ Manager.prototype.onreconnect = function () {
  */
 
 var XMLHttpRequest = __webpack_require__(204);
-var XHR = __webpack_require__(785);
-var JSONP = __webpack_require__(792);
-var websocket = __webpack_require__(793);
+var XHR = __webpack_require__(783);
+var JSONP = __webpack_require__(790);
+var websocket = __webpack_require__(791);
 
 /**
  * Export transports.
@@ -53615,11 +53633,11 @@ function polling (opts) {
  */
 
 var Transport = __webpack_require__(205);
-var parseqs = __webpack_require__(132);
+var parseqs = __webpack_require__(131);
 var parser = __webpack_require__(87);
-var inherit = __webpack_require__(133);
+var inherit = __webpack_require__(132);
 var yeast = __webpack_require__(331);
-var debug = __webpack_require__(82)('engine.io-client:polling');
+var debug = __webpack_require__(83)('engine.io-client:polling');
 
 /**
  * Module exports.
@@ -53943,11 +53961,11 @@ module.exports = yeast;
 
 var parser = __webpack_require__(203);
 var Emitter = __webpack_require__(86);
-var toArray = __webpack_require__(795);
+var toArray = __webpack_require__(793);
 var on = __webpack_require__(333);
 var bind = __webpack_require__(334);
-var debug = __webpack_require__(131)('socket.io-client:socket');
-var parseqs = __webpack_require__(132);
+var debug = __webpack_require__(130)('socket.io-client:socket');
+var parseqs = __webpack_require__(131);
 
 /**
  * Module exports.
@@ -54421,13 +54439,13 @@ module.exports = function(obj, fn){
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_sockets_protocol_node_protocol__ = __webpack_require__(127);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_sockets_protocol_node_propagation_protocol__ = __webpack_require__(797);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_sockets_protocol_node_propagation_protocol__ = __webpack_require__(795);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_sockets_protocol_signaling_server_Node_Signaling_Server_Protocol__ = __webpack_require__(336);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_sockets_protocol_signaling_client_Node_Signaling_Client_Protocol__ = __webpack_require__(206);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_sockets_socket_address__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_is_array_buffer__ = __webpack_require__(804);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_is_array_buffer__ = __webpack_require__(802);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_is_array_buffer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_is_array_buffer__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_consts_global__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_consts_global__ = __webpack_require__(76);
 
 
 
@@ -54636,10 +54654,10 @@ class SocketExtend{
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__ = __webpack_require__(798);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__ = __webpack_require__(796);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__ = __webpack_require__(337);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__signaling_server_service_Node_Signaling_Server_Service__ = __webpack_require__(799);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__signaling_server_service_Node_Signaling_Server_Service__ = __webpack_require__(797);
 
 
 
@@ -54715,6 +54733,144 @@ class NodeSignalingServerProtocol {
         });
 
 
+
+        // Step1, send the request to generate the INITIATOR SIGNAL
+        //socket is client1
+        socket.node.on("signals/client/initiator/generate-initiator-signal/answer", (initiatorAnswer)=>{
+
+            let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(initiatorAnswer.connectionId);
+
+            if ( initiatorAnswer === null || initiatorAnswer.initiatorSignal === undefined )
+                connection.status =  __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
+            else
+            if ( initiatorAnswer.accepted === false && initiatorAnswer.message  === "Already connected")
+                connection.status  = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionAlreadyConnected;
+            else
+            if ( initiatorAnswer.accepted === false && initiatorAnswer.message === "I can't accept WebPeers anymore")
+                this._clientIsNotAcceptingAnymoreWebPeers(socket, connection);
+            else
+
+            if ( initiatorAnswer.accepted === true) {
+
+                connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.answerSignalGenerating;
+                connection.initiatorSignal = initiatorAnswer.initiatorSignal;
+
+                // Step 2, send the Initiator Signal to the 2nd Peer to get ANSWER SIGNAL
+
+                connection.client2.node.sendRequest("signals/client/answer/receive-initiator-signal", {
+                    connectionId: connection.id,
+                    initiatorSignal: connection.initiatorSignal,
+
+                    remoteAddress: socket.node.sckAddress.getAddress(false),
+                    remoteUUID: socket.node.sckAddress.uuid,
+
+                });
+
+            }
+
+        });
+
+        //socket is client2
+        socket.node.on("signals/client/answer/receive-initiator-signal/answer", (answer)=>{
+
+            let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(answer.connectionId);
+
+            if ( answer === null || answer === undefined || answer.answerSignal === undefined )
+                connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
+            else
+            if ( answer.accepted === false && answer.message === "Already connected")
+                connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionAlreadyConnected;
+            else
+            if ( answer.accepted === false && answer.message === "I can't accept WebPeers anymore")
+                this._clientIsNotAcceptingAnymoreWebPeers(socket, connection);
+            else
+            if ( answer.accepted === true) {
+
+                connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionEstablishing;
+
+                // Step 3, send the Answer Signal to the 1st Peer (initiator) to establish connection
+                connection.client1.node.sendRequest("signals/client/initiator/join-answer-signal", {
+                    connectionId: connection.id,
+                    initiatorSignal: answer.initiatorSignal,
+                    answerSignal: answer.answerSignal,
+
+                    remoteAddress: socket.node.sckAddress.getAddress(false),
+                    remoteUUID: socket.node.sckAddress.uuid,
+                });
+            }
+
+        });
+
+        // Step 3, send the Answer Signal to the 1st Peer (initiator) to establish connection
+        //socket is client1
+        socket.on("signals/client/initiator/join-answer-signal", (result)=> {
+
+            let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(result.connectionId);
+
+            if ( result === null || result === undefined )
+                connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
+            else
+            if ( result.established === false && result.message === "Already connected")
+                connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionAlreadyConnected;
+            else
+            if ( result.established === false && result.message === "I can't accept WebPeers anymore")
+                this._clientIsNotAcceptingAnymoreWebPeers(socket, connection);
+            else
+                connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionEstablished;
+
+        });
+
+
+
+        //socket is client2
+        socket.node.on("signals/server/new-answer-ice-candidate", async (iceCandidate) => {
+
+            let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(iceCandidate.connectionId);
+
+            let answer = await connection.client1.node.sendRequest("signals/client/initiator/receive-ice-candidate",{  //sendRequestWaitOnce returns errors
+                connectionId: connection.id,
+
+                initiatorSignal: connection.initiatorSignal,
+                iceCandidate: iceCandidate,
+
+                remoteAddress: socket.node.sckAddress.getAddress(false),
+                remoteUUID: socket.node.sckAddress.uuid,
+            });
+
+
+            if ( answer === null || answer === undefined )
+                connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
+            else
+            if ( answer.established === false && answer.message === "I can't accept WebPeers anymore")
+                this._clientIsNotAcceptingAnymoreWebPeers(connection.client1, connection);
+
+        });
+
+
+        //client 1
+        socket.node.on("signals/server/new-initiator-ice-candidate", async (iceCandidate) => {
+
+            let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(iceCandidate.connectionId);
+
+            let answer = await connection.client1.node.sendRequest("signals/client/answer/receive-ice-candidate",{ //sendRequestWaitOnce returns errors
+                connectionId: connection.id,
+
+                initiatorSignal: connection.initiatorSignal,
+                iceCandidate: iceCandidate,
+
+                remoteAddress: connection.client2.node.sckAddress.getAddress(false),
+                remoteUUID: connection.client2.node.sckAddress.uuid,
+            });
+
+            if ( answer === null || answer === undefined )
+                connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
+            else
+            if ( answer.established === false && answer.message === "I can't accept WebPeers anymore")
+                this._clientIsNotAcceptingAnymoreWebPeers(connection.client2, connection);
+
+        });
+
+
     }
 
 
@@ -54724,145 +54880,21 @@ class NodeSignalingServerProtocol {
 
     connectWebPeer(client1, client2){
 
-
         let previousEstablishedConnection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnection(client1, client2);
 
-        if (previousEstablishedConnection === null
+        if ( previousEstablishedConnection === null
             || (previousEstablishedConnection.checkLastTimeChecked(10*1000) && [ __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionNotEstablished].indexOf( previousEstablishedConnection.status) !== -1   )
-            || (previousEstablishedConnection.checkLastTimeChecked(20*1000) && [ __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError ].indexOf( previousEstablishedConnection.status) !== -1 )){
+            || (previousEstablishedConnection.checkLastTimeChecked(20*1000) && [ __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError ].indexOf( previousEstablishedConnection.status) !== -1 )) {
 
             let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].setSignalingServerRoomConnectionStatus(client1, client2, __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.initiatorSignalGenerating );
 
             // Step1, send the request to generate the INITIATOR SIGNAL
-            client1.node.sendRequestWaitOnce("signals/client/initiator/generate-initiator-signal", {
+            client1.node.sendRequest("signals/client/initiator/generate-initiator-signal", {
 
-                id: connection.id,
+                connectionId: connection.id,
 
                 remoteAddress: client2.node.sckAddress.getAddress(false),
                 remoteUUID: client2.node.sckAddress.uuid,
-
-            }, connection.id ).then ( (initiatorAnswer) =>{
-
-                if ( initiatorAnswer === null || initiatorAnswer.initiatorSignal === undefined )
-                    connection.status =  __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
-                else
-                if ( initiatorAnswer.accepted === false && initiatorAnswer.message  === "Already connected")
-                    connection.status  = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionAlreadyConnected;
-                else
-                if ( initiatorAnswer.accepted === false && initiatorAnswer.message === "I can't accept WebPeers anymore") {
-                    this.clientIsNotAcceptingAnymoreWebPeers(client1, connection);
-                    return false;
-                }
-                else
-
-                if ( initiatorAnswer.accepted === true) {
-
-                    __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].registerSignalingServerRoomConnection(client1, client2, __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.answerSignalGenerating );
-
-                    // Step 2, send the Initiator Signal to the 2nd Peer to get ANSWER SIGNAL
-
-                    client2.node.sendRequestWaitOnce("signals/client/answer/receive-initiator-signal", {
-                        id: connection.id,
-                        initiatorSignal: initiatorAnswer.initiatorSignal,
-
-                        remoteAddress: client1.node.sckAddress.getAddress(false),
-                        remoteUUID: client1.node.sckAddress.uuid,
-
-                    }, connection.id).then((answer)=>{
-
-                        if ( answer === null || answer === undefined || answer.answerSignal === undefined )
-                            connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
-                        else
-                        if ( answer.accepted === false && answer.message === "Already connected")
-                            connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionAlreadyConnected;
-                        else
-                        if ( answer.accepted === false && answer.message === "I can't accept WebPeers anymore") {
-                            this.clientIsNotAcceptingAnymoreWebPeers(client2, connection);
-                            return false;
-                        }
-                        else
-                        if ( answer.accepted === true) {
-
-
-                            __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].registerSignalingServerRoomConnection(client1, client2, __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionEstablishing );
-
-
-                            // Step 3, send the Answer Signal to the 1st Peer (initiator) to establish connection
-                            client1.node.sendRequestWaitOnce("signals/client/initiator/join-answer-signal",{
-                                id: connection.id,
-                                initiatorSignal: initiatorAnswer.initiatorSignal,
-                                answerSignal: answer.answerSignal,
-
-                                remoteAddress: client2.node.sckAddress.getAddress(false),
-                                remoteUUID: client2.node.sckAddress.uuid,
-                            }, connection.id).then( (result)=>{
-
-
-                                if ( result === null || result === undefined )
-                                    connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
-                                else
-                                if ( answer.established === false && answer.message === "Already connected")
-                                    connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionAlreadyConnected;
-                                else
-                                if ( answer.established === false && initiatorAnswer.message === "I can't accept WebPeers anymore") {
-                                    this.clientIsNotAcceptingAnymoreWebPeers(client1, connection);
-                                    return false;
-                                }
-
-                            });
-                        }
-
-                        client2.node.on("signals/server/new-answer-ice-candidate/" + connection.id, async (iceCandidate) => {
-
-                            await client1.node.sendRequest("signals/client/initiator/receive-ice-candidate",{  //sendRequestWaitOnce returns errors
-                                id: connection.id,
-
-                                initiatorSignal: initiatorAnswer.initiatorSignal,
-                                iceCandidate: iceCandidate,
-
-                                remoteAddress: client2.node.sckAddress.getAddress(false),
-                                remoteUUID: client2.node.sckAddress.uuid,
-                            }, "connection.id");
-
-
-                            // if ( answer === null || answer === undefined )
-                            //     connection.status = SignalingServerRoomConnectionObject.ConnectionStatus.peerConnectionError;
-                            // else
-                            // if ( answer.established === false && initiatorAnswer.message === "I can't accept WebPeers anymore") {
-                            //     this.clientIsNotAcceptingAnymoreWebPeers(client2, connection);
-                            //     return false;
-                            // }
-
-                        });
-
-
-                    });
-
-                    client1.node.on("signals/server/new-initiator-ice-candidate/" + connection.id, async (iceCandidate) => {
-
-
-                        await client2.node.sendRequest("signals/client/answer/receive-ice-candidate",{ //sendRequestWaitOnce returns errors
-                            id: connection.id,
-
-                            initiatorSignal: initiatorAnswer.initiatorSignal,
-                            iceCandidate: iceCandidate,
-
-                            remoteAddress: client1.node.sckAddress.getAddress(false),
-                            remoteUUID: client1.node.sckAddress.uuid,
-                        });
-
-                        // if ( answer === null || answer === undefined )
-                        //     connection.status = SignalingServerRoomConnectionObject.ConnectionStatus.peerConnectionError;
-                        // else
-                        // if ( answer.established === false && initiatorAnswer.message === "I can't accept WebPeers anymore") {
-                        //     this.clientIsNotAcceptingAnymoreWebPeers(client2, connection);
-                        //     return false;
-                        // }
-
-                    });
-
-
-                }
 
             });
 
@@ -54870,7 +54902,7 @@ class NodeSignalingServerProtocol {
 
     }
 
-    clientIsNotAcceptingAnymoreWebPeers(client, connection){
+    _clientIsNotAcceptingAnymoreWebPeers(client, connection){
 
         __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].removeServerRoomConnection(connection);
         client.acceptWebPeers = false;
@@ -54965,7 +54997,7 @@ SignalingServerRoomConnectionObject.ConnectionStatus = ConnectionStatus;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__ = __webpack_require__(207);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(12);
 
 
 
@@ -55023,8 +55055,8 @@ class NodeSignalingClientService {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_types_Nodes_Type__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_types_Nodes_Type__ = __webpack_require__(61);
 
 
 
@@ -55162,7 +55194,7 @@ class NodesWaitlistObject {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index_js__ = __webpack_require__(208);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__index_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_consts_global_js__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_consts_global_js__ = __webpack_require__(76);
 
 
 
@@ -55333,7 +55365,7 @@ __webpack_require__(443);
 __webpack_require__(444);
 __webpack_require__(445);
 __webpack_require__(446);
-__webpack_require__(155);
+__webpack_require__(154);
 __webpack_require__(447);
 __webpack_require__(448);
 __webpack_require__(227);
@@ -55448,23 +55480,23 @@ var redefine = __webpack_require__(28);
 var META = __webpack_require__(54).KEY;
 var $fails = __webpack_require__(8);
 var shared = __webpack_require__(103);
-var setToStringTag = __webpack_require__(76);
-var uid = __webpack_require__(62);
-var wks = __webpack_require__(12);
+var setToStringTag = __webpack_require__(77);
+var uid = __webpack_require__(63);
+var wks = __webpack_require__(11);
 var wksExt = __webpack_require__(210);
-var wksDefine = __webpack_require__(135);
+var wksDefine = __webpack_require__(134);
 var enumKeys = __webpack_require__(344);
 var isArray = __webpack_require__(106);
 var anObject = __webpack_require__(6);
 var isObject = __webpack_require__(10);
 var toIObject = __webpack_require__(34);
 var toPrimitive = __webpack_require__(44);
-var createDesc = __webpack_require__(61);
-var _create = __webpack_require__(66);
+var createDesc = __webpack_require__(62);
+var _create = __webpack_require__(67);
 var gOPNExt = __webpack_require__(213);
 var $GOPD = __webpack_require__(35);
 var $DP = __webpack_require__(15);
-var $keys = __webpack_require__(64);
+var $keys = __webpack_require__(65);
 var gOPD = $GOPD.f;
 var dP = $DP.f;
 var gOPN = gOPNExt.f;
@@ -55587,11 +55619,11 @@ if (!USE_NATIVE) {
 
   $GOPD.f = $getOwnPropertyDescriptor;
   $DP.f = $defineProperty;
-  __webpack_require__(67).f = gOPNExt.f = $getOwnPropertyNames;
+  __webpack_require__(68).f = gOPNExt.f = $getOwnPropertyNames;
   __webpack_require__(89).f = $propertyIsEnumerable;
   __webpack_require__(105).f = $getOwnPropertySymbols;
 
-  if (DESCRIPTORS && !__webpack_require__(63)) {
+  if (DESCRIPTORS && !__webpack_require__(64)) {
     redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
   }
 
@@ -55679,7 +55711,7 @@ setToStringTag(global.JSON, 'JSON', true);
 /***/ (function(module, exports, __webpack_require__) {
 
 // all enumerable object keys, includes symbols
-var getKeys = __webpack_require__(64);
+var getKeys = __webpack_require__(65);
 var gOPS = __webpack_require__(105);
 var pIE = __webpack_require__(89);
 module.exports = function (it) {
@@ -55701,7 +55733,7 @@ module.exports = function (it) {
 
 var $export = __webpack_require__(0);
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-$export($export.S, 'Object', { create: __webpack_require__(66) });
+$export($export.S, 'Object', { create: __webpack_require__(67) });
 
 
 /***/ }),
@@ -55758,7 +55790,7 @@ __webpack_require__(47)('getPrototypeOf', function () {
 
 // 19.1.2.14 Object.keys(O)
 var toObject = __webpack_require__(20);
-var $keys = __webpack_require__(64);
+var $keys = __webpack_require__(65);
 
 __webpack_require__(47)('keys', function () {
   return function keys(it) {
@@ -55900,7 +55932,7 @@ module.exports = Object.is || function is(x, y) {
 
 // 19.1.3.19 Object.setPrototypeOf(O, proto)
 var $export = __webpack_require__(0);
-$export($export.S, 'Object', { setPrototypeOf: __webpack_require__(139).set });
+$export($export.S, 'Object', { setPrototypeOf: __webpack_require__(138).set });
 
 
 /***/ }),
@@ -55912,7 +55944,7 @@ $export($export.S, 'Object', { setPrototypeOf: __webpack_require__(139).set });
 // 19.1.3.6 Object.prototype.toString()
 var classof = __webpack_require__(90);
 var test = {};
-test[__webpack_require__(12)('toStringTag')] = 'z';
+test[__webpack_require__(11)('toStringTag')] = 'z';
 if (test + '' != '[object z]') {
   __webpack_require__(28)(Object.prototype, 'toString', function toString() {
     return '[object ' + classof(this) + ']';
@@ -55960,7 +55992,7 @@ NAME in FProto || __webpack_require__(14) && dP(FProto, NAME, {
 
 var isObject = __webpack_require__(10);
 var getPrototypeOf = __webpack_require__(36);
-var HAS_INSTANCE = __webpack_require__(12)('hasInstance');
+var HAS_INSTANCE = __webpack_require__(11)('hasInstance');
 var FunctionProto = Function.prototype;
 // 19.2.3.6 Function.prototype[@@hasInstance](V)
 if (!(HAS_INSTANCE in FunctionProto)) __webpack_require__(15).f(FunctionProto, HAS_INSTANCE, { value: function (O) {
@@ -56001,19 +56033,19 @@ $export($export.G + $export.F * (parseFloat != $parseFloat), { parseFloat: $pars
 var global = __webpack_require__(7);
 var has = __webpack_require__(26);
 var cof = __webpack_require__(40);
-var inheritIfRequired = __webpack_require__(141);
+var inheritIfRequired = __webpack_require__(140);
 var toPrimitive = __webpack_require__(44);
 var fails = __webpack_require__(8);
-var gOPN = __webpack_require__(67).f;
+var gOPN = __webpack_require__(68).f;
 var gOPD = __webpack_require__(35).f;
 var dP = __webpack_require__(15).f;
-var $trim = __webpack_require__(77).trim;
+var $trim = __webpack_require__(78).trim;
 var NUMBER = 'Number';
 var $Number = global[NUMBER];
 var Base = $Number;
 var proto = $Number.prototype;
 // Opera ~12 has broken Object#toString
-var BROKEN_COF = cof(__webpack_require__(66)(proto)) == NUMBER;
+var BROKEN_COF = cof(__webpack_require__(67)(proto)) == NUMBER;
 var TRIM = 'trim' in String.prototype;
 
 // 7.1.3 ToNumber(argument)
@@ -56077,7 +56109,7 @@ if (!$Number(' 0o1') || !$Number('0b1') || $Number('+0x1')) {
 var $export = __webpack_require__(0);
 var toInteger = __webpack_require__(46);
 var aNumberValue = __webpack_require__(219);
-var repeat = __webpack_require__(142);
+var repeat = __webpack_require__(141);
 var $toFixed = 1.0.toFixed;
 var floor = Math.floor;
 var data = [0, 0, 0, 0, 0, 0];
@@ -56382,7 +56414,7 @@ $export($export.S + $export.F * !($atanh && 1 / $atanh(-0) < 0), 'Math', {
 
 // 20.2.2.9 Math.cbrt(x)
 var $export = __webpack_require__(0);
-var sign = __webpack_require__(143);
+var sign = __webpack_require__(142);
 
 $export($export.S, 'Math', {
   cbrt: function cbrt(x) {
@@ -56426,7 +56458,7 @@ $export($export.S, 'Math', {
 
 // 20.2.2.14 Math.expm1(x)
 var $export = __webpack_require__(0);
-var $expm1 = __webpack_require__(144);
+var $expm1 = __webpack_require__(143);
 
 $export($export.S + $export.F * ($expm1 != Math.expm1), 'Math', { expm1: $expm1 });
 
@@ -56540,7 +56572,7 @@ $export($export.S, 'Math', {
 // 20.2.2.28 Math.sign(x)
 var $export = __webpack_require__(0);
 
-$export($export.S, 'Math', { sign: __webpack_require__(143) });
+$export($export.S, 'Math', { sign: __webpack_require__(142) });
 
 
 /***/ }),
@@ -56549,7 +56581,7 @@ $export($export.S, 'Math', { sign: __webpack_require__(143) });
 
 // 20.2.2.30 Math.sinh(x)
 var $export = __webpack_require__(0);
-var expm1 = __webpack_require__(144);
+var expm1 = __webpack_require__(143);
 var exp = Math.exp;
 
 // V8 near Chromium 38 has a problem with very small numbers
@@ -56570,7 +56602,7 @@ $export($export.S + $export.F * __webpack_require__(8)(function () {
 
 // 20.2.2.33 Math.tanh(x)
 var $export = __webpack_require__(0);
-var expm1 = __webpack_require__(144);
+var expm1 = __webpack_require__(143);
 var exp = Math.exp;
 
 $export($export.S, 'Math', {
@@ -56601,7 +56633,7 @@ $export($export.S, 'Math', {
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(0);
-var toAbsoluteIndex = __webpack_require__(65);
+var toAbsoluteIndex = __webpack_require__(66);
 var fromCharCode = String.fromCharCode;
 var $fromCodePoint = String.fromCodePoint;
 
@@ -56656,7 +56688,7 @@ $export($export.S, 'String', {
 "use strict";
 
 // 21.1.3.25 String.prototype.trim()
-__webpack_require__(77)('trim', function ($trim) {
+__webpack_require__(78)('trim', function ($trim) {
   return function trim() {
     return $trim(this, 3);
   };
@@ -56669,10 +56701,10 @@ __webpack_require__(77)('trim', function ($trim) {
 
 "use strict";
 
-var $at = __webpack_require__(145)(true);
+var $at = __webpack_require__(144)(true);
 
 // 21.1.3.27 String.prototype[@@iterator]()
-__webpack_require__(146)(String, 'String', function (iterated) {
+__webpack_require__(145)(String, 'String', function (iterated) {
   this._t = String(iterated); // target
   this._i = 0;                // next index
 // 21.1.5.2.1 %StringIteratorPrototype%.next()
@@ -56694,7 +56726,7 @@ __webpack_require__(146)(String, 'String', function (iterated) {
 "use strict";
 
 var $export = __webpack_require__(0);
-var $at = __webpack_require__(145)(false);
+var $at = __webpack_require__(144)(false);
 $export($export.P, 'String', {
   // 21.1.3.3 String.prototype.codePointAt(pos)
   codePointAt: function codePointAt(pos) {
@@ -56712,11 +56744,11 @@ $export($export.P, 'String', {
 
 var $export = __webpack_require__(0);
 var toLength = __webpack_require__(16);
-var context = __webpack_require__(148);
+var context = __webpack_require__(147);
 var ENDS_WITH = 'endsWith';
 var $endsWith = ''[ENDS_WITH];
 
-$export($export.P + $export.F * __webpack_require__(149)(ENDS_WITH), 'String', {
+$export($export.P + $export.F * __webpack_require__(148)(ENDS_WITH), 'String', {
   endsWith: function endsWith(searchString /* , endPosition = @length */) {
     var that = context(this, searchString, ENDS_WITH);
     var endPosition = arguments.length > 1 ? arguments[1] : undefined;
@@ -56738,10 +56770,10 @@ $export($export.P + $export.F * __webpack_require__(149)(ENDS_WITH), 'String', {
 // 21.1.3.7 String.prototype.includes(searchString, position = 0)
 
 var $export = __webpack_require__(0);
-var context = __webpack_require__(148);
+var context = __webpack_require__(147);
 var INCLUDES = 'includes';
 
-$export($export.P + $export.F * __webpack_require__(149)(INCLUDES), 'String', {
+$export($export.P + $export.F * __webpack_require__(148)(INCLUDES), 'String', {
   includes: function includes(searchString /* , position = 0 */) {
     return !!~context(this, searchString, INCLUDES)
       .indexOf(searchString, arguments.length > 1 ? arguments[1] : undefined);
@@ -56757,7 +56789,7 @@ var $export = __webpack_require__(0);
 
 $export($export.P, 'String', {
   // 21.1.3.13 String.prototype.repeat(count)
-  repeat: __webpack_require__(142)
+  repeat: __webpack_require__(141)
 });
 
 
@@ -56770,11 +56802,11 @@ $export($export.P, 'String', {
 
 var $export = __webpack_require__(0);
 var toLength = __webpack_require__(16);
-var context = __webpack_require__(148);
+var context = __webpack_require__(147);
 var STARTS_WITH = 'startsWith';
 var $startsWith = ''[STARTS_WITH];
 
-$export($export.P + $export.F * __webpack_require__(149)(STARTS_WITH), 'String', {
+$export($export.P + $export.F * __webpack_require__(148)(STARTS_WITH), 'String', {
   startsWith: function startsWith(searchString /* , position = 0 */) {
     var that = context(this, searchString, STARTS_WITH);
     var index = toLength(Math.min(arguments.length > 1 ? arguments[1] : undefined, that.length));
@@ -57070,7 +57102,7 @@ if (new Date(NaN) + '' != INVALID_DATE) {
 /* 424 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var TO_PRIMITIVE = __webpack_require__(12)('toPrimitive');
+var TO_PRIMITIVE = __webpack_require__(11)('toPrimitive');
 var proto = Date.prototype;
 
 if (!(TO_PRIMITIVE in proto)) __webpack_require__(27)(proto, TO_PRIMITIVE, __webpack_require__(425));
@@ -57112,10 +57144,10 @@ var ctx = __webpack_require__(39);
 var $export = __webpack_require__(0);
 var toObject = __webpack_require__(20);
 var call = __webpack_require__(223);
-var isArrayIter = __webpack_require__(150);
+var isArrayIter = __webpack_require__(149);
 var toLength = __webpack_require__(16);
-var createProperty = __webpack_require__(151);
-var getIterFn = __webpack_require__(152);
+var createProperty = __webpack_require__(150);
+var getIterFn = __webpack_require__(151);
 
 $export($export.S + $export.F * !__webpack_require__(108)(function (iter) { Array.from(iter); }), 'Array', {
   // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
@@ -57153,7 +57185,7 @@ $export($export.S + $export.F * !__webpack_require__(108)(function (iter) { Arra
 "use strict";
 
 var $export = __webpack_require__(0);
-var createProperty = __webpack_require__(151);
+var createProperty = __webpack_require__(150);
 
 // WebKit Array.of isn't generic
 $export($export.S + $export.F * __webpack_require__(8)(function () {
@@ -57198,9 +57230,9 @@ $export($export.P + $export.F * (__webpack_require__(88) != Object || !__webpack
 "use strict";
 
 var $export = __webpack_require__(0);
-var html = __webpack_require__(138);
+var html = __webpack_require__(137);
 var cof = __webpack_require__(40);
-var toAbsoluteIndex = __webpack_require__(65);
+var toAbsoluteIndex = __webpack_require__(66);
 var toLength = __webpack_require__(16);
 var arraySlice = [].slice;
 
@@ -57280,7 +57312,7 @@ $export($export.P + $export.F * !STRICT, 'Array', {
 
 var isObject = __webpack_require__(10);
 var isArray = __webpack_require__(106);
-var SPECIES = __webpack_require__(12)('species');
+var SPECIES = __webpack_require__(11)('species');
 
 module.exports = function (original) {
   var C;
@@ -57468,7 +57500,7 @@ __webpack_require__(55)('copyWithin');
 // 22.1.3.6 Array.prototype.fill(value, start = 0, end = this.length)
 var $export = __webpack_require__(0);
 
-$export($export.P, 'Array', { fill: __webpack_require__(154) });
+$export($export.P, 'Array', { fill: __webpack_require__(153) });
 
 __webpack_require__(55)('fill');
 
@@ -57519,7 +57551,7 @@ __webpack_require__(55)(KEY);
 /* 446 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(68)('Array');
+__webpack_require__(69)('Array');
 
 
 /***/ }),
@@ -57527,9 +57559,9 @@ __webpack_require__(68)('Array');
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(7);
-var inheritIfRequired = __webpack_require__(141);
+var inheritIfRequired = __webpack_require__(140);
 var dP = __webpack_require__(15).f;
-var gOPN = __webpack_require__(67).f;
+var gOPN = __webpack_require__(68).f;
 var isRegExp = __webpack_require__(107);
 var $flags = __webpack_require__(109);
 var $RegExp = global.RegExp;
@@ -57541,7 +57573,7 @@ var re2 = /a/g;
 var CORRECT_NEW = new $RegExp(re1) !== re1;
 
 if (__webpack_require__(14) && (!CORRECT_NEW || __webpack_require__(8)(function () {
-  re2[__webpack_require__(12)('match')] = false;
+  re2[__webpack_require__(11)('match')] = false;
   // RegExp constructor can alter flags and IsRegExp works correct with @@match
   return $RegExp(re1) != re1 || $RegExp(re2) == re2 || $RegExp(re1, 'i') != '/a/i';
 }))) {
@@ -57568,7 +57600,7 @@ if (__webpack_require__(14) && (!CORRECT_NEW || __webpack_require__(8)(function 
   __webpack_require__(28)(global, 'RegExp', $RegExp);
 }
 
-__webpack_require__(68)('RegExp');
+__webpack_require__(69)('RegExp');
 
 
 /***/ }),
@@ -57736,19 +57768,19 @@ __webpack_require__(110)('split', 2, function (defined, SPLIT, $split) {
 
 "use strict";
 
-var LIBRARY = __webpack_require__(63);
+var LIBRARY = __webpack_require__(64);
 var global = __webpack_require__(7);
 var ctx = __webpack_require__(39);
 var classof = __webpack_require__(90);
 var $export = __webpack_require__(0);
 var isObject = __webpack_require__(10);
 var aFunction = __webpack_require__(23);
-var anInstance = __webpack_require__(69);
-var forOf = __webpack_require__(70);
+var anInstance = __webpack_require__(70);
+var forOf = __webpack_require__(71);
 var speciesConstructor = __webpack_require__(111);
-var task = __webpack_require__(156).set;
-var microtask = __webpack_require__(157)();
-var newPromiseCapabilityModule = __webpack_require__(158);
+var task = __webpack_require__(155).set;
+var microtask = __webpack_require__(156)();
+var newPromiseCapabilityModule = __webpack_require__(157);
 var perform = __webpack_require__(228);
 var promiseResolve = __webpack_require__(229);
 var PROMISE = 'Promise';
@@ -57764,7 +57796,7 @@ var USE_NATIVE = !!function () {
   try {
     // correct subclassing with @@species support
     var promise = $Promise.resolve(1);
-    var FakePromise = (promise.constructor = {})[__webpack_require__(12)('species')] = function (exec) {
+    var FakePromise = (promise.constructor = {})[__webpack_require__(11)('species')] = function (exec) {
       exec(empty, empty);
     };
     // unhandled rejections tracking support, NodeJS Promise without it fails @@species test
@@ -57913,7 +57945,7 @@ if (!USE_NATIVE) {
     this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
     this._n = false;          // <- notify
   };
-  Internal.prototype = __webpack_require__(71)($Promise.prototype, {
+  Internal.prototype = __webpack_require__(72)($Promise.prototype, {
     // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
     then: function then(onFulfilled, onRejected) {
       var reaction = newPromiseCapability(speciesConstructor(this, $Promise));
@@ -57944,8 +57976,8 @@ if (!USE_NATIVE) {
 }
 
 $export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
-__webpack_require__(76)($Promise, PROMISE);
-__webpack_require__(68)(PROMISE);
+__webpack_require__(77)($Promise, PROMISE);
+__webpack_require__(69)(PROMISE);
 Wrapper = __webpack_require__(43)[PROMISE];
 
 // statics
@@ -58017,7 +58049,7 @@ $export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(108)(functio
 "use strict";
 
 var weak = __webpack_require__(234);
-var validate = __webpack_require__(79);
+var validate = __webpack_require__(80);
 var WEAK_SET = 'WeakSet';
 
 // 23.4 WeakSet Objects
@@ -58039,9 +58071,9 @@ __webpack_require__(112)(WEAK_SET, function (get) {
 
 var $export = __webpack_require__(0);
 var $typed = __webpack_require__(113);
-var buffer = __webpack_require__(159);
+var buffer = __webpack_require__(158);
 var anObject = __webpack_require__(6);
-var toAbsoluteIndex = __webpack_require__(65);
+var toAbsoluteIndex = __webpack_require__(66);
 var toLength = __webpack_require__(16);
 var isObject = __webpack_require__(10);
 var ArrayBuffer = __webpack_require__(7).ArrayBuffer;
@@ -58081,7 +58113,7 @@ $export($export.P + $export.U + $export.F * __webpack_require__(8)(function () {
   }
 });
 
-__webpack_require__(68)(ARRAY_BUFFER);
+__webpack_require__(69)(ARRAY_BUFFER);
 
 
 /***/ }),
@@ -58090,7 +58122,7 @@ __webpack_require__(68)(ARRAY_BUFFER);
 
 var $export = __webpack_require__(0);
 $export($export.G + $export.W + $export.F * !__webpack_require__(113).ABV, {
-  DataView: __webpack_require__(159).DataView
+  DataView: __webpack_require__(158).DataView
 });
 
 
@@ -58221,7 +58253,7 @@ $export($export.S + $export.F * !__webpack_require__(8)(function () {
 
 // 26.1.2 Reflect.construct(target, argumentsList [, newTarget])
 var $export = __webpack_require__(0);
-var create = __webpack_require__(66);
+var create = __webpack_require__(67);
 var aFunction = __webpack_require__(23);
 var anObject = __webpack_require__(6);
 var isObject = __webpack_require__(10);
@@ -58330,7 +58362,7 @@ var Enumerate = function (iterated) {
   var key;
   for (key in iterated) keys.push(key);
 };
-__webpack_require__(147)(Enumerate, 'Object', function () {
+__webpack_require__(146)(Enumerate, 'Object', function () {
   var that = this;
   var keys = that._k;
   var key;
@@ -58479,7 +58511,7 @@ var gOPD = __webpack_require__(35);
 var getPrototypeOf = __webpack_require__(36);
 var has = __webpack_require__(26);
 var $export = __webpack_require__(0);
-var createDesc = __webpack_require__(61);
+var createDesc = __webpack_require__(62);
 var anObject = __webpack_require__(6);
 var isObject = __webpack_require__(10);
 
@@ -58512,7 +58544,7 @@ $export($export.S, 'Reflect', { set: set });
 
 // 26.1.14 Reflect.setPrototypeOf(target, proto)
 var $export = __webpack_require__(0);
-var setProto = __webpack_require__(139);
+var setProto = __webpack_require__(138);
 
 if (setProto) $export($export.S, 'Reflect', {
   setPrototypeOf: function setPrototypeOf(target, proto) {
@@ -58558,7 +58590,7 @@ var flattenIntoArray = __webpack_require__(237);
 var toObject = __webpack_require__(20);
 var toLength = __webpack_require__(16);
 var aFunction = __webpack_require__(23);
-var arraySpeciesCreate = __webpack_require__(153);
+var arraySpeciesCreate = __webpack_require__(152);
 
 $export($export.P, 'Array', {
   flatMap: function flatMap(callbackfn /* , thisArg */) {
@@ -58587,7 +58619,7 @@ var flattenIntoArray = __webpack_require__(237);
 var toObject = __webpack_require__(20);
 var toLength = __webpack_require__(16);
 var toInteger = __webpack_require__(46);
-var arraySpeciesCreate = __webpack_require__(153);
+var arraySpeciesCreate = __webpack_require__(152);
 
 $export($export.P, 'Array', {
   flatten: function flatten(/* depthArg = 1 */) {
@@ -58611,7 +58643,7 @@ __webpack_require__(55)('flatten');
 
 // https://github.com/mathiasbynens/String.prototype.at
 var $export = __webpack_require__(0);
-var $at = __webpack_require__(145)(true);
+var $at = __webpack_require__(144)(true);
 
 $export($export.P, 'String', {
   at: function at(pos) {
@@ -58629,7 +58661,7 @@ $export($export.P, 'String', {
 // https://github.com/tc39/proposal-string-pad-start-end
 var $export = __webpack_require__(0);
 var $pad = __webpack_require__(238);
-var userAgent = __webpack_require__(160);
+var userAgent = __webpack_require__(159);
 
 // https://github.com/zloirock/core-js/issues/280
 $export($export.P + $export.F * /Version\/10\.\d+(\.\d+)? Safari\//.test(userAgent), 'String', {
@@ -58648,7 +58680,7 @@ $export($export.P + $export.F * /Version\/10\.\d+(\.\d+)? Safari\//.test(userAge
 // https://github.com/tc39/proposal-string-pad-start-end
 var $export = __webpack_require__(0);
 var $pad = __webpack_require__(238);
-var userAgent = __webpack_require__(160);
+var userAgent = __webpack_require__(159);
 
 // https://github.com/zloirock/core-js/issues/280
 $export($export.P + $export.F * /Version\/10\.\d+(\.\d+)? Safari\//.test(userAgent), 'String', {
@@ -58665,7 +58697,7 @@ $export($export.P + $export.F * /Version\/10\.\d+(\.\d+)? Safari\//.test(userAge
 "use strict";
 
 // https://github.com/sebmarkbage/ecmascript-string-left-right-trim
-__webpack_require__(77)('trimLeft', function ($trim) {
+__webpack_require__(78)('trimLeft', function ($trim) {
   return function trimLeft() {
     return $trim(this, 1);
   };
@@ -58679,7 +58711,7 @@ __webpack_require__(77)('trimLeft', function ($trim) {
 "use strict";
 
 // https://github.com/sebmarkbage/ecmascript-string-left-right-trim
-__webpack_require__(77)('trimRight', function ($trim) {
+__webpack_require__(78)('trimRight', function ($trim) {
   return function trimRight() {
     return $trim(this, 2);
   };
@@ -58705,7 +58737,7 @@ var $RegExpStringIterator = function (regexp, string) {
   this._s = string;
 };
 
-__webpack_require__(147)($RegExpStringIterator, 'RegExp String', function next() {
+__webpack_require__(146)($RegExpStringIterator, 'RegExp String', function next() {
   var match = this._r.exec(this._s);
   return { value: match, done: match === null };
 });
@@ -58727,14 +58759,14 @@ $export($export.P, 'String', {
 /* 489 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(135)('asyncIterator');
+__webpack_require__(134)('asyncIterator');
 
 
 /***/ }),
 /* 490 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(135)('observable');
+__webpack_require__(134)('observable');
 
 
 /***/ }),
@@ -58746,7 +58778,7 @@ var $export = __webpack_require__(0);
 var ownKeys = __webpack_require__(236);
 var toIObject = __webpack_require__(34);
 var gOPD = __webpack_require__(35);
-var createProperty = __webpack_require__(151);
+var createProperty = __webpack_require__(150);
 
 $export($export.S, 'Object', {
   getOwnPropertyDescriptors: function getOwnPropertyDescriptors(object) {
@@ -59218,7 +59250,7 @@ $export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
 
 // https://github.com/tc39/proposal-promise-try
 var $export = __webpack_require__(0);
-var newPromiseCapability = __webpack_require__(158);
+var newPromiseCapability = __webpack_require__(157);
 var perform = __webpack_require__(228);
 
 $export($export.S, 'Promise', { 'try': function (callbackfn) {
@@ -59405,7 +59437,7 @@ $metadata.exp({ metadata: function metadata(metadataKey, metadataValue) {
 
 // https://github.com/rwaldron/tc39-notes/blob/master/es6/2014-09/sept-25.md#510-globalasap-for-enqueuing-a-microtask
 var $export = __webpack_require__(0);
-var microtask = __webpack_require__(157)();
+var microtask = __webpack_require__(156)();
 var process = __webpack_require__(7).process;
 var isNode = __webpack_require__(40)(process) == 'process';
 
@@ -59427,14 +59459,14 @@ $export($export.G, {
 var $export = __webpack_require__(0);
 var global = __webpack_require__(7);
 var core = __webpack_require__(43);
-var microtask = __webpack_require__(157)();
-var OBSERVABLE = __webpack_require__(12)('observable');
+var microtask = __webpack_require__(156)();
+var OBSERVABLE = __webpack_require__(11)('observable');
 var aFunction = __webpack_require__(23);
 var anObject = __webpack_require__(6);
-var anInstance = __webpack_require__(69);
-var redefineAll = __webpack_require__(71);
+var anInstance = __webpack_require__(70);
+var redefineAll = __webpack_require__(72);
 var hide = __webpack_require__(27);
-var forOf = __webpack_require__(70);
+var forOf = __webpack_require__(71);
 var RETURN = forOf.RETURN;
 
 var getMethod = function (fn) {
@@ -59620,7 +59652,7 @@ hide($Observable.prototype, OBSERVABLE, function () { return this; });
 
 $export($export.G, { Observable: $Observable });
 
-__webpack_require__(68)('Observable');
+__webpack_require__(69)('Observable');
 
 
 /***/ }),
@@ -59630,7 +59662,7 @@ __webpack_require__(68)('Observable');
 // ie9- setTimeout & setInterval additional parameters fix
 var global = __webpack_require__(7);
 var $export = __webpack_require__(0);
-var userAgent = __webpack_require__(160);
+var userAgent = __webpack_require__(159);
 var slice = [].slice;
 var MSIE = /MSIE .\./.test(userAgent); // <- dirty ie9- check
 var wrap = function (set) {
@@ -59654,7 +59686,7 @@ $export($export.G + $export.B + $export.F * MSIE, {
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(0);
-var $task = __webpack_require__(156);
+var $task = __webpack_require__(155);
 $export($export.G + $export.B, {
   setImmediate: $task.set,
   clearImmediate: $task.clear
@@ -59665,13 +59697,13 @@ $export($export.G + $export.B, {
 /* 538 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var $iterators = __webpack_require__(155);
-var getKeys = __webpack_require__(64);
+var $iterators = __webpack_require__(154);
+var getKeys = __webpack_require__(65);
 var redefine = __webpack_require__(28);
 var global = __webpack_require__(7);
 var hide = __webpack_require__(27);
-var Iterators = __webpack_require__(78);
-var wks = __webpack_require__(12);
+var Iterators = __webpack_require__(79);
+var wks = __webpack_require__(11);
 var ITERATOR = wks('iterator');
 var TO_STRING_TAG = wks('toStringTag');
 var ArrayValues = Iterators.Array;
@@ -60508,8 +60540,8 @@ module.exports = function (regExp, replace) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_main_blockchain_Blockchain__ = __webpack_require__(91);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_Node__ = __webpack_require__(805);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_applications_Applications__ = __webpack_require__(813);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_Node__ = __webpack_require__(803);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_applications_Applications__ = __webpack_require__(811);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_events_Status_Events__ = __webpack_require__(21);
 
 
@@ -60745,7 +60777,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_mini_blockchain_Mini_Blockchain_Address__ = __webpack_require__(547);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_satoshmindb_Interface_SatoshminDB__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_satoshmindb_Interface_SatoshminDB__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_crypto_WebDollar_Crypto_Data__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_Serialization__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__ = __webpack_require__(4);
@@ -61368,10 +61400,10 @@ class MiniBlockchainAddress extends  __WEBPACK_IMPORTED_MODULE_0_common_blockcha
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_menu_Advanced_Messages__ = __webpack_require__(92);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_crypto_ed25519__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_crypto_ed25519__ = __webpack_require__(160);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Interface_Blockchain_Address_Helper__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_satoshmindb_Interface_SatoshminDB__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_satoshmindb_Interface_SatoshminDB__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_common_crypto_WebDollar_Crypto__ = __webpack_require__(33);
@@ -64677,7 +64709,7 @@ module.exports = v4;
 
 
 
-var crypto = __webpack_require__(162);
+var crypto = __webpack_require__(161);
 var bufferAlloc = __webpack_require__(645);
 
 
@@ -65359,28 +65391,28 @@ PassThrough.prototype._transform = function (chunk, encoding, cb) {
 /* 568 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(166);
+module.exports = __webpack_require__(165);
 
 
 /***/ }),
 /* 569 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(74);
+module.exports = __webpack_require__(75);
 
 
 /***/ }),
 /* 570 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(165).Transform
+module.exports = __webpack_require__(164).Transform
 
 
 /***/ }),
 /* 571 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(165).PassThrough
+module.exports = __webpack_require__(164).PassThrough
 
 
 /***/ }),
@@ -65396,7 +65428,7 @@ module.exports = __webpack_require__(165).PassThrough
  */
 
 var inherits = __webpack_require__(5)
-var Hash = __webpack_require__(80)
+var Hash = __webpack_require__(81)
 var Buffer = __webpack_require__(3).Buffer
 
 var K = [
@@ -65497,7 +65529,7 @@ module.exports = Sha
  */
 
 var inherits = __webpack_require__(5)
-var Hash = __webpack_require__(80)
+var Hash = __webpack_require__(81)
 var Buffer = __webpack_require__(3).Buffer
 
 var K = [
@@ -65602,7 +65634,7 @@ module.exports = Sha1
 
 var inherits = __webpack_require__(5)
 var Sha256 = __webpack_require__(254)
-var Hash = __webpack_require__(80)
+var Hash = __webpack_require__(81)
 var Buffer = __webpack_require__(3).Buffer
 
 var W = new Array(64)
@@ -65653,7 +65685,7 @@ module.exports = Sha224
 
 var inherits = __webpack_require__(5)
 var SHA512 = __webpack_require__(255)
-var Hash = __webpack_require__(80)
+var Hash = __webpack_require__(81)
 var Buffer = __webpack_require__(3).Buffer
 
 var W = new Array(160)
@@ -65880,10 +65912,10 @@ module.exports = function (password, salt, iterations, keylen, digest, callback)
 /***/ (function(module, exports, __webpack_require__) {
 
 var ebtk = __webpack_require__(121)
-var aes = __webpack_require__(169)
+var aes = __webpack_require__(168)
 var DES = __webpack_require__(591)
 var desModes = __webpack_require__(597)
-var aesModes = __webpack_require__(170)
+var aesModes = __webpack_require__(169)
 function createCipher (suite, password) {
   var keyLen, ivLen
   suite = suite.toLowerCase()
@@ -66213,7 +66245,7 @@ module.exports = HashBase
 /* 582 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var MODES = __webpack_require__(170)
+var MODES = __webpack_require__(169)
 var AuthCipher = __webpack_require__(264)
 var Buffer = __webpack_require__(3).Buffer
 var StreamCipher = __webpack_require__(265)
@@ -66607,7 +66639,7 @@ module.exports = GHASH
 
 var AuthCipher = __webpack_require__(264)
 var Buffer = __webpack_require__(3).Buffer
-var MODES = __webpack_require__(170)
+var MODES = __webpack_require__(169)
 var StreamCipher = __webpack_require__(265)
 var Transform = __webpack_require__(56)
 var aes = __webpack_require__(122)
@@ -66733,7 +66765,7 @@ exports.createDecipheriv = createDecipheriv
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var CipherBase = __webpack_require__(56)
-var des = __webpack_require__(171)
+var des = __webpack_require__(170)
 var inherits = __webpack_require__(5)
 
 var modes = {
@@ -67199,7 +67231,7 @@ Cipher.prototype._finalDecrypt = function _finalDecrypt() {
 var assert = __webpack_require__(37);
 var inherits = __webpack_require__(5);
 
-var des = __webpack_require__(171);
+var des = __webpack_require__(170);
 var utils = des.utils;
 var Cipher = des.Cipher;
 
@@ -67421,7 +67453,7 @@ proto._update = function _update(inp, inOff, out, outOff) {
 var assert = __webpack_require__(37);
 var inherits = __webpack_require__(5);
 
-var des = __webpack_require__(171);
+var des = __webpack_require__(170);
 var Cipher = des.Cipher;
 var DES = des.DES;
 
@@ -67583,7 +67615,7 @@ var TEN = new BN(10);
 var THREE = new BN(3);
 var SEVEN = new BN(7);
 var primes = __webpack_require__(266);
-var randomBytes = __webpack_require__(72);
+var randomBytes = __webpack_require__(73);
 module.exports = DH;
 
 function setPublicKey(pub, enc) {
@@ -67745,7 +67777,7 @@ function formatReturnValue(bn, enc) {
 /* 603 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var createHash = __webpack_require__(73)
+/* WEBPACK VAR INJECTION */(function(Buffer) {var createHash = __webpack_require__(74)
 var stream = __webpack_require__(118)
 var inherits = __webpack_require__(5)
 var sign = __webpack_require__(604)
@@ -67845,7 +67877,7 @@ module.exports = {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {// much of this based on https://github.com/indutny/self-signed/blob/gh-pages/lib/rsa.js
 var createHmac = __webpack_require__(120)
-var crt = __webpack_require__(172)
+var crt = __webpack_require__(171)
 var EC = __webpack_require__(25).ec
 var BN = __webpack_require__(18)
 var parseKeys = __webpack_require__(125)
@@ -70087,7 +70119,7 @@ Point.prototype.mixedAdd = Point.prototype.add;
 
 var curves = exports;
 
-var hash = __webpack_require__(173);
+var hash = __webpack_require__(172);
 var elliptic = __webpack_require__(25);
 
 var assert = elliptic.utils.assert;
@@ -71711,7 +71743,7 @@ EC.prototype.getKeyRecoveryParam = function(e, signature, Q, enc) {
 "use strict";
 
 
-var hash = __webpack_require__(173);
+var hash = __webpack_require__(172);
 var utils = __webpack_require__(269);
 var assert = __webpack_require__(37);
 
@@ -72099,7 +72131,7 @@ Signature.prototype.toDER = function toDER(enc) {
 "use strict";
 
 
-var hash = __webpack_require__(173);
+var hash = __webpack_require__(172);
 var elliptic = __webpack_require__(25);
 var utils = elliptic.utils;
 var assert = utils.assert;
@@ -72593,7 +72625,7 @@ Entity.prototype.encode = function encode(data, enc, /* internal */ reporter) {
 /* 628 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var indexOf = __webpack_require__(174);
+var indexOf = __webpack_require__(173);
 
 var Object_keys = function (obj) {
     if (Object.keys) return Object.keys(obj)
@@ -73760,7 +73792,7 @@ var findProc = /Proc-Type: 4,ENCRYPTED\n\r?DEK-Info: AES-((?:128)|(?:192)|(?:256
 var startRegex = /^-----BEGIN ((?:.* KEY)|CERTIFICATE)-----\n/m
 var fullRegex = /^-----BEGIN ((?:.* KEY)|CERTIFICATE)-----\n\r?([0-9A-z\n\r\+\/\=]+)\n\r?-----END \1-----$/m
 var evp = __webpack_require__(121)
-var ciphers = __webpack_require__(169)
+var ciphers = __webpack_require__(168)
 module.exports = function (okey, password) {
   var key = okey.toString()
   var match = key.match(findProc)
@@ -74027,13 +74059,13 @@ exports.publicDecrypt = function publicDecrypt(key, buf) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var parseKeys = __webpack_require__(125);
-var randomBytes = __webpack_require__(72);
-var createHash = __webpack_require__(73);
+var randomBytes = __webpack_require__(73);
+var createHash = __webpack_require__(74);
 var mgf = __webpack_require__(278);
 var xor = __webpack_require__(279);
 var bn = __webpack_require__(18);
 var withPublic = __webpack_require__(280);
-var crt = __webpack_require__(172);
+var crt = __webpack_require__(171);
 
 var constants = {
   RSA_PKCS1_OAEP_PADDING: 4,
@@ -74131,8 +74163,8 @@ function nonZero(len, crypto) {
 var mgf = __webpack_require__(278);
 var xor = __webpack_require__(279);
 var bn = __webpack_require__(18);
-var crt = __webpack_require__(172);
-var createHash = __webpack_require__(73);
+var crt = __webpack_require__(171);
+var createHash = __webpack_require__(74);
 var withPublic = __webpack_require__(280);
 module.exports = function privateDecrypt(private_key, enc, reverse) {
   var padding;
@@ -74248,7 +74280,7 @@ function oldBrowser () {
   throw new Error('secure random number generation not supported by this browser\nuse chrome, FireFox or Internet Explorer 11')
 }
 var safeBuffer = __webpack_require__(3)
-var randombytes = __webpack_require__(72)
+var randombytes = __webpack_require__(73)
 var Buffer = safeBuffer.Buffer
 var kBufferMaxLength = safeBuffer.kMaxLength
 var crypto = global.crypto || global.msCrypto
@@ -76566,7 +76598,7 @@ exports.parse = function (str) {
 */
 const BitcoinJS = __webpack_require__(662);
 const Bigi = __webpack_require__(59);
-const Crypto = __webpack_require__(162);
+const Crypto = __webpack_require__(161);
 
 
 
@@ -76772,7 +76804,7 @@ class MultiSig {
 
 var script = __webpack_require__(19)
 
-var templates = __webpack_require__(176)
+var templates = __webpack_require__(175)
 for (var key in templates) {
   script[key] = templates[key]
 }
@@ -76781,14 +76813,14 @@ module.exports = {
   bufferutils: __webpack_require__(293), // TODO: remove in 4.0.0
 
   Block: __webpack_require__(680),
-  ECPair: __webpack_require__(182),
-  ECSignature: __webpack_require__(186),
+  ECPair: __webpack_require__(181),
+  ECSignature: __webpack_require__(185),
   HDNode: __webpack_require__(690),
-  Transaction: __webpack_require__(181),
+  Transaction: __webpack_require__(180),
   TransactionBuilder: __webpack_require__(691),
 
-  address: __webpack_require__(183),
-  crypto: __webpack_require__(83),
+  address: __webpack_require__(182),
+  crypto: __webpack_require__(84),
   networks: __webpack_require__(98),
   opcodes: __webpack_require__(24),
   script: script
@@ -76799,7 +76831,7 @@ module.exports = {
 /* 663 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var NATIVE = __webpack_require__(175)
+/* WEBPACK VAR INJECTION */(function(Buffer) {var NATIVE = __webpack_require__(174)
 var ERRORS = __webpack_require__(288)
 
 function _Buffer (value) {
@@ -77218,9 +77250,9 @@ var Buffer = __webpack_require__(3).Buffer
 var bscript = __webpack_require__(19)
 var typeforce = __webpack_require__(13)
 
-var p2ms = __webpack_require__(177)
-var p2pk = __webpack_require__(178)
-var p2pkh = __webpack_require__(179)
+var p2ms = __webpack_require__(176)
+var p2pk = __webpack_require__(177)
+var p2pkh = __webpack_require__(178)
 var p2wpkho = __webpack_require__(291)
 var p2wsho = __webpack_require__(292)
 
@@ -77420,9 +77452,9 @@ var bscript = __webpack_require__(19)
 var types = __webpack_require__(22)
 var typeforce = __webpack_require__(13)
 
-var p2ms = __webpack_require__(177)
-var p2pk = __webpack_require__(178)
-var p2pkh = __webpack_require__(179)
+var p2ms = __webpack_require__(176)
+var p2pk = __webpack_require__(177)
+var p2pkh = __webpack_require__(178)
 
 function check (chunks, allowIncomplete) {
   typeforce(types.Array, chunks)
@@ -77543,13 +77575,13 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(3).Buffer
-var bcrypto = __webpack_require__(83)
+var bcrypto = __webpack_require__(84)
 var fastMerkleRoot = __webpack_require__(681)
 var typeforce = __webpack_require__(13)
 var types = __webpack_require__(22)
-var varuint = __webpack_require__(180)
+var varuint = __webpack_require__(179)
 
-var Transaction = __webpack_require__(181)
+var Transaction = __webpack_require__(180)
 
 function Block () {
   this.version = 1
@@ -77973,12 +78005,12 @@ var typeforce = __webpack_require__(13)
 var types = __webpack_require__(22)
 
 var BigInteger = __webpack_require__(59)
-var ECSignature = __webpack_require__(186)
+var ECSignature = __webpack_require__(185)
 
 var ZERO = Buffer.alloc(1, 0)
 var ONE = Buffer.alloc(1, 1)
 
-var ecurve = __webpack_require__(187)
+var ecurve = __webpack_require__(186)
 var secp256k1 = ecurve.getCurveByName('secp256k1')
 
 // https://tools.ietf.org/html/rfc6979#section-3.2
@@ -78141,7 +78173,7 @@ module.exports = {"_from":"bigi@^1.4.0","_id":"bigi@1.4.2","_inBundle":false,"_i
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {// FIXME: Kind of a weird way to throw exceptions, consider removing
-var assert = __webpack_require__(185)
+var assert = __webpack_require__(184)
 var BigInteger = __webpack_require__(294)
 
 /**
@@ -78271,7 +78303,7 @@ module.exports = {"secp128r1":{"p":"fffffffdffffffffffffffffffffffff","a":"fffff
 /* 689 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var bs58check = __webpack_require__(184)
+/* WEBPACK VAR INJECTION */(function(Buffer) {var bs58check = __webpack_require__(183)
 
 function decodeRaw (buffer, version) {
   // check version only if defined
@@ -78342,17 +78374,17 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(3).Buffer
-var base58check = __webpack_require__(184)
-var bcrypto = __webpack_require__(83)
+var base58check = __webpack_require__(183)
+var bcrypto = __webpack_require__(84)
 var createHmac = __webpack_require__(120)
 var typeforce = __webpack_require__(13)
 var types = __webpack_require__(22)
 var NETWORKS = __webpack_require__(98)
 
 var BigInteger = __webpack_require__(59)
-var ECPair = __webpack_require__(182)
+var ECPair = __webpack_require__(181)
 
-var ecurve = __webpack_require__(187)
+var ecurve = __webpack_require__(186)
 var curve = ecurve.getCurveByName('secp256k1')
 
 function HDNode (keyPair, chainCode) {
@@ -78664,10 +78696,10 @@ module.exports = HDNode
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(3).Buffer
-var baddress = __webpack_require__(183)
-var bcrypto = __webpack_require__(83)
+var baddress = __webpack_require__(182)
+var bcrypto = __webpack_require__(84)
 var bscript = __webpack_require__(19)
-var btemplates = __webpack_require__(176)
+var btemplates = __webpack_require__(175)
 var networks = __webpack_require__(98)
 var ops = __webpack_require__(24)
 var typeforce = __webpack_require__(13)
@@ -78676,9 +78708,9 @@ var scriptTypes = btemplates.types
 var SIGNABLE = [btemplates.types.P2PKH, btemplates.types.P2PK, btemplates.types.MULTISIG]
 var P2SH = SIGNABLE.concat([btemplates.types.P2WPKH, btemplates.types.P2WSH])
 
-var ECPair = __webpack_require__(182)
-var ECSignature = __webpack_require__(186)
-var Transaction = __webpack_require__(181)
+var ECPair = __webpack_require__(181)
+var ECSignature = __webpack_require__(185)
+var Transaction = __webpack_require__(180)
 
 function supportedType (type) {
   return SIGNABLE.indexOf(type) !== -1
@@ -79448,7 +79480,7 @@ module.exports = TransactionBuilder
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_mini_blockchain_blockchain_Mini_Blockchain_Advanced__ = __webpack_require__(297);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_mini_blockchain_blockchain_Mini_Blockchain_Light__ = __webpack_require__(747);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_mini_blockchain_blockchain_Mini_Blockchain_Light__ = __webpack_require__(744);
 
 
 
@@ -79473,12 +79505,12 @@ class MainBlockchain extends  inheritedBlockchain{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_ppow_blockchain_blockchain_PPoW_Blockchain__ = __webpack_require__(694);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_interface_blockchain_blockchain_Interface_Blockchain__ = __webpack_require__(298);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__state_Mini_Blockchain_Accountant_Tree__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__blocks_Mini_Blockchain_Block__ = __webpack_require__(738);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__blocks_Mini_Blockchain_Block_Data__ = __webpack_require__(741);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__state_Mini_Blockchain_Accountant_Tree__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__blocks_Mini_Blockchain_Block__ = __webpack_require__(735);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__blocks_Mini_Blockchain_Block_Data__ = __webpack_require__(738);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Creator__ = __webpack_require__(301);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__transactions_Mini_Blockchain_Transactions__ = __webpack_require__(743);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_common_utils_Revert_Actions_Revert_Actions__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__transactions_Mini_Blockchain_Transactions__ = __webpack_require__(740);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_common_utils_Revert_Actions_Revert_Actions__ = __webpack_require__(190);
 
 
 
@@ -79693,8 +79725,8 @@ class MiniBlockchain extends  inheritBlockchain{
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blockchain_Interface_Blockchain__ = __webpack_require__(298);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__prover_PPoW_Blockchain_Prover__ = __webpack_require__(731);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__verifier_PPoW_Blockchain_Verifier__ = __webpack_require__(733);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__prover_PPoW_Blockchain_Prover__ = __webpack_require__(728);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__verifier_PPoW_Blockchain_Verifier__ = __webpack_require__(730);
 
 
 
@@ -79853,7 +79885,7 @@ class InterfaceBlockchainBlocks{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_crypto_WebDollar_Crypto__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_Serialization__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__transactions_transaction_Interface_Blockchain_Transaction__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__transactions_transaction_Interface_Blockchain_Transaction__ = __webpack_require__(189);
 
 
 
@@ -80027,7 +80059,7 @@ class InterfaceBlockchainBlockDataTransactions {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Interface_Blockchain_Fork__ = __webpack_require__(100);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_utils_BufferExtended__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(12);
 
 
 
@@ -80295,7 +80327,7 @@ class BlockchainDifficulty{
 var utils = __webpack_require__(38);
 var bind = __webpack_require__(304);
 var Axios = __webpack_require__(701);
-var defaults = __webpack_require__(193);
+var defaults = __webpack_require__(192);
 
 /**
  * Create an instance of Axios
@@ -80378,7 +80410,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(193);
+var defaults = __webpack_require__(192);
 var utils = __webpack_require__(38);
 var InterceptorManager = __webpack_require__(710);
 var dispatchRequest = __webpack_require__(711);
@@ -80910,7 +80942,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(38);
 var transformData = __webpack_require__(712);
 var isCancel = __webpack_require__(307);
-var defaults = __webpack_require__(193);
+var defaults = __webpack_require__(192);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -81410,7 +81442,7 @@ exports.getContinentFromCountry = (countryCode) =>{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-const axios = __webpack_require__(192);
+const axios = __webpack_require__(191);
 
 class DownloadHelper{
 
@@ -81681,7 +81713,7 @@ class InterfaceTransactionsPendingQueue {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_sockets_protocol_node_protocol__ = __webpack_require__(127);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_events_Status_Events__ = __webpack_require__(21);
 
@@ -82190,7 +82222,7 @@ class InterfaceBlockchainTransactionsEvents{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__clusters_Network_Adjusted_Time_Clusters__ = __webpack_require__(726);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_blockchain_global_Blockchain_Genesis__ = __webpack_require__(50);
@@ -82518,300 +82550,10 @@ class NetworkAdjustedTimeCluster{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Interface_Blockchain_Tip__ = __webpack_require__(729);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_bans_BansList__ = __webpack_require__(128);
-
-
-
-
-/**
- * Blockchain contains a chain of blocks based on Proof of Work
- */
-
-class InterfaceBlockchainTipsAdministrator {
-
-
-    constructor (blockchain, agent){
-
-        this.blockchain = blockchain;
-        this.agent = agent;
-
-        this._tips = [];
-
-        this._initializeProtocol();
-
-    }
-
-    _initializeProtocol(){
-
-        __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].emitter.on("nodes-list/disconnected", (nodesListObject) => {
-
-            for (let i = 0; i < this._tips.length; i++)
-                if (this._tips[i].socket === nodesListObject.socket ) {
-
-                    if (this._tips[i].forkResolve !== undefined)
-                        this._tips[i].forkResolve(true);
-
-                    this._tips.splice(i,1);
-                    return true;
-
-                }
-
-        });
-    }
-
-    getBestTip(){
-
-        let maxTip = null;
-        let maxTipChainLength = 0;
-
-        for (let i = 0; i < this._tips.length; i++)
-            if (this._tips[i].forkChainLength > maxTipChainLength && !__WEBPACK_IMPORTED_MODULE_2_common_utils_bans_BansList__["a" /* default */].isBanned(this._tips[i].socket.node.sckAddress)){
-
-                maxTipChainLength = this._tips[i].forkChainLength;
-                maxTip = this._tips[i];
-
-            }
-
-        return maxTip;
-    }
-
-
-    findTip(socket){
-
-        for (let i = 0; i < this._tips.length; i++)
-            if (this._tips[i] === socket || this._tips[i].socket === socket || this._tips[i].socket.node.sckAddress.matchAddress(socket.node.sckAddress) )
-                return i;
-
-        return null;
-
-    }
-
-    getTip(socket){
-
-        let index = this.findTip(socket);
-        if (index === null)
-            return null;
-        else
-            return this._tips[index];
-
-    }
-
-
-
-    addTip(socket,  forkChainLength, forkChainStartingPoint,  forkLastBlockHeader) {
-
-        let tip = this.findTip(socket);
-
-        if ( tip === null) {
-
-            tip = new __WEBPACK_IMPORTED_MODULE_0__Interface_Blockchain_Tip__["a" /* default */](this.blockchain, socket, forkChainLength, forkChainStartingPoint, forkLastBlockHeader);
-
-            if (!tip.validateTip())
-                return null;
-
-            this._tips.push(tip);
-
-        }
-
-        return tip;
-    }
-
-    updateTipNewForkLength(tip, forkToDoChainLength, forkToDoChainStartingPoint, forkToDoLastBlockHeader ){
-
-        if (tip === null)
-            return null;
-
-        if (tip.forkChainLength > forkToDoChainLength) //nothing to update
-            return null;
-
-        if (tip.forkToDoResolve !== undefined){
-            tip.forkToDoResolve(false);
-            tip.forkToDoResolve = undefined;
-        }
-
-        tip.forkToDoChainLength = forkToDoChainLength;
-        tip.forkToDoChainStartingPoint = forkToDoChainStartingPoint;
-        tip.forkToDoLastBlockHeader = forkToDoLastBlockHeader;
-
-        if (tip.forkToDoPromise === undefined){
-            tip.forkToDoPromise = new Promise((resolve)=>{
-                tip.forkToDoResolve = resolve;
-            })
-        }
-
-        return tip;
-
-    }
-
-    processTipsNewForkLengths(){
-
-        for (let i = this._tips.length - 1; i >= 0; i--){
-
-            if (this._tips[i] === null || this._tips[i] === undefined)
-                this._tips.splice(i, 1);
-
-            this._tips[i].updateToDo();
-
-            if (!this._tips[i].validateTip()){
-
-                if (this._tips[i].forkResolve !== undefined)
-                    this._tips[i].forkResolve(false);
-
-                this._tips.splice(i,1);
-            }
-
-        }
-
-    }
-
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (InterfaceBlockchainTipsAdministrator);
-
-/***/ }),
-/* 729 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class InterfaceBlockchainTip{
-
-    constructor(blockchain, socket, forkChainLength,forkChainStartingPoint, forkLastBlockHeader){
-
-        this.blockchain = blockchain;
-
-        this.socket = socket;
-        this.forkChainLength = forkChainLength;
-        this.forkChainStartingPoint = forkChainStartingPoint;
-        this.forkLastBlockHeader = forkLastBlockHeader;
-
-        this.forkPromise = new Promise((resolve)=>{
-            this.forkResolve = resolve;
-        });
-
-        this.forkToDoChainLength = -1;
-        this.forkToDoChainStartingPoint = -1;
-        this.forkToDoLastBlockHeader = undefined;
-        this.forkToDoPromise = undefined;
-        this.forkToDoResolve = undefined;
-    }
-
-    updateToDo(){
-
-        if ( this.forkToDoChainLength > 0 && this.forkToDoChainLength > this.forkChainLength) {
-
-            if (this.forkResolve !== undefined)
-                this.forkResolve(false);
-
-            this.forkChainLength = this.forkToDoChainLength;
-            this.forkChainStartingPoint = this.forkToDoChainStartingPoint;
-            this.forkLastBlockHeader = this.forkToDoLastBlockHeader;
-            this.forkPromise = this.forkToDoPromise;
-            this.forkResolve = this.forkToDoResolve;
-
-
-            this.forkToDoChainLength = -1;
-            this.forkToDoChainStartingPoint = -1;
-            this.forkToDoLastBlockHeader = undefined;
-            this.forkToDoPromise = undefined;
-            this.forkToDoResolve = undefined;
-
-            return true;
-        }
-
-        return false;
-
-    }
-
-    toString(){
-
-        return "socket.uuid " + this.socket.node.sckAddress.getAddress(true)+ " forkChainLength " + this.forkChainLength + " forkToDoChainLength " + this.forkToDoChainLength;
-
-    }
-
-    validateTip(){
-
-
-        if (this.blockchain.blocks.length < this.forkChainLength)
-            return true;
-        else
-        if (this.blockchain.blocks.length === this.forkChainLength) //I need to check
-            if (this.forkLastBlockHeader.hash.compare( this.blockchain.getHashPrev(this.blockchain.blocks.length) ) < 0)
-                return true;
-
-        return false;
-    }
-
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (InterfaceBlockchainTip);
-
-/***/ }),
-/* 730 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BansList__ = __webpack_require__(128);
-
-
-class BanObject{
-
-    constructor(sckAddress ){
-
-        this.sckAddress = sckAddress;
-
-        this.timeStamp = new Date().getTime();
-        this.banTime = 0;
-        this.banTimestamp = 0;
-        this.banReasons = [];
-
-    }
-
-    isBanned(){
-
-        let timestamp = new Date().getTime();
-
-        if ( (timestamp - this.banTimestamp) < this.banTime)
-            return true;
-
-        return false;
-    }
-
-    increaseBanTrials(banTime, banReason){
-
-        let timestamp = new Date().getTime();
-
-        if ( (timestamp - this.banTimestamp) >= ( 1.5*this.banTime )){ // no blocks for long time
-            this.upLiftBan();
-        }
-
-        if (this.banTimestamp === 0)
-            this.banTimestamp = timestamp;
-
-        this.banTime = banTime;
-        this.banReasons.push(banReason);
-    }
-
-    upLiftBan(){
-        this.timeStamp = 0;
-        this.banTimestamp = 0;
-        this.banReasons = [];
-    }
-
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (BanObject);
-
-/***/ }),
-/* 731 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_PPoW_Helper__ = __webpack_require__(312);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__proofs_PPoW_Blockchain_Proof_Pi__ = __webpack_require__(129);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__proofs_PPoW_Blockchain_Proof_Xi__ = __webpack_require__(732);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__proofs_PPoW_Blockchain_Proof_Pi__ = __webpack_require__(128);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__proofs_PPoW_Blockchain_Proof_Xi__ = __webpack_require__(729);
 
 
 
@@ -82933,7 +82675,7 @@ class PPoWBlockchainProver{
 /* harmony default export */ __webpack_exports__["a"] = (PPoWBlockchainProver);
 
 /***/ }),
-/* 732 */
+/* 729 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -82952,7 +82694,7 @@ class PPowBlockchainProofXi extends __WEBPACK_IMPORTED_MODULE_0__PPoW_Blockchain
 /* harmony default export */ __webpack_exports__["a"] = (PPowBlockchainProofXi);
 
 /***/ }),
-/* 733 */
+/* 730 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -83213,7 +82955,7 @@ class PPoWBlockchainVerifier{
 /* harmony default export */ __webpack_exports__["a"] = (PPoWBlockchainVerifier);
 
 /***/ }),
-/* 734 */
+/* 731 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -83653,7 +83395,7 @@ class InterfaceRadixTree extends __WEBPACK_IMPORTED_MODULE_3_common_trees_Interf
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 735 */
+/* 732 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -83714,7 +83456,7 @@ class InterfaceMerkleTree extends __WEBPACK_IMPORTED_MODULE_1_common_trees_Inter
 /* harmony default export */ __webpack_exports__["a"] = (InterfaceMerkleTree);
 
 /***/ }),
-/* 736 */
+/* 733 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -84121,7 +83863,7 @@ class MiniBlockchainAccountantTreeNode extends __WEBPACK_IMPORTED_MODULE_3_commo
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 737 */
+/* 734 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -84209,13 +83951,13 @@ class MiniBlockchainAccountantTreeEvents extends __WEBPACK_IMPORTED_MODULE_2_com
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 738 */
+/* 735 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block__ = __webpack_require__(188);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_ppow_blockchain_blocks_PPoW_Blockchain_Block__ = __webpack_require__(739);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block__ = __webpack_require__(187);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_ppow_blockchain_blocks_PPoW_Blockchain_Block__ = __webpack_require__(736);
 
 
 
@@ -84250,14 +83992,14 @@ class MiniBlockchainBlock extends inheritBlockchainBlock {
 /* harmony default export */ __webpack_exports__["a"] = (MiniBlockchainBlock);
 
 /***/ }),
-/* 739 */
+/* 736 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block__ = __webpack_require__(187);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_global_Blockchain_Genesis__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_Convert__ = __webpack_require__(740);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_Convert__ = __webpack_require__(737);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_common_crypto_WebDollar_Crypto_Data__ = __webpack_require__(57);
@@ -84556,7 +84298,7 @@ class PPoWBlockchainBlock extends __WEBPACK_IMPORTED_MODULE_1_common_blockchain_
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 740 */
+/* 737 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -84602,12 +84344,12 @@ class Convert{
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 741 */
+/* 738 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_ppow_blockchain_blocks_PPoW_Blockchain_Block_Data__ = __webpack_require__(742);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Data__ = __webpack_require__(189);
+/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_ppow_blockchain_blocks_PPoW_Blockchain_Block_Data__ = __webpack_require__(739);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Data__ = __webpack_require__(188);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_consts_const_global__ = __webpack_require__(2);
 
@@ -84709,11 +84451,11 @@ class MiniBlockchainBlockData extends  inheritBlockData {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 742 */
+/* 739 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Data__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Data__ = __webpack_require__(188);
 
 
 class PPoWBlockchainBlockData extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Data__["a" /* default */] {
@@ -84729,12 +84471,12 @@ class PPoWBlockchainBlockData extends __WEBPACK_IMPORTED_MODULE_0_common_blockch
 /* harmony default export */ __webpack_exports__["a"] = (PPoWBlockchainBlockData);
 
 /***/ }),
-/* 743 */
+/* 740 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_transactions_Interface_Blockchain_Transactions__ = __webpack_require__(309);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__trasanction_Mini_Blockchain_Transaction__ = __webpack_require__(744);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__trasanction_Mini_Blockchain_Transaction__ = __webpack_require__(741);
 
 
 
@@ -84750,13 +84492,13 @@ class MiniBlockchainTransactions extends __WEBPACK_IMPORTED_MODULE_0_common_bloc
 /* harmony default export */ __webpack_exports__["a"] = (MiniBlockchainTransactions);
 
 /***/ }),
-/* 744 */
+/* 741 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_transactions_transaction_Interface_Blockchain_Transaction__ = __webpack_require__(190);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Transaction_From__ = __webpack_require__(745);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Mini_Blockchain_Transaction_To__ = __webpack_require__(746);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_transactions_transaction_Interface_Blockchain_Transaction__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Transaction_From__ = __webpack_require__(742);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Mini_Blockchain_Transaction_To__ = __webpack_require__(743);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_coins_WebDollar_Coins__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__ = __webpack_require__(4);
 
@@ -84871,7 +84613,7 @@ class MiniBlockchainTransaction extends  __WEBPACK_IMPORTED_MODULE_0_common_bloc
 /* harmony default export */ __webpack_exports__["a"] = (MiniBlockchainTransaction);
 
 /***/ }),
-/* 745 */
+/* 742 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -84975,7 +84717,7 @@ class MiniBlockchainTransactionFrom extends __WEBPACK_IMPORTED_MODULE_0_common_b
 /* harmony default export */ __webpack_exports__["a"] = (MiniBlockchainTransactionFrom);
 
 /***/ }),
-/* 746 */
+/* 743 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -85006,15 +84748,15 @@ class MiniBlockchainTransactionTo extends __WEBPACK_IMPORTED_MODULE_0_common_blo
 /* harmony default export */ __webpack_exports__["a"] = (MiniBlockchainTransactionTo);
 
 /***/ }),
-/* 747 */
+/* 744 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_consts_global__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_consts_global__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_Serialization__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Mini_Blockchain_Advanced__ = __webpack_require__(297);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__state_Mini_Blockchain_Accountant_Tree__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__state_Mini_Blockchain_Accountant_Tree__ = __webpack_require__(194);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_blockchain_global_Blockchain_Genesis__ = __webpack_require__(50);
 
 
@@ -85461,11 +85203,11 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_3__Mini_Blockchain_
 /* harmony default export */ __webpack_exports__["a"] = (MiniBlockchainLight);
 
 /***/ }),
-/* 748 */
+/* 745 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_mini_blockchain_Mini_Blockchain_Mining__ = __webpack_require__(749);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_mini_blockchain_Mini_Blockchain_Mining__ = __webpack_require__(746);
 
 
 
@@ -85496,7 +85238,7 @@ class MainBlockchainMining extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain
 /* harmony default export */ __webpack_exports__["a"] = (MainBlockchainMining);
 
 /***/ }),
-/* 749 */
+/* 746 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -85505,7 +85247,7 @@ let InterfaceBlockchainMining;
 if (false){
     InterfaceBlockchainMining = require ('common/blockchain/interface-blockchain/mining/backbone/Interface-Blockchain-Backbone-Mining').default;
 }  else {
-    InterfaceBlockchainMining = __webpack_require__ (750).default;
+    InterfaceBlockchainMining = __webpack_require__ (747).default;
 }
 
 
@@ -85525,13 +85267,13 @@ class MiniBlockchainMining extends  InterfaceBlockchainMining {
 /* harmony default export */ __webpack_exports__["a"] = (MiniBlockchainMining);
 
 /***/ }),
-/* 750 */
+/* 747 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Interface_Blockchain_Mining_Workers__ = __webpack_require__(751);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_webworkify_webpack__ = __webpack_require__(756);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Interface_Blockchain_Mining_Workers__ = __webpack_require__(748);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_webworkify_webpack__ = __webpack_require__(753);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_webworkify_webpack___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_webworkify_webpack__);
 
 
@@ -85546,7 +85288,7 @@ class InterfaceBlockchainBrowserMining extends __WEBPACK_IMPORTED_MODULE_0__Inte
 
     _getWorker(){
         //let code = require('./Browser-Mining-Web-Worker.js');
-        let code = /*require.resolve*/(757);
+        let code = /*require.resolve*/(754);
         return __WEBPACK_IMPORTED_MODULE_1_webworkify_webpack___default()(code);
     }
 
@@ -85555,12 +85297,12 @@ class InterfaceBlockchainBrowserMining extends __WEBPACK_IMPORTED_MODULE_0__Inte
 /* harmony default export */ __webpack_exports__["default"] = (InterfaceBlockchainBrowserMining);
 
 /***/ }),
-/* 751 */
+/* 748 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Interface_Blockchain_Mining__ = __webpack_require__(752);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Interface_Blockchain_Mining_Workers_List__ = __webpack_require__(755);
+/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Interface_Blockchain_Mining__ = __webpack_require__(749);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Interface_Blockchain_Mining_Workers_List__ = __webpack_require__(752);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_Serialization__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_Semaphore_Processing__ = __webpack_require__(310);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_events_Status_Events__ = __webpack_require__(21);
@@ -85819,16 +85561,16 @@ class InterfaceBlockchainMiningWorkers extends __WEBPACK_IMPORTED_MODULE_0__Inte
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 752 */
+/* 749 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__transactions_selector_Mining_Transactions_Selector__ = __webpack_require__(753);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__transactions_selector_Mining_Transactions_Selector__ = __webpack_require__(750);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_global__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_global__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_blockchain_global_Blockchain_Mining_Reward__ = __webpack_require__(99);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Interface_Blockchain_Mining_Basic__ = __webpack_require__(754);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Interface_Blockchain_Mining_Basic__ = __webpack_require__(751);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_node_menu_Advanced_Messages__ = __webpack_require__(92);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_common_events_Status_Events__ = __webpack_require__(21);
 
@@ -86107,7 +85849,7 @@ class InterfaceBlockchainMining extends  __WEBPACK_IMPORTED_MODULE_5__Interface_
 /* harmony default export */ __webpack_exports__["a"] = (InterfaceBlockchainMining);
 
 /***/ }),
-/* 753 */
+/* 750 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -86227,14 +85969,14 @@ class MiningTransactionsSelector{
 /* harmony default export */ __webpack_exports__["a"] = (MiningTransactionsSelector);
 
 /***/ }),
-/* 754 */
+/* 751 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_utils_BufferExtended__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_events_Status_Events__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_satoshmindb_Interface_SatoshminDB__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_satoshmindb_Interface_SatoshminDB__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(32);
 
 
@@ -86425,7 +86167,7 @@ class InterfaceBlockchainMiningBasic {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 755 */
+/* 752 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -86575,7 +86317,7 @@ class InterfaceBlockchainMiningWorkersList{
 /* harmony default export */ __webpack_exports__["a"] = (InterfaceBlockchainMiningWorkersList);
 
 /***/ }),
-/* 756 */
+/* 753 */
 /***/ (function(module, exports, __webpack_require__) {
 
 function webpackBootstrapFunc (modules) {
@@ -86769,7 +86511,7 @@ module.exports = function (moduleId, options) {
 
 
 /***/ }),
-/* 757 */
+/* 754 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -86954,11 +86696,11 @@ let algorithm = undefined;
 
 
 /***/ }),
-/* 758 */
+/* 755 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_mini_blockchain_protocol_Mini_Blockchain_Protocol__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_mini_blockchain_protocol_Mini_Blockchain_Protocol__ = __webpack_require__(196);
 
 
 /**
@@ -86974,7 +86716,63 @@ class MainBlockchainProtocol extends __WEBPACK_IMPORTED_MODULE_0_common_blockcha
 /* unused harmony default export */ var _unused_webpack_default_export = (MainBlockchainProtocol);
 
 /***/ }),
-/* 759 */
+/* 756 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BansList__ = __webpack_require__(198);
+
+
+class BanObject{
+
+    constructor(sckAddress ){
+
+        this.sckAddress = sckAddress;
+
+        this.timeStamp = new Date().getTime();
+        this.banTime = 0;
+        this.banTimestamp = 0;
+        this.banReasons = [];
+
+    }
+
+    isBanned(){
+
+        let timestamp = new Date().getTime();
+
+        if ( (timestamp - this.banTimestamp) < this.banTime)
+            return true;
+
+        return false;
+    }
+
+    increaseBanTrials(banTime, banReason){
+
+        let timestamp = new Date().getTime();
+
+        if ( (timestamp - this.banTimestamp) >= ( 1.5*this.banTime )){ // no blocks for long time
+            this.upLiftBan();
+        }
+
+        if (this.banTimestamp === 0)
+            this.banTimestamp = timestamp;
+
+        this.banTime = banTime;
+        this.banReasons.push(banReason);
+    }
+
+    upLiftBan(){
+        this.timeStamp = 0;
+        this.banTimestamp = 0;
+        this.banReasons = [];
+    }
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (BanObject);
+
+/***/ }),
+/* 757 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -87036,13 +86834,13 @@ class PPoWBlockchainProtocolForksManager extends __WEBPACK_IMPORTED_MODULE_0_com
 /* harmony default export */ __webpack_exports__["a"] = (PPoWBlockchainProtocolForksManager);
 
 /***/ }),
-/* 760 */
+/* 758 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_mini_blockchain_agents_Mini_Blockchain_Agent_Full_Node__ = __webpack_require__(761);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_mini_blockchain_agents_Mini_Blockchain_Agent_Block_Headers__ = __webpack_require__(764);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_mini_blockchain_agents_Mini_Blockchain_Agent_Light_Node__ = __webpack_require__(766);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_mini_blockchain_agents_Mini_Blockchain_Agent_Full_Node__ = __webpack_require__(759);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_mini_blockchain_agents_Mini_Blockchain_Agent_Block_Headers__ = __webpack_require__(762);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_mini_blockchain_agents_Mini_Blockchain_Agent_Light_Node__ = __webpack_require__(764);
 
 
 
@@ -87073,7 +86871,7 @@ class MainBlockchainAgent{
 /* harmony default export */ __webpack_exports__["a"] = (new MainBlockchainAgent());
 
 /***/ }),
-/* 761 */
+/* 759 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -87111,7 +86909,7 @@ class MiniBlockchainAgentFullNode extends inheritAgentClass{
 /* harmony default export */ __webpack_exports__["a"] = (MiniBlockchainAgentFullNode);
 
 /***/ }),
-/* 762 */
+/* 760 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -87142,12 +86940,12 @@ class VersionChecker{
 /* harmony default export */ __webpack_exports__["a"] = (new VersionChecker());
 
 /***/ }),
-/* 763 */
+/* 761 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__ = __webpack_require__(100);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__prover_proofs_PPoW_Blockchain_Proof_Pi__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__prover_proofs_PPoW_Blockchain_Proof_Pi__ = __webpack_require__(128);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_global_Blockchain_Genesis__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__ = __webpack_require__(4);
@@ -87284,11 +87082,11 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
 /* harmony default export */ __webpack_exports__["a"] = (PPoWBlockchainFork);
 
 /***/ }),
-/* 764 */
+/* 762 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_ppow_blockchain_agents_PPoW_Blockchain_Agent_Block_Headers__ = __webpack_require__(765);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_ppow_blockchain_agents_PPoW_Blockchain_Agent_Block_Headers__ = __webpack_require__(763);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_agents_Interface_Blockchain_Agent_Block_Headers__ = __webpack_require__(323);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__protocol_Mini_Blockchain_Advanced_Protocol__ = __webpack_require__(201);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__protocol_Mini_Blockchain_Fork__ = __webpack_require__(202);
@@ -87322,7 +87120,7 @@ class MiniBlockchainAgentBlockHeaders extends inheritAgentClass{
 /* harmony default export */ __webpack_exports__["a"] = (MiniBlockchainAgentBlockHeaders);
 
 /***/ }),
-/* 765 */
+/* 763 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -87343,14 +87141,14 @@ class PPoWBlockchainAgentBlockHeaders extends __WEBPACK_IMPORTED_MODULE_0_common
 /* harmony default export */ __webpack_exports__["a"] = (PPoWBlockchainAgentBlockHeaders);
 
 /***/ }),
-/* 766 */
+/* 764 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_ppow_blockchain_agents_PPoW_Blockchain_Agent_Full_Node__ = __webpack_require__(321);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_agents_Interface_Blockchain_Agent_Full_Node__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_mini_blockchain_protocol_light_Mini_Blockchain_Light_Protocol__ = __webpack_require__(767);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__protocol_light_Mini_Blockchain_Light_Fork__ = __webpack_require__(770);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_mini_blockchain_protocol_light_Mini_Blockchain_Light_Protocol__ = __webpack_require__(765);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__protocol_light_Mini_Blockchain_Light_Fork__ = __webpack_require__(768);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_consts_const_global__ = __webpack_require__(2);
 
 
@@ -87388,12 +87186,12 @@ class MiniBlockchainAgentLightNode extends inheritAgentClass{
 /* harmony default export */ __webpack_exports__["a"] = (MiniBlockchainAgentLightNode);
 
 /***/ }),
-/* 767 */
+/* 765 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Mini_Blockchain_Advanced_Protocol__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Light_Protocol_Fork_Solver__ = __webpack_require__(768);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Light_Protocol_Fork_Solver__ = __webpack_require__(766);
 
 
 
@@ -87418,12 +87216,12 @@ class MiniBlockchainLightProtocol extends __WEBPACK_IMPORTED_MODULE_0__Mini_Bloc
 /* harmony default export */ __webpack_exports__["a"] = (MiniBlockchainLightProtocol);
 
 /***/ }),
-/* 768 */
+/* 766 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_protocol_Interface_Blockchain_Protocol_Fork_Solver__ = __webpack_require__(198);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_ppow_blockchain_protocol_PPoW_Blockchain_Protocol_Fork_Solver__ = __webpack_require__(769);
+/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_protocol_Interface_Blockchain_Protocol_Fork_Solver__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_ppow_blockchain_protocol_PPoW_Blockchain_Protocol_Fork_Solver__ = __webpack_require__(767);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_events_Status_Events__ = __webpack_require__(21);
 
@@ -87684,14 +87482,14 @@ class MiniBlockchainLightProtocolForkSolver extends inheritForkSolver{
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 769 */
+/* 767 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_protocol_Interface_Blockchain_Protocol_Fork_Solver__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_protocol_Interface_Blockchain_Protocol_Fork_Solver__ = __webpack_require__(197);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_events_Status_Events__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__blockchain_prover_proofs_PPoW_Blockchain_Proof_Pi__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__blockchain_prover_proofs_PPoW_Blockchain_Proof_Pi__ = __webpack_require__(128);
 
 
 
@@ -87707,7 +87505,7 @@ class PPoWBlockchainProtocolForkSolver extends __WEBPACK_IMPORTED_MODULE_0_commo
 /* harmony default export */ __webpack_exports__["a"] = (PPoWBlockchainProtocolForkSolver);
 
 /***/ }),
-/* 770 */
+/* 768 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -87923,11 +87721,11 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 771 */
+/* 769 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_mini_blockchain_balances_Mini_Blockchain_Balances__ = __webpack_require__(772);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_mini_blockchain_balances_Mini_Blockchain_Balances__ = __webpack_require__(770);
 
 
 class MainBlockchainBalances extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_mini_blockchain_balances_Mini_Blockchain_Balances__["a" /* default */] {
@@ -87938,7 +87736,7 @@ class MainBlockchainBalances extends __WEBPACK_IMPORTED_MODULE_0_common_blockcha
 /* harmony default export */ __webpack_exports__["a"] = (MainBlockchainBalances);
 
 /***/ }),
-/* 772 */
+/* 770 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -88008,14 +87806,14 @@ class MiniBlockchainBalances{
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 773 */
+/* 771 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cookies_Cookies__ = __webpack_require__(774);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Detect_Multiple_Windows__ = __webpack_require__(775);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_satoshmindb_Interface_SatoshminDB__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cookies_Cookies__ = __webpack_require__(772);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Detect_Multiple_Windows__ = __webpack_require__(773);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_satoshmindb_Interface_SatoshminDB__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_events_Status_Events__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_node_menu_Advanced_Messages__ = __webpack_require__(92);
 
@@ -88279,7 +88077,7 @@ class ValidationsUtils{
 /* harmony default export */ __webpack_exports__["a"] = (ValidationsUtils);
 
 /***/ }),
-/* 774 */
+/* 772 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -88312,7 +88110,7 @@ function getCookie(cname) {
 
 
 /***/ }),
-/* 775 */
+/* 773 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -88423,16 +88221,16 @@ class DetectMultipleWindows {
 /* harmony default export */ __webpack_exports__["a"] = (new DetectMultipleWindows());
 
 /***/ }),
-/* 776 */
+/* 774 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_socket_io_client__ = __webpack_require__(777);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_socket_io_client__ = __webpack_require__(775);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_socket_io_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_socket_io_client__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_sockets_socket_extend__ = __webpack_require__(335);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_sockets_socket_address__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_nodes_list__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Connections_Type__ = __webpack_require__(53);
 
 
@@ -88585,7 +88383,7 @@ class NodeClient {
 /* harmony default export */ __webpack_exports__["a"] = (NodeClient);
 
 /***/ }),
-/* 777 */
+/* 775 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -88593,10 +88391,10 @@ class NodeClient {
  * Module dependencies.
  */
 
-var url = __webpack_require__(778);
+var url = __webpack_require__(776);
 var parser = __webpack_require__(203);
 var Manager = __webpack_require__(328);
-var debug = __webpack_require__(131)('socket.io-client');
+var debug = __webpack_require__(130)('socket.io-client');
 
 /**
  * Module exports.
@@ -88685,7 +88483,7 @@ exports.Socket = __webpack_require__(332);
 
 
 /***/ }),
-/* 778 */
+/* 776 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -88694,7 +88492,7 @@ exports.Socket = __webpack_require__(332);
  */
 
 var parseuri = __webpack_require__(324);
-var debug = __webpack_require__(131)('socket.io-client:url');
+var debug = __webpack_require__(130)('socket.io-client:url');
 
 /**
  * Module exports.
@@ -88767,7 +88565,7 @@ function url (uri, loc) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 779 */
+/* 777 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -88975,7 +88773,7 @@ function coerce(val) {
 
 
 /***/ }),
-/* 780 */
+/* 778 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -88986,7 +88784,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 781 */
+/* 779 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*global Blob,File*/
@@ -89134,11 +88932,11 @@ exports.removeBlobs = function(data, callback) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 782 */
+/* 780 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-module.exports = __webpack_require__(783);
+module.exports = __webpack_require__(781);
 
 /**
  * Exports parser
@@ -89150,7 +88948,7 @@ module.exports.parser = __webpack_require__(87);
 
 
 /***/ }),
-/* 783 */
+/* 781 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -89159,11 +88957,11 @@ module.exports.parser = __webpack_require__(87);
 
 var transports = __webpack_require__(329);
 var Emitter = __webpack_require__(86);
-var debug = __webpack_require__(82)('engine.io-client:socket');
-var index = __webpack_require__(174);
+var debug = __webpack_require__(83)('engine.io-client:socket');
+var index = __webpack_require__(173);
 var parser = __webpack_require__(87);
 var parseuri = __webpack_require__(324);
-var parseqs = __webpack_require__(132);
+var parseqs = __webpack_require__(131);
 
 /**
  * Module exports.
@@ -89900,7 +89698,7 @@ Socket.prototype.filterUpgrades = function (upgrades) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 784 */
+/* 782 */
 /***/ (function(module, exports) {
 
 
@@ -89923,7 +89721,7 @@ try {
 
 
 /***/ }),
-/* 785 */
+/* 783 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -89933,8 +89731,8 @@ try {
 var XMLHttpRequest = __webpack_require__(204);
 var Polling = __webpack_require__(330);
 var Emitter = __webpack_require__(86);
-var inherit = __webpack_require__(133);
-var debug = __webpack_require__(82)('engine.io-client:polling-xhr');
+var inherit = __webpack_require__(132);
+var debug = __webpack_require__(83)('engine.io-client:polling-xhr');
 
 /**
  * Module exports.
@@ -90350,7 +90148,7 @@ function unloadHandler () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 786 */
+/* 784 */
 /***/ (function(module, exports) {
 
 
@@ -90375,7 +90173,7 @@ module.exports = Object.keys || function keys (obj){
 
 
 /***/ }),
-/* 787 */
+/* 785 */
 /***/ (function(module, exports) {
 
 /**
@@ -90410,7 +90208,7 @@ module.exports = function(arraybuffer, start, end) {
 
 
 /***/ }),
-/* 788 */
+/* 786 */
 /***/ (function(module, exports) {
 
 module.exports = after
@@ -90444,7 +90242,7 @@ function noop() {}
 
 
 /***/ }),
-/* 789 */
+/* 787 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module, global) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/utf8js v2.1.2 by @mathias */
@@ -90705,7 +90503,7 @@ function noop() {}
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(123)(module), __webpack_require__(9)))
 
 /***/ }),
-/* 790 */
+/* 788 */
 /***/ (function(module, exports) {
 
 /*
@@ -90778,7 +90576,7 @@ function noop() {}
 
 
 /***/ }),
-/* 791 */
+/* 789 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -90881,7 +90679,7 @@ module.exports = (function() {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 792 */
+/* 790 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -90890,7 +90688,7 @@ module.exports = (function() {
  */
 
 var Polling = __webpack_require__(330);
-var inherit = __webpack_require__(133);
+var inherit = __webpack_require__(132);
 
 /**
  * Module exports.
@@ -91119,7 +90917,7 @@ JSONPPolling.prototype.doWrite = function (data, fn) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 793 */
+/* 791 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -91128,15 +90926,15 @@ JSONPPolling.prototype.doWrite = function (data, fn) {
 
 var Transport = __webpack_require__(205);
 var parser = __webpack_require__(87);
-var parseqs = __webpack_require__(132);
-var inherit = __webpack_require__(133);
+var parseqs = __webpack_require__(131);
+var inherit = __webpack_require__(132);
 var yeast = __webpack_require__(331);
-var debug = __webpack_require__(82)('engine.io-client:websocket');
+var debug = __webpack_require__(83)('engine.io-client:websocket');
 var BrowserWebSocket = global.WebSocket || global.MozWebSocket;
 var NodeWebSocket;
 if (typeof window === 'undefined') {
   try {
-    NodeWebSocket = __webpack_require__(794);
+    NodeWebSocket = __webpack_require__(792);
   } catch (e) { }
 }
 
@@ -91412,13 +91210,13 @@ WS.prototype.check = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 794 */
+/* 792 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 795 */
+/* 793 */
 /***/ (function(module, exports) {
 
 module.exports = toArray
@@ -91437,7 +91235,7 @@ function toArray(list, index) {
 
 
 /***/ }),
-/* 796 */
+/* 794 */
 /***/ (function(module, exports) {
 
 
@@ -91528,13 +91326,15 @@ Backoff.prototype.setJitter = function(jitter){
 
 
 /***/ }),
-/* 797 */
+/* 795 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_sockets_protocol_node_protocol__ = __webpack_require__(127);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_lists_types_Nodes_Type__ = __webpack_require__(61);
+
 
 
 
@@ -91543,28 +91343,40 @@ class NodePropagationProtocol {
 
     constructor(){
 
-        this._newNodesWaitList = [];
+        this._newFullNodesWaitList = [];
+        this._newLightNodesWaitList = [];
 
-        this.processNewNodeInterval();
+        setTimeout(this._processNewWaitlistInterval.bind(this), 5000);
 
     }
 
-    processNewNodeInterval(){
+    _processList(list){
 
-        if (this._newNodesWaitList.length > 0) {
+        for (let i=0; i<list.length; i++) {
 
             let waitlist = null;
-            while (waitlist === null && this._newNodesWaitList.length > 0) {
+
+            while (waitlist === null && list.length > 0) {
 
                 let index = 0;
-                let newNode = this._newNodesWaitList[index];
+                let newNode = list[index];
+
                 waitlist = __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__["a" /* default */].addNewNodeToWaitlist(newNode.address.addr, newNode.address.port, newNode.address.type, newNode.address.connected, newNode.socket.node.level + 1, newNode.socket);
 
-               this._newNodesWaitList.splice(index, 1);
+                list.splice(index, 1);
             }
+
         }
 
-        setTimeout( this.processNewNodeInterval.bind(this), 300);
+    }
+
+    _processNewWaitlistInterval(){
+
+        this._processList(this._newFullNodesWaitList);
+        this._processList(this._newLightNodesWaitList);
+
+
+        setTimeout( this._processNewWaitlistInterval.bind(this), 300);
 
     }
 
@@ -91573,7 +91385,8 @@ class NodePropagationProtocol {
         this.initializeNodesPropagation(socket);
 
         setTimeout( ()=>{
-            socket.node.sendRequest("propagation/request-all-wait-list-nodes");
+            socket.node.sendRequest("propagation/request-all-wait-list/full-nodes");
+            socket.node.sendRequest("propagation/request-all-wait-list/light-nodes");
         },  1000);
 
         __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__["a" /* default */].emitter.on("nodes-list/connected", nodeListObject => { this._newNodeConnected(socket, nodeListObject) } );
@@ -91586,22 +91399,32 @@ class NodePropagationProtocol {
 
     initializeNodesPropagation(socket){
 
-        socket.node.on("propagation/request-all-wait-list-nodes", response =>{
+        socket.node.on("propagation/request-all-wait-list/full-nodes", response =>{
 
             try{
 
                 let list = [];
+                for (let i=0; i<__WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__["a" /* default */].nodes.length; i++) list.push(__WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__["a" /* default */].nodes[i].toJSON());
+                for (let i=0; i<__WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__["a" /* default */].waitListFullNodes.length; i++) list.push(__WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__["a" /* default */].waitListFullNodes[i].toJSON());
 
-                for (let i=0; i<__WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__["a" /* default */].nodes.length; i++)
-                    list.push(__WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__["a" /* default */].nodes[i].toJSON());
-
-                for (let i=0; i<__WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__["a" /* default */].waitlist.length; i++)
-                    list.push(__WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__["a" /* default */].waitlist[i].toJSON());
-
-                socket.node.sendRequest("propagation/nodes", {"op": "new-nodes", addresses: list });
+                socket.node.sendRequest("propagation/nodes", {"op": "new-full-nodes", addresses: list });
 
             } catch(exception){
+            }
 
+        });
+
+        socket.node.on("propagation/request-all-wait-list/light-nodes", response =>{
+
+            try{
+
+                let list = [];
+                for (let i=0; i<__WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__["a" /* default */].nodes.length; i++) list.push(__WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__["a" /* default */].nodes[i].toJSON());
+                for (let i=0; i<__WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__["a" /* default */].waitListFullNodes.length; i++) list.push(__WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__["a" /* default */].waitListLightNodes[i].toJSON());
+
+                socket.node.sendRequest("propagation/nodes", {"op": "new-light-nodes", addresses: list });
+
+            } catch(exception){
             }
 
         });
@@ -91618,27 +91441,45 @@ class NodePropagationProtocol {
                 let op = response.op || '';
                 switch (op) {
 
-                    case "new-nodes":
+                    case "new-full-nodes":
+                    case "new-light-nodes":
 
-                        for (let i = 0; i < addresses.length; i++) {
-
-                            let found = false;
-                            for (let j=0;  j<this._newNodesWaitList.length; j++)
-                                if (this._newNodesWaitList[j].addr === addresses[i].addr) {
-                                    found = true;
-                                    break;
-                                }
-
-                            if (!found)
-                                this._newNodesWaitList.push({address: addresses[i], socket: socket});
+                        let list, type;
+                        if(op === "new-full-nodes") {
+                            list = this._newFullNodesWaitList;
+                            type = __WEBPACK_IMPORTED_MODULE_3__node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL
+                        } else {
+                            list = this._newLightNodesWaitList;
+                            type = __WEBPACK_IMPORTED_MODULE_3__node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER;
                         }
+
+                        for (let i = 0; i < addresses.length; i++)
+                            if(addresses[i].type === type){
+
+                                let found = false;
+                                for (let j=0;  j<this._newFullNodesWaitList.length; j++)
+                                    if (this._newLightNodesWaitList[j].addr === addresses[i].addr) {
+                                        found = true;
+                                        break;
+                                    }
+
+                                if (!found)
+                                    this._newLightNodesWaitList.push({address: addresses[i], socket: socket});
+                            }
 
                         break;
 
-                    case "deleted-nodes":
+                    case "deleted-light-nodes":
 
                         for (let i = 0; i < addresses.length; i++)
-                            __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__["a" /* default */].removedWaitListElement( addresses[i].addr, addresses[i].port, socket );
+                            __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__["a" /* default */].removedWaitListElement( addresses[i].addr, addresses[i].port, socket, __WEBPACK_IMPORTED_MODULE_3__node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER );
+
+                        break;
+
+                    case "deleted-full-nodes":
+
+                        for (let i = 0; i < addresses.length; i++)
+                            __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__["a" /* default */].removedWaitListElement( addresses[i].addr, addresses[i].port, socket, __WEBPACK_IMPORTED_MODULE_3__node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL );
 
                         break;
 
@@ -91655,12 +91496,18 @@ class NodePropagationProtocol {
         });
     }
 
-    _newNodeConnected(socket, address){
-        socket.node.sendRequest("propagation/nodes", {op: "new-nodes", addresses: [address.toJSON() ]},)
+    _newNodeConnected(socket, nodeWaitListObject){
+
+        if (nodeWaitListObject.type === __WEBPACK_IMPORTED_MODULE_3__node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL) socket.node.sendRequest("propagation/nodes", {op: "new-full-nodes", addresses: [nodeWaitListObject.toJSON() ]},);
+        else if(nodeWaitListObject.type === __WEBPACK_IMPORTED_MODULE_3__node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER) socket.node.sendRequest("propagation/nodes", {op: "new-light-nodes", addresses: [nodeWaitListObject.toJSON() ]},);
+
     }
 
-    _nodeDisconnected(socket, address){
-        socket.node.sendRequest("propagation/nodes", {op: "deleted-nodes", addresses: [address.toJSON() ]},)
+    _nodeDisconnected(socket, nodeWaitListObject){
+
+        if (nodeWaitListObject.type === __WEBPACK_IMPORTED_MODULE_3__node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL) socket.node.sendRequest("propagation/nodes", {op: "deleted-full-nodes", addresses: [nodeWaitListObject.toJSON() ]},);
+        else if(nodeWaitListObject.type === __WEBPACK_IMPORTED_MODULE_3__node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER) socket.node.sendRequest("propagation/nodes", {op: "deleted-light-nodes", addresses: [nodeWaitListObject.toJSON() ]},);
+
     }
 
 }
@@ -91669,15 +91516,15 @@ class NodePropagationProtocol {
 
 
 /***/ }),
-/* 798 */
+/* 796 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_sockets_socket_address__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__signaling_server_room_connection_object__ = __webpack_require__(337);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_types_Connections_Type__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Nodes_Type__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Nodes_Type__ = __webpack_require__(61);
 
 
 
@@ -91784,12 +91631,12 @@ class SignalingServerRoomList {
 /* harmony default export */ __webpack_exports__["a"] = (new SignalingServerRoomList());
 
 /***/ }),
-/* 799 */
+/* 797 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Node_Signaling_Server_Waitlist_Object__ = __webpack_require__(800);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Node_Signaling_Server_Waitlist_Object__ = __webpack_require__(798);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Node_Signaling_Server_Protocol__ = __webpack_require__(336);
 
 
@@ -91832,12 +91679,11 @@ class NodeSignalingServerService{
 
     startConnectingWebPeers(){
 
-        if (this.started === true)
+        if ( this.started === true )
             return;
 
         this.started = true;
 
-        this._determineWebPeersAvailability();
         this._connectWebPeers();
     }
 
@@ -91854,14 +91700,6 @@ class NodeSignalingServerService{
         if (pos !== -1) return this.waitlist[pos];
 
         return null;
-    }
-
-    async _determineWebPeersAvailability(){
-
-        for (let i=0; i<this.waitlist.length; i++)
-            await this.waitlist[i].checkAvailability();
-
-        setTimeout( this._determineWebPeersAvailability.bind(this), 5000 );
     }
 
     _connectWebPeers(){
@@ -91908,7 +91746,7 @@ class NodeSignalingServerService{
 /* harmony default export */ __webpack_exports__["a"] = (new NodeSignalingServerService());
 
 /***/ }),
-/* 800 */
+/* 798 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -91918,38 +91756,14 @@ class NodeSignalingServerWaitlistObject{
 
         this.socket = socket;
 
-        this.lastTimeCheckedAvailability = undefined;
-
         this.acceptWebPeers = acceptWebPeers;
 
     }
 
-    async checkAvailability(){
-
-        let answer = await this.socket.node.sendRequestWaitOnce("signals/client/do-you-have-free-room", {}, "answer", 5000);
-
-        try {
-
-            if (answer === null || answer.result === false) {
-                this.acceptWebPeers = false;
-                //TODO it should actually ban him som time
-            } else {
-
-                if (typeof answer.acceptWebPeers !== "boolean")
-                    answer.acceptWebPeers = false;
-                else
-                    this.acceptWebPeers = answer.acceptWebPeers;
-            }
-
-        } catch (exception){
-            console.warn("_determineWebPeersAvailability raised an error", exception);
-        }
-    }
 
     set acceptWebPeers(acceptWebPeers){
 
         this._acceptWebPeers = acceptWebPeers;
-        this.lastTimeCheckedAvailability = new Date();
 
     }
 
@@ -91964,7 +91778,7 @@ class NodeSignalingServerWaitlistObject{
 /* harmony default export */ __webpack_exports__["a"] = (NodeSignalingServerWaitlistObject);
 
 /***/ }),
-/* 801 */
+/* 799 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -91994,7 +91808,7 @@ class SignalingClientPeerObject {
 
             __WEBPACK_IMPORTED_MODULE_1__Node_Signaling_Client_Protocol__["a" /* default */].sendErrorConnection(webPeer);
 
-        }, 10000);
+        }, 15000);
 
         webPeer.emitter.on("connect",()=>{
 
@@ -92015,12 +91829,12 @@ class SignalingClientPeerObject {
 /* harmony default export */ __webpack_exports__["a"] = (SignalingClientPeerObject);
 
 /***/ }),
-/* 802 */
+/* 800 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_sockets_socket_extend__ = __webpack_require__(335);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_sockets_protocol_signaling_client_Node_Signaling_Client_Protocol__ = __webpack_require__(206);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_types_Connections_Type__ = __webpack_require__(53);
 /*
@@ -92034,6 +91848,12 @@ const EventEmitter = __webpack_require__(31);
 
 
 
+
+
+const wrtc = __webpack_require__(801);
+let RTCPeerConnection = wrtc.RTCPeerConnection;
+let RTCSessionDescription = wrtc.RTCSessionDescription;
+let RTCIceCandidate = wrtc.RTCIceCandidate;
 
 
 const config = {
@@ -92090,11 +91910,6 @@ class NodeWebPeerRTC {
         // For SCTP, reliable and ordered is true by default.
         // Add localConnection to global scope to make it visible
         // from the browser console.
-
-        const wrtc = __webpack_require__(803);
-        let RTCPeerConnection = wrtc.RTCPeerConnection;
-        let RTCSessionDescription = wrtc.RTCSessionDescription;
-        let RTCIceCandidate = wrtc.RTCIceCandidate;
 
         this.peer =  new RTCPeerConnection(config, pcConstraint);
 
@@ -92276,13 +92091,18 @@ class NodeWebPeerRTC {
                             });
                     }
                 }, error => console.error(error));
+
+
+
             } else if (inputSignal.candidate) {
 
                 // Add the new ICE candidate to our connections remote description
                 try {
                     console.log("inputSignal.candidate", inputSignal);
 
-                    this.peer.addIceCandidate(new RTCIceCandidate(inputSignal.candidate));
+                    let candidate = new RTCIceCandidate(inputSignal.candidate);
+                    this.peer.addIceCandidate(candidate);
+
                     resolve({result: true, message:"iceCandidate successfully introduced"});
 
                 } catch (Exception){
@@ -92564,7 +92384,7 @@ class NodeWebPeerRTC {
 /* harmony default export */ __webpack_exports__["a"] = (NodeWebPeerRTC);
 
 /***/ }),
-/* 803 */
+/* 801 */
 /***/ (function(module, exports) {
 
 var RTCIceCandidate       = window.mozRTCIceCandidate       || window.webkitRTCIceCandidate       || window.RTCIceCandidate;
@@ -92577,7 +92397,7 @@ exports.RTCSessionDescription = RTCSessionDescription;
 
 
 /***/ }),
-/* 804 */
+/* 802 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -92619,15 +92439,15 @@ return isArrayBuffer;
 
 
 /***/ }),
-/* 805 */
+/* 803 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_sockets_node_clients_service_node_clients_service__ = __webpack_require__(806);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_webrtc_service_node_web_peers_service__ = __webpack_require__(810);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_stats_nodes_stats__ = __webpack_require__(812);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_nodes_list__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_sockets_node_clients_service_node_clients_service__ = __webpack_require__(804);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_webrtc_service_node_web_peers_service__ = __webpack_require__(808);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_stats_nodes_stats__ = __webpack_require__(810);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_nodes_list__ = __webpack_require__(12);
 var NodeServer, NodeExpress;
 
 if (false) {
@@ -92664,13 +92484,13 @@ class Node{
 
 
 /***/ }),
-/* 806 */
+/* 804 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_sockets_node_clients_service_discovery_node_clients_discovery_service__ = __webpack_require__(807);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_sockets_node_clients_service_discovery_node_clients_discovery_service__ = __webpack_require__(805);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(12);
 
 
 
@@ -92698,17 +92518,17 @@ class NodeClientsService {
 /* harmony default export */ __webpack_exports__["a"] = (new NodeClientsService());
 
 /***/ }),
-/* 807 */
+/* 805 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_waitlist_nodes_waitlist__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_waitlist_nodes_waitlist_object__ = __webpack_require__(339);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_nodes_list__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__fallbacks_fallback_object__ = __webpack_require__(808);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__fallbacks_fallback_nodes_list__ = __webpack_require__(809);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_node_lists_types_Nodes_Type__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_nodes_list__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__fallbacks_fallback_object__ = __webpack_require__(806);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__fallbacks_fallback_nodes_list__ = __webpack_require__(807);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_node_lists_types_Nodes_Type__ = __webpack_require__(61);
 
 
 
@@ -92717,7 +92537,7 @@ class NodeClientsService {
 
 
 
-const axios = __webpack_require__(192);
+const axios = __webpack_require__(191);
 
 class NodeDiscoveryService {
 
@@ -92750,7 +92570,7 @@ class NodeDiscoveryService {
 
     startDiscovery(){
 
-        this.processFallbackNodes(__WEBPACK_IMPORTED_MODULE_5__fallbacks_fallback_nodes_list__["a" /* default */])
+        this.processFallbackNodes(__WEBPACK_IMPORTED_MODULE_5__fallbacks_fallback_nodes_list__["a" /* default */]);
         this._discoverFallbackNodes(true);
 
     }
@@ -92834,13 +92654,11 @@ class NodeDiscoveryService {
                     if (Array.isArray(nodes)) {
 
                         //let's shuffle
-                        console.warn("NEW NODES", nodes);
+                        console.warn("Signal nodes", nodes);
 
                         let marked = [];
 
                         for (let i = 0; i < nodes.length; i++) {
-
-
 
                             let pos = Math.floor( Math.random(  ) * nodes.length );
 
@@ -92885,7 +92703,7 @@ class NodeDiscoveryService {
 
 
 /***/ }),
-/* 808 */
+/* 806 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -92919,7 +92737,7 @@ class FallBackObject {
 /* harmony default export */ __webpack_exports__["a"] = (FallBackObject);
 
 /***/ }),
-/* 809 */
+/* 807 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -92929,11 +92747,6 @@ class FallBackObject {
     "name": "fallback nodes",
 
     "nodes": [
-        //
-        // {
-        //     "addr": ["192.168.2.8:2095"],
-        // },
-
         {
             "addr": ["webdollar.ddns.net:80", "webdollar.ddns.net:8081", "webdollar.ddns.net:8082"],
         },
@@ -92950,11 +92763,11 @@ class FallBackObject {
 });
 
 /***/ }),
-/* 810 */
+/* 808 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_webrtc_service_discovery_node_web_peers_discovery_service__ = __webpack_require__(811);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_webrtc_service_discovery_node_web_peers_discovery_service__ = __webpack_require__(809);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_main_blockchain_Blockchain__ = __webpack_require__(91);
 
 
@@ -92986,11 +92799,11 @@ class NodeWebPeersService {
 /* harmony default export */ __webpack_exports__["a"] = (new NodeWebPeersService());
 
 /***/ }),
-/* 811 */
+/* 809 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Connections_Type__ = __webpack_require__(53);
 
@@ -93036,12 +92849,12 @@ class NodeWebPeersDiscoveryService {
 
 
 /***/ }),
-/* 812 */
+/* 810 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geolocation_lists__ = __webpack_require__(303);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_nodes_waitlist__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__ = __webpack_require__(53);
@@ -93060,7 +92873,9 @@ class NodesStats {
         this.statsClients = 0;
         this.statsServer = 0;
         this.statsWebPeers = 0;
-        this.statsWaitlist = 0;
+
+        this.statsWaitlistFullNodes = 0;
+        this.statsWaitlistLightNodes = 0;
 
         __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].emitter.on("nodes-list/connected", (nodesListObject) => { this._recalculateStats(nodesListObject, false ) } );
         __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].emitter.on("nodes-list/disconnected", (nodesListObject ) => { this._recalculateStats(nodesListObject, false ) });
@@ -93073,7 +92888,8 @@ class NodesStats {
 
     _printStats(){
 
-        console.log(" connected to: ", this.statsClients," , from: ", this.statsServer , " web peers", this.statsWebPeers," Network:",this.statsWaitlist,  "    GeoLocationContinents: ", __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geolocation_lists__["a" /* default */].countGeoLocationContinentsLists );
+        console.log(" connected to: ", this.statsClients," , from: ", this.statsServer , " web peers", this.statsWebPeers," Network FullNodes:",this.statsWaitlistFullNodes, " Network LightNodes:",this.statsWaitlistLightNodes, "    GeoLocationContinents: ", __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geolocation_lists__["a" /* default */].countGeoLocationContinentsLists );
+
 
         let string1 = "";
         let clients = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].getNodes(__WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_CLIENT_SOCKET);
@@ -93095,7 +92911,9 @@ class NodesStats {
         this.statsClients = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].countNodes(__WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_CLIENT_SOCKET);
         this.statsServer = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].countNodes(__WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_SERVER_SOCKET);
         this.statsWebPeers = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].countNodes(__WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_WEBRTC);
-        this.statsWaitlist = __WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_nodes_waitlist__["a" /* default */].waitlist.length;
+
+        this.statsWaitlistFullNodes= __WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_nodes_waitlist__["a" /* default */].waitListFullNodes.length;
+        this.statsWaitlistLightNodes = __WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_nodes_waitlist__["a" /* default */].waitListLightNodes.length;
 
         if (printStats)
             this._printStats();
@@ -93106,15 +92924,15 @@ class NodesStats {
 /* harmony default export */ __webpack_exports__["a"] = (new NodesStats());
 
 /***/ }),
-/* 813 */
+/* 811 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_geolocation_lists_geo_helpers_geo_helper__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_geolocation_lists_geo_helpers_geo_helper__ = __webpack_require__(193);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_coins_WebDollar_Coins__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Nodes_Type__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Nodes_Type__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Connections_Type__ = __webpack_require__(53);
 
 
