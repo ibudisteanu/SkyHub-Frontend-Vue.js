@@ -25064,6 +25064,8 @@ Transport.prototype.onClose = function () {
 
 
 
+__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG = true;
+
 class NodeSignalingClientProtocol {
 
     constructor(){
@@ -25117,7 +25119,7 @@ class NodeSignalingClientProtocol {
 
                     answer = await webPeer.createSignalInitiator();
 
-                    console.log("###################### signals/client/initiator/generate-initiator-signal/answer" + data.connectionId, answer,  typeof answer);
+                    console.log("###################### signals/client/initiator/generate-initiator-signal/answer" + data.connectionId, answer, webPeer.peer, typeof answer);
 
                     if (answer.signal === undefined)
                         console.log("WEBRTC 1 is not supported !!!! being the initiator");
@@ -54942,7 +54944,7 @@ class NodeSignalingServerProtocol {
                     return;
                 }
 
-                let answer = await connection.client2.node.sendRequest("signals/client/answer/receive-ice-candidate", { //sendRequestWaitOnce returns errors
+                connection.client2.node.sendRequest("signals/client/answer/receive-ice-candidate", { //sendRequestWaitOnce returns errors
                     connectionId: connection.id,
 
                     initiatorSignal: connection.initiatorSignal,
@@ -54951,11 +54953,6 @@ class NodeSignalingServerProtocol {
                     remoteAddress: connection.client1.node.sckAddress.getAddress(false),
                     remoteUUID: connection.client1.node.sckAddress.uuid,
                 });
-
-                if (answer === null || answer === undefined)
-                    connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
-                else if (answer.established === false && answer.message === "I can't accept WebPeers anymore")
-                    this._clientIsNotAcceptingAnymoreWebPeers(connection.client2, connection);
 
             } catch (exception){
                 console.error("signals/server/new-initiator-ice-candidate exception ", exception, iceCandidate);
@@ -54969,7 +54966,7 @@ class NodeSignalingServerProtocol {
 
             try {
 
-                let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(iceCandidate.connectionId);
+                let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(answer.connectionId);
 
                 if (answer === null || answer === undefined)
                     connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
@@ -91980,7 +91977,6 @@ class SignalingClientPeerObject {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_sockets_protocol_signaling_client_Node_Signaling_Client_Protocol__ = __webpack_require__(206);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_types_Connections_Type__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_consts_const_global__ = __webpack_require__(2);
 /*
     WEBRTC Node Peer
  */
@@ -91999,8 +91995,6 @@ let RTCPeerConnection = wrtc.RTCPeerConnection;
 let RTCSessionDescription = wrtc.RTCSessionDescription;
 let RTCIceCandidate = wrtc.RTCIceCandidate;
 
-
-__WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].DEBUG = true;
 
 const config = {
 
