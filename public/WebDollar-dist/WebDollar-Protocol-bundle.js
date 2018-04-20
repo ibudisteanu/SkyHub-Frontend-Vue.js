@@ -25166,14 +25166,14 @@ class NodeSignalingClientProtocol {
                 if (!answer.result)
                     throw {message: answer.message};
 
-                socket.node.sendRequest("signals/client/initiator/join-answer-signal", {connectionId: data.connectionId, established: true });
+                socket.node.sendRequest("signals/client/initiator/join-answer-signal/answer", {connectionId: data.connectionId, established: true, remoteUUID: data.remoteUUID });
 
             } catch (exception){
 
                 if (exception.message !== "Already connected" && exception.message !== "I can't accept WebPeers anymore")
                     console.error("signals/client/initiator/join-answer-signal",  data.connectionId, exception);
 
-                socket.node.sendRequest("signals/client/initiator/join-answer-signal", {connectionId: data.connectionId, established: false, message: exception.message });
+                socket.node.sendRequest("signals/client/initiator/join-answer-signal/answer", {connectionId: data.connectionId, established: false, message: exception.message });
             }
 
         });
@@ -54802,14 +54802,14 @@ class NodeSignalingServerProtocol {
         });
 
         // Step 3, send the Answer Signal to the 1st Peer (initiator) to establish connection
-        client1.on("signals/client/initiator/join-answer-signal", (result)=> {
+        client1.on("signals/client/initiator/join-answer-signal/answer", (result)=> {
 
             try {
 
                 let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(result.connectionId);
 
                 if (connection === null){
-                    console.error("signals/client/initiator/join-answer-signal connection is empty", result.connectionId);
+                    console.error("signals/client/initiator/join-answer-signal/answer connection is empty", result.connectionId);
                     return;
                 }
 
@@ -54825,7 +54825,7 @@ class NodeSignalingServerProtocol {
                     connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionEstablished;
 
             } catch (exception){
-                console.error("signals/client/initiator/join-answer-signal exception",exception,  result);
+                console.error("signals/client/initiator/join-answer-signal/answer exception",exception,  result);
             }
 
         });
@@ -54946,6 +54946,7 @@ class NodeSignalingServerProtocol {
                     connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
 
                 connection.client1.node.sendRequest("signals/client/initiator/receive-ice-candidate", {  //sendRequestWaitOnce returns errors
+
                     connectionId: connection.id,
 
                     initiatorSignal: connection.initiatorSignal,
@@ -54953,6 +54954,7 @@ class NodeSignalingServerProtocol {
 
                     remoteAddress: connection.client2.node.sckAddress.getAddress(false),
                     remoteUUID: connection.client2.node.sckAddress.uuid,
+
                 });
 
 
