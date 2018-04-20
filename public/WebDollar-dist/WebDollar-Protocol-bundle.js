@@ -25105,8 +25105,6 @@ class NodeSignalingClientProtocol {
 
             try{
 
-                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC# 1 Generate Initiator Signal");
-
                 if (data.remoteUUID === undefined || data.remoteUUID === null)
                     throw {message: "remoteUUID was not specified"};
 
@@ -25117,8 +25115,10 @@ class NodeSignalingClientProtocol {
                 if (__WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].searchWebPeerSignalingClientList(undefined, undefined, data.remoteUUID) !== null)
                     throw {message: "Already connected"};
 
-                if (__WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].connected.length > __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].computeMaxWebPeersConnected( data.remoteUUID ))
+                if (__WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].connected.length > __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].computeMaxWebPeersConnected( data.remoteUUID )/2 )
                     throw {message: "I can't accept WebPeers anymore" };
+
+                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC# 1 Generate Initiator Signal");
 
                 let webPeerSignalingClientListObject = __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].registerWebPeerSignalingClientListBySignal(undefined, undefined, data.remoteUUID);
                 let webPeer = webPeerSignalingClientListObject.webPeer;
@@ -54764,7 +54764,7 @@ class NodeSignalingServerProtocol {
             try {
                 let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(initiatorAnswer.connectionId);
 
-                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC SERVER 1_1, signals/client/initiator/generate-initiator-signal/answer", connection.id);
+                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC SERVER 1_1", connection.id);
 
                 if (connection === null) {
                     console.error("signals/client/initiator/generate-initiator-signal/answer connection is null");
@@ -54808,7 +54808,7 @@ class NodeSignalingServerProtocol {
 
                 let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(result.connectionId);
 
-                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC SERVER 1_2, signals/client/initiator/join-answer-signal", connection.id);
+                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC SERVER 1_2", connection.id);
 
                 if (connection === null){
                     console.error("signals/client/initiator/join-answer-signal connection is empty", result.connectionId);
@@ -54837,7 +54837,7 @@ class NodeSignalingServerProtocol {
             try {
                 let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById( iceCandidate.connectionId );
 
-                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC SERVER 1_3, signals/server/new-initiator-ice-candidate", connection.id);
+                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC SERVER 1_3", connection.id);
 
                 if (connection === null) {
                     console.error("signals/server/new-answer-ice-candidate connection is empty", iceCandidate.connectionId);
@@ -54866,7 +54866,7 @@ class NodeSignalingServerProtocol {
 
                 let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(answer.connectionId);
 
-                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC SERVER 1_4, signals/client/initiator/receive-ice-candidate/answer", connection.id);
+                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC SERVER 1_4", connection.id);
 
                 if (connection === null) {
                     console.error("signals/server/new-answer-ice-candidate connection is empty", answer.connectionId);
@@ -54896,7 +54896,7 @@ class NodeSignalingServerProtocol {
             try {
                 let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(answer.connectionId);
 
-                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC SERVER 2_1, signals/client/answer/receive-initiator-signal/answer", connection.id);
+                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC SERVER 2_1", connection.id);
 
                 if (connection === null){
                     console.error("signals/client/answer/receive-initiator-signal/answer connection is empty", answer.connectionId);
@@ -54937,7 +54937,7 @@ class NodeSignalingServerProtocol {
             try {
                 let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(iceCandidate.connectionId);
 
-                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC SERVER 2_2, signals/server/new-answer-ice-candidate", connection.id);
+                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC SERVER 2_2", connection.id);
 
                 if (connection === null) {
                     console.error("signals/server/new-answer-ice-candidate connection is empty", iceCandidate.connectionId);
@@ -54973,7 +54973,7 @@ class NodeSignalingServerProtocol {
 
                 let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(answer.connectionId);
 
-                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC SERVER 2_3, signals/server/new-initiator-ice-candidate/answer", connection.id);
+                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC SERVER 2_3", connection.id);
 
                 if (answer === null || answer === undefined)
                     connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
