@@ -92210,14 +92210,14 @@ class NodeWebPeerRTC {
             }
 
 
+            if (this.peer.connected === true){
+                console.error("Error - Peer Already connected");
+                resolve({result:false, message: "Already connected in the past"});
+                return;
+            }
+
+
             if (inputSignal.sdp) {
-
-
-                if (this.peer.connected === true){
-                    console.error("Error - Peer Already connected");
-                    resolve({result:false, message: "Already connected in the past"});
-                    return;
-                }
 
                 // This is called after receiving an offer or answer from another peer
                 this.peer.setRemoteDescription(new RTCSessionDescription(inputSignal.sdp), () => {
@@ -92247,19 +92247,21 @@ class NodeWebPeerRTC {
                                         }
 
                                     },
-                                    (error) => {
-                                        resolve({result:false, message: "Error Setting Local Description"+error.toString()});
+                                    error => {
                                         console.error("Error Setting Local Description",error);
+                                        resolve({result:false, message: "Error Setting Local Description"+error.toString()});
                                     }
                                 )
                             },
-                            (error) => {
-                                resolve({result:false, message: "Error Creating Answer "+error.toString() });
+                            error => {
                                 console.error("Error Creating Answer ",error);
-
+                                resolve({result:false, message: "Error Creating Answer "+error.toString() });
                             });
                     }
-                }, error => console.error(error));
+                }, error => {
+                    console.error("Error setRemoteDescription", error);
+                    resolve({result:false, message: "setRemoteDescription failed"});
+                });
 
 
 
