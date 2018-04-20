@@ -92157,13 +92157,18 @@ class NodeWebPeerRTC {
                     (desc)=>{
                         this.peer.setLocalDescription(
                             desc,
-                            () => {
+                            async () => {
                                 this.peer.signalData = {"sdp": this.peer.localDescription};
                                 this.peer.signalInitiatorData = this.peer.signalData;
 
-                                this.peer.setLocalDescription1 = true;
+                                this.peer.setLocalDescription = true;
 
-                                resolve(  {result: true, signal: this.peer.signalData} )
+                                resolve(  {result: true, signal: this.peer.signalData} );
+
+                                for (let i=0; i<this.peer.inputSignalsQueue.length; i++) {
+                                    let answer = await this.createSignal(this.peer.inputSignalsQueue[i].inputSignal);
+                                    this.peer.inputSignalsQueue[i].resolve(answer);
+                                }
 
 
                             },
@@ -92232,7 +92237,7 @@ class NodeWebPeerRTC {
                                     async () => {
 
                                         this.peer.signalData = {'sdp': this.peer.localDescription};
-                                        this.peer.setLocalDescription2 = true;
+                                        this.peer.setLocalDescription = true;
 
                                         resolve(  {result: true, signal: this.peer.signalData}  );
 
@@ -92264,7 +92269,7 @@ class NodeWebPeerRTC {
                 try {
                     console.log("inputSignal.candidate", inputSignal);
 
-                    if (this.peer.setLocalDescription2 === true) {
+                    if (this.peer.setLocalDescription === true) {
 
                         let candidate = new RTCIceCandidate(inputSignal.candidate);
                         this.peer.addIceCandidate(candidate);
