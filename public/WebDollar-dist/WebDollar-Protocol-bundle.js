@@ -92161,14 +92161,14 @@ class NodeWebPeerRTC {
                                 this.peer.signalData = {"sdp": this.peer.localDescription};
                                 this.peer.signalInitiatorData = this.peer.signalData;
 
-                                this.peer.setLocalDescription = true;
+                                //this.peer.setLocalDescription = true;
 
                                 resolve(  {result: true, signal: this.peer.signalData} );
 
-                                for (let i=0; i<this.peer.inputSignalsQueue.length; i++) {
-                                    let answer = await this.createSignal(this.peer.inputSignalsQueue[i].inputSignal);
-                                    this.peer.inputSignalsQueue[i].resolve(answer);
-                                }
+                                // for (let i=0; i<this.peer.inputSignalsQueue.length; i++) {
+                                //     let answer = await this.createSignal(this.peer.inputSignalsQueue[i].inputSignal);
+                                //     this.peer.inputSignalsQueue[i].resolve(answer);
+                                // }
 
 
                             },
@@ -92203,7 +92203,7 @@ class NodeWebPeerRTC {
                 try {
                     inputSignal = JSON.parse(inputSignal);
                 } catch (exception){
-                    console.error("Error processing JSON createSignal", inputSignal, exception)
+                    console.error("Error processing JSON createSignal", inputSignal, exception);
                     resolve({result:false, message: "Invalid input signal"});
                     return;
                 }
@@ -92220,7 +92220,7 @@ class NodeWebPeerRTC {
             if (inputSignal.sdp) {
 
                 // This is called after receiving an offer or answer from another peer
-                this.peer.setRemoteDescription(new RTCSessionDescription(inputSignal.sdp), () => {
+                this.peer.setRemoteDescription(new RTCSessionDescription(inputSignal.sdp), async () => {
 
                     console.log('pc.remoteDescription.type', this.peer.remoteDescription.type);
 
@@ -92257,7 +92257,19 @@ class NodeWebPeerRTC {
                                 console.error("Error Creating Answer ",error);
                                 resolve({result:false, message: "Error Creating Answer "+error.toString() });
                             });
+
+                    } else { //answer nothing else
+
+                        this.peer.setLocalDescription = true;
+
+                        for (let i=0; i<this.peer.inputSignalsQueue.length; i++) {
+                            let answer = await this.createSignal(this.peer.inputSignalsQueue[i].inputSignal);
+                            this.peer.inputSignalsQueue[i].resolve(answer);
+                        }
+
+                        resolve({result: true, message: ""})
                     }
+
                 }, error => {
                     console.error("Error setRemoteDescription", error);
                     resolve({result:false, message: "setRemoteDescription failed"});
