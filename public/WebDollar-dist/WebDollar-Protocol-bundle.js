@@ -91957,7 +91957,7 @@ class SignalingClientPeerObject {
 
             __WEBPACK_IMPORTED_MODULE_1__Node_Signaling_Client_Protocol__["a" /* default */].sendErrorConnection(webPeer);
 
-        }, 30*1000);
+        }, 10*1000);
 
         webPeer.emitter.on("connect",()=>{
 
