@@ -17315,43 +17315,55 @@ class InterfaceBlockchainProtocol {
         if (this.acceptBlockHeaders)
             socket.node.on("head/new-block",  (data) => {
 
-                /*
-                    h hash
-                    l chainLength
-                    s chainStartingPoint
-                 */
+                try {
 
-                if (data === null || (data.l < 0) || ( data.s >= data.l ) ) return;
+                    /*
+                        h hash
+                        l chainLength
+                        s chainStartingPoint
+                     */
 
-                //in case the hashes are the same, and I have already the block
-                if (( data.l > 0 && this.blockchain.blocks.length === data.l )) {
+                    if (data === null || (data.l < 0) || ( data.s >= data.l )) return;
 
-                    //in case the hashes are exactly the same, there is no reason why we should download it
-                    if ( Buffer.compare(this.blockchain.blocks[this.blockchain.blocks.length-1].hash, data.h) <= 0 )
-                        return;
+                    //in case the hashes are the same, and I have already the block
+                    if (( data.l > 0 && this.blockchain.blocks.length === data.l )) {
+
+                        //in case the hashes are exactly the same, there is no reason why we should download it
+                        if (Buffer.compare(this.blockchain.blocks[this.blockchain.blocks.length - 1].hash, data.h) <= 0)
+                            return;
+
+                    }
+
+                    console.log("newForkTip", data.l);
+
+                    this.forksManager.newForkTip(socket, data.l, data.s, data.h);
+
+                } catch (exception){
 
                 }
-
-                console.log("newForkTip", data.l);
-
-                this.forksManager.newForkTip( socket, data.l, data.s, data.h );
 
             });
 
         if (this.acceptBlockHeaders)
             socket.node.on("head/hash", (h) => {
 
-                // height
+                try {
 
-                if (typeof h !== 'number' || this.blockchain.blocks.length <= h){
-                    socket.node.sendRequest("head/hash", null);
-                    return;
+                    // height
+
+                    if (typeof h !== 'number' || this.blockchain.blocks.length <= h) {
+                        socket.node.sendRequest("head/hash", null);
+                        return;
+                    }
+
+                    let block = this.blockchain.blocks[h];
+                    if (block === undefined) socket.node.sendRequest("head/hash", null);
+
+                    socket.node.sendRequest("head/hash/" + h, {hash: block.hash});
+
+                } catch (exception){
+
                 }
-
-                let block = this.blockchain.blocks[h];
-                if (block === undefined) socket.node.sendRequest("head/hash", null);
-
-                socket.node.sendRequest("head/hash/" + h , {hash: block.hash } );
 
             });
 
@@ -51273,7 +51285,13 @@ class BlockchainTimestamp{
         let socket = nodesListObject.socket;
 
         socket.node.on("timestamp/request-timeUTC", (data) => {
-            this._sendUTC(socket);
+            try {
+
+                this._sendUTC(socket);
+
+            } catch (exception){
+
+            }
         });
 
     }
@@ -54711,39 +54729,54 @@ class NodeSignalingServerProtocol {
 
         socket.node.on("signals/server/register/accept-web-peer-connections", (data) => {
 
-            let acceptWebPeers = false;
-            if (typeof data.acceptWebPeers === "boolean") acceptWebPeers = data.acceptWebPeers;
+            try {
 
-            __WEBPACK_IMPORTED_MODULE_4__signaling_server_service_Node_Signaling_Server_Service__["a" /* default */].registerSocketForSignaling(socket, acceptWebPeers);
+                let acceptWebPeers = false;
+                if (typeof data.acceptWebPeers === "boolean") acceptWebPeers = data.acceptWebPeers;
+
+                __WEBPACK_IMPORTED_MODULE_4__signaling_server_service_Node_Signaling_Server_Service__["a" /* default */].registerSocketForSignaling(socket, acceptWebPeers);
+
+            } catch (exception){
+
+            }
 
         });
 
         socket.node.on("signals/server/connections/established-connection-was-dropped", (data) => {
 
-            let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(data.connectionId);
+            try {
 
-            if (connection !== null) {
-                connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionNotEstablished;
+                let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(data.connectionId);
 
-                let waitlist = __WEBPACK_IMPORTED_MODULE_4__signaling_server_service_Node_Signaling_Server_Service__["a" /* default */].findNodeSignalingServerWaitlist(socket);
+                if (connection !== null) {
+                    connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionNotEstablished;
 
-                if (waitlist !== null)
-                    waitlist.acceptWebPeers = true;
+                    let waitlist = __WEBPACK_IMPORTED_MODULE_4__signaling_server_service_Node_Signaling_Server_Service__["a" /* default */].searchNodeSignalingServerWaitlist(socket);
+
+                    if (waitlist !== null)
+                        waitlist.acceptWebPeers = true;
+
+                }
+
+            } catch (exception){
 
             }
-
 
         });
 
 
         socket.node.on("signals/server/connections/was-established-successfully", (data) => {
 
-            if (!data.connectionId) {
+            try {
+                if (!data.connectionId) {
 
-                let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(data.connectionId);
+                    let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(data.connectionId);
 
-                if (connection !== null)
-                    connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionEstablished;
+                    if (connection !== null)
+                        connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionEstablished;
+
+                }
+            } catch (exception){
 
             }
 
@@ -54751,12 +54784,18 @@ class NodeSignalingServerProtocol {
 
         socket.node.on("signals/server/connections/error-establishing-connection", (data) => {
 
-            if (!data.connectionId) {
+            try {
 
-                let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(data.connectionId);
+                if (!data.connectionId) {
 
-                if (connection !== null)
-                    connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
+                    let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(data.connectionId);
+
+                    if (connection !== null)
+                        connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
+
+                }
+
+            } catch (exception){
 
             }
 
@@ -54909,12 +54948,12 @@ class NodeSignalingServerProtocol {
             try {
                 let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(answer.connectionId);
 
-                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC SERVER 2_1", connection.id);
-
                 if (connection === null){
                     console.error("signals/client/answer/receive-initiator-signal/answer connection is empty", answer.connectionId);
                     return;
                 }
+
+                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC SERVER 2_1", connection.id);
 
                 if (answer === null || answer === undefined || answer.answerSignal === undefined)
                     connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
@@ -54955,6 +54994,8 @@ class NodeSignalingServerProtocol {
                     return;
                 }
 
+                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC SERVER 2_2", connection.id);
+
                 if (iceCandidate === null || iceCandidate === undefined)
                     connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
 
@@ -54990,8 +55031,6 @@ class NodeSignalingServerProtocol {
                     console.error("signals/server/new-initiator-ice-candidate/answer", answer.connectionId);
                     return;
                 }
-
-                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC SERVER 2_2", connection.id);
 
                 if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC SERVER 2_3", connection.id);
 
@@ -85608,6 +85647,7 @@ class InterfaceBlockchainMiningWorkers extends __WEBPACK_IMPORTED_MODULE_0__Inte
 
         if (this.reset) {
             console.warn("WORKERS MINING RESTARTED", this.reset);
+            this._hashesPerSecond = 0;
         }
 
         return false;
@@ -85933,8 +85973,10 @@ class InterfaceBlockchainMining extends  __WEBPACK_IMPORTED_MODULE_5__Interface_
             if (!answer.result)
                 console.error( "block ", block.height ," was not mined...");
 
-            if (this.reset) // it was reset
+            if (this.reset) { // it was reset
                 this.reset = false;
+                this._hashesPerSecond = 0;
+            }
 
             if ( intervalMiningOutput !== undefined)
                 clearInterval(intervalMiningOutput);
@@ -86293,6 +86335,7 @@ class InterfaceBlockchainMiningBasic {
 
     resetMining(){
         this.reset = true;
+
         __WEBPACK_IMPORTED_MODULE_1_common_events_Status_Events__["a" /* default */].emit('mining/reset', true);
     }
 
