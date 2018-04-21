@@ -2158,7 +2158,7 @@ consts.SETTINGS = {
             },
 
             WEBRTC: {
-                MAXIMUM_CONNECTIONS: 14,
+                MAXIMUM_CONNECTIONS: 8,
             },
 
             FORKS:{
@@ -92980,7 +92980,6 @@ class FallBackObject {
         {
             "addr": ["robitza.ddns.net:12345"]
         },
-
 
     ]
 });
