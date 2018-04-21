@@ -10081,7 +10081,7 @@ if (false) {(function () {
             if (this.balances === null || this.balances === undefined || !this.balances.hasOwnProperty(this.currency)) return 0;
 
             //return this.formatMoneyNumber( this.balances[this.currency] / WebDollar.Applications.CoinsHelper.WEBD );
-            return (( this.balances[this.currency] / WebDollar.Applications.CoinsHelper.WEBD)+ 0.004).toFixed(2);
+            return (this.balances[this.currency]);
         }
 
     },
@@ -10147,9 +10147,53 @@ if (false) {(function () {
     methods:{
 
         formatMoneyNumber(n, decimals=0) {
-            return parseInt(n+0.004).toFixed(decimals).replace(/./g, function(c, i, a) {
+
+            var number = parseInt(n/WebDollar.Applications.CoinsHelper.WEBD);
+            var decimalNumber = this.getNumberRest(n);
+
+            return this.formatIntNumber(number)+'.'+this.getFirstDigits(decimalNumber,decimals);
+
+        },
+
+        formatIntNumber(number){
+
+            return number.toString().replace(/./g, function(c, i, a) {
                 return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;
             });
+
+        },
+
+        getNumberRest(number){
+
+            return number % WebDollar.Applications.CoinsHelper.WEBD;
+
+        },
+
+        getFirstDigits(number,decimals){
+
+            var decimalsVerifier = Math.pow(10,decimals);
+            var newNumber = '';
+
+            if(number<10){
+
+                newNumber='000'+number.toString();
+
+            }else if(number<100){
+
+                newNumber='00'+number.toString();
+
+            }else if(number<1000){
+
+                newNumber='0'+number.toString();
+
+            }else if(number<10000){
+
+                newNumber=''+number.toString();
+
+            }
+
+            return newNumber.substring(0,decimals);
+
         }
 
     }
@@ -11235,7 +11279,7 @@ if (false) {(function () {
                     newSum += parseFloat( addresses[index].balances[currency]);
             }
 
-            this.sum = newSum / WebDollar.Applications.CoinsHelper.WEBD;
+            this.sum = newSum;
 
             if (this.sum!==0){
 
@@ -11247,9 +11291,53 @@ if (false) {(function () {
         },
 
         formatMoneyNumber(n, decimals=0) {
-            return parseInt(n+0.004).toFixed(decimals).replace(/./g, function(c, i, a) {
+
+           var number = parseInt(n/WebDollar.Applications.CoinsHelper.WEBD);
+           var decimalNumber = this.getNumberRest(n);
+
+           return this.formatIntNumber(number)+'.'+this.getFirstDigits(decimalNumber,decimals);
+
+        },
+
+        formatIntNumber(number){
+
+            return number.toString().replace(/./g, function(c, i, a) {
                 return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;
             });
+
+        },
+
+        getNumberRest(number){
+
+            return number % WebDollar.Applications.CoinsHelper.WEBD;
+
+        },
+
+        getFirstDigits(number,decimals){
+
+            var decimalsVerifier = Math.pow(10,decimals);
+            var newNumber = '';
+
+            if(number<10){
+
+                newNumber='000'+number.toString();
+
+            }else if(number<100){
+
+                newNumber='00'+number.toString();
+
+            }else if(number<1000){
+
+                newNumber='0'+number.toString();
+
+            }else if(number<10000){
+
+                newNumber=''+number.toString();
+
+            }
+
+            return newNumber.substring(0,decimals);
+
         }
 
     },
@@ -15731,7 +15819,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.balanceContent .fontColor{\n    display: block;\n}\n.balanceContent .miningAddress{\n    margin-top: 5px;\n}\n.balanceContent  .show-balance-span{\n    font-size:20px;\n}\n.show-balance-span{\n    display: inline-block;\n    margin-right: 4px;\n    color: #fec02c;\n    vertical-align: top;\n    margin-top: 0;\n    text-align: center;\n}\n.balanceContent .show-balance-span{\n    margin-top: 10px;\n}\n@media only screen and (max-width : 831px) {\n.show-balance-span{\n        margin-left: 5px;\n        line-height: 48px;\n}\n}\n@media only screen and (max-width : 600px) {\n.walletAddress b{\n        margin-top: 0!important;\n}\n.addressIdentityBox .show-balance-span{\n        line-height: 40px;\n        font-size: 14px;\n}\n.addressIdentityBox .show-balance-span svg{\n\n        margin-top: 15px;\n        display: block;\n}\n}\n", "", {"version":3,"sources":["/home/alex/WebDollar/User-Interface-WebDollar/src/components/Wallet/Address/Balance/src/components/Wallet/Address/Balance/ShowBalance.vue"],"names":[],"mappings":";AAsHA;IACA,eAAA;CACA;AAEA;IACA,gBAAA;CACA;AAEA;IACA,eAAA;CACA;AAEA;IACA,sBAAA;IACA,kBAAA;IACA,eAAA;IACA,oBAAA;IACA,cAAA;IACA,mBAAA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;AAEA;QACA,iBAAA;QACA,kBAAA;CACA;CAEA;AAEA;AAEA;QACA,wBAAA;CACA;AAEA;QACA,kBAAA;QACA,gBAAA;CACA;AAEA;;QAEA,iBAAA;QACA,eAAA;CAEA;CAEA","file":"ShowBalance.vue","sourcesContent":["<template>\n\n    <div style=\"display: inline-block\">\n\n        <loading-spinner class=\"fontColor\" v-if=\"!this.loaded\" />\n        <div class=\"show-balance-span\" v-if=\"this.loaded\" >\n            {{ this.formatMoneyNumber(this.computePrice,2)}}\n        </div>\n\n    </div>\n\n</template>\n\n<script>\n\n    import LoadingSpinner from \"components/UI/elements/Loading-Spinner.vue\"\n\n    export default{\n\n        components:{\n            LoadingSpinner,\n        },\n\n        props: ['address', 'currency'],\n\n        data(){\n          return {\n              balances: {},\n              subscription: null,\n              loaded: WebDollar.Blockchain.loaded||false,\n            }\n        },\n\n        computed:{\n\n            computePrice(){\n\n                if (this.balances === null || this.balances === undefined || !this.balances.hasOwnProperty(this.currency)) return 0;\n\n                //return this.formatMoneyNumber( this.balances[this.currency] / WebDollar.Applications.CoinsHelper.WEBD );\n                return (( this.balances[this.currency] / WebDollar.Applications.CoinsHelper.WEBD)+ 0.004).toFixed(2);\n            }\n\n        },\n\n        mounted(){\n\n            if (typeof window === \"undefined\") return;\n\n            this.currency = this.currency || '0x01';\n\n            let address = this.address;\n            if (typeof this.address === \"object\" && typeof this.address.hasOwnProperty(\"address\") ) { //it is an address object\n                address = this.address.address;\n            }\n\n            WebDollar.StatusEvents.emitter.on(\"blockchain/status\", (data)=>{\n\n                if (data.message === \"Blockchain Ready to Mine\")\n                    this.loaded = true;\n\n            });\n\n            let data = WebDollar.Blockchain.Balances.subscribeBalancesChanges(address, (data)=>{\n                this.balances = data.balances;\n            });\n\n            if (data !== null && data.result) {\n                this.subscription = data.subscription;\n                this.balances = data.balances;\n            }\n\n        },\n\n        watch: {\n            address: function (newVal, oldVal) { // watch it\n\n                WebDollar.Blockchain.Balances.unsusbribeBalancesChanges(this.subscription);\n\n                let address = newVal;\n                if (typeof newVal === \"object\" && typeof newVal.hasOwnProperty(\"address\") ) { //it is an address object\n                    address = newVal.address;\n                }\n\n                console.log(\"address!!!!!!\", address);\n\n                let data = WebDollar.Blockchain.Balances.subscribeBalancesChanges(address, (data)=>{\n                    console.log(\"balance changed\")\n                    this.balances = data.balances;\n                });\n\n                if (data !== null && data.result) {\n                    this.subscription = data.subscription;\n                    this.balances = data.balances;\n                }\n\n            },\n\n            currency: function (newVal, oldVal) { // watch it\n\n            }\n        },\n\n        methods:{\n\n            formatMoneyNumber(n, decimals=0) {\n                return parseInt(n+0.004).toFixed(decimals).replace(/./g, function(c, i, a) {\n                    return i && c !== \".\" && ((a.length - i) % 3 === 0) ? ',' + c : c;\n                });\n            }\n\n        }\n\n    }\n\n</script>\n\n<style>\n\n    .balanceContent .fontColor{\n        display: block;\n    }\n\n    .balanceContent .miningAddress{\n        margin-top: 5px;\n    }\n\n    .balanceContent  .show-balance-span{\n        font-size:20px;\n    }\n\n    .show-balance-span{\n        display: inline-block;\n        margin-right: 4px;\n        color: #fec02c;\n        vertical-align: top;\n        margin-top: 0;\n        text-align: center;\n    }\n\n    .balanceContent .show-balance-span{\n        margin-top: 10px;\n    }\n\n    @media only screen and (max-width : 831px) {\n\n        .show-balance-span{\n            margin-left: 5px;\n            line-height: 48px;\n        }\n\n    }\n\n    @media only screen and (max-width : 600px) {\n\n        .walletAddress b{\n            margin-top: 0!important;\n        }\n\n        .addressIdentityBox .show-balance-span{\n            line-height: 40px;\n            font-size: 14px;\n        }\n\n        .addressIdentityBox .show-balance-span svg{\n\n            margin-top: 15px;\n            display: block;\n\n        }\n\n    }\n</style>"],"sourceRoot":""}]);
+exports.push([module.i, "\n.balanceContent .fontColor{\n    display: block;\n}\n.balanceContent .miningAddress{\n    margin-top: 5px;\n}\n.balanceContent  .show-balance-span{\n    font-size:20px;\n}\n.show-balance-span{\n    display: inline-block;\n    margin-right: 4px;\n    color: #fec02c;\n    vertical-align: top;\n    margin-top: 0;\n    text-align: center;\n}\n.balanceContent .show-balance-span{\n    margin-top: 10px;\n}\n@media only screen and (max-width : 831px) {\n.show-balance-span{\n        margin-left: 5px;\n        line-height: 48px;\n}\n}\n@media only screen and (max-width : 600px) {\n.walletAddress b{\n        margin-top: 0!important;\n}\n.addressIdentityBox .show-balance-span{\n        line-height: 40px;\n        font-size: 14px;\n}\n.addressIdentityBox .show-balance-span svg{\n\n        margin-top: 15px;\n        display: block;\n}\n}\n", "", {"version":3,"sources":["/home/alex/WebDollar/User-Interface-WebDollar/src/components/Wallet/Address/Balance/src/components/Wallet/Address/Balance/ShowBalance.vue"],"names":[],"mappings":";AAkKA;IACA,eAAA;CACA;AAEA;IACA,gBAAA;CACA;AAEA;IACA,eAAA;CACA;AAEA;IACA,sBAAA;IACA,kBAAA;IACA,eAAA;IACA,oBAAA;IACA,cAAA;IACA,mBAAA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;AAEA;QACA,iBAAA;QACA,kBAAA;CACA;CAEA;AAEA;AAEA;QACA,wBAAA;CACA;AAEA;QACA,kBAAA;QACA,gBAAA;CACA;AAEA;;QAEA,iBAAA;QACA,eAAA;CAEA;CAEA","file":"ShowBalance.vue","sourcesContent":["<template>\n\n    <div style=\"display: inline-block\">\n\n        <loading-spinner class=\"fontColor\" v-if=\"!this.loaded\" />\n        <div class=\"show-balance-span\" v-if=\"this.loaded\" >\n            {{ this.formatMoneyNumber(this.computePrice,2)}}\n        </div>\n\n    </div>\n\n</template>\n\n<script>\n\n    import LoadingSpinner from \"components/UI/elements/Loading-Spinner.vue\"\n\n    export default{\n\n        components:{\n            LoadingSpinner,\n        },\n\n        props: ['address', 'currency'],\n\n        data(){\n          return {\n              balances: {},\n              subscription: null,\n              loaded: WebDollar.Blockchain.loaded||false,\n            }\n        },\n\n        computed:{\n\n            computePrice(){\n\n                if (this.balances === null || this.balances === undefined || !this.balances.hasOwnProperty(this.currency)) return 0;\n\n                //return this.formatMoneyNumber( this.balances[this.currency] / WebDollar.Applications.CoinsHelper.WEBD );\n                return (this.balances[this.currency]);\n            }\n\n        },\n\n        mounted(){\n\n            if (typeof window === \"undefined\") return;\n\n            this.currency = this.currency || '0x01';\n\n            let address = this.address;\n            if (typeof this.address === \"object\" && typeof this.address.hasOwnProperty(\"address\") ) { //it is an address object\n                address = this.address.address;\n            }\n\n            WebDollar.StatusEvents.emitter.on(\"blockchain/status\", (data)=>{\n\n                if (data.message === \"Blockchain Ready to Mine\")\n                    this.loaded = true;\n\n            });\n\n            let data = WebDollar.Blockchain.Balances.subscribeBalancesChanges(address, (data)=>{\n                this.balances = data.balances;\n            });\n\n            if (data !== null && data.result) {\n                this.subscription = data.subscription;\n                this.balances = data.balances;\n            }\n\n        },\n\n        watch: {\n            address: function (newVal, oldVal) { // watch it\n\n                WebDollar.Blockchain.Balances.unsusbribeBalancesChanges(this.subscription);\n\n                let address = newVal;\n                if (typeof newVal === \"object\" && typeof newVal.hasOwnProperty(\"address\") ) { //it is an address object\n                    address = newVal.address;\n                }\n\n                console.log(\"address!!!!!!\", address);\n\n                let data = WebDollar.Blockchain.Balances.subscribeBalancesChanges(address, (data)=>{\n                    console.log(\"balance changed\")\n                    this.balances = data.balances;\n                });\n\n                if (data !== null && data.result) {\n                    this.subscription = data.subscription;\n                    this.balances = data.balances;\n                }\n\n            },\n\n            currency: function (newVal, oldVal) { // watch it\n\n            }\n        },\n\n        methods:{\n\n            formatMoneyNumber(n, decimals=0) {\n\n                var number = parseInt(n/WebDollar.Applications.CoinsHelper.WEBD);\n                var decimalNumber = this.getNumberRest(n);\n\n                return this.formatIntNumber(number)+'.'+this.getFirstDigits(decimalNumber,decimals);\n\n            },\n\n            formatIntNumber(number){\n\n                return number.toString().replace(/./g, function(c, i, a) {\n                    return i && c !== \".\" && ((a.length - i) % 3 === 0) ? ',' + c : c;\n                });\n\n            },\n\n            getNumberRest(number){\n\n                return number % WebDollar.Applications.CoinsHelper.WEBD;\n\n            },\n\n            getFirstDigits(number,decimals){\n\n                var decimalsVerifier = Math.pow(10,decimals);\n                var newNumber = '';\n\n                if(number<10){\n\n                    newNumber='000'+number.toString();\n\n                }else if(number<100){\n\n                    newNumber='00'+number.toString();\n\n                }else if(number<1000){\n\n                    newNumber='0'+number.toString();\n\n                }else if(number<10000){\n\n                    newNumber=''+number.toString();\n\n                }\n\n                return newNumber.substring(0,decimals);\n\n            }\n\n        }\n\n    }\n\n</script>\n\n<style>\n\n    .balanceContent .fontColor{\n        display: block;\n    }\n\n    .balanceContent .miningAddress{\n        margin-top: 5px;\n    }\n\n    .balanceContent  .show-balance-span{\n        font-size:20px;\n    }\n\n    .show-balance-span{\n        display: inline-block;\n        margin-right: 4px;\n        color: #fec02c;\n        vertical-align: top;\n        margin-top: 0;\n        text-align: center;\n    }\n\n    .balanceContent .show-balance-span{\n        margin-top: 10px;\n    }\n\n    @media only screen and (max-width : 831px) {\n\n        .show-balance-span{\n            margin-left: 5px;\n            line-height: 48px;\n        }\n\n    }\n\n    @media only screen and (max-width : 600px) {\n\n        .walletAddress b{\n            margin-top: 0!important;\n        }\n\n        .addressIdentityBox .show-balance-span{\n            line-height: 40px;\n            font-size: 14px;\n        }\n\n        .addressIdentityBox .show-balance-span svg{\n\n            margin-top: 15px;\n            display: block;\n\n        }\n\n    }\n</style>"],"sourceRoot":""}]);
 
 // exports
 
@@ -17522,7 +17610,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.show-sum-balances{\n    width: auto;\n    display: inline-block;\n    color:#fec02c;\n}\n.loading-wallet-spinner{\n    fill: black !important;;\n    margin-left: 10px;\n    margin-top: 0 !important;\n    vertical-align: middle !important;\n}\n\n", "", {"version":3,"sources":["/home/alex/WebDollar/User-Interface-WebDollar/src/components/Wallet/Address/Balance/src/components/Wallet/Address/Balance/ShowSumBalances.vue"],"names":[],"mappings":";AAoGA;IACA,YAAA;IACA,sBAAA;IACA,cAAA;CACA;AAEA;IACA,uBAAA;IACA,kBAAA;IACA,yBAAA;IACA,kCAAA;CACA","file":"ShowSumBalances.vue","sourcesContent":["<template>\n\n    <div style=\"display: inline-block\">\n\n        <loading-spinner class=\"loading-wallet-spinner\" v-if=\"!this.loaded\" />\n\n        <span v-if=\"this.loaded\" class=\"show-sum-balances\">\n            {{ this.formatMoneyNumber(this.sum,2) }}\n        </span>\n\n    </div>\n\n</template>\n\n<script>\n\n    import LoadingSpinner from \"components/UI/elements/Loading-Spinner.vue\"\n\n    export default{\n\n        components:{\n            LoadingSpinner,\n        },\n\n        props: ['addresses', 'currency'],\n\n        data(){\n            return {\n                sum: 0,\n                loaded: false,\n            }\n        },\n\n        mounted(){\n\n            if (typeof window === \"undefined\") return;\n\n            WebDollar.StatusEvents.emitter.on(\"blockchain/status\", (data)=>{\n\n                if (data.message === \"Blockchain Ready to Mine\")\n                    this.loaded = true;\n\n            });\n\n        },\n\n        methods:{\n\n            refreshSum(addresses, currency){\n\n                let newSum = 0;\n\n                //it should use BigNumber as math...\n\n                if (addresses === undefined || addresses === null) return ;\n\n                for (let index in this.addresses){\n\n                    if (addresses[index].balances !== undefined && addresses[index].balances !== null && addresses[index].balances[currency] !== undefined)\n                        newSum += parseFloat( addresses[index].balances[currency]);\n                }\n\n                this.sum = newSum / WebDollar.Applications.CoinsHelper.WEBD;\n\n                if (this.sum!==0){\n\n                    //this.sum = this.formatMoneyNumber(this.sum);\n                    this.sum = this.sum;\n\n                }\n\n            },\n\n            formatMoneyNumber(n, decimals=0) {\n                return parseInt(n+0.004).toFixed(decimals).replace(/./g, function(c, i, a) {\n                    return i && c !== \".\" && ((a.length - i) % 3 === 0) ? ',' + c : c;\n                });\n            }\n\n        },\n\n        watch: {\n            addresses: function (newVal, oldVal) { // watch it\n\n                this.refreshSum(newVal, this.currency);\n\n            },\n\n            currency: function (newVal, oldVal) { // watch it\n\n                this.refreshSum(this.addresses, newVal);\n\n            }\n        }\n\n    }\n\n</script>\n\n<style>\n\n    .show-sum-balances{\n        width: auto;\n        display: inline-block;\n        color:#fec02c;\n    }\n\n    .loading-wallet-spinner{\n        fill: black !important;;\n        margin-left: 10px;\n        margin-top: 0 !important;\n        vertical-align: middle !important;;\n    }\n\n</style>\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.show-sum-balances{\n    width: auto;\n    display: inline-block;\n    color:#fec02c;\n}\n.loading-wallet-spinner{\n    fill: black !important;;\n    margin-left: 10px;\n    margin-top: 0 !important;\n    vertical-align: middle !important;\n}\n\n", "", {"version":3,"sources":["/home/alex/WebDollar/User-Interface-WebDollar/src/components/Wallet/Address/Balance/src/components/Wallet/Address/Balance/ShowSumBalances.vue"],"names":[],"mappings":";AAgJA;IACA,YAAA;IACA,sBAAA;IACA,cAAA;CACA;AAEA;IACA,uBAAA;IACA,kBAAA;IACA,yBAAA;IACA,kCAAA;CACA","file":"ShowSumBalances.vue","sourcesContent":["<template>\n\n    <div style=\"display: inline-block\">\n\n        <loading-spinner class=\"loading-wallet-spinner\" v-if=\"!this.loaded\" />\n\n        <span v-if=\"this.loaded\" class=\"show-sum-balances\">\n            {{ this.formatMoneyNumber(this.sum,2) }}\n        </span>\n\n    </div>\n\n</template>\n\n<script>\n\n    import LoadingSpinner from \"components/UI/elements/Loading-Spinner.vue\"\n\n    export default{\n\n        components:{\n            LoadingSpinner,\n        },\n\n        props: ['addresses', 'currency'],\n\n        data(){\n            return {\n                sum: 0,\n                loaded: false,\n            }\n        },\n\n        mounted(){\n\n            if (typeof window === \"undefined\") return;\n\n            WebDollar.StatusEvents.emitter.on(\"blockchain/status\", (data)=>{\n\n                if (data.message === \"Blockchain Ready to Mine\")\n                    this.loaded = true;\n\n            });\n\n        },\n\n        methods:{\n\n            refreshSum(addresses, currency){\n\n                let newSum = 0;\n\n                //it should use BigNumber as math...\n\n                if (addresses === undefined || addresses === null) return ;\n\n                for (let index in this.addresses){\n\n                    if (addresses[index].balances !== undefined && addresses[index].balances !== null && addresses[index].balances[currency] !== undefined)\n                        newSum += parseFloat( addresses[index].balances[currency]);\n                }\n\n                this.sum = newSum;\n\n                if (this.sum!==0){\n\n                    //this.sum = this.formatMoneyNumber(this.sum);\n                    this.sum = this.sum;\n\n                }\n\n            },\n\n            formatMoneyNumber(n, decimals=0) {\n\n               var number = parseInt(n/WebDollar.Applications.CoinsHelper.WEBD);\n               var decimalNumber = this.getNumberRest(n);\n\n               return this.formatIntNumber(number)+'.'+this.getFirstDigits(decimalNumber,decimals);\n\n            },\n\n            formatIntNumber(number){\n\n                return number.toString().replace(/./g, function(c, i, a) {\n                    return i && c !== \".\" && ((a.length - i) % 3 === 0) ? ',' + c : c;\n                });\n\n            },\n\n            getNumberRest(number){\n\n                return number % WebDollar.Applications.CoinsHelper.WEBD;\n\n            },\n\n            getFirstDigits(number,decimals){\n\n                var decimalsVerifier = Math.pow(10,decimals);\n                var newNumber = '';\n\n                if(number<10){\n\n                    newNumber='000'+number.toString();\n\n                }else if(number<100){\n\n                    newNumber='00'+number.toString();\n\n                }else if(number<1000){\n\n                    newNumber='0'+number.toString();\n\n                }else if(number<10000){\n\n                    newNumber=''+number.toString();\n\n                }\n\n                return newNumber.substring(0,decimals);\n\n            }\n\n        },\n\n        watch: {\n            addresses: function (newVal, oldVal) { // watch it\n\n                this.refreshSum(newVal, this.currency);\n\n            },\n\n            currency: function (newVal, oldVal) { // watch it\n\n                this.refreshSum(this.addresses, newVal);\n\n            }\n        }\n\n    }\n\n</script>\n\n<style>\n\n    .show-sum-balances{\n        width: auto;\n        display: inline-block;\n        color:#fec02c;\n    }\n\n    .loading-wallet-spinner{\n        fill: black !important;;\n        margin-left: 10px;\n        margin-top: 0 !important;\n        vertical-align: middle !important;;\n    }\n\n</style>\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -18365,7 +18453,9 @@ class CircleMap {
     highlightCell(cell, className, data, index) {
 
         if (cell.getAttribute('class') !== 'peer-own')
-            cell.setAttribute('class', className);
+            if(cell.getAttribute('class') !== 'peer-connected-terminal')
+                if(cell.getAttribute('class') !== 'peer-connected-browser')
+                    cell.setAttribute('class', className);
 
         // deleted
 

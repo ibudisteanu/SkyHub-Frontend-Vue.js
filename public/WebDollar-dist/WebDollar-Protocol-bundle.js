@@ -1978,8 +1978,8 @@ consts.MINI_BLOCKCHAIN = {
 consts.POPOW_PARAMS={
     m: 30, //length proof Pi for validating the Genesis
 
-    k: 5, //length proof Xi for Accountant Tree
-    k1: 5, //length
+    k: 30, //length proof Xi for Accountant Tree
+    k1: 30, //length
 
     d: 0.5,
 
@@ -25105,22 +25105,22 @@ class NodeSignalingClientProtocol {
 
             try{
 
-                if (data.remoteUUID === undefined || data.remoteUUID === null)
+                if ( data.remoteUUID === undefined || data.remoteUUID === null)
                     throw {message: "remoteUUID was not specified"};
 
                 //search if the new protocol was already connected in the past
-                if (__WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__["a" /* default */].searchNodeSocketByAddress(data.remoteUUID, 'all', ["uuid"] ) !== null) //already connected in the past
+                if ( __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__["a" /* default */].searchNodeSocketByAddress(data.remoteUUID, 'all', ["uuid"] ) !== null) //already connected in the past
                     throw {message: "Already connected"};
 
-                if (__WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].searchWebPeerSignalingClientList(undefined, undefined, data.remoteUUID) !== null)
+                if ( __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].searchWebPeerSignalingClientList(undefined, undefined, data.remoteUUID) !== null)
                     throw {message: "Already connected"};
 
-                if (__WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].connected.length > __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].computeMaxWebPeersConnected( data.remoteUUID )/2 )
+                if ( __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].countConnectedByType("initiator") > __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].computeMaxWebPeersConnected( data.remoteUUID ) )
                     throw {message: "I can't accept WebPeers anymore" };
 
                 if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG) console.warn("WEBRTC# 1 Generate Initiator Signal");
 
-                let webPeerSignalingClientListObject = __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].registerWebPeerSignalingClientListBySignal(undefined, undefined, data.remoteUUID);
+                let webPeerSignalingClientListObject = __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].registerWebPeerSignalingClientListBySignal(undefined, undefined, data.remoteUUID, "initiator");
                 let webPeer = webPeerSignalingClientListObject.webPeer;
 
                 if (webPeer.peer === null)
@@ -25219,10 +25219,10 @@ class NodeSignalingClientProtocol {
 
         if (webPeerSignalingClientListObject === null) {
 
-            if ( __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].connected.length > __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].computeMaxWebPeersConnected( data.remoteUUID ))
+            if ( __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].countConnectedByType("answer") > __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].computeMaxWebPeersConnected( data.remoteUUID ))
                 throw {message: "I can't accept WebPeers anymore" };
 
-            webPeerSignalingClientListObject = __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].registerWebPeerSignalingClientListBySignal(undefined, undefined, data.remoteUUID);
+            webPeerSignalingClientListObject = __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__["a" /* default */].registerWebPeerSignalingClientListBySignal(undefined, undefined, data.remoteUUID, "answer");
         }
 
         let webPeer = webPeerSignalingClientListObject.webPeer;
@@ -25395,14 +25395,14 @@ class SignalingClientList {
 
     }
 
-    registerWebPeerSignalingClientListBySignal(signalInitiator, signalAnswer, uuid) {
+    registerWebPeerSignalingClientListBySignal(signalInitiator, signalAnswer, uuid, signalingClientType) {
 
         let signalingClientPeerObject = this.searchWebPeerSignalingClientList(signalInitiator, signalAnswer, uuid);
 
         if (signalingClientPeerObject === null){
 
             let webPeer = new __WEBPACK_IMPORTED_MODULE_2_node_webrtc_web_peer_node_web_peer_webRTC__["a" /* default */]();
-            signalingClientPeerObject = new __WEBPACK_IMPORTED_MODULE_1__signaling_client_peer_object__["a" /* default */](webPeer, uuid);
+            signalingClientPeerObject = new __WEBPACK_IMPORTED_MODULE_1__signaling_client_peer_object__["a" /* default */](webPeer, uuid, signalingClientType);
 
             this.connected.push(signalingClientPeerObject);
 
@@ -25455,6 +25455,16 @@ class SignalingClientList {
 
     computeMaxWebPeersConnected( uuid ){
         return __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.WEBRTC.MAXIMUM_CONNECTIONS + (this.findWebPeerSignalingClientList( undefined, undefined, uuid ) !== -1 ? 1 : 0 )
+    }
+
+    countConnectedByType(signalingClientType){
+
+        let count = 0;
+        for (let i=0; i<this.connected.length; i++)
+            if (this.connected[i].signalingClientType === signalingClientType )
+                count ++ ;
+
+        return count;
     }
 
 }
@@ -54710,12 +54720,15 @@ class NodeSignalingServerProtocol {
 
         socket.node.on("signals/server/connections/established-connection-was-dropped", (data) => {
 
-            if (!data.connectionId) {
+            let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(data.connectionId);
 
-                let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(data.connectionId);
+            if (connection !== null) {
+                connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionNotEstablished;
 
-                if (connection !== null)
-                    __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].setSignalingServerRoomConnectionStatus(connection.client1, connection.client2, __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionNotEstablished)
+                let waitlist = __WEBPACK_IMPORTED_MODULE_4__signaling_server_service_Node_Signaling_Server_Service__["a" /* default */].findNodeSignalingServerWaitlist(socket);
+
+                if (waitlist !== null)
+                    waitlist.acceptWebPeers = true;
 
             }
 
@@ -54730,7 +54743,7 @@ class NodeSignalingServerProtocol {
                 let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(data.connectionId);
 
                 if (connection !== null)
-                    __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].setSignalingServerRoomConnectionStatus(connection.client1, connection.client2, __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionEstablished)
+                    connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionEstablished;
 
             }
 
@@ -54743,7 +54756,7 @@ class NodeSignalingServerProtocol {
                 let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnectionById(data.connectionId);
 
                 if (connection !== null)
-                    __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].setSignalingServerRoomConnectionStatus(connection.client1, connection.client2, __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError)
+                    connection.status = __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError;
 
             }
 
@@ -55008,10 +55021,10 @@ class NodeSignalingServerProtocol {
             let previousEstablishedConnection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].searchSignalingServerRoomConnection(client1, client2);
 
             if (previousEstablishedConnection === null
-                || (previousEstablishedConnection.checkLastTimeChecked(10 * 1000) && [__WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionNotEstablished].indexOf(previousEstablishedConnection.status) !== -1   )
-                || (previousEstablishedConnection.checkLastTimeChecked(20 * 1000) && [__WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError].indexOf(previousEstablishedConnection.status) !== -1 )) {
+                || (previousEstablishedConnection.checkLastTimeChecked(10 * 1000) && [__WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionNotEstablished].indexOf( previousEstablishedConnection.status ) !== -1   )
+                || (previousEstablishedConnection.checkLastTimeChecked(10 * 1000) && [__WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.peerConnectionError].indexOf( previousEstablishedConnection.status ) !== -1 )) {
 
-                let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].setSignalingServerRoomConnectionStatus(client1, client2, __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.initiatorSignalGenerating);
+                let connection = __WEBPACK_IMPORTED_MODULE_2__signaling_server_room_signaling_server_room_list__["a" /* default */].registerSignalingServerRoomConnection(client1, client2, __WEBPACK_IMPORTED_MODULE_3__signaling_server_room_signaling_server_room_connection_object__["a" /* default */].ConnectionStatus.initiatorSignalGenerating);
 
                 // Step1, send the request to generate the INITIATOR SIGNAL
                 client1.node.sendRequest("signals/client/initiator/generate-initiator-signal", {
@@ -55077,40 +55090,48 @@ class SignalingServerRoomConnectionObject {
 
         this.client1 = client1;
         this.client2 = client2;
-        this.status = status;
+        this._status = status;
         this.id = id;
 
         this.errorTrials = 0;
 
         this.established = false;
-        this.connectingNow = false;
 
         this.lastTimeChecked = 0;
         this.lastTimeConnected = 0;
-    }
-
-    refreshLastTimeErrorChecked(){
-
-        this.errorTrials++;
-        this.status = ConnectionStatus.peerConnectionNotEstablished;
-        this.lastTimeChecked = new Date().getTime();
     }
 
     checkLastTimeChecked(timeTryReconnectAgain){
 
         let time = new Date().getTime();
 
-        if ( (time - this.lastTimeChecked) >= ( timeTryReconnectAgain + this.errorTrials*5000 ))
+        if ( (time - this.lastTimeChecked) >= ( timeTryReconnectAgain + this.errorTrials*2000 ))
             return true;
 
         return false;
     }
 
-    refreshLastTimeConnected(){
+    set status(newValue){
 
-        this.errorTrials = 0;
-        this.status = ConnectionStatus.peerConnectionEstablished;
-        this.lastTimeConnected = new Date().getTime();
+        this._status = newValue;
+
+        if (newValue === ConnectionStatus.peerConnectionEstablished) {
+
+            this.errorTrials = 0;
+            this.lastTimeConnected = new Date().getTime();
+            this.lastTimeChecked = new Date().getTime();
+
+        }
+        else
+        if ( [ ConnectionStatus.peerConnectionNotEstablished, ConnectionStatus.peerConnectionError ].indexOf(newValue) !== -1 ){
+            this.errorTrials++;
+            this.lastTimeChecked = new Date().getTime();
+        }
+
+    }
+
+    get status(){
+        return this._status;
     }
 
 }
@@ -84198,6 +84219,8 @@ class PPoWBlockchainBlock extends __WEBPACK_IMPORTED_MODULE_1_common_blockchain_
      */
     calculateInterlink(){
 
+        if (this.blockValidation.blockValidationType["skip-interlinks-update"] === true) return this.interlink;
+
         let interlink = [{height: -1, blockId: __WEBPACK_IMPORTED_MODULE_2_common_blockchain_global_Blockchain_Genesis__["a" /* default */].hashPrev}];
         if (this.height === 0) return interlink;
 
@@ -87756,6 +87779,7 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
         if (this.forkProofPi !== null && forkHeight < this.forkChainLength - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].POPOW_PARAMS.m)
             validationType["skip-validation-interlinks"] = true;
 
+
         return new __WEBPACK_IMPORTED_MODULE_2_common_blockchain_interface_blockchain_blocks_validation_Interface_Blockchain_Block_Validation__["a" /* default */](  this.forkProofPi !== null ? this.getForkProofsPiBlock.bind(this) : this.getForkBlock.bind(this), this.getForkDifficultyTarget.bind(this), this.getForkTimeStamp.bind(this), this.getForkPrevHash.bind(this), validationType );
     }
 
@@ -87774,6 +87798,9 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
 
         if (this.forkProofPi !== null && forkHeight < this.forkChainLength - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].POPOW_PARAMS.m)
             validationType["skip-validation-interlinks"] = true;
+
+        if ( forkHeight === 0)
+            validationType["skip-interlinks-update"] = true;
 
         return new __WEBPACK_IMPORTED_MODULE_2_common_blockchain_interface_blockchain_blocks_validation_Interface_Blockchain_Block_Validation__["a" /* default */](   this.forkProofPi !== null ? this.getForkProofsPiBlock.bind(this) : this.getForkBlock.bind(this), this.getForkDifficultyTarget.bind(this), this.getForkTimeStamp.bind(this), this.getForkPrevHash.bind(this), validationType );
     }
@@ -91731,10 +91758,6 @@ class SignalingServerRoomList {
         return connection;
     }
 
-    setSignalingServerRoomConnectionStatus(client1, client2, status) {
-        return this.registerSignalingServerRoomConnection(client1, client2, status);
-    }
-
     searchSignalingServerRoomConnection(client1, client2, skipReverse) {
 
         //previous established connection
@@ -91950,10 +91973,11 @@ class SignalingClientPeerObject {
         uuid
      */
 
-    constructor(webPeer, uuid){
+    constructor(webPeer, uuid, signalingClientType){
 
         this.webPeer = webPeer;
         this.uuid = uuid;
+        this.signalingClientType = signalingClientType;
 
         this.lastTimeChecked = 0;
 
@@ -92943,10 +92967,8 @@ class FallBackObject {
     "name": "fallback nodes",
 
     "nodes": [
-        // {
-        //     "addr": ["192.168.2.8:2095"],
-        // },
-        //
+
+
         {
             "addr": ["webdollar.ddns.net:80", "webdollar.ddns.net:8081", "webdollar.ddns.net:8082"],
         },
@@ -92958,6 +92980,7 @@ class FallBackObject {
         {
             "addr": ["robitza.ddns.net:12345"]
         },
+
 
     ]
 });
