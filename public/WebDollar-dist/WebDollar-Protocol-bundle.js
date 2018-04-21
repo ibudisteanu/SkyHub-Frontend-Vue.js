@@ -52610,7 +52610,8 @@ class InterfaceBlockchainProtocolForksManager {
                     console.error("processForksQueue returned an error", exception);
                     console.warn("BANNNNNNNNNNNNNNNNN", bestFork.getSocket().node.sckAddress.toString(), exception.message);
 
-                    __WEBPACK_IMPORTED_MODULE_0_common_utils_bans_BansList__["a" /* default */].addBan(bestFork.getSocket(), 10000, exception.message);
+                    if (exception.message !== "blockchain has same length, but your block is not better than mine")
+                        __WEBPACK_IMPORTED_MODULE_0_common_utils_bans_BansList__["a" /* default */].addBan(bestFork.getSocket(), 10000, exception.message);
 
                 } catch (exception){
 
@@ -87196,6 +87197,7 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
 
             //importing Proof
             this.forkProofPi = new __WEBPACK_IMPORTED_MODULE_1__prover_proofs_PPoW_Blockchain_Proof_Pi__["a" /* default */](this.blockchain, []);
+            this.forkProofPi.hash = proofPiData.hash;
 
             let i = 0, length = 100;
             let proofsList = [];
