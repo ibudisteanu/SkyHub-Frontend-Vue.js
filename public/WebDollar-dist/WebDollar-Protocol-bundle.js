@@ -27719,9 +27719,16 @@ module.exports = bytesToUuid;
 
 
         {
-            "addr": [ "webdollar.ddns.net:8081", "webdollar.ddns.net:8082"],
+            "addr": ["webdollar.ddns.net:80", "webdollar.ddns.net:8081", "webdollar.ddns.net:8082"],
         },
 
+        {
+            "addr": ["skyhub.me:80"],
+        },
+
+        {
+            "addr": ["robitza.ddns.net:12345"]
+        },
 
     ]
 });
@@ -52715,7 +52722,7 @@ class InterfaceBlockchainProtocolForksManager {
                     let bIncludeBan = true;
 
                     if (this.blockchain.agent.light)
-                        if (["fork is something new", "blockchain has same length, but your block is not better than mine", "discoverAndProcessFork - fork already found by socket", "my blockchain is larger than yours"].indexOf( exception.message ) >= 0)
+                        if (["fork is something new", "blockchain has same length, but your block is not better than mine", "discoverAndProcessFork - fork already found by socket", "my blockchain is larger than yours", "same proof, but your blockchain is smaller than mine"].indexOf( exception.message ) >= 0)
                             bIncludeBan = false;
 
                     if (bIncludeBan) {
@@ -87927,12 +87934,12 @@ class MiniBlockchainAgentLightNode extends inheritAgentClass{
         setInterval( ()=>{
 
             if (this.blockchain.proofPi !== null)
-                if ( new Date().getTime() - this.blockchain.proofPi.date.getTime() >= __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK *1000 * 5)
+                if ( new Date().getTime() - this.blockchain.proofPi.date.getTime() >= __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK *1000 * 3)
 
                     if ( Math.random() < WEBRTC_MINIMUM_LIGHT_PROBABILITY && this.status === __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_agents_Agent_Status__["a" /* default */].AGENT_STATUS_SYNCHRONIZED_WEBRTC  )
                         __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].synchronizeBlockchain(); //let's synchronize again
 
-        }, __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK * 1000);
+        }, (__WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK - 10) * 1000);
     }
 
 
