@@ -87970,7 +87970,7 @@ class MiniBlockchainAgentLightNode extends inheritAgentClass{
 
                     this.status = __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_agents_Agent_Status__["a" /* default */].AGENT_STATUS_SYNCHRONIZED_WEBRTC;
 
-                    if (Math.random() < WEBRTC_MINIMUM_LIGHT_PROBABILITY) // most will disconnect from full nodes
+                    if (Math.random() > WEBRTC_MINIMUM_LIGHT_PROBABILITY) // most will disconnect from full nodes
                         for (let i=__WEBPACK_IMPORTED_MODULE_5_node_lists_nodes_list__["a" /* default */].nodes.length-1; i>=0; i--)
                             if ( __WEBPACK_IMPORTED_MODULE_5_node_lists_nodes_list__["a" /* default */].nodes[i].connectionType === __WEBPACK_IMPORTED_MODULE_6_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_CLIENT_SOCKET ){
                                 __WEBPACK_IMPORTED_MODULE_5_node_lists_nodes_list__["a" /* default */].nodes[i].socket.disconnect();
