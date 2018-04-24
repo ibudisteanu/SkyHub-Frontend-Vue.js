@@ -24070,7 +24070,16 @@ class InterfaceBlockchainProtocolForkSolver{
 
             console.error("discoverAndProcessFork", exception );
 
-            __WEBPACK_IMPORTED_MODULE_6_common_utils_bans_BansList__["a" /* default */].addBan(socket, 2000, exception.message);
+            let bIncludeBan = true;
+
+            if (this.blockchain.agent.light)
+                if (["fork is something new", "blockchain has same length, but your block is not better than mine",
+                        "discoverAndProcessFork - fork already found by socket", "my blockchain is larger than yours",
+                        "same proof, but your blockchain is smaller than mine", "Your proof is worst than mine because you have the same block" ].indexOf( exception.message ) >= 0)
+                    bIncludeBan = false;
+
+            if (bIncludeBan)
+                __WEBPACK_IMPORTED_MODULE_6_common_utils_bans_BansList__["a" /* default */].addBan(socket, 2000, exception.message);
 
             return { result:false, error: exception };
 
