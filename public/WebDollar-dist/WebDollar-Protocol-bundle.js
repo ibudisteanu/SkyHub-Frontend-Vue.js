@@ -17191,7 +17191,7 @@ class NodeProtocol {
      */
     broadcastRequest (request, data, type, exceptSockets){
 
-        if (exceptSockets === "all") return false;
+        if (exceptSockets === "all") return true;
 
         let nodes = __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].getNodes(type);
 
@@ -17227,6 +17227,7 @@ class NodeProtocol {
             }
         }
 
+        return true;
     }
 
 
@@ -54686,10 +54687,6 @@ class SocketExtend{
         socket.node.sendRequest = (request, requestData) => { return this.sendRequest(socket, request, requestData) };
         socket.node.sendRequestWaitOnce = (request, requestData, answerSuffix, timeOutInterval) => {return this.sendRequestWaitOnce(socket, request, requestData, answerSuffix, timeOutInterval) };
         socket.node.broadcastRequest = (request, data, type, exceptSockets) => {
-
-            if (exceptSockets !== undefined && exceptSockets !== null && !Array.isArray(exceptSockets))
-                exceptSockets = [exceptSockets];
-
             return __WEBPACK_IMPORTED_MODULE_0_common_sockets_protocol_node_protocol__["a" /* default */].broadcastRequest(request, data, type, exceptSockets === null ? [socket] :  exceptSockets.concat(socket))
         };
 
@@ -82109,7 +82106,9 @@ class InterfaceBlockchainTransactionsProtocol{
 
                 if (transaction === undefined) throw {message: "Transaction was not specified"};
 
-                transaction.isTransactionOK();
+                if (!transaction.isTransactionOK())
+                    return false;
+
 
                 if (!__WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions.pendingQueue.includePendingTransaction(transaction, socket))
                     throw {message: "I already have this transaction"};
@@ -82182,7 +82181,7 @@ class InterfaceBlockchainTransactionsProtocol{
 
     propagateNewPendingTransaction(transaction, exceptSockets){
 
-        __WEBPACK_IMPORTED_MODULE_0_common_sockets_protocol_node_protocol__["a" /* default */].broadcastRequest("transactions/new-pending-transaction", { format: "buffer", buffer: transaction.serializeTransaction() }, undefined, exceptSockets );
+        __WEBPACK_IMPORTED_MODULE_0_common_sockets_protocol_node_protocol__["a" /* default */].broadcastRequest( "transactions/new-pending-transaction", { format: "buffer", buffer: transaction.serializeTransaction() }, undefined, exceptSockets );
 
     }
 
@@ -87934,7 +87933,7 @@ class MiniBlockchainAgentLightNode extends inheritAgentClass{
         setInterval( ()=>{
 
             if (this.blockchain.proofPi !== null)
-                if ( new Date().getTime() - this.blockchain.proofPi.date.getTime() >= __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK *1000 * 3)
+                if ( new Date().getTime() - this.blockchain.proofPi.date.getTime() >= __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK *1000 * 2)
 
                     if ( Math.random() < WEBRTC_MINIMUM_LIGHT_PROBABILITY && this.status === __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_agents_Agent_Status__["a" /* default */].AGENT_STATUS_SYNCHRONIZED_WEBRTC  )
                         __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].synchronizeBlockchain(); //let's synchronize again
