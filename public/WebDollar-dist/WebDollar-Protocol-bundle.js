@@ -51754,21 +51754,23 @@ class InterfaceRadixTreeNode extends __WEBPACK_IMPORTED_MODULE_0_common_trees_In
 
             if (includeEdges) {
 
-                let length = buffer[offset]; //1 byte
-                offset += 1;
+                let length ; //1 byte
+
+                if ( __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].Chain.agent.light || __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].Chain.blocks.length > __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.ACCOUNTANT_TREE_HARD_FORK ){
+
+                    length = __WEBPACK_IMPORTED_MODULE_2_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_3_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 2) ); //2 bytes
+                    offset += 2;
+
+                } else {
+                    length = buffer[offset]; //1 byte
+                    offset += 1;
+                }
+
 
                 for (let i = 0; i < length; i++) {
 
-                    let valueLength;
-                    if ( __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].Chain.agent.light || __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].Chain.blocks.length > __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.ACCOUNTANT_TREE_HARD_FORK ){
-
-                        valueLength = __WEBPACK_IMPORTED_MODULE_2_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_3_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 2) ); //2 bytes
-                        offset += 2;
-
-                    } else {
-                        valueLength = buffer[offset]; //1 byte
-                        offset += 1;
-                    }
+                    let valueLength = buffer[offset];
+                    offset +=1;
 
                     let label = __WEBPACK_IMPORTED_MODULE_3_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, valueLength);
                     offset += valueLength;
