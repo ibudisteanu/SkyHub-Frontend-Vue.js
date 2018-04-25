@@ -30,7 +30,7 @@
             </div>
 
             <div class="fadeIn fadeIn3" v-show="!this.mainNet">
-                <countdown end="April 27, 2018" />
+                <countdown class="countDownComponent" end="April 27, 2018" />
                 <span class="countDownDesc">Until the MAIN NET</span>
             </div>
 

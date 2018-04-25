@@ -1,4 +1,11 @@
 /* Medium Devices, Desktops */
+
+@media only screen and (max-height: 765px){
+    .mainLogo{
+        width: 16%;
+    }
+}
+
 @media only screen and (max-width: 1400px){
     .faqContainer{
         grid-template-columns: 1fr;

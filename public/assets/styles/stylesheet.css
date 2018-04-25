@@ -378,6 +378,11 @@ background-color:#ff2200}
 .teamWrapper .our-team .social-link li:hover{
   transform: translateY(-13px);
 }
+
+.countDownComponent{
+  margin-top: -50px;
+}
+
 /*
 
 .teamWrapper .our-team .social-link li a.fa-facebook:hover{
