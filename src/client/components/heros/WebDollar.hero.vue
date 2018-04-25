@@ -30,7 +30,7 @@
             </div>
 
             <div class="fadeIn fadeIn3" v-show="!this.mainNet">
-                <countdown class="countDownComponent" deadline="April 26, 2018 13:00:00 GMT+0" />
+                <countdown class="countDownComponent" :status="!this.mainNet" :deadline="this.countDown" @countDownFinished="this.finishCountDown"/>
                 <span class="countDownDesc">Until the MAIN NET</span>
             </div>
 
@@ -58,7 +58,8 @@
                 status: 'Starting...',
                 loaded: false,
                 maintenance: false,
-                mainNet: false
+                mainNet: false,
+                countDown: 'April 26, 2018 13:00:00 GMT+0'
             }
         },
 
@@ -112,12 +113,22 @@
                 else
                     this.status = "Mining Blockchain has been suspended"
 
-            })
+            });
 
         },
 
         methods:{
 
+            finishCountDown(){
+
+                if (this.mainNet === false){
+
+                    this.mainNet = true;
+                    location.reload();
+
+                }
+
+            }
 
         }
 

@@ -22,7 +22,6 @@
         </ul>
 
         <span class="finishedCount" v-if="this.message !== ''">
-            {{message}}
         </span>
     </div>
 
@@ -48,20 +47,23 @@
 
         props:{
             deadline : {default: "April 26, 2018 13:00:00 GMT+0" },
+            status : {default: true}
         },
 
         mounted(){
 
             if (typeof window === "undefined") return false;
 
-
             // Update the count down every 1 second
             if (this.interval !== undefined)
                 clearInterval(this.interval);
 
-            this.interval = setInterval( this.countDown, 1000);
+            if (this.status===true){
 
-            this.countDown();
+                this.interval = setInterval( this.countDown, 1000);
+                this.countDown();
+
+            }
 
         },
 
@@ -69,38 +71,45 @@
 
             countDown(){
 
-                let countDownDate = new Date(this.deadline).getTime();
+                var randomReloader = (Math.floor(Math.random() * 20) + 1)*1000;
 
-                // Get todays date and time
-                let now = new Date().getTime();
+                if ( new Date(this.deadline) > new Date() ){
 
-                // Find the distance between now an the count down date
-                let distance = countDownDate - now;
+                    let countDownDate = new Date(this.deadline).getTime();
 
-                // Time calculations for days, hours, minutes and seconds
-                this.d = Math.floor(distance / (1000 * 60 * 60 * 24));
-                this.h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                this.m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                this.s = Math.floor((distance % (1000 * 60)) / 1000);
+                    // Get todays date and time
+                    let now = new Date().getTime();
 
-                // Estetic redefine
-                if (this.h < 10)
-                    this.h = '0' + this.h;
+                    // Find the distance between now an the count down date
+                    let distance = countDownDate - now;
 
-                if (this.d < 10)
-                    this.d = '0' + this.d;
+                    // Time calculations for days, hours, minutes and seconds
+                    this.d = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    this.h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    this.m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    this.s = Math.floor((distance % (1000 * 60)) / 1000);
 
-                if (this.m < 10)
-                    this.m = '0' + this.m;
+                    // Estetic redefine
+                    if (this.h < 10)
+                        this.h = '0' + this.h;
 
-                if (this.s < 10)
-                    this.s = '0' + this.s;
+                    if (this.d < 10)
+                        this.d = '0' + this.d;
 
-                // If the count down is finished, write some text
-                if (distance < 0) {
-                    clearInterval(this.interval);
-                    this.interval = undefined;
-                    this.message = '';
+                    if (this.m < 10)
+                        this.m = '0' + this.m;
+
+                    if (this.s < 10)
+                        this.s = '0' + this.s;
+
+                    // If the count down is finished, write some text
+                    if (distance-randomReloader < 0) {
+                        clearInterval(this.interval);
+                        this.interval = undefined;
+                        this.message = 'FINISHED';
+                        this.$emit('countDownFinished', this.deadline);
+                    }
+
                 }
 
             }
