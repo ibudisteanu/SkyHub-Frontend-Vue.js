@@ -1940,3 +1940,11 @@ background-color:#ff2200}
   /*background: #fec02c !important;*/
   background: linear-gradient(to right, #3e3623 29%, #422d2d 100%) !important;
 }
+
+.countDownDesc{
+  margin-top: 0px;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #fff;
+  letter-spacing: 3px;
+}

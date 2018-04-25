@@ -100,7 +100,7 @@
                 if (distance < 0) {
                     clearInterval(this.interval);
                     this.interval = undefined;
-                    this.message = 'FINISHED';
+                    this.message = '';
                 }
 
             }
