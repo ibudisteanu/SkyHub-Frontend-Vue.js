@@ -127,6 +127,7 @@ a:hover{
 #mediaContainer img{
   /*height: 50px;*/
   width: 100%;
+    height:190px;
   border-radius: 10px;
   /*-webkit-filter: grayscale(100%); !* Safari 6.0 - 9.0 *!*/
   /*filter: grayscale(100%);*/
