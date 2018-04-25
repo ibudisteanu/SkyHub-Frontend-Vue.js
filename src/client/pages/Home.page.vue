@@ -99,6 +99,29 @@
 
             });
 
+            WebDollar.StatusEvents.on("blockchain/logs", (data)=> {
+
+                switch (data.message) {
+
+                    case "Network Adjusted Time Error":
+
+                        setTimeout(()=>{
+                            location.reload();
+                        }, 12022*1000);
+
+                        break;
+
+                    case "You mined way too many blocks":
+
+                        setTimeout(()=>{
+                            location.reload();
+                        }, 15*1000);
+
+                        break;
+                }
+
+            });
+
         }
 
     }
