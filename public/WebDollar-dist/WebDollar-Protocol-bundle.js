@@ -27746,9 +27746,16 @@ module.exports = bytesToUuid;
 
 
         {
-            "addr": ["webdollar.ddns.net:80"],
+            "addr": ["webdollar.ddns.net:80", "webdollar.ddns.net:8081", "webdollar.ddns.net:8082"],
         },
 
+        {
+            "addr": ["skyhub.me:80"],
+        },
+
+        {
+            "addr": ["robitza.ddns.net:12345"]
+        },
 
 
     ]
@@ -86106,7 +86113,7 @@ class InterfaceBlockchainMiningWorkers extends __WEBPACK_IMPORTED_MODULE_0__Inte
 
 
     _getWorker(){
-        return null;
+        return {};
     }
 
 
@@ -86147,9 +86154,9 @@ class InterfaceBlockchainMiningWorkers extends __WEBPACK_IMPORTED_MODULE_0__Inte
         if (number === 0)
             return;
 
-        console.log("number", number);
+        console.log( "number", number );
 
-        this.workers.addWorkers(-number);
+        this.workers.addWorkers( - number );
 
         this.workers.reduceWorkers();
 
@@ -86216,30 +86223,9 @@ class InterfaceBlockchainMiningWorkers extends __WEBPACK_IMPORTED_MODULE_0__Inte
             this._hashesPerSecond += event.data.nonceWork;
 
         } else
-        if (event.data.message === "algorithm"){
-
-            console.log("algorithm information", event.data.answer);
-
-            if (event.data.answer === "WebAssembly supported" || event.data.answer === "ASM.JS supported" ){
-
-                if (event.data.answer === "ASM.JS supported")
-                    __WEBPACK_IMPORTED_MODULE_4_common_events_Status_Events__["a" /* default */].emit("validation/status", {type: "MINING", message: "WebAssembly not supported"});
-
-                this.workers._initializeWorker( worker );
-
-            } else { // Argon2 is not supported in Browser
-
-                __WEBPACK_IMPORTED_MODULE_4_common_events_Status_Events__["a" /* default */].emit("validation/status", {type: "MINING", message: "ASM.JS not supported"});
-
-                this.stopMining();
-            }
-
-        } else
-        if (event.data.message === "error"){
-
-        }
-        else
         if (event.data.message === "results") {
+
+            worker.dateLast = new Date();
 
             //console.log("REEESULTS!!!", event.data, worker.suspended);
 
@@ -86265,16 +86251,16 @@ class InterfaceBlockchainMiningWorkers extends __WEBPACK_IMPORTED_MODULE_0__Inte
 
                             //this._semaphoreProcessing.processSempahoreCallback( ()=>{
 
-                                console.log('processing');
+                            console.log('processing');
 
-                                this._suspendMiningWorking();
-                                this.workers.suspendWorkers();
+                            this._suspendMiningWorking();
+                            this.workers.suspendWorkers();
 
-                                this._workerResolve({
-                                    result: true,
-                                    hash: new Buffer(event.data.hash),
-                                    nonce: event.data.nonce,
-                                });
+                            this._workerResolve({
+                                result: true,
+                                hash: new Buffer(event.data.hash),
+                                nonce: event.data.nonce,
+                            });
 
                             //});
 
@@ -86292,6 +86278,28 @@ class InterfaceBlockchainMiningWorkers extends __WEBPACK_IMPORTED_MODULE_0__Inte
             this._nonce += this.WORKER_NONCES_WORK;
 
         } else
+        if (event.data.message === "algorithm"){
+
+            console.log("algorithm information", event.data.answer);
+
+            if (event.data.answer === "WebAssembly supported" || event.data.answer === "ASM.JS supported" ){
+
+                if (event.data.answer === "ASM.JS supported")
+                    __WEBPACK_IMPORTED_MODULE_4_common_events_Status_Events__["a" /* default */].emit("validation/status", {type: "MINING", message: "WebAssembly not supported"});
+
+                this.workers._initializeWorker( worker );
+
+            } else { // Argon2 is not supported in Browser
+
+                __WEBPACK_IMPORTED_MODULE_4_common_events_Status_Events__["a" /* default */].emit("validation/status", {type: "MINING", message: "ASM.JS not supported"});
+
+                this.stopMining();
+            }
+
+        } else
+        if (event.data.message === "error"){
+
+        }
         if (event.data.message === "log") {
             console.log("worker", event.data.log);
         }
@@ -86920,9 +86928,9 @@ class InterfaceBlockchainMiningBasic {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_events_Status_Events__ = __webpack_require__(21);
 
 
-class InterfaceBlockchainMiningWorkersList{
+class InterfaceBlockchainMiningWorkersList {
 
-    constructor(mining){
+    constructor(mining) {
 
         this.mining = mining;
 
@@ -86934,6 +86942,27 @@ class InterfaceBlockchainMiningWorkersList{
         this.difficultyTarget = undefined;
 
         this.workers = 0; // browser webWorkers, backbone cores
+
+        this._id = 0;
+
+        setInterval(this._makeUnworkingWorkersToWork.bind(this), 2000);
+
+    }
+
+
+    _makeUnworkingWorkersToWork() {
+
+        let time = new Date().getTime();
+
+        for (let i = 0; i < this._workersList.length; i++){
+
+            if ( this._workersList[i].dateLast !== undefined && ( time - this._workersList[i].dateLast.getTime() > 4000)  ){
+
+                this._workersList[i].dateLast = new Date();
+                this._initializeWorker(this._workersList[i]);
+
+            }
+        }
 
     }
 
@@ -86966,6 +86995,8 @@ class InterfaceBlockchainMiningWorkersList{
 
         this.mining._nonce += this.mining.WORKER_NONCES_WORK;
         this.mining._hashesPerSecond += this.mining.WORKER_NONCES_WORK;
+
+        worker.dateLast = new Date().getTime();
     }
 
     initializeWorkers(block, difficultyTarget){
@@ -87021,6 +87052,9 @@ class InterfaceBlockchainMiningWorkersList{
 
         if (worker === undefined || worker === null)
             throw {message: 'No Worker specified'};
+
+        worker.id = ++this._id;
+        worker.dateLast = new Date();
 
         this._workersList.push(worker);
 
