@@ -86952,18 +86952,24 @@ class InterfaceBlockchainMiningWorkersList {
 
     _makeUnworkingWorkersToWork() {
 
-        let time = new Date().getTime();
+        //TODO avoid terminating workers
 
-        for (let i = 0; i < this._workersList.length; i++){
+        let time = new Date().getTime();
+        let terminated = false;
+
+        for (let i = this._workersList.length-1; i >= 0; i--){
 
             if ( this._workersList[i].dateLast !== undefined && ( time - this._workersList[i].dateLast.getTime() > 4000)  ){
 
-                this._workersList[i].dateLast = new Date();
-                this._initializeWorkerFirstTime(this._workersList[i]);
-                this._workersList[i].dateLast = new Date();
+                this.terminateWorker(this._workersList[i]);
+                this._workersList.splice(i, 1);
 
+                terminated = true;
             }
         }
+
+        if (terminated)
+            this.createWorkers();
 
     }
 
