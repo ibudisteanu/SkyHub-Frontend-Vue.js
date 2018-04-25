@@ -51725,7 +51725,7 @@ class InterfaceRadixTreeNode extends __WEBPACK_IMPORTED_MODULE_0_common_trees_In
 
             if (includeEdges) {
 
-                if ( __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].Chain.blocks.length > __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.ACCOUNTANT_TREE_HARD_FORK )
+                if ( __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].Chain.agent.light || __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].Chain.blocks.length > __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.ACCOUNTANT_TREE_HARD_FORK )
                     buffer.push(__WEBPACK_IMPORTED_MODULE_2_common_utils_Serialization__["a" /* default */].serializeNumber2Bytes(this.edges.length));
                 else
                     buffer.push(__WEBPACK_IMPORTED_MODULE_2_common_utils_Serialization__["a" /* default */].serializeNumber1Byte(this.edges.length));
@@ -51760,7 +51760,7 @@ class InterfaceRadixTreeNode extends __WEBPACK_IMPORTED_MODULE_0_common_trees_In
                 for (let i = 0; i < length; i++) {
 
                     let valueLength;
-                    if ( __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].Chain.blocks.length > __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.ACCOUNTANT_TREE_HARD_FORK ){
+                    if ( __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].Chain.agent.light || __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].Chain.blocks.length > __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.ACCOUNTANT_TREE_HARD_FORK ){
 
                         valueLength = __WEBPACK_IMPORTED_MODULE_2_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_3_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 2) ); //2 bytes
                         offset += 2;
