@@ -30,7 +30,7 @@
             </div>
 
             <div class="fadeIn fadeIn3" v-show="!this.mainNet">
-                <!--<countdown end="April 1, 2018" /> -->
+                <countdown end="April 27, 2018" />
             </div>
 
         </div>
@@ -57,7 +57,7 @@
                 status: 'Starting...',
                 loaded: false,
                 maintenance: false,
-                mainNet: true
+                mainNet: false
             }
         },
 
@@ -112,6 +112,11 @@
                     this.status = "Mining Blockchain has been suspended"
 
             })
+
+        },
+
+        methods:{
+
 
         }
 

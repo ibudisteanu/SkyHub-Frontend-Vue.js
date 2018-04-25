@@ -47,7 +47,7 @@
         },
 
         props:{
-            deadline : {default: "Sep 5, 2018 15:37:25" },
+            deadline : {default: "April 26, 2018 16:00:00" },
         },
 
         mounted(){
