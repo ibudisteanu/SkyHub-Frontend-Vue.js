@@ -9881,14 +9881,18 @@ class Blockchain{
      */
     async synchronizeBlockchain(firstTime, synchronizeComplete=false){
 
-        if (this.synchronized === false) return false;
+        if (this.synchronized === false) return;
 
         this.synchronized = false;
-
         console.warn("################### RESYNCHRONIZATION STARTED ##########");
 
-        __WEBPACK_IMPORTED_MODULE_8_common_events_Status_Events__["a" /* default */].emit('blockchain/status', {message: "Start Synchronizing"});
-        this.Mining.stopMining();
+        let suspendMining = false;
+        if (!this.blockchain.light || (this.blockchain.light && __WEBPACK_IMPORTED_MODULE_7_node_lists_nodes_list__["a" /* default */].nodes.length <= 0)) suspendMining = true;
+
+        if (suspendMining) {
+            __WEBPACK_IMPORTED_MODULE_8_common_events_Status_Events__["a" /* default */].emit('blockchain/status', {message: "Start Synchronizing"});
+            this.Mining.stopMining();
+        }
 
         while (!this.synchronized){
 
@@ -9918,10 +9922,13 @@ class Blockchain{
         }
 
         this.synchronized = true;
-        this.startMining();
-
         console.warn( "Blockchain Ready to Mine" );
-        __WEBPACK_IMPORTED_MODULE_8_common_events_Status_Events__["a" /* default */].emit('blockchain/status', {message: "Blockchain Ready to Mine" } );
+
+        if (suspendMining) {
+            this.startMining();
+            __WEBPACK_IMPORTED_MODULE_8_common_events_Status_Events__["a" /* default */].emit('blockchain/status', {message: "Blockchain Ready to Mine"});
+        }
+
     }
 
     get loaded(){
@@ -24079,7 +24086,7 @@ class InterfaceBlockchainProtocolForkSolver{
                     bIncludeBan = false;
 
             if (bIncludeBan) {
-                console.warn("BANNNNNNNNNNNNNNNNN", bestFork.getSocket().node.sckAddress.toString(), exception.message);
+                console.warn("BANNNNNNNNNNNNNNNNN", socket.node.sckAddress.toString(), exception.message);
                 __WEBPACK_IMPORTED_MODULE_6_common_utils_bans_BansList__["a" /* default */].addBan(socket, 2000, exception.message);
             }
 
@@ -87634,8 +87641,10 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
 
                 if (proofPiData === null || proofPiData === undefined)
                     __WEBPACK_IMPORTED_MODULE_7__utils_bans_BansList__["a" /* default */].addBan(socket, 10000, "proofPiFailed");
-                else
+                else {
+                    this.sockets[0] = socket;
                     break;
+                }
             }
 
             if (proofPiData === null || proofPiData === undefined)
