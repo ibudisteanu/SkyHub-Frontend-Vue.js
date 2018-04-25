@@ -86959,7 +86959,8 @@ class InterfaceBlockchainMiningWorkersList {
             if ( this._workersList[i].dateLast !== undefined && ( time - this._workersList[i].dateLast.getTime() > 4000)  ){
 
                 this._workersList[i].dateLast = new Date();
-                this._initializeWorker(this._workersList[i]);
+                this._initializeWorkerFirstTime(this._workersList[i]);
+                this._workersList[i].dateLast = new Date();
 
             }
         }
@@ -86982,7 +86983,7 @@ class InterfaceBlockchainMiningWorkersList {
         __WEBPACK_IMPORTED_MODULE_0_common_events_Status_Events__["a" /* default */].emit('mining/workers-changed', this.workers);
     }
 
-    initializeWorkerFirstTime(worker){
+    _initializeWorkerFirstTime(worker){
 
         worker.suspended = false;
         worker.postMessage( {message: "initialize-algorithm"} );
@@ -87015,7 +87016,7 @@ class InterfaceBlockchainMiningWorkersList {
         while (this._workersList.length < this.workers) {
             console.log("createWorkers");
             let worker = this.createWorker();
-            this.initializeWorkerFirstTime(worker);
+            this._initializeWorkerFirstTime(worker);
         }
     }
 
