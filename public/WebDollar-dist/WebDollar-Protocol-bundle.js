@@ -86996,7 +86996,7 @@ class InterfaceBlockchainMiningWorkersList {
         this.mining._nonce += this.mining.WORKER_NONCES_WORK;
         this.mining._hashesPerSecond += this.mining.WORKER_NONCES_WORK;
 
-        worker.dateLast = new Date().getTime();
+        worker.dateLast = new Date();
     }
 
     initializeWorkers(block, difficultyTarget){
