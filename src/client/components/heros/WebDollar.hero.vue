@@ -9,7 +9,7 @@
             <h2 v-show="this.maintenance" class="fadeIn fadeIn2"><b class="testnet">UNDER MAINTENANCE</b></h2>
             <h3 class="fadeIn fadeIn3" :style="{marginTop: !this.mainNet ? '0': '30px'}">Currency of the Internet</h3>
 
-            <div v-show="this.mainNet">
+            <div>
                 <h5 class="fadeIn fadeIn4">{{this.status}}</h5>
                 <div class='btn-cont btnPosition fadeIn fadeIn5'> </div>
 
