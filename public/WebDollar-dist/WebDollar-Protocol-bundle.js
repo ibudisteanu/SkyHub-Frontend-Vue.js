@@ -9762,7 +9762,7 @@ class Blockchain{
         this.Chain = new __WEBPACK_IMPORTED_MODULE_1_main_blockchain_chain_Main_Blockchain__["a" /* default */]( undefined );
         this.blockchain = this.Chain;
 
-        this._synchronized = true;
+        this._synchronized = undefined;
 
         this.Wallet = new __WEBPACK_IMPORTED_MODULE_0_main_blockchain_wallet_Main_Blockchain_Wallet__["a" /* default */](this.Chain);
 
@@ -14563,7 +14563,7 @@ class InterfaceBlockchainFork {
         this._blocksCopy = [];
     }
 
-    async _validateFork(validateHashesAgain){
+    async _validateFork(validateHashesAgain, firstValidation ){
 
         //forkStartingHeight is offseted by 1
 
@@ -14708,7 +14708,7 @@ class InterfaceBlockchainFork {
         if (__WEBPACK_IMPORTED_MODULE_1_consts_global__["a" /* default */].TERMINATED)
             return false;
 
-        if (! (await this._validateFork(false))) {
+        if (! (await this._validateFork(false, true))) {
             console.error("validateFork was not passed");
             return false
         }
@@ -14720,7 +14720,7 @@ class InterfaceBlockchainFork {
 
         let success = await this.blockchain.semaphoreProcessing.processSempahoreCallback( async () => {
 
-            if (! (await this._validateFork(false))) {
+            if (! (await this._validateFork(false, false))) {
                 console.error("validateFork was not passed");
                 return false
             }
@@ -86100,7 +86100,7 @@ class InterfaceBlockchainMiningWorkers extends __WEBPACK_IMPORTED_MODULE_0__Inte
     async setWorkers(newWorkers){
 
         if (newWorkers > this.workers.workers)
-            await this.increaseWorkers(newWorkers - this.workers.workers );
+            await this.increaseWorkers( newWorkers - this.workers.workers );
         else
             await this.decreaseWorkers( - (newWorkers - this.workers.workers)  );
 
@@ -87736,7 +87736,7 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
 
     }
 
-    _validateFork(validateHashesAgain){
+    _validateFork(validateHashesAgain, firstValidation ){
 
         //this._validateProofXi();
 
@@ -87953,15 +87953,16 @@ class MiniBlockchainAgentLightNode extends inheritAgentClass{
 
         this.light = true;
 
-        setInterval( ()=>{
+        setInterval( () => {
 
             if (this.blockchain.proofPi !== null)
-                if ( new Date().getTime() - this.blockchain.proofPi.date.getTime() >= __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK *1000 * 2)
-
-                    if ( Math.random() < WEBRTC_MINIMUM_LIGHT_PROBABILITY && this.status === __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_agents_Agent_Status__["a" /* default */].AGENT_STATUS_SYNCHRONIZED_WEBRTC  )
+                if ( new Date().getTime() - this.blockchain.proofPi.date.getTime() >= __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK *1000 * 2) {
+                    if (Math.random() < WEBRTC_MINIMUM_LIGHT_PROBABILITY && this.status === __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_agents_Agent_Status__["a" /* default */].AGENT_STATUS_SYNCHRONIZED_WEBRTC)
                         __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].synchronizeBlockchain(); //let's synchronize again
+                }
 
         }, (__WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK - 10) * 1000);
+
     }
 
 
