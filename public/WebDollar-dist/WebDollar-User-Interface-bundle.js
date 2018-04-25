@@ -11597,86 +11597,88 @@ if (false) {(function () {
 //
 
 
+    
 
+    /* harmony default export */ __webpack_exports__["a"] = ({
 
-/* harmony default export */ __webpack_exports__["a"] = ({
+        name: 'slider',
 
-    name: 'slider',
-
-    components: {
-        "vueSlider": __WEBPACK_IMPORTED_MODULE_0_vue_slider_component___default.a
-    },
-
-    data() {
-        return {
-            value: localStorage.getItem("miner-settings-worker-count") || 0,
-            disabled:true,
-            screenWidth: window.innerWidth,
-            logicalProcessors: window.navigator.hardwareConcurrency === undefined ? 4 : window.navigator.hardwareConcurrency * 1,
-            sliderMobileWidth: 200,
-            disableHalving: false,
-        }
-    },
-
-    methods: {
-        change(value) {
-
-            console.log("value", value);
-
-            if (this.disableHalving)
-                this.$refs['slider'].setValue(value);
-            else
-                if (value > (this.value||1) *3){
-
-                    value = (this.value||1) *3;
-                    this.$refs['slider'].setValue(value);
-                    return;
-
-                }
-
-            this.$emit('sliderChanged', value);
+        components: {
+            "vueSlider": __WEBPACK_IMPORTED_MODULE_0_vue_slider_component___default.a
         },
-        addEvent(object, type, callback) {
-            if (object === null || typeof(object) === 'undefined') return;
-            if (object.addEventListener) {
-                object.addEventListener(type, callback, false);
-            } else if (object.attachEvent) {
-                object.attachEvent("on" + type, callback);
-            } else {
-                object["on" + type] = callback;
+
+        data() {
+            return {
+                value: localStorage.getItem("miner-settings-worker-count") || 0,
+                disabled:true,
+                screenWidth: window.innerWidth,
+                logicalProcessors: window.navigator.hardwareConcurrency === undefined ? 4 : window.navigator.hardwareConcurrency * 1,
+                sliderMobileWidth: 200,
+                disableHalving: false,
             }
         },
-    },
 
-    mounted() {
+        methods: {
+            change(value) {
 
-        if (typeof window === "undefined") return false;
+                console.log("value", value);
 
-        this.addEvent(window, "resize", (event) => {
+                //TODO use halver
+
+//                if (this.disableHalving)
+//                    this.$refs['slider'].setValue(value);
+//                else
+//                    if (value > (this.value||1) *3){
+//
+//                        value = (this.value||1) *3;
+//                        this.$refs['slider'].setValue(value);
+//                        return;
+//
+//                    }
+
+                this.$emit('sliderChanged', value);
+            },
+            addEvent(object, type, callback) {
+                if (object === null || typeof(object) === 'undefined') return;
+                if (object.addEventListener) {
+                    object.addEventListener(type, callback, false);
+                } else if (object.attachEvent) {
+                    object.attachEvent("on" + type, callback);
+                } else {
+                    object["on" + type] = callback;
+                }
+            },
+        },
+
+        mounted() {
+
+            if (typeof window === "undefined") return false;
+
+            this.addEvent(window, "resize", (event) => {
+
+                this.screenWidth = window.innerWidth;
+
+                if (window.innerWidth<550){
+                    this.sliderMobileWidth = window.innerWidth-180+'px';
+                }else{
+                    this.sliderMobileWidth = '100%';
+                }
+
+            });
 
             this.screenWidth = window.innerWidth;
-
             if (window.innerWidth<550){
                 this.sliderMobileWidth = window.innerWidth-180+'px';
             }else{
                 this.sliderMobileWidth = '100%';
             }
 
-        });
+            this.logicalProcessors = window.navigator.hardwareConcurrency === undefined ? 4 : window.navigator.hardwareConcurrency * 1;
 
-        this.screenWidth = window.innerWidth;
-        if (window.innerWidth<550){
-            this.sliderMobileWidth = window.innerWidth-180+'px';
-        }else{
-            this.sliderMobileWidth = '100%';
+            this.$refs["slider"].refresh();
+
         }
-
-        this.logicalProcessors = window.navigator.hardwareConcurrency === undefined ? 4 : window.navigator.hardwareConcurrency * 1;
-
-        this.$refs["slider"].refresh();
-
-    }
-});
+    });
 
 
 /***/ }),
@@ -18058,7 +18060,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.miningSlider {\n    padding-top: 15px !important;\n    padding-bottom: 15px !important;\n    padding-left: 20px !important;\n    background-color: #262626;\n}\n.vue-slider-component .vue-slider-piecewise {\n    background-color: #424242 !important;\n}\n.vue-slider-component .vue-slider-process {\n    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fec02c+29,bc0505+100 */\n    background: #fec02c !important; /* Old browsers */ /* FF3.6-15 */ /* Chrome10-25,Safari5.1-6 */\n    background: linear-gradient(to right, #fec02c 29%, #bc0505 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\n    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fec02c', endColorstr='#bc0505', GradientType=1) !important; /* IE6-9 */\n}\n\n", "", {"version":3,"sources":["/home/alex/WebDollar/User-Interface-WebDollar/src/components/Mining/src/components/Mining/slider.vue"],"names":[],"mappings":";AA8FA;IACA,6BAAA;IACA,gCAAA;IACA,8BAAA;IACA,0BAAA;CACA;AAEA;IACA,qCAAA;CACA;AAEA;IACA,kHAAA;IACA,+BAAA,CAAA,kBAAA,CACA,cAAA,CACA,6BAAA;IACA,4EAAA,CAAA,sDAAA;IACA,8HAAA,CAAA,WAAA;CACA","file":"slider.vue","sourcesContent":["<template>\n    <div>\n        <vue-slider id=\"miningWorkersSlider\" class=\"miningSlider\" ref=\"slider\" @callback=\"this.change\" :piecewise=\"true\"\n                    :width=\"this.screenWidth < 750 ? this.sliderMobileWidth : 330\" :tooltip=\"false\" :min=\"0\" :max=\"this.logicalProcessors\"\n                    v-model=\"value\" :disabled=\"this.disabled\"></vue-slider>\n    </div>\n</template>\n\n\n<script>\n\n    import vueSlider from 'vue-slider-component';\n\n    export default {\n\n        name: 'slider',\n\n        components: {\n            \"vueSlider\": vueSlider\n        },\n\n        data() {\n            return {\n                value: localStorage.getItem(\"miner-settings-worker-count\") || 0,\n                disabled:true,\n                screenWidth: window.innerWidth,\n                logicalProcessors: window.navigator.hardwareConcurrency === undefined ? 4 : window.navigator.hardwareConcurrency * 1,\n                sliderMobileWidth: 200,\n                disableHalving: false,\n            }\n        },\n\n        methods: {\n            change(value) {\n\n                console.log(\"value\", value);\n\n                if (this.disableHalving)\n                    this.$refs['slider'].setValue(value);\n                else\n                    if (value > (this.value||1) *3){\n\n                        value = (this.value||1) *3;\n                        this.$refs['slider'].setValue(value);\n                        return;\n\n                    }\n\n                this.$emit('sliderChanged', value);\n            },\n            addEvent(object, type, callback) {\n                if (object === null || typeof(object) === 'undefined') return;\n                if (object.addEventListener) {\n                    object.addEventListener(type, callback, false);\n                } else if (object.attachEvent) {\n                    object.attachEvent(\"on\" + type, callback);\n                } else {\n                    object[\"on\" + type] = callback;\n                }\n            },\n        },\n\n        mounted() {\n\n            if (typeof window === \"undefined\") return false;\n\n            this.addEvent(window, \"resize\", (event) => {\n\n                this.screenWidth = window.innerWidth;\n\n                if (window.innerWidth<550){\n                    this.sliderMobileWidth = window.innerWidth-180+'px';\n                }else{\n                    this.sliderMobileWidth = '100%';\n                }\n\n            });\n\n            this.screenWidth = window.innerWidth;\n            if (window.innerWidth<550){\n                this.sliderMobileWidth = window.innerWidth-180+'px';\n            }else{\n                this.sliderMobileWidth = '100%';\n            }\n\n            this.logicalProcessors = window.navigator.hardwareConcurrency === undefined ? 4 : window.navigator.hardwareConcurrency * 1;\n\n            this.$refs[\"slider\"].refresh();\n\n        }\n    }\n</script>\n\n<style>\n\n    .miningSlider {\n        padding-top: 15px !important;\n        padding-bottom: 15px !important;\n        padding-left: 20px !important;\n        background-color: #262626;\n    }\n\n    .vue-slider-component .vue-slider-piecewise {\n        background-color: #424242 !important;\n    }\n\n    .vue-slider-component .vue-slider-process {\n        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fec02c+29,bc0505+100 */\n        background: #fec02c !important; /* Old browsers */\n        background: -moz-linear-gradient(left, #fec02c 29%, #bc0505 100%) !important; /* FF3.6-15 */\n        background: -webkit-linear-gradient(left, #fec02c 29%, #bc0505 100%) !important; /* Chrome10-25,Safari5.1-6 */\n        background: linear-gradient(to right, #fec02c 29%, #bc0505 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\n        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fec02c', endColorstr='#bc0505', GradientType=1) !important; /* IE6-9 */\n    }\n\n</style>"],"sourceRoot":""}]);
+exports.push([module.i, "\n.miningSlider {\n    padding-top: 15px !important;\n    padding-bottom: 15px !important;\n    padding-left: 20px !important;\n    background-color: #262626;\n}\n.vue-slider-component .vue-slider-piecewise {\n    background-color: #424242 !important;\n}\n.vue-slider-component .vue-slider-process {\n    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fec02c+29,bc0505+100 */\n    background: #fec02c !important; /* Old browsers */ /* FF3.6-15 */ /* Chrome10-25,Safari5.1-6 */\n    background: linear-gradient(to right, #fec02c 29%, #bc0505 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\n    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fec02c', endColorstr='#bc0505', GradientType=1) !important; /* IE6-9 */\n}\n\n", "", {"version":3,"sources":["/home/alex/WebDollar/User-Interface-WebDollar/src/components/Mining/src/components/Mining/slider.vue"],"names":[],"mappings":";AAgGA;IACA,6BAAA;IACA,gCAAA;IACA,8BAAA;IACA,0BAAA;CACA;AAEA;IACA,qCAAA;CACA;AAEA;IACA,kHAAA;IACA,+BAAA,CAAA,kBAAA,CACA,cAAA,CACA,6BAAA;IACA,4EAAA,CAAA,sDAAA;IACA,8HAAA,CAAA,WAAA;CACA","file":"slider.vue","sourcesContent":["<template>\n    <div>\n        <vue-slider id=\"miningWorkersSlider\" class=\"miningSlider\" ref=\"slider\" @callback=\"this.change\" :piecewise=\"true\"\n                    :width=\"this.screenWidth < 750 ? this.sliderMobileWidth : 330\" :tooltip=\"false\" :min=\"0\" :max=\"this.logicalProcessors\"\n                    v-model=\"value\" :disabled=\"this.disabled\"></vue-slider>\n    </div>\n</template>\n\n\n<script>\n\n    import vueSlider from 'vue-slider-component';\n\n    export default {\n\n        name: 'slider',\n\n        components: {\n            \"vueSlider\": vueSlider\n        },\n\n        data() {\n            return {\n                value: localStorage.getItem(\"miner-settings-worker-count\") || 0,\n                disabled:true,\n                screenWidth: window.innerWidth,\n                logicalProcessors: window.navigator.hardwareConcurrency === undefined ? 4 : window.navigator.hardwareConcurrency * 1,\n                sliderMobileWidth: 200,\n                disableHalving: false,\n            }\n        },\n\n        methods: {\n            change(value) {\n\n                console.log(\"value\", value);\n\n                //TODO use halver\n\n//                if (this.disableHalving)\n//                    this.$refs['slider'].setValue(value);\n//                else\n//                    if (value > (this.value||1) *3){\n//\n//                        value = (this.value||1) *3;\n//                        this.$refs['slider'].setValue(value);\n//                        return;\n//\n//                    }\n\n                this.$emit('sliderChanged', value);\n            },\n            addEvent(object, type, callback) {\n                if (object === null || typeof(object) === 'undefined') return;\n                if (object.addEventListener) {\n                    object.addEventListener(type, callback, false);\n                } else if (object.attachEvent) {\n                    object.attachEvent(\"on\" + type, callback);\n                } else {\n                    object[\"on\" + type] = callback;\n                }\n            },\n        },\n\n        mounted() {\n\n            if (typeof window === \"undefined\") return false;\n\n            this.addEvent(window, \"resize\", (event) => {\n\n                this.screenWidth = window.innerWidth;\n\n                if (window.innerWidth<550){\n                    this.sliderMobileWidth = window.innerWidth-180+'px';\n                }else{\n                    this.sliderMobileWidth = '100%';\n                }\n\n            });\n\n            this.screenWidth = window.innerWidth;\n            if (window.innerWidth<550){\n                this.sliderMobileWidth = window.innerWidth-180+'px';\n            }else{\n                this.sliderMobileWidth = '100%';\n            }\n\n            this.logicalProcessors = window.navigator.hardwareConcurrency === undefined ? 4 : window.navigator.hardwareConcurrency * 1;\n\n            this.$refs[\"slider\"].refresh();\n\n        }\n    }\n</script>\n\n<style>\n\n    .miningSlider {\n        padding-top: 15px !important;\n        padding-bottom: 15px !important;\n        padding-left: 20px !important;\n        background-color: #262626;\n    }\n\n    .vue-slider-component .vue-slider-piecewise {\n        background-color: #424242 !important;\n    }\n\n    .vue-slider-component .vue-slider-process {\n        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fec02c+29,bc0505+100 */\n        background: #fec02c !important; /* Old browsers */\n        background: -moz-linear-gradient(left, #fec02c 29%, #bc0505 100%) !important; /* FF3.6-15 */\n        background: -webkit-linear-gradient(left, #fec02c 29%, #bc0505 100%) !important; /* Chrome10-25,Safari5.1-6 */\n        background: linear-gradient(to right, #fec02c 29%, #bc0505 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\n        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fec02c', endColorstr='#bc0505', GradientType=1) !important; /* IE6-9 */\n    }\n\n</style>"],"sourceRoot":""}]);
 
 // exports
 
