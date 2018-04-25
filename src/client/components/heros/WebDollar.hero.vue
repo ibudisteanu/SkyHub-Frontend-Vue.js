@@ -18,7 +18,7 @@
                     <loading-spinner />
                 </h5>
 
-                <div class='btn-cont btnPosition fadeIn fadeIn4'>
+                <div v-show="this.mainNet" class='btn-cont btnPosition fadeIn fadeIn4'>
                     <a class='btn' href="#p2p-network">
                         See your Network
                         <span class='line-1'></span>
