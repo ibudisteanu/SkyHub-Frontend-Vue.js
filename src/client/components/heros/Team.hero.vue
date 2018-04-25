@@ -32,6 +32,35 @@
                             Alexandru is a Forbes Europe 30 under 30 nominee in industry category. In 2013, he was nominated by Time Magazine as one of the most influential teens of the world. MIT named an asteroid with his name.</a>
                         </p>
                     </div>
+                    <div class="our-team panait">
+                        <div class="team-pic">
+                            <img src="/public/assets/images/team/PanaitAlexandru.jpg" alt="Alexandru Ionut Panait" title="Alexandru Ionut Panait">
+                            <div class="over-layer">
+                                <ul class="social-link">
+                                    <li><a href="https://www.facebook.com/Ionut.Alex.Panait" target="_blank"  class="fa fa-facebook"></a></li>
+                                    <li><a href="https://www.linkedin.com/in/panait-alexandru-ionut-64181ba7/" target="_blank" class="fa fa-linkedin2"></a></li>
+                                    <li><a href="https://twitter.com/AlexandruPanai" target="_blank" class="fa fa-twitter"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <span class="teamName">Alexandru Ionut Panait</span>
+                        <span class="teamRole">Platform Developer</span>
+                        <p>Alexandru is a young entrepreneur interested in technology and business. General Manager and Founder of a hiring Artificial Intelligence platform and a software agency.</p>
+                    </div>
+                    <div class="our-team oprea">
+                        <div class="team-pic">
+                            <img src="/public/assets/images/team/cosminOprea.jpg" alt="Oprea Cosmin">
+                            <div class="over-layer">
+                                <ul class="social-link">
+                                    <li><a href="https://www.facebook.com/opreacosmind" class="fa fa-facebook" target="_blank"></a></li>
+                                    <li><a href="https://ro.linkedin.com/in/cosmin-dumitru-oprea-045a7353" class="fa fa-linkedin2" target="_blank"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <span class="teamName">Cosmin-Dumitru Oprea</span>
+                        <span class="teamRole">PROTOCOL DEVELOPER</span>
+                        <p>Cosmin is a Teaching Assistant at Politehnica University of Bucharest, Software Engineer with lot of knowledge in algorithms. Cosmin has won three Honorable Mentions at the ACM-ICPC SEERC.</p>
+                    </div>
                     <div class="our-team stratulat">
                         <div class="team-pic">
                             <img src="/public/assets/images/team/Adrian-Stratulat.jpg" alt="Adrian Stratulat">
