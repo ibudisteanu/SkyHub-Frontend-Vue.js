@@ -1960,3 +1960,24 @@ background-color:#ff2200}
   color: #fff;
   letter-spacing: 3px;
 }
+
+.balancesExplorer{
+  width: 786px;
+  margin: 0 auto;
+  margin-bottom: 100px;
+}
+
+.balancesExplorer .list{
+  display:grid;
+  grid-template-columns: 80px 500px 200px;
+}
+
+.balancesExplorer .listHead{
+  display:grid;
+  grid-template-columns: 80px 500px 200px;
+  margin-top: 70px;
+}
+
+.balancesExplorer .title{
+  text-align: center;
+}
