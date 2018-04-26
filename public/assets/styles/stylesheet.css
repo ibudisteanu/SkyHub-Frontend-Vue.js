@@ -978,6 +978,12 @@ background-color:#ff2200}
   padding: 70px 0 60px 0;
 }
 
+.networkDifficulty{
+  display: inline;
+  font-size: 14px;
+  color: #fec02c;
+}
+
 #mainSection h5{
   padding: 10px 0;
   font-size: 12px;

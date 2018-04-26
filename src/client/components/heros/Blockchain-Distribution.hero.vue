@@ -34,7 +34,10 @@
                             <span v-show="!this.loaded" class="value">
                                 <loading-spinner />
                             </span>
-                            <span v-show="this.loaded" class="value">{{this.getNetworkHashrate}}</span>
+                            <span v-show="this.loaded" class="value">
+                                {{this.getNetworkHashrate}}
+                                <span class='networkDifficulty'> {{this.getNetworkHashrateSign}}</span>
+                            </span>
                             <span class="description">Global Hash rate</span>
                         </div>
                     </div>
@@ -97,8 +100,15 @@
 
             getNetworkHashrate(){
 
-                if (this.networkHashRate >= 1000000) return (this.networkHashRate / 1000000).toFixed(0) + " MH/s";
-                if (this.networkHashRate >= 1000) return (this.networkHashRate / 1000).toFixed(0) + " KH/s";
+                if (this.networkHashRate >= 1000000) return (this.networkHashRate / 1000000).toFixed(0);
+                if (this.networkHashRate >= 1000) return (this.networkHashRate / 1000).toFixed(0);
+
+            },
+
+            getNetworkHashrateSign(){
+
+                if (this.networkHashRate >= 1000000) return 'MH/s';
+                if (this.networkHashRate >= 1000) return 'KH/s';
 
             }
         },
