@@ -80333,7 +80333,6 @@ class InterfaceBlockchainBlocks{
         }
 
         let answer = SumDiff.dividedToIntegerBy(how_much_it_took_to_mine_X_Blocks).toNumber();
-        console.warn(answer);
 
         __WEBPACK_IMPORTED_MODULE_1_common_events_Status_Events__["a" /* default */].emit("blockchain/new-network-hash-rate", answer);
 
