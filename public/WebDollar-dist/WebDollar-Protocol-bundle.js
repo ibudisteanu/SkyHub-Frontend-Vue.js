@@ -27756,14 +27756,6 @@ module.exports = bytesToUuid;
         },
 
         {
-            "addr": ["webdollar.ddns.net:8082"],
-        },
-
-        {
-            "addr": ["webdollar.ddns.net:8083"],
-        },
-
-        {
             "addr": ["webdollar.ddns.net:2095"],
         },
 
@@ -27789,6 +27781,9 @@ module.exports = bytesToUuid;
         },
         {
             "addr": ["robitza.ddns.net:8080"]
+        },
+        {
+            "addr": ["robitza.ddns.net:8081"]
         },
 
 
