@@ -58,7 +58,7 @@
                 status: 'Starting...',
                 loaded: false,
                 maintenance: false,
-                mainNet: false,
+                mainNet: true,
                 countDownStatus: true,
                 countDown: 'April 26, 2018 13:00:00 GMT+0',
                 randomReloader: 10,
