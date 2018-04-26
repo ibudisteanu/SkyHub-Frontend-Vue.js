@@ -1,8 +1,12 @@
 <template>
 
-    <div>
+    <div class="balanceExp">
 
-        <div class="list balancesExplorer">
+        <h1>Balances</h1>
+
+        <loading-spinner class="bountySpinner" v-if="this.data===false" />
+
+        <div v-if="this.data!==false" class="list balancesExplorer">
 
             <div class="listHead listElement list">
                 <div>No.</div>
