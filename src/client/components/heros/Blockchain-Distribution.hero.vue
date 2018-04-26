@@ -107,8 +107,8 @@
 
             getNetworkHashrateSign(){
 
-                if (this.networkHashRate >= 1000000) return 'MH/s';
-                if (this.networkHashRate >= 1000) return 'KH/s';
+                if (this.networkHashRate >= 1000000) return 'Mh/s';
+                if (this.networkHashRate >= 1000) return 'Kh/s';
 
             }
         },
