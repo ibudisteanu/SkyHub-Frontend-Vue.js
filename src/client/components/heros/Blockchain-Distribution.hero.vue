@@ -100,7 +100,7 @@
 
             getNetworkHashrate(){
 
-                if (this.networkHashRate >= 1000000) return (this.networkHashRate / 1000000).toFixed(0);
+                if (this.networkHashRate >= 1000000) return (this.networkHashRate / 1000000).toFixed(2);
                 if (this.networkHashRate >= 1000) return (this.networkHashRate / 1000).toFixed(0);
 
             },
