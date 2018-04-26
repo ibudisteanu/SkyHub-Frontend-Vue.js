@@ -1200,7 +1200,7 @@ background-color:#ff2200}
 
 .distributionContainer .stats{
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   padding-bottom: 50px;
   padding-top: 20px;
 }

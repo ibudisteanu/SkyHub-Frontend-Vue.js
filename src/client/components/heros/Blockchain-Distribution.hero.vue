@@ -30,6 +30,13 @@
                             <span v-show="this.loaded" class="value">{{this.distributionBlocks}}</span>
                             <span class="description">Mined blocks</span>
                         </div>
+                        <div>
+                            <span v-show="!this.loaded" class="value">
+                                <loading-spinner />
+                            </span>
+                            <span v-show="this.loaded" class="value">200.000</span>
+                            <span class="description">Global Hash rate</span>
+                        </div>
                     </div>
 
                     <div id="myProgress">
