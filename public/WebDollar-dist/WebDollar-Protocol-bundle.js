@@ -13050,18 +13050,23 @@ class NodesWaitlist {
 
         this._deleteUselessWaitlist(__WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL);
 
-        if (__WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].countNodesByConnectionType(__WEBPACK_IMPORTED_MODULE_6__types_Connections_Type__["a" /* default */].CONNECTION_CLIENT_SOCKET) === 0){
 
-            for (let i=0; i < this.waitListFullNodes.length; i++)
-                if ( this.waitListFullNodes[i].findBackedBy("fallback") !== null)
-                    this._tryToConnectNextNode(this.waitListFullNodes[i]);
-
-        } else {
-
-            for (let i=0; i < this.waitListFullNodes.length; i++)
+        for (let i=0; i < this.waitListFullNodes.length; i++)
+            if ( this.waitListFullNodes[i].findBackedBy("fallback") !== null)
                 this._tryToConnectNextNode(this.waitListFullNodes[i]);
 
-        }
+        // if (NodesList.countNodesByConnectionType(CONNECTION_TYPE.CONNECTION_CLIENT_SOCKET) === 0){
+        //
+        //     for (let i=0; i < this.waitListFullNodes.length; i++)
+        //         if ( this.waitListFullNodes[i].findBackedBy("fallback") !== null)
+        //             this._tryToConnectNextNode(this.waitListFullNodes[i]);
+        //
+        // } else {
+        //
+        //     for (let i=0; i < this.waitListFullNodes.length; i++)
+        //         this._tryToConnectNextNode(this.waitListFullNodes[i]);
+        //
+        // }
 
     }
 
@@ -27759,10 +27764,6 @@ module.exports = bytesToUuid;
         },
 
         {
-            "addr": ["webdollar.ddns.net:8084"],
-        },
-
-        {
             "addr": ["webdollar.ddns.net:2095"],
         },
 
@@ -27777,6 +27778,19 @@ module.exports = bytesToUuid;
         {
             "addr": ["hcern.ddns.net:80"]
         },
+        {
+            "addr": ["hcern.ddns.net:443"]
+        },
+        {
+            "addr": ["robitza.ddns.net:80"]
+        },
+        {
+            "addr": ["robitza.ddns.net:443"]
+        },
+        {
+            "addr": ["robitza.ddns.net:8080"]
+        },
+
 
     ]
 });
@@ -55527,6 +55541,15 @@ class NodesWaitlistObject {
 
     socketErrorConnected(){
         this.errorTrial++;
+
+        if (this.findBackedBy("fallback") !== null) {
+
+            if (true)
+                this.errorTrial = Math.min(this.errorTrial, 5);
+            else
+                this.errorTrial = Math.min(this.errorTrial, 5 + Math.floor( Math.random() * 5) );
+        }
+
     }
 
     checkIsConnected() {
@@ -89251,8 +89274,6 @@ class NodeClient {
                 console.error("Error Raised when connecting Node to ", address, Exception);
                 resolve(false);
             }
-
-            resolve(true);
 
         });
 
