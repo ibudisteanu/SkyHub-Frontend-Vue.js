@@ -30547,6 +30547,9 @@ module.exports = bytesToUuid;
         {
             "addr": ["webdollar.ddns.net:8083"],
         },
+        {
+            "addr": ["webdollar.ddns.net:8084"],
+        },
 
         {
             "addr": ["webdollar.ddns.net:8089"],
@@ -30574,6 +30577,10 @@ module.exports = bytesToUuid;
             "addr": ["hcern.ddns.net:8080"]
         },
         {
+            "addr": ["hcern.ddns.net:8081"]
+        },
+
+        {
             "addr": ["robitza.ddns.net:80"]
         },
         {
@@ -30585,6 +30592,7 @@ module.exports = bytesToUuid;
         {
             "addr": ["robitza.ddns.net:8081"]
         },
+
 
     ]
 });
