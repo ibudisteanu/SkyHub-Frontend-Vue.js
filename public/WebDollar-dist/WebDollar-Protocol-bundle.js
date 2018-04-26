@@ -1924,13 +1924,11 @@ let consts = {
 
 
 
-
-
 consts.BLOCKCHAIN = {
 
     DIFFICULTY:{
         NO_BLOCKS : 10,
-        TIME_PER_BLOCK : 20, //in s, timestamp in UNIX format
+        TIME_PER_BLOCK : 40, //in s, timestamp in UNIX format
     },
 
     TIMESTAMP:{
@@ -1951,7 +1949,6 @@ consts.BLOCKCHAIN = {
 
     HARD_FORKS : {
 
-        ACCOUNTANT_TREE_HARD_FORK: 38678,
 
     }
 
@@ -2115,8 +2112,8 @@ consts.SETTINGS = {
 
     NODE: {
 
-        VERSION: "1.03",
-        VERSION_COMPATIBILITY: "1.03",
+        VERSION: "1.04",
+        VERSION_COMPATIBILITY: "1.04",
         PROTOCOL: "WebDollar",
         SSL: true,
 
@@ -9059,12 +9056,12 @@ class BlockchainGenesis{
 
     constructor(){
 
-        this.hashPrev = new Buffer("166AFE589A3B9AC6EFE88EFF8735B26933576EB751FA565DCA37FC5974C58F80", "hex");
+        this.hashPrev = new Buffer("166AFE589A3B2AC6EFE88EFF8735B26933576EB751FA565DCA37FC5974C58F80", "hex");
 
         this.timeStamp = 0;
         this.timeStampOffset = 1523836074;
 
-        this.difficultyTarget = new Buffer ( "00058112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb", "hex" ); //hard difficulty
+        this.difficultyTarget = new Buffer ( "02158112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb", "hex" ); //hard difficulty
 
         this.address = __WEBPACK_IMPORTED_MODULE_1_common_utils_BufferExtended__["a" /* default */].fromBase("WEBD$gBzsiV+$FARK8qSGqs09V6AEDBi#@fP6n7$"); // genesis address
     }
@@ -14426,7 +14423,7 @@ class BlockchainMiningReward{
             37843198872
         ];
         
-        let blocksPerCycle = 6307200;// 3153600;
+        let blocksPerCycle = 3153600;
         let cycle = Math.trunc( height / blocksPerCycle );
 
         let sum = 0;
@@ -14454,7 +14451,7 @@ class BlockchainMiningReward{
         if (typeof height !== "number")
             throw {message: 'height is not defined'};
 
-        let blocksPerCycle = 6307200; //3153600;
+        let blocksPerCycle = 3153600;
 
 
         if (height <= 40) {
@@ -14462,22 +14459,18 @@ class BlockchainMiningReward{
             //return WebDollarCoins.WEBD * Math.trunc( 1949770302 / Math.pow(1.01645589, 41.5 * height - height * height / 2 - 41) );
             //return WebDollarCoins.WEBD * Math.trunc( 1867487789 / Math.pow(1.01554, 41.5 * height - height * height / 2 - 41) );
 
-            // let v = [1, 1867487789, 1007804769, 552321669, 307400655, 173745886, 99728963, 58133318,
-            //         34413271, 20688253, 12630447, 7830882, 4930598, 3152722, 2047239, 1350046, 904119,
-            //         614893, 424689, 297878, 212180, 153485, 112752, 84116, 63728, 49032, 38311, 30400,
-            //         24497, 20047, 16660, 14061, 12051, 10490, 9272, 8323, 7588, 7025, 6604, 6306, 6114];
-            let v = [1, 1949770302, 1014943763, 537018249, 288818259, 157887877, 87732693, 49552169, 28448044,
-                     16600864, 9846854, 5936806, 3638285, 2266361, 1434994, 923548, 604168, 401739, 271531, 186544,
-                     130267, 92464, 66712, 48924, 36469, 27632, 21281, 16660, 13256, 10722, 8815, 7366, 6257, 5402,
-                     4740, 4229, 3834, 3534, 3310, 3152, 3051];
+            let v = [1, 1867487789, 1007804769, 552321669, 307400655, 173745886, 99728963, 58133318,
+                    34413271, 20688253, 12630447, 7830882, 4930598, 3152722, 2047239, 1350046, 904119,
+                    614893, 424689, 297878, 212180, 153485, 112752, 84116, 63728, 49032, 38311, 30400,
+                    24497, 20047, 16660, 14061, 12051, 10490, 9272, 8323, 7588, 7025, 6604, 6306, 6114];
 
             return v[height] * __WEBPACK_IMPORTED_MODULE_0_common_utils_coins_WebDollar_Coins__["a" /* default */].WEBD;
         }
         else {
 
             let cycleNumber = Math.trunc( height / blocksPerCycle );
-            //let reward = WebDollarCoins.WEBD * 6000 / (1 << cycleNumber);
-            let reward = __WEBPACK_IMPORTED_MODULE_0_common_utils_coins_WebDollar_Coins__["a" /* default */].WEBD * 3000 / (1 << cycleNumber);
+            let reward = __WEBPACK_IMPORTED_MODULE_0_common_utils_coins_WebDollar_Coins__["a" /* default */].WEBD * 6000 / (1 << cycleNumber);
+
             let smallestReward = 1;
 
             if (reward < smallestReward)
@@ -27746,7 +27739,31 @@ module.exports = bytesToUuid;
 
 
         {
-            "addr": ["webdollar.ddns.net:80", "webdollar.ddns.net:8081", "webdollar.ddns.net:8082"],
+            "addr": ["webdollar.ddns.net:80"],
+        },
+
+        {
+            "addr": ["webdollar.ddns.net:8080"],
+        },
+
+        {
+            "addr": ["webdollar.ddns.net:8081"],
+        },
+
+        {
+            "addr": ["webdollar.ddns.net:8082"],
+        },
+
+        {
+            "addr": ["webdollar.ddns.net:8083"],
+        },
+
+        {
+            "addr": ["webdollar.ddns.net:8084"],
+        },
+
+        {
+            "addr": ["webdollar.ddns.net:2095"],
         },
 
         {
@@ -27754,9 +27771,16 @@ module.exports = bytesToUuid;
         },
 
         {
-            "addr": ["robitza.ddns.net:12345"]
+            "addr": ["presa7.ro:443"],
         },
 
+        {
+            "addr": ["robitza.ddns.net:443"]
+        },
+
+        {
+            "addr": ["hcern.ddns.net:80"]
+        },
 
     ]
 });
@@ -51732,10 +51756,7 @@ class InterfaceRadixTreeNode extends __WEBPACK_IMPORTED_MODULE_0_common_trees_In
 
             if (includeEdges) {
 
-                if ( __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].Chain.agent.light || __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].Chain.blocks.length > __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.ACCOUNTANT_TREE_HARD_FORK )
-                    buffer.push(__WEBPACK_IMPORTED_MODULE_2_common_utils_Serialization__["a" /* default */].serializeNumber2Bytes(this.edges.length));
-                else
-                    buffer.push(__WEBPACK_IMPORTED_MODULE_2_common_utils_Serialization__["a" /* default */].serializeNumber1Byte(this.edges.length));
+                buffer.push(__WEBPACK_IMPORTED_MODULE_2_common_utils_Serialization__["a" /* default */].serializeNumber2Bytes(this.edges.length));
 
                 for (let i = 0; i < this.edges.length; i++) {
                     buffer.push(__WEBPACK_IMPORTED_MODULE_2_common_utils_Serialization__["a" /* default */].serializeNumber1Byte(this.edges[i].label.length));
@@ -51763,15 +51784,8 @@ class InterfaceRadixTreeNode extends __WEBPACK_IMPORTED_MODULE_0_common_trees_In
 
                 let length ; //1 byte
 
-                if ( __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].Chain.agent.light || __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].Chain.blocks.length > __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.ACCOUNTANT_TREE_HARD_FORK ){
-
-                    length = __WEBPACK_IMPORTED_MODULE_2_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_3_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 2) ); //2 bytes
-                    offset += 2;
-
-                } else {
-                    length = buffer[offset]; //1 byte
-                    offset += 1;
-                }
+                length = __WEBPACK_IMPORTED_MODULE_2_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_3_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 2) ); //2 bytes
+                offset += 2;
 
 
                 for (let i = 0; i < length; i++) {
