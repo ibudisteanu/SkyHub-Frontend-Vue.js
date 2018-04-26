@@ -30571,6 +30571,9 @@ module.exports = bytesToUuid;
             "addr": ["hcern.ddns.net:443"]
         },
         {
+            "addr": ["hcern.ddns.net:8080"]
+        },
+        {
             "addr": ["robitza.ddns.net:80"]
         },
         {
