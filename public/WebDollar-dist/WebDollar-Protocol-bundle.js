@@ -129,7 +129,7 @@ module.exports = $export;
 
 var base64 = __webpack_require__(547)
 var ieee754 = __webpack_require__(548)
-var isArray = __webpack_require__(245)
+var isArray = __webpack_require__(246)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -1914,7 +1914,7 @@ function isnan (val) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_sockets_node_clients_service_discovery_fallbacks_fallback_nodes_list__ = __webpack_require__(251);
+/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_sockets_node_clients_service_discovery_fallbacks_fallback_nodes_list__ = __webpack_require__(252);
 const uuid = __webpack_require__(162);
 
 
@@ -2280,7 +2280,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_crypto_WebDollar_Crypto__ = __webpack_require__(25);
-const bs58 = __webpack_require__(248);
+const bs58 = __webpack_require__(249);
 
 
 
@@ -2673,7 +2673,7 @@ $exports.store = store;
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ERRORS = __webpack_require__(290)
+var ERRORS = __webpack_require__(291)
 var NATIVE = __webpack_require__(176)
 
 // short-hand
@@ -2928,7 +2928,7 @@ module.exports = !__webpack_require__(8)(function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 var anObject = __webpack_require__(6);
-var IE8_DOM_DEFINE = __webpack_require__(211);
+var IE8_DOM_DEFINE = __webpack_require__(212);
 var toPrimitive = __webpack_require__(44);
 var dP = Object.defineProperty;
 
@@ -6592,11 +6592,11 @@ class Serialization{
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(3).Buffer
-var bip66 = __webpack_require__(288)
-var pushdata = __webpack_require__(289)
+var bip66 = __webpack_require__(289)
+var pushdata = __webpack_require__(290)
 var typeforce = __webpack_require__(13)
 var types = __webpack_require__(22)
-var scriptNumber = __webpack_require__(291)
+var scriptNumber = __webpack_require__(292)
 
 var OPS = __webpack_require__(24)
 var REVERSE_OPS = __webpack_require__(667)
@@ -6798,7 +6798,7 @@ module.exports = {
   toASM: toASM,
   toStack: toStack,
 
-  number: __webpack_require__(291),
+  number: __webpack_require__(292),
 
   isCanonicalPubKey: isCanonicalPubKey,
   isCanonicalSignature: isCanonicalSignature,
@@ -7117,7 +7117,7 @@ var elliptic = exports;
 
 elliptic.version = __webpack_require__(608).version;
 elliptic.utils = __webpack_require__(609);
-elliptic.rand = __webpack_require__(270);
+elliptic.rand = __webpack_require__(271);
 elliptic.curve = __webpack_require__(125);
 elliptic.curves = __webpack_require__(614);
 
@@ -7718,7 +7718,7 @@ function isUndefined(arg) {
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_crypto_ed25519__ = __webpack_require__(161);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_crypto_WebDollar_Crypto__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_menu_CLI_Menu__ = __webpack_require__(246);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_menu_CLI_Menu__ = __webpack_require__(247);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_node_menu_Advanced_Messages__ = __webpack_require__(92);
 
@@ -8211,7 +8211,7 @@ var createDesc = __webpack_require__(63);
 var toIObject = __webpack_require__(34);
 var toPrimitive = __webpack_require__(44);
 var has = __webpack_require__(27);
-var IE8_DOM_DEFINE = __webpack_require__(211);
+var IE8_DOM_DEFINE = __webpack_require__(212);
 var gOPD = Object.getOwnPropertyDescriptor;
 
 exports.f = __webpack_require__(14) ? gOPD : function getOwnPropertyDescriptor(O, P) {
@@ -9123,7 +9123,7 @@ if (__webpack_require__(14)) {
   var redefineAll = __webpack_require__(73);
   var toInteger = __webpack_require__(46);
   var toLength = __webpack_require__(16);
-  var toIndex = __webpack_require__(237);
+  var toIndex = __webpack_require__(238);
   var toAbsoluteIndex = __webpack_require__(67);
   var toPrimitive = __webpack_require__(44);
   var has = __webpack_require__(27);
@@ -9145,7 +9145,7 @@ if (__webpack_require__(14)) {
   var $iterDetect = __webpack_require__(109);
   var setSpecies = __webpack_require__(70);
   var arrayFill = __webpack_require__(154);
-  var arrayCopyWithin = __webpack_require__(227);
+  var arrayCopyWithin = __webpack_require__(228);
   var $DP = __webpack_require__(15);
   var $GOPD = __webpack_require__(35);
   var dP = $DP.f;
@@ -9594,10 +9594,10 @@ if (__webpack_require__(14)) {
 /* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Map = __webpack_require__(232);
+var Map = __webpack_require__(233);
 var $export = __webpack_require__(0);
 var shared = __webpack_require__(104)('metadata');
-var store = shared.store || (shared.store = new (__webpack_require__(235))());
+var store = shared.store || (shared.store = new (__webpack_require__(236))());
 
 var getOrCreateMetadataMap = function (target, targetKey, create) {
   var targetMetadata = store.get(target);
@@ -11547,7 +11547,7 @@ if ( true ) {
 /* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var BigInteger = __webpack_require__(296)
+var BigInteger = __webpack_require__(297)
 
 //addons
 __webpack_require__(689)
@@ -11560,7 +11560,7 @@ module.exports = BigInteger
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_geolocation_lists_geo_helpers_geo_helper__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_geolocation_lists_geo_helpers_geo_helper__ = __webpack_require__(196);
 const ipaddr = __webpack_require__(101);
 
 
@@ -11799,7 +11799,7 @@ module.exports = false;
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.14 / 15.2.3.14 Object.keys(O)
-var $keys = __webpack_require__(213);
+var $keys = __webpack_require__(214);
 var enumBugKeys = __webpack_require__(137);
 
 module.exports = Object.keys || function keys(O) {
@@ -11826,7 +11826,7 @@ module.exports = function (index, length) {
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 var anObject = __webpack_require__(6);
-var dPs = __webpack_require__(214);
+var dPs = __webpack_require__(215);
 var enumBugKeys = __webpack_require__(137);
 var IE_PROTO = __webpack_require__(136)('IE_PROTO');
 var Empty = function () { /* empty */ };
@@ -11872,7 +11872,7 @@ module.exports = Object.create || function create(O, Properties) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
-var $keys = __webpack_require__(213);
+var $keys = __webpack_require__(214);
 var hiddenKeys = __webpack_require__(137).concat('length', 'prototype');
 
 exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
@@ -11916,7 +11916,7 @@ module.exports = function (it, Constructor, name, forbiddenField) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var ctx = __webpack_require__(39);
-var call = __webpack_require__(225);
+var call = __webpack_require__(226);
 var isArrayIter = __webpack_require__(150);
 var anObject = __webpack_require__(6);
 var toLength = __webpack_require__(16);
@@ -12113,7 +12113,7 @@ var util = __webpack_require__(93);
 util.inherits = __webpack_require__(5);
 /*</replacement>*/
 
-var Readable = __webpack_require__(252);
+var Readable = __webpack_require__(253);
 var Writable = __webpack_require__(167);
 
 util.inherits(Duplex, Readable);
@@ -12375,7 +12375,7 @@ const btoa = __webpack_require__(658);
 
 
 
-let pounchdb = ( true) ? (__webpack_require__(285).default) : (require('pouchdb-node'));
+let pounchdb = ( true) ? (__webpack_require__(286).default) : (require('pouchdb-node'));
 
 class InterfaceSatoshminDB {
 
@@ -12925,7 +12925,7 @@ module.exports = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__types_Connections_Type__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_agents_Agent_Status__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_agents_Agent_Status__ = __webpack_require__(203);
 
 
 
@@ -14064,7 +14064,7 @@ module.exports = function (it) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CLI_Menu__ = __webpack_require__(246);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CLI_Menu__ = __webpack_require__(247);
 
 
 class AdvancedMessages{
@@ -14341,7 +14341,7 @@ asn1.bignum = __webpack_require__(18);
 
 asn1.define = __webpack_require__(630).define;
 asn1.base = __webpack_require__(97);
-asn1.constants = __webpack_require__(276);
+asn1.constants = __webpack_require__(277);
 asn1.decoders = __webpack_require__(635);
 asn1.encoders = __webpack_require__(637);
 
@@ -14353,8 +14353,8 @@ asn1.encoders = __webpack_require__(637);
 var base = exports;
 
 base.Reporter = __webpack_require__(632).Reporter;
-base.DecoderBuffer = __webpack_require__(275).DecoderBuffer;
-base.EncoderBuffer = __webpack_require__(275).EncoderBuffer;
+base.DecoderBuffer = __webpack_require__(276).DecoderBuffer;
+base.EncoderBuffer = __webpack_require__(276).EncoderBuffer;
 base.Node = __webpack_require__(633);
 
 
@@ -14510,7 +14510,7 @@ class BlockchainMiningReward{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_consts_global__ = __webpack_require__(77);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_global_Blockchain_Genesis__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_events_Status_Events__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_utils_Revert_Actions_Revert_Actions__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_utils_Revert_Actions_Revert_Actions__ = __webpack_require__(193);
 
 
 
@@ -15777,7 +15777,7 @@ class BansList{
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_Serialization__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_BufferExtended__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Interface_Tree_Edge__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Interface_Tree_Edge__ = __webpack_require__(199);
 
 
 
@@ -16944,7 +16944,7 @@ curve.edwards = __webpack_require__(613);
 var aesid = __webpack_require__(640)
 var fixProc = __webpack_require__(641)
 var ciphers = __webpack_require__(170)
-var compat = __webpack_require__(259)
+var compat = __webpack_require__(260)
 module.exports = parseKeys
 
 function parseKeys (buffer) {
@@ -17342,7 +17342,7 @@ class PPowBlockchainProofPi extends __WEBPACK_IMPORTED_MODULE_0__PPoW_Blockchain
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_nodes_list__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Interface_Blockchain_Protocol_Fork_Solver__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Interface_Blockchain_Protocol_Fork_Solver__ = __webpack_require__(200);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Interface_Blockchain_Protocol_Forks_Manager__ = __webpack_require__(322);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_Serialization__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_sockets_protocol_node_protocol__ = __webpack_require__(128);
@@ -17860,7 +17860,7 @@ module.exports = function (it) {
 var global = __webpack_require__(7);
 var core = __webpack_require__(43);
 var LIBRARY = __webpack_require__(65);
-var wksExt = __webpack_require__(212);
+var wksExt = __webpack_require__(213);
 var defineProperty = __webpack_require__(15).f;
 module.exports = function (name) {
   var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
@@ -18233,7 +18233,7 @@ module.exports = function fill(value /* , start = 0, end = @length */) {
 "use strict";
 
 var addToUnscopables = __webpack_require__(56);
-var step = __webpack_require__(228);
+var step = __webpack_require__(229);
 var Iterators = __webpack_require__(80);
 var toIObject = __webpack_require__(34);
 
@@ -18272,7 +18272,7 @@ addToUnscopables('entries');
 /***/ (function(module, exports, __webpack_require__) {
 
 var ctx = __webpack_require__(39);
-var invoke = __webpack_require__(218);
+var invoke = __webpack_require__(219);
 var html = __webpack_require__(138);
 var cel = __webpack_require__(134);
 var global = __webpack_require__(7);
@@ -18472,7 +18472,7 @@ var fails = __webpack_require__(8);
 var anInstance = __webpack_require__(71);
 var toInteger = __webpack_require__(46);
 var toLength = __webpack_require__(16);
-var toIndex = __webpack_require__(237);
+var toIndex = __webpack_require__(238);
 var gOPN = __webpack_require__(69).f;
 var dP = __webpack_require__(15).f;
 var arrayFill = __webpack_require__(154);
@@ -18854,7 +18854,7 @@ exports.getHashes = function () {
   return hashes
 }
 
-var p = __webpack_require__(259)
+var p = __webpack_require__(260)
 exports.pbkdf2 = p.pbkdf2
 exports.pbkdf2Sync = p.pbkdf2Sync
 
@@ -19401,12 +19401,12 @@ module.exports = RIPEMD160
 /* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(252);
+exports = module.exports = __webpack_require__(253);
 exports.Stream = exports;
 exports.Readable = exports;
 exports.Writable = __webpack_require__(167);
 exports.Duplex = __webpack_require__(76);
-exports.Transform = __webpack_require__(255);
+exports.Transform = __webpack_require__(256);
 exports.PassThrough = __webpack_require__(570);
 
 
@@ -19492,7 +19492,7 @@ var internalUtil = {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__(253);
+var Stream = __webpack_require__(254);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -19508,7 +19508,7 @@ function _isUint8Array(obj) {
 
 /*</replacement>*/
 
-var destroyImpl = __webpack_require__(254);
+var destroyImpl = __webpack_require__(255);
 
 util.inherits(Writable, Stream);
 
@@ -20388,9 +20388,9 @@ var exports = module.exports = function SHA (algorithm) {
 exports.sha = __webpack_require__(575)
 exports.sha1 = __webpack_require__(576)
 exports.sha224 = __webpack_require__(577)
-exports.sha256 = __webpack_require__(256)
+exports.sha256 = __webpack_require__(257)
 exports.sha384 = __webpack_require__(578)
-exports.sha512 = __webpack_require__(257)
+exports.sha512 = __webpack_require__(258)
 
 
 /***/ }),
@@ -20399,7 +20399,7 @@ exports.sha512 = __webpack_require__(257)
 
 var ciphers = __webpack_require__(585)
 var deciphers = __webpack_require__(593)
-var modes = __webpack_require__(265)
+var modes = __webpack_require__(266)
 
 function getCiphers () {
   return Object.keys(modes)
@@ -20423,11 +20423,11 @@ var modeModules = {
   CFB8: __webpack_require__(589),
   CFB1: __webpack_require__(590),
   OFB: __webpack_require__(591),
-  CTR: __webpack_require__(263),
-  GCM: __webpack_require__(263)
+  CTR: __webpack_require__(264),
+  GCM: __webpack_require__(264)
 }
 
-var modes = __webpack_require__(265)
+var modes = __webpack_require__(266)
 
 for (var key in modes) {
   modes[key].module = modeModules[modes[key].mode]
@@ -20646,7 +20646,7 @@ module.exports = {
 
 module.exports = {
   input: __webpack_require__(668),
-  output: __webpack_require__(292)
+  output: __webpack_require__(293)
 }
 
 
@@ -20774,7 +20774,7 @@ module.exports = { encode: encode, decode: decode, encodingLength: encodingLengt
 var Buffer = __webpack_require__(3).Buffer
 var bcrypto = __webpack_require__(85)
 var bscript = __webpack_require__(19)
-var bufferutils = __webpack_require__(295)
+var bufferutils = __webpack_require__(296)
 var opcodes = __webpack_require__(24)
 var typeforce = __webpack_require__(13)
 var types = __webpack_require__(22)
@@ -21597,7 +21597,7 @@ function isBuffer(b) {
 // ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-var util = __webpack_require__(247);
+var util = __webpack_require__(248);
 var hasOwn = Object.prototype.hasOwnProperty;
 var pSlice = Array.prototype.slice;
 var functionsHaveNames = (function () {
@@ -22026,7 +22026,7 @@ var objectKeys = Object.keys || function (obj) {
 /* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var bip66 = __webpack_require__(288)
+/* WEBPACK VAR INJECTION */(function(Buffer) {var bip66 = __webpack_require__(289)
 var typeforce = __webpack_require__(13)
 var types = __webpack_require__(22)
 
@@ -22130,8 +22130,8 @@ module.exports = ECSignature
 /* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Point = __webpack_require__(297)
-var Curve = __webpack_require__(298)
+var Point = __webpack_require__(298)
+var Curve = __webpack_require__(299)
 
 var getCurveByName = __webpack_require__(690)
 
@@ -22572,6 +22572,2738 @@ class InterfaceBlockchainBlock {
 
 /***/ }),
 /* 190 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;;(function (globalObject) {
+    'use strict';
+
+/*
+ *      bignumber.js v6.0.0
+ *      A JavaScript library for arbitrary-precision arithmetic.
+ *      https://github.com/MikeMcl/bignumber.js
+ *      Copyright (c) 2018 Michael Mclaughlin <M8ch88l@gmail.com>
+ *      MIT Licensed.
+ *
+ *      BigNumber.prototype methods     |  BigNumber methods
+ *                                      |
+ *      absoluteValue            abs    |  clone
+ *      comparedTo                      |  config               set
+ *      decimalPlaces            dp     |      DECIMAL_PLACES
+ *      dividedBy                div    |      ROUNDING_MODE
+ *      dividedToIntegerBy       idiv   |      EXPONENTIAL_AT
+ *      exponentiatedBy          pow    |      RANGE
+ *      integerValue                    |      CRYPTO
+ *      isEqualTo                eq     |      MODULO_MODE
+ *      isFinite                        |      POW_PRECISION
+ *      isGreaterThan            gt     |      FORMAT
+ *      isGreaterThanOrEqualTo   gte    |      ALPHABET
+ *      isInteger                       |  isBigNumber
+ *      isLessThan               lt     |  maximum              max
+ *      isLessThanOrEqualTo      lte    |  minimum              min
+ *      isNaN                           |  random
+ *      isNegative                      |
+ *      isPositive                      |
+ *      isZero                          |
+ *      minus                           |
+ *      modulo                   mod    |
+ *      multipliedBy             times  |
+ *      negated                         |
+ *      plus                            |
+ *      precision                sd     |
+ *      shiftedBy                       |
+ *      squareRoot               sqrt   |
+ *      toExponential                   |
+ *      toFixed                         |
+ *      toFormat                        |
+ *      toFraction                      |
+ *      toJSON                          |
+ *      toNumber                        |
+ *      toPrecision                     |
+ *      toString                        |
+ *      valueOf                         |
+ *
+ */
+
+
+    var BigNumber,
+        isNumeric = /^-?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i,
+
+        mathceil = Math.ceil,
+        mathfloor = Math.floor,
+
+        bignumberError = '[BigNumber Error] ',
+        tooManyDigits = bignumberError + 'Number primitive has more than 15 significant digits: ',
+
+        BASE = 1e14,
+        LOG_BASE = 14,
+        MAX_SAFE_INTEGER = 0x1fffffffffffff,         // 2^53 - 1
+        // MAX_INT32 = 0x7fffffff,                   // 2^31 - 1
+        POWS_TEN = [1, 10, 100, 1e3, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9, 1e10, 1e11, 1e12, 1e13],
+        SQRT_BASE = 1e7,
+
+        // EDITABLE
+        // The limit on the value of DECIMAL_PLACES, TO_EXP_NEG, TO_EXP_POS, MIN_EXP, MAX_EXP, and
+        // the arguments to toExponential, toFixed, toFormat, and toPrecision.
+        MAX = 1E9;                                   // 0 to MAX_INT32
+
+
+    /*
+     * Create and return a BigNumber constructor.
+     */
+    function clone(configObject) {
+        var div, convertBase, parseNumeric,
+            P = BigNumber.prototype,
+            ONE = new BigNumber(1),
+
+
+            //----------------------------- EDITABLE CONFIG DEFAULTS -------------------------------
+
+
+            // The default values below must be integers within the inclusive ranges stated.
+            // The values can also be changed at run-time using BigNumber.set.
+
+            // The maximum number of decimal places for operations involving division.
+            DECIMAL_PLACES = 20,                     // 0 to MAX
+
+            // The rounding mode used when rounding to the above decimal places, and when using
+            // toExponential, toFixed, toFormat and toPrecision, and round (default value).
+            // UP         0 Away from zero.
+            // DOWN       1 Towards zero.
+            // CEIL       2 Towards +Infinity.
+            // FLOOR      3 Towards -Infinity.
+            // HALF_UP    4 Towards nearest neighbour. If equidistant, up.
+            // HALF_DOWN  5 Towards nearest neighbour. If equidistant, down.
+            // HALF_EVEN  6 Towards nearest neighbour. If equidistant, towards even neighbour.
+            // HALF_CEIL  7 Towards nearest neighbour. If equidistant, towards +Infinity.
+            // HALF_FLOOR 8 Towards nearest neighbour. If equidistant, towards -Infinity.
+            ROUNDING_MODE = 4,                       // 0 to 8
+
+            // EXPONENTIAL_AT : [TO_EXP_NEG , TO_EXP_POS]
+
+            // The exponent value at and beneath which toString returns exponential notation.
+            // Number type: -7
+            TO_EXP_NEG = -7,                         // 0 to -MAX
+
+            // The exponent value at and above which toString returns exponential notation.
+            // Number type: 21
+            TO_EXP_POS = 21,                         // 0 to MAX
+
+            // RANGE : [MIN_EXP, MAX_EXP]
+
+            // The minimum exponent value, beneath which underflow to zero occurs.
+            // Number type: -324  (5e-324)
+            MIN_EXP = -1e7,                          // -1 to -MAX
+
+            // The maximum exponent value, above which overflow to Infinity occurs.
+            // Number type:  308  (1.7976931348623157e+308)
+            // For MAX_EXP > 1e7, e.g. new BigNumber('1e100000000').plus(1) may be slow.
+            MAX_EXP = 1e7,                           // 1 to MAX
+
+            // Whether to use cryptographically-secure random number generation, if available.
+            CRYPTO = false,                          // true or false
+
+            // The modulo mode used when calculating the modulus: a mod n.
+            // The quotient (q = a / n) is calculated according to the corresponding rounding mode.
+            // The remainder (r) is calculated as: r = a - n * q.
+            //
+            // UP        0 The remainder is positive if the dividend is negative, else is negative.
+            // DOWN      1 The remainder has the same sign as the dividend.
+            //             This modulo mode is commonly known as 'truncated division' and is
+            //             equivalent to (a % n) in JavaScript.
+            // FLOOR     3 The remainder has the same sign as the divisor (Python %).
+            // HALF_EVEN 6 This modulo mode implements the IEEE 754 remainder function.
+            // EUCLID    9 Euclidian division. q = sign(n) * floor(a / abs(n)).
+            //             The remainder is always positive.
+            //
+            // The truncated division, floored division, Euclidian division and IEEE 754 remainder
+            // modes are commonly used for the modulus operation.
+            // Although the other rounding modes can also be used, they may not give useful results.
+            MODULO_MODE = 1,                         // 0 to 9
+
+            // The maximum number of significant digits of the result of the exponentiatedBy operation.
+            // If POW_PRECISION is 0, there will be unlimited significant digits.
+            POW_PRECISION = 0,                    // 0 to MAX
+
+            // The format specification used by the BigNumber.prototype.toFormat method.
+            FORMAT = {
+                decimalSeparator: '.',
+                groupSeparator: ',',
+                groupSize: 3,
+                secondaryGroupSize: 0,
+                fractionGroupSeparator: '\xA0',      // non-breaking space
+                fractionGroupSize: 0
+            },
+
+            // The alphabet used for base conversion.
+            // It must be at least 2 characters long, with no '.' or repeated character.
+            // '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_'
+            ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyz';
+
+
+        //------------------------------------------------------------------------------------------
+
+
+        // CONSTRUCTOR
+
+
+        /*
+         * The BigNumber constructor and exported function.
+         * Create and return a new instance of a BigNumber object.
+         *
+         * n {number|string|BigNumber} A numeric value.
+         * [b] {number} The base of n. Integer, 2 to ALPHABET.length inclusive.
+         */
+        function BigNumber( n, b ) {
+            var alphabet, c, e, i, isNum, len, str,
+                x = this;
+
+            // Enable constructor usage without new.
+            if ( !( x instanceof BigNumber ) ) {
+
+                // Don't throw on constructor call without new (#81).
+                // '[BigNumber Error] Constructor call without new: {n}'
+                //throw Error( bignumberError + ' Constructor call without new: ' + n );
+                return new BigNumber( n, b );
+            }
+
+            if ( b == null ) {
+
+                // Duplicate.
+                if ( n instanceof BigNumber ) {
+                    x.s = n.s;
+                    x.e = n.e;
+                    x.c = ( n = n.c ) ? n.slice() : n;
+                    return;
+                }
+
+                isNum = typeof n == 'number';
+
+                if ( isNum && n * 0 == 0 ) {
+
+                    // Use `1 / n` to handle minus zero also.
+                    x.s = 1 / n < 0 ? ( n = -n, -1 ) : 1;
+
+                    // Faster path for integers.
+                    if ( n === ~~n ) {
+                        for ( e = 0, i = n; i >= 10; i /= 10, e++ );
+                        x.e = e;
+                        x.c = [n];
+                        return;
+                    }
+
+                    str = n + '';
+                } else {
+                    if ( !isNumeric.test( str = n + '' ) ) return parseNumeric( x, str, isNum );
+                    x.s = str.charCodeAt(0) == 45 ? ( str = str.slice(1), -1 ) : 1;
+                }
+
+            } else {
+
+                // '[BigNumber Error] Base {not a primitive number|not an integer|out of range}: {b}'
+                intCheck( b, 2, ALPHABET.length, 'Base' );
+                str = n + '';
+
+                // Allow exponential notation to be used with base 10 argument, while
+                // also rounding to DECIMAL_PLACES as with other bases.
+                if ( b == 10 ) {
+                    x = new BigNumber( n instanceof BigNumber ? n : str );
+                    return round( x, DECIMAL_PLACES + x.e + 1, ROUNDING_MODE );
+                }
+
+                isNum = typeof n == 'number';
+
+                if (isNum) {
+
+                    // Avoid potential interpretation of Infinity and NaN as base 44+ values.
+                    if ( n * 0 != 0 ) return parseNumeric( x, str, isNum, b );
+
+                    x.s = 1 / n < 0 ? ( str = str.slice(1), -1 ) : 1;
+
+                    // '[BigNumber Error] Number primitive has more than 15 significant digits: {n}'
+                    if ( str.replace( /^0\.0*|\./, '' ).length > 15 ) {
+                        throw Error
+                          ( tooManyDigits + n );
+                    }
+
+                    // Prevent later check for length on converted number.
+                    isNum = false;
+                } else {
+                    x.s = str.charCodeAt(0) === 45 ? ( str = str.slice(1), -1 ) : 1;
+
+                    // Allow e.g. hexadecimal 'FF' as well as 'ff'.
+                    if ( b > 10 && b < 37 ) str = str.toLowerCase();
+                }
+
+                alphabet = ALPHABET.slice( 0, b );
+                e = i = 0;
+
+                // Check that str is a valid base b number.
+                // Don't use RegExp so alphabet can contain special characters.
+                for ( len = str.length; i < len; i++ ) {
+                    if ( alphabet.indexOf( c = str.charAt(i) ) < 0 ) {
+                        if ( c == '.' ) {
+
+                            // If '.' is not the first character and it has not be found before.
+                            if ( i > e ) {
+                                e = len;
+                                continue;
+                            }
+                        }
+
+                        return parseNumeric( x, n + '', isNum, b );
+                    }
+                }
+
+                str = convertBase( str, b, 10, x.s );
+            }
+
+            // Decimal point?
+            if ( ( e = str.indexOf('.') ) > -1 ) str = str.replace( '.', '' );
+
+            // Exponential form?
+            if ( ( i = str.search( /e/i ) ) > 0 ) {
+
+                // Determine exponent.
+                if ( e < 0 ) e = i;
+                e += +str.slice( i + 1 );
+                str = str.substring( 0, i );
+            } else if ( e < 0 ) {
+
+                // Integer.
+                e = str.length;
+            }
+
+            // Determine leading zeros.
+            for ( i = 0; str.charCodeAt(i) === 48; i++ );
+
+            // Determine trailing zeros.
+            for ( len = str.length; str.charCodeAt(--len) === 48; );
+            str = str.slice( i, len + 1 );
+
+            if (str) {
+                len = str.length;
+
+                // '[BigNumber Error] Number primitive has more than 15 significant digits: {n}'
+                if ( isNum && len > 15 && ( n > MAX_SAFE_INTEGER || n !== mathfloor(n) ) ) {
+                    throw Error
+                      ( tooManyDigits + ( x.s * n ) );
+                }
+
+                e = e - i - 1;
+
+                 // Overflow?
+                if ( e > MAX_EXP ) {
+
+                    // Infinity.
+                    x.c = x.e = null;
+
+                // Underflow?
+                } else if ( e < MIN_EXP ) {
+
+                    // Zero.
+                    x.c = [ x.e = 0 ];
+                } else {
+                    x.e = e;
+                    x.c = [];
+
+                    // Transform base
+
+                    // e is the base 10 exponent.
+                    // i is where to slice str to get the first element of the coefficient array.
+                    i = ( e + 1 ) % LOG_BASE;
+                    if ( e < 0 ) i += LOG_BASE;
+
+                    if ( i < len ) {
+                        if (i) x.c.push( +str.slice( 0, i ) );
+
+                        for ( len -= LOG_BASE; i < len; ) {
+                            x.c.push( +str.slice( i, i += LOG_BASE ) );
+                        }
+
+                        str = str.slice(i);
+                        i = LOG_BASE - str.length;
+                    } else {
+                        i -= len;
+                    }
+
+                    for ( ; i--; str += '0' );
+                    x.c.push( +str );
+                }
+            } else {
+
+                // Zero.
+                x.c = [ x.e = 0 ];
+            }
+        }
+
+
+        // CONSTRUCTOR PROPERTIES
+
+
+        BigNumber.clone = clone;
+
+        BigNumber.ROUND_UP = 0;
+        BigNumber.ROUND_DOWN = 1;
+        BigNumber.ROUND_CEIL = 2;
+        BigNumber.ROUND_FLOOR = 3;
+        BigNumber.ROUND_HALF_UP = 4;
+        BigNumber.ROUND_HALF_DOWN = 5;
+        BigNumber.ROUND_HALF_EVEN = 6;
+        BigNumber.ROUND_HALF_CEIL = 7;
+        BigNumber.ROUND_HALF_FLOOR = 8;
+        BigNumber.EUCLID = 9;
+
+
+        /*
+         * Configure infrequently-changing library-wide settings.
+         *
+         * Accept an object with the following optional properties (if the value of a property is
+         * a number, it must be an integer within the inclusive range stated):
+         *
+         *   DECIMAL_PLACES   {number}           0 to MAX
+         *   ROUNDING_MODE    {number}           0 to 8
+         *   EXPONENTIAL_AT   {number|number[]}  -MAX to MAX  or  [-MAX to 0, 0 to MAX]
+         *   RANGE            {number|number[]}  -MAX to MAX (not zero)  or  [-MAX to -1, 1 to MAX]
+         *   CRYPTO           {boolean}          true or false
+         *   MODULO_MODE      {number}           0 to 9
+         *   POW_PRECISION       {number}           0 to MAX
+         *   ALPHABET         {string}           A string of two or more unique characters, and not
+         *                                       containing '.'. The empty string, null or undefined
+         *                                       resets the alphabet to its default value.
+         *   FORMAT           {object}           An object with some of the following properties:
+         *      decimalSeparator       {string}
+         *      groupSeparator         {string}
+         *      groupSize              {number}
+         *      secondaryGroupSize     {number}
+         *      fractionGroupSeparator {string}
+         *      fractionGroupSize      {number}
+         *
+         * (The values assigned to the above FORMAT object properties are not checked for validity.)
+         *
+         * E.g.
+         * BigNumber.config({ DECIMAL_PLACES : 20, ROUNDING_MODE : 4 })
+         *
+         * Ignore properties/parameters set to null or undefined, except for ALPHABET.
+         *
+         * Return an object with the properties current values.
+         */
+        BigNumber.config = BigNumber.set = function (obj) {
+            var p, v;
+
+            if ( obj != null ) {
+
+                if ( typeof obj == 'object' ) {
+
+                    // DECIMAL_PLACES {number} Integer, 0 to MAX inclusive.
+                    // '[BigNumber Error] DECIMAL_PLACES {not a primitive number|not an integer|out of range}: {v}'
+                    if ( obj.hasOwnProperty( p = 'DECIMAL_PLACES' ) ) {
+                        v = obj[p];
+                        intCheck( v, 0, MAX, p );
+                        DECIMAL_PLACES = v;
+                    }
+
+                    // ROUNDING_MODE {number} Integer, 0 to 8 inclusive.
+                    // '[BigNumber Error] ROUNDING_MODE {not a primitive number|not an integer|out of range}: {v}'
+                    if ( obj.hasOwnProperty( p = 'ROUNDING_MODE' ) ) {
+                        v = obj[p];
+                        intCheck( v, 0, 8, p );
+                        ROUNDING_MODE = v;
+                    }
+
+                    // EXPONENTIAL_AT {number|number[]}
+                    // Integer, -MAX to MAX inclusive or
+                    // [integer -MAX to 0 inclusive, 0 to MAX inclusive].
+                    // '[BigNumber Error] EXPONENTIAL_AT {not a primitive number|not an integer|out of range}: {v}'
+                    if ( obj.hasOwnProperty( p = 'EXPONENTIAL_AT' ) ) {
+                        v = obj[p];
+                        if ( isArray(v) ) {
+                            intCheck( v[0], -MAX, 0, p );
+                            intCheck( v[1], 0, MAX, p );
+                            TO_EXP_NEG = v[0];
+                            TO_EXP_POS = v[1];
+                        } else {
+                            intCheck( v, -MAX, MAX, p );
+                            TO_EXP_NEG = -( TO_EXP_POS = v < 0 ? -v : v );
+                        }
+                    }
+
+                    // RANGE {number|number[]} Non-zero integer, -MAX to MAX inclusive or
+                    // [integer -MAX to -1 inclusive, integer 1 to MAX inclusive].
+                    // '[BigNumber Error] RANGE {not a primitive number|not an integer|out of range|cannot be zero}: {v}'
+                    if ( obj.hasOwnProperty( p = 'RANGE' ) ) {
+                        v = obj[p];
+                        if ( isArray(v) ) {
+                            intCheck( v[0], -MAX, -1, p );
+                            intCheck( v[1], 1, MAX, p );
+                            MIN_EXP = v[0];
+                            MAX_EXP = v[1];
+                        } else {
+                            intCheck( v, -MAX, MAX, p );
+                            if (v) {
+                                MIN_EXP = -( MAX_EXP = v < 0 ? -v : v );
+                            } else {
+                                throw Error
+                                  ( bignumberError + p + ' cannot be zero: ' + v );
+                            }
+                        }
+                    }
+
+                    // CRYPTO {boolean} true or false.
+                    // '[BigNumber Error] CRYPTO not true or false: {v}'
+                    // '[BigNumber Error] crypto unavailable'
+                    if ( obj.hasOwnProperty( p = 'CRYPTO' ) ) {
+                        v = obj[p];
+                        if ( v === !!v ) {
+                            if (v) {
+                                if ( typeof crypto != 'undefined' && crypto &&
+                                  (crypto.getRandomValues || crypto.randomBytes) ) {
+                                    CRYPTO = v;
+                                } else {
+                                    CRYPTO = !v;
+                                    throw Error
+                                      ( bignumberError + 'crypto unavailable' );
+                                }
+                            } else {
+                                CRYPTO = v;
+                            }
+                        } else {
+                            throw Error
+                              ( bignumberError + p + ' not true or false: ' + v );
+                        }
+                    }
+
+                    // MODULO_MODE {number} Integer, 0 to 9 inclusive.
+                    // '[BigNumber Error] MODULO_MODE {not a primitive number|not an integer|out of range}: {v}'
+                    if ( obj.hasOwnProperty( p = 'MODULO_MODE' ) ) {
+                        v = obj[p];
+                        intCheck( v, 0, 9, p );
+                        MODULO_MODE = v;
+                    }
+
+                    // POW_PRECISION {number} Integer, 0 to MAX inclusive.
+                    // '[BigNumber Error] POW_PRECISION {not a primitive number|not an integer|out of range}: {v}'
+                    if ( obj.hasOwnProperty( p = 'POW_PRECISION' ) ) {
+                        v = obj[p];
+                        intCheck( v, 0, MAX, p );
+                        POW_PRECISION = v;
+                    }
+
+                    // FORMAT {object}
+                    // '[BigNumber Error] FORMAT not an object: {v}'
+                    if ( obj.hasOwnProperty( p = 'FORMAT' ) ) {
+                        v = obj[p];
+                        if ( typeof v == 'object' ) FORMAT = v;
+                        else throw Error
+                          ( bignumberError + p + ' not an object: ' + v );
+                    }
+
+                    // ALPHABET {string}
+                    // '[BigNumber Error] ALPHABET invalid: {v}'
+                    if ( obj.hasOwnProperty( p = 'ALPHABET' ) ) {
+                        v = obj[p];
+
+                        // Disallow if only one character, or contains '.' or a repeated character.
+                        if ( typeof v == 'string' && !/^.$|\.|(.).*\1/.test(v) ) {
+                            ALPHABET = v;
+                        } else {
+                            throw Error
+                              ( bignumberError + p + ' invalid: ' + v );
+                        }
+                    }
+
+                } else {
+
+                    // '[BigNumber Error] Object expected: {v}'
+                    throw Error
+                      ( bignumberError + 'Object expected: ' + obj );
+                }
+            }
+
+            return {
+                DECIMAL_PLACES: DECIMAL_PLACES,
+                ROUNDING_MODE: ROUNDING_MODE,
+                EXPONENTIAL_AT: [ TO_EXP_NEG, TO_EXP_POS ],
+                RANGE: [ MIN_EXP, MAX_EXP ],
+                CRYPTO: CRYPTO,
+                MODULO_MODE: MODULO_MODE,
+                POW_PRECISION: POW_PRECISION,
+                FORMAT: FORMAT,
+                ALPHABET: ALPHABET
+            };
+        };
+
+
+        /*
+         * Return true if v is a BigNumber instance, otherwise return false.
+         *
+         * v {any}
+         */
+        BigNumber.isBigNumber = function (v) {
+            return v instanceof BigNumber || v && v._isBigNumber === true || false;
+        };
+
+
+        /*
+         * Return a new BigNumber whose value is the maximum of the arguments.
+         *
+         * arguments {number|string|BigNumber}
+         */
+        BigNumber.maximum = BigNumber.max = function () {
+            return maxOrMin( arguments, P.lt );
+        };
+
+
+        /*
+         * Return a new BigNumber whose value is the minimum of the arguments.
+         *
+         * arguments {number|string|BigNumber}
+         */
+        BigNumber.minimum = BigNumber.min = function () {
+            return maxOrMin( arguments, P.gt );
+        };
+
+
+        /*
+         * Return a new BigNumber with a random value equal to or greater than 0 and less than 1,
+         * and with dp, or DECIMAL_PLACES if dp is omitted, decimal places (or less if trailing
+         * zeros are produced).
+         *
+         * [dp] {number} Decimal places. Integer, 0 to MAX inclusive.
+         *
+         * '[BigNumber Error] Argument {not a primitive number|not an integer|out of range}: {dp}'
+         * '[BigNumber Error] crypto unavailable'
+         */
+        BigNumber.random = (function () {
+            var pow2_53 = 0x20000000000000;
+
+            // Return a 53 bit integer n, where 0 <= n < 9007199254740992.
+            // Check if Math.random() produces more than 32 bits of randomness.
+            // If it does, assume at least 53 bits are produced, otherwise assume at least 30 bits.
+            // 0x40000000 is 2^30, 0x800000 is 2^23, 0x1fffff is 2^21 - 1.
+            var random53bitInt = (Math.random() * pow2_53) & 0x1fffff
+              ? function () { return mathfloor( Math.random() * pow2_53 ); }
+              : function () { return ((Math.random() * 0x40000000 | 0) * 0x800000) +
+                  (Math.random() * 0x800000 | 0); };
+
+            return function (dp) {
+                var a, b, e, k, v,
+                    i = 0,
+                    c = [],
+                    rand = new BigNumber(ONE);
+
+                if ( dp == null ) dp = DECIMAL_PLACES;
+                else intCheck( dp, 0, MAX );
+
+                k = mathceil( dp / LOG_BASE );
+
+                if (CRYPTO) {
+
+                    // Browsers supporting crypto.getRandomValues.
+                    if (crypto.getRandomValues) {
+
+                        a = crypto.getRandomValues( new Uint32Array( k *= 2 ) );
+
+                        for ( ; i < k; ) {
+
+                            // 53 bits:
+                            // ((Math.pow(2, 32) - 1) * Math.pow(2, 21)).toString(2)
+                            // 11111 11111111 11111111 11111111 11100000 00000000 00000000
+                            // ((Math.pow(2, 32) - 1) >>> 11).toString(2)
+                            //                                     11111 11111111 11111111
+                            // 0x20000 is 2^21.
+                            v = a[i] * 0x20000 + (a[i + 1] >>> 11);
+
+                            // Rejection sampling:
+                            // 0 <= v < 9007199254740992
+                            // Probability that v >= 9e15, is
+                            // 7199254740992 / 9007199254740992 ~= 0.0008, i.e. 1 in 1251
+                            if ( v >= 9e15 ) {
+                                b = crypto.getRandomValues( new Uint32Array(2) );
+                                a[i] = b[0];
+                                a[i + 1] = b[1];
+                            } else {
+
+                                // 0 <= v <= 8999999999999999
+                                // 0 <= (v % 1e14) <= 99999999999999
+                                c.push( v % 1e14 );
+                                i += 2;
+                            }
+                        }
+                        i = k / 2;
+
+                    // Node.js supporting crypto.randomBytes.
+                    } else if (crypto.randomBytes) {
+
+                        // buffer
+                        a = crypto.randomBytes( k *= 7 );
+
+                        for ( ; i < k; ) {
+
+                            // 0x1000000000000 is 2^48, 0x10000000000 is 2^40
+                            // 0x100000000 is 2^32, 0x1000000 is 2^24
+                            // 11111 11111111 11111111 11111111 11111111 11111111 11111111
+                            // 0 <= v < 9007199254740992
+                            v = ( ( a[i] & 31 ) * 0x1000000000000 ) + ( a[i + 1] * 0x10000000000 ) +
+                                  ( a[i + 2] * 0x100000000 ) + ( a[i + 3] * 0x1000000 ) +
+                                  ( a[i + 4] << 16 ) + ( a[i + 5] << 8 ) + a[i + 6];
+
+                            if ( v >= 9e15 ) {
+                                crypto.randomBytes(7).copy( a, i );
+                            } else {
+
+                                // 0 <= (v % 1e14) <= 99999999999999
+                                c.push( v % 1e14 );
+                                i += 7;
+                            }
+                        }
+                        i = k / 7;
+                    } else {
+                        CRYPTO = false;
+                        throw Error
+                          ( bignumberError + 'crypto unavailable' );
+                    }
+                }
+
+                // Use Math.random.
+                if (!CRYPTO) {
+
+                    for ( ; i < k; ) {
+                        v = random53bitInt();
+                        if ( v < 9e15 ) c[i++] = v % 1e14;
+                    }
+                }
+
+                k = c[--i];
+                dp %= LOG_BASE;
+
+                // Convert trailing digits to zeros according to dp.
+                if ( k && dp ) {
+                    v = POWS_TEN[LOG_BASE - dp];
+                    c[i] = mathfloor( k / v ) * v;
+                }
+
+                // Remove trailing elements which are zero.
+                for ( ; c[i] === 0; c.pop(), i-- );
+
+                // Zero?
+                if ( i < 0 ) {
+                    c = [ e = 0 ];
+                } else {
+
+                    // Remove leading elements which are zero and adjust exponent accordingly.
+                    for ( e = -1 ; c[0] === 0; c.splice(0, 1), e -= LOG_BASE);
+
+                    // Count the digits of the first element of c to determine leading zeros, and...
+                    for ( i = 1, v = c[0]; v >= 10; v /= 10, i++);
+
+                    // adjust the exponent accordingly.
+                    if ( i < LOG_BASE ) e -= LOG_BASE - i;
+                }
+
+                rand.e = e;
+                rand.c = c;
+                return rand;
+            };
+        })();
+
+
+        // PRIVATE FUNCTIONS
+
+
+        // Called by BigNumber and BigNumber.prototype.toString.
+        convertBase = ( function () {
+            var decimal = '0123456789';
+
+            /*
+             * Convert string of baseIn to an array of numbers of baseOut.
+             * Eg. toBaseOut('255', 10, 16) returns [15, 15].
+             * Eg. toBaseOut('ff', 16, 10) returns [2, 5, 5].
+             */
+            function toBaseOut( str, baseIn, baseOut, alphabet ) {
+                var j,
+                    arr = [0],
+                    arrL,
+                    i = 0,
+                    len = str.length;
+
+                for ( ; i < len; ) {
+                    for ( arrL = arr.length; arrL--; arr[arrL] *= baseIn );
+
+                    arr[0] += alphabet.indexOf( str.charAt( i++ ) );
+
+                    for ( j = 0; j < arr.length; j++ ) {
+
+                        if ( arr[j] > baseOut - 1 ) {
+                            if ( arr[j + 1] == null ) arr[j + 1] = 0;
+                            arr[j + 1] += arr[j] / baseOut | 0;
+                            arr[j] %= baseOut;
+                        }
+                    }
+                }
+
+                return arr.reverse();
+            }
+
+            // Convert a numeric string of baseIn to a numeric string of baseOut.
+            // If the caller is toString, we are converting from base 10 to baseOut.
+            // If the caller is BigNumber, we are converting from baseIn to base 10.
+            return function ( str, baseIn, baseOut, sign, callerIsToString ) {
+                var alphabet, d, e, k, r, x, xc, y,
+                    i = str.indexOf( '.' ),
+                    dp = DECIMAL_PLACES,
+                    rm = ROUNDING_MODE;
+
+                // Non-integer.
+                if ( i >= 0 ) {
+                    k = POW_PRECISION;
+
+                    // Unlimited precision.
+                    POW_PRECISION = 0;
+                    str = str.replace( '.', '' );
+                    y = new BigNumber(baseIn);
+                    x = y.pow( str.length - i );
+                    POW_PRECISION = k;
+
+                    // Convert str as if an integer, then restore the fraction part by dividing the
+                    // result by its base raised to a power.
+
+                    y.c = toBaseOut( toFixedPoint( coeffToString( x.c ), x.e, '0' ),
+                      10, baseOut, decimal );
+                    y.e = y.c.length;
+                }
+
+                // Convert the number as integer.
+
+                xc = toBaseOut( str, baseIn, baseOut, callerIsToString
+                  ? ( alphabet = ALPHABET, decimal )
+                  : ( alphabet = decimal, ALPHABET ) );
+
+
+                // xc now represents str as an integer and converted to baseOut. e is the exponent.
+                e = k = xc.length;
+
+                // Remove trailing zeros.
+                for ( ; xc[--k] == 0; xc.pop() );
+
+                // Zero?
+                if ( !xc[0] ) return alphabet.charAt(0);
+
+                // Does str represent an integer? If so, no need for the division.
+                if ( i < 0 ) {
+                    --e;
+                } else {
+                    x.c = xc;
+                    x.e = e;
+
+                    // The sign is needed for correct rounding.
+                    x.s = sign;
+                    x = div( x, y, dp, rm, baseOut );
+                    xc = x.c;
+                    r = x.r;
+                    e = x.e;
+                }
+
+                // xc now represents str converted to baseOut.
+
+                // THe index of the rounding digit.
+                d = e + dp + 1;
+
+                // The rounding digit: the digit to the right of the digit that may be rounded up.
+                i = xc[d];
+
+                // Look at the rounding digits and mode to determine whether to round up.
+
+                k = baseOut / 2;
+                r = r || d < 0 || xc[d + 1] != null;
+
+                r = rm < 4 ? ( i != null || r ) && ( rm == 0 || rm == ( x.s < 0 ? 3 : 2 ) )
+                           : i > k || i == k &&( rm == 4 || r || rm == 6 && xc[d - 1] & 1 ||
+                             rm == ( x.s < 0 ? 8 : 7 ) );
+
+                // If the index of the rounding digit is not greater than zero, or xc represents
+                // zero, then the result of the base conversion is zero or, if rounding up, a value
+                // such as 0.00001.
+                if ( d < 1 || !xc[0] ) {
+
+                    // 1^-dp or 0
+                    str = r ? toFixedPoint( alphabet.charAt(1), -dp, alphabet.charAt(0) )
+                            : alphabet.charAt(0);
+                } else {
+
+                    // Truncate xc to the required number of decimal places.
+                    xc.length = d;
+
+                    // Round up?
+                    if (r) {
+
+                        // Rounding up may mean the previous digit has to be rounded up and so on.
+                        for ( --baseOut; ++xc[--d] > baseOut; ) {
+                            xc[d] = 0;
+
+                            if ( !d ) {
+                                ++e;
+                                xc = [1].concat(xc);
+                            }
+                        }
+                    }
+
+                    // Determine trailing zeros.
+                    for ( k = xc.length; !xc[--k]; );
+
+                    // E.g. [4, 11, 15] becomes 4bf.
+                    for ( i = 0, str = ''; i <= k; str += alphabet.charAt( xc[i++] ) );
+
+                    // Add leading zeros, decimal point and trailing zeros as required.
+                    str = toFixedPoint( str, e, alphabet.charAt(0) );
+                }
+
+                // The caller will add the sign.
+                return str;
+            };
+        })();
+
+
+        // Perform division in the specified base. Called by div and convertBase.
+        div = (function () {
+
+            // Assume non-zero x and k.
+            function multiply( x, k, base ) {
+                var m, temp, xlo, xhi,
+                    carry = 0,
+                    i = x.length,
+                    klo = k % SQRT_BASE,
+                    khi = k / SQRT_BASE | 0;
+
+                for ( x = x.slice(); i--; ) {
+                    xlo = x[i] % SQRT_BASE;
+                    xhi = x[i] / SQRT_BASE | 0;
+                    m = khi * xlo + xhi * klo;
+                    temp = klo * xlo + ( ( m % SQRT_BASE ) * SQRT_BASE ) + carry;
+                    carry = ( temp / base | 0 ) + ( m / SQRT_BASE | 0 ) + khi * xhi;
+                    x[i] = temp % base;
+                }
+
+                if (carry) x = [carry].concat(x);
+
+                return x;
+            }
+
+            function compare( a, b, aL, bL ) {
+                var i, cmp;
+
+                if ( aL != bL ) {
+                    cmp = aL > bL ? 1 : -1;
+                } else {
+
+                    for ( i = cmp = 0; i < aL; i++ ) {
+
+                        if ( a[i] != b[i] ) {
+                            cmp = a[i] > b[i] ? 1 : -1;
+                            break;
+                        }
+                    }
+                }
+                return cmp;
+            }
+
+            function subtract( a, b, aL, base ) {
+                var i = 0;
+
+                // Subtract b from a.
+                for ( ; aL--; ) {
+                    a[aL] -= i;
+                    i = a[aL] < b[aL] ? 1 : 0;
+                    a[aL] = i * base + a[aL] - b[aL];
+                }
+
+                // Remove leading zeros.
+                for ( ; !a[0] && a.length > 1; a.splice(0, 1) );
+            }
+
+            // x: dividend, y: divisor.
+            return function ( x, y, dp, rm, base ) {
+                var cmp, e, i, more, n, prod, prodL, q, qc, rem, remL, rem0, xi, xL, yc0,
+                    yL, yz,
+                    s = x.s == y.s ? 1 : -1,
+                    xc = x.c,
+                    yc = y.c;
+
+                // Either NaN, Infinity or 0?
+                if ( !xc || !xc[0] || !yc || !yc[0] ) {
+
+                    return new BigNumber(
+
+                      // Return NaN if either NaN, or both Infinity or 0.
+                      !x.s || !y.s || ( xc ? yc && xc[0] == yc[0] : !yc ) ? NaN :
+
+                        // Return ±0 if x is ±0 or y is ±Infinity, or return ±Infinity as y is ±0.
+                        xc && xc[0] == 0 || !yc ? s * 0 : s / 0
+                    );
+                }
+
+                q = new BigNumber(s);
+                qc = q.c = [];
+                e = x.e - y.e;
+                s = dp + e + 1;
+
+                if ( !base ) {
+                    base = BASE;
+                    e = bitFloor( x.e / LOG_BASE ) - bitFloor( y.e / LOG_BASE );
+                    s = s / LOG_BASE | 0;
+                }
+
+                // Result exponent may be one less then the current value of e.
+                // The coefficients of the BigNumbers from convertBase may have trailing zeros.
+                for ( i = 0; yc[i] == ( xc[i] || 0 ); i++ );
+
+                if ( yc[i] > ( xc[i] || 0 ) ) e--;
+
+                if ( s < 0 ) {
+                    qc.push(1);
+                    more = true;
+                } else {
+                    xL = xc.length;
+                    yL = yc.length;
+                    i = 0;
+                    s += 2;
+
+                    // Normalise xc and yc so highest order digit of yc is >= base / 2.
+
+                    n = mathfloor( base / ( yc[0] + 1 ) );
+
+                    // Not necessary, but to handle odd bases where yc[0] == ( base / 2 ) - 1.
+                    // if ( n > 1 || n++ == 1 && yc[0] < base / 2 ) {
+                    if ( n > 1 ) {
+                        yc = multiply( yc, n, base );
+                        xc = multiply( xc, n, base );
+                        yL = yc.length;
+                        xL = xc.length;
+                    }
+
+                    xi = yL;
+                    rem = xc.slice( 0, yL );
+                    remL = rem.length;
+
+                    // Add zeros to make remainder as long as divisor.
+                    for ( ; remL < yL; rem[remL++] = 0 );
+                    yz = yc.slice();
+                    yz = [0].concat(yz);
+                    yc0 = yc[0];
+                    if ( yc[1] >= base / 2 ) yc0++;
+                    // Not necessary, but to prevent trial digit n > base, when using base 3.
+                    // else if ( base == 3 && yc0 == 1 ) yc0 = 1 + 1e-15;
+
+                    do {
+                        n = 0;
+
+                        // Compare divisor and remainder.
+                        cmp = compare( yc, rem, yL, remL );
+
+                        // If divisor < remainder.
+                        if ( cmp < 0 ) {
+
+                            // Calculate trial digit, n.
+
+                            rem0 = rem[0];
+                            if ( yL != remL ) rem0 = rem0 * base + ( rem[1] || 0 );
+
+                            // n is how many times the divisor goes into the current remainder.
+                            n = mathfloor( rem0 / yc0 );
+
+                            //  Algorithm:
+                            //  1. product = divisor * trial digit (n)
+                            //  2. if product > remainder: product -= divisor, n--
+                            //  3. remainder -= product
+                            //  4. if product was < remainder at 2:
+                            //    5. compare new remainder and divisor
+                            //    6. If remainder > divisor: remainder -= divisor, n++
+
+                            if ( n > 1 ) {
+
+                                // n may be > base only when base is 3.
+                                if (n >= base) n = base - 1;
+
+                                // product = divisor * trial digit.
+                                prod = multiply( yc, n, base );
+                                prodL = prod.length;
+                                remL = rem.length;
+
+                                // Compare product and remainder.
+                                // If product > remainder.
+                                // Trial digit n too high.
+                                // n is 1 too high about 5% of the time, and is not known to have
+                                // ever been more than 1 too high.
+                                while ( compare( prod, rem, prodL, remL ) == 1 ) {
+                                    n--;
+
+                                    // Subtract divisor from product.
+                                    subtract( prod, yL < prodL ? yz : yc, prodL, base );
+                                    prodL = prod.length;
+                                    cmp = 1;
+                                }
+                            } else {
+
+                                // n is 0 or 1, cmp is -1.
+                                // If n is 0, there is no need to compare yc and rem again below,
+                                // so change cmp to 1 to avoid it.
+                                // If n is 1, leave cmp as -1, so yc and rem are compared again.
+                                if ( n == 0 ) {
+
+                                    // divisor < remainder, so n must be at least 1.
+                                    cmp = n = 1;
+                                }
+
+                                // product = divisor
+                                prod = yc.slice();
+                                prodL = prod.length;
+                            }
+
+                            if ( prodL < remL ) prod = [0].concat(prod);
+
+                            // Subtract product from remainder.
+                            subtract( rem, prod, remL, base );
+                            remL = rem.length;
+
+                             // If product was < remainder.
+                            if ( cmp == -1 ) {
+
+                                // Compare divisor and new remainder.
+                                // If divisor < new remainder, subtract divisor from remainder.
+                                // Trial digit n too low.
+                                // n is 1 too low about 5% of the time, and very rarely 2 too low.
+                                while ( compare( yc, rem, yL, remL ) < 1 ) {
+                                    n++;
+
+                                    // Subtract divisor from remainder.
+                                    subtract( rem, yL < remL ? yz : yc, remL, base );
+                                    remL = rem.length;
+                                }
+                            }
+                        } else if ( cmp === 0 ) {
+                            n++;
+                            rem = [0];
+                        } // else cmp === 1 and n will be 0
+
+                        // Add the next digit, n, to the result array.
+                        qc[i++] = n;
+
+                        // Update the remainder.
+                        if ( rem[0] ) {
+                            rem[remL++] = xc[xi] || 0;
+                        } else {
+                            rem = [ xc[xi] ];
+                            remL = 1;
+                        }
+                    } while ( ( xi++ < xL || rem[0] != null ) && s-- );
+
+                    more = rem[0] != null;
+
+                    // Leading zero?
+                    if ( !qc[0] ) qc.splice(0, 1);
+                }
+
+                if ( base == BASE ) {
+
+                    // To calculate q.e, first get the number of digits of qc[0].
+                    for ( i = 1, s = qc[0]; s >= 10; s /= 10, i++ );
+
+                    round( q, dp + ( q.e = i + e * LOG_BASE - 1 ) + 1, rm, more );
+
+                // Caller is convertBase.
+                } else {
+                    q.e = e;
+                    q.r = +more;
+                }
+
+                return q;
+            };
+        })();
+
+
+        /*
+         * Return a string representing the value of BigNumber n in fixed-point or exponential
+         * notation rounded to the specified decimal places or significant digits.
+         *
+         * n: a BigNumber.
+         * i: the index of the last digit required (i.e. the digit that may be rounded up).
+         * rm: the rounding mode.
+         * id: 1 (toExponential) or 2 (toPrecision).
+         */
+        function format( n, i, rm, id ) {
+            var c0, e, ne, len, str;
+
+            if ( rm == null ) rm = ROUNDING_MODE;
+            else intCheck( rm, 0, 8 );
+
+            if ( !n.c ) return n.toString();
+
+            c0 = n.c[0];
+            ne = n.e;
+
+            if ( i == null ) {
+                str = coeffToString( n.c );
+                str = id == 1 || id == 2 && ne <= TO_EXP_NEG
+                  ? toExponential( str, ne )
+                  : toFixedPoint( str, ne, '0' );
+            } else {
+                n = round( new BigNumber(n), i, rm );
+
+                // n.e may have changed if the value was rounded up.
+                e = n.e;
+
+                str = coeffToString( n.c );
+                len = str.length;
+
+                // toPrecision returns exponential notation if the number of significant digits
+                // specified is less than the number of digits necessary to represent the integer
+                // part of the value in fixed-point notation.
+
+                // Exponential notation.
+                if ( id == 1 || id == 2 && ( i <= e || e <= TO_EXP_NEG ) ) {
+
+                    // Append zeros?
+                    for ( ; len < i; str += '0', len++ );
+                    str = toExponential( str, e );
+
+                // Fixed-point notation.
+                } else {
+                    i -= ne;
+                    str = toFixedPoint( str, e, '0' );
+
+                    // Append zeros?
+                    if ( e + 1 > len ) {
+                        if ( --i > 0 ) for ( str += '.'; i--; str += '0' );
+                    } else {
+                        i += e - len;
+                        if ( i > 0 ) {
+                            if ( e + 1 == len ) str += '.';
+                            for ( ; i--; str += '0' );
+                        }
+                    }
+                }
+            }
+
+            return n.s < 0 && c0 ? '-' + str : str;
+        }
+
+
+        // Handle BigNumber.max and BigNumber.min.
+        function maxOrMin( args, method ) {
+            var m, n,
+                i = 0;
+
+            if ( isArray( args[0] ) ) args = args[0];
+            m = new BigNumber( args[0] );
+
+            for ( ; ++i < args.length; ) {
+                n = new BigNumber( args[i] );
+
+                // If any number is NaN, return NaN.
+                if ( !n.s ) {
+                    m = n;
+                    break;
+                } else if ( method.call( m, n ) ) {
+                    m = n;
+                }
+            }
+
+            return m;
+        }
+
+
+        /*
+         * Strip trailing zeros, calculate base 10 exponent and check against MIN_EXP and MAX_EXP.
+         * Called by minus, plus and times.
+         */
+        function normalise( n, c, e ) {
+            var i = 1,
+                j = c.length;
+
+             // Remove trailing zeros.
+            for ( ; !c[--j]; c.pop() );
+
+            // Calculate the base 10 exponent. First get the number of digits of c[0].
+            for ( j = c[0]; j >= 10; j /= 10, i++ );
+
+            // Overflow?
+            if ( ( e = i + e * LOG_BASE - 1 ) > MAX_EXP ) {
+
+                // Infinity.
+                n.c = n.e = null;
+
+            // Underflow?
+            } else if ( e < MIN_EXP ) {
+
+                // Zero.
+                n.c = [ n.e = 0 ];
+            } else {
+                n.e = e;
+                n.c = c;
+            }
+
+            return n;
+        }
+
+
+        // Handle values that fail the validity test in BigNumber.
+        parseNumeric = (function () {
+            var basePrefix = /^(-?)0([xbo])(?=\w[\w.]*$)/i,
+                dotAfter = /^([^.]+)\.$/,
+                dotBefore = /^\.([^.]+)$/,
+                isInfinityOrNaN = /^-?(Infinity|NaN)$/,
+                whitespaceOrPlus = /^\s*\+(?=[\w.])|^\s+|\s+$/g;
+
+            return function ( x, str, isNum, b ) {
+                var base,
+                    s = isNum ? str : str.replace( whitespaceOrPlus, '' );
+
+                // No exception on ±Infinity or NaN.
+                if ( isInfinityOrNaN.test(s) ) {
+                    x.s = isNaN(s) ? null : s < 0 ? -1 : 1;
+                    x.c = x.e = null;
+                } else {
+                    if ( !isNum ) {
+
+                        // basePrefix = /^(-?)0([xbo])(?=\w[\w.]*$)/i
+                        s = s.replace( basePrefix, function ( m, p1, p2 ) {
+                            base = ( p2 = p2.toLowerCase() ) == 'x' ? 16 : p2 == 'b' ? 2 : 8;
+                            return !b || b == base ? p1 : m;
+                        });
+
+                        if (b) {
+                            base = b;
+
+                            // E.g. '1.' to '1', '.1' to '0.1'
+                            s = s.replace( dotAfter, '$1' ).replace( dotBefore, '0.$1' );
+                        }
+
+                        if ( str != s ) return new BigNumber( s, base );
+                    }
+
+                    // '[BigNumber Error] Not a number: {n}'
+                    // '[BigNumber Error] Not a base {b} number: {n}'
+                    throw Error
+                      ( bignumberError + 'Not a' + ( b ? ' base ' + b : '' ) + ' number: ' + str );
+                }
+            }
+        })();
+
+
+        /*
+         * Round x to sd significant digits using rounding mode rm. Check for over/under-flow.
+         * If r is truthy, it is known that there are more digits after the rounding digit.
+         */
+        function round( x, sd, rm, r ) {
+            var d, i, j, k, n, ni, rd,
+                xc = x.c,
+                pows10 = POWS_TEN;
+
+            // if x is not Infinity or NaN...
+            if (xc) {
+
+                // rd is the rounding digit, i.e. the digit after the digit that may be rounded up.
+                // n is a base 1e14 number, the value of the element of array x.c containing rd.
+                // ni is the index of n within x.c.
+                // d is the number of digits of n.
+                // i is the index of rd within n including leading zeros.
+                // j is the actual index of rd within n (if < 0, rd is a leading zero).
+                out: {
+
+                    // Get the number of digits of the first element of xc.
+                    for ( d = 1, k = xc[0]; k >= 10; k /= 10, d++ );
+                    i = sd - d;
+
+                    // If the rounding digit is in the first element of xc...
+                    if ( i < 0 ) {
+                        i += LOG_BASE;
+                        j = sd;
+                        n = xc[ ni = 0 ];
+
+                        // Get the rounding digit at index j of n.
+                        rd = n / pows10[ d - j - 1 ] % 10 | 0;
+                    } else {
+                        ni = mathceil( ( i + 1 ) / LOG_BASE );
+
+                        if ( ni >= xc.length ) {
+
+                            if (r) {
+
+                                // Needed by sqrt.
+                                for ( ; xc.length <= ni; xc.push(0) );
+                                n = rd = 0;
+                                d = 1;
+                                i %= LOG_BASE;
+                                j = i - LOG_BASE + 1;
+                            } else {
+                                break out;
+                            }
+                        } else {
+                            n = k = xc[ni];
+
+                            // Get the number of digits of n.
+                            for ( d = 1; k >= 10; k /= 10, d++ );
+
+                            // Get the index of rd within n.
+                            i %= LOG_BASE;
+
+                            // Get the index of rd within n, adjusted for leading zeros.
+                            // The number of leading zeros of n is given by LOG_BASE - d.
+                            j = i - LOG_BASE + d;
+
+                            // Get the rounding digit at index j of n.
+                            rd = j < 0 ? 0 : n / pows10[ d - j - 1 ] % 10 | 0;
+                        }
+                    }
+
+                    r = r || sd < 0 ||
+
+                    // Are there any non-zero digits after the rounding digit?
+                    // The expression  n % pows10[ d - j - 1 ]  returns all digits of n to the right
+                    // of the digit at j, e.g. if n is 908714 and j is 2, the expression gives 714.
+                      xc[ni + 1] != null || ( j < 0 ? n : n % pows10[ d - j - 1 ] );
+
+                    r = rm < 4
+                      ? ( rd || r ) && ( rm == 0 || rm == ( x.s < 0 ? 3 : 2 ) )
+                      : rd > 5 || rd == 5 && ( rm == 4 || r || rm == 6 &&
+
+                        // Check whether the digit to the left of the rounding digit is odd.
+                        ( ( i > 0 ? j > 0 ? n / pows10[ d - j ] : 0 : xc[ni - 1] ) % 10 ) & 1 ||
+                          rm == ( x.s < 0 ? 8 : 7 ) );
+
+                    if ( sd < 1 || !xc[0] ) {
+                        xc.length = 0;
+
+                        if (r) {
+
+                            // Convert sd to decimal places.
+                            sd -= x.e + 1;
+
+                            // 1, 0.1, 0.01, 0.001, 0.0001 etc.
+                            xc[0] = pows10[ ( LOG_BASE - sd % LOG_BASE ) % LOG_BASE ];
+                            x.e = -sd || 0;
+                        } else {
+
+                            // Zero.
+                            xc[0] = x.e = 0;
+                        }
+
+                        return x;
+                    }
+
+                    // Remove excess digits.
+                    if ( i == 0 ) {
+                        xc.length = ni;
+                        k = 1;
+                        ni--;
+                    } else {
+                        xc.length = ni + 1;
+                        k = pows10[ LOG_BASE - i ];
+
+                        // E.g. 56700 becomes 56000 if 7 is the rounding digit.
+                        // j > 0 means i > number of leading zeros of n.
+                        xc[ni] = j > 0 ? mathfloor( n / pows10[ d - j ] % pows10[j] ) * k : 0;
+                    }
+
+                    // Round up?
+                    if (r) {
+
+                        for ( ; ; ) {
+
+                            // If the digit to be rounded up is in the first element of xc...
+                            if ( ni == 0 ) {
+
+                                // i will be the length of xc[0] before k is added.
+                                for ( i = 1, j = xc[0]; j >= 10; j /= 10, i++ );
+                                j = xc[0] += k;
+                                for ( k = 1; j >= 10; j /= 10, k++ );
+
+                                // if i != k the length has increased.
+                                if ( i != k ) {
+                                    x.e++;
+                                    if ( xc[0] == BASE ) xc[0] = 1;
+                                }
+
+                                break;
+                            } else {
+                                xc[ni] += k;
+                                if ( xc[ni] != BASE ) break;
+                                xc[ni--] = 0;
+                                k = 1;
+                            }
+                        }
+                    }
+
+                    // Remove trailing zeros.
+                    for ( i = xc.length; xc[--i] === 0; xc.pop() );
+                }
+
+                // Overflow? Infinity.
+                if ( x.e > MAX_EXP ) {
+                    x.c = x.e = null;
+
+                // Underflow? Zero.
+                } else if ( x.e < MIN_EXP ) {
+                    x.c = [ x.e = 0 ];
+                }
+            }
+
+            return x;
+        }
+
+
+        // PROTOTYPE/INSTANCE METHODS
+
+
+        /*
+         * Return a new BigNumber whose value is the absolute value of this BigNumber.
+         */
+        P.absoluteValue = P.abs = function () {
+            var x = new BigNumber(this);
+            if ( x.s < 0 ) x.s = 1;
+            return x;
+        };
+
+
+        /*
+         * Return
+         *   1 if the value of this BigNumber is greater than the value of BigNumber(y, b),
+         *   -1 if the value of this BigNumber is less than the value of BigNumber(y, b),
+         *   0 if they have the same value,
+         *   or null if the value of either is NaN.
+         */
+        P.comparedTo = function ( y, b ) {
+            return compare( this, new BigNumber( y, b ) );
+        };
+
+
+        /*
+         * If dp is undefined or null or true or false, return the number of decimal places of the
+         * value of this BigNumber, or null if the value of this BigNumber is ±Infinity or NaN.
+         *
+         * Otherwise, if dp is a number, return a new BigNumber whose value is the value of this
+         * BigNumber rounded to a maximum of dp decimal places using rounding mode rm, or
+         * ROUNDING_MODE if rm is omitted.
+         *
+         * [dp] {number} Decimal places: integer, 0 to MAX inclusive.
+         * [rm] {number} Rounding mode. Integer, 0 to 8 inclusive.
+         *
+         * '[BigNumber Error] Argument {not a primitive number|not an integer|out of range}: {dp|rm}'
+         */
+        P.decimalPlaces = P.dp = function ( dp, rm ) {
+            var c, n, v,
+                x = this;
+
+            if ( dp != null ) {
+                intCheck( dp, 0, MAX );
+                if ( rm == null ) rm = ROUNDING_MODE;
+                else intCheck( rm, 0, 8 );
+
+                return round( new BigNumber(x), dp + x.e + 1, rm );
+            }
+
+            if ( !( c = x.c ) ) return null;
+            n = ( ( v = c.length - 1 ) - bitFloor( this.e / LOG_BASE ) ) * LOG_BASE;
+
+            // Subtract the number of trailing zeros of the last number.
+            if ( v = c[v] ) for ( ; v % 10 == 0; v /= 10, n-- );
+            if ( n < 0 ) n = 0;
+
+            return n;
+        };
+
+
+        /*
+         *  n / 0 = I
+         *  n / N = N
+         *  n / I = 0
+         *  0 / n = 0
+         *  0 / 0 = N
+         *  0 / N = N
+         *  0 / I = 0
+         *  N / n = N
+         *  N / 0 = N
+         *  N / N = N
+         *  N / I = N
+         *  I / n = I
+         *  I / 0 = I
+         *  I / N = N
+         *  I / I = N
+         *
+         * Return a new BigNumber whose value is the value of this BigNumber divided by the value of
+         * BigNumber(y, b), rounded according to DECIMAL_PLACES and ROUNDING_MODE.
+         */
+        P.dividedBy = P.div = function ( y, b ) {
+            return div( this, new BigNumber( y, b ), DECIMAL_PLACES, ROUNDING_MODE );
+        };
+
+
+        /*
+         * Return a new BigNumber whose value is the integer part of dividing the value of this
+         * BigNumber by the value of BigNumber(y, b).
+         */
+        P.dividedToIntegerBy = P.idiv = function ( y, b ) {
+            return div( this, new BigNumber( y, b ), 0, 1 );
+        };
+
+
+        /*
+         * Return true if the value of this BigNumber is equal to the value of BigNumber(y, b),
+         * otherwise return false.
+         */
+        P.isEqualTo = P.eq = function ( y, b ) {
+            return compare( this, new BigNumber( y, b ) ) === 0;
+        };
+
+
+        /*
+         * Return a new BigNumber whose value is the value of this BigNumber rounded to an integer
+         * using rounding mode rm, or ROUNDING_MODE if rm is omitted.
+         *
+         * [rm] {number} Rounding mode. Integer, 0 to 8 inclusive.
+         *
+         * '[BigNumber Error] Argument {not a primitive number|not an integer|out of range}: {rm}'
+         */
+        P.integerValue = function (rm) {
+            var n = new BigNumber(this);
+            if ( rm == null ) rm = ROUNDING_MODE;
+            else intCheck( rm, 0, 8 );
+            return round( n, n.e + 1, rm );
+        };
+
+
+        /*
+         * Return true if the value of this BigNumber is greater than the value of BigNumber(y, b),
+         * otherwise return false.
+         */
+        P.isGreaterThan = P.gt = function ( y, b ) {
+            return compare( this, new BigNumber( y, b ) ) > 0;
+        };
+
+
+        /*
+         * Return true if the value of this BigNumber is greater than or equal to the value of
+         * BigNumber(y, b), otherwise return false.
+         */
+        P.isGreaterThanOrEqualTo = P.gte = function ( y, b ) {
+            return ( b = compare( this, new BigNumber( y, b ) ) ) === 1 || b === 0;
+
+        };
+
+
+        /*
+         * Return true if the value of this BigNumber is a finite number, otherwise return false.
+         */
+        P.isFinite = function () {
+            return !!this.c;
+        };
+
+
+        /*
+         * Return true if the value of this BigNumber is an integer, otherwise return false.
+         */
+        P.isInteger = function () {
+            return !!this.c && bitFloor( this.e / LOG_BASE ) > this.c.length - 2;
+        };
+
+
+        /*
+         * Return true if the value of this BigNumber is NaN, otherwise return false.
+         */
+        P.isNaN = function () {
+            return !this.s;
+        };
+
+
+        /*
+         * Return true if the value of this BigNumber is negative, otherwise return false.
+         */
+        P.isNegative = function () {
+            return this.s < 0;
+        };
+
+
+        /*
+         * Return true if the value of this BigNumber is positive, otherwise return false.
+         */
+        P.isPositive = function () {
+            return this.s > 0;
+        };
+
+
+        /*
+         * Return true if the value of this BigNumber is 0 or -0, otherwise return false.
+         */
+        P.isZero = function () {
+            return !!this.c && this.c[0] == 0;
+        };
+
+
+        /*
+         * Return true if the value of this BigNumber is less than the value of BigNumber(y, b),
+         * otherwise return false.
+         */
+        P.isLessThan = P.lt = function ( y, b ) {
+            return compare( this, new BigNumber( y, b ) ) < 0;
+        };
+
+
+        /*
+         * Return true if the value of this BigNumber is less than or equal to the value of
+         * BigNumber(y, b), otherwise return false.
+         */
+        P.isLessThanOrEqualTo = P.lte = function ( y, b ) {
+            return ( b = compare( this, new BigNumber( y, b ) ) ) === -1 || b === 0;
+        };
+
+
+        /*
+         *  n - 0 = n
+         *  n - N = N
+         *  n - I = -I
+         *  0 - n = -n
+         *  0 - 0 = 0
+         *  0 - N = N
+         *  0 - I = -I
+         *  N - n = N
+         *  N - 0 = N
+         *  N - N = N
+         *  N - I = N
+         *  I - n = I
+         *  I - 0 = I
+         *  I - N = N
+         *  I - I = N
+         *
+         * Return a new BigNumber whose value is the value of this BigNumber minus the value of
+         * BigNumber(y, b).
+         */
+        P.minus = function ( y, b ) {
+            var i, j, t, xLTy,
+                x = this,
+                a = x.s;
+
+            y = new BigNumber( y, b );
+            b = y.s;
+
+            // Either NaN?
+            if ( !a || !b ) return new BigNumber(NaN);
+
+            // Signs differ?
+            if ( a != b ) {
+                y.s = -b;
+                return x.plus(y);
+            }
+
+            var xe = x.e / LOG_BASE,
+                ye = y.e / LOG_BASE,
+                xc = x.c,
+                yc = y.c;
+
+            if ( !xe || !ye ) {
+
+                // Either Infinity?
+                if ( !xc || !yc ) return xc ? ( y.s = -b, y ) : new BigNumber( yc ? x : NaN );
+
+                // Either zero?
+                if ( !xc[0] || !yc[0] ) {
+
+                    // Return y if y is non-zero, x if x is non-zero, or zero if both are zero.
+                    return yc[0] ? ( y.s = -b, y ) : new BigNumber( xc[0] ? x :
+
+                      // IEEE 754 (2008) 6.3: n - n = -0 when rounding to -Infinity
+                      ROUNDING_MODE == 3 ? -0 : 0 );
+                }
+            }
+
+            xe = bitFloor(xe);
+            ye = bitFloor(ye);
+            xc = xc.slice();
+
+            // Determine which is the bigger number.
+            if ( a = xe - ye ) {
+
+                if ( xLTy = a < 0 ) {
+                    a = -a;
+                    t = xc;
+                } else {
+                    ye = xe;
+                    t = yc;
+                }
+
+                t.reverse();
+
+                // Prepend zeros to equalise exponents.
+                for ( b = a; b--; t.push(0) );
+                t.reverse();
+            } else {
+
+                // Exponents equal. Check digit by digit.
+                j = ( xLTy = ( a = xc.length ) < ( b = yc.length ) ) ? a : b;
+
+                for ( a = b = 0; b < j; b++ ) {
+
+                    if ( xc[b] != yc[b] ) {
+                        xLTy = xc[b] < yc[b];
+                        break;
+                    }
+                }
+            }
+
+            // x < y? Point xc to the array of the bigger number.
+            if (xLTy) t = xc, xc = yc, yc = t, y.s = -y.s;
+
+            b = ( j = yc.length ) - ( i = xc.length );
+
+            // Append zeros to xc if shorter.
+            // No need to add zeros to yc if shorter as subtract only needs to start at yc.length.
+            if ( b > 0 ) for ( ; b--; xc[i++] = 0 );
+            b = BASE - 1;
+
+            // Subtract yc from xc.
+            for ( ; j > a; ) {
+
+                if ( xc[--j] < yc[j] ) {
+                    for ( i = j; i && !xc[--i]; xc[i] = b );
+                    --xc[i];
+                    xc[j] += BASE;
+                }
+
+                xc[j] -= yc[j];
+            }
+
+            // Remove leading zeros and adjust exponent accordingly.
+            for ( ; xc[0] == 0; xc.splice(0, 1), --ye );
+
+            // Zero?
+            if ( !xc[0] ) {
+
+                // Following IEEE 754 (2008) 6.3,
+                // n - n = +0  but  n - n = -0  when rounding towards -Infinity.
+                y.s = ROUNDING_MODE == 3 ? -1 : 1;
+                y.c = [ y.e = 0 ];
+                return y;
+            }
+
+            // No need to check for Infinity as +x - +y != Infinity && -x - -y != Infinity
+            // for finite x and y.
+            return normalise( y, xc, ye );
+        };
+
+
+        /*
+         *   n % 0 =  N
+         *   n % N =  N
+         *   n % I =  n
+         *   0 % n =  0
+         *  -0 % n = -0
+         *   0 % 0 =  N
+         *   0 % N =  N
+         *   0 % I =  0
+         *   N % n =  N
+         *   N % 0 =  N
+         *   N % N =  N
+         *   N % I =  N
+         *   I % n =  N
+         *   I % 0 =  N
+         *   I % N =  N
+         *   I % I =  N
+         *
+         * Return a new BigNumber whose value is the value of this BigNumber modulo the value of
+         * BigNumber(y, b). The result depends on the value of MODULO_MODE.
+         */
+        P.modulo = P.mod = function ( y, b ) {
+            var q, s,
+                x = this;
+
+            y = new BigNumber( y, b );
+
+            // Return NaN if x is Infinity or NaN, or y is NaN or zero.
+            if ( !x.c || !y.s || y.c && !y.c[0] ) {
+                return new BigNumber(NaN);
+
+            // Return x if y is Infinity or x is zero.
+            } else if ( !y.c || x.c && !x.c[0] ) {
+                return new BigNumber(x);
+            }
+
+            if ( MODULO_MODE == 9 ) {
+
+                // Euclidian division: q = sign(y) * floor(x / abs(y))
+                // r = x - qy    where  0 <= r < abs(y)
+                s = y.s;
+                y.s = 1;
+                q = div( x, y, 0, 3 );
+                y.s = s;
+                q.s *= s;
+            } else {
+                q = div( x, y, 0, MODULO_MODE );
+            }
+
+            return x.minus( q.times(y) );
+        };
+
+
+        /*
+         *  n * 0 = 0
+         *  n * N = N
+         *  n * I = I
+         *  0 * n = 0
+         *  0 * 0 = 0
+         *  0 * N = N
+         *  0 * I = N
+         *  N * n = N
+         *  N * 0 = N
+         *  N * N = N
+         *  N * I = N
+         *  I * n = I
+         *  I * 0 = N
+         *  I * N = N
+         *  I * I = I
+         *
+         * Return a new BigNumber whose value is the value of this BigNumber multiplied by the value
+         * of BigNumber(y, b).
+         */
+        P.multipliedBy = P.times = function ( y, b ) {
+            var c, e, i, j, k, m, xcL, xlo, xhi, ycL, ylo, yhi, zc,
+                base, sqrtBase,
+                x = this,
+                xc = x.c,
+                yc = ( y = new BigNumber( y, b ) ).c;
+
+            // Either NaN, ±Infinity or ±0?
+            if ( !xc || !yc || !xc[0] || !yc[0] ) {
+
+                // Return NaN if either is NaN, or one is 0 and the other is Infinity.
+                if ( !x.s || !y.s || xc && !xc[0] && !yc || yc && !yc[0] && !xc ) {
+                    y.c = y.e = y.s = null;
+                } else {
+                    y.s *= x.s;
+
+                    // Return ±Infinity if either is ±Infinity.
+                    if ( !xc || !yc ) {
+                        y.c = y.e = null;
+
+                    // Return ±0 if either is ±0.
+                    } else {
+                        y.c = [0];
+                        y.e = 0;
+                    }
+                }
+
+                return y;
+            }
+
+            e = bitFloor( x.e / LOG_BASE ) + bitFloor( y.e / LOG_BASE );
+            y.s *= x.s;
+            xcL = xc.length;
+            ycL = yc.length;
+
+            // Ensure xc points to longer array and xcL to its length.
+            if ( xcL < ycL ) zc = xc, xc = yc, yc = zc, i = xcL, xcL = ycL, ycL = i;
+
+            // Initialise the result array with zeros.
+            for ( i = xcL + ycL, zc = []; i--; zc.push(0) );
+
+            base = BASE;
+            sqrtBase = SQRT_BASE;
+
+            for ( i = ycL; --i >= 0; ) {
+                c = 0;
+                ylo = yc[i] % sqrtBase;
+                yhi = yc[i] / sqrtBase | 0;
+
+                for ( k = xcL, j = i + k; j > i; ) {
+                    xlo = xc[--k] % sqrtBase;
+                    xhi = xc[k] / sqrtBase | 0;
+                    m = yhi * xlo + xhi * ylo;
+                    xlo = ylo * xlo + ( ( m % sqrtBase ) * sqrtBase ) + zc[j] + c;
+                    c = ( xlo / base | 0 ) + ( m / sqrtBase | 0 ) + yhi * xhi;
+                    zc[j--] = xlo % base;
+                }
+
+                zc[j] = c;
+            }
+
+            if (c) {
+                ++e;
+            } else {
+                zc.splice(0, 1);
+            }
+
+            return normalise( y, zc, e );
+        };
+
+
+        /*
+         * Return a new BigNumber whose value is the value of this BigNumber negated,
+         * i.e. multiplied by -1.
+         */
+        P.negated = function () {
+            var x = new BigNumber(this);
+            x.s = -x.s || null;
+            return x;
+        };
+
+
+        /*
+         *  n + 0 = n
+         *  n + N = N
+         *  n + I = I
+         *  0 + n = n
+         *  0 + 0 = 0
+         *  0 + N = N
+         *  0 + I = I
+         *  N + n = N
+         *  N + 0 = N
+         *  N + N = N
+         *  N + I = N
+         *  I + n = I
+         *  I + 0 = I
+         *  I + N = N
+         *  I + I = I
+         *
+         * Return a new BigNumber whose value is the value of this BigNumber plus the value of
+         * BigNumber(y, b).
+         */
+        P.plus = function ( y, b ) {
+            var t,
+                x = this,
+                a = x.s;
+
+            y = new BigNumber( y, b );
+            b = y.s;
+
+            // Either NaN?
+            if ( !a || !b ) return new BigNumber(NaN);
+
+            // Signs differ?
+             if ( a != b ) {
+                y.s = -b;
+                return x.minus(y);
+            }
+
+            var xe = x.e / LOG_BASE,
+                ye = y.e / LOG_BASE,
+                xc = x.c,
+                yc = y.c;
+
+            if ( !xe || !ye ) {
+
+                // Return ±Infinity if either ±Infinity.
+                if ( !xc || !yc ) return new BigNumber( a / 0 );
+
+                // Either zero?
+                // Return y if y is non-zero, x if x is non-zero, or zero if both are zero.
+                if ( !xc[0] || !yc[0] ) return yc[0] ? y : new BigNumber( xc[0] ? x : a * 0 );
+            }
+
+            xe = bitFloor(xe);
+            ye = bitFloor(ye);
+            xc = xc.slice();
+
+            // Prepend zeros to equalise exponents. Faster to use reverse then do unshifts.
+            if ( a = xe - ye ) {
+                if ( a > 0 ) {
+                    ye = xe;
+                    t = yc;
+                } else {
+                    a = -a;
+                    t = xc;
+                }
+
+                t.reverse();
+                for ( ; a--; t.push(0) );
+                t.reverse();
+            }
+
+            a = xc.length;
+            b = yc.length;
+
+            // Point xc to the longer array, and b to the shorter length.
+            if ( a - b < 0 ) t = yc, yc = xc, xc = t, b = a;
+
+            // Only start adding at yc.length - 1 as the further digits of xc can be ignored.
+            for ( a = 0; b; ) {
+                a = ( xc[--b] = xc[b] + yc[b] + a ) / BASE | 0;
+                xc[b] = BASE === xc[b] ? 0 : xc[b] % BASE;
+            }
+
+            if (a) {
+                xc = [a].concat(xc);
+                ++ye;
+            }
+
+            // No need to check for zero, as +x + +y != 0 && -x + -y != 0
+            // ye = MAX_EXP + 1 possible
+            return normalise( y, xc, ye );
+        };
+
+
+        /*
+         * If sd is undefined or null or true or false, return the number of significant digits of
+         * the value of this BigNumber, or null if the value of this BigNumber is ±Infinity or NaN.
+         * If sd is true include integer-part trailing zeros in the count.
+         *
+         * Otherwise, if sd is a number, return a new BigNumber whose value is the value of this
+         * BigNumber rounded to a maximum of sd significant digits using rounding mode rm, or
+         * ROUNDING_MODE if rm is omitted.
+         *
+         * sd {number|boolean} number: significant digits: integer, 1 to MAX inclusive.
+         *                     boolean: whether to count integer-part trailing zeros: true or false.
+         * [rm] {number} Rounding mode. Integer, 0 to 8 inclusive.
+         *
+         * '[BigNumber Error] Argument {not a primitive number|not an integer|out of range}: {sd|rm}'
+         */
+        P.precision = P.sd = function ( sd, rm ) {
+            var c, n, v,
+                x = this;
+
+            if ( sd != null && sd !== !!sd ) {
+                intCheck( sd, 1, MAX );
+                if ( rm == null ) rm = ROUNDING_MODE;
+                else intCheck( rm, 0, 8 );
+
+                return round( new BigNumber(x), sd, rm );
+            }
+
+            if ( !( c = x.c ) ) return null;
+            v = c.length - 1;
+            n = v * LOG_BASE + 1;
+
+            if ( v = c[v] ) {
+
+                // Subtract the number of trailing zeros of the last element.
+                for ( ; v % 10 == 0; v /= 10, n-- );
+
+                // Add the number of digits of the first element.
+                for ( v = c[0]; v >= 10; v /= 10, n++ );
+            }
+
+            if ( sd && x.e + 1 > n ) n = x.e + 1;
+
+            return n;
+        };
+
+
+        /*
+         * Return a new BigNumber whose value is the value of this BigNumber shifted by k places
+         * (powers of 10). Shift to the right if n > 0, and to the left if n < 0.
+         *
+         * k {number} Integer, -MAX_SAFE_INTEGER to MAX_SAFE_INTEGER inclusive.
+         *
+         * '[BigNumber Error] Argument {not a primitive number|not an integer|out of range}: {k}'
+         */
+        P.shiftedBy = function (k) {
+            intCheck( k, -MAX_SAFE_INTEGER, MAX_SAFE_INTEGER );
+            return this.times( '1e' + k );
+        };
+
+
+        /*
+         *  sqrt(-n) =  N
+         *  sqrt( N) =  N
+         *  sqrt(-I) =  N
+         *  sqrt( I) =  I
+         *  sqrt( 0) =  0
+         *  sqrt(-0) = -0
+         *
+         * Return a new BigNumber whose value is the square root of the value of this BigNumber,
+         * rounded according to DECIMAL_PLACES and ROUNDING_MODE.
+         */
+        P.squareRoot = P.sqrt = function () {
+            var m, n, r, rep, t,
+                x = this,
+                c = x.c,
+                s = x.s,
+                e = x.e,
+                dp = DECIMAL_PLACES + 4,
+                half = new BigNumber('0.5');
+
+            // Negative/NaN/Infinity/zero?
+            if ( s !== 1 || !c || !c[0] ) {
+                return new BigNumber( !s || s < 0 && ( !c || c[0] ) ? NaN : c ? x : 1 / 0 );
+            }
+
+            // Initial estimate.
+            s = Math.sqrt( +x );
+
+            // Math.sqrt underflow/overflow?
+            // Pass x to Math.sqrt as integer, then adjust the exponent of the result.
+            if ( s == 0 || s == 1 / 0 ) {
+                n = coeffToString(c);
+                if ( ( n.length + e ) % 2 == 0 ) n += '0';
+                s = Math.sqrt(n);
+                e = bitFloor( ( e + 1 ) / 2 ) - ( e < 0 || e % 2 );
+
+                if ( s == 1 / 0 ) {
+                    n = '1e' + e;
+                } else {
+                    n = s.toExponential();
+                    n = n.slice( 0, n.indexOf('e') + 1 ) + e;
+                }
+
+                r = new BigNumber(n);
+            } else {
+                r = new BigNumber( s + '' );
+            }
+
+            // Check for zero.
+            // r could be zero if MIN_EXP is changed after the this value was created.
+            // This would cause a division by zero (x/t) and hence Infinity below, which would cause
+            // coeffToString to throw.
+            if ( r.c[0] ) {
+                e = r.e;
+                s = e + dp;
+                if ( s < 3 ) s = 0;
+
+                // Newton-Raphson iteration.
+                for ( ; ; ) {
+                    t = r;
+                    r = half.times( t.plus( div( x, t, dp, 1 ) ) );
+
+                    if ( coeffToString( t.c   ).slice( 0, s ) === ( n =
+                         coeffToString( r.c ) ).slice( 0, s ) ) {
+
+                        // The exponent of r may here be one less than the final result exponent,
+                        // e.g 0.0009999 (e-4) --> 0.001 (e-3), so adjust s so the rounding digits
+                        // are indexed correctly.
+                        if ( r.e < e ) --s;
+                        n = n.slice( s - 3, s + 1 );
+
+                        // The 4th rounding digit may be in error by -1 so if the 4 rounding digits
+                        // are 9999 or 4999 (i.e. approaching a rounding boundary) continue the
+                        // iteration.
+                        if ( n == '9999' || !rep && n == '4999' ) {
+
+                            // On the first iteration only, check to see if rounding up gives the
+                            // exact result as the nines may infinitely repeat.
+                            if ( !rep ) {
+                                round( t, t.e + DECIMAL_PLACES + 2, 0 );
+
+                                if ( t.times(t).eq(x) ) {
+                                    r = t;
+                                    break;
+                                }
+                            }
+
+                            dp += 4;
+                            s += 4;
+                            rep = 1;
+                        } else {
+
+                            // If rounding digits are null, 0{0,4} or 50{0,3}, check for exact
+                            // result. If not, then there are further digits and m will be truthy.
+                            if ( !+n || !+n.slice(1) && n.charAt(0) == '5' ) {
+
+                                // Truncate to the first rounding digit.
+                                round( r, r.e + DECIMAL_PLACES + 2, 1 );
+                                m = !r.times(r).eq(x);
+                            }
+
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return round( r, r.e + DECIMAL_PLACES + 1, ROUNDING_MODE, m );
+        };
+
+
+        /*
+         * Return a string representing the value of this BigNumber in exponential notation and
+         * rounded using ROUNDING_MODE to dp fixed decimal places.
+         *
+         * [dp] {number} Decimal places. Integer, 0 to MAX inclusive.
+         * [rm] {number} Rounding mode. Integer, 0 to 8 inclusive.
+         *
+         * '[BigNumber Error] Argument {not a primitive number|not an integer|out of range}: {dp|rm}'
+         */
+        P.toExponential = function ( dp, rm ) {
+            if ( dp != null ) {
+                intCheck( dp, 0, MAX );
+                dp++;
+            }
+            return format( this, dp, rm, 1 );
+        };
+
+
+        /*
+         * Return a string representing the value of this BigNumber in fixed-point notation rounding
+         * to dp fixed decimal places using rounding mode rm, or ROUNDING_MODE if rm is omitted.
+         *
+         * Note: as with JavaScript's number type, (-0).toFixed(0) is '0',
+         * but e.g. (-0.00001).toFixed(0) is '-0'.
+         *
+         * [dp] {number} Decimal places. Integer, 0 to MAX inclusive.
+         * [rm] {number} Rounding mode. Integer, 0 to 8 inclusive.
+         *
+         * '[BigNumber Error] Argument {not a primitive number|not an integer|out of range}: {dp|rm}'
+         */
+        P.toFixed = function ( dp, rm ) {
+            if ( dp != null ) {
+                intCheck( dp, 0, MAX );
+                dp = dp + this.e + 1;
+            }
+            return format( this, dp, rm );
+        };
+
+
+        /*
+         * Return a string representing the value of this BigNumber in fixed-point notation rounded
+         * using rm or ROUNDING_MODE to dp decimal places, and formatted according to the properties
+         * of the FORMAT object (see BigNumber.set).
+         *
+         * FORMAT = {
+         *      decimalSeparator : '.',
+         *      groupSeparator : ',',
+         *      groupSize : 3,
+         *      secondaryGroupSize : 0,
+         *      fractionGroupSeparator : '\xA0',    // non-breaking space
+         *      fractionGroupSize : 0
+         * };
+         *
+         * [dp] {number} Decimal places. Integer, 0 to MAX inclusive.
+         * [rm] {number} Rounding mode. Integer, 0 to 8 inclusive.
+         *
+         * '[BigNumber Error] Argument {not a primitive number|not an integer|out of range}: {dp|rm}'
+         */
+        P.toFormat = function ( dp, rm ) {
+            var str = this.toFixed( dp, rm );
+
+            if ( this.c ) {
+                var i,
+                    arr = str.split('.'),
+                    g1 = +FORMAT.groupSize,
+                    g2 = +FORMAT.secondaryGroupSize,
+                    groupSeparator = FORMAT.groupSeparator,
+                    intPart = arr[0],
+                    fractionPart = arr[1],
+                    isNeg = this.s < 0,
+                    intDigits = isNeg ? intPart.slice(1) : intPart,
+                    len = intDigits.length;
+
+                if (g2) i = g1, g1 = g2, g2 = i, len -= i;
+
+                if ( g1 > 0 && len > 0 ) {
+                    i = len % g1 || g1;
+                    intPart = intDigits.substr( 0, i );
+
+                    for ( ; i < len; i += g1 ) {
+                        intPart += groupSeparator + intDigits.substr( i, g1 );
+                    }
+
+                    if ( g2 > 0 ) intPart += groupSeparator + intDigits.slice(i);
+                    if (isNeg) intPart = '-' + intPart;
+                }
+
+                str = fractionPart
+                  ? intPart + FORMAT.decimalSeparator + ( ( g2 = +FORMAT.fractionGroupSize )
+                    ? fractionPart.replace( new RegExp( '\\d{' + g2 + '}\\B', 'g' ),
+                      '$&' + FORMAT.fractionGroupSeparator )
+                    : fractionPart )
+                  : intPart;
+            }
+
+            return str;
+        };
+
+
+        /*
+         * Return a string array representing the value of this BigNumber as a simple fraction with
+         * an integer numerator and an integer denominator. The denominator will be a positive
+         * non-zero value less than or equal to the specified maximum denominator. If a maximum
+         * denominator is not specified, the denominator will be the lowest value necessary to
+         * represent the number exactly.
+         *
+         * [md] {number|string|BigNumber} Integer >= 1 and < Infinity. The maximum denominator.
+         *
+         * '[BigNumber Error] Argument {not an integer|out of range} : {md}'
+         */
+        P.toFraction = function (md) {
+            var arr, d, d0, d1, d2, e, exp, n, n0, n1, q, s,
+                x = this,
+                xc = x.c;
+
+            if ( md != null ) {
+                n = new BigNumber(md);
+
+                if ( !n.isInteger() || n.lt(ONE) ) {
+                    throw Error
+                      ( bignumberError + 'Argument ' +
+                        ( n.isInteger() ? 'out of range: ' : 'not an integer: ' ) + md );
+                }
+            }
+
+            if ( !xc ) return x.toString();
+
+            d = new BigNumber(ONE);
+            n1 = d0 = new BigNumber(ONE);
+            d1 = n0 = new BigNumber(ONE);
+            s = coeffToString(xc);
+
+            // Determine initial denominator.
+            // d is a power of 10 and the minimum max denominator that specifies the value exactly.
+            e = d.e = s.length - x.e - 1;
+            d.c[0] = POWS_TEN[ ( exp = e % LOG_BASE ) < 0 ? LOG_BASE + exp : exp ];
+            md = !md || n.comparedTo(d) > 0 ? ( e > 0 ? d : n1 ) : n;
+
+            exp = MAX_EXP;
+            MAX_EXP = 1 / 0;
+            n = new BigNumber(s);
+
+            // n0 = d1 = 0
+            n0.c[0] = 0;
+
+            for ( ; ; )  {
+                q = div( n, d, 0, 1 );
+                d2 = d0.plus( q.times(d1) );
+                if ( d2.comparedTo(md) == 1 ) break;
+                d0 = d1;
+                d1 = d2;
+                n1 = n0.plus( q.times( d2 = n1 ) );
+                n0 = d2;
+                d = n.minus( q.times( d2 = d ) );
+                n = d2;
+            }
+
+            d2 = div( md.minus(d0), d1, 0, 1 );
+            n0 = n0.plus( d2.times(n1) );
+            d0 = d0.plus( d2.times(d1) );
+            n0.s = n1.s = x.s;
+            e *= 2;
+
+            // Determine which fraction is closer to x, n0/d0 or n1/d1
+            arr = div( n1, d1, e, ROUNDING_MODE ).minus(x).abs().comparedTo(
+                  div( n0, d0, e, ROUNDING_MODE ).minus(x).abs() ) < 1
+                    ? [ n1.toString(), d1.toString() ]
+                    : [ n0.toString(), d0.toString() ];
+
+            MAX_EXP = exp;
+            return arr;
+        };
+
+
+        /*
+         * Return the value of this BigNumber converted to a number primitive.
+         */
+        P.toNumber = function () {
+            return +this;
+        };
+
+
+        /*
+         * Return a BigNumber whose value is the value of this BigNumber exponentiated by n.
+         *
+         * If m is present, return the result modulo m.
+         * If n is negative round according to DECIMAL_PLACES and ROUNDING_MODE.
+         * If POW_PRECISION is non-zero and m is not present, round to POW_PRECISION using ROUNDING_MODE.
+         *
+         * The modular power operation works efficiently when x, n, and m are positive integers,
+         * otherwise it is equivalent to calculating x.exponentiatedBy(n).modulo(m) with a POW_PRECISION of 0.
+         *
+         * n {number} Integer, -MAX_SAFE_INTEGER to MAX_SAFE_INTEGER inclusive.
+         * [m] {number|string|BigNumber} The modulus.
+         *
+         * '[BigNumber Error] Argument {not a primitive number|not an integer|out of range}: {n}'
+         *
+         * Performs 54 loop iterations for n of 9007199254740991.
+         */
+        P.exponentiatedBy = P.pow = function ( n, m ) {
+            var i, k, y, z,
+                x = this;
+
+            intCheck( n, -MAX_SAFE_INTEGER, MAX_SAFE_INTEGER );
+            if ( m != null ) m = new BigNumber(m);
+
+            if (m) {
+                if ( n > 1 && x.gt(ONE) && x.isInteger() && m.gt(ONE) && m.isInteger() ) {
+                    x = x.mod(m);
+                } else {
+                    z = m;
+
+                    // Nullify m so only a single mod operation is performed at the end.
+                    m = null;
+                }
+            } else if (POW_PRECISION) {
+
+                // Truncating each coefficient array to a length of k after each multiplication
+                // equates to truncating significant digits to POW_PRECISION + [28, 41],
+                // i.e. there will be a minimum of 28 guard digits retained.
+                //k = mathceil( POW_PRECISION / LOG_BASE + 1.5 );   // gives [9, 21] guard digits.
+                k = mathceil( POW_PRECISION / LOG_BASE + 2 );
+            }
+
+            y = new BigNumber(ONE);
+
+            for ( i = mathfloor( n < 0 ? -n : n ); ; ) {
+                if ( i % 2 ) {
+                    y = y.times(x);
+                    if ( !y.c ) break;
+                    if (k) {
+                        if ( y.c.length > k ) y.c.length = k;
+                    } else if (m) {
+                        y = y.mod(m);
+                    }
+                }
+
+                i = mathfloor( i / 2 );
+                if ( !i ) break;
+                x = x.times(x);
+                if (k) {
+                    if ( x.c && x.c.length > k ) x.c.length = k;
+                } else if (m) {
+                    x = x.mod(m);
+                }
+            }
+
+            if (m) return y;
+            if ( n < 0 ) y = ONE.div(y);
+
+            return z ? y.mod(z) : k ? round( y, POW_PRECISION, ROUNDING_MODE ) : y;
+        };
+
+
+        /*
+         * Return a string representing the value of this BigNumber rounded to sd significant digits
+         * using rounding mode rm or ROUNDING_MODE. If sd is less than the number of digits
+         * necessary to represent the integer part of the value in fixed-point notation, then use
+         * exponential notation.
+         *
+         * [sd] {number} Significant digits. Integer, 1 to MAX inclusive.
+         * [rm] {number} Rounding mode. Integer, 0 to 8 inclusive.
+         *
+         * '[BigNumber Error] Argument {not a primitive number|not an integer|out of range}: {sd|rm}'
+         */
+        P.toPrecision = function ( sd, rm ) {
+            if ( sd != null ) intCheck( sd, 1, MAX );
+            return format( this, sd, rm, 2 );
+        };
+
+
+        /*
+         * Return a string representing the value of this BigNumber in base b, or base 10 if b is
+         * omitted. If a base is specified, including base 10, round according to DECIMAL_PLACES and
+         * ROUNDING_MODE. If a base is not specified, and this BigNumber has a positive exponent
+         * that is equal to or greater than TO_EXP_POS, or a negative exponent equal to or less than
+         * TO_EXP_NEG, return exponential notation.
+         *
+         * [b] {number} Integer, 2 to ALPHABET.length inclusive.
+         *
+         * '[BigNumber Error] Base {not a primitive number|not an integer|out of range}: {b}'
+         */
+        P.toString = function (b) {
+            var str,
+                n = this,
+                s = n.s,
+                e = n.e;
+
+            // Infinity or NaN?
+            if ( e === null ) {
+
+                if (s) {
+                    str = 'Infinity';
+                    if ( s < 0 ) str = '-' + str;
+                } else {
+                    str = 'NaN';
+                }
+            } else {
+                str = coeffToString( n.c );
+
+                if ( b == null ) {
+                    str = e <= TO_EXP_NEG || e >= TO_EXP_POS
+                      ? toExponential( str, e )
+                      : toFixedPoint( str, e, '0' );
+                } else {
+                    intCheck( b, 2, ALPHABET.length, 'Base' );
+                    str = convertBase( toFixedPoint( str, e, '0' ), 10, b, s, true );
+                }
+
+                if ( s < 0 && n.c[0] ) str = '-' + str;
+            }
+
+            return str;
+        };
+
+
+        /*
+         * Return as toString, but do not accept a base argument, and include the minus sign for
+         * negative zero.
+         */
+        P.valueOf = P.toJSON = function () {
+            var str,
+                n = this,
+                e = n.e;
+
+            if ( e === null ) return n.toString();
+
+            str = coeffToString( n.c );
+
+            str = e <= TO_EXP_NEG || e >= TO_EXP_POS
+                ? toExponential( str, e )
+                : toFixedPoint( str, e, '0' );
+
+            return n.s < 0 ? '-' + str : str;
+        };
+
+
+        P._isBigNumber = true;
+
+        if ( configObject != null ) BigNumber.set(configObject);
+
+        return BigNumber;
+    }
+
+
+    // PRIVATE HELPER FUNCTIONS
+
+
+    function bitFloor(n) {
+        var i = n | 0;
+        return n > 0 || n === i ? i : i - 1;
+    }
+
+
+    // Return a coefficient array as a string of base 10 digits.
+    function coeffToString(a) {
+        var s, z,
+            i = 1,
+            j = a.length,
+            r = a[0] + '';
+
+        for ( ; i < j; ) {
+            s = a[i++] + '';
+            z = LOG_BASE - s.length;
+            for ( ; z--; s = '0' + s );
+            r += s;
+        }
+
+        // Determine trailing zeros.
+        for ( j = r.length; r.charCodeAt(--j) === 48; );
+        return r.slice( 0, j + 1 || 1 );
+    }
+
+
+    // Compare the value of BigNumbers x and y.
+    function compare( x, y ) {
+        var a, b,
+            xc = x.c,
+            yc = y.c,
+            i = x.s,
+            j = y.s,
+            k = x.e,
+            l = y.e;
+
+        // Either NaN?
+        if ( !i || !j ) return null;
+
+        a = xc && !xc[0];
+        b = yc && !yc[0];
+
+        // Either zero?
+        if ( a || b ) return a ? b ? 0 : -j : i;
+
+        // Signs differ?
+        if ( i != j ) return i;
+
+        a = i < 0;
+        b = k == l;
+
+        // Either Infinity?
+        if ( !xc || !yc ) return b ? 0 : !xc ^ a ? 1 : -1;
+
+        // Compare exponents.
+        if ( !b ) return k > l ^ a ? 1 : -1;
+
+        j = ( k = xc.length ) < ( l = yc.length ) ? k : l;
+
+        // Compare digit by digit.
+        for ( i = 0; i < j; i++ ) if ( xc[i] != yc[i] ) return xc[i] > yc[i] ^ a ? 1 : -1;
+
+        // Compare lengths.
+        return k == l ? 0 : k > l ^ a ? 1 : -1;
+    }
+
+
+    /*
+     * Check that n is a primitive number, an integer, and in range, otherwise throw.
+     */
+    function intCheck( n, min, max, name ) {
+        if ( n < min || n > max || n !== ( n < 0 ? mathceil(n) : mathfloor(n) ) ) {
+            throw Error
+              ( bignumberError + ( name || 'Argument' ) + ( typeof n == 'number'
+                  ? n < min || n > max ? ' out of range: ' : ' not an integer: '
+                  : ' not a primitive number: ' ) + n );
+        }
+    }
+
+
+    function isArray(obj) {
+        return Object.prototype.toString.call(obj) == '[object Array]';
+    }
+
+
+    function toExponential( str, e ) {
+        return ( str.length > 1 ? str.charAt(0) + '.' + str.slice(1) : str ) +
+          ( e < 0 ? 'e' : 'e+' ) + e;
+    }
+
+
+    function toFixedPoint( str, e, z ) {
+        var len, zs;
+
+        // Negative exponent?
+        if ( e < 0 ) {
+
+            // Prepend zeros.
+            for ( zs = z + '.'; ++e; zs += z );
+            str = zs + str;
+
+        // Positive exponent
+        } else {
+            len = str.length;
+
+            // Append zeros.
+            if ( ++e > len ) {
+                for ( zs = z, e -= len; --e; zs += z );
+                str += zs;
+            } else if ( e < len ) {
+                str = str.slice( 0, e ) + '.' + str.slice(e);
+            }
+        }
+
+        return str;
+    }
+
+
+    // EXPORT
+
+
+    BigNumber = clone();
+    BigNumber['default'] = BigNumber.BigNumber = BigNumber;
+
+
+    // AMD.
+    if ( true ) {
+        !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () { return BigNumber; }).call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+    // Node.js and other environments that support module.exports.
+    } else if ( typeof module != 'undefined' && module.exports ) {
+        module.exports = BigNumber;
+
+    // Browser.
+    } else {
+        if ( !globalObject ) {
+            globalObject = typeof self != 'undefined' ? self : Function('return this')();
+        }
+
+        globalObject.BigNumber = BigNumber;
+    }
+})(this);
+
+
+/***/ }),
+/* 191 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -22733,12 +25465,12 @@ class InterfaceBlockchainBlockData {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 191 */
+/* 192 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Interface_Blockchain_Transaction_From__ = __webpack_require__(301);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Interface_Blockchain_Transaction_To__ = __webpack_require__(302);
+/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Interface_Blockchain_Transaction_From__ = __webpack_require__(302);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Interface_Blockchain_Transaction_To__ = __webpack_require__(303);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_crypto_WebDollar_Crypto__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_crypto_WebDollar_Crypto_Data__ = __webpack_require__(58);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__ = __webpack_require__(17);
@@ -23116,7 +25848,7 @@ class InterfaceBlockchainTransaction{
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 192 */
+/* 193 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23194,13 +25926,13 @@ class RevertActions {
 /* harmony default export */ __webpack_exports__["a"] = (RevertActions);
 
 /***/ }),
-/* 193 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(702);
 
 /***/ }),
-/* 194 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23300,7 +26032,7 @@ module.exports = defaults;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
 
 /***/ }),
-/* 195 */
+/* 196 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23406,7 +26138,7 @@ class GeoHelper {
 /* harmony default export */ __webpack_exports__["a"] = (new GeoHelper());
 
 /***/ }),
-/* 196 */
+/* 197 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23417,7 +26149,7 @@ class GeoHelper {
 
 
 const BigInteger = __webpack_require__(59);
-const BigNumber = __webpack_require__(304);
+const BigNumber = __webpack_require__(190);
 
 class PPoWHelper{
 
@@ -23574,7 +26306,7 @@ class PPoWHelper{
 /* harmony default export */ __webpack_exports__["a"] = (new PPoWHelper());
 
 /***/ }),
-/* 197 */
+/* 198 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23826,7 +26558,7 @@ class MiniBlockchainAccountantTree extends __WEBPACK_IMPORTED_MODULE_5__Mini_Blo
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 198 */
+/* 199 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23869,7 +26601,7 @@ class InterfaceTreeEdge {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 199 */
+/* 200 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24224,7 +26956,7 @@ class InterfaceBlockchainProtocolForkSolver{
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 200 */
+/* 201 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24315,7 +27047,7 @@ class PPoWBlockchainProtocol extends __WEBPACK_IMPORTED_MODULE_0_common_blockcha
 /* harmony default export */ __webpack_exports__["a"] = (PPoWBlockchainProtocol);
 
 /***/ }),
-/* 201 */
+/* 202 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24340,7 +27072,7 @@ class InterfaceBlockchainAgentFullNode extends __WEBPACK_IMPORTED_MODULE_0__Inte
 /* harmony default export */ __webpack_exports__["a"] = (InterfaceBlockchainAgentFullNode);
 
 /***/ }),
-/* 202 */
+/* 203 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24356,7 +27088,7 @@ let AGENT_STATUS = {
 /* harmony default export */ __webpack_exports__["a"] = (AGENT_STATUS);
 
 /***/ }),
-/* 203 */
+/* 204 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24548,7 +27280,7 @@ class MiniBlockchainAdvancedProtocol extends __WEBPACK_IMPORTED_MODULE_0__Mini_B
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 204 */
+/* 205 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24646,7 +27378,7 @@ class MiniBlockchainFork extends inheritFork{
 /* harmony default export */ __webpack_exports__["a"] = (MiniBlockchainFork);
 
 /***/ }),
-/* 205 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -25060,7 +27792,7 @@ function error(msg) {
 
 
 /***/ }),
-/* 206 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {// browser shim for xmlhttprequest module
@@ -25104,7 +27836,7 @@ module.exports = function (opts) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 207 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -25267,12 +27999,12 @@ Transport.prototype.onClose = function () {
 
 
 /***/ }),
-/* 208 */
+/* 209 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__ = __webpack_require__(209);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__ = __webpack_require__(210);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__signaling_client_service_Node_Signaling_Client_Service__ = __webpack_require__(341);
 
@@ -25554,7 +28286,7 @@ class NodeSignalingClientProtocol {
 /* harmony default export */ __webpack_exports__["a"] = (new NodeSignalingClientProtocol());
 
 /***/ }),
-/* 209 */
+/* 210 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25673,7 +28405,7 @@ class SignalingClientList {
 /* harmony default export */ __webpack_exports__["a"] = (new SignalingClientList());
 
 /***/ }),
-/* 210 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {if(( typeof window !== 'undefined' && !window._babelPolyfill) ||
@@ -25718,7 +28450,7 @@ console.log("Node WebDollar End");
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 211 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = !__webpack_require__(14) && !__webpack_require__(8)(function () {
@@ -25727,14 +28459,14 @@ module.exports = !__webpack_require__(14) && !__webpack_require__(8)(function ()
 
 
 /***/ }),
-/* 212 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports.f = __webpack_require__(12);
 
 
 /***/ }),
-/* 213 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var has = __webpack_require__(27);
@@ -25757,7 +28489,7 @@ module.exports = function (object, names) {
 
 
 /***/ }),
-/* 214 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(15);
@@ -25776,7 +28508,7 @@ module.exports = __webpack_require__(14) ? Object.defineProperties : function de
 
 
 /***/ }),
-/* 215 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
@@ -25801,7 +28533,7 @@ module.exports.f = function getOwnPropertyNames(it) {
 
 
 /***/ }),
-/* 216 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25842,14 +28574,14 @@ module.exports = !$assign || __webpack_require__(8)(function () {
 
 
 /***/ }),
-/* 217 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var aFunction = __webpack_require__(23);
 var isObject = __webpack_require__(10);
-var invoke = __webpack_require__(218);
+var invoke = __webpack_require__(219);
 var arraySlice = [].slice;
 var factories = {};
 
@@ -25874,7 +28606,7 @@ module.exports = Function.bind || function bind(that /* , ...args */) {
 
 
 /***/ }),
-/* 218 */
+/* 219 */
 /***/ (function(module, exports) {
 
 // fast apply, http://jsperf.lnkit.com/fast-apply/5
@@ -25896,7 +28628,7 @@ module.exports = function (fn, args, that) {
 
 
 /***/ }),
-/* 219 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var $parseInt = __webpack_require__(7).parseInt;
@@ -25911,7 +28643,7 @@ module.exports = $parseInt(ws + '08') !== 8 || $parseInt(ws + '0x16') !== 22 ? f
 
 
 /***/ }),
-/* 220 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var $parseFloat = __webpack_require__(7).parseFloat;
@@ -25925,7 +28657,7 @@ module.exports = 1 / $parseFloat(__webpack_require__(140) + '-0') !== -Infinity 
 
 
 /***/ }),
-/* 221 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var cof = __webpack_require__(40);
@@ -25936,7 +28668,7 @@ module.exports = function (it, msg) {
 
 
 /***/ }),
-/* 222 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 20.1.2.3 Number.isInteger(number)
@@ -25948,7 +28680,7 @@ module.exports = function isInteger(it) {
 
 
 /***/ }),
-/* 223 */
+/* 224 */
 /***/ (function(module, exports) {
 
 // 20.2.2.20 Math.log1p(x)
@@ -25958,7 +28690,7 @@ module.exports = Math.log1p || function log1p(x) {
 
 
 /***/ }),
-/* 224 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 20.2.2.16 Math.fround(x)
@@ -25987,7 +28719,7 @@ module.exports = Math.fround || function fround(x) {
 
 
 /***/ }),
-/* 225 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // call something on iterator step with safe closing on error
@@ -26005,7 +28737,7 @@ module.exports = function (iterator, fn, value, entries) {
 
 
 /***/ }),
-/* 226 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var aFunction = __webpack_require__(23);
@@ -26039,7 +28771,7 @@ module.exports = function (that, callbackfn, aLen, memo, isRight) {
 
 
 /***/ }),
-/* 227 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26072,7 +28804,7 @@ module.exports = [].copyWithin || function copyWithin(target /* = 0 */, start /*
 
 
 /***/ }),
-/* 228 */
+/* 229 */
 /***/ (function(module, exports) {
 
 module.exports = function (done, value) {
@@ -26081,7 +28813,7 @@ module.exports = function (done, value) {
 
 
 /***/ }),
-/* 229 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 21.2.5.3 get RegExp.prototype.flags()
@@ -26092,7 +28824,7 @@ if (__webpack_require__(14) && /./g.flags != 'g') __webpack_require__(15).f(RegE
 
 
 /***/ }),
-/* 230 */
+/* 231 */
 /***/ (function(module, exports) {
 
 module.exports = function (exec) {
@@ -26105,7 +28837,7 @@ module.exports = function (exec) {
 
 
 /***/ }),
-/* 231 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var anObject = __webpack_require__(6);
@@ -26123,12 +28855,12 @@ module.exports = function (C, x) {
 
 
 /***/ }),
-/* 232 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var strong = __webpack_require__(233);
+var strong = __webpack_require__(234);
 var validate = __webpack_require__(81);
 var MAP = 'Map';
 
@@ -26149,7 +28881,7 @@ module.exports = __webpack_require__(113)(MAP, function (get) {
 
 
 /***/ }),
-/* 233 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26161,7 +28893,7 @@ var ctx = __webpack_require__(39);
 var anInstance = __webpack_require__(71);
 var forOf = __webpack_require__(72);
 var $iterDefine = __webpack_require__(146);
-var step = __webpack_require__(228);
+var step = __webpack_require__(229);
 var setSpecies = __webpack_require__(70);
 var DESCRIPTORS = __webpack_require__(14);
 var fastKey = __webpack_require__(55).fastKey;
@@ -26300,12 +29032,12 @@ module.exports = {
 
 
 /***/ }),
-/* 234 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var strong = __webpack_require__(233);
+var strong = __webpack_require__(234);
 var validate = __webpack_require__(81);
 var SET = 'Set';
 
@@ -26321,7 +29053,7 @@ module.exports = __webpack_require__(113)(SET, function (get) {
 
 
 /***/ }),
-/* 235 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26329,8 +29061,8 @@ module.exports = __webpack_require__(113)(SET, function (get) {
 var each = __webpack_require__(48)(0);
 var redefine = __webpack_require__(29);
 var meta = __webpack_require__(55);
-var assign = __webpack_require__(216);
-var weak = __webpack_require__(236);
+var assign = __webpack_require__(217);
+var weak = __webpack_require__(237);
 var isObject = __webpack_require__(10);
 var fails = __webpack_require__(8);
 var validate = __webpack_require__(81);
@@ -26387,7 +29119,7 @@ if (fails(function () { return new $WeakMap().set((Object.freeze || Object)(tmp)
 
 
 /***/ }),
-/* 236 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26479,7 +29211,7 @@ module.exports = {
 
 
 /***/ }),
-/* 237 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // https://tc39.github.io/ecma262/#sec-toindex
@@ -26495,7 +29227,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 238 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // all object keys, includes non-enumerable and symbols
@@ -26511,7 +29243,7 @@ module.exports = Reflect && Reflect.ownKeys || function ownKeys(it) {
 
 
 /***/ }),
-/* 239 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26557,7 +29289,7 @@ module.exports = flattenIntoArray;
 
 
 /***/ }),
-/* 240 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // https://github.com/tc39/proposal-string-pad-start-end
@@ -26579,7 +29311,7 @@ module.exports = function (that, maxLength, fillString, left) {
 
 
 /***/ }),
-/* 241 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var getKeys = __webpack_require__(66);
@@ -26601,12 +29333,12 @@ module.exports = function (isEntries) {
 
 
 /***/ }),
-/* 242 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // https://github.com/DavidBruant/Map-Set.prototype.toJSON
 var classof = __webpack_require__(91);
-var from = __webpack_require__(243);
+var from = __webpack_require__(244);
 module.exports = function (NAME) {
   return function toJSON() {
     if (classof(this) != NAME) throw TypeError(NAME + "#toJSON isn't generic");
@@ -26616,7 +29348,7 @@ module.exports = function (NAME) {
 
 
 /***/ }),
-/* 243 */
+/* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var forOf = __webpack_require__(72);
@@ -26629,7 +29361,7 @@ module.exports = function (iter, ITERATOR) {
 
 
 /***/ }),
-/* 244 */
+/* 245 */
 /***/ (function(module, exports) {
 
 // https://rwaldron.github.io/proposal-math-extensions/
@@ -26653,7 +29385,7 @@ module.exports = Math.scale || function scale(x, inLow, inHigh, outLow, outHigh)
 
 
 /***/ }),
-/* 245 */
+/* 246 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -26664,11 +29396,11 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 246 */
+/* 247 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index_js__ = __webpack_require__(210);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index_js__ = __webpack_require__(211);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__index_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_coins_WebDollar_Coins__ = __webpack_require__(42);
@@ -27061,7 +29793,7 @@ const addressHeader =
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(31)))
 
 /***/ }),
-/* 247 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -27654,7 +30386,7 @@ function hasOwnProperty(obj, prop) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(31)))
 
 /***/ }),
-/* 248 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var basex = __webpack_require__(558)
@@ -27664,7 +30396,7 @@ module.exports = basex(ALPHABET)
 
 
 /***/ }),
-/* 249 */
+/* 250 */
 /***/ (function(module, exports) {
 
 // Unique ID creation requires a high quality random # generator.  In the
@@ -27702,7 +30434,7 @@ if (getRandomValues) {
 
 
 /***/ }),
-/* 250 */
+/* 251 */
 /***/ (function(module, exports) {
 
 /**
@@ -27731,7 +30463,7 @@ module.exports = bytesToUuid;
 
 
 /***/ }),
-/* 251 */
+/* 252 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27791,7 +30523,7 @@ module.exports = bytesToUuid;
 });
 
 /***/ }),
-/* 252 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27826,7 +30558,7 @@ var processNextTick = __webpack_require__(120).nextTick;
 module.exports = Readable;
 
 /*<replacement>*/
-var isArray = __webpack_require__(245);
+var isArray = __webpack_require__(246);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -27844,7 +30576,7 @@ var EElistenerCount = function (emitter, type) {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__(253);
+var Stream = __webpack_require__(254);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -27876,7 +30608,7 @@ if (debugUtil && debugUtil.debuglog) {
 /*</replacement>*/
 
 var BufferList = __webpack_require__(565);
-var destroyImpl = __webpack_require__(254);
+var destroyImpl = __webpack_require__(255);
 var StringDecoder;
 
 util.inherits(Readable, Stream);
@@ -28813,14 +31545,14 @@ function indexOf(xs, x) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(31)))
 
 /***/ }),
-/* 253 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(32).EventEmitter;
 
 
 /***/ }),
-/* 254 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28900,7 +31632,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 255 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29120,7 +31852,7 @@ function done(stream, er, data) {
 }
 
 /***/ }),
-/* 256 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -29261,7 +31993,7 @@ module.exports = Sha256
 
 
 /***/ }),
-/* 257 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(5)
@@ -29527,23 +32259,23 @@ module.exports = Sha512
 
 
 /***/ }),
-/* 258 */
+/* 259 */
 /***/ (function(module, exports) {
 
 module.exports = {"sha224WithRSAEncryption":{"sign":"rsa","hash":"sha224","id":"302d300d06096086480165030402040500041c"},"RSA-SHA224":{"sign":"ecdsa/rsa","hash":"sha224","id":"302d300d06096086480165030402040500041c"},"sha256WithRSAEncryption":{"sign":"rsa","hash":"sha256","id":"3031300d060960864801650304020105000420"},"RSA-SHA256":{"sign":"ecdsa/rsa","hash":"sha256","id":"3031300d060960864801650304020105000420"},"sha384WithRSAEncryption":{"sign":"rsa","hash":"sha384","id":"3041300d060960864801650304020205000430"},"RSA-SHA384":{"sign":"ecdsa/rsa","hash":"sha384","id":"3041300d060960864801650304020205000430"},"sha512WithRSAEncryption":{"sign":"rsa","hash":"sha512","id":"3051300d060960864801650304020305000440"},"RSA-SHA512":{"sign":"ecdsa/rsa","hash":"sha512","id":"3051300d060960864801650304020305000440"},"RSA-SHA1":{"sign":"rsa","hash":"sha1","id":"3021300906052b0e03021a05000414"},"ecdsa-with-SHA1":{"sign":"ecdsa","hash":"sha1","id":""},"sha256":{"sign":"ecdsa","hash":"sha256","id":""},"sha224":{"sign":"ecdsa","hash":"sha224","id":""},"sha384":{"sign":"ecdsa","hash":"sha384","id":""},"sha512":{"sign":"ecdsa","hash":"sha512","id":""},"DSA-SHA":{"sign":"dsa","hash":"sha1","id":""},"DSA-SHA1":{"sign":"dsa","hash":"sha1","id":""},"DSA":{"sign":"dsa","hash":"sha1","id":""},"DSA-WITH-SHA224":{"sign":"dsa","hash":"sha224","id":""},"DSA-SHA224":{"sign":"dsa","hash":"sha224","id":""},"DSA-WITH-SHA256":{"sign":"dsa","hash":"sha256","id":""},"DSA-SHA256":{"sign":"dsa","hash":"sha256","id":""},"DSA-WITH-SHA384":{"sign":"dsa","hash":"sha384","id":""},"DSA-SHA384":{"sign":"dsa","hash":"sha384","id":""},"DSA-WITH-SHA512":{"sign":"dsa","hash":"sha512","id":""},"DSA-SHA512":{"sign":"dsa","hash":"sha512","id":""},"DSA-RIPEMD160":{"sign":"dsa","hash":"rmd160","id":""},"ripemd160WithRSA":{"sign":"rsa","hash":"rmd160","id":"3021300906052b2403020105000414"},"RSA-RIPEMD160":{"sign":"rsa","hash":"rmd160","id":"3021300906052b2403020105000414"},"md5WithRSAEncryption":{"sign":"rsa","hash":"md5","id":"3020300c06082a864886f70d020505000410"},"RSA-MD5":{"sign":"rsa","hash":"md5","id":"3020300c06082a864886f70d020505000410"}}
 
 /***/ }),
-/* 259 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 exports.pbkdf2 = __webpack_require__(581)
 
-exports.pbkdf2Sync = __webpack_require__(262)
+exports.pbkdf2Sync = __webpack_require__(263)
 
 
 /***/ }),
-/* 260 */
+/* 261 */
 /***/ (function(module, exports) {
 
 var MAX_ALLOC = Math.pow(2, 30) - 1 // default in iojs
@@ -29567,7 +32299,7 @@ module.exports = function (iterations, keylen) {
 
 
 /***/ }),
-/* 261 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {var defaultEncoding
@@ -29584,15 +32316,15 @@ module.exports = defaultEncoding
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
 
 /***/ }),
-/* 262 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var md5 = __webpack_require__(164)
 var rmd160 = __webpack_require__(165)
 var sha = __webpack_require__(169)
 
-var checkParameters = __webpack_require__(260)
-var defaultEncoding = __webpack_require__(261)
+var checkParameters = __webpack_require__(261)
+var defaultEncoding = __webpack_require__(262)
 var Buffer = __webpack_require__(3).Buffer
 var ZEROS = Buffer.alloc(128)
 var sizes = {
@@ -29691,12 +32423,12 @@ module.exports = pbkdf2
 
 
 /***/ }),
-/* 263 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var xor = __webpack_require__(94)
 var Buffer = __webpack_require__(3).Buffer
-var incr32 = __webpack_require__(264)
+var incr32 = __webpack_require__(265)
 
 function getBlock (self) {
   var out = self._cipher.encryptBlockRaw(self._prev)
@@ -29727,7 +32459,7 @@ exports.encrypt = function (self, chunk) {
 
 
 /***/ }),
-/* 264 */
+/* 265 */
 /***/ (function(module, exports) {
 
 function incr32 (iv) {
@@ -29748,13 +32480,13 @@ module.exports = incr32
 
 
 /***/ }),
-/* 265 */
+/* 266 */
 /***/ (function(module, exports) {
 
 module.exports = {"aes-128-ecb":{"cipher":"AES","key":128,"iv":0,"mode":"ECB","type":"block"},"aes-192-ecb":{"cipher":"AES","key":192,"iv":0,"mode":"ECB","type":"block"},"aes-256-ecb":{"cipher":"AES","key":256,"iv":0,"mode":"ECB","type":"block"},"aes-128-cbc":{"cipher":"AES","key":128,"iv":16,"mode":"CBC","type":"block"},"aes-192-cbc":{"cipher":"AES","key":192,"iv":16,"mode":"CBC","type":"block"},"aes-256-cbc":{"cipher":"AES","key":256,"iv":16,"mode":"CBC","type":"block"},"aes128":{"cipher":"AES","key":128,"iv":16,"mode":"CBC","type":"block"},"aes192":{"cipher":"AES","key":192,"iv":16,"mode":"CBC","type":"block"},"aes256":{"cipher":"AES","key":256,"iv":16,"mode":"CBC","type":"block"},"aes-128-cfb":{"cipher":"AES","key":128,"iv":16,"mode":"CFB","type":"stream"},"aes-192-cfb":{"cipher":"AES","key":192,"iv":16,"mode":"CFB","type":"stream"},"aes-256-cfb":{"cipher":"AES","key":256,"iv":16,"mode":"CFB","type":"stream"},"aes-128-cfb8":{"cipher":"AES","key":128,"iv":16,"mode":"CFB8","type":"stream"},"aes-192-cfb8":{"cipher":"AES","key":192,"iv":16,"mode":"CFB8","type":"stream"},"aes-256-cfb8":{"cipher":"AES","key":256,"iv":16,"mode":"CFB8","type":"stream"},"aes-128-cfb1":{"cipher":"AES","key":128,"iv":16,"mode":"CFB1","type":"stream"},"aes-192-cfb1":{"cipher":"AES","key":192,"iv":16,"mode":"CFB1","type":"stream"},"aes-256-cfb1":{"cipher":"AES","key":256,"iv":16,"mode":"CFB1","type":"stream"},"aes-128-ofb":{"cipher":"AES","key":128,"iv":16,"mode":"OFB","type":"stream"},"aes-192-ofb":{"cipher":"AES","key":192,"iv":16,"mode":"OFB","type":"stream"},"aes-256-ofb":{"cipher":"AES","key":256,"iv":16,"mode":"OFB","type":"stream"},"aes-128-ctr":{"cipher":"AES","key":128,"iv":16,"mode":"CTR","type":"stream"},"aes-192-ctr":{"cipher":"AES","key":192,"iv":16,"mode":"CTR","type":"stream"},"aes-256-ctr":{"cipher":"AES","key":256,"iv":16,"mode":"CTR","type":"stream"},"aes-128-gcm":{"cipher":"AES","key":128,"iv":12,"mode":"GCM","type":"auth"},"aes-192-gcm":{"cipher":"AES","key":192,"iv":12,"mode":"GCM","type":"auth"},"aes-256-gcm":{"cipher":"AES","key":256,"iv":12,"mode":"GCM","type":"auth"}}
 
 /***/ }),
-/* 266 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var aes = __webpack_require__(123)
@@ -29763,7 +32495,7 @@ var Transform = __webpack_require__(57)
 var inherits = __webpack_require__(5)
 var GHASH = __webpack_require__(592)
 var xor = __webpack_require__(94)
-var incr32 = __webpack_require__(264)
+var incr32 = __webpack_require__(265)
 
 function xorTest (a, b) {
   var out = 0
@@ -29877,7 +32609,7 @@ module.exports = StreamCipher
 
 
 /***/ }),
-/* 267 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var aes = __webpack_require__(123)
@@ -29910,7 +32642,7 @@ module.exports = StreamCipher
 
 
 /***/ }),
-/* 268 */
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var randomBytes = __webpack_require__(74);
@@ -29919,7 +32651,7 @@ findPrime.simpleSieve = simpleSieve;
 findPrime.fermatTest = fermatTest;
 var BN = __webpack_require__(18);
 var TWENTYFOUR = new BN(24);
-var MillerRabin = __webpack_require__(269);
+var MillerRabin = __webpack_require__(270);
 var millerRabin = new MillerRabin();
 var ONE = new BN(1);
 var TWO = new BN(2);
@@ -30021,11 +32753,11 @@ function findPrime(bits, gen) {
 
 
 /***/ }),
-/* 269 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var bn = __webpack_require__(18);
-var brorand = __webpack_require__(270);
+var brorand = __webpack_require__(271);
 
 function MillerRabin(rand) {
   this.rand = rand || new brorand.Rand();
@@ -30142,7 +32874,7 @@ MillerRabin.prototype.getDivisor = function getDivisor(n, k) {
 
 
 /***/ }),
-/* 270 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var r;
@@ -30213,7 +32945,7 @@ if (typeof self === 'object') {
 
 
 /***/ }),
-/* 271 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30278,7 +33010,7 @@ utils.encode = function encode(arr, enc) {
 
 
 /***/ }),
-/* 272 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30334,7 +33066,7 @@ exports.g1_256 = g1_256;
 
 
 /***/ }),
-/* 273 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30342,7 +33074,7 @@ exports.g1_256 = g1_256;
 
 var utils = __webpack_require__(49);
 var common = __webpack_require__(95);
-var shaCommon = __webpack_require__(272);
+var shaCommon = __webpack_require__(273);
 var assert = __webpack_require__(37);
 
 var sum32 = utils.sum32;
@@ -30446,7 +33178,7 @@ SHA256.prototype._digest = function digest(enc) {
 
 
 /***/ }),
-/* 274 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30783,7 +33515,7 @@ function g1_512_lo(xh, xl) {
 
 
 /***/ }),
-/* 275 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(5);
@@ -30905,7 +33637,7 @@ EncoderBuffer.prototype.join = function join(out, offset) {
 
 
 /***/ }),
-/* 276 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var constants = exports;
@@ -30930,7 +33662,7 @@ constants.der = __webpack_require__(634);
 
 
 /***/ }),
-/* 277 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(5);
@@ -31260,7 +33992,7 @@ function derDecodeLen(buf, primitive, fail) {
 
 
 /***/ }),
-/* 278 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(5);
@@ -31561,13 +34293,13 @@ function encodeTag(tag, primitive, cls, reporter) {
 
 
 /***/ }),
-/* 279 */
+/* 280 */
 /***/ (function(module, exports) {
 
 module.exports = {"1.3.132.0.10":"secp256k1","1.3.132.0.33":"p224","1.2.840.10045.3.1.1":"p192","1.2.840.10045.3.1.7":"p256","1.3.132.0.34":"p384","1.3.132.0.35":"p521"}
 
 /***/ }),
-/* 280 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var createHash = __webpack_require__(75);
@@ -31589,7 +34321,7 @@ function i2ops(c) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 281 */
+/* 282 */
 /***/ (function(module, exports) {
 
 module.exports = function xor(a, b) {
@@ -31602,7 +34334,7 @@ module.exports = function xor(a, b) {
 };
 
 /***/ }),
-/* 282 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var bn = __webpack_require__(18);
@@ -31618,11 +34350,11 @@ module.exports = withPublic;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 283 */
+/* 284 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__main__ = __webpack_require__(284);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__main__ = __webpack_require__(285);
 /*
     original source https://github.com/antelle/argon2-browser/blob/master/docs/js/calc.js
 
@@ -31946,7 +34678,7 @@ class Argon2BrowserWebAssemblyCalc{
 /* harmony default export */ __webpack_exports__["a"] = (Argon2BrowserWebAssemblyCalc);
 
 /***/ }),
-/* 284 */
+/* 285 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32094,7 +34826,7 @@ class Argon2BrowserAntelleMain{
 /* harmony default export */ __webpack_exports__["a"] = (new Argon2BrowserAntelleMain());
 
 /***/ }),
-/* 285 */
+/* 286 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32103,7 +34835,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lie___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lie__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_argsarray__ = __webpack_require__(660);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_argsarray___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_argsarray__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_immediate__ = __webpack_require__(286);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_immediate__ = __webpack_require__(287);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_immediate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_immediate__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_events__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_events___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_events__);
@@ -44477,7 +47209,7 @@ PouchDB.plugin(IDBPouch)
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(9)))
 
 /***/ }),
-/* 286 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44554,7 +47286,7 @@ function immediate(task) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 287 */
+/* 288 */
 /***/ (function(module, exports) {
 
 /**
@@ -44712,7 +47444,7 @@ function plural(ms, n, name) {
 
 
 /***/ }),
-/* 288 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Reference https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki
@@ -44831,7 +47563,7 @@ module.exports = {
 
 
 /***/ }),
-/* 289 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var OPS = __webpack_require__(24)
@@ -44914,7 +47646,7 @@ module.exports = {
 
 
 /***/ }),
-/* 290 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var native = __webpack_require__(176)
@@ -45024,7 +47756,7 @@ module.exports = {
 
 
 /***/ }),
-/* 291 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(3).Buffer
@@ -45098,7 +47830,7 @@ module.exports = {
 
 
 /***/ }),
-/* 292 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // m [pubKeys ...] n OP_CHECKMULTISIG
@@ -45168,7 +47900,7 @@ module.exports = {
 
 
 /***/ }),
-/* 293 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // OP_0 {pubKeyHash}
@@ -45207,7 +47939,7 @@ module.exports = {
 
 
 /***/ }),
-/* 294 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // OP_0 {scriptHash}
@@ -45246,10 +47978,10 @@ module.exports = {
 
 
 /***/ }),
-/* 295 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var pushdata = __webpack_require__(289)
+var pushdata = __webpack_require__(290)
 var varuint = __webpack_require__(181)
 
 // https://github.com/feross/buffer/blob/master/index.js#L1127
@@ -45308,7 +48040,7 @@ module.exports = {
 
 
 /***/ }),
-/* 296 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // (public) Constructor
@@ -46823,7 +49555,7 @@ module.exports = BigInteger
 
 
 /***/ }),
-/* 297 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assert = __webpack_require__(186)
@@ -47073,13 +49805,13 @@ module.exports = Point
 
 
 /***/ }),
-/* 298 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assert = __webpack_require__(186)
 var BigInteger = __webpack_require__(60)
 
-var Point = __webpack_require__(297)
+var Point = __webpack_require__(298)
 
 function Curve (p, a, b, Gx, Gy, n, h) {
   this.p = p
@@ -47156,13 +49888,13 @@ module.exports = Curve
 
 
 /***/ }),
-/* 299 */
+/* 300 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain__ = __webpack_require__(696);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__state_Mini_Blockchain_Accountant_Tree__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__state_Mini_Blockchain_Accountant_Tree__ = __webpack_require__(198);
 
 
 
@@ -47222,15 +49954,15 @@ class MiniBlockchainAdvanced extends  __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 300 */
+/* 301 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block__ = __webpack_require__(189);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Blocks__ = __webpack_require__(698);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Data__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Data__ = __webpack_require__(191);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_blockchain_global_Blockchain_Genesis__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Creator__ = __webpack_require__(303);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Creator__ = __webpack_require__(304);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_blockchain_global_Blockchain_Mining_Reward__ = __webpack_require__(99);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__forks_Interface_Blockchain_Forks_Administrator__ = __webpack_require__(700);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_common_satoshmindb_Interface_SatoshminDB__ = __webpack_require__(83);
@@ -47241,7 +49973,7 @@ class MiniBlockchainAdvanced extends  __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_common_utils_Semaphore_Processing__ = __webpack_require__(312);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_common_blockchain_interface_blockchain_blocks_validation_Interface_Blockchain_Block_Validation__ = __webpack_require__(127);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_common_blockchain_interface_blockchain_timestmap_Blockchain_Timestamp__ = __webpack_require__(313);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_common_utils_Revert_Actions_Revert_Actions__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_common_utils_Revert_Actions_Revert_Actions__ = __webpack_require__(193);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__tips_Interface_Blockchain_Tips_Administrator__ = __webpack_require__(731);
 
 
@@ -47375,6 +50107,8 @@ class InterfaceBlockchain {
     }
 
     _onBlockCreated(block, saveBlock){
+
+        this.blocks.recalculateNetworkHashRate();
 
     }
 
@@ -47673,7 +50407,7 @@ class InterfaceBlockchain {
 /* harmony default export */ __webpack_exports__["a"] = (InterfaceBlockchain);
 
 /***/ }),
-/* 301 */
+/* 302 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -47982,7 +50716,7 @@ class InterfaceBlockchainTransactionFrom{
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 302 */
+/* 303 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -48149,7 +50883,7 @@ class InterfaceBlockchainTransactionTo{
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 303 */
+/* 304 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -48246,2746 +50980,14 @@ class InterfaceBlockchainBlockCreator{
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 304 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_RESULT__;;(function (globalObject) {
-    'use strict';
-
-/*
- *      bignumber.js v6.0.0
- *      A JavaScript library for arbitrary-precision arithmetic.
- *      https://github.com/MikeMcl/bignumber.js
- *      Copyright (c) 2018 Michael Mclaughlin <M8ch88l@gmail.com>
- *      MIT Licensed.
- *
- *      BigNumber.prototype methods     |  BigNumber methods
- *                                      |
- *      absoluteValue            abs    |  clone
- *      comparedTo                      |  config               set
- *      decimalPlaces            dp     |      DECIMAL_PLACES
- *      dividedBy                div    |      ROUNDING_MODE
- *      dividedToIntegerBy       idiv   |      EXPONENTIAL_AT
- *      exponentiatedBy          pow    |      RANGE
- *      integerValue                    |      CRYPTO
- *      isEqualTo                eq     |      MODULO_MODE
- *      isFinite                        |      POW_PRECISION
- *      isGreaterThan            gt     |      FORMAT
- *      isGreaterThanOrEqualTo   gte    |      ALPHABET
- *      isInteger                       |  isBigNumber
- *      isLessThan               lt     |  maximum              max
- *      isLessThanOrEqualTo      lte    |  minimum              min
- *      isNaN                           |  random
- *      isNegative                      |
- *      isPositive                      |
- *      isZero                          |
- *      minus                           |
- *      modulo                   mod    |
- *      multipliedBy             times  |
- *      negated                         |
- *      plus                            |
- *      precision                sd     |
- *      shiftedBy                       |
- *      squareRoot               sqrt   |
- *      toExponential                   |
- *      toFixed                         |
- *      toFormat                        |
- *      toFraction                      |
- *      toJSON                          |
- *      toNumber                        |
- *      toPrecision                     |
- *      toString                        |
- *      valueOf                         |
- *
- */
-
-
-    var BigNumber,
-        isNumeric = /^-?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i,
-
-        mathceil = Math.ceil,
-        mathfloor = Math.floor,
-
-        bignumberError = '[BigNumber Error] ',
-        tooManyDigits = bignumberError + 'Number primitive has more than 15 significant digits: ',
-
-        BASE = 1e14,
-        LOG_BASE = 14,
-        MAX_SAFE_INTEGER = 0x1fffffffffffff,         // 2^53 - 1
-        // MAX_INT32 = 0x7fffffff,                   // 2^31 - 1
-        POWS_TEN = [1, 10, 100, 1e3, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9, 1e10, 1e11, 1e12, 1e13],
-        SQRT_BASE = 1e7,
-
-        // EDITABLE
-        // The limit on the value of DECIMAL_PLACES, TO_EXP_NEG, TO_EXP_POS, MIN_EXP, MAX_EXP, and
-        // the arguments to toExponential, toFixed, toFormat, and toPrecision.
-        MAX = 1E9;                                   // 0 to MAX_INT32
-
-
-    /*
-     * Create and return a BigNumber constructor.
-     */
-    function clone(configObject) {
-        var div, convertBase, parseNumeric,
-            P = BigNumber.prototype,
-            ONE = new BigNumber(1),
-
-
-            //----------------------------- EDITABLE CONFIG DEFAULTS -------------------------------
-
-
-            // The default values below must be integers within the inclusive ranges stated.
-            // The values can also be changed at run-time using BigNumber.set.
-
-            // The maximum number of decimal places for operations involving division.
-            DECIMAL_PLACES = 20,                     // 0 to MAX
-
-            // The rounding mode used when rounding to the above decimal places, and when using
-            // toExponential, toFixed, toFormat and toPrecision, and round (default value).
-            // UP         0 Away from zero.
-            // DOWN       1 Towards zero.
-            // CEIL       2 Towards +Infinity.
-            // FLOOR      3 Towards -Infinity.
-            // HALF_UP    4 Towards nearest neighbour. If equidistant, up.
-            // HALF_DOWN  5 Towards nearest neighbour. If equidistant, down.
-            // HALF_EVEN  6 Towards nearest neighbour. If equidistant, towards even neighbour.
-            // HALF_CEIL  7 Towards nearest neighbour. If equidistant, towards +Infinity.
-            // HALF_FLOOR 8 Towards nearest neighbour. If equidistant, towards -Infinity.
-            ROUNDING_MODE = 4,                       // 0 to 8
-
-            // EXPONENTIAL_AT : [TO_EXP_NEG , TO_EXP_POS]
-
-            // The exponent value at and beneath which toString returns exponential notation.
-            // Number type: -7
-            TO_EXP_NEG = -7,                         // 0 to -MAX
-
-            // The exponent value at and above which toString returns exponential notation.
-            // Number type: 21
-            TO_EXP_POS = 21,                         // 0 to MAX
-
-            // RANGE : [MIN_EXP, MAX_EXP]
-
-            // The minimum exponent value, beneath which underflow to zero occurs.
-            // Number type: -324  (5e-324)
-            MIN_EXP = -1e7,                          // -1 to -MAX
-
-            // The maximum exponent value, above which overflow to Infinity occurs.
-            // Number type:  308  (1.7976931348623157e+308)
-            // For MAX_EXP > 1e7, e.g. new BigNumber('1e100000000').plus(1) may be slow.
-            MAX_EXP = 1e7,                           // 1 to MAX
-
-            // Whether to use cryptographically-secure random number generation, if available.
-            CRYPTO = false,                          // true or false
-
-            // The modulo mode used when calculating the modulus: a mod n.
-            // The quotient (q = a / n) is calculated according to the corresponding rounding mode.
-            // The remainder (r) is calculated as: r = a - n * q.
-            //
-            // UP        0 The remainder is positive if the dividend is negative, else is negative.
-            // DOWN      1 The remainder has the same sign as the dividend.
-            //             This modulo mode is commonly known as 'truncated division' and is
-            //             equivalent to (a % n) in JavaScript.
-            // FLOOR     3 The remainder has the same sign as the divisor (Python %).
-            // HALF_EVEN 6 This modulo mode implements the IEEE 754 remainder function.
-            // EUCLID    9 Euclidian division. q = sign(n) * floor(a / abs(n)).
-            //             The remainder is always positive.
-            //
-            // The truncated division, floored division, Euclidian division and IEEE 754 remainder
-            // modes are commonly used for the modulus operation.
-            // Although the other rounding modes can also be used, they may not give useful results.
-            MODULO_MODE = 1,                         // 0 to 9
-
-            // The maximum number of significant digits of the result of the exponentiatedBy operation.
-            // If POW_PRECISION is 0, there will be unlimited significant digits.
-            POW_PRECISION = 0,                    // 0 to MAX
-
-            // The format specification used by the BigNumber.prototype.toFormat method.
-            FORMAT = {
-                decimalSeparator: '.',
-                groupSeparator: ',',
-                groupSize: 3,
-                secondaryGroupSize: 0,
-                fractionGroupSeparator: '\xA0',      // non-breaking space
-                fractionGroupSize: 0
-            },
-
-            // The alphabet used for base conversion.
-            // It must be at least 2 characters long, with no '.' or repeated character.
-            // '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_'
-            ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyz';
-
-
-        //------------------------------------------------------------------------------------------
-
-
-        // CONSTRUCTOR
-
-
-        /*
-         * The BigNumber constructor and exported function.
-         * Create and return a new instance of a BigNumber object.
-         *
-         * n {number|string|BigNumber} A numeric value.
-         * [b] {number} The base of n. Integer, 2 to ALPHABET.length inclusive.
-         */
-        function BigNumber( n, b ) {
-            var alphabet, c, e, i, isNum, len, str,
-                x = this;
-
-            // Enable constructor usage without new.
-            if ( !( x instanceof BigNumber ) ) {
-
-                // Don't throw on constructor call without new (#81).
-                // '[BigNumber Error] Constructor call without new: {n}'
-                //throw Error( bignumberError + ' Constructor call without new: ' + n );
-                return new BigNumber( n, b );
-            }
-
-            if ( b == null ) {
-
-                // Duplicate.
-                if ( n instanceof BigNumber ) {
-                    x.s = n.s;
-                    x.e = n.e;
-                    x.c = ( n = n.c ) ? n.slice() : n;
-                    return;
-                }
-
-                isNum = typeof n == 'number';
-
-                if ( isNum && n * 0 == 0 ) {
-
-                    // Use `1 / n` to handle minus zero also.
-                    x.s = 1 / n < 0 ? ( n = -n, -1 ) : 1;
-
-                    // Faster path for integers.
-                    if ( n === ~~n ) {
-                        for ( e = 0, i = n; i >= 10; i /= 10, e++ );
-                        x.e = e;
-                        x.c = [n];
-                        return;
-                    }
-
-                    str = n + '';
-                } else {
-                    if ( !isNumeric.test( str = n + '' ) ) return parseNumeric( x, str, isNum );
-                    x.s = str.charCodeAt(0) == 45 ? ( str = str.slice(1), -1 ) : 1;
-                }
-
-            } else {
-
-                // '[BigNumber Error] Base {not a primitive number|not an integer|out of range}: {b}'
-                intCheck( b, 2, ALPHABET.length, 'Base' );
-                str = n + '';
-
-                // Allow exponential notation to be used with base 10 argument, while
-                // also rounding to DECIMAL_PLACES as with other bases.
-                if ( b == 10 ) {
-                    x = new BigNumber( n instanceof BigNumber ? n : str );
-                    return round( x, DECIMAL_PLACES + x.e + 1, ROUNDING_MODE );
-                }
-
-                isNum = typeof n == 'number';
-
-                if (isNum) {
-
-                    // Avoid potential interpretation of Infinity and NaN as base 44+ values.
-                    if ( n * 0 != 0 ) return parseNumeric( x, str, isNum, b );
-
-                    x.s = 1 / n < 0 ? ( str = str.slice(1), -1 ) : 1;
-
-                    // '[BigNumber Error] Number primitive has more than 15 significant digits: {n}'
-                    if ( str.replace( /^0\.0*|\./, '' ).length > 15 ) {
-                        throw Error
-                          ( tooManyDigits + n );
-                    }
-
-                    // Prevent later check for length on converted number.
-                    isNum = false;
-                } else {
-                    x.s = str.charCodeAt(0) === 45 ? ( str = str.slice(1), -1 ) : 1;
-
-                    // Allow e.g. hexadecimal 'FF' as well as 'ff'.
-                    if ( b > 10 && b < 37 ) str = str.toLowerCase();
-                }
-
-                alphabet = ALPHABET.slice( 0, b );
-                e = i = 0;
-
-                // Check that str is a valid base b number.
-                // Don't use RegExp so alphabet can contain special characters.
-                for ( len = str.length; i < len; i++ ) {
-                    if ( alphabet.indexOf( c = str.charAt(i) ) < 0 ) {
-                        if ( c == '.' ) {
-
-                            // If '.' is not the first character and it has not be found before.
-                            if ( i > e ) {
-                                e = len;
-                                continue;
-                            }
-                        }
-
-                        return parseNumeric( x, n + '', isNum, b );
-                    }
-                }
-
-                str = convertBase( str, b, 10, x.s );
-            }
-
-            // Decimal point?
-            if ( ( e = str.indexOf('.') ) > -1 ) str = str.replace( '.', '' );
-
-            // Exponential form?
-            if ( ( i = str.search( /e/i ) ) > 0 ) {
-
-                // Determine exponent.
-                if ( e < 0 ) e = i;
-                e += +str.slice( i + 1 );
-                str = str.substring( 0, i );
-            } else if ( e < 0 ) {
-
-                // Integer.
-                e = str.length;
-            }
-
-            // Determine leading zeros.
-            for ( i = 0; str.charCodeAt(i) === 48; i++ );
-
-            // Determine trailing zeros.
-            for ( len = str.length; str.charCodeAt(--len) === 48; );
-            str = str.slice( i, len + 1 );
-
-            if (str) {
-                len = str.length;
-
-                // '[BigNumber Error] Number primitive has more than 15 significant digits: {n}'
-                if ( isNum && len > 15 && ( n > MAX_SAFE_INTEGER || n !== mathfloor(n) ) ) {
-                    throw Error
-                      ( tooManyDigits + ( x.s * n ) );
-                }
-
-                e = e - i - 1;
-
-                 // Overflow?
-                if ( e > MAX_EXP ) {
-
-                    // Infinity.
-                    x.c = x.e = null;
-
-                // Underflow?
-                } else if ( e < MIN_EXP ) {
-
-                    // Zero.
-                    x.c = [ x.e = 0 ];
-                } else {
-                    x.e = e;
-                    x.c = [];
-
-                    // Transform base
-
-                    // e is the base 10 exponent.
-                    // i is where to slice str to get the first element of the coefficient array.
-                    i = ( e + 1 ) % LOG_BASE;
-                    if ( e < 0 ) i += LOG_BASE;
-
-                    if ( i < len ) {
-                        if (i) x.c.push( +str.slice( 0, i ) );
-
-                        for ( len -= LOG_BASE; i < len; ) {
-                            x.c.push( +str.slice( i, i += LOG_BASE ) );
-                        }
-
-                        str = str.slice(i);
-                        i = LOG_BASE - str.length;
-                    } else {
-                        i -= len;
-                    }
-
-                    for ( ; i--; str += '0' );
-                    x.c.push( +str );
-                }
-            } else {
-
-                // Zero.
-                x.c = [ x.e = 0 ];
-            }
-        }
-
-
-        // CONSTRUCTOR PROPERTIES
-
-
-        BigNumber.clone = clone;
-
-        BigNumber.ROUND_UP = 0;
-        BigNumber.ROUND_DOWN = 1;
-        BigNumber.ROUND_CEIL = 2;
-        BigNumber.ROUND_FLOOR = 3;
-        BigNumber.ROUND_HALF_UP = 4;
-        BigNumber.ROUND_HALF_DOWN = 5;
-        BigNumber.ROUND_HALF_EVEN = 6;
-        BigNumber.ROUND_HALF_CEIL = 7;
-        BigNumber.ROUND_HALF_FLOOR = 8;
-        BigNumber.EUCLID = 9;
-
-
-        /*
-         * Configure infrequently-changing library-wide settings.
-         *
-         * Accept an object with the following optional properties (if the value of a property is
-         * a number, it must be an integer within the inclusive range stated):
-         *
-         *   DECIMAL_PLACES   {number}           0 to MAX
-         *   ROUNDING_MODE    {number}           0 to 8
-         *   EXPONENTIAL_AT   {number|number[]}  -MAX to MAX  or  [-MAX to 0, 0 to MAX]
-         *   RANGE            {number|number[]}  -MAX to MAX (not zero)  or  [-MAX to -1, 1 to MAX]
-         *   CRYPTO           {boolean}          true or false
-         *   MODULO_MODE      {number}           0 to 9
-         *   POW_PRECISION       {number}           0 to MAX
-         *   ALPHABET         {string}           A string of two or more unique characters, and not
-         *                                       containing '.'. The empty string, null or undefined
-         *                                       resets the alphabet to its default value.
-         *   FORMAT           {object}           An object with some of the following properties:
-         *      decimalSeparator       {string}
-         *      groupSeparator         {string}
-         *      groupSize              {number}
-         *      secondaryGroupSize     {number}
-         *      fractionGroupSeparator {string}
-         *      fractionGroupSize      {number}
-         *
-         * (The values assigned to the above FORMAT object properties are not checked for validity.)
-         *
-         * E.g.
-         * BigNumber.config({ DECIMAL_PLACES : 20, ROUNDING_MODE : 4 })
-         *
-         * Ignore properties/parameters set to null or undefined, except for ALPHABET.
-         *
-         * Return an object with the properties current values.
-         */
-        BigNumber.config = BigNumber.set = function (obj) {
-            var p, v;
-
-            if ( obj != null ) {
-
-                if ( typeof obj == 'object' ) {
-
-                    // DECIMAL_PLACES {number} Integer, 0 to MAX inclusive.
-                    // '[BigNumber Error] DECIMAL_PLACES {not a primitive number|not an integer|out of range}: {v}'
-                    if ( obj.hasOwnProperty( p = 'DECIMAL_PLACES' ) ) {
-                        v = obj[p];
-                        intCheck( v, 0, MAX, p );
-                        DECIMAL_PLACES = v;
-                    }
-
-                    // ROUNDING_MODE {number} Integer, 0 to 8 inclusive.
-                    // '[BigNumber Error] ROUNDING_MODE {not a primitive number|not an integer|out of range}: {v}'
-                    if ( obj.hasOwnProperty( p = 'ROUNDING_MODE' ) ) {
-                        v = obj[p];
-                        intCheck( v, 0, 8, p );
-                        ROUNDING_MODE = v;
-                    }
-
-                    // EXPONENTIAL_AT {number|number[]}
-                    // Integer, -MAX to MAX inclusive or
-                    // [integer -MAX to 0 inclusive, 0 to MAX inclusive].
-                    // '[BigNumber Error] EXPONENTIAL_AT {not a primitive number|not an integer|out of range}: {v}'
-                    if ( obj.hasOwnProperty( p = 'EXPONENTIAL_AT' ) ) {
-                        v = obj[p];
-                        if ( isArray(v) ) {
-                            intCheck( v[0], -MAX, 0, p );
-                            intCheck( v[1], 0, MAX, p );
-                            TO_EXP_NEG = v[0];
-                            TO_EXP_POS = v[1];
-                        } else {
-                            intCheck( v, -MAX, MAX, p );
-                            TO_EXP_NEG = -( TO_EXP_POS = v < 0 ? -v : v );
-                        }
-                    }
-
-                    // RANGE {number|number[]} Non-zero integer, -MAX to MAX inclusive or
-                    // [integer -MAX to -1 inclusive, integer 1 to MAX inclusive].
-                    // '[BigNumber Error] RANGE {not a primitive number|not an integer|out of range|cannot be zero}: {v}'
-                    if ( obj.hasOwnProperty( p = 'RANGE' ) ) {
-                        v = obj[p];
-                        if ( isArray(v) ) {
-                            intCheck( v[0], -MAX, -1, p );
-                            intCheck( v[1], 1, MAX, p );
-                            MIN_EXP = v[0];
-                            MAX_EXP = v[1];
-                        } else {
-                            intCheck( v, -MAX, MAX, p );
-                            if (v) {
-                                MIN_EXP = -( MAX_EXP = v < 0 ? -v : v );
-                            } else {
-                                throw Error
-                                  ( bignumberError + p + ' cannot be zero: ' + v );
-                            }
-                        }
-                    }
-
-                    // CRYPTO {boolean} true or false.
-                    // '[BigNumber Error] CRYPTO not true or false: {v}'
-                    // '[BigNumber Error] crypto unavailable'
-                    if ( obj.hasOwnProperty( p = 'CRYPTO' ) ) {
-                        v = obj[p];
-                        if ( v === !!v ) {
-                            if (v) {
-                                if ( typeof crypto != 'undefined' && crypto &&
-                                  (crypto.getRandomValues || crypto.randomBytes) ) {
-                                    CRYPTO = v;
-                                } else {
-                                    CRYPTO = !v;
-                                    throw Error
-                                      ( bignumberError + 'crypto unavailable' );
-                                }
-                            } else {
-                                CRYPTO = v;
-                            }
-                        } else {
-                            throw Error
-                              ( bignumberError + p + ' not true or false: ' + v );
-                        }
-                    }
-
-                    // MODULO_MODE {number} Integer, 0 to 9 inclusive.
-                    // '[BigNumber Error] MODULO_MODE {not a primitive number|not an integer|out of range}: {v}'
-                    if ( obj.hasOwnProperty( p = 'MODULO_MODE' ) ) {
-                        v = obj[p];
-                        intCheck( v, 0, 9, p );
-                        MODULO_MODE = v;
-                    }
-
-                    // POW_PRECISION {number} Integer, 0 to MAX inclusive.
-                    // '[BigNumber Error] POW_PRECISION {not a primitive number|not an integer|out of range}: {v}'
-                    if ( obj.hasOwnProperty( p = 'POW_PRECISION' ) ) {
-                        v = obj[p];
-                        intCheck( v, 0, MAX, p );
-                        POW_PRECISION = v;
-                    }
-
-                    // FORMAT {object}
-                    // '[BigNumber Error] FORMAT not an object: {v}'
-                    if ( obj.hasOwnProperty( p = 'FORMAT' ) ) {
-                        v = obj[p];
-                        if ( typeof v == 'object' ) FORMAT = v;
-                        else throw Error
-                          ( bignumberError + p + ' not an object: ' + v );
-                    }
-
-                    // ALPHABET {string}
-                    // '[BigNumber Error] ALPHABET invalid: {v}'
-                    if ( obj.hasOwnProperty( p = 'ALPHABET' ) ) {
-                        v = obj[p];
-
-                        // Disallow if only one character, or contains '.' or a repeated character.
-                        if ( typeof v == 'string' && !/^.$|\.|(.).*\1/.test(v) ) {
-                            ALPHABET = v;
-                        } else {
-                            throw Error
-                              ( bignumberError + p + ' invalid: ' + v );
-                        }
-                    }
-
-                } else {
-
-                    // '[BigNumber Error] Object expected: {v}'
-                    throw Error
-                      ( bignumberError + 'Object expected: ' + obj );
-                }
-            }
-
-            return {
-                DECIMAL_PLACES: DECIMAL_PLACES,
-                ROUNDING_MODE: ROUNDING_MODE,
-                EXPONENTIAL_AT: [ TO_EXP_NEG, TO_EXP_POS ],
-                RANGE: [ MIN_EXP, MAX_EXP ],
-                CRYPTO: CRYPTO,
-                MODULO_MODE: MODULO_MODE,
-                POW_PRECISION: POW_PRECISION,
-                FORMAT: FORMAT,
-                ALPHABET: ALPHABET
-            };
-        };
-
-
-        /*
-         * Return true if v is a BigNumber instance, otherwise return false.
-         *
-         * v {any}
-         */
-        BigNumber.isBigNumber = function (v) {
-            return v instanceof BigNumber || v && v._isBigNumber === true || false;
-        };
-
-
-        /*
-         * Return a new BigNumber whose value is the maximum of the arguments.
-         *
-         * arguments {number|string|BigNumber}
-         */
-        BigNumber.maximum = BigNumber.max = function () {
-            return maxOrMin( arguments, P.lt );
-        };
-
-
-        /*
-         * Return a new BigNumber whose value is the minimum of the arguments.
-         *
-         * arguments {number|string|BigNumber}
-         */
-        BigNumber.minimum = BigNumber.min = function () {
-            return maxOrMin( arguments, P.gt );
-        };
-
-
-        /*
-         * Return a new BigNumber with a random value equal to or greater than 0 and less than 1,
-         * and with dp, or DECIMAL_PLACES if dp is omitted, decimal places (or less if trailing
-         * zeros are produced).
-         *
-         * [dp] {number} Decimal places. Integer, 0 to MAX inclusive.
-         *
-         * '[BigNumber Error] Argument {not a primitive number|not an integer|out of range}: {dp}'
-         * '[BigNumber Error] crypto unavailable'
-         */
-        BigNumber.random = (function () {
-            var pow2_53 = 0x20000000000000;
-
-            // Return a 53 bit integer n, where 0 <= n < 9007199254740992.
-            // Check if Math.random() produces more than 32 bits of randomness.
-            // If it does, assume at least 53 bits are produced, otherwise assume at least 30 bits.
-            // 0x40000000 is 2^30, 0x800000 is 2^23, 0x1fffff is 2^21 - 1.
-            var random53bitInt = (Math.random() * pow2_53) & 0x1fffff
-              ? function () { return mathfloor( Math.random() * pow2_53 ); }
-              : function () { return ((Math.random() * 0x40000000 | 0) * 0x800000) +
-                  (Math.random() * 0x800000 | 0); };
-
-            return function (dp) {
-                var a, b, e, k, v,
-                    i = 0,
-                    c = [],
-                    rand = new BigNumber(ONE);
-
-                if ( dp == null ) dp = DECIMAL_PLACES;
-                else intCheck( dp, 0, MAX );
-
-                k = mathceil( dp / LOG_BASE );
-
-                if (CRYPTO) {
-
-                    // Browsers supporting crypto.getRandomValues.
-                    if (crypto.getRandomValues) {
-
-                        a = crypto.getRandomValues( new Uint32Array( k *= 2 ) );
-
-                        for ( ; i < k; ) {
-
-                            // 53 bits:
-                            // ((Math.pow(2, 32) - 1) * Math.pow(2, 21)).toString(2)
-                            // 11111 11111111 11111111 11111111 11100000 00000000 00000000
-                            // ((Math.pow(2, 32) - 1) >>> 11).toString(2)
-                            //                                     11111 11111111 11111111
-                            // 0x20000 is 2^21.
-                            v = a[i] * 0x20000 + (a[i + 1] >>> 11);
-
-                            // Rejection sampling:
-                            // 0 <= v < 9007199254740992
-                            // Probability that v >= 9e15, is
-                            // 7199254740992 / 9007199254740992 ~= 0.0008, i.e. 1 in 1251
-                            if ( v >= 9e15 ) {
-                                b = crypto.getRandomValues( new Uint32Array(2) );
-                                a[i] = b[0];
-                                a[i + 1] = b[1];
-                            } else {
-
-                                // 0 <= v <= 8999999999999999
-                                // 0 <= (v % 1e14) <= 99999999999999
-                                c.push( v % 1e14 );
-                                i += 2;
-                            }
-                        }
-                        i = k / 2;
-
-                    // Node.js supporting crypto.randomBytes.
-                    } else if (crypto.randomBytes) {
-
-                        // buffer
-                        a = crypto.randomBytes( k *= 7 );
-
-                        for ( ; i < k; ) {
-
-                            // 0x1000000000000 is 2^48, 0x10000000000 is 2^40
-                            // 0x100000000 is 2^32, 0x1000000 is 2^24
-                            // 11111 11111111 11111111 11111111 11111111 11111111 11111111
-                            // 0 <= v < 9007199254740992
-                            v = ( ( a[i] & 31 ) * 0x1000000000000 ) + ( a[i + 1] * 0x10000000000 ) +
-                                  ( a[i + 2] * 0x100000000 ) + ( a[i + 3] * 0x1000000 ) +
-                                  ( a[i + 4] << 16 ) + ( a[i + 5] << 8 ) + a[i + 6];
-
-                            if ( v >= 9e15 ) {
-                                crypto.randomBytes(7).copy( a, i );
-                            } else {
-
-                                // 0 <= (v % 1e14) <= 99999999999999
-                                c.push( v % 1e14 );
-                                i += 7;
-                            }
-                        }
-                        i = k / 7;
-                    } else {
-                        CRYPTO = false;
-                        throw Error
-                          ( bignumberError + 'crypto unavailable' );
-                    }
-                }
-
-                // Use Math.random.
-                if (!CRYPTO) {
-
-                    for ( ; i < k; ) {
-                        v = random53bitInt();
-                        if ( v < 9e15 ) c[i++] = v % 1e14;
-                    }
-                }
-
-                k = c[--i];
-                dp %= LOG_BASE;
-
-                // Convert trailing digits to zeros according to dp.
-                if ( k && dp ) {
-                    v = POWS_TEN[LOG_BASE - dp];
-                    c[i] = mathfloor( k / v ) * v;
-                }
-
-                // Remove trailing elements which are zero.
-                for ( ; c[i] === 0; c.pop(), i-- );
-
-                // Zero?
-                if ( i < 0 ) {
-                    c = [ e = 0 ];
-                } else {
-
-                    // Remove leading elements which are zero and adjust exponent accordingly.
-                    for ( e = -1 ; c[0] === 0; c.splice(0, 1), e -= LOG_BASE);
-
-                    // Count the digits of the first element of c to determine leading zeros, and...
-                    for ( i = 1, v = c[0]; v >= 10; v /= 10, i++);
-
-                    // adjust the exponent accordingly.
-                    if ( i < LOG_BASE ) e -= LOG_BASE - i;
-                }
-
-                rand.e = e;
-                rand.c = c;
-                return rand;
-            };
-        })();
-
-
-        // PRIVATE FUNCTIONS
-
-
-        // Called by BigNumber and BigNumber.prototype.toString.
-        convertBase = ( function () {
-            var decimal = '0123456789';
-
-            /*
-             * Convert string of baseIn to an array of numbers of baseOut.
-             * Eg. toBaseOut('255', 10, 16) returns [15, 15].
-             * Eg. toBaseOut('ff', 16, 10) returns [2, 5, 5].
-             */
-            function toBaseOut( str, baseIn, baseOut, alphabet ) {
-                var j,
-                    arr = [0],
-                    arrL,
-                    i = 0,
-                    len = str.length;
-
-                for ( ; i < len; ) {
-                    for ( arrL = arr.length; arrL--; arr[arrL] *= baseIn );
-
-                    arr[0] += alphabet.indexOf( str.charAt( i++ ) );
-
-                    for ( j = 0; j < arr.length; j++ ) {
-
-                        if ( arr[j] > baseOut - 1 ) {
-                            if ( arr[j + 1] == null ) arr[j + 1] = 0;
-                            arr[j + 1] += arr[j] / baseOut | 0;
-                            arr[j] %= baseOut;
-                        }
-                    }
-                }
-
-                return arr.reverse();
-            }
-
-            // Convert a numeric string of baseIn to a numeric string of baseOut.
-            // If the caller is toString, we are converting from base 10 to baseOut.
-            // If the caller is BigNumber, we are converting from baseIn to base 10.
-            return function ( str, baseIn, baseOut, sign, callerIsToString ) {
-                var alphabet, d, e, k, r, x, xc, y,
-                    i = str.indexOf( '.' ),
-                    dp = DECIMAL_PLACES,
-                    rm = ROUNDING_MODE;
-
-                // Non-integer.
-                if ( i >= 0 ) {
-                    k = POW_PRECISION;
-
-                    // Unlimited precision.
-                    POW_PRECISION = 0;
-                    str = str.replace( '.', '' );
-                    y = new BigNumber(baseIn);
-                    x = y.pow( str.length - i );
-                    POW_PRECISION = k;
-
-                    // Convert str as if an integer, then restore the fraction part by dividing the
-                    // result by its base raised to a power.
-
-                    y.c = toBaseOut( toFixedPoint( coeffToString( x.c ), x.e, '0' ),
-                      10, baseOut, decimal );
-                    y.e = y.c.length;
-                }
-
-                // Convert the number as integer.
-
-                xc = toBaseOut( str, baseIn, baseOut, callerIsToString
-                  ? ( alphabet = ALPHABET, decimal )
-                  : ( alphabet = decimal, ALPHABET ) );
-
-
-                // xc now represents str as an integer and converted to baseOut. e is the exponent.
-                e = k = xc.length;
-
-                // Remove trailing zeros.
-                for ( ; xc[--k] == 0; xc.pop() );
-
-                // Zero?
-                if ( !xc[0] ) return alphabet.charAt(0);
-
-                // Does str represent an integer? If so, no need for the division.
-                if ( i < 0 ) {
-                    --e;
-                } else {
-                    x.c = xc;
-                    x.e = e;
-
-                    // The sign is needed for correct rounding.
-                    x.s = sign;
-                    x = div( x, y, dp, rm, baseOut );
-                    xc = x.c;
-                    r = x.r;
-                    e = x.e;
-                }
-
-                // xc now represents str converted to baseOut.
-
-                // THe index of the rounding digit.
-                d = e + dp + 1;
-
-                // The rounding digit: the digit to the right of the digit that may be rounded up.
-                i = xc[d];
-
-                // Look at the rounding digits and mode to determine whether to round up.
-
-                k = baseOut / 2;
-                r = r || d < 0 || xc[d + 1] != null;
-
-                r = rm < 4 ? ( i != null || r ) && ( rm == 0 || rm == ( x.s < 0 ? 3 : 2 ) )
-                           : i > k || i == k &&( rm == 4 || r || rm == 6 && xc[d - 1] & 1 ||
-                             rm == ( x.s < 0 ? 8 : 7 ) );
-
-                // If the index of the rounding digit is not greater than zero, or xc represents
-                // zero, then the result of the base conversion is zero or, if rounding up, a value
-                // such as 0.00001.
-                if ( d < 1 || !xc[0] ) {
-
-                    // 1^-dp or 0
-                    str = r ? toFixedPoint( alphabet.charAt(1), -dp, alphabet.charAt(0) )
-                            : alphabet.charAt(0);
-                } else {
-
-                    // Truncate xc to the required number of decimal places.
-                    xc.length = d;
-
-                    // Round up?
-                    if (r) {
-
-                        // Rounding up may mean the previous digit has to be rounded up and so on.
-                        for ( --baseOut; ++xc[--d] > baseOut; ) {
-                            xc[d] = 0;
-
-                            if ( !d ) {
-                                ++e;
-                                xc = [1].concat(xc);
-                            }
-                        }
-                    }
-
-                    // Determine trailing zeros.
-                    for ( k = xc.length; !xc[--k]; );
-
-                    // E.g. [4, 11, 15] becomes 4bf.
-                    for ( i = 0, str = ''; i <= k; str += alphabet.charAt( xc[i++] ) );
-
-                    // Add leading zeros, decimal point and trailing zeros as required.
-                    str = toFixedPoint( str, e, alphabet.charAt(0) );
-                }
-
-                // The caller will add the sign.
-                return str;
-            };
-        })();
-
-
-        // Perform division in the specified base. Called by div and convertBase.
-        div = (function () {
-
-            // Assume non-zero x and k.
-            function multiply( x, k, base ) {
-                var m, temp, xlo, xhi,
-                    carry = 0,
-                    i = x.length,
-                    klo = k % SQRT_BASE,
-                    khi = k / SQRT_BASE | 0;
-
-                for ( x = x.slice(); i--; ) {
-                    xlo = x[i] % SQRT_BASE;
-                    xhi = x[i] / SQRT_BASE | 0;
-                    m = khi * xlo + xhi * klo;
-                    temp = klo * xlo + ( ( m % SQRT_BASE ) * SQRT_BASE ) + carry;
-                    carry = ( temp / base | 0 ) + ( m / SQRT_BASE | 0 ) + khi * xhi;
-                    x[i] = temp % base;
-                }
-
-                if (carry) x = [carry].concat(x);
-
-                return x;
-            }
-
-            function compare( a, b, aL, bL ) {
-                var i, cmp;
-
-                if ( aL != bL ) {
-                    cmp = aL > bL ? 1 : -1;
-                } else {
-
-                    for ( i = cmp = 0; i < aL; i++ ) {
-
-                        if ( a[i] != b[i] ) {
-                            cmp = a[i] > b[i] ? 1 : -1;
-                            break;
-                        }
-                    }
-                }
-                return cmp;
-            }
-
-            function subtract( a, b, aL, base ) {
-                var i = 0;
-
-                // Subtract b from a.
-                for ( ; aL--; ) {
-                    a[aL] -= i;
-                    i = a[aL] < b[aL] ? 1 : 0;
-                    a[aL] = i * base + a[aL] - b[aL];
-                }
-
-                // Remove leading zeros.
-                for ( ; !a[0] && a.length > 1; a.splice(0, 1) );
-            }
-
-            // x: dividend, y: divisor.
-            return function ( x, y, dp, rm, base ) {
-                var cmp, e, i, more, n, prod, prodL, q, qc, rem, remL, rem0, xi, xL, yc0,
-                    yL, yz,
-                    s = x.s == y.s ? 1 : -1,
-                    xc = x.c,
-                    yc = y.c;
-
-                // Either NaN, Infinity or 0?
-                if ( !xc || !xc[0] || !yc || !yc[0] ) {
-
-                    return new BigNumber(
-
-                      // Return NaN if either NaN, or both Infinity or 0.
-                      !x.s || !y.s || ( xc ? yc && xc[0] == yc[0] : !yc ) ? NaN :
-
-                        // Return ±0 if x is ±0 or y is ±Infinity, or return ±Infinity as y is ±0.
-                        xc && xc[0] == 0 || !yc ? s * 0 : s / 0
-                    );
-                }
-
-                q = new BigNumber(s);
-                qc = q.c = [];
-                e = x.e - y.e;
-                s = dp + e + 1;
-
-                if ( !base ) {
-                    base = BASE;
-                    e = bitFloor( x.e / LOG_BASE ) - bitFloor( y.e / LOG_BASE );
-                    s = s / LOG_BASE | 0;
-                }
-
-                // Result exponent may be one less then the current value of e.
-                // The coefficients of the BigNumbers from convertBase may have trailing zeros.
-                for ( i = 0; yc[i] == ( xc[i] || 0 ); i++ );
-
-                if ( yc[i] > ( xc[i] || 0 ) ) e--;
-
-                if ( s < 0 ) {
-                    qc.push(1);
-                    more = true;
-                } else {
-                    xL = xc.length;
-                    yL = yc.length;
-                    i = 0;
-                    s += 2;
-
-                    // Normalise xc and yc so highest order digit of yc is >= base / 2.
-
-                    n = mathfloor( base / ( yc[0] + 1 ) );
-
-                    // Not necessary, but to handle odd bases where yc[0] == ( base / 2 ) - 1.
-                    // if ( n > 1 || n++ == 1 && yc[0] < base / 2 ) {
-                    if ( n > 1 ) {
-                        yc = multiply( yc, n, base );
-                        xc = multiply( xc, n, base );
-                        yL = yc.length;
-                        xL = xc.length;
-                    }
-
-                    xi = yL;
-                    rem = xc.slice( 0, yL );
-                    remL = rem.length;
-
-                    // Add zeros to make remainder as long as divisor.
-                    for ( ; remL < yL; rem[remL++] = 0 );
-                    yz = yc.slice();
-                    yz = [0].concat(yz);
-                    yc0 = yc[0];
-                    if ( yc[1] >= base / 2 ) yc0++;
-                    // Not necessary, but to prevent trial digit n > base, when using base 3.
-                    // else if ( base == 3 && yc0 == 1 ) yc0 = 1 + 1e-15;
-
-                    do {
-                        n = 0;
-
-                        // Compare divisor and remainder.
-                        cmp = compare( yc, rem, yL, remL );
-
-                        // If divisor < remainder.
-                        if ( cmp < 0 ) {
-
-                            // Calculate trial digit, n.
-
-                            rem0 = rem[0];
-                            if ( yL != remL ) rem0 = rem0 * base + ( rem[1] || 0 );
-
-                            // n is how many times the divisor goes into the current remainder.
-                            n = mathfloor( rem0 / yc0 );
-
-                            //  Algorithm:
-                            //  1. product = divisor * trial digit (n)
-                            //  2. if product > remainder: product -= divisor, n--
-                            //  3. remainder -= product
-                            //  4. if product was < remainder at 2:
-                            //    5. compare new remainder and divisor
-                            //    6. If remainder > divisor: remainder -= divisor, n++
-
-                            if ( n > 1 ) {
-
-                                // n may be > base only when base is 3.
-                                if (n >= base) n = base - 1;
-
-                                // product = divisor * trial digit.
-                                prod = multiply( yc, n, base );
-                                prodL = prod.length;
-                                remL = rem.length;
-
-                                // Compare product and remainder.
-                                // If product > remainder.
-                                // Trial digit n too high.
-                                // n is 1 too high about 5% of the time, and is not known to have
-                                // ever been more than 1 too high.
-                                while ( compare( prod, rem, prodL, remL ) == 1 ) {
-                                    n--;
-
-                                    // Subtract divisor from product.
-                                    subtract( prod, yL < prodL ? yz : yc, prodL, base );
-                                    prodL = prod.length;
-                                    cmp = 1;
-                                }
-                            } else {
-
-                                // n is 0 or 1, cmp is -1.
-                                // If n is 0, there is no need to compare yc and rem again below,
-                                // so change cmp to 1 to avoid it.
-                                // If n is 1, leave cmp as -1, so yc and rem are compared again.
-                                if ( n == 0 ) {
-
-                                    // divisor < remainder, so n must be at least 1.
-                                    cmp = n = 1;
-                                }
-
-                                // product = divisor
-                                prod = yc.slice();
-                                prodL = prod.length;
-                            }
-
-                            if ( prodL < remL ) prod = [0].concat(prod);
-
-                            // Subtract product from remainder.
-                            subtract( rem, prod, remL, base );
-                            remL = rem.length;
-
-                             // If product was < remainder.
-                            if ( cmp == -1 ) {
-
-                                // Compare divisor and new remainder.
-                                // If divisor < new remainder, subtract divisor from remainder.
-                                // Trial digit n too low.
-                                // n is 1 too low about 5% of the time, and very rarely 2 too low.
-                                while ( compare( yc, rem, yL, remL ) < 1 ) {
-                                    n++;
-
-                                    // Subtract divisor from remainder.
-                                    subtract( rem, yL < remL ? yz : yc, remL, base );
-                                    remL = rem.length;
-                                }
-                            }
-                        } else if ( cmp === 0 ) {
-                            n++;
-                            rem = [0];
-                        } // else cmp === 1 and n will be 0
-
-                        // Add the next digit, n, to the result array.
-                        qc[i++] = n;
-
-                        // Update the remainder.
-                        if ( rem[0] ) {
-                            rem[remL++] = xc[xi] || 0;
-                        } else {
-                            rem = [ xc[xi] ];
-                            remL = 1;
-                        }
-                    } while ( ( xi++ < xL || rem[0] != null ) && s-- );
-
-                    more = rem[0] != null;
-
-                    // Leading zero?
-                    if ( !qc[0] ) qc.splice(0, 1);
-                }
-
-                if ( base == BASE ) {
-
-                    // To calculate q.e, first get the number of digits of qc[0].
-                    for ( i = 1, s = qc[0]; s >= 10; s /= 10, i++ );
-
-                    round( q, dp + ( q.e = i + e * LOG_BASE - 1 ) + 1, rm, more );
-
-                // Caller is convertBase.
-                } else {
-                    q.e = e;
-                    q.r = +more;
-                }
-
-                return q;
-            };
-        })();
-
-
-        /*
-         * Return a string representing the value of BigNumber n in fixed-point or exponential
-         * notation rounded to the specified decimal places or significant digits.
-         *
-         * n: a BigNumber.
-         * i: the index of the last digit required (i.e. the digit that may be rounded up).
-         * rm: the rounding mode.
-         * id: 1 (toExponential) or 2 (toPrecision).
-         */
-        function format( n, i, rm, id ) {
-            var c0, e, ne, len, str;
-
-            if ( rm == null ) rm = ROUNDING_MODE;
-            else intCheck( rm, 0, 8 );
-
-            if ( !n.c ) return n.toString();
-
-            c0 = n.c[0];
-            ne = n.e;
-
-            if ( i == null ) {
-                str = coeffToString( n.c );
-                str = id == 1 || id == 2 && ne <= TO_EXP_NEG
-                  ? toExponential( str, ne )
-                  : toFixedPoint( str, ne, '0' );
-            } else {
-                n = round( new BigNumber(n), i, rm );
-
-                // n.e may have changed if the value was rounded up.
-                e = n.e;
-
-                str = coeffToString( n.c );
-                len = str.length;
-
-                // toPrecision returns exponential notation if the number of significant digits
-                // specified is less than the number of digits necessary to represent the integer
-                // part of the value in fixed-point notation.
-
-                // Exponential notation.
-                if ( id == 1 || id == 2 && ( i <= e || e <= TO_EXP_NEG ) ) {
-
-                    // Append zeros?
-                    for ( ; len < i; str += '0', len++ );
-                    str = toExponential( str, e );
-
-                // Fixed-point notation.
-                } else {
-                    i -= ne;
-                    str = toFixedPoint( str, e, '0' );
-
-                    // Append zeros?
-                    if ( e + 1 > len ) {
-                        if ( --i > 0 ) for ( str += '.'; i--; str += '0' );
-                    } else {
-                        i += e - len;
-                        if ( i > 0 ) {
-                            if ( e + 1 == len ) str += '.';
-                            for ( ; i--; str += '0' );
-                        }
-                    }
-                }
-            }
-
-            return n.s < 0 && c0 ? '-' + str : str;
-        }
-
-
-        // Handle BigNumber.max and BigNumber.min.
-        function maxOrMin( args, method ) {
-            var m, n,
-                i = 0;
-
-            if ( isArray( args[0] ) ) args = args[0];
-            m = new BigNumber( args[0] );
-
-            for ( ; ++i < args.length; ) {
-                n = new BigNumber( args[i] );
-
-                // If any number is NaN, return NaN.
-                if ( !n.s ) {
-                    m = n;
-                    break;
-                } else if ( method.call( m, n ) ) {
-                    m = n;
-                }
-            }
-
-            return m;
-        }
-
-
-        /*
-         * Strip trailing zeros, calculate base 10 exponent and check against MIN_EXP and MAX_EXP.
-         * Called by minus, plus and times.
-         */
-        function normalise( n, c, e ) {
-            var i = 1,
-                j = c.length;
-
-             // Remove trailing zeros.
-            for ( ; !c[--j]; c.pop() );
-
-            // Calculate the base 10 exponent. First get the number of digits of c[0].
-            for ( j = c[0]; j >= 10; j /= 10, i++ );
-
-            // Overflow?
-            if ( ( e = i + e * LOG_BASE - 1 ) > MAX_EXP ) {
-
-                // Infinity.
-                n.c = n.e = null;
-
-            // Underflow?
-            } else if ( e < MIN_EXP ) {
-
-                // Zero.
-                n.c = [ n.e = 0 ];
-            } else {
-                n.e = e;
-                n.c = c;
-            }
-
-            return n;
-        }
-
-
-        // Handle values that fail the validity test in BigNumber.
-        parseNumeric = (function () {
-            var basePrefix = /^(-?)0([xbo])(?=\w[\w.]*$)/i,
-                dotAfter = /^([^.]+)\.$/,
-                dotBefore = /^\.([^.]+)$/,
-                isInfinityOrNaN = /^-?(Infinity|NaN)$/,
-                whitespaceOrPlus = /^\s*\+(?=[\w.])|^\s+|\s+$/g;
-
-            return function ( x, str, isNum, b ) {
-                var base,
-                    s = isNum ? str : str.replace( whitespaceOrPlus, '' );
-
-                // No exception on ±Infinity or NaN.
-                if ( isInfinityOrNaN.test(s) ) {
-                    x.s = isNaN(s) ? null : s < 0 ? -1 : 1;
-                    x.c = x.e = null;
-                } else {
-                    if ( !isNum ) {
-
-                        // basePrefix = /^(-?)0([xbo])(?=\w[\w.]*$)/i
-                        s = s.replace( basePrefix, function ( m, p1, p2 ) {
-                            base = ( p2 = p2.toLowerCase() ) == 'x' ? 16 : p2 == 'b' ? 2 : 8;
-                            return !b || b == base ? p1 : m;
-                        });
-
-                        if (b) {
-                            base = b;
-
-                            // E.g. '1.' to '1', '.1' to '0.1'
-                            s = s.replace( dotAfter, '$1' ).replace( dotBefore, '0.$1' );
-                        }
-
-                        if ( str != s ) return new BigNumber( s, base );
-                    }
-
-                    // '[BigNumber Error] Not a number: {n}'
-                    // '[BigNumber Error] Not a base {b} number: {n}'
-                    throw Error
-                      ( bignumberError + 'Not a' + ( b ? ' base ' + b : '' ) + ' number: ' + str );
-                }
-            }
-        })();
-
-
-        /*
-         * Round x to sd significant digits using rounding mode rm. Check for over/under-flow.
-         * If r is truthy, it is known that there are more digits after the rounding digit.
-         */
-        function round( x, sd, rm, r ) {
-            var d, i, j, k, n, ni, rd,
-                xc = x.c,
-                pows10 = POWS_TEN;
-
-            // if x is not Infinity or NaN...
-            if (xc) {
-
-                // rd is the rounding digit, i.e. the digit after the digit that may be rounded up.
-                // n is a base 1e14 number, the value of the element of array x.c containing rd.
-                // ni is the index of n within x.c.
-                // d is the number of digits of n.
-                // i is the index of rd within n including leading zeros.
-                // j is the actual index of rd within n (if < 0, rd is a leading zero).
-                out: {
-
-                    // Get the number of digits of the first element of xc.
-                    for ( d = 1, k = xc[0]; k >= 10; k /= 10, d++ );
-                    i = sd - d;
-
-                    // If the rounding digit is in the first element of xc...
-                    if ( i < 0 ) {
-                        i += LOG_BASE;
-                        j = sd;
-                        n = xc[ ni = 0 ];
-
-                        // Get the rounding digit at index j of n.
-                        rd = n / pows10[ d - j - 1 ] % 10 | 0;
-                    } else {
-                        ni = mathceil( ( i + 1 ) / LOG_BASE );
-
-                        if ( ni >= xc.length ) {
-
-                            if (r) {
-
-                                // Needed by sqrt.
-                                for ( ; xc.length <= ni; xc.push(0) );
-                                n = rd = 0;
-                                d = 1;
-                                i %= LOG_BASE;
-                                j = i - LOG_BASE + 1;
-                            } else {
-                                break out;
-                            }
-                        } else {
-                            n = k = xc[ni];
-
-                            // Get the number of digits of n.
-                            for ( d = 1; k >= 10; k /= 10, d++ );
-
-                            // Get the index of rd within n.
-                            i %= LOG_BASE;
-
-                            // Get the index of rd within n, adjusted for leading zeros.
-                            // The number of leading zeros of n is given by LOG_BASE - d.
-                            j = i - LOG_BASE + d;
-
-                            // Get the rounding digit at index j of n.
-                            rd = j < 0 ? 0 : n / pows10[ d - j - 1 ] % 10 | 0;
-                        }
-                    }
-
-                    r = r || sd < 0 ||
-
-                    // Are there any non-zero digits after the rounding digit?
-                    // The expression  n % pows10[ d - j - 1 ]  returns all digits of n to the right
-                    // of the digit at j, e.g. if n is 908714 and j is 2, the expression gives 714.
-                      xc[ni + 1] != null || ( j < 0 ? n : n % pows10[ d - j - 1 ] );
-
-                    r = rm < 4
-                      ? ( rd || r ) && ( rm == 0 || rm == ( x.s < 0 ? 3 : 2 ) )
-                      : rd > 5 || rd == 5 && ( rm == 4 || r || rm == 6 &&
-
-                        // Check whether the digit to the left of the rounding digit is odd.
-                        ( ( i > 0 ? j > 0 ? n / pows10[ d - j ] : 0 : xc[ni - 1] ) % 10 ) & 1 ||
-                          rm == ( x.s < 0 ? 8 : 7 ) );
-
-                    if ( sd < 1 || !xc[0] ) {
-                        xc.length = 0;
-
-                        if (r) {
-
-                            // Convert sd to decimal places.
-                            sd -= x.e + 1;
-
-                            // 1, 0.1, 0.01, 0.001, 0.0001 etc.
-                            xc[0] = pows10[ ( LOG_BASE - sd % LOG_BASE ) % LOG_BASE ];
-                            x.e = -sd || 0;
-                        } else {
-
-                            // Zero.
-                            xc[0] = x.e = 0;
-                        }
-
-                        return x;
-                    }
-
-                    // Remove excess digits.
-                    if ( i == 0 ) {
-                        xc.length = ni;
-                        k = 1;
-                        ni--;
-                    } else {
-                        xc.length = ni + 1;
-                        k = pows10[ LOG_BASE - i ];
-
-                        // E.g. 56700 becomes 56000 if 7 is the rounding digit.
-                        // j > 0 means i > number of leading zeros of n.
-                        xc[ni] = j > 0 ? mathfloor( n / pows10[ d - j ] % pows10[j] ) * k : 0;
-                    }
-
-                    // Round up?
-                    if (r) {
-
-                        for ( ; ; ) {
-
-                            // If the digit to be rounded up is in the first element of xc...
-                            if ( ni == 0 ) {
-
-                                // i will be the length of xc[0] before k is added.
-                                for ( i = 1, j = xc[0]; j >= 10; j /= 10, i++ );
-                                j = xc[0] += k;
-                                for ( k = 1; j >= 10; j /= 10, k++ );
-
-                                // if i != k the length has increased.
-                                if ( i != k ) {
-                                    x.e++;
-                                    if ( xc[0] == BASE ) xc[0] = 1;
-                                }
-
-                                break;
-                            } else {
-                                xc[ni] += k;
-                                if ( xc[ni] != BASE ) break;
-                                xc[ni--] = 0;
-                                k = 1;
-                            }
-                        }
-                    }
-
-                    // Remove trailing zeros.
-                    for ( i = xc.length; xc[--i] === 0; xc.pop() );
-                }
-
-                // Overflow? Infinity.
-                if ( x.e > MAX_EXP ) {
-                    x.c = x.e = null;
-
-                // Underflow? Zero.
-                } else if ( x.e < MIN_EXP ) {
-                    x.c = [ x.e = 0 ];
-                }
-            }
-
-            return x;
-        }
-
-
-        // PROTOTYPE/INSTANCE METHODS
-
-
-        /*
-         * Return a new BigNumber whose value is the absolute value of this BigNumber.
-         */
-        P.absoluteValue = P.abs = function () {
-            var x = new BigNumber(this);
-            if ( x.s < 0 ) x.s = 1;
-            return x;
-        };
-
-
-        /*
-         * Return
-         *   1 if the value of this BigNumber is greater than the value of BigNumber(y, b),
-         *   -1 if the value of this BigNumber is less than the value of BigNumber(y, b),
-         *   0 if they have the same value,
-         *   or null if the value of either is NaN.
-         */
-        P.comparedTo = function ( y, b ) {
-            return compare( this, new BigNumber( y, b ) );
-        };
-
-
-        /*
-         * If dp is undefined or null or true or false, return the number of decimal places of the
-         * value of this BigNumber, or null if the value of this BigNumber is ±Infinity or NaN.
-         *
-         * Otherwise, if dp is a number, return a new BigNumber whose value is the value of this
-         * BigNumber rounded to a maximum of dp decimal places using rounding mode rm, or
-         * ROUNDING_MODE if rm is omitted.
-         *
-         * [dp] {number} Decimal places: integer, 0 to MAX inclusive.
-         * [rm] {number} Rounding mode. Integer, 0 to 8 inclusive.
-         *
-         * '[BigNumber Error] Argument {not a primitive number|not an integer|out of range}: {dp|rm}'
-         */
-        P.decimalPlaces = P.dp = function ( dp, rm ) {
-            var c, n, v,
-                x = this;
-
-            if ( dp != null ) {
-                intCheck( dp, 0, MAX );
-                if ( rm == null ) rm = ROUNDING_MODE;
-                else intCheck( rm, 0, 8 );
-
-                return round( new BigNumber(x), dp + x.e + 1, rm );
-            }
-
-            if ( !( c = x.c ) ) return null;
-            n = ( ( v = c.length - 1 ) - bitFloor( this.e / LOG_BASE ) ) * LOG_BASE;
-
-            // Subtract the number of trailing zeros of the last number.
-            if ( v = c[v] ) for ( ; v % 10 == 0; v /= 10, n-- );
-            if ( n < 0 ) n = 0;
-
-            return n;
-        };
-
-
-        /*
-         *  n / 0 = I
-         *  n / N = N
-         *  n / I = 0
-         *  0 / n = 0
-         *  0 / 0 = N
-         *  0 / N = N
-         *  0 / I = 0
-         *  N / n = N
-         *  N / 0 = N
-         *  N / N = N
-         *  N / I = N
-         *  I / n = I
-         *  I / 0 = I
-         *  I / N = N
-         *  I / I = N
-         *
-         * Return a new BigNumber whose value is the value of this BigNumber divided by the value of
-         * BigNumber(y, b), rounded according to DECIMAL_PLACES and ROUNDING_MODE.
-         */
-        P.dividedBy = P.div = function ( y, b ) {
-            return div( this, new BigNumber( y, b ), DECIMAL_PLACES, ROUNDING_MODE );
-        };
-
-
-        /*
-         * Return a new BigNumber whose value is the integer part of dividing the value of this
-         * BigNumber by the value of BigNumber(y, b).
-         */
-        P.dividedToIntegerBy = P.idiv = function ( y, b ) {
-            return div( this, new BigNumber( y, b ), 0, 1 );
-        };
-
-
-        /*
-         * Return true if the value of this BigNumber is equal to the value of BigNumber(y, b),
-         * otherwise return false.
-         */
-        P.isEqualTo = P.eq = function ( y, b ) {
-            return compare( this, new BigNumber( y, b ) ) === 0;
-        };
-
-
-        /*
-         * Return a new BigNumber whose value is the value of this BigNumber rounded to an integer
-         * using rounding mode rm, or ROUNDING_MODE if rm is omitted.
-         *
-         * [rm] {number} Rounding mode. Integer, 0 to 8 inclusive.
-         *
-         * '[BigNumber Error] Argument {not a primitive number|not an integer|out of range}: {rm}'
-         */
-        P.integerValue = function (rm) {
-            var n = new BigNumber(this);
-            if ( rm == null ) rm = ROUNDING_MODE;
-            else intCheck( rm, 0, 8 );
-            return round( n, n.e + 1, rm );
-        };
-
-
-        /*
-         * Return true if the value of this BigNumber is greater than the value of BigNumber(y, b),
-         * otherwise return false.
-         */
-        P.isGreaterThan = P.gt = function ( y, b ) {
-            return compare( this, new BigNumber( y, b ) ) > 0;
-        };
-
-
-        /*
-         * Return true if the value of this BigNumber is greater than or equal to the value of
-         * BigNumber(y, b), otherwise return false.
-         */
-        P.isGreaterThanOrEqualTo = P.gte = function ( y, b ) {
-            return ( b = compare( this, new BigNumber( y, b ) ) ) === 1 || b === 0;
-
-        };
-
-
-        /*
-         * Return true if the value of this BigNumber is a finite number, otherwise return false.
-         */
-        P.isFinite = function () {
-            return !!this.c;
-        };
-
-
-        /*
-         * Return true if the value of this BigNumber is an integer, otherwise return false.
-         */
-        P.isInteger = function () {
-            return !!this.c && bitFloor( this.e / LOG_BASE ) > this.c.length - 2;
-        };
-
-
-        /*
-         * Return true if the value of this BigNumber is NaN, otherwise return false.
-         */
-        P.isNaN = function () {
-            return !this.s;
-        };
-
-
-        /*
-         * Return true if the value of this BigNumber is negative, otherwise return false.
-         */
-        P.isNegative = function () {
-            return this.s < 0;
-        };
-
-
-        /*
-         * Return true if the value of this BigNumber is positive, otherwise return false.
-         */
-        P.isPositive = function () {
-            return this.s > 0;
-        };
-
-
-        /*
-         * Return true if the value of this BigNumber is 0 or -0, otherwise return false.
-         */
-        P.isZero = function () {
-            return !!this.c && this.c[0] == 0;
-        };
-
-
-        /*
-         * Return true if the value of this BigNumber is less than the value of BigNumber(y, b),
-         * otherwise return false.
-         */
-        P.isLessThan = P.lt = function ( y, b ) {
-            return compare( this, new BigNumber( y, b ) ) < 0;
-        };
-
-
-        /*
-         * Return true if the value of this BigNumber is less than or equal to the value of
-         * BigNumber(y, b), otherwise return false.
-         */
-        P.isLessThanOrEqualTo = P.lte = function ( y, b ) {
-            return ( b = compare( this, new BigNumber( y, b ) ) ) === -1 || b === 0;
-        };
-
-
-        /*
-         *  n - 0 = n
-         *  n - N = N
-         *  n - I = -I
-         *  0 - n = -n
-         *  0 - 0 = 0
-         *  0 - N = N
-         *  0 - I = -I
-         *  N - n = N
-         *  N - 0 = N
-         *  N - N = N
-         *  N - I = N
-         *  I - n = I
-         *  I - 0 = I
-         *  I - N = N
-         *  I - I = N
-         *
-         * Return a new BigNumber whose value is the value of this BigNumber minus the value of
-         * BigNumber(y, b).
-         */
-        P.minus = function ( y, b ) {
-            var i, j, t, xLTy,
-                x = this,
-                a = x.s;
-
-            y = new BigNumber( y, b );
-            b = y.s;
-
-            // Either NaN?
-            if ( !a || !b ) return new BigNumber(NaN);
-
-            // Signs differ?
-            if ( a != b ) {
-                y.s = -b;
-                return x.plus(y);
-            }
-
-            var xe = x.e / LOG_BASE,
-                ye = y.e / LOG_BASE,
-                xc = x.c,
-                yc = y.c;
-
-            if ( !xe || !ye ) {
-
-                // Either Infinity?
-                if ( !xc || !yc ) return xc ? ( y.s = -b, y ) : new BigNumber( yc ? x : NaN );
-
-                // Either zero?
-                if ( !xc[0] || !yc[0] ) {
-
-                    // Return y if y is non-zero, x if x is non-zero, or zero if both are zero.
-                    return yc[0] ? ( y.s = -b, y ) : new BigNumber( xc[0] ? x :
-
-                      // IEEE 754 (2008) 6.3: n - n = -0 when rounding to -Infinity
-                      ROUNDING_MODE == 3 ? -0 : 0 );
-                }
-            }
-
-            xe = bitFloor(xe);
-            ye = bitFloor(ye);
-            xc = xc.slice();
-
-            // Determine which is the bigger number.
-            if ( a = xe - ye ) {
-
-                if ( xLTy = a < 0 ) {
-                    a = -a;
-                    t = xc;
-                } else {
-                    ye = xe;
-                    t = yc;
-                }
-
-                t.reverse();
-
-                // Prepend zeros to equalise exponents.
-                for ( b = a; b--; t.push(0) );
-                t.reverse();
-            } else {
-
-                // Exponents equal. Check digit by digit.
-                j = ( xLTy = ( a = xc.length ) < ( b = yc.length ) ) ? a : b;
-
-                for ( a = b = 0; b < j; b++ ) {
-
-                    if ( xc[b] != yc[b] ) {
-                        xLTy = xc[b] < yc[b];
-                        break;
-                    }
-                }
-            }
-
-            // x < y? Point xc to the array of the bigger number.
-            if (xLTy) t = xc, xc = yc, yc = t, y.s = -y.s;
-
-            b = ( j = yc.length ) - ( i = xc.length );
-
-            // Append zeros to xc if shorter.
-            // No need to add zeros to yc if shorter as subtract only needs to start at yc.length.
-            if ( b > 0 ) for ( ; b--; xc[i++] = 0 );
-            b = BASE - 1;
-
-            // Subtract yc from xc.
-            for ( ; j > a; ) {
-
-                if ( xc[--j] < yc[j] ) {
-                    for ( i = j; i && !xc[--i]; xc[i] = b );
-                    --xc[i];
-                    xc[j] += BASE;
-                }
-
-                xc[j] -= yc[j];
-            }
-
-            // Remove leading zeros and adjust exponent accordingly.
-            for ( ; xc[0] == 0; xc.splice(0, 1), --ye );
-
-            // Zero?
-            if ( !xc[0] ) {
-
-                // Following IEEE 754 (2008) 6.3,
-                // n - n = +0  but  n - n = -0  when rounding towards -Infinity.
-                y.s = ROUNDING_MODE == 3 ? -1 : 1;
-                y.c = [ y.e = 0 ];
-                return y;
-            }
-
-            // No need to check for Infinity as +x - +y != Infinity && -x - -y != Infinity
-            // for finite x and y.
-            return normalise( y, xc, ye );
-        };
-
-
-        /*
-         *   n % 0 =  N
-         *   n % N =  N
-         *   n % I =  n
-         *   0 % n =  0
-         *  -0 % n = -0
-         *   0 % 0 =  N
-         *   0 % N =  N
-         *   0 % I =  0
-         *   N % n =  N
-         *   N % 0 =  N
-         *   N % N =  N
-         *   N % I =  N
-         *   I % n =  N
-         *   I % 0 =  N
-         *   I % N =  N
-         *   I % I =  N
-         *
-         * Return a new BigNumber whose value is the value of this BigNumber modulo the value of
-         * BigNumber(y, b). The result depends on the value of MODULO_MODE.
-         */
-        P.modulo = P.mod = function ( y, b ) {
-            var q, s,
-                x = this;
-
-            y = new BigNumber( y, b );
-
-            // Return NaN if x is Infinity or NaN, or y is NaN or zero.
-            if ( !x.c || !y.s || y.c && !y.c[0] ) {
-                return new BigNumber(NaN);
-
-            // Return x if y is Infinity or x is zero.
-            } else if ( !y.c || x.c && !x.c[0] ) {
-                return new BigNumber(x);
-            }
-
-            if ( MODULO_MODE == 9 ) {
-
-                // Euclidian division: q = sign(y) * floor(x / abs(y))
-                // r = x - qy    where  0 <= r < abs(y)
-                s = y.s;
-                y.s = 1;
-                q = div( x, y, 0, 3 );
-                y.s = s;
-                q.s *= s;
-            } else {
-                q = div( x, y, 0, MODULO_MODE );
-            }
-
-            return x.minus( q.times(y) );
-        };
-
-
-        /*
-         *  n * 0 = 0
-         *  n * N = N
-         *  n * I = I
-         *  0 * n = 0
-         *  0 * 0 = 0
-         *  0 * N = N
-         *  0 * I = N
-         *  N * n = N
-         *  N * 0 = N
-         *  N * N = N
-         *  N * I = N
-         *  I * n = I
-         *  I * 0 = N
-         *  I * N = N
-         *  I * I = I
-         *
-         * Return a new BigNumber whose value is the value of this BigNumber multiplied by the value
-         * of BigNumber(y, b).
-         */
-        P.multipliedBy = P.times = function ( y, b ) {
-            var c, e, i, j, k, m, xcL, xlo, xhi, ycL, ylo, yhi, zc,
-                base, sqrtBase,
-                x = this,
-                xc = x.c,
-                yc = ( y = new BigNumber( y, b ) ).c;
-
-            // Either NaN, ±Infinity or ±0?
-            if ( !xc || !yc || !xc[0] || !yc[0] ) {
-
-                // Return NaN if either is NaN, or one is 0 and the other is Infinity.
-                if ( !x.s || !y.s || xc && !xc[0] && !yc || yc && !yc[0] && !xc ) {
-                    y.c = y.e = y.s = null;
-                } else {
-                    y.s *= x.s;
-
-                    // Return ±Infinity if either is ±Infinity.
-                    if ( !xc || !yc ) {
-                        y.c = y.e = null;
-
-                    // Return ±0 if either is ±0.
-                    } else {
-                        y.c = [0];
-                        y.e = 0;
-                    }
-                }
-
-                return y;
-            }
-
-            e = bitFloor( x.e / LOG_BASE ) + bitFloor( y.e / LOG_BASE );
-            y.s *= x.s;
-            xcL = xc.length;
-            ycL = yc.length;
-
-            // Ensure xc points to longer array and xcL to its length.
-            if ( xcL < ycL ) zc = xc, xc = yc, yc = zc, i = xcL, xcL = ycL, ycL = i;
-
-            // Initialise the result array with zeros.
-            for ( i = xcL + ycL, zc = []; i--; zc.push(0) );
-
-            base = BASE;
-            sqrtBase = SQRT_BASE;
-
-            for ( i = ycL; --i >= 0; ) {
-                c = 0;
-                ylo = yc[i] % sqrtBase;
-                yhi = yc[i] / sqrtBase | 0;
-
-                for ( k = xcL, j = i + k; j > i; ) {
-                    xlo = xc[--k] % sqrtBase;
-                    xhi = xc[k] / sqrtBase | 0;
-                    m = yhi * xlo + xhi * ylo;
-                    xlo = ylo * xlo + ( ( m % sqrtBase ) * sqrtBase ) + zc[j] + c;
-                    c = ( xlo / base | 0 ) + ( m / sqrtBase | 0 ) + yhi * xhi;
-                    zc[j--] = xlo % base;
-                }
-
-                zc[j] = c;
-            }
-
-            if (c) {
-                ++e;
-            } else {
-                zc.splice(0, 1);
-            }
-
-            return normalise( y, zc, e );
-        };
-
-
-        /*
-         * Return a new BigNumber whose value is the value of this BigNumber negated,
-         * i.e. multiplied by -1.
-         */
-        P.negated = function () {
-            var x = new BigNumber(this);
-            x.s = -x.s || null;
-            return x;
-        };
-
-
-        /*
-         *  n + 0 = n
-         *  n + N = N
-         *  n + I = I
-         *  0 + n = n
-         *  0 + 0 = 0
-         *  0 + N = N
-         *  0 + I = I
-         *  N + n = N
-         *  N + 0 = N
-         *  N + N = N
-         *  N + I = N
-         *  I + n = I
-         *  I + 0 = I
-         *  I + N = N
-         *  I + I = I
-         *
-         * Return a new BigNumber whose value is the value of this BigNumber plus the value of
-         * BigNumber(y, b).
-         */
-        P.plus = function ( y, b ) {
-            var t,
-                x = this,
-                a = x.s;
-
-            y = new BigNumber( y, b );
-            b = y.s;
-
-            // Either NaN?
-            if ( !a || !b ) return new BigNumber(NaN);
-
-            // Signs differ?
-             if ( a != b ) {
-                y.s = -b;
-                return x.minus(y);
-            }
-
-            var xe = x.e / LOG_BASE,
-                ye = y.e / LOG_BASE,
-                xc = x.c,
-                yc = y.c;
-
-            if ( !xe || !ye ) {
-
-                // Return ±Infinity if either ±Infinity.
-                if ( !xc || !yc ) return new BigNumber( a / 0 );
-
-                // Either zero?
-                // Return y if y is non-zero, x if x is non-zero, or zero if both are zero.
-                if ( !xc[0] || !yc[0] ) return yc[0] ? y : new BigNumber( xc[0] ? x : a * 0 );
-            }
-
-            xe = bitFloor(xe);
-            ye = bitFloor(ye);
-            xc = xc.slice();
-
-            // Prepend zeros to equalise exponents. Faster to use reverse then do unshifts.
-            if ( a = xe - ye ) {
-                if ( a > 0 ) {
-                    ye = xe;
-                    t = yc;
-                } else {
-                    a = -a;
-                    t = xc;
-                }
-
-                t.reverse();
-                for ( ; a--; t.push(0) );
-                t.reverse();
-            }
-
-            a = xc.length;
-            b = yc.length;
-
-            // Point xc to the longer array, and b to the shorter length.
-            if ( a - b < 0 ) t = yc, yc = xc, xc = t, b = a;
-
-            // Only start adding at yc.length - 1 as the further digits of xc can be ignored.
-            for ( a = 0; b; ) {
-                a = ( xc[--b] = xc[b] + yc[b] + a ) / BASE | 0;
-                xc[b] = BASE === xc[b] ? 0 : xc[b] % BASE;
-            }
-
-            if (a) {
-                xc = [a].concat(xc);
-                ++ye;
-            }
-
-            // No need to check for zero, as +x + +y != 0 && -x + -y != 0
-            // ye = MAX_EXP + 1 possible
-            return normalise( y, xc, ye );
-        };
-
-
-        /*
-         * If sd is undefined or null or true or false, return the number of significant digits of
-         * the value of this BigNumber, or null if the value of this BigNumber is ±Infinity or NaN.
-         * If sd is true include integer-part trailing zeros in the count.
-         *
-         * Otherwise, if sd is a number, return a new BigNumber whose value is the value of this
-         * BigNumber rounded to a maximum of sd significant digits using rounding mode rm, or
-         * ROUNDING_MODE if rm is omitted.
-         *
-         * sd {number|boolean} number: significant digits: integer, 1 to MAX inclusive.
-         *                     boolean: whether to count integer-part trailing zeros: true or false.
-         * [rm] {number} Rounding mode. Integer, 0 to 8 inclusive.
-         *
-         * '[BigNumber Error] Argument {not a primitive number|not an integer|out of range}: {sd|rm}'
-         */
-        P.precision = P.sd = function ( sd, rm ) {
-            var c, n, v,
-                x = this;
-
-            if ( sd != null && sd !== !!sd ) {
-                intCheck( sd, 1, MAX );
-                if ( rm == null ) rm = ROUNDING_MODE;
-                else intCheck( rm, 0, 8 );
-
-                return round( new BigNumber(x), sd, rm );
-            }
-
-            if ( !( c = x.c ) ) return null;
-            v = c.length - 1;
-            n = v * LOG_BASE + 1;
-
-            if ( v = c[v] ) {
-
-                // Subtract the number of trailing zeros of the last element.
-                for ( ; v % 10 == 0; v /= 10, n-- );
-
-                // Add the number of digits of the first element.
-                for ( v = c[0]; v >= 10; v /= 10, n++ );
-            }
-
-            if ( sd && x.e + 1 > n ) n = x.e + 1;
-
-            return n;
-        };
-
-
-        /*
-         * Return a new BigNumber whose value is the value of this BigNumber shifted by k places
-         * (powers of 10). Shift to the right if n > 0, and to the left if n < 0.
-         *
-         * k {number} Integer, -MAX_SAFE_INTEGER to MAX_SAFE_INTEGER inclusive.
-         *
-         * '[BigNumber Error] Argument {not a primitive number|not an integer|out of range}: {k}'
-         */
-        P.shiftedBy = function (k) {
-            intCheck( k, -MAX_SAFE_INTEGER, MAX_SAFE_INTEGER );
-            return this.times( '1e' + k );
-        };
-
-
-        /*
-         *  sqrt(-n) =  N
-         *  sqrt( N) =  N
-         *  sqrt(-I) =  N
-         *  sqrt( I) =  I
-         *  sqrt( 0) =  0
-         *  sqrt(-0) = -0
-         *
-         * Return a new BigNumber whose value is the square root of the value of this BigNumber,
-         * rounded according to DECIMAL_PLACES and ROUNDING_MODE.
-         */
-        P.squareRoot = P.sqrt = function () {
-            var m, n, r, rep, t,
-                x = this,
-                c = x.c,
-                s = x.s,
-                e = x.e,
-                dp = DECIMAL_PLACES + 4,
-                half = new BigNumber('0.5');
-
-            // Negative/NaN/Infinity/zero?
-            if ( s !== 1 || !c || !c[0] ) {
-                return new BigNumber( !s || s < 0 && ( !c || c[0] ) ? NaN : c ? x : 1 / 0 );
-            }
-
-            // Initial estimate.
-            s = Math.sqrt( +x );
-
-            // Math.sqrt underflow/overflow?
-            // Pass x to Math.sqrt as integer, then adjust the exponent of the result.
-            if ( s == 0 || s == 1 / 0 ) {
-                n = coeffToString(c);
-                if ( ( n.length + e ) % 2 == 0 ) n += '0';
-                s = Math.sqrt(n);
-                e = bitFloor( ( e + 1 ) / 2 ) - ( e < 0 || e % 2 );
-
-                if ( s == 1 / 0 ) {
-                    n = '1e' + e;
-                } else {
-                    n = s.toExponential();
-                    n = n.slice( 0, n.indexOf('e') + 1 ) + e;
-                }
-
-                r = new BigNumber(n);
-            } else {
-                r = new BigNumber( s + '' );
-            }
-
-            // Check for zero.
-            // r could be zero if MIN_EXP is changed after the this value was created.
-            // This would cause a division by zero (x/t) and hence Infinity below, which would cause
-            // coeffToString to throw.
-            if ( r.c[0] ) {
-                e = r.e;
-                s = e + dp;
-                if ( s < 3 ) s = 0;
-
-                // Newton-Raphson iteration.
-                for ( ; ; ) {
-                    t = r;
-                    r = half.times( t.plus( div( x, t, dp, 1 ) ) );
-
-                    if ( coeffToString( t.c   ).slice( 0, s ) === ( n =
-                         coeffToString( r.c ) ).slice( 0, s ) ) {
-
-                        // The exponent of r may here be one less than the final result exponent,
-                        // e.g 0.0009999 (e-4) --> 0.001 (e-3), so adjust s so the rounding digits
-                        // are indexed correctly.
-                        if ( r.e < e ) --s;
-                        n = n.slice( s - 3, s + 1 );
-
-                        // The 4th rounding digit may be in error by -1 so if the 4 rounding digits
-                        // are 9999 or 4999 (i.e. approaching a rounding boundary) continue the
-                        // iteration.
-                        if ( n == '9999' || !rep && n == '4999' ) {
-
-                            // On the first iteration only, check to see if rounding up gives the
-                            // exact result as the nines may infinitely repeat.
-                            if ( !rep ) {
-                                round( t, t.e + DECIMAL_PLACES + 2, 0 );
-
-                                if ( t.times(t).eq(x) ) {
-                                    r = t;
-                                    break;
-                                }
-                            }
-
-                            dp += 4;
-                            s += 4;
-                            rep = 1;
-                        } else {
-
-                            // If rounding digits are null, 0{0,4} or 50{0,3}, check for exact
-                            // result. If not, then there are further digits and m will be truthy.
-                            if ( !+n || !+n.slice(1) && n.charAt(0) == '5' ) {
-
-                                // Truncate to the first rounding digit.
-                                round( r, r.e + DECIMAL_PLACES + 2, 1 );
-                                m = !r.times(r).eq(x);
-                            }
-
-                            break;
-                        }
-                    }
-                }
-            }
-
-            return round( r, r.e + DECIMAL_PLACES + 1, ROUNDING_MODE, m );
-        };
-
-
-        /*
-         * Return a string representing the value of this BigNumber in exponential notation and
-         * rounded using ROUNDING_MODE to dp fixed decimal places.
-         *
-         * [dp] {number} Decimal places. Integer, 0 to MAX inclusive.
-         * [rm] {number} Rounding mode. Integer, 0 to 8 inclusive.
-         *
-         * '[BigNumber Error] Argument {not a primitive number|not an integer|out of range}: {dp|rm}'
-         */
-        P.toExponential = function ( dp, rm ) {
-            if ( dp != null ) {
-                intCheck( dp, 0, MAX );
-                dp++;
-            }
-            return format( this, dp, rm, 1 );
-        };
-
-
-        /*
-         * Return a string representing the value of this BigNumber in fixed-point notation rounding
-         * to dp fixed decimal places using rounding mode rm, or ROUNDING_MODE if rm is omitted.
-         *
-         * Note: as with JavaScript's number type, (-0).toFixed(0) is '0',
-         * but e.g. (-0.00001).toFixed(0) is '-0'.
-         *
-         * [dp] {number} Decimal places. Integer, 0 to MAX inclusive.
-         * [rm] {number} Rounding mode. Integer, 0 to 8 inclusive.
-         *
-         * '[BigNumber Error] Argument {not a primitive number|not an integer|out of range}: {dp|rm}'
-         */
-        P.toFixed = function ( dp, rm ) {
-            if ( dp != null ) {
-                intCheck( dp, 0, MAX );
-                dp = dp + this.e + 1;
-            }
-            return format( this, dp, rm );
-        };
-
-
-        /*
-         * Return a string representing the value of this BigNumber in fixed-point notation rounded
-         * using rm or ROUNDING_MODE to dp decimal places, and formatted according to the properties
-         * of the FORMAT object (see BigNumber.set).
-         *
-         * FORMAT = {
-         *      decimalSeparator : '.',
-         *      groupSeparator : ',',
-         *      groupSize : 3,
-         *      secondaryGroupSize : 0,
-         *      fractionGroupSeparator : '\xA0',    // non-breaking space
-         *      fractionGroupSize : 0
-         * };
-         *
-         * [dp] {number} Decimal places. Integer, 0 to MAX inclusive.
-         * [rm] {number} Rounding mode. Integer, 0 to 8 inclusive.
-         *
-         * '[BigNumber Error] Argument {not a primitive number|not an integer|out of range}: {dp|rm}'
-         */
-        P.toFormat = function ( dp, rm ) {
-            var str = this.toFixed( dp, rm );
-
-            if ( this.c ) {
-                var i,
-                    arr = str.split('.'),
-                    g1 = +FORMAT.groupSize,
-                    g2 = +FORMAT.secondaryGroupSize,
-                    groupSeparator = FORMAT.groupSeparator,
-                    intPart = arr[0],
-                    fractionPart = arr[1],
-                    isNeg = this.s < 0,
-                    intDigits = isNeg ? intPart.slice(1) : intPart,
-                    len = intDigits.length;
-
-                if (g2) i = g1, g1 = g2, g2 = i, len -= i;
-
-                if ( g1 > 0 && len > 0 ) {
-                    i = len % g1 || g1;
-                    intPart = intDigits.substr( 0, i );
-
-                    for ( ; i < len; i += g1 ) {
-                        intPart += groupSeparator + intDigits.substr( i, g1 );
-                    }
-
-                    if ( g2 > 0 ) intPart += groupSeparator + intDigits.slice(i);
-                    if (isNeg) intPart = '-' + intPart;
-                }
-
-                str = fractionPart
-                  ? intPart + FORMAT.decimalSeparator + ( ( g2 = +FORMAT.fractionGroupSize )
-                    ? fractionPart.replace( new RegExp( '\\d{' + g2 + '}\\B', 'g' ),
-                      '$&' + FORMAT.fractionGroupSeparator )
-                    : fractionPart )
-                  : intPart;
-            }
-
-            return str;
-        };
-
-
-        /*
-         * Return a string array representing the value of this BigNumber as a simple fraction with
-         * an integer numerator and an integer denominator. The denominator will be a positive
-         * non-zero value less than or equal to the specified maximum denominator. If a maximum
-         * denominator is not specified, the denominator will be the lowest value necessary to
-         * represent the number exactly.
-         *
-         * [md] {number|string|BigNumber} Integer >= 1 and < Infinity. The maximum denominator.
-         *
-         * '[BigNumber Error] Argument {not an integer|out of range} : {md}'
-         */
-        P.toFraction = function (md) {
-            var arr, d, d0, d1, d2, e, exp, n, n0, n1, q, s,
-                x = this,
-                xc = x.c;
-
-            if ( md != null ) {
-                n = new BigNumber(md);
-
-                if ( !n.isInteger() || n.lt(ONE) ) {
-                    throw Error
-                      ( bignumberError + 'Argument ' +
-                        ( n.isInteger() ? 'out of range: ' : 'not an integer: ' ) + md );
-                }
-            }
-
-            if ( !xc ) return x.toString();
-
-            d = new BigNumber(ONE);
-            n1 = d0 = new BigNumber(ONE);
-            d1 = n0 = new BigNumber(ONE);
-            s = coeffToString(xc);
-
-            // Determine initial denominator.
-            // d is a power of 10 and the minimum max denominator that specifies the value exactly.
-            e = d.e = s.length - x.e - 1;
-            d.c[0] = POWS_TEN[ ( exp = e % LOG_BASE ) < 0 ? LOG_BASE + exp : exp ];
-            md = !md || n.comparedTo(d) > 0 ? ( e > 0 ? d : n1 ) : n;
-
-            exp = MAX_EXP;
-            MAX_EXP = 1 / 0;
-            n = new BigNumber(s);
-
-            // n0 = d1 = 0
-            n0.c[0] = 0;
-
-            for ( ; ; )  {
-                q = div( n, d, 0, 1 );
-                d2 = d0.plus( q.times(d1) );
-                if ( d2.comparedTo(md) == 1 ) break;
-                d0 = d1;
-                d1 = d2;
-                n1 = n0.plus( q.times( d2 = n1 ) );
-                n0 = d2;
-                d = n.minus( q.times( d2 = d ) );
-                n = d2;
-            }
-
-            d2 = div( md.minus(d0), d1, 0, 1 );
-            n0 = n0.plus( d2.times(n1) );
-            d0 = d0.plus( d2.times(d1) );
-            n0.s = n1.s = x.s;
-            e *= 2;
-
-            // Determine which fraction is closer to x, n0/d0 or n1/d1
-            arr = div( n1, d1, e, ROUNDING_MODE ).minus(x).abs().comparedTo(
-                  div( n0, d0, e, ROUNDING_MODE ).minus(x).abs() ) < 1
-                    ? [ n1.toString(), d1.toString() ]
-                    : [ n0.toString(), d0.toString() ];
-
-            MAX_EXP = exp;
-            return arr;
-        };
-
-
-        /*
-         * Return the value of this BigNumber converted to a number primitive.
-         */
-        P.toNumber = function () {
-            return +this;
-        };
-
-
-        /*
-         * Return a BigNumber whose value is the value of this BigNumber exponentiated by n.
-         *
-         * If m is present, return the result modulo m.
-         * If n is negative round according to DECIMAL_PLACES and ROUNDING_MODE.
-         * If POW_PRECISION is non-zero and m is not present, round to POW_PRECISION using ROUNDING_MODE.
-         *
-         * The modular power operation works efficiently when x, n, and m are positive integers,
-         * otherwise it is equivalent to calculating x.exponentiatedBy(n).modulo(m) with a POW_PRECISION of 0.
-         *
-         * n {number} Integer, -MAX_SAFE_INTEGER to MAX_SAFE_INTEGER inclusive.
-         * [m] {number|string|BigNumber} The modulus.
-         *
-         * '[BigNumber Error] Argument {not a primitive number|not an integer|out of range}: {n}'
-         *
-         * Performs 54 loop iterations for n of 9007199254740991.
-         */
-        P.exponentiatedBy = P.pow = function ( n, m ) {
-            var i, k, y, z,
-                x = this;
-
-            intCheck( n, -MAX_SAFE_INTEGER, MAX_SAFE_INTEGER );
-            if ( m != null ) m = new BigNumber(m);
-
-            if (m) {
-                if ( n > 1 && x.gt(ONE) && x.isInteger() && m.gt(ONE) && m.isInteger() ) {
-                    x = x.mod(m);
-                } else {
-                    z = m;
-
-                    // Nullify m so only a single mod operation is performed at the end.
-                    m = null;
-                }
-            } else if (POW_PRECISION) {
-
-                // Truncating each coefficient array to a length of k after each multiplication
-                // equates to truncating significant digits to POW_PRECISION + [28, 41],
-                // i.e. there will be a minimum of 28 guard digits retained.
-                //k = mathceil( POW_PRECISION / LOG_BASE + 1.5 );   // gives [9, 21] guard digits.
-                k = mathceil( POW_PRECISION / LOG_BASE + 2 );
-            }
-
-            y = new BigNumber(ONE);
-
-            for ( i = mathfloor( n < 0 ? -n : n ); ; ) {
-                if ( i % 2 ) {
-                    y = y.times(x);
-                    if ( !y.c ) break;
-                    if (k) {
-                        if ( y.c.length > k ) y.c.length = k;
-                    } else if (m) {
-                        y = y.mod(m);
-                    }
-                }
-
-                i = mathfloor( i / 2 );
-                if ( !i ) break;
-                x = x.times(x);
-                if (k) {
-                    if ( x.c && x.c.length > k ) x.c.length = k;
-                } else if (m) {
-                    x = x.mod(m);
-                }
-            }
-
-            if (m) return y;
-            if ( n < 0 ) y = ONE.div(y);
-
-            return z ? y.mod(z) : k ? round( y, POW_PRECISION, ROUNDING_MODE ) : y;
-        };
-
-
-        /*
-         * Return a string representing the value of this BigNumber rounded to sd significant digits
-         * using rounding mode rm or ROUNDING_MODE. If sd is less than the number of digits
-         * necessary to represent the integer part of the value in fixed-point notation, then use
-         * exponential notation.
-         *
-         * [sd] {number} Significant digits. Integer, 1 to MAX inclusive.
-         * [rm] {number} Rounding mode. Integer, 0 to 8 inclusive.
-         *
-         * '[BigNumber Error] Argument {not a primitive number|not an integer|out of range}: {sd|rm}'
-         */
-        P.toPrecision = function ( sd, rm ) {
-            if ( sd != null ) intCheck( sd, 1, MAX );
-            return format( this, sd, rm, 2 );
-        };
-
-
-        /*
-         * Return a string representing the value of this BigNumber in base b, or base 10 if b is
-         * omitted. If a base is specified, including base 10, round according to DECIMAL_PLACES and
-         * ROUNDING_MODE. If a base is not specified, and this BigNumber has a positive exponent
-         * that is equal to or greater than TO_EXP_POS, or a negative exponent equal to or less than
-         * TO_EXP_NEG, return exponential notation.
-         *
-         * [b] {number} Integer, 2 to ALPHABET.length inclusive.
-         *
-         * '[BigNumber Error] Base {not a primitive number|not an integer|out of range}: {b}'
-         */
-        P.toString = function (b) {
-            var str,
-                n = this,
-                s = n.s,
-                e = n.e;
-
-            // Infinity or NaN?
-            if ( e === null ) {
-
-                if (s) {
-                    str = 'Infinity';
-                    if ( s < 0 ) str = '-' + str;
-                } else {
-                    str = 'NaN';
-                }
-            } else {
-                str = coeffToString( n.c );
-
-                if ( b == null ) {
-                    str = e <= TO_EXP_NEG || e >= TO_EXP_POS
-                      ? toExponential( str, e )
-                      : toFixedPoint( str, e, '0' );
-                } else {
-                    intCheck( b, 2, ALPHABET.length, 'Base' );
-                    str = convertBase( toFixedPoint( str, e, '0' ), 10, b, s, true );
-                }
-
-                if ( s < 0 && n.c[0] ) str = '-' + str;
-            }
-
-            return str;
-        };
-
-
-        /*
-         * Return as toString, but do not accept a base argument, and include the minus sign for
-         * negative zero.
-         */
-        P.valueOf = P.toJSON = function () {
-            var str,
-                n = this,
-                e = n.e;
-
-            if ( e === null ) return n.toString();
-
-            str = coeffToString( n.c );
-
-            str = e <= TO_EXP_NEG || e >= TO_EXP_POS
-                ? toExponential( str, e )
-                : toFixedPoint( str, e, '0' );
-
-            return n.s < 0 ? '-' + str : str;
-        };
-
-
-        P._isBigNumber = true;
-
-        if ( configObject != null ) BigNumber.set(configObject);
-
-        return BigNumber;
-    }
-
-
-    // PRIVATE HELPER FUNCTIONS
-
-
-    function bitFloor(n) {
-        var i = n | 0;
-        return n > 0 || n === i ? i : i - 1;
-    }
-
-
-    // Return a coefficient array as a string of base 10 digits.
-    function coeffToString(a) {
-        var s, z,
-            i = 1,
-            j = a.length,
-            r = a[0] + '';
-
-        for ( ; i < j; ) {
-            s = a[i++] + '';
-            z = LOG_BASE - s.length;
-            for ( ; z--; s = '0' + s );
-            r += s;
-        }
-
-        // Determine trailing zeros.
-        for ( j = r.length; r.charCodeAt(--j) === 48; );
-        return r.slice( 0, j + 1 || 1 );
-    }
-
-
-    // Compare the value of BigNumbers x and y.
-    function compare( x, y ) {
-        var a, b,
-            xc = x.c,
-            yc = y.c,
-            i = x.s,
-            j = y.s,
-            k = x.e,
-            l = y.e;
-
-        // Either NaN?
-        if ( !i || !j ) return null;
-
-        a = xc && !xc[0];
-        b = yc && !yc[0];
-
-        // Either zero?
-        if ( a || b ) return a ? b ? 0 : -j : i;
-
-        // Signs differ?
-        if ( i != j ) return i;
-
-        a = i < 0;
-        b = k == l;
-
-        // Either Infinity?
-        if ( !xc || !yc ) return b ? 0 : !xc ^ a ? 1 : -1;
-
-        // Compare exponents.
-        if ( !b ) return k > l ^ a ? 1 : -1;
-
-        j = ( k = xc.length ) < ( l = yc.length ) ? k : l;
-
-        // Compare digit by digit.
-        for ( i = 0; i < j; i++ ) if ( xc[i] != yc[i] ) return xc[i] > yc[i] ^ a ? 1 : -1;
-
-        // Compare lengths.
-        return k == l ? 0 : k > l ^ a ? 1 : -1;
-    }
-
-
-    /*
-     * Check that n is a primitive number, an integer, and in range, otherwise throw.
-     */
-    function intCheck( n, min, max, name ) {
-        if ( n < min || n > max || n !== ( n < 0 ? mathceil(n) : mathfloor(n) ) ) {
-            throw Error
-              ( bignumberError + ( name || 'Argument' ) + ( typeof n == 'number'
-                  ? n < min || n > max ? ' out of range: ' : ' not an integer: '
-                  : ' not a primitive number: ' ) + n );
-        }
-    }
-
-
-    function isArray(obj) {
-        return Object.prototype.toString.call(obj) == '[object Array]';
-    }
-
-
-    function toExponential( str, e ) {
-        return ( str.length > 1 ? str.charAt(0) + '.' + str.slice(1) : str ) +
-          ( e < 0 ? 'e' : 'e+' ) + e;
-    }
-
-
-    function toFixedPoint( str, e, z ) {
-        var len, zs;
-
-        // Negative exponent?
-        if ( e < 0 ) {
-
-            // Prepend zeros.
-            for ( zs = z + '.'; ++e; zs += z );
-            str = zs + str;
-
-        // Positive exponent
-        } else {
-            len = str.length;
-
-            // Append zeros.
-            if ( ++e > len ) {
-                for ( zs = z, e -= len; --e; zs += z );
-                str += zs;
-            } else if ( e < len ) {
-                str = str.slice( 0, e ) + '.' + str.slice(e);
-            }
-        }
-
-        return str;
-    }
-
-
-    // EXPORT
-
-
-    BigNumber = clone();
-    BigNumber['default'] = BigNumber.BigNumber = BigNumber;
-
-
-    // AMD.
-    if ( true ) {
-        !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () { return BigNumber; }).call(exports, __webpack_require__, exports, module),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-    // Node.js and other environments that support module.exports.
-    } else if ( typeof module != 'undefined' && module.exports ) {
-        module.exports = BigNumber;
-
-    // Browser.
-    } else {
-        if ( !globalObject ) {
-            globalObject = typeof self != 'undefined' ? self : Function('return this')();
-        }
-
-        globalObject.BigNumber = BigNumber;
-    }
-})(this);
-
-
-/***/ }),
 /* 305 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__geolocation_address_object_js__ = __webpack_require__(720);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_sockets_socket_address__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geo_helpers_geo_helper__ = __webpack_require__(195);
-const axios = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geo_helpers_geo_helper__ = __webpack_require__(196);
+const axios = __webpack_require__(194);
 const ipaddr = __webpack_require__(101);
 
 
@@ -51369,7 +51371,7 @@ module.exports = Cancel;
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pending_Interface_Transactions_Pending_Queue__ = __webpack_require__(724);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__transaction_Interface_Blockchain_Transaction__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__transaction_Interface_Blockchain_Transaction__ = __webpack_require__(192);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_satoshmindb_Interface_SatoshminDB__ = __webpack_require__(83);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__wizard_Interface_Blockchain_Transactions_Wizard__ = __webpack_require__(726);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Interface_Blockchain_Transactions_Events__ = __webpack_require__(727);
@@ -51841,7 +51843,7 @@ class InterfaceRadixTreeNode extends __WEBPACK_IMPORTED_MODULE_0_common_trees_In
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_trees_Interface_Tree_Edge__ = __webpack_require__(198);
+/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_trees_Interface_Tree_Edge__ = __webpack_require__(199);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_trees_Interface_Tree_Node__ = __webpack_require__(103);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Serialization__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_BufferExtended__ = __webpack_require__(4);
@@ -51900,7 +51902,7 @@ class InterfaceRadixTreeEdge extends __WEBPACK_IMPORTED_MODULE_0_common_trees_In
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Interface_Tree_Edge__ = __webpack_require__(198);
+/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Interface_Tree_Edge__ = __webpack_require__(199);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Interface_Tree_Node__ = __webpack_require__(103);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_crypto_WebDollar_Crypto_Data__ = __webpack_require__(58);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_BufferExtended__ = __webpack_require__(4);
@@ -52631,7 +52633,7 @@ class InterfaceMerkleTreeNode extends __WEBPACK_IMPORTED_MODULE_0_common_trees_I
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_protocol_Interface_Blockchain_Protocol__ = __webpack_require__(130);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_utils_Serialization__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_blockchain_ppow_blockchain_protocol_PPoW_Blockchain_Protocol__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_blockchain_ppow_blockchain_protocol_PPoW_Blockchain_Protocol__ = __webpack_require__(201);
 
 
 
@@ -52851,8 +52853,8 @@ class InterfaceBlockchainProtocolForksManager {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_agents_Interface_Blockchain_Agent_Full_Node__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__protocol_PPoW_Blockchain_Protocol__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_agents_Interface_Blockchain_Agent_Full_Node__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__protocol_PPoW_Blockchain_Protocol__ = __webpack_require__(201);
 
 
 
@@ -52877,7 +52879,7 @@ class PPoWBlockchainAgentFullNode extends __WEBPACK_IMPORTED_MODULE_0_common_blo
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_helpers_Version_Checker_Helper__ = __webpack_require__(325);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Agent_Status__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Agent_Status__ = __webpack_require__(203);
 
 
 
@@ -53283,7 +53285,7 @@ function isBuf(obj) {
 var eio = __webpack_require__(784);
 var Socket = __webpack_require__(335);
 var Emitter = __webpack_require__(87);
-var parser = __webpack_require__(205);
+var parser = __webpack_require__(206);
 var on = __webpack_require__(336);
 var bind = __webpack_require__(337);
 var debug = __webpack_require__(131)('socket.io-client:manager');
@@ -53858,7 +53860,7 @@ Manager.prototype.onreconnect = function () {
  * Module dependencies
  */
 
-var XMLHttpRequest = __webpack_require__(206);
+var XMLHttpRequest = __webpack_require__(207);
 var XHR = __webpack_require__(787);
 var JSONP = __webpack_require__(794);
 var websocket = __webpack_require__(795);
@@ -53918,7 +53920,7 @@ function polling (opts) {
  * Module dependencies.
  */
 
-var Transport = __webpack_require__(207);
+var Transport = __webpack_require__(208);
 var parseqs = __webpack_require__(132);
 var parser = __webpack_require__(88);
 var inherit = __webpack_require__(133);
@@ -53936,7 +53938,7 @@ module.exports = Polling;
  */
 
 var hasXHR2 = (function () {
-  var XMLHttpRequest = __webpack_require__(206);
+  var XMLHttpRequest = __webpack_require__(207);
   var xhr = new XMLHttpRequest({ xdomain: false });
   return null != xhr.responseType;
 })();
@@ -54245,7 +54247,7 @@ module.exports = yeast;
  * Module dependencies.
  */
 
-var parser = __webpack_require__(205);
+var parser = __webpack_require__(206);
 var Emitter = __webpack_require__(87);
 var toArray = __webpack_require__(797);
 var on = __webpack_require__(336);
@@ -54727,7 +54729,7 @@ module.exports = function(obj, fn){
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_sockets_protocol_node_protocol__ = __webpack_require__(128);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_sockets_protocol_node_propagation_protocol__ = __webpack_require__(799);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_sockets_protocol_signaling_server_Node_Signaling_Server_Protocol__ = __webpack_require__(339);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_sockets_protocol_signaling_client_Node_Signaling_Client_Protocol__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_sockets_protocol_signaling_client_Node_Signaling_Client_Protocol__ = __webpack_require__(209);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_sockets_socket_address__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_is_array_buffer__ = __webpack_require__(805);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_is_array_buffer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_is_array_buffer__);
@@ -55422,7 +55424,7 @@ SignalingServerRoomConnectionObject.ConnectionStatus = ConnectionStatus;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__ = __webpack_require__(209);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__signaling_client_list_signaling_client_list__ = __webpack_require__(210);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_nodes_list__ = __webpack_require__(11);
 
 
@@ -55627,7 +55629,7 @@ class NodesWaitlistObject {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index_js__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index_js__ = __webpack_require__(211);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__index_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_consts_global_js__ = __webpack_require__(77);
 
@@ -55803,15 +55805,15 @@ __webpack_require__(449);
 __webpack_require__(155);
 __webpack_require__(450);
 __webpack_require__(451);
-__webpack_require__(229);
+__webpack_require__(230);
 __webpack_require__(452);
 __webpack_require__(453);
 __webpack_require__(454);
 __webpack_require__(455);
 __webpack_require__(456);
-__webpack_require__(232);
-__webpack_require__(234);
+__webpack_require__(233);
 __webpack_require__(235);
+__webpack_require__(236);
 __webpack_require__(457);
 __webpack_require__(458);
 __webpack_require__(459);
@@ -55918,7 +55920,7 @@ var shared = __webpack_require__(104);
 var setToStringTag = __webpack_require__(78);
 var uid = __webpack_require__(64);
 var wks = __webpack_require__(12);
-var wksExt = __webpack_require__(212);
+var wksExt = __webpack_require__(213);
 var wksDefine = __webpack_require__(135);
 var enumKeys = __webpack_require__(347);
 var isArray = __webpack_require__(107);
@@ -55928,7 +55930,7 @@ var toIObject = __webpack_require__(34);
 var toPrimitive = __webpack_require__(44);
 var createDesc = __webpack_require__(63);
 var _create = __webpack_require__(68);
-var gOPNExt = __webpack_require__(215);
+var gOPNExt = __webpack_require__(216);
 var $GOPD = __webpack_require__(35);
 var $DP = __webpack_require__(15);
 var $keys = __webpack_require__(66);
@@ -56186,7 +56188,7 @@ $export($export.S + $export.F * !__webpack_require__(14), 'Object', { defineProp
 
 var $export = __webpack_require__(0);
 // 19.1.2.3 / 15.2.3.7 Object.defineProperties(O, Properties)
-$export($export.S + $export.F * !__webpack_require__(14), 'Object', { defineProperties: __webpack_require__(214) });
+$export($export.S + $export.F * !__webpack_require__(14), 'Object', { defineProperties: __webpack_require__(215) });
 
 
 /***/ }),
@@ -56240,7 +56242,7 @@ __webpack_require__(47)('keys', function () {
 
 // 19.1.2.7 Object.getOwnPropertyNames(O)
 __webpack_require__(47)('getOwnPropertyNames', function () {
-  return __webpack_require__(215).f;
+  return __webpack_require__(216).f;
 });
 
 
@@ -56338,7 +56340,7 @@ __webpack_require__(47)('isExtensible', function ($isExtensible) {
 // 19.1.3.1 Object.assign(target, source)
 var $export = __webpack_require__(0);
 
-$export($export.S + $export.F, 'Object', { assign: __webpack_require__(216) });
+$export($export.S + $export.F, 'Object', { assign: __webpack_require__(217) });
 
 
 /***/ }),
@@ -56394,7 +56396,7 @@ if (test + '' != '[object z]') {
 // 19.2.3.2 / 15.3.4.5 Function.prototype.bind(thisArg, args...)
 var $export = __webpack_require__(0);
 
-$export($export.P, 'Function', { bind: __webpack_require__(217) });
+$export($export.P, 'Function', { bind: __webpack_require__(218) });
 
 
 /***/ }),
@@ -56444,7 +56446,7 @@ if (!(HAS_INSTANCE in FunctionProto)) __webpack_require__(15).f(FunctionProto, H
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(0);
-var $parseInt = __webpack_require__(219);
+var $parseInt = __webpack_require__(220);
 // 18.2.5 parseInt(string, radix)
 $export($export.G + $export.F * (parseInt != $parseInt), { parseInt: $parseInt });
 
@@ -56454,7 +56456,7 @@ $export($export.G + $export.F * (parseInt != $parseInt), { parseInt: $parseInt }
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(0);
-var $parseFloat = __webpack_require__(220);
+var $parseFloat = __webpack_require__(221);
 // 18.2.4 parseFloat(string)
 $export($export.G + $export.F * (parseFloat != $parseFloat), { parseFloat: $parseFloat });
 
@@ -56543,7 +56545,7 @@ if (!$Number(' 0o1') || !$Number('0b1') || $Number('+0x1')) {
 
 var $export = __webpack_require__(0);
 var toInteger = __webpack_require__(46);
-var aNumberValue = __webpack_require__(221);
+var aNumberValue = __webpack_require__(222);
 var repeat = __webpack_require__(142);
 var $toFixed = 1.0.toFixed;
 var floor = Math.floor;
@@ -56664,7 +56666,7 @@ $export($export.P + $export.F * (!!$toFixed && (
 
 var $export = __webpack_require__(0);
 var $fails = __webpack_require__(8);
-var aNumberValue = __webpack_require__(221);
+var aNumberValue = __webpack_require__(222);
 var $toPrecision = 1.0.toPrecision;
 
 $export($export.P + $export.F * ($fails(function () {
@@ -56713,7 +56715,7 @@ $export($export.S, 'Number', {
 // 20.1.2.3 Number.isInteger(number)
 var $export = __webpack_require__(0);
 
-$export($export.S, 'Number', { isInteger: __webpack_require__(222) });
+$export($export.S, 'Number', { isInteger: __webpack_require__(223) });
 
 
 /***/ }),
@@ -56737,7 +56739,7 @@ $export($export.S, 'Number', {
 
 // 20.1.2.5 Number.isSafeInteger(number)
 var $export = __webpack_require__(0);
-var isInteger = __webpack_require__(222);
+var isInteger = __webpack_require__(223);
 var abs = Math.abs;
 
 $export($export.S, 'Number', {
@@ -56772,7 +56774,7 @@ $export($export.S, 'Number', { MIN_SAFE_INTEGER: -0x1fffffffffffff });
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(0);
-var $parseFloat = __webpack_require__(220);
+var $parseFloat = __webpack_require__(221);
 // 20.1.2.12 Number.parseFloat(string)
 $export($export.S + $export.F * (Number.parseFloat != $parseFloat), 'Number', { parseFloat: $parseFloat });
 
@@ -56782,7 +56784,7 @@ $export($export.S + $export.F * (Number.parseFloat != $parseFloat), 'Number', { 
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(0);
-var $parseInt = __webpack_require__(219);
+var $parseInt = __webpack_require__(220);
 // 20.1.2.13 Number.parseInt(string, radix)
 $export($export.S + $export.F * (Number.parseInt != $parseInt), 'Number', { parseInt: $parseInt });
 
@@ -56793,7 +56795,7 @@ $export($export.S + $export.F * (Number.parseInt != $parseInt), 'Number', { pars
 
 // 20.2.2.3 Math.acosh(x)
 var $export = __webpack_require__(0);
-var log1p = __webpack_require__(223);
+var log1p = __webpack_require__(224);
 var sqrt = Math.sqrt;
 var $acosh = Math.acosh;
 
@@ -56905,7 +56907,7 @@ $export($export.S + $export.F * ($expm1 != Math.expm1), 'Math', { expm1: $expm1 
 // 20.2.2.16 Math.fround(x)
 var $export = __webpack_require__(0);
 
-$export($export.S, 'Math', { fround: __webpack_require__(224) });
+$export($export.S, 'Math', { fround: __webpack_require__(225) });
 
 
 /***/ }),
@@ -56983,7 +56985,7 @@ $export($export.S, 'Math', {
 // 20.2.2.20 Math.log1p(x)
 var $export = __webpack_require__(0);
 
-$export($export.S, 'Math', { log1p: __webpack_require__(223) });
+$export($export.S, 'Math', { log1p: __webpack_require__(224) });
 
 
 /***/ }),
@@ -57578,7 +57580,7 @@ $export($export.S, 'Array', { isArray: __webpack_require__(107) });
 var ctx = __webpack_require__(39);
 var $export = __webpack_require__(0);
 var toObject = __webpack_require__(20);
-var call = __webpack_require__(225);
+var call = __webpack_require__(226);
 var isArrayIter = __webpack_require__(150);
 var toLength = __webpack_require__(16);
 var createProperty = __webpack_require__(151);
@@ -57838,7 +57840,7 @@ $export($export.P + $export.F * !__webpack_require__(41)([].every, true), 'Array
 "use strict";
 
 var $export = __webpack_require__(0);
-var $reduce = __webpack_require__(226);
+var $reduce = __webpack_require__(227);
 
 $export($export.P + $export.F * !__webpack_require__(41)([].reduce, true), 'Array', {
   // 22.1.3.18 / 15.4.4.21 Array.prototype.reduce(callbackfn [, initialValue])
@@ -57855,7 +57857,7 @@ $export($export.P + $export.F * !__webpack_require__(41)([].reduce, true), 'Arra
 "use strict";
 
 var $export = __webpack_require__(0);
-var $reduce = __webpack_require__(226);
+var $reduce = __webpack_require__(227);
 
 $export($export.P + $export.F * !__webpack_require__(41)([].reduceRight, true), 'Array', {
   // 22.1.3.19 / 15.4.4.22 Array.prototype.reduceRight(callbackfn [, initialValue])
@@ -57923,7 +57925,7 @@ $export($export.P + $export.F * (NEGATIVE_ZERO || !__webpack_require__(41)($nati
 // 22.1.3.3 Array.prototype.copyWithin(target, start, end = this.length)
 var $export = __webpack_require__(0);
 
-$export($export.P, 'Array', { copyWithin: __webpack_require__(227) });
+$export($export.P, 'Array', { copyWithin: __webpack_require__(228) });
 
 __webpack_require__(56)('copyWithin');
 
@@ -58044,7 +58046,7 @@ __webpack_require__(70)('RegExp');
 
 "use strict";
 
-__webpack_require__(229);
+__webpack_require__(230);
 var anObject = __webpack_require__(6);
 var $flags = __webpack_require__(110);
 var DESCRIPTORS = __webpack_require__(14);
@@ -58216,8 +58218,8 @@ var speciesConstructor = __webpack_require__(112);
 var task = __webpack_require__(156).set;
 var microtask = __webpack_require__(157)();
 var newPromiseCapabilityModule = __webpack_require__(158);
-var perform = __webpack_require__(230);
-var promiseResolve = __webpack_require__(231);
+var perform = __webpack_require__(231);
+var promiseResolve = __webpack_require__(232);
 var PROMISE = 'Promise';
 var TypeError = global.TypeError;
 var process = global.process;
@@ -58483,7 +58485,7 @@ $export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(109)(functio
 
 "use strict";
 
-var weak = __webpack_require__(236);
+var weak = __webpack_require__(237);
 var validate = __webpack_require__(81);
 var WEAK_SET = 'WeakSet';
 
@@ -58693,7 +58695,7 @@ var aFunction = __webpack_require__(23);
 var anObject = __webpack_require__(6);
 var isObject = __webpack_require__(10);
 var fails = __webpack_require__(8);
-var bind = __webpack_require__(217);
+var bind = __webpack_require__(218);
 var rConstruct = (__webpack_require__(7).Reflect || {}).construct;
 
 // MS Edge supports only 2 arguments and argumentsList argument is optional
@@ -58911,7 +58913,7 @@ $export($export.S, 'Reflect', {
 // 26.1.11 Reflect.ownKeys(target)
 var $export = __webpack_require__(0);
 
-$export($export.S, 'Reflect', { ownKeys: __webpack_require__(238) });
+$export($export.S, 'Reflect', { ownKeys: __webpack_require__(239) });
 
 
 /***/ }),
@@ -59021,7 +59023,7 @@ __webpack_require__(56)('includes');
 
 // https://tc39.github.io/proposal-flatMap/#sec-Array.prototype.flatMap
 var $export = __webpack_require__(0);
-var flattenIntoArray = __webpack_require__(239);
+var flattenIntoArray = __webpack_require__(240);
 var toObject = __webpack_require__(20);
 var toLength = __webpack_require__(16);
 var aFunction = __webpack_require__(23);
@@ -59050,7 +59052,7 @@ __webpack_require__(56)('flatMap');
 
 // https://tc39.github.io/proposal-flatMap/#sec-Array.prototype.flatten
 var $export = __webpack_require__(0);
-var flattenIntoArray = __webpack_require__(239);
+var flattenIntoArray = __webpack_require__(240);
 var toObject = __webpack_require__(20);
 var toLength = __webpack_require__(16);
 var toInteger = __webpack_require__(46);
@@ -59095,7 +59097,7 @@ $export($export.P, 'String', {
 
 // https://github.com/tc39/proposal-string-pad-start-end
 var $export = __webpack_require__(0);
-var $pad = __webpack_require__(240);
+var $pad = __webpack_require__(241);
 var userAgent = __webpack_require__(160);
 
 // https://github.com/zloirock/core-js/issues/280
@@ -59114,7 +59116,7 @@ $export($export.P + $export.F * /Version\/10\.\d+(\.\d+)? Safari\//.test(userAge
 
 // https://github.com/tc39/proposal-string-pad-start-end
 var $export = __webpack_require__(0);
-var $pad = __webpack_require__(240);
+var $pad = __webpack_require__(241);
 var userAgent = __webpack_require__(160);
 
 // https://github.com/zloirock/core-js/issues/280
@@ -59210,7 +59212,7 @@ __webpack_require__(135)('observable');
 
 // https://github.com/tc39/proposal-object-getownpropertydescriptors
 var $export = __webpack_require__(0);
-var ownKeys = __webpack_require__(238);
+var ownKeys = __webpack_require__(239);
 var toIObject = __webpack_require__(34);
 var gOPD = __webpack_require__(35);
 var createProperty = __webpack_require__(151);
@@ -59238,7 +59240,7 @@ $export($export.S, 'Object', {
 
 // https://github.com/tc39/proposal-object-values-entries
 var $export = __webpack_require__(0);
-var $values = __webpack_require__(241)(false);
+var $values = __webpack_require__(242)(false);
 
 $export($export.S, 'Object', {
   values: function values(it) {
@@ -59253,7 +59255,7 @@ $export($export.S, 'Object', {
 
 // https://github.com/tc39/proposal-object-values-entries
 var $export = __webpack_require__(0);
-var $entries = __webpack_require__(241)(true);
+var $entries = __webpack_require__(242)(true);
 
 $export($export.S, 'Object', {
   entries: function entries(it) {
@@ -59357,7 +59359,7 @@ __webpack_require__(14) && $export($export.P + __webpack_require__(115), 'Object
 // https://github.com/DavidBruant/Map-Set.prototype.toJSON
 var $export = __webpack_require__(0);
 
-$export($export.P + $export.R, 'Map', { toJSON: __webpack_require__(242)('Map') });
+$export($export.P + $export.R, 'Map', { toJSON: __webpack_require__(243)('Map') });
 
 
 /***/ }),
@@ -59367,7 +59369,7 @@ $export($export.P + $export.R, 'Map', { toJSON: __webpack_require__(242)('Map') 
 // https://github.com/DavidBruant/Map-Set.prototype.toJSON
 var $export = __webpack_require__(0);
 
-$export($export.P + $export.R, 'Set', { toJSON: __webpack_require__(242)('Set') });
+$export($export.P + $export.R, 'Set', { toJSON: __webpack_require__(243)('Set') });
 
 
 /***/ }),
@@ -59514,8 +59516,8 @@ $export($export.S, 'Math', {
 
 // https://rwaldron.github.io/proposal-math-extensions/
 var $export = __webpack_require__(0);
-var scale = __webpack_require__(244);
-var fround = __webpack_require__(224);
+var scale = __webpack_require__(245);
+var fround = __webpack_require__(225);
 
 $export($export.S, 'Math', {
   fscale: function fscale(x, inLow, inHigh, outLow, outHigh) {
@@ -59612,7 +59614,7 @@ $export($export.S, 'Math', {
 // https://rwaldron.github.io/proposal-math-extensions/
 var $export = __webpack_require__(0);
 
-$export($export.S, 'Math', { scale: __webpack_require__(244) });
+$export($export.S, 'Math', { scale: __webpack_require__(245) });
 
 
 /***/ }),
@@ -59661,7 +59663,7 @@ var $export = __webpack_require__(0);
 var core = __webpack_require__(43);
 var global = __webpack_require__(7);
 var speciesConstructor = __webpack_require__(112);
-var promiseResolve = __webpack_require__(231);
+var promiseResolve = __webpack_require__(232);
 
 $export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
   var C = speciesConstructor(this, core.Promise || global.Promise);
@@ -59686,7 +59688,7 @@ $export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
 // https://github.com/tc39/proposal-promise-try
 var $export = __webpack_require__(0);
 var newPromiseCapability = __webpack_require__(158);
-var perform = __webpack_require__(230);
+var perform = __webpack_require__(231);
 
 $export($export.S, 'Promise', { 'try': function (callbackfn) {
   var promiseCapability = newPromiseCapability.f(this);
@@ -59758,8 +59760,8 @@ metadata.exp({ getMetadata: function getMetadata(metadataKey, target /* , target
 /* 531 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Set = __webpack_require__(234);
-var from = __webpack_require__(243);
+var Set = __webpack_require__(235);
+var from = __webpack_require__(244);
 var metadata = __webpack_require__(53);
 var anObject = __webpack_require__(6);
 var getPrototypeOf = __webpack_require__(36);
@@ -62342,7 +62344,7 @@ class InterfaceBlockchainAddress{
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var fs = __webpack_require__(118),
     EventEmitter = __webpack_require__(32).EventEmitter,
-    util = __webpack_require__(247);
+    util = __webpack_require__(248);
 
 var readLine = module.exports = function(file, opts) {
   if (!(this instanceof readLine)) return new readLine(file, opts);
@@ -64986,8 +64988,8 @@ module.exports = function base (ALPHABET) {
 /* 559 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var rng = __webpack_require__(249);
-var bytesToUuid = __webpack_require__(250);
+var rng = __webpack_require__(250);
+var bytesToUuid = __webpack_require__(251);
 
 // **`v1()` - Generate time-based UUID**
 //
@@ -65101,8 +65103,8 @@ module.exports = v1;
 /* 560 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var rng = __webpack_require__(249);
-var bytesToUuid = __webpack_require__(250);
+var rng = __webpack_require__(250);
+var bytesToUuid = __webpack_require__(251);
 
 function v4(options, buf, offset) {
   var i = buf && offset || 0;
@@ -65803,7 +65805,7 @@ function config (name) {
 
 module.exports = PassThrough;
 
-var Transform = __webpack_require__(255);
+var Transform = __webpack_require__(256);
 
 /*<replacement>*/
 var util = __webpack_require__(93);
@@ -66068,7 +66070,7 @@ module.exports = Sha1
  */
 
 var inherits = __webpack_require__(5)
-var Sha256 = __webpack_require__(256)
+var Sha256 = __webpack_require__(257)
 var Hash = __webpack_require__(82)
 var Buffer = __webpack_require__(3).Buffer
 
@@ -66119,7 +66121,7 @@ module.exports = Sha224
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(5)
-var SHA512 = __webpack_require__(257)
+var SHA512 = __webpack_require__(258)
 var Hash = __webpack_require__(82)
 var Buffer = __webpack_require__(3).Buffer
 
@@ -66234,16 +66236,16 @@ module.exports = Hmac
 /* 580 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(258)
+module.exports = __webpack_require__(259)
 
 
 /***/ }),
 /* 581 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global, process) {var checkParameters = __webpack_require__(260)
-var defaultEncoding = __webpack_require__(261)
-var sync = __webpack_require__(262)
+/* WEBPACK VAR INJECTION */(function(global, process) {var checkParameters = __webpack_require__(261)
+var defaultEncoding = __webpack_require__(262)
+var sync = __webpack_require__(263)
 var Buffer = __webpack_require__(3).Buffer
 
 var ZERO_BUF
@@ -66681,9 +66683,9 @@ module.exports = HashBase
 /***/ (function(module, exports, __webpack_require__) {
 
 var MODES = __webpack_require__(171)
-var AuthCipher = __webpack_require__(266)
+var AuthCipher = __webpack_require__(267)
 var Buffer = __webpack_require__(3).Buffer
-var StreamCipher = __webpack_require__(267)
+var StreamCipher = __webpack_require__(268)
 var Transform = __webpack_require__(57)
 var aes = __webpack_require__(123)
 var ebtk = __webpack_require__(122)
@@ -67072,10 +67074,10 @@ module.exports = GHASH
 /* 593 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var AuthCipher = __webpack_require__(266)
+var AuthCipher = __webpack_require__(267)
 var Buffer = __webpack_require__(3).Buffer
 var MODES = __webpack_require__(171)
-var StreamCipher = __webpack_require__(267)
+var StreamCipher = __webpack_require__(268)
 var Transform = __webpack_require__(57)
 var aes = __webpack_require__(123)
 var ebtk = __webpack_require__(122)
@@ -67974,7 +67976,7 @@ exports['des-ede'] = {
 /* 601 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var generatePrime = __webpack_require__(268)
+/* WEBPACK VAR INJECTION */(function(Buffer) {var generatePrime = __webpack_require__(269)
 var primes = __webpack_require__(604)
 
 var DH = __webpack_require__(605)
@@ -68042,14 +68044,14 @@ module.exports = {"modp1":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var BN = __webpack_require__(18);
-var MillerRabin = __webpack_require__(269);
+var MillerRabin = __webpack_require__(270);
 var millerRabin = new MillerRabin();
 var TWENTYFOUR = new BN(24);
 var ELEVEN = new BN(11);
 var TEN = new BN(10);
 var THREE = new BN(3);
 var SEVEN = new BN(7);
-var primes = __webpack_require__(268);
+var primes = __webpack_require__(269);
 var randomBytes = __webpack_require__(74);
 module.exports = DH;
 
@@ -68218,7 +68220,7 @@ var inherits = __webpack_require__(5)
 var sign = __webpack_require__(607)
 var verify = __webpack_require__(642)
 
-var algorithms = __webpack_require__(258)
+var algorithms = __webpack_require__(259)
 Object.keys(algorithms).forEach(function (key) {
   algorithms[key].id = new Buffer(algorithms[key].id, 'hex')
   algorithms[key.toLowerCase()] = algorithms[key]
@@ -68316,7 +68318,7 @@ var crt = __webpack_require__(173)
 var EC = __webpack_require__(26).ec
 var BN = __webpack_require__(18)
 var parseKeys = __webpack_require__(126)
-var curves = __webpack_require__(279)
+var curves = __webpack_require__(280)
 
 function sign (hash, key, hashType, signType, tag) {
   var priv = parseKeys(key)
@@ -68474,7 +68476,7 @@ module.exports = {"_from":"elliptic@^6.4.0","_id":"elliptic@6.4.0","_inBundle":f
 var utils = exports;
 var BN = __webpack_require__(18);
 var minAssert = __webpack_require__(37);
-var minUtils = __webpack_require__(271);
+var minUtils = __webpack_require__(272);
 
 utils.assert = minAssert;
 utils.toArray = minUtils.toArray;
@@ -70766,9 +70768,9 @@ defineCurve('secp256k1', {
 
 exports.sha1 = __webpack_require__(616);
 exports.sha224 = __webpack_require__(617);
-exports.sha256 = __webpack_require__(273);
+exports.sha256 = __webpack_require__(274);
 exports.sha384 = __webpack_require__(618);
-exports.sha512 = __webpack_require__(274);
+exports.sha512 = __webpack_require__(275);
 
 
 /***/ }),
@@ -70780,7 +70782,7 @@ exports.sha512 = __webpack_require__(274);
 
 var utils = __webpack_require__(49);
 var common = __webpack_require__(95);
-var shaCommon = __webpack_require__(272);
+var shaCommon = __webpack_require__(273);
 
 var rotl32 = utils.rotl32;
 var sum32 = utils.sum32;
@@ -70860,7 +70862,7 @@ SHA1.prototype._digest = function digest(enc) {
 
 
 var utils = __webpack_require__(49);
-var SHA256 = __webpack_require__(273);
+var SHA256 = __webpack_require__(274);
 
 function SHA224() {
   if (!(this instanceof SHA224))
@@ -70898,7 +70900,7 @@ SHA224.prototype._digest = function digest(enc) {
 
 var utils = __webpack_require__(49);
 
-var SHA512 = __webpack_require__(274);
+var SHA512 = __webpack_require__(275);
 
 function SHA384() {
   if (!(this instanceof SHA384))
@@ -72179,7 +72181,7 @@ EC.prototype.getKeyRecoveryParam = function(e, signature, Q, enc) {
 
 
 var hash = __webpack_require__(174);
-var utils = __webpack_require__(271);
+var utils = __webpack_require__(272);
 var assert = __webpack_require__(37);
 
 function HmacDRBG(options) {
@@ -73971,7 +73973,7 @@ Node.prototype._isPrintstr = function isPrintstr(str) {
 /* 634 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var constants = __webpack_require__(276);
+var constants = __webpack_require__(277);
 
 exports.tagClass = {
   0: 'universal',
@@ -74021,7 +74023,7 @@ exports.tagByName = constants._reverse(exports.tag);
 
 var decoders = exports;
 
-decoders.der = __webpack_require__(277);
+decoders.der = __webpack_require__(278);
 decoders.pem = __webpack_require__(636);
 
 
@@ -74032,7 +74034,7 @@ decoders.pem = __webpack_require__(636);
 var inherits = __webpack_require__(5);
 var Buffer = __webpack_require__(1).Buffer;
 
-var DERDecoder = __webpack_require__(277);
+var DERDecoder = __webpack_require__(278);
 
 function PEMDecoder(entity) {
   DERDecoder.call(this, entity);
@@ -74086,7 +74088,7 @@ PEMDecoder.prototype.decode = function decode(data, options) {
 
 var encoders = exports;
 
-encoders.der = __webpack_require__(278);
+encoders.der = __webpack_require__(279);
 encoders.pem = __webpack_require__(638);
 
 
@@ -74096,7 +74098,7 @@ encoders.pem = __webpack_require__(638);
 
 var inherits = __webpack_require__(5);
 
-var DEREncoder = __webpack_require__(278);
+var DEREncoder = __webpack_require__(279);
 
 function PEMEncoder(entity) {
   DEREncoder.call(this, entity);
@@ -74263,7 +74265,7 @@ module.exports = function (okey, password) {
 var BN = __webpack_require__(18)
 var EC = __webpack_require__(26).ec
 var parseKeys = __webpack_require__(126)
-var curves = __webpack_require__(279)
+var curves = __webpack_require__(280)
 
 function verify (sig, hash, key, signType, tag) {
   var pub = parseKeys(key)
@@ -74496,10 +74498,10 @@ exports.publicDecrypt = function publicDecrypt(key, buf) {
 /* WEBPACK VAR INJECTION */(function(Buffer) {var parseKeys = __webpack_require__(126);
 var randomBytes = __webpack_require__(74);
 var createHash = __webpack_require__(75);
-var mgf = __webpack_require__(280);
-var xor = __webpack_require__(281);
+var mgf = __webpack_require__(281);
+var xor = __webpack_require__(282);
 var bn = __webpack_require__(18);
-var withPublic = __webpack_require__(282);
+var withPublic = __webpack_require__(283);
 var crt = __webpack_require__(173);
 
 var constants = {
@@ -74595,12 +74597,12 @@ function nonZero(len, crypto) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var parseKeys = __webpack_require__(126);
-var mgf = __webpack_require__(280);
-var xor = __webpack_require__(281);
+var mgf = __webpack_require__(281);
+var xor = __webpack_require__(282);
 var bn = __webpack_require__(18);
 var crt = __webpack_require__(173);
 var createHash = __webpack_require__(75);
-var withPublic = __webpack_require__(282);
+var withPublic = __webpack_require__(283);
 module.exports = function privateDecrypt(private_key, enc, reverse) {
   var padding;
   if (private_key.padding) {
@@ -75256,8 +75258,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root,
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__antelle_calc_js__ = __webpack_require__(283);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__antelle_main_js__ = __webpack_require__(284);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__antelle_calc_js__ = __webpack_require__(284);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__antelle_main_js__ = __webpack_require__(285);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_BufferExtended__ = __webpack_require__(4);
 
 
@@ -75574,7 +75576,7 @@ module.exports = win;
 
 "use strict";
 
-var immediate = __webpack_require__(286);
+var immediate = __webpack_require__(287);
 
 /* istanbul ignore next */
 function INTERNAL() {}
@@ -75870,7 +75872,7 @@ exports.coerce = coerce;
 exports.disable = disable;
 exports.enable = enable;
 exports.enabled = enabled;
-exports.humanize = __webpack_require__(287);
+exports.humanize = __webpack_require__(288);
 
 /**
  * Active `debug` instances.
@@ -77245,7 +77247,7 @@ for (var key in templates) {
 }
 
 module.exports = {
-  bufferutils: __webpack_require__(295), // TODO: remove in 4.0.0
+  bufferutils: __webpack_require__(296), // TODO: remove in 4.0.0
 
   Block: __webpack_require__(683),
   ECPair: __webpack_require__(183),
@@ -77267,7 +77269,7 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var NATIVE = __webpack_require__(176)
-var ERRORS = __webpack_require__(290)
+var ERRORS = __webpack_require__(291)
 
 function _Buffer (value) {
   return Buffer.isBuffer(value)
@@ -77364,7 +77366,7 @@ module.exports = map
 
 var Buffer = __webpack_require__(3).Buffer
 var bscript = __webpack_require__(19)
-var p2mso = __webpack_require__(292)
+var p2mso = __webpack_require__(293)
 var typeforce = __webpack_require__(13)
 var OPS = __webpack_require__(24)
 
@@ -77688,8 +77690,8 @@ var typeforce = __webpack_require__(13)
 var p2ms = __webpack_require__(178)
 var p2pk = __webpack_require__(179)
 var p2pkh = __webpack_require__(180)
-var p2wpkho = __webpack_require__(293)
-var p2wsho = __webpack_require__(294)
+var p2wpkho = __webpack_require__(294)
+var p2wsho = __webpack_require__(295)
 
 function check (script, allowIncomplete) {
   var chunks = bscript.decompile(script)
@@ -77812,7 +77814,7 @@ module.exports = {
 
 module.exports = {
   input: __webpack_require__(678),
-  output: __webpack_require__(293)
+  output: __webpack_require__(294)
 }
 
 
@@ -77873,7 +77875,7 @@ module.exports = {
 
 module.exports = {
   input: __webpack_require__(680),
-  output: __webpack_require__(294)
+  output: __webpack_require__(295)
 }
 
 
@@ -78380,7 +78382,7 @@ module.exports = {
 "use strict";
 
 
-var base58 = __webpack_require__(248)
+var base58 = __webpack_require__(249)
 var Buffer = __webpack_require__(3).Buffer
 
 module.exports = function (checksumFn) {
@@ -78609,7 +78611,7 @@ module.exports = {"_from":"bigi@^1.4.0","_id":"bigi@1.4.2","_inBundle":false,"_i
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {// FIXME: Kind of a weird way to throw exceptions, consider removing
 var assert = __webpack_require__(186)
-var BigInteger = __webpack_require__(296)
+var BigInteger = __webpack_require__(297)
 
 /**
  * Turns a byte array into a big integer.
@@ -78708,7 +78710,7 @@ BigInteger.prototype.toHex = function(size) {
 var BigInteger = __webpack_require__(60)
 
 var curves = __webpack_require__(691)
-var Curve = __webpack_require__(298)
+var Curve = __webpack_require__(299)
 
 function getCurveByName (name) {
   var curve = curves[name]
@@ -79914,7 +79916,7 @@ module.exports = TransactionBuilder
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_mini_blockchain_blockchain_Mini_Blockchain_Advanced__ = __webpack_require__(299);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_mini_blockchain_blockchain_Mini_Blockchain_Advanced__ = __webpack_require__(300);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_mini_blockchain_blockchain_Mini_Blockchain_Light__ = __webpack_require__(750);
 
 
@@ -79939,13 +79941,13 @@ class MainBlockchain extends  inheritedBlockchain{
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_ppow_blockchain_blockchain_PPoW_Blockchain__ = __webpack_require__(697);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_interface_blockchain_blockchain_Interface_Blockchain__ = __webpack_require__(300);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__state_Mini_Blockchain_Accountant_Tree__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_interface_blockchain_blockchain_Interface_Blockchain__ = __webpack_require__(301);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__state_Mini_Blockchain_Accountant_Tree__ = __webpack_require__(198);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__blocks_Mini_Blockchain_Block__ = __webpack_require__(741);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__blocks_Mini_Blockchain_Block_Data__ = __webpack_require__(744);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Creator__ = __webpack_require__(303);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Creator__ = __webpack_require__(304);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__transactions_Mini_Blockchain_Transactions__ = __webpack_require__(746);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_common_utils_Revert_Actions_Revert_Actions__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_common_utils_Revert_Actions_Revert_Actions__ = __webpack_require__(193);
 
 
 
@@ -80164,7 +80166,7 @@ class MiniBlockchain extends  inheritBlockchain{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blockchain_Interface_Blockchain__ = __webpack_require__(300);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blockchain_Interface_Blockchain__ = __webpack_require__(301);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__prover_PPoW_Blockchain_Prover__ = __webpack_require__(734);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__verifier_PPoW_Blockchain_Verifier__ = __webpack_require__(736);
 
@@ -80234,9 +80236,10 @@ class PPoWBlockchain extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_inter
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_events_Status_Events_js__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_events_Status_Events__ = __webpack_require__(21);
 
 
+var BigNumber = __webpack_require__ (190);
 /**
  * It creates like an Array of Blocks. In case the Block doesn't exist, it will be stored as `undefined`
  **/
@@ -80249,6 +80252,8 @@ class InterfaceBlockchainBlocks{
 
         this.blocksStartingPoint = 0;
         this.length = 0;
+
+        this.networkHashRate = 0 ;
     }
 
     addBlock(block){
@@ -80256,8 +80261,8 @@ class InterfaceBlockchainBlocks{
         this[this.length] =  block;
         this.length += 1;
 
-        __WEBPACK_IMPORTED_MODULE_1_common_events_Status_Events_js__["a" /* default */].emit("blockchain/blocks-count-changed", this.length);
-        __WEBPACK_IMPORTED_MODULE_1_common_events_Status_Events_js__["a" /* default */].emit("blockchain/block-inserted", block);
+        __WEBPACK_IMPORTED_MODULE_1_common_events_Status_Events__["a" /* default */].emit("blockchain/blocks-count-changed", this.length);
+        __WEBPACK_IMPORTED_MODULE_1_common_events_Status_Events__["a" /* default */].emit("blockchain/block-inserted", block);
 
         //delete old blocks when I am in light node
         if (this.blockchain.agent !== undefined && this.blockchain.agent.light){
@@ -80284,7 +80289,7 @@ class InterfaceBlockchainBlocks{
 
         this.length = after;
 
-        __WEBPACK_IMPORTED_MODULE_1_common_events_Status_Events_js__["a" /* default */].emit("blockchain/blocks-count-changed", this.length);
+        __WEBPACK_IMPORTED_MODULE_1_common_events_Status_Events__["a" /* default */].emit("blockchain/blocks-count-changed", this.length);
     }
 
     clear(){
@@ -80311,6 +80316,30 @@ class InterfaceBlockchainBlocks{
         return this[ this.blocksStartingPoint ];
     }
 
+    recalculateNetworkHashRate(){
+
+        let MaxTarget = new BigNumber("0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
+        let SumDiff = new BigNumber( 0 );
+
+        let how_much_it_took_to_mine_X_Blocks = 0;
+        for (let i=this.blockchain.blocks.endingPosition - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.NO_BLOCKS; i<this.blockchain.blocks.endingPosition; i++) {
+
+            if (this.blockchain.blocks[i] === undefined) continue;
+
+            let Diff = MaxTarget.dividedBy( new BigNumber ( "0x"+ this.blockchain.blocks[i].difficultyTarget.toString("hex") ) );
+            SumDiff = SumDiff.plus(Diff);
+
+            how_much_it_took_to_mine_X_Blocks += this.blockchain.getTimeStamp(i+1) - this.blockchain.getTimeStamp(i);
+        }
+
+        let answer = SumDiff.dividedToIntegerBy(how_much_it_took_to_mine_X_Blocks).toNumber();
+        console.warn(answer);
+
+        __WEBPACK_IMPORTED_MODULE_1_common_events_Status_Events__["a" /* default */].emit("blockchain/new-network-hash-rate", answer);
+
+        return answer;
+
+    }
 
 }
 
@@ -80325,7 +80354,7 @@ class InterfaceBlockchainBlocks{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_crypto_WebDollar_Crypto__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_Serialization__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__transactions_transaction_Interface_Blockchain_Transaction__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__transactions_transaction_Interface_Blockchain_Transaction__ = __webpack_require__(192);
 
 
 
@@ -80664,7 +80693,7 @@ class InterfaceBlockchainForksAdministrator {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
 var BigInteger = __webpack_require__(59);
-var BigNumber = __webpack_require__ (304);
+var BigNumber = __webpack_require__ (190);
 
 
 
@@ -80766,7 +80795,7 @@ class BlockchainDifficulty{
 var utils = __webpack_require__(38);
 var bind = __webpack_require__(306);
 var Axios = __webpack_require__(704);
-var defaults = __webpack_require__(194);
+var defaults = __webpack_require__(195);
 
 /**
  * Create an instance of Axios
@@ -80849,7 +80878,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(194);
+var defaults = __webpack_require__(195);
 var utils = __webpack_require__(38);
 var InterceptorManager = __webpack_require__(713);
 var dispatchRequest = __webpack_require__(714);
@@ -81381,7 +81410,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(38);
 var transformData = __webpack_require__(715);
 var isCancel = __webpack_require__(309);
-var defaults = __webpack_require__(194);
+var defaults = __webpack_require__(195);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -81881,7 +81910,7 @@ exports.getContinentFromCountry = (countryCode) =>{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-const axios = __webpack_require__(193);
+const axios = __webpack_require__(194);
 
 class DownloadHelper{
 
@@ -83282,7 +83311,7 @@ class BanObject{
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_PPoW_Helper__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_PPoW_Helper__ = __webpack_require__(197);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__proofs_PPoW_Blockchain_Proof_Pi__ = __webpack_require__(129);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__proofs_PPoW_Blockchain_Proof_Xi__ = __webpack_require__(735);
 
@@ -83437,7 +83466,7 @@ class PPowBlockchainProofXi extends __WEBPACK_IMPORTED_MODULE_0__PPoW_Blockchain
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_PPoW_Helper__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_PPoW_Helper__ = __webpack_require__(197);
 
 
 
@@ -85131,7 +85160,7 @@ class Convert{
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_ppow_blockchain_blocks_PPoW_Blockchain_Block_Data__ = __webpack_require__(745);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Data__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Data__ = __webpack_require__(191);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_consts_const_global__ = __webpack_require__(2);
 
@@ -85237,7 +85266,7 @@ class MiniBlockchainBlockData extends  inheritBlockData {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Data__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Data__ = __webpack_require__(191);
 
 
 class PPoWBlockchainBlockData extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Data__["a" /* default */] {
@@ -85278,7 +85307,7 @@ class MiniBlockchainTransactions extends __WEBPACK_IMPORTED_MODULE_0_common_bloc
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_transactions_transaction_Interface_Blockchain_Transaction__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_transactions_transaction_Interface_Blockchain_Transaction__ = __webpack_require__(192);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Transaction_From__ = __webpack_require__(748);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Mini_Blockchain_Transaction_To__ = __webpack_require__(749);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_coins_WebDollar_Coins__ = __webpack_require__(42);
@@ -85399,7 +85428,7 @@ class MiniBlockchainTransaction extends  __WEBPACK_IMPORTED_MODULE_0_common_bloc
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_transactions_transaction_Interface_Blockchain_Transaction_From__ = __webpack_require__(301);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_transactions_transaction_Interface_Blockchain_Transaction_From__ = __webpack_require__(302);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_utils_coins_WebDollar_Coins__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__ = __webpack_require__(4);
 
@@ -85503,7 +85532,7 @@ class MiniBlockchainTransactionFrom extends __WEBPACK_IMPORTED_MODULE_0_common_b
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_transactions_transaction_Interface_Blockchain_Transaction_To__ = __webpack_require__(302);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_transactions_transaction_Interface_Blockchain_Transaction_To__ = __webpack_require__(303);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_utils_coins_WebDollar_Coins__ = __webpack_require__(42);
 
 
@@ -85537,8 +85566,8 @@ class MiniBlockchainTransactionTo extends __WEBPACK_IMPORTED_MODULE_0_common_blo
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_consts_global__ = __webpack_require__(77);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_Serialization__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Mini_Blockchain_Advanced__ = __webpack_require__(299);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__state_Mini_Blockchain_Accountant_Tree__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Mini_Blockchain_Advanced__ = __webpack_require__(300);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__state_Mini_Blockchain_Accountant_Tree__ = __webpack_require__(198);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_blockchain_global_Blockchain_Genesis__ = __webpack_require__(50);
 
 
@@ -87336,7 +87365,7 @@ module.exports = function (moduleId, options) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_crypto_Argon2_browser_web_assembly_antelle_calc_js__ = __webpack_require__(283);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_crypto_Argon2_browser_web_assembly_antelle_calc_js__ = __webpack_require__(284);
 
 let Argon2WebAssemblyCalc = new __WEBPACK_IMPORTED_MODULE_0_common_crypto_Argon2_browser_web_assembly_antelle_calc_js__["a" /* default */]();
 
@@ -87640,9 +87669,9 @@ class MainBlockchainAgent{
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_ppow_blockchain_agents_PPoW_Blockchain_Agent_Full_Node__ = __webpack_require__(323);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_agents_Interface_Blockchain_Agent_Full_Node__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_mini_blockchain_protocol_Mini_Blockchain_Advanced_Protocol__ = __webpack_require__(203);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__protocol_Mini_Blockchain_Fork__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_agents_Interface_Blockchain_Agent_Full_Node__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_mini_blockchain_protocol_Mini_Blockchain_Advanced_Protocol__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__protocol_Mini_Blockchain_Fork__ = __webpack_require__(205);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_consts_const_global__ = __webpack_require__(2);
 
 
@@ -87683,7 +87712,7 @@ class MiniBlockchainAgentFullNode extends inheritAgentClass{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_events_Status_Events__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__helpers_PPoW_Helper__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__helpers_PPoW_Helper__ = __webpack_require__(197);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils_bans_BansList__ = __webpack_require__(102);
 
 
@@ -87954,8 +87983,8 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_ppow_blockchain_agents_PPoW_Blockchain_Agent_Block_Headers__ = __webpack_require__(767);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_agents_Interface_Blockchain_Agent_Block_Headers__ = __webpack_require__(326);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__protocol_Mini_Blockchain_Advanced_Protocol__ = __webpack_require__(203);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__protocol_Mini_Blockchain_Fork__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__protocol_Mini_Blockchain_Advanced_Protocol__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__protocol_Mini_Blockchain_Fork__ = __webpack_require__(205);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_consts_const_global__ = __webpack_require__(2);
 
 
@@ -87991,7 +88020,7 @@ class MiniBlockchainAgentBlockHeaders extends inheritAgentClass{
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_agents_Interface_Blockchain_Agent_Block_Headers__ = __webpack_require__(326);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__protocol_PPoW_Blockchain_Protocol__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__protocol_PPoW_Blockchain_Protocol__ = __webpack_require__(201);
 
 
 
@@ -88012,14 +88041,14 @@ class PPoWBlockchainAgentBlockHeaders extends __WEBPACK_IMPORTED_MODULE_0_common
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_ppow_blockchain_agents_PPoW_Blockchain_Agent_Full_Node__ = __webpack_require__(323);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_agents_Interface_Blockchain_Agent_Full_Node__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_agents_Interface_Blockchain_Agent_Full_Node__ = __webpack_require__(202);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_mini_blockchain_protocol_light_Mini_Blockchain_Light_Protocol__ = __webpack_require__(769);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__protocol_light_Mini_Blockchain_Light_Fork__ = __webpack_require__(772);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_node_lists_nodes_list__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_node_lists_types_Connections_Type__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_agents_Agent_Status__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_agents_Agent_Status__ = __webpack_require__(203);
 
 
 
@@ -88114,7 +88143,7 @@ class MiniBlockchainAgentLightNode extends inheritAgentClass{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Mini_Blockchain_Advanced_Protocol__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Mini_Blockchain_Advanced_Protocol__ = __webpack_require__(204);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Light_Protocol_Fork_Solver__ = __webpack_require__(770);
 
 
@@ -88144,7 +88173,7 @@ class MiniBlockchainLightProtocol extends __WEBPACK_IMPORTED_MODULE_0__Mini_Bloc
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_protocol_Interface_Blockchain_Protocol_Fork_Solver__ = __webpack_require__(199);
+/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_protocol_Interface_Blockchain_Protocol_Fork_Solver__ = __webpack_require__(200);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_ppow_blockchain_protocol_PPoW_Blockchain_Protocol_Fork_Solver__ = __webpack_require__(771);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_events_Status_Events__ = __webpack_require__(21);
@@ -88410,7 +88439,7 @@ class MiniBlockchainLightProtocolForkSolver extends inheritForkSolver{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_protocol_Interface_Blockchain_Protocol_Fork_Solver__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_protocol_Interface_Blockchain_Protocol_Fork_Solver__ = __webpack_require__(200);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_events_Status_Events__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__blockchain_prover_proofs_PPoW_Blockchain_Proof_Pi__ = __webpack_require__(129);
@@ -88434,7 +88463,7 @@ class PPoWBlockchainProtocolForkSolver extends __WEBPACK_IMPORTED_MODULE_0_commo
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Fork__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Mini_Blockchain_Fork__ = __webpack_require__(205);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_interface_blockchain_blocks_validation_Interface_Blockchain_Block_Validation__ = __webpack_require__(127);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_blockchain_global_Blockchain_Mining_Reward__ = __webpack_require__(99);
 
@@ -88747,7 +88776,7 @@ class MiniBlockchainBalances{
 
 let PounchDB;
 
-if (true) PounchDB = __webpack_require__(285).default;
+if (true) PounchDB = __webpack_require__(286).default;
 else PounchDB = require('pouchdb-node');
 
 const DATABASES = ["validateDB", "defaultDB", __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DATABASE_NAMES.BLOCKCHAIN_DATABASE.FOLDER];
@@ -89313,7 +89342,7 @@ class NodeClient {
  */
 
 var url = __webpack_require__(780);
-var parser = __webpack_require__(205);
+var parser = __webpack_require__(206);
 var Manager = __webpack_require__(331);
 var debug = __webpack_require__(131)('socket.io-client');
 
@@ -89502,7 +89531,7 @@ exports.coerce = coerce;
 exports.disable = disable;
 exports.enable = enable;
 exports.enabled = enabled;
-exports.humanize = __webpack_require__(287);
+exports.humanize = __webpack_require__(288);
 
 /**
  * The currently active debug mode names, and names to skip.
@@ -90015,7 +90044,7 @@ Socket.protocol = parser.protocol; // this is an int
  */
 
 Socket.Socket = Socket;
-Socket.Transport = __webpack_require__(207);
+Socket.Transport = __webpack_require__(208);
 Socket.transports = __webpack_require__(332);
 Socket.parser = __webpack_require__(88);
 
@@ -90649,7 +90678,7 @@ try {
  * Module requirements.
  */
 
-var XMLHttpRequest = __webpack_require__(206);
+var XMLHttpRequest = __webpack_require__(207);
 var Polling = __webpack_require__(333);
 var Emitter = __webpack_require__(87);
 var inherit = __webpack_require__(133);
@@ -91845,7 +91874,7 @@ JSONPPolling.prototype.doWrite = function (data, fn) {
  * Module dependencies.
  */
 
-var Transport = __webpack_require__(207);
+var Transport = __webpack_require__(208);
 var parser = __webpack_require__(88);
 var parseqs = __webpack_require__(132);
 var inherit = __webpack_require__(133);
@@ -92701,8 +92730,8 @@ class NodeSignalingServerWaitlistObject{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__signaling_client_list__ = __webpack_require__(209);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Node_Signaling_Client_Protocol__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__signaling_client_list__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Node_Signaling_Client_Protocol__ = __webpack_require__(209);
 
 
 
@@ -92755,7 +92784,7 @@ class SignalingClientPeerObject {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_sockets_socket_extend__ = __webpack_require__(338);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_sockets_protocol_signaling_client_Node_Signaling_Client_Protocol__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_sockets_protocol_signaling_client_Node_Signaling_Client_Protocol__ = __webpack_require__(209);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_types_Connections_Type__ = __webpack_require__(51);
 /*
     WEBRTC Node Peer
@@ -93564,7 +93593,7 @@ class NodeClientsService {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_waitlist_nodes_waitlist_object__ = __webpack_require__(342);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_nodes_list__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__fallbacks_fallback_object__ = __webpack_require__(809);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__fallbacks_fallback_nodes_list__ = __webpack_require__(251);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__fallbacks_fallback_nodes_list__ = __webpack_require__(252);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_node_lists_types_Nodes_Type__ = __webpack_require__(62);
 
 
@@ -93574,7 +93603,7 @@ class NodeClientsService {
 
 
 
-const axios = __webpack_require__(193);
+const axios = __webpack_require__(194);
 
 class NodeDiscoveryService {
 
@@ -93939,7 +93968,7 @@ class NodesStats {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_geolocation_lists_geo_helpers_geo_helper__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_geolocation_lists_geo_helpers_geo_helper__ = __webpack_require__(196);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_coins_WebDollar_Coins__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_consts_const_global__ = __webpack_require__(2);

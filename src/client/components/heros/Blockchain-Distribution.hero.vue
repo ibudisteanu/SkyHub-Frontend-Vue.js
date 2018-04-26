@@ -34,7 +34,7 @@
                             <span v-show="!this.loaded" class="value">
                                 <loading-spinner />
                             </span>
-                            <span v-show="this.loaded" class="value">200.000</span>
+                            <span v-show="this.loaded" class="value">{{this.getNetworkHashrate}}</span>
                             <span class="description">Global Hash rate</span>
                         </div>
                     </div>
@@ -73,7 +73,9 @@
                 loaded:false,
 
                 distributionProgressBarMax : 42000000000,
-                distributionProgressBarMin : 0
+                distributionProgressBarMin : 0,
+
+                networkHashRate: 0,
             }
         },
 
@@ -92,6 +94,13 @@
             distributionBlocks(){
                 return this.formatMoneyNumber(this.blocksLength, 0)
             },
+
+            getNetworkHashrate(){
+
+                if (this.networkHashRate >= 1000000) return (this.networkHashRate / 1000000).toFixed(0) + " MH/s";
+                if (this.networkHashRate >= 1000) return (this.networkHashRate / 1000).toFixed(0) + " KH/s";
+
+            }
         },
 
         mounted(){
@@ -103,6 +112,7 @@
                 this.verifyIfContainData( WebDollar.Blockchain.Chain.accountantTree.calculateNodeCoins() / 10000 );
 
                 this.blocksLength = WebDollar.Blockchain.Chain.blocks.length;
+                this.networkHashRate = WebDollar.Blockchain.Chain.blocks.networkHashRate;
 
             }
 
@@ -113,6 +123,14 @@
                 this.blocksLength = blocksLength;
 
             });
+
+            WebDollar.StatusEvents.on("blockchain/new-network-hash-rate", (networkHashRate)=>{
+
+                this.networkHashRate = networkHashRate;
+
+            });
+
+
 
         },
 
