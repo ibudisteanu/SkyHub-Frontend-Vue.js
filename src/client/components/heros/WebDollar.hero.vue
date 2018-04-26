@@ -59,7 +59,9 @@
                 loaded: false,
                 maintenance: false,
                 mainNet: false,
-                countDown: 'April 26, 2018 13:00:00 GMT+0'
+                countDownStatus: true,
+                countDown: 'April 26, 2018 13:00:00 GMT+0',
+                randomReloader: 10,
             }
         },
 
@@ -121,12 +123,34 @@
 
             finishCountDown(){
 
+                this.countDownStatus = false;
+                this.restartPage();
+
+            },
+
+            restartPage(){
+
                 if (this.mainNet === false){
 
-                    this.mainNet = true;
-                    location.reload();
+                    setTimeout(()=>{
+
+                        this.randomReloader = this.randomReloader-1;
+
+                        var newreloader = Math.floor(Math.random() * 10) + 1;
+
+                        if( newreloader < this.randomReloader/1.5 ){
+
+                            this.mainNet = true;
+                            location.reload();
+
+                        }
+
+                        this.restartPage();
+
+                    }, 10000);
 
                 }
+
 
             }
 

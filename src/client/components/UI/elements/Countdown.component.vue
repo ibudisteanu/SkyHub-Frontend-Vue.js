@@ -71,45 +71,39 @@
 
             countDown(){
 
-                var randomReloader = (Math.floor(Math.random() * 20) + 1)*1000;
+                let countDownDate = new Date(this.deadline).getTime();
 
-                if ( new Date(this.deadline) > new Date() ){
+                // Get todays date and time
+                let now = new Date().getTime();
 
-                    let countDownDate = new Date(this.deadline).getTime();
+                // Find the distance between now an the count down date
+                let distance = countDownDate - now;
 
-                    // Get todays date and time
-                    let now = new Date().getTime();
+                // Time calculations for days, hours, minutes and seconds
+                this.d = Math.floor(distance / (1000 * 60 * 60 * 24));
+                this.h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                this.m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                this.s = Math.floor((distance % (1000 * 60)) / 1000);
 
-                    // Find the distance between now an the count down date
-                    let distance = countDownDate - now;
+                // Estetic redefine
+                if (this.h < 10)
+                    this.h = '0' + this.h;
 
-                    // Time calculations for days, hours, minutes and seconds
-                    this.d = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    this.h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    this.m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    this.s = Math.floor((distance % (1000 * 60)) / 1000);
+                if (this.d < 10)
+                    this.d = '0' + this.d;
 
-                    // Estetic redefine
-                    if (this.h < 10)
-                        this.h = '0' + this.h;
+                if (this.m < 10)
+                    this.m = '0' + this.m;
 
-                    if (this.d < 10)
-                        this.d = '0' + this.d;
+                if (this.s < 10)
+                    this.s = '0' + this.s;
 
-                    if (this.m < 10)
-                        this.m = '0' + this.m;
-
-                    if (this.s < 10)
-                        this.s = '0' + this.s;
-
-                    // If the count down is finished, write some text
-                    if (distance-randomReloader < 0) {
-                        clearInterval(this.interval);
-                        this.interval = undefined;
-                        this.message = 'FINISHED';
-                        this.$emit('countDownFinished', this.deadline);
-                    }
-
+                // If the count down is finished, write some text
+                if (distance < 0) {
+                    clearInterval(this.interval);
+                    this.interval = undefined;
+                    this.message = 'FINISHED';
+                    this.$emit('countDownFinished', this.deadline);
                 }
 
             }
