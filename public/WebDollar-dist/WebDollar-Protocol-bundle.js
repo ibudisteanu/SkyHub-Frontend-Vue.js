@@ -2112,8 +2112,8 @@ consts.SETTINGS = {
 
     NODE: {
 
-        VERSION: "1.04",
-        VERSION_COMPATIBILITY: "1.04",
+        VERSION: "1.05",
+        VERSION_COMPATIBILITY: "1.05",
         PROTOCOL: "WebDollar",
         SSL: true,
 
@@ -9056,7 +9056,7 @@ class BlockchainGenesis{
 
     constructor(){
 
-        this.hashPrev = new Buffer("166AFE589A3B2AC6EFE88EFF8735B26933576EB751FA565DCA37FC5974C58F80", "hex");
+        this.hashPrev = new Buffer("166AFE589A322AC6EFE88EFF8735B26933576EB751FA565DCA37FC5974C58F80", "hex");
 
         this.timeStamp = 0;
         this.timeStampOffset = 1523836074;
@@ -14462,7 +14462,7 @@ class BlockchainMiningReward{
             let v = [1, 1867487789, 1007804769, 552321669, 307400655, 173745886, 99728963, 58133318,
                     34413271, 20688253, 12630447, 7830882, 4930598, 3152722, 2047239, 1350046, 904119,
                     614893, 424689, 297878, 212180, 153485, 112752, 84116, 63728, 49032, 38311, 30400,
-                    24497, 20047, 16660, 14061, 12051, 10490, 9272, 8323, 7588, 7025, 6604, 6306, 6114];
+                    24497, 20047, 16660, 14061, 12051, 10490, 9272, 8323, 7588, 7025, 6604, 6306, 6113];
 
             return v[height] * __WEBPACK_IMPORTED_MODULE_0_common_utils_coins_WebDollar_Coins__["a" /* default */].WEBD;
         }
