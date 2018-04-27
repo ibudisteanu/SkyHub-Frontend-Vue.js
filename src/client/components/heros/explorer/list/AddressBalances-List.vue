@@ -8,7 +8,7 @@
 
         <div v-if="this.data!==false" class="list balancesExplorer">
 
-            <chart :data="this.data" class="balanceChart" ></chart>
+            <chart :data="this.removeNullAddresses(this.data)" class="balanceChart" ></chart>
 
             <div class="listHead listElement list">
                 <div>No.</div>
@@ -17,7 +17,7 @@
                 <div>Balance</div>
             </div>
 
-            <div class="listElement list" v-for="(element, index) in this.data" :key="'balances '+index">
+            <div class="listElement list" v-for="(element, index) in this.removeNullAddresses(this.data)" :key="'balances '+index">
                 <div>{{index}}</div>
                 <div :style="{backgroundColor: Utils.generateRandomcolor(element.address)}"></div>
                 <div class="address">{{element.address}}</div>
@@ -47,6 +47,19 @@
         },
 
         methods:{
+
+            removeNullAddresses(data){
+
+                var newData =[];
+
+                console.log("############",data);
+
+                for (var i=0; i<data.length; i++)
+                    if (data[i].balance >= 10000) newData.push(data[i]);
+
+                return newData;
+
+            }
 
         },
 
