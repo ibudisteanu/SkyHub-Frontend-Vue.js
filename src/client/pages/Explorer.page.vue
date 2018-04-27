@@ -6,7 +6,7 @@
 
             <div slot="content">
 
-                <ranking-list/>
+                <address-explorer/>
 
             </div>
 
@@ -21,7 +21,7 @@
 <script>
 
     import Layout from "client/components/layout/Layout.vue";
-    import RankingList from "client/components/heros/bounty/Ranking-List.hero.vue";
+    import AddressExplorer from "client/components/heros/explorer/list/AddressBalances-List.vue";
     import MultipleTabs from "../components/heros/Multiple-Tabs.hero.vue";
 
     export default {
@@ -30,7 +30,7 @@
 
         components:{
             Layout,
-            RankingList,
+            AddressExplorer,
             MultipleTabs
         },
 
@@ -43,8 +43,6 @@
         mounted(){
 
             if (typeof window === "undefined") return false;
-
-
 
             WebDollar.StatusEvents.on("blockchain/status", (data)=>{
 

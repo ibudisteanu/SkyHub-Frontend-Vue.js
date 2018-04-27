@@ -1960,3 +1960,33 @@ background-color:#ff2200}
   color: #fff;
   letter-spacing: 3px;
 }
+
+.balancesExplorer{
+  width: 786px;
+  margin: 0 auto;
+  margin-bottom: 100px;
+}
+
+.balancesExplorer .list{
+  display:grid;
+  grid-template-columns: 80px 500px 200px;
+}
+
+.balancesExplorer .listHead{
+  display:grid;
+  grid-template-columns: 80px 500px 200px;
+  margin-top: 30px;
+}
+
+.balancesExplorer .title{
+  text-align: center;
+}
+
+.balanceExp h1{
+    margin-top: 100px;
+    text-align: center;
+}
+
+.balanceExp path{
+    fill: rgb(254, 192, 44)!important;
+}
