@@ -7081,8 +7081,6 @@ class InterfaceBlockchainAddressHelper{
         //could use publicKeyBytesCompressed as well
 
         //bitcoin original
-        //let hash160 = CryptoJS.RIPEMD160(CryptoJS.util.hexToBytes(CryptoJS.SHA256(publicKey.toBytes())))
-
         let hash160 =  __WEBPACK_IMPORTED_MODULE_1_common_crypto_WebDollar_Crypto__["a" /* default */].RIPEMD160(__WEBPACK_IMPORTED_MODULE_1_common_crypto_WebDollar_Crypto__["a" /* default */].SHA256(publicKey));
 
         if (showDebug)
@@ -30590,7 +30588,7 @@ module.exports = bytesToUuid;
         },
 
         {
-            "addr": ["webdollar.ddns.net:8089"],
+            "addr": ["webdollar.ddns.net:8091"],
         },
 
         {
@@ -84729,7 +84727,7 @@ class MiniBlockchainAccountantTreeNode extends __WEBPACK_IMPORTED_MODULE_3_commo
                 for (let i=0; i<node.parent.edges.length; i++)
                     if (node.parent.edges[i].targetNode === node){
 
-                        buffers.push( node.parent.edges[i].label );
+                        buffers.unshift(node.parent.edges[i].label);
                         break;
                     }
 
@@ -84745,11 +84743,14 @@ class MiniBlockchainAccountantTreeNode extends __WEBPACK_IMPORTED_MODULE_3_commo
     }
 
 
-    getAccountantTreeList(list, bIncludeMiningReward=true){
+    getAccountantTreeList(list, bIncludeMiningReward = true, excludeEmpty = true ){
 
         if (this.isLeaf()) {
 
             let balance = this.getBalance();
+
+            if (excludeEmpty)
+                if (balance === 0) return false;
 
             if (bIncludeMiningReward)
                 for (let i=1; i<=40; i++ )
