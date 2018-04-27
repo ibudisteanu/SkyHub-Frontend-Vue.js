@@ -8,18 +8,20 @@
 
         <div v-if="this.data!==false" class="list balancesExplorer">
 
-            <chart :data="this.data" class="balanceChart" ></chart>
+            <chart :data="this.removeNullAddresses(this.data)" class="balanceChart" ></chart>
 
             <div class="listHead listElement list">
                 <div>No.</div>
+                <div>C</div>
                 <div>Address</div>
                 <div>Balance</div>
             </div>
 
-            <div class="listElement list" v-for="(element, index) in this.data" :key="'balances '+index">
+            <div class="listElement list" v-for="(element, index) in this.removeNullAddresses(this.data)" :key="'balances '+index">
                 <div>{{index}}</div>
-                <div>{{element.address}}</div>
-                <div class="title">{{formatMoneyNumber(element.balance,2)}}</div>
+                <div :style="{backgroundColor: Utils.generateRandomcolor(element.address)}"></div>
+                <div class="address">{{element.address}}</div>
+                <div class="title">{{Utils.formatMoneyNumber(element.balance)}}</div>
             </div>
 
         </div>
@@ -32,6 +34,7 @@
 
     import LoadingSpinner from "client/components/UI/elements/Loading-Spinner.vue";
     import Chart from "client/components/UI/elements/Chart.vue"
+    import Utils from 'src/utils/util-functions'
 
     export default{
 
@@ -45,54 +48,25 @@
 
         methods:{
 
-            formatMoneyNumber(n, decimals=0) {
+            removeNullAddresses(data){
 
-                var number = parseInt(n/WebDollar.Applications.CoinsHelper.WEBD);
-                var decimalNumber = this.getNumberRest(n);
+                var newData =[];
 
-                return this.formatIntNumber(number)+'.'+this.getFirstDigits(decimalNumber,decimals);
+                console.log("############",data);
 
-            },
+                for (var i=0; i<data.length; i++)
+                    if (data[i].balance >= 10000) newData.push(data[i]);
 
-            formatIntNumber(number){
+                return newData;
 
-                return number.toString().replace(/./g, function(c, i, a) {
-                    return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;
-                });
+            }
 
-            },
+        },
 
-            getNumberRest(number){
+        computed:{
 
-                return number % WebDollar.Applications.CoinsHelper.WEBD;
-
-            },
-
-            getFirstDigits(number,decimals){
-
-                var decimalsVerifier = Math.pow(10,decimals);
-                var newNumber = '';
-
-                if(number<10){
-
-                    newNumber='000'+number.toString();
-
-                }else if(number<100){
-
-                    newNumber='00'+number.toString();
-
-                }else if(number<1000){
-
-                    newNumber='0'+number.toString();
-
-                }else if(number<10000){
-
-                    newNumber=''+number.toString();
-
-                }
-
-                return newNumber.substring(0,decimals);
-
+            Utils(){
+                return Utils;
             }
 
         },

@@ -1943,6 +1943,11 @@ background-color:#ff2200}
   color: #f20;
 }
 
+.balanceExp .address{
+  text-align: left;
+  padding-left: 10px;
+}
+
 .dezactivatedColors{
   background-color: #bdbdbd2e!important;
   color: #585858!important;
@@ -1962,19 +1967,19 @@ background-color:#ff2200}
 }
 
 .balancesExplorer{
-  width: 786px;
+  width: 690px;
   margin: 0 auto;
   margin-bottom: 100px;
 }
 
 .balancesExplorer .list{
   display:grid;
-  grid-template-columns: 80px 500px 200px;
+  grid-template-columns: 50px 30px 450px 150px;
 }
 
 .balancesExplorer .listHead{
   display:grid;
-  grid-template-columns: 80px 500px 200px;
+  grid-template-columns: 50px 30px 450px 150px;
   margin-top: 30px;
 }
 
