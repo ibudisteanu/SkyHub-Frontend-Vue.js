@@ -8,6 +8,8 @@
 
         <div v-if="this.data!==false" class="list balancesExplorer">
 
+            <chart :data="this.data"></chart>
+
             <div class="listHead listElement list">
                 <div>No.</div>
                 <div>Address</div>
@@ -28,11 +30,12 @@
 
 <script>
 
-    import LoadingSpinner from "client/components/UI/elements/Loading-Spinner.vue"
+    import LoadingSpinner from "client/components/UI/elements/Loading-Spinner.vue";
+    import Chart from "client/components/UI/elements/Chart.vue"
 
     export default{
 
-        components:{ LoadingSpinner },
+        components:{ LoadingSpinner, Chart },
 
         data: () => {
             return {
