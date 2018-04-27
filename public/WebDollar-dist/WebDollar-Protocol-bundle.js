@@ -88215,11 +88215,26 @@ class MiniBlockchainAgentLightNode extends inheritAgentClass{
 
             if (this.blockchain.proofPi !== null)
                 if ( new Date().getTime() - this.blockchain.proofPi.date.getTime() >= __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK *1000 * 2) {
-                    if (Math.random() < WEBRTC_MINIMUM_LIGHT_PROBABILITY && this.status === __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_agents_Agent_Status__["a" /* default */].AGENT_STATUS_SYNCHRONIZED_WEBRTC)
+                    if (Math.random() < 2*WEBRTC_MINIMUM_LIGHT_PROBABILITY && this.status === __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_agents_Agent_Status__["a" /* default */].AGENT_STATUS_SYNCHRONIZED_WEBRTC)
                         __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].synchronizeBlockchain(); //let's synchronize again
                 }
 
         }, (__WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK - 10) * 1000);
+
+        this._lastBlocks = undefined;
+        setInterval(()=>{
+
+            if (this.blockchain.blocks.length > 0){
+
+                if (this._lastBlocks !== undefined)
+                    if (this._lastBlocks === this.blockchain.blocks.length){
+                        location.reload();
+                    }
+
+                this._lastBlocks = this.blockchain.blocks.length;
+            }
+
+        }, __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK * 10 * 1000)
 
     }
 
@@ -88252,6 +88267,7 @@ class MiniBlockchainAgentLightNode extends inheritAgentClass{
         __WEBPACK_IMPORTED_MODULE_5_node_lists_nodes_list__["a" /* default */].emitter.on("nodes-list/connected", async (result) => {
 
             let webrtc = __WEBPACK_IMPORTED_MODULE_5_node_lists_nodes_list__["a" /* default */].countNodesByConnectionType(__WEBPACK_IMPORTED_MODULE_6_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_WEBRTC);
+
             if ( webrtc > WEBRTC_MINIMUM_LIGHT) {
                 //let's disconnect from full nodes
 
