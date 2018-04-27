@@ -17,11 +17,8 @@
 
         mounted() {
 
-            var coloR = [];
 
-
-
-            var chartData= {
+            let chartData= {
                 labels: [],
                 datasets: [
                     {
@@ -33,7 +30,10 @@
                 ],
             };
 
-            var chartOptions = {
+            let chartOptions = {
+
+                    responsive: true,
+                    maintainAspectRatio: false,
 
                     legend: {
                         display: false,
@@ -47,16 +47,14 @@
                         }
                     }
 
-            }
+            };
 
-            for(var i=0; i < this.data.length; i++){
+            for(let i=0; i < this.data.length; i++){
 
-                var address = this.data[i].address;
-                var balance = this.data[i].balance;
-                var color = this.generateRandomcolor(address);
+                var color = this.generateRandomcolor(this.data[i].address);
 
-                chartData.datasets[0].data.push(balance);
-                chartData.labels.push(address);
+                chartData.datasets[0].data.push(this.data[i].balance);
+                chartData.labels.push(this.data[i].address);
                 chartData.datasets[0].backgroundColor.push(color);
                 chartData.datasets[0].borderColor.push(color);
 
@@ -84,10 +82,7 @@
                         sum2 = sum2 + address.charCodeAt(i);
                 }
 
-                var r = sum0 % 255;
-                var g = sum1 % 255;
-                var b = sum2 % 255;
-                return "rgb(" + r + "," + g + "," + b + ")";
+                return "rgb(" + sum0 % 256 + "," + sum1 % 256 + "," + sum2 % 256 + ")";
             },
 
             updateNewData(data){

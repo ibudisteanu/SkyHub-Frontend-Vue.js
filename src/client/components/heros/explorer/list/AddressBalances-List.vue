@@ -8,7 +8,7 @@
 
         <div v-if="this.data!==false" class="list balancesExplorer">
 
-            <chart :data="this.data"></chart>
+            <chart :data="this.data" class="balanceChart" ></chart>
 
             <div class="listHead listElement list">
                 <div>No.</div>
@@ -118,3 +118,11 @@
     }
 
 </script>
+
+<style>
+
+    .balanceChart{
+        padding: 40px 0 40px 0;
+    }
+
+</style>

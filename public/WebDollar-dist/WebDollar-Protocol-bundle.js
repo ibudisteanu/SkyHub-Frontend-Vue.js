@@ -28152,7 +28152,8 @@ class NodeSignalingClientProtocol {
 
                 let answer = await webPeer.createSignalInitiator();
 
-                console.log("###################### signals/client/initiator/generate-initiator-signal/answer" + data.connectionId, answer, webPeer.peer, typeof answer);
+                if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].DEBUG)
+                    console.log("###################### signals/client/initiator/generate-initiator-signal/answer" + data.connectionId, answer, webPeer.peer, typeof answer);
 
                 if (answer.signal === undefined)
                     console.error("WEBRTC 1 is not supported !!!! being the initiator");
@@ -84710,7 +84711,7 @@ class MiniBlockchainAccountantTreeNode extends __WEBPACK_IMPORTED_MODULE_3_commo
             return true;
         else
         if (count > __WEBPACK_IMPORTED_MODULE_2_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.LENGTH)
-            throw {message: "Label is longer than any address"}
+            throw {message: "Label is longer than any address"};
         else
             return false;
 
@@ -92933,6 +92934,7 @@ class SignalingClientPeerObject {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_sockets_protocol_signaling_client_Node_Signaling_Client_Protocol__ = __webpack_require__(210);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_types_Connections_Type__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_consts_const_global__ = __webpack_require__(2);
 /*
     WEBRTC Node Peer
  */
@@ -92992,7 +92994,8 @@ class NodeWebPeerRTC {
 
     constructor(){
 
-        console.log("Peer WebRTC Client constructor");
+        if (__WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].DEBUG)
+            console.log("Peer WebRTC Client constructor");
 
         this.peer = null;
 
@@ -93023,7 +93026,7 @@ class NodeWebPeerRTC {
             if (!event || !event.candidate) return;
 
 
-            console.log("onicecandidate",event.candidate);
+            //console.log("onicecandidate",event.candidate);
             callbackSignalingServerSendIceCandidate(event.candidate);
 
         };
@@ -93236,7 +93239,9 @@ class NodeWebPeerRTC {
 
                 // Add the new ICE candidate to our connections remote description
                 try {
-                    console.log("inputSignal.candidate", inputSignal);
+
+                    if (__WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].DEBUG)
+                        console.log("inputSignal.candidate", inputSignal);
 
                     if (this.peer.setLocalDescription === true) {
 
