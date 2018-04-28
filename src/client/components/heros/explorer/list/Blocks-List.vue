@@ -8,7 +8,7 @@
 
         <div v-if="this.data!==false" class="list balancesExplorer blocksExplorer">
 
-            <chart :data="this.chartData" :options="this.chartOptions" class="balanceChart" ></chart>
+            <chart :data="this.chartData" :options="this.chartOptions" ref="refBlocksChart" class="balanceChart" ></chart>
 
             <div class="listHead listElement list">
                 <div>No.</div>
@@ -182,6 +182,9 @@
                     this.chartData.datasets[0].borderColor.push('#fff');
 
                 }
+
+                if (this.$refs['refBlocksChart']!==undefined)
+                    this.$refs['refBlocksChart'].rerender();
 
             }
 
