@@ -7,6 +7,7 @@ Vue.use(Router)
 
 const HomePage = () => import('client/pages/Home.page.vue');
 const Bounty = () => import('client/pages/Bounty.page.vue');
+const ExplorerBlocks = () => import('client/pages/ExplorerBlocks.page.vue');
 const ExplorerBalances = () => import('client/pages/Explorer.page.vue');
 const TransactionsPage = () => import('client/pages/Transactions.page.vue');
 const NetworkPage = () => import('client/pages/Pool.page.vue');
@@ -34,6 +35,7 @@ export function createRouter (){
         routes: [
 
             { path: '/explorer/balances', component: ExplorerBalances },
+            { path: '/explorer/blocks', component: ExplorerBlocks },
             { path: '/bounties', component: Bounty },
             { path: '/faq', component: FaqPage },
             { path: '/mypool', component: NetworkPage },
