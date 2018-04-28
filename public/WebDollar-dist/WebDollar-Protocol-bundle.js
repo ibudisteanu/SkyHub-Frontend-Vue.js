@@ -80598,9 +80598,8 @@ class InterfaceBlockchainBlockDataTransactions {
     calculateFees(){
 
         let fee = 0;
-        for (let i=0; i < this.transactions.length; i++){
-            fee += this.transactions[i].fee();
-        }
+        for (let i=0; i < this.transactions.length; i++)
+            fee += this.transactions[i].fee;
 
         return fee;
     }
