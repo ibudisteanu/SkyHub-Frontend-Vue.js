@@ -1665,7 +1665,6 @@ background-color:#ff2200}
   border:solid 1px #313131;
   text-align: center;
   padding: 0 5px;
-  border-top:none;
   box-sizing: border-box;
   color: #777;
   background-color: #171717d9;
@@ -1972,27 +1971,15 @@ background-color:#ff2200}
   margin-bottom: 100px;
 }
 
-.blocksExplorer{
-  width: 790px;
-}
-
 .balancesExplorer .list{
   display:grid;
   grid-template-columns: 50px 30px 450px 150px;
-}
-
-.blocksExplorer .list{
-  grid-template-columns: 50px 30px 450px 100px 150px;
 }
 
 .balancesExplorer .listHead{
   display:grid;
   grid-template-columns: 50px 30px 450px 150px;
   margin-top: 30px;
-}
-
-.blocksExplorer .listHead{
-  grid-template-columns: 50px 30px 450px 100px 150px;
 }
 
 .balancesExplorer .title{

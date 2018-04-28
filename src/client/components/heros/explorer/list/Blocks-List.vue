@@ -2,7 +2,7 @@
 
     <div class="balanceExp">
 
-        <h1>Last Blocks</h1>
+        <h1>Last Mined Blocks</h1>
 
         <loading-spinner class="bountySpinner" v-if="this.data===false" />
 
@@ -14,15 +14,13 @@
                 <div>No.</div>
                 <div>C</div>
                 <div>Rewarded Address</div>
-                <div>Blocks</div>
-                <div>WEBD Reward</div>
+                <div>Reward</div>
             </div>
 
             <div class="listElement list" v-for="(element, index) in this.data" :key="'balances '+index">
                 <div>{{element.height}}</div>
                 <div :style="{backgroundColor: Utils.generateRandomcolor(element.address)}"></div>
                 <div class="address">{{element.address}}</div>
-                <div>{{element.blocks}}</div>
                 <div class="title">{{Utils.formatMoneyNumber(element.reward)}}</div>
             </div>
 
@@ -52,19 +50,37 @@
 
         methods:{
 
-            updateChart(start,stop){
+            updateChart(blocks, start,stop){
 
                 var newData = [];
 
                 for (let i=stop-1; i>=start; i--){
 
-                    var newElement = this.data[i];
+                    let newElement = blocks[i];
+
+                    newData.push({
+                        height: newElement.height,
+                        address: WebDollar.Applications.BufferExtended.toBase(WebDollar.Applications.AddressHelper.generateAddressWIF( newElement.data.minerAddress)),
+                        reward: newElement.reward + newElement.data.transactions.calculateFees() ,
+                    });
+
+                }
+
+                return newData;
+
+            },
+
+            mergeDuplicates(blocks){
+
+                let newData=[];
+
+                for (let i=0; i<blocks.length; i++){
 
                     let found = null;
                     let foundPosition = null;
 
                     for (let j= 0;j<newData.length;j++){
-                        if(newElement.data.minerAddress.toString('hex') === newData[j].address){
+                        if(blocks[i].address === newData[j].address){
                             found = newData[j];
                             foundPosition=j;
                             break;
@@ -73,19 +89,16 @@
 
                     if (found === null)
                         newData.push({
-                            height: newElement.height,
-                            address: newElement.data.minerAddress.toString('hex'),
-                            reward: newElement.reward,
-                            blocks: 1,
+                            height: blocks[i].height,
+                            address: blocks[i].address,
+                            reward: blocks[i].reward,
                         });
+
                     else {
-                        newData[foundPosition].reward += newElement.reward;
-                        newData[foundPosition].blocks++;
+                        newData[foundPosition].reward += blocks[i].reward;
                     }
 
                 }
-
-                newData.sort(function(a,b) {return (a.reward > b.reward) ? 1 : ((b.reward > a.reward) ? -1 : 0);} );
 
                 return newData;
 
@@ -101,6 +114,7 @@
                             data: [],
                             backgroundColor: [],
                             borderColor: [],
+                            borderWidth:2
                         }
                     ],
                 };
@@ -127,14 +141,18 @@
 
                 };
 
-                for(var i=0;i<this.data.length; i++){
+                let chartData = this.mergeDuplicates(this.data);
 
-                    var color = Utils.generateRandomcolor(this.data[i].address);
+                chartData.sort(function(a,b) {return (a.reward > b.reward) ? 1 : ((b.reward > a.reward) ? -1 : 0);} );
 
-                    this.chartData.datasets[0].data.push(this.data[i].reward);
-                    this.chartData.labels.push(this.data[i].address);
+                for(var i=0;i<chartData.length; i++){
+
+                    var color = Utils.generateRandomcolor(chartData[i].address);
+
+                    this.chartData.datasets[0].data.push(chartData[i].reward);
+                    this.chartData.labels.push(chartData[i].address);
                     this.chartData.datasets[0].backgroundColor.push(color);
-                    this.chartData.datasets[0].borderColor.push(color);
+                    this.chartData.datasets[0].borderColor.push('#fff');
 
                 }
 
@@ -159,8 +177,8 @@
                 var start = WebDollar.Blockchain.blockchain.blocks.blocksStartingPoint;
                 var stop = WebDollar.Blockchain.blockchain.blocks.length;
 
-                this.data = WebDollar.Blockchain.blockchain.blocks;
-                this.data = this.updateChart(start,stop);
+                let blocks = WebDollar.Blockchain.blockchain.blocks;
+                this.data = this.updateChart(blocks, start,stop);
                 this.createChardData(this.data);
 
             }
@@ -172,8 +190,8 @@
                     var start = WebDollar.Blockchain.blockchain.blocks.blocksStartingPoint;
                     var stop = WebDollar.Blockchain.blockchain.blocks.length;
 
-                    this.data = WebDollar.Blockchain.blockchain.blocks;
-                    this.data = this.updateChart(start,stop);
+                    let blocks = WebDollar.Blockchain.blockchain.blocks;
+                    this.data = this.updateChart(blocks, start,stop);
                     this.createChardData(this.data);
 
                 }
