@@ -30564,35 +30564,14 @@ module.exports = bytesToUuid;
     "nodes": [
 
 
-        {
-            "addr": ["webdollar.ddns.net:80"],
-        },
-
-        {
-            "addr": ["webdollar.ddns.net:8080"],
-        },
-
-        {
-            "addr": ["webdollar.ddns.net:8081"],
-        },
-
-        {
-            "addr": ["webdollar.ddns.net:8082"],
-        },
-        {
-            "addr": ["webdollar.ddns.net:8083"],
-        },
-        {
-            "addr": ["webdollar.ddns.net:8084"],
-        },
-
-        {
-            "addr": ["webdollar.ddns.net:8091"],
-        },
-
-        {
-            "addr": ["webdollar.ddns.net:2095"],
-        },
+        {"addr": ["webdollar.ddns.net:80"],},
+        { "addr": ["webdollar.ddns.net:8080"], },
+        {"addr": ["webdollar.ddns.net:8081"], },
+        {"addr": ["webdollar.ddns.net:8082"], },
+        {"addr": ["webdollar.ddns.net:8083"],},
+        {"addr": ["webdollar.ddns.net:8084"],},
+        {"addr": ["webdollar.ddns.net:8091"],},
+        {"addr": ["webdollar.ddns.net:2095"],},
 
         { "addr": ["skyhub.me:80"], },
         { "addr": ["skyhub.me:443"], },
@@ -30605,34 +30584,24 @@ module.exports = bytesToUuid;
         {"addr": ["presa7.ro:8081"],},
         {"addr": ["presa7.ro:8082"],},
 
-        {
-            "addr": ["hcern.ddns.net:80"]
-        },
-        {
-            "addr": ["hcern.ddns.net:443"]
-        },
-        {
-            "addr": ["hcern.ddns.net:8080"]
-        },
-        {
-            "addr": ["hcern.ddns.net:8081"]
-        },
 
-        {
-            "addr": ["robitza.ddns.net:80"]
-        },
-        {
-            "addr": ["robitza.ddns.net:443"]
-        },
-        {
-            "addr": ["robitza.ddns.net:8080"]
-        },
-        {
-            "addr": ["robitza.ddns.net:8081"]
-        },
-        {
-            "addr": ["robitza.ddns.net:8082"]
-        },
+        {"addr": ["webdollar-vps1.ddns.net:80"],},
+        {"addr": ["webdollar-vps1.ddns.net:443"],},
+        {"addr": ["webdollar-vps1.ddns.net:8080"],},
+        {"addr": ["webdollar-vps1.ddns.net:8081"],},
+        {"addr": ["webdollar-vps1.ddns.net:8082"],},
+
+
+        { "addr": ["hcern.ddns.net:80"]},
+        {"addr": ["hcern.ddns.net:443"]},
+        {"addr": ["hcern.ddns.net:8080"]},
+        {"addr": ["hcern.ddns.net:8081"]},
+
+        {"addr": ["robitza.ddns.net:80"]},
+        {"addr": ["robitza.ddns.net:443"]},
+        {"addr": ["robitza.ddns.net:8080"]},
+        {"addr": ["robitza.ddns.net:8081"]},
+        {"addr": ["robitza.ddns.net:8082"]},
 
     ]
 });
@@ -61440,7 +61409,7 @@ class MainBlockchainWallet{
 
     async loadAddresses() {
 
-        let buffer = await this.db.get( this.walletFileName, 6000, true );
+        let buffer = await this.db.get( this.walletFileName, 60000, true );
 
         if ( buffer === null || buffer === undefined)
             return false;
