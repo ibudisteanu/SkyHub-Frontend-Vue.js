@@ -2072,24 +2072,26 @@ consts.HASH_ARGON2_PARAMS = {
 // change also to Browser-Mining-WebWorker.js
 
 
+console.log("INSTANCE_PREFIX", (Object({"BROWSER":true}).INSTANCE_PREFIX||""));
 
 //DATABASE NAMES
 consts.DATABASE_NAMES = {
 
-    DEFAULT_DATABASE: "defaultDB",
+    DEFAULT_DATABASE: "defaultDB"+(Object({"BROWSER":true}).INSTANCE_PREFIX||""),
 
-    //WALLET_DATABASE: "walletDB", //IT SHOULD BE REPALCED BY IN TEST NET 4 "walletDB",
-    WALLET_DATABASE: "defaultDB2", //IT SHOULD BE REPALCED BY IN TEST NET 4 "walletDB",
+    WALLET_DATABASE: "defaultDB2"+(Object({"BROWSER":true}).INSTANCE_PREFIX||""),
+
+    //TODO IT SHOULD BE REPLACED with "walletDB",
 
     BLOCKCHAIN_DATABASE:{
-        FOLDER:"blockchainDB3",
-        FILE_NAME : 'blockchain4.bin',
+        FOLDER:"blockchainDB3"+(Object({"BROWSER":true}).INSTANCE_PREFIX||""),
+        FILE_NAME : 'blockchain4.bin'+(Object({"BROWSER":true}).INSTANCE_PREFIX||""),
     },
 
-    POOL_DATABASE: "poolDB",
-    VALIDATE_DATABASE: "validateDB",
-    TESTS_DATABASE: "testDB",
-    TRANSACTIONS_DATABASE: "transactionsDB"
+    POOL_DATABASE: "poolDB"+(Object({"BROWSER":true}).INSTANCE_PREFIX||""),
+    VALIDATE_DATABASE: "validateDB"+(Object({"BROWSER":true}).INSTANCE_PREFIX||""),
+    TESTS_DATABASE: "testDB"+(Object({"BROWSER":true}).INSTANCE_PREFIX||""),
+    TRANSACTIONS_DATABASE: "transactionsDB"+(Object({"BROWSER":true}).INSTANCE_PREFIX||"")
 
 };
 
@@ -29570,7 +29572,8 @@ class CLI{
 
     async _start() {
 
-        await __WEBPACK_IMPORTED_MODULE_0__index_js__["Blockchain"].loadWallet();
+        if (__WEBPACK_IMPORTED_MODULE_0__index_js__["Blockchain"] !== undefined)
+            await __WEBPACK_IMPORTED_MODULE_0__index_js__["Blockchain"].loadWallet();
 
         this._showCommands();
         this.WEBD_CLI.prompt();
@@ -80597,6 +80600,15 @@ class InterfaceBlockchainBlockDataTransactions {
         return true;
     }
 
+    calculateFees(){
+
+        let fee = 0;
+        for (let i=0; i < this.transactions.length; i++){
+            fee += this.transactions.fee();
+        }
+
+        return fee;
+    }
 
 }
 
