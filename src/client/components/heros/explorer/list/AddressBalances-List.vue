@@ -8,7 +8,7 @@
 
         <div v-if="this.data!==false" class="list balancesExplorer">
 
-            <chart :data="this.removeNullAddresses(this.data)" class="balanceChart" ></chart>
+            <chart :data="this.chartData" :options="this.chartOptions" class="balanceChart" ></chart>
 
             <div class="listHead listElement list">
                 <div>No.</div>
@@ -42,7 +42,9 @@
 
         data: () => {
             return {
-                data: false
+                data: false,
+                chartOptions: {},
+                chartData: {}
             }
         },
 
@@ -52,12 +54,63 @@
 
                 var newData =[];
 
-                console.log("############",data);
-
                 for (var i=0; i<data.length; i++)
                     if (data[i].balance >= 10000) newData.push(data[i]);
 
                 return newData;
+
+            },
+
+            updateChart(){
+
+                this.chartData= {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: 'Balance Distribution',
+                            data: [],
+                            backgroundColor: [],
+                            borderColor: [],
+                        }
+                    ],
+                };
+
+                this.chartOptions = {
+
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    legend: {
+                        display: false,
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: (tooltipItems, data) => {
+
+                                var balance = data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index];
+                                var address = data.labels[tooltipItems.index];
+                                balance = Utils.formatMoneyNumber(balance);
+                                return address + ' - ' + balance+' WEBD';
+                            }
+                        }
+                    }
+
+                };
+
+                for(let i=0; i < this.data.length; i++){
+
+                    if (this.data[i].balance >= 10000) {
+
+                        var color = Utils.generateRandomcolor(this.data[i].address);
+
+                        this.chartData.datasets[0].data.push(this.data[i].balance);
+                        this.chartData.labels.push(this.data[i].address);
+                        this.chartData.datasets[0].backgroundColor.push(color);
+                        this.chartData.datasets[0].borderColor.push(color);
+
+                    }
+
+                }
 
             }
 
@@ -77,15 +130,17 @@
 
             if (WebDollar.Blockchain.synchronized){
                 this.data = WebDollar.Blockchain.AccountantTree.getAccountantTreeList();
+                this.updateChart();
             }
 
             WebDollar.StatusEvents.emitter.on("blockchain/status", (data)=>{
 
-                if (data.message === "Blockchain Ready to Mine")
+                if (data.message === "Blockchain Ready to Mine"){
                     this.data = WebDollar.Blockchain.AccountantTree.getAccountantTreeList();
+                    this.updateChart();
+                }
 
             });
-
 
         }
 
