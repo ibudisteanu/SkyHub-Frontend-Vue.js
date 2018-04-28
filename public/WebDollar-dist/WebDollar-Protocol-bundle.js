@@ -80599,7 +80599,7 @@ class InterfaceBlockchainBlockDataTransactions {
 
         let fee = 0;
         for (let i=0; i < this.transactions.length; i++){
-            fee += this.transactions.fee();
+            fee += this.transactions[i].fee();
         }
 
         return fee;
