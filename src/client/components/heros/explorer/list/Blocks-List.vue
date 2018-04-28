@@ -114,6 +114,7 @@
                             data: [],
                             backgroundColor: [],
                             borderColor: [],
+                            borderWidth:2
                         }
                     ],
                 };
@@ -151,7 +152,7 @@
                     this.chartData.datasets[0].data.push(chartData[i].reward);
                     this.chartData.labels.push(chartData[i].address);
                     this.chartData.datasets[0].backgroundColor.push(color);
-                    this.chartData.datasets[0].borderColor.push(color);
+                    this.chartData.datasets[0].borderColor.push('#fff');
 
                 }
 
