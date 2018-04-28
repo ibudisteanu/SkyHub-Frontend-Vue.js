@@ -2,7 +2,7 @@
 
     <div class="balanceExp">
 
-        <h1>Last Mined Blocks</h1>
+        <h1>Last {{this.data.length}} Mined Blocks</h1>
 
         <loading-spinner class="bountySpinner" v-if="this.data===false" />
 
@@ -70,6 +70,33 @@
 
             },
 
+            addNewBlock(block){
+
+                var founded = false;
+
+                for (var i =0 ;i<this.data.length;i++){
+
+                    if (this.data[i].height === block.height)
+                        founded=true;
+
+                }
+
+                if (!founded){
+
+                    this.data.push({
+                        height: block.height,
+                        address: WebDollar.Applications.BufferExtended.toBase(WebDollar.Applications.AddressHelper.generateAddressWIF( block.data.minerAddress)),
+                        reward: block.reward + block.data.transactions.calculateFees() ,
+                    });
+
+                    this.data.sort(function(a,b) {return (a.height < b.height) ? 1 : ((b.height < a.height) ? -1 : 0);} );
+
+                    this.createChardData(this.data);
+
+                }
+
+            },
+
             mergeDuplicates(blocks){
 
                 let newData=[];
@@ -106,6 +133,10 @@
 
             createChardData(){
 
+                let chartData = this.mergeDuplicates(this.data);
+
+                chartData.sort(function(a,b) {return (a.reward > b.reward) ? 1 : ((b.reward > a.reward) ? -1 : 0);} );
+
                 this.chartData= {
                     labels: [],
                     datasets: [
@@ -140,10 +171,6 @@
                     }
 
                 };
-
-                let chartData = this.mergeDuplicates(this.data);
-
-                chartData.sort(function(a,b) {return (a.reward > b.reward) ? 1 : ((b.reward > a.reward) ? -1 : 0);} );
 
                 for(var i=0;i<chartData.length; i++){
 
@@ -194,10 +221,15 @@
                     this.data = this.updateChart(blocks, start,stop);
                     this.createChardData(this.data);
 
+                    WebDollar.StatusEvents.on("blockchain/blocks-count-changed", (blocksLength)=>{
+
+                        this.addNewBlock(WebDollar.Blockchain.blockchain.blocks[blocksLength-1]);
+
+                    });
+
                 }
 
             });
-
 
         }
 
