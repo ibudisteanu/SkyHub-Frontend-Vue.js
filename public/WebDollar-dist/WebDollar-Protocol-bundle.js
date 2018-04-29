@@ -2156,7 +2156,7 @@ consts.SETTINGS = {
             },
 
             SERVER: {
-                MAXIMUM_CONNECTIONS_FROM_BROWSER: 40,
+                MAXIMUM_CONNECTIONS_FROM_BROWSER: 100,
                 MAXIMUM_CONNECTIONS_FROM_TERMINAL: 10,
             },
 
@@ -2199,7 +2199,7 @@ if ( consts.DEBUG === true ){
     consts.SETTINGS.NODE.PORT = 8085;
 
     __WEBPACK_IMPORTED_MODULE_0_node_sockets_node_clients_service_discovery_fallbacks_fallback_nodes_list__["a" /* default */].nodes = [{
-        "addr": ["webdollar.ddns.net:2095"],
+        "addr": ["127.0.0.1:8085"],
     }];
 }
 
@@ -17174,11 +17174,13 @@ class NodeProtocol {
             }
 
             if (__WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].countNodesByType(__WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL) > __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.SERVER.MAXIMUM_CONNECTIONS_FROM_TERMINAL){
+                console.warn("too many terminal connections");
                 node.disconnect();
                 return false;
             }
 
             if (__WEBPACK_IMPORTED_MODULE_1_node_lists_nodes_list__["a" /* default */].countNodesByType(__WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER) > __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.SERVER.MAXIMUM_CONNECTIONS_FROM_BROWSER){
+                console.warn("too many browser connections");
                 node.disconnect();
                 return false;
             }
@@ -30571,24 +30573,19 @@ module.exports = bytesToUuid;
         {"addr": ["webdollar.ddns.net:8082"], },
         {"addr": ["webdollar.ddns.net:8083"],},
         {"addr": ["webdollar.ddns.net:8084"],},
-        {"addr": ["webdollar.ddns.net:8091"],},
-        {"addr": ["webdollar.ddns.net:2095"],},
+        {"addr": ["webdollar.ddns.net:8085"],},
+        {"addr": ["webdollar.ddns.net:8086"],},
+        {"addr": ["webdollar.ddns.net:8087"],},
 
         { "addr": ["skyhub.me:80"], },
         { "addr": ["skyhub.me:443"], },
-        { "addr": ["skyhub.me:8080"], },
-        { "addr": ["skyhub.me:8081"], },
-        { "addr": ["skyhub.me:8082"], },
 
         {"addr": ["presa7.ro:443"],},
         {"addr": ["presa7.ro:8080"],},
-        {"addr": ["presa7.ro:8081"],},
-        {"addr": ["presa7.ro:8082"],},
 
 
         {"addr": ["webdollar-vps1.ddns.net:80"],},
         {"addr": ["webdollar-vps1.ddns.net:443"],},
-        {"addr": ["webdollar-vps1.ddns.net:8080"],},
         {"addr": ["webdollar-vps1.ddns.net:8081"],},
         {"addr": ["webdollar-vps1.ddns.net:8082"],},
 
