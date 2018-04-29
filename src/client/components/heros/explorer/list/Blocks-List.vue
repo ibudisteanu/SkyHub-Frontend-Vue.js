@@ -68,8 +68,6 @@
 
             showTransactions(height){
 
-
-                console.log(this.$refs['block'+height]);
                 this.$refs['block'+height][0].showForm();
 
             },
@@ -209,6 +207,8 @@
                     this.chartData.datasets[0].borderColor.push('#fff');
 
                 }
+
+
 
                 if (this.$refs['refBlocksChart']!==undefined)
                     this.$refs['refBlocksChart'].rerender();

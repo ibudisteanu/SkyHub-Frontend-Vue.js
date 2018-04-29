@@ -28,7 +28,7 @@
 
             rerender(){
 
-                this.renderChart(this.data,this.options);
+                this.$forceUpdate();
 
             }
 
