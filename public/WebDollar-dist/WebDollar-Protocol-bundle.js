@@ -12618,16 +12618,16 @@ class InterfaceSatoshminDB {
         })
     }
 
-    get(key, timeout=6000, throwTimeOutError=false) {
+    get(key, timeout=6000, freeze=false) {
 
         return new Promise((resolve)=>{
 
             //timeout, max 10 seconds to load the database
             let timeoutInterval = setTimeout(()=>{
-                console.error("SathoshminDB Get failed !!", key);
 
-                if (throwTimeOutError===true )
-                    throw {message: "SatoshminDB Get Failed !!", key};
+                console.error("SatoshminDB Get failed !!", key);
+
+                if (freeze === true ) return;
 
                 resolve(null);
             }, timeout);
@@ -12644,8 +12644,9 @@ class InterfaceSatoshminDB {
                 clearTimeout(timeoutInterval);
                 console.error("db.get error " + key, exception);
 
-                if (exception.status === 500)
-                    __WEBPACK_IMPORTED_MODULE_2_common_events_Status_Events__["a" /* default */].emit("blockchain/logs", {message: "IndexedDB Error", reason: exception.reason.toString() });
+                __WEBPACK_IMPORTED_MODULE_2_common_events_Status_Events__["a" /* default */].emit("blockchain/logs", {message: "IndexedDB Error", reason: exception.reason.toString() });
+
+                if (freeze === true ) return;
 
                 resolve(null);
             });
@@ -61409,7 +61410,24 @@ class MainBlockchainWallet{
 
     async loadAddresses() {
 
-        let buffer = await this.db.get( this.walletFileName, 60000, true );
+        let timeout = setTimeout(()=>{
+
+            __WEBPACK_IMPORTED_MODULE_7_common_events_Status_Events__["a" /* default */].emit("validation/status", {type: "WALLET", message: "Wallet is not loaded successfully"});
+
+            setTimeout(()=>{
+
+                if (true)
+                    location.reload();
+                else
+                    process.exit(1);
+
+            }, 10*1000);
+
+        }, 20*1000 );
+
+        let buffer = await this.db.get( this.walletFileName, 30*1000, true );
+
+        clearTimeout(timeout);
 
         if ( buffer === null || buffer === undefined)
             return false;
@@ -82536,11 +82554,7 @@ class InterfaceBlockchainTransactionsWizard{
         if (toAmount < 0)
             return 0;
 
-        return  Math.max(
-                            Math.min(
-                                    Math.floor (0.1 * toAmount) + __WEBPACK_IMPORTED_MODULE_0_common_utils_coins_WebDollar_Coins__["a" /* default */].WEBD,
-                                    10*__WEBPACK_IMPORTED_MODULE_0_common_utils_coins_WebDollar_Coins__["a" /* default */].WEBD ),
-                            1*__WEBPACK_IMPORTED_MODULE_0_common_utils_coins_WebDollar_Coins__["a" /* default */].WEBD );
+        return  consts.MINING_POOL.MINING.FEE_THRESHOLD;
 
     }
 
