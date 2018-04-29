@@ -54,6 +54,7 @@
         data: () => {
             return {
                 data: false,
+                loaded: false,
                 chartData: {},
                 chartOptions: {}
             }
@@ -207,6 +208,8 @@
 
                 if (this.$refs['refBlocksChart']!==undefined)
                     this.$refs['refBlocksChart'].rerender();
+
+                this.loaded = true;
 
             }
 

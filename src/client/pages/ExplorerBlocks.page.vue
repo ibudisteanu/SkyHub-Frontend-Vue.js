@@ -6,7 +6,21 @@
 
             <div slot="content">
 
-                <blocks-explorer></blocks-explorer>
+                <div class="header">
+
+                    <div class="explorerButton" @click="selectNewItem('balances')">
+                        Balances
+                    </div>
+                    <div class="explorerButton" @click="selectNewItem('blocks')">
+                        Blocks
+                    </div>
+
+                </div>
+
+                <div class="content">
+                    <blocks-explorer v-if="this.showElement==='blocks'"></blocks-explorer>
+                    <address-explorer v-if="this.showElement==='balances'"/>
+                </div>
 
             </div>
 
@@ -22,27 +36,28 @@
 
     import Layout from "client/components/layout/Layout.vue";
     import BlocksExplorer from "client/components/heros/explorer/list/Blocks-List.vue";
+    import AddressExplorer from "client/components/heros/explorer/list/AddressBalances-List.vue";
     import MultipleTabs from "../components/heros/Multiple-Tabs.hero.vue";
+
+
 
     export default {
 
         name: "ViewHome",
 
-        components:{
-            Layout,
-            BlocksExplorer,
-            MultipleTabs
-        },
+        components:{ Layout, BlocksExplorer, MultipleTabs, AddressExplorer },
 
         data: () => {
             return {
-                protocolUsedOnMultipleTabs: false
+                protocolUsedOnMultipleTabs: false,
+                showElement: 'blocks'
             }
         },
-
-        mounted(){
+       mounted(){
 
             if (typeof window === "undefined") return false;
+
+            this.selectNewItem( this.$route.params.a );
 
             WebDollar.StatusEvents.on("blockchain/status", (data)=>{
 
@@ -59,8 +74,66 @@
 
             });
 
+        },
+
+        methods:{
+
+            selectNewItem(item){
+
+                var url = window.location.href;
+                var index = url.lastIndexOf("explorer");
+                var urlPrefix = url.substring(0, index+8);
+
+                if (item!==undefined) url = urlPrefix+'/'+item;
+
+                if (item === 'blocks') {
+                    this.showElement = 'blocks';
+                }
+                if (item === 'balances') {
+                    this.showElement = 'balances';
+                }
+
+                window.history.pushState('','', url);
+
+            }
+
         }
 
     }
 
 </script>
+
+<style>
+
+    .header{
+        padding-top: 65px;
+        width: 95px;
+        background-color: #525252;
+        display: block;
+        height: 100%;
+        position: fixed;
+    }
+
+    .header .explorerButton{
+        text-align: center;
+        font-weight: bolder;
+        text-transform: uppercase;
+        font-size: 14px;
+        padding: 20px 0;
+        transition: all .5s linear;
+        cursor: pointer;
+    }
+
+    .header .explorerButton:hover{
+        text-align: center;
+        padding: 20px 0;
+        background-color: #fec02c;
+        color:#000;
+        transition: all .5s linear;
+    }
+
+    .content{
+        margin-left: 95px;
+    }
+
+</style>

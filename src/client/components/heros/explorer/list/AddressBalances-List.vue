@@ -4,9 +4,9 @@
 
         <h1>Balances</h1>
 
-        <loading-spinner class="bountySpinner" v-if="this.data===false" />
+        <loading-spinner class="bountySpinner" v-if="this.loaded===false" />
 
-        <div v-if="this.data!==false" class="list balancesExplorer">
+        <div v-if="this.loaded!==false" class="list balancesExplorer">
 
             <chart :data="this.chartData" :options="this.chartOptions" class="balanceChart" ></chart>
 
@@ -43,6 +43,7 @@
         data: () => {
             return {
                 data: false,
+                loaded: false,
                 chartOptions: {},
                 chartData: {}
             }
@@ -111,6 +112,8 @@
                     }
 
                 }
+
+                this.loaded = true;
 
             }
 
