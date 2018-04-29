@@ -51111,6 +51111,7 @@ class GeoLocationLists {
         this._addGeoLocationContinentByAddress(sckAddress, location);
 
         return location;
+
     }
 
     async includeSocket(socket){
@@ -92472,6 +92473,8 @@ class NodePropagationProtocol {
                 waitlist = __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_nodes_waitlist__["a" /* default */].addNewNodeToWaitlist(newNode.address.addr, newNode.address.port, newNode.address.type, newNode.address.connected, newNode.socket.node.level + 1, newNode.socket);
 
                 list.splice(index, 1);
+
+                return;
             }
 
         }
@@ -92484,7 +92487,7 @@ class NodePropagationProtocol {
         this._processList(this._newLightNodesWaitList);
 
 
-        setTimeout( this._processNewWaitlistInterval.bind(this), 300);
+        setTimeout( this._processNewWaitlistInterval.bind(this), 500 + Math.floor( Math.random() * 20 ) );
 
     }
 
@@ -92830,14 +92833,16 @@ class NodeSignalingServerService{
                 let client1, client2 = null;
 
                 if (Math.random() > 0.5) {
+
                     client1 = this.waitlist[i];
                     client2 = this.waitlist[j];
+
                 } else {
                     client1 = this.waitlist[j];
                     client2 = this.waitlist[i];
                 }
 
-                __WEBPACK_IMPORTED_MODULE_2__Node_Signaling_Server_Protocol__["a" /* default */].connectWebPeer(client1.socket, client2.socket);
+                __WEBPACK_IMPORTED_MODULE_2__Node_Signaling_Server_Protocol__["a" /* default */].connectWebPeer( client1.socket, client2.socket );
 
             }
         }
