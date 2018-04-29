@@ -16,21 +16,37 @@
             }
         },
 
+        computed: {
+            chartData() {
+                return this.data;
+            },
+            chartOptions(){
+                return this.options;
+            }
+        },
+
+        watch: {
+            data: function() {
+                if ( this.$data._chart !== undefined) this.$data._chart.destroy();
+                this.renderChart(this.chartData,this.chartOptions);
+            }
+        },
+
         mounted() {
 
             if (typeof window === "undefined") return false;
 
-            this.renderChart(this.data,this.options);
+            this.renderChart(this.chartData,this.chartOptions);
 
         },
 
         methods: {
-
-            rerender(){
-
-                this.$forceUpdate();
-
-            }
+//
+//            rerender(){
+//
+//                this.renderChart(this.data,this.options);
+//
+//            }
 
         }
 

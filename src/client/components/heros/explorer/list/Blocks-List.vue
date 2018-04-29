@@ -210,8 +210,8 @@
 
 
 
-                if (this.$refs['refBlocksChart']!==undefined)
-                    this.$refs['refBlocksChart'].rerender();
+//                if (this.$refs['refBlocksChart']!==undefined)
+//                    this.$refs['refBlocksChart'].rerender();
 
                 this.loaded = true;
 
