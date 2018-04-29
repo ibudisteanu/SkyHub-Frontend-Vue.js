@@ -68,8 +68,6 @@
 
             showTransactions(height){
 
-
-                console.log(this.$refs['block'+height]);
                 this.$refs['block'+height][0].showForm();
 
             },
@@ -210,8 +208,10 @@
 
                 }
 
-                if (this.$refs['refBlocksChart']!==undefined)
-                    this.$refs['refBlocksChart'].rerender();
+
+
+//                if (this.$refs['refBlocksChart']!==undefined)
+//                    this.$refs['refBlocksChart'].rerender();
 
                 this.loaded = true;
 
