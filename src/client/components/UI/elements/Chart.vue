@@ -18,12 +18,19 @@
 
         mounted() {
 
+            if (typeof window === "undefined") return false;
+
             this.renderChart(this.data,this.options);
 
         },
 
         methods: {
 
+            rerender(){
+
+                this.renderChart(this.data,this.options);
+
+            }
 
         }
 

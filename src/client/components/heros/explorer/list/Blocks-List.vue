@@ -6,22 +6,36 @@
 
         <loading-spinner class="bountySpinner" v-if="this.data===false" />
 
-        <div v-if="this.data!==false" class="list balancesExplorer blocksExplorer">
+        <div v-if="this.data!==false">
 
-            <chart :data="this.chartData" :options="this.chartOptions" class="balanceChart" ></chart>
+            <chart :data="this.chartData" :options="this.chartOptions" ref="refBlocksChart" class="balanceChart" ></chart>
 
-            <div class="listHead listElement list">
-                <div>No.</div>
-                <div>C</div>
-                <div>Rewarded Address</div>
-                <div>Reward</div>
-            </div>
+            <div class="list balancesExplorer blocksExplorer">
 
-            <div class="listElement list" v-for="(element, index) in this.data" :key="'balances '+index">
-                <div>{{element.height}}</div>
-                <div :style="{backgroundColor: Utils.generateRandomcolor(element.address)}"></div>
-                <div class="address">{{element.address}}</div>
-                <div class="title">{{Utils.formatMoneyNumber(element.reward)}}</div>
+                <div class="listHead listElement list">
+                    <div>No.</div>
+                    <div>C</div>
+                    <div>Transactions</div>
+                    <div>Rewarded Address</div>
+                    <div>Reward</div>
+                </div>
+
+                <div v-for="(element, index) in this.data" :key="'balances '+index">
+
+                    <div class="listElement list" @click="()=>{showTransactions(element.height)}">
+
+                        <div>{{element.height}}</div>
+                        <div :style="{backgroundColor: Utils.generateRandomcolor(element.address)}"></div>
+                        <div>{{element.transactions!==[] ? element.transactions.length : 0}}</div>
+                        <div class="address">{{element.address}}</div>
+                        <div class="title">{{Utils.formatMoneyNumber(element.reward)}}</div>
+
+                    </div>
+
+                    <transactions :ref="'block'+element.height" :data="element.transactions"> </transactions>
+
+                </div>
+
             </div>
 
         </div>
@@ -35,20 +49,30 @@
     import LoadingSpinner from "client/components/UI/elements/Loading-Spinner.vue";
     import Chart from "client/components/UI/elements/Chart.vue"
     import Utils from 'src/utils/util-functions'
+    import Transactions from './Transactions.vue'
 
     export default{
 
-        components:{ LoadingSpinner, Chart },
+        components:{ LoadingSpinner, Chart, Transactions },
 
         data: () => {
             return {
                 data: false,
+                loaded: false,
                 chartData: {},
                 chartOptions: {}
             }
         },
 
         methods:{
+
+            showTransactions(height){
+
+
+                console.log(this.$refs['block'+height]);
+                this.$refs['block'+height][0].showForm();
+
+            },
 
             updateChart(blocks, start,stop){
 
@@ -62,6 +86,7 @@
                         height: newElement.height,
                         address: WebDollar.Applications.BufferExtended.toBase(WebDollar.Applications.AddressHelper.generateAddressWIF( newElement.data.minerAddress)),
                         reward: newElement.reward + newElement.data.transactions.calculateFees() ,
+                        transactions: WebDollar.Blockchain.blockchain.blocks[newElement.height].data.transactions.transactions
                     });
 
                 }
@@ -87,6 +112,7 @@
                         height: block.height,
                         address: WebDollar.Applications.BufferExtended.toBase(WebDollar.Applications.AddressHelper.generateAddressWIF( block.data.minerAddress)),
                         reward: block.reward + block.data.transactions.calculateFees() ,
+                        transactions: WebDollar.Blockchain.blockchain.blocks[block.height].data.transactions.transactions
                     });
 
                     this.data.sort(function(a,b) {return (a.height < b.height) ? 1 : ((b.height < a.height) ? -1 : 0);} );
@@ -119,6 +145,7 @@
                             height: blocks[i].height,
                             address: blocks[i].address,
                             reward: blocks[i].reward,
+                            transactions: blocks[i].transactions
                         });
 
                     else {
@@ -182,6 +209,11 @@
                     this.chartData.datasets[0].borderColor.push('#fff');
 
                 }
+
+                if (this.$refs['refBlocksChart']!==undefined)
+                    this.$refs['refBlocksChart'].rerender();
+
+                this.loaded = true;
 
             }
 

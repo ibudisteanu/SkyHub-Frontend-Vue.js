@@ -9,8 +9,8 @@
                 <img v-on:click="this.collapseMenuBack" src="/public/assets/images/WebDollar-logo-white.png" alt="webDollar logo" id="logo" title="webDollar logo"/>
             </router-link>
 
-            <router-link to="/#timelineSection" :class="this.mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
-                <div v-on:click="this.collapseMenuBack">Timeline</div>
+            <router-link to="/explorer" :class="this.mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
+                <div v-on:click="this.collapseMenuBack">Explorer</div>
             </router-link>
 
             <router-link to="/faq" :class="this.mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">

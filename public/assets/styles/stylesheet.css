@@ -1974,12 +1974,21 @@ background-color:#ff2200}
 .balancesExplorer .list{
   display:grid;
   grid-template-columns: 50px 30px 450px 150px;
+  cursor: pointer;
 }
 
 .balancesExplorer .listHead{
   display:grid;
   grid-template-columns: 50px 30px 450px 150px;
   margin-top: 30px;
+}
+
+.blocksExplorer{
+  width: 810px;
+}
+
+.blocksExplorer .list, .blocksExplorer .listHead{
+  grid-template-columns: 50px 30px 120px 450px 150px;
 }
 
 .balancesExplorer .title{
