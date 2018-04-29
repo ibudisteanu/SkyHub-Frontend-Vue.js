@@ -6,31 +6,35 @@
 
         <loading-spinner class="bountySpinner" v-if="this.data===false" />
 
-        <div v-if="this.data!==false" class="list balancesExplorer blocksExplorer">
+        <div v-if="this.data!==false">
 
             <chart :data="this.chartData" :options="this.chartOptions" ref="refBlocksChart" class="balanceChart" ></chart>
 
-            <div class="listHead listElement list">
-                <div>No.</div>
-                <div>C</div>
-                <div>Transactions</div>
-                <div>Rewarded Address</div>
-                <div>Reward</div>
-            </div>
+            <div class="list balancesExplorer blocksExplorer">
 
-            <div v-for="(element, index) in this.data" :key="'balances '+index">
-
-                <div class="listElement list" @click="()=>{showTransactions(element.height)}">
-
-                    <div>{{element.height}}</div>
-                    <div :style="{backgroundColor: Utils.generateRandomcolor(element.address)}"></div>
-                    <div>{{element.transactions!==[] ? element.transactions.length : 0}}</div>
-                    <div class="address">{{element.address}}</div>
-                    <div class="title">{{Utils.formatMoneyNumber(element.reward)}}</div>
-
+                <div class="listHead listElement list">
+                    <div>No.</div>
+                    <div>C</div>
+                    <div>Transactions</div>
+                    <div>Rewarded Address</div>
+                    <div>Reward</div>
                 </div>
 
-                <transactions :ref="'block'+element.height" :data="element.transactions"> </transactions>
+                <div v-for="(element, index) in this.data" :key="'balances '+index">
+
+                    <div class="listElement list" @click="()=>{showTransactions(element.height)}">
+
+                        <div>{{element.height}}</div>
+                        <div :style="{backgroundColor: Utils.generateRandomcolor(element.address)}"></div>
+                        <div>{{element.transactions!==[] ? element.transactions.length : 0}}</div>
+                        <div class="address">{{element.address}}</div>
+                        <div class="title">{{Utils.formatMoneyNumber(element.reward)}}</div>
+
+                    </div>
+
+                    <transactions :ref="'block'+element.height" :data="element.transactions"> </transactions>
+
+                </div>
 
             </div>
 

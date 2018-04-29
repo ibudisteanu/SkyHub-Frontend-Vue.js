@@ -136,4 +136,19 @@
         margin-left: 95px;
     }
 
+    @media screen and (max-width: 600px){
+
+        .header{
+            width: 100%;
+            height: 57px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .content{
+            margin-left: 0;
+        }
+
+    }
+
 </style>

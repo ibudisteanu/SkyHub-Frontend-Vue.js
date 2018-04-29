@@ -6,22 +6,26 @@
 
         <loading-spinner class="bountySpinner" v-if="this.loaded===false" />
 
-        <div v-if="this.loaded!==false" class="list balancesExplorer">
+        <div v-if="this.loaded!==false">
 
             <chart :data="this.chartData" :options="this.chartOptions" class="balanceChart" ></chart>
 
-            <div class="listHead listElement list">
-                <div>No.</div>
-                <div>C</div>
-                <div>Address</div>
-                <div>Balance</div>
-            </div>
+            <div class="list balancesExplorer">
 
-            <div class="listElement list" v-for="(element, index) in this.removeNullAddresses(this.data)" :key="'balances '+index">
-                <div>{{index}}</div>
-                <div :style="{backgroundColor: Utils.generateRandomcolor(element.address)}"></div>
-                <div class="address">{{element.address}}</div>
-                <div class="title">{{Utils.formatMoneyNumber(element.balance)}}</div>
+                <div class="listHead listElement list">
+                    <div>No.</div>
+                    <div>C</div>
+                    <div>Address</div>
+                    <div>Balance</div>
+                </div>
+
+                <div class="listElement list" v-for="(element, index) in this.removeNullAddresses(this.data)" :key="'balances '+index">
+                    <div>{{index}}</div>
+                    <div :style="{backgroundColor: Utils.generateRandomcolor(element.address)}"></div>
+                    <div class="address">{{element.address}}</div>
+                    <div class="title">{{Utils.formatMoneyNumber(element.balance)}}</div>
+                </div>
+
             </div>
 
         </div>
