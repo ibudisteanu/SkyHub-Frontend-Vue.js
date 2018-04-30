@@ -2165,7 +2165,7 @@ consts.SETTINGS = {
             },
 
             FORKS:{
-                MAXIMUM_BLOCKS_TO_DOWNLOAD: 20,
+                MAXIMUM_BLOCKS_TO_DOWNLOAD: 50,
             },
 
             TIMEOUT: {
@@ -17510,7 +17510,8 @@ class InterfaceBlockchainProtocol {
 
                     if (data === null || (data.l < 0) || ( data.s >= data.l )) return;
 
-                    console.log("newForkTip", data.l, "from", socket.node.sckAddress.uuid );
+                    if (Math.random() < 0.1)
+                        console.log("newForkTip", data.l );
 
                     this.forksManager.newForkTip(socket, data.l, data.s, data.h, data.p);
 
@@ -30585,6 +30586,13 @@ module.exports = bytesToUuid;
 
         {"addr": ["webdollar-vps1.ddns.net:80"],},
         {"addr": ["webdollar-vps1.ddns.net:443"],},
+
+        {"addr": ["webdollar-vps2.ddns.net:80"],},
+        {"addr": ["webdollar-vps2.ddns.net:443"],},
+
+
+        {"addr": ["webdollar-vps3.ddns.net:80"],},
+        {"addr": ["webdollar-vps3.ddns.net:443"],},
 
 
         { "addr": ["hcern.ddns.net:80"]},
@@ -80711,14 +80719,14 @@ class InterfaceBlockchainForksAdministrator {
 
     _findForkyByHeader(header){
 
-        if (header === null || header === undefined || header.hash === null || header.hash === undefined)
+        if (header === null || header === undefined )
             return null;
 
         for (let i = 0; i < this.forks.length; i++)
             if (this.forks[i] !== null)
             for (let j=0; j<this.forks[i].forkHeaders.length; j++) {
 
-                if (this.forks[i].forkHeaders[j].equals(header.hash))
+                if (this.forks[i].forkHeaders[j].equals(header))
                     return this.forks[i];
             }
 
