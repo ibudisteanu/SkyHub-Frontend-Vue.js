@@ -13,6 +13,11 @@
                 <div v-on:click="this.collapseMenuBack">Explorer</div>
             </router-link>
 
+            <a href="https://webdollarforum.com" :class="this.mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' " target="_blank" >
+                <div v-on:click="this.collapseMenuBack">Forum</div>
+            </a>
+
+
             <router-link to="/faq" :class="this.mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
                 <div v-on:click="this.collapseMenuBack">FAQ</div>
             </router-link>
