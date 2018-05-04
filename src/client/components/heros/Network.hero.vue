@@ -6,7 +6,7 @@
 
             <div class="generalController">
 
-                <h2>Miner's commission</h2>
+                <h2>POOL LEADER FEE REWARD</h2>
 
                 <slider ref="refMiningSlider" @sliderChanged="this.changeCommission"/>
 
