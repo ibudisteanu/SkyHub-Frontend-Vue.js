@@ -40,7 +40,7 @@
                     </div>
                     <div class="timeline">
                         <div class="timeline-icon"><i class="fa fa-flask"></i></div>
-                        <span class="year">IAN 2018</span>
+                        <span class="year">JAN 2018</span>
                         <div class="timeline-content">
                             <h5 class="title">LAUNCH TEST NET</h5>
                             <p class="description">
