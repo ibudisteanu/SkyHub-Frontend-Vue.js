@@ -195,7 +195,7 @@ app.get('*', isProd ? render : (req, res) => {
 let port = process.env.PORT;
 
 if (process.env.NODE_ENV === 'production') port = port || 80;
-else port = port || 8084;
+else port = port || 9094;
 
 let options = { };
 
