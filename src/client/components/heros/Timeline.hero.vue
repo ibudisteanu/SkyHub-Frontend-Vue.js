@@ -40,7 +40,7 @@
                     </div>
                     <div class="timeline">
                         <div class="timeline-icon"><i class="fa fa-flask"></i></div>
-                        <span class="year">IAN 2018</span>
+                        <span class="year">JAN 2018</span>
                         <div class="timeline-content">
                             <h5 class="title">LAUNCH TEST NET</h5>
                             <p class="description">
@@ -50,7 +50,7 @@
                     </div>
                     <div class="timeline timelineUnfinishedMilestones">
                         <div class="timeline-icon"><i class="fa fa-rocket"></i></div>
-                        <span class="year">APRIL 26</span>
+                        <span class="year">APRIL 26 2018</span>
                         <div class="timeline-content">
                             <h5 class="title">SECURITY + LAUNCH MAIN NET</h5>
                             <p class="description">
@@ -60,7 +60,7 @@
                     </div>
                     <div class="timeline timelineUnfinishedMilestones">
                         <div class="timeline-icon unfinishedMilestones"><i class="fa fa-gift"></i></div>
-                        <span class="year">MAY</span>
+                        <span class="year">MAY 2018</span>
                         <div class="timeline-content">
                             <h5 class="title">Mining pools & Exchange</h5>
                             <p class="description">
