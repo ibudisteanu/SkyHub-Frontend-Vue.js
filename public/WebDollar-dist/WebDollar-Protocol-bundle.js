@@ -14591,8 +14591,7 @@ class InterfaceBlockchainFork {
         for (let i=0; i<this.forkBlocks.length; i++)
             if (this.forkBlocks[i] !== undefined && this.forkBlocks[i] !== null) {
 
-                if ( this.blockchain.blocks[ this.forkBlocks[i].height ] === undefined || this.blockchain.blocks[ this.forkBlocks[i].height ] !== this.forkBlocks[i] )
-                    this.forkBlocks[i].destroyBlock();
+                this.forkBlocks[i].destroyBlock();
 
                 this.forkBlocks[i] = undefined;
             }
@@ -14832,7 +14831,7 @@ class InterfaceBlockchainFork {
                 return false;
             }
 
-            this.blockchain.blocks.spliceBlocks(this.forkStartingHeight);
+            this.blockchain.blocks.spliceBlocks(this.forkStartingHeight, false);
 
             let forkedSuccessfully = true;
 
@@ -15036,7 +15035,7 @@ class InterfaceBlockchainFork {
 
         for (let i = 0; i < this._blocksCopy.length; i++) {
             this._blocksCopy[i].destroyBlock();
-            delete this._blocksCopy[i];
+            this._blocksCopy[i] = undefined;
         }
 
         this._blocksCopy = [];
@@ -17276,7 +17275,9 @@ class NodeBlockchainPropagation{
                 this._socketsPropagating.push(socket);
 
                 //let send the block, but once we receive any kind of confirmation, we need to delete it from the socketsWaitlist
-                socket.node.protocol.sendLastBlock((confirmation)=>{
+                socket.node.protocol.sendLastBlock();
+
+                setTimeout(()=>{
 
                     if (block === this._blockPropagating){
                         this._socketsAlreadyBroadcast.push(socket);
@@ -17287,7 +17288,7 @@ class NodeBlockchainPropagation{
                         if (this._socketsPropagating[i] === socket)
                             this._socketsPropagating.splice(i,1);
 
-                });
+                }, 200);
 
             }
 
@@ -22468,6 +22469,11 @@ class InterfaceBlockchainBlock {
     }
 
     destroyBlock(){
+
+        //it is included in the blockchain
+        if ( this.blockchain.blocks[ this.height ] === this)
+            return;
+
         this.blockchain = undefined;
 
         if (this.data !== undefined && this.data !== null)
@@ -22842,12 +22848,13 @@ class InterfaceBlockchainBlock {
 
     async importBlockFromHeader(json) {
 
-        this.version = json.version;
         this.height = json.height;
         this.hash = json.hash;
         this.hashPrev = json.hashPrev;
         this.data.hashData = json.data.hashData;
         this.nonce = json.nonce;
+
+        this.version = json.version;
         this.timeStamp = json.timeStamp;
         this.difficultyTargetPrev = json.difficultyTargetPrev;
 
@@ -26196,7 +26203,7 @@ class RevertActions {
                 }
                 else if (action.name === "block-added" && (actionName === '' || actionName === action.name)) {
 
-                    this.blockchain.blocks.spliceBlocks(action.height);
+                    this.blockchain.blocks.spliceBlocks(action.height, true);
 
                 } else if (action.name === "breakpoint" && (actionName === '' || actionName === action.name)) {
 
@@ -30601,6 +30608,7 @@ module.exports = bytesToUuid;
         {"addr": ["robitza.ddns.net:8082"]},
 
         {"addr": ["webdollar.network:5000"]},
+        {"addr": ["webd.5q.ro:3333"]}
 
     ]
 });
@@ -50463,7 +50471,7 @@ class InterfaceBlockchain {
             }
         }
 
-        this.blocks.spliceBlocks(index);
+        this.blocks.spliceBlocks(index, true);
 
         return true;
     }
@@ -51666,7 +51674,7 @@ class PPoWBlockchainProofBasic{
             if (!found) {
 
                 // avoid destroying real blocks
-                if (typeof this.blocks[i].destroyBlock === "function" && this.blockchain.blocks.length-1 < this.blocks[i].height )
+                if (typeof this.blocks[i].destroyBlock === "function")
                     this.blocks[i].destroyBlock();
 
             }
@@ -51773,6 +51781,16 @@ class PPoWBlockchainProofBasic{
 
         }
 
+    }
+
+    findBlockByHeight(height){
+
+        for (let i=0; i<this.blocks.length; i++)
+            if (this.blocks[i].height === height){
+                return this.blocks[i];
+            }
+
+        return null;
     }
 
 }
@@ -80708,8 +80726,10 @@ class InterfaceBlockchainBlocks{
 
         for (let i = this.length - 1; i >= after; i--)
             if (this[i] !== undefined){
-                if (freeMemory)
+                if (freeMemory) {
+                    this[i].destroyBlock();
                     delete this[i];
+                }
                 else
                     this[i] = undefined;
             }
@@ -80721,7 +80741,7 @@ class InterfaceBlockchainBlocks{
 
     clear(){
 
-        this.spliceBlocks(0)
+        this.spliceBlocks(0, true);
 
     }
 
@@ -88383,6 +88403,12 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
 
             if (proofsList.length === 0) throw {message: "Proofs was not downloaded successfully"};
 
+            if (proofsList.length < 150){
+
+                console.error("PROOFS LIST length is less than 150", proofsList.length);
+
+            }
+
             __WEBPACK_IMPORTED_MODULE_4_common_events_Status_Events__["a" /* default */].emit( "agent/status", {message: "Proofs - Preparing", blockHeight: this.forkStartingHeight } );
 
             if (this.blockchain === undefined){
@@ -88398,34 +88424,13 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
 
                 this._isProofBetter(LCA);
 
-                this.forkProofPi.blocks = [];
-
-                this.forkProofPi._forkLCAStarts = 0;
-
-                for (let i=0; i<this.blockchain.proofPi.blocks.length; i++)
-                    if (this.blockchain.proofPi.blocks[i].height <= LCA.height ) {
-
-                        let found = false;
-                        for (let j=0; j<proofsList.length; j++)
-                            if (proofsList[j].height === this.blockchain.proofPi.blocks[i].height )
-                                found = true;
-
-                        if (found) {
-                            this.forkProofPi.blocks.push(this.blockchain.proofPi.blocks[i]);
-                            this.forkProofPi.blocks[this.forkProofPi.blocks.length-1].blockValidation.getBlockCallBack = this.getForkProofsPiBlock.bind(this);
-
-                            this.forkProofPi._forkLCAStarts = this.forkProofPi.blocks.length; //it is used for destroy
-                        }
-                    }
-
-                if (this.forkProofPi.blocks.length === 0) throw {message: "Proof is invalid LCA nothing"};
-
-                await this.importForkProofPiHeaders( proofsList, LCA.height );
 
             } else {
-                await this.importForkProofPiHeaders( proofsList );
             }
 
+            this.forkProofPi.blocks = [];
+
+            await this.importForkProofPiHeaders( proofsList );
 
             //this.forkProofPi.validateProof();
             if (! this.forkProofPi.validateProofLastElements(__WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].POPOW_PARAMS.m))
@@ -88459,21 +88464,34 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
 
     }
 
-    async importForkProofPiHeaders(blocksHeader, LCAHeight = -1 ){
+    async importForkProofPiHeaders( proofsList ){
 
-        for (let i=0; i<blocksHeader.length; i++){
+        for (let i=0; i< proofsList.length; i++){
 
-            if (blocksHeader[i].height <= LCAHeight)
-                continue;
+            //let's verify if I already have this block
+            let found = false, block = undefined;
 
-            let block = this.blockchain.blockCreator.createEmptyBlock( blocksHeader[i].height );
+            if (this.blockchain.proofPi !== undefined && this.blockchain.proofPi !== null) {
+
+                let searchBlock = this.blockchain.proofPi.findBlockByHeight(proofsList[i].height);
+
+                //the block is already included in my original proof
+                if (searchBlock !== null && searchBlock.hash.equals(proofsList[i].hash)) {
+                    block = searchBlock;
+                    found = true;
+                }
+            }
+
+            if (!found) {
+                block = this.blockchain.blockCreator.createEmptyBlock(proofsList[i].height);
+                await block.importBlockFromHeader( proofsList[i] );
+            }
+
             block.blockValidation.getBlockCallBack = this.getForkProofsPiBlock.bind(this);
-
-            await block.importBlockFromHeader( blocksHeader[i] );
-
             this.forkProofPi.blocks.push(block);
 
             __WEBPACK_IMPORTED_MODULE_4_common_events_Status_Events__["a" /* default */].emit( "agent/status", { message: "Validating Proof ", blockHeight: i } );
+
         }
 
         this.forkProofPi.calculateProofHash();
@@ -93955,13 +93973,17 @@ class NodeWebPeerRTC {
 
 
 
+/**
+ * acknowledgment doesn't make much difference between event vs ackwnowledgment
+ */
+
 class SocketProtocol {
 
-    sendRequestSocket (request, requestData, callback ) {
+    sendRequestSocket (request, requestData ) {
 
         try {
 
-            return this.emit(request, requestData, callback); //socket io and Simple-Peer WebRTC
+            return this.emit(request, requestData,); //socket io and Simple-Peer WebRTC
 
         } catch (exception){
             console.error("Error sending request" + exception, exception);
@@ -93971,18 +93993,11 @@ class SocketProtocol {
     }
 
 
-    sendRequestWebPeer (request, requestData, callback) {
+    sendRequestWebPeer (request, requestData, ) {
 
         try {
 
-            let answer = this.send(request, requestData); // Simple Peer WebRTC - socket
-
-            if (callback !== undefined)
-                setTimeout(()=>{
-                    callback(true);
-                }, 100);
-
-            return answer;
+            return this.send(request, requestData); // Simple Peer WebRTC - socket
 
         } catch (exception){
             console.error("Error sending request" + exception, exception);
