@@ -10141,6 +10141,8 @@ class NodesWaitlist {
                 let sckAddress = __WEBPACK_IMPORTED_MODULE_2_common_sockets_protocol_extend_socket_Socket_Address__["a" /* default */].createSocketAddress(addresses[i], port);
                 if (sckAddress.address.indexOf("192.168") === 0 ) continue;
 
+                if (true && !sckAddress.SSL) continue;
+
                 let answer = this._searchNodesWaitlist(sckAddress, port, type);
 
                 if (answer.waitlist === null){
@@ -56003,7 +56005,13 @@ class NodePropagationProtocol {
             try{
 
                 let list = [];
-                for (let i=0; i<__WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListFullNodes.length; i++) list.push(__WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListFullNodes[i].toJSON());
+                for (let i=0; i<__WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListFullNodes.length; i++) {
+
+                    if (socket.node.protocol.nodeType === __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER && !__WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListFullNodes[i].sckAddresses[0].SSL) //let's send only SSL
+                        continue;
+
+                    list.push(__WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListFullNodes[i].toJSON());
+                }
 
                 socket.node.sendRequest("propagation/nodes", {"op": "new-full-nodes", addresses: list });
 
@@ -56119,7 +56127,6 @@ class NodePropagationProtocol {
 
             if (nodes.length === 0) return;
 
-            let index = 0;
             for (let index =0; index < number && index < nodes.length; index++){
 
                 let node = nodes[index];
@@ -56137,7 +56144,7 @@ class NodePropagationProtocol {
                         break;
                     }
 
-                if ( !found && (!onlySSL || onlySSL && node.sckAddresses[0].SSL))
+                if ( !found && (!onlySSL || onlySSL && node.sckAddresses[0].SSL === true))
                     list.push(json);
 
                 index++;
