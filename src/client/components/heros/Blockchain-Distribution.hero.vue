@@ -48,6 +48,11 @@
                     <span class="minValue">{{this.distributionProgressBarMinString}} WEBD</span>
                     <span class="maxValue">{{this.distributionProgressBarMaxString}} WEBD</span>
 
+                    <br/><br/><br/>
+                    <span>
+                        Smart connections {{this.connected}}
+                    </span>
+
                 </div>
 
             </div>
@@ -79,6 +84,7 @@
                 distributionProgressBarMin : 0,
 
                 networkHashRate: 0,
+                connected: false,
             }
         },
 
@@ -140,6 +146,10 @@
 
             });
 
+            setInterval(()=>{
+                console.log(WebDollar.Blockchain.blockchain.agent.status);
+                this.connected = WebDollar.Blockchain.blockchain.agent.status === 3;
+            }, 1000)
 
 
         },
