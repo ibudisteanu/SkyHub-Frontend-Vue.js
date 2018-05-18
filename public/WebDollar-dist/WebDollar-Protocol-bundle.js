@@ -2172,7 +2172,7 @@ consts.SETTINGS = {
                 },
 
                 SERVER: {
-                    MAXIMUM_CONNECTIONS_FROM_BROWSER: 400,
+                    MAXIMUM_CONNECTIONS_FROM_BROWSER: 450,
                     MAXIMUM_CONNECTIONS_FROM_TERMINAL: 120,
 
                     TERMINAL_CONNECTIONS_REQUIRED_TO_DISCONNECT_FROM_FALLBACK: 10,
@@ -91105,8 +91105,12 @@ class NodeClient {
 
         return new Promise( (resolve) => {
 
+            let timeoutConnection = 7*1000 + Math.floor( Math.random()*10*1000) + (  false ? Math.random()*10*1000 : 0 );
+            let timeoutTotal =  7*1000 + Math.floor( Math.random()*10*1000) + (  false ? Math.random()*30*1000 : 0 );
+
             try
             {
+
                 if ( address.length < 3 ){
                     console.log("rejecting address... invalid ",address);
                     resolve(false);
@@ -91132,8 +91136,8 @@ class NodeClient {
                         reconnection: false, //no reconnection because it is managed automatically by the WaitList
                         maxHttpBufferSize: __WEBPACK_IMPORTED_MODULE_1_consts_const_global__["a" /* default */].SOCKET_MAX_SIZE_BYRES,
 
-                        connection_timeout :  true ? 15000 : 50000,
-                        timeout:  true ? 15000 : 50000,
+                        connection_timeout : timeoutTotal,
+                        timeout: timeoutTotal,
 
                         secure: SSL, //https
 
@@ -91169,7 +91173,7 @@ class NodeClient {
                         socket.disconnect();
                         resolve(false);
 
-                    }, 15*1000 + Math.floor( Math.random()*10*1000) );
+                    }, timeoutConnection);
 
 
                     let answer = await socket.node.protocol.sendHello(["ip","uuid"]);
@@ -91211,7 +91215,7 @@ class NodeClient {
 
             setTimeout(()=>{
                 resolve(false);
-            }, 10000 + Math.floor(Math.random() * 10000))
+            }, timeoutTotal + Math.floor(Math.random() * 5*1000));
 
         });
 
