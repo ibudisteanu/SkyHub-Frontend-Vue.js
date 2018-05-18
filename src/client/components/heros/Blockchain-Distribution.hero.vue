@@ -49,9 +49,6 @@
                     <span class="maxValue">{{this.distributionProgressBarMaxString}} WEBD</span>
 
                     <br/><br/><br/>
-                    <span>
-                        Smart connections {{this.connected}}
-                    </span>
 
                 </div>
 
@@ -108,6 +105,7 @@
 
                 if (this.networkHashRate >= 1000000) return (this.networkHashRate / 1000000).toFixed(2);
                 if (this.networkHashRate >= 1000) return (this.networkHashRate / 1000).toFixed(0);
+                return (this.networkHashRate)
 
             },
 
@@ -115,6 +113,7 @@
 
                 if (this.networkHashRate >= 1000000) return 'Mh/s';
                 if (this.networkHashRate >= 1000) return 'Kh/s';
+                return 'h/s';
 
             }
         },

@@ -1920,7 +1920,7 @@ const uuid = __webpack_require__(166);
 
 let consts = {
 
-    DEBUG: false,
+    DEBUG: true,
     OPEN_SERVER: true,
 };
 
@@ -10141,7 +10141,7 @@ class NodesWaitlist {
                 let sckAddress = __WEBPACK_IMPORTED_MODULE_2_common_sockets_protocol_extend_socket_Socket_Address__["a" /* default */].createSocketAddress(addresses[i], port);
                 if (sckAddress.address.indexOf("192.168") === 0 ) continue;
 
-                if (true && !sckAddress.SSL) continue;
+                if (true && !sckAddress.SSL && __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].SETTINGS.NODE.SSL) continue;
 
                 let answer = this._searchNodesWaitlist(sckAddress, port, type);
 
@@ -50497,7 +50497,7 @@ class InterfaceBlockchain {
 
     _onBlockCreated(block, saveBlock){
 
-        if (saveBlock)
+        if (!block.blockValidation.blockValidationType["skip-recalculating-hash-rate"] )
             this.blocks.recalculateNetworkHashRate();
 
     }
@@ -50695,6 +50695,7 @@ class InterfaceBlockchain {
                 validationType["skip-calculating-proofs"] = true;
                 validationType["skip-calculating-block-nipopow-level"] = true;
                 validationType["skip-saving-light-accountant-tree-serializations"] = true;
+                validationType["skip-recalculating-hash-rate"] = true;
 
                 if (Math.random() > 0.0001)
                     validationType["skip-validation-PoW-hash"] = true;
