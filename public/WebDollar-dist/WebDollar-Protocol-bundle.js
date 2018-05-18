@@ -1920,7 +1920,7 @@ const uuid = __webpack_require__(166);
 
 let consts = {
 
-    DEBUG: true,
+    DEBUG: false,
     OPEN_SERVER: true,
 };
 
@@ -50385,7 +50385,6 @@ class MiniBlockchainAdvanced extends  __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
  * Blockchain contains a chain of blocks based on Proof of Work
  */
 class InterfaceBlockchain {
-
 
     constructor (agent){
 
