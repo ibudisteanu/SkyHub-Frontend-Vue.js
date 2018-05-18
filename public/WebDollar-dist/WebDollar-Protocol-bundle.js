@@ -2107,7 +2107,7 @@ consts.MINING_POOL = {
     BASE_HASH_STRING: "00978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
 
     MINING:{
-        FEE_THRESHOLD: 100,
+        FEE_THRESHOLD: 100000,
         MAXIMUM_BLOCKS_TO_MINE_BEFORE_ERROR: 13
     },
 
@@ -2170,7 +2170,7 @@ consts.SETTINGS = {
                 },
 
                 SERVER: {
-                    MAXIMUM_CONNECTIONS_FROM_BROWSER: 550,
+                    MAXIMUM_CONNECTIONS_FROM_BROWSER: 400,
                     MAXIMUM_CONNECTIONS_FROM_TERMINAL: 120,
 
                     TERMINAL_CONNECTIONS_REQUIRED_TO_DISCONNECT_FROM_FALLBACK: 10,
@@ -2250,7 +2250,6 @@ if ( consts.DEBUG === true ){
 
 
 }
-
 
 /* harmony default export */ __webpack_exports__["a"] = (consts);
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
@@ -2607,10 +2606,13 @@ class NodesList {
 
             this.emitter.emit("nodes-list/connected", object);
 
-            if (socket.node.protocol.nodeDomain !== undefined && socket.node.protocol.nodeDomain !== '' && socket.node.type === __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL) {
+            if (socket.node.protocol.nodeDomain !== undefined && socket.node.protocol.nodeDomain !== '' && ( socket.node.type === __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL || socket.node.type === __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER )) {
 
                 if (socket.node.protocol.nodeDomain.indexOf("my-ip:")>=0)
                     socket.node.protocol.nodeDomain = socket.node.protocol.nodeDomain.replace("my-ip", socket.node.sckAddress.address);
+
+                if (socket.node.protocol.nodeDomain.indexOf("browser")===0)
+                    socket.node.protocol.nodeDomain = socket.node.protocol.nodeDomain.replace("browser", socket.node.sckAddress.address);
 
                 await __WEBPACK_IMPORTED_MODULE_4_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].addNewNodeToWaitlist(socket.node.protocol.nodeDomain, undefined, socket.node.type, true, socket.node.level, socket, socket);
             }
@@ -7050,16 +7052,6 @@ module.exports = types
 
 /***/ }),
 /* 23 */
-/***/ (function(module, exports) {
-
-module.exports = function (it) {
-  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
-  return it;
-};
-
-
-/***/ }),
-/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7304,6 +7296,16 @@ class Blockchain{
 
 /* harmony default export */ __webpack_exports__["a"] = (new Blockchain());
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports) {
+
+module.exports = function (it) {
+  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
+  return it;
+};
+
 
 /***/ }),
 /* 25 */
@@ -9016,7 +9018,7 @@ const NODES_TYPE = {
 /***/ (function(module, exports, __webpack_require__) {
 
 // optional / simple context binding
-var aFunction = __webpack_require__(23);
+var aFunction = __webpack_require__(24);
 module.exports = function (fn, that, length) {
   aFunction(fn);
   if (that === undefined) return fn;
@@ -10118,7 +10120,7 @@ class NodesWaitlist {
 
         //interval to delete useless waitlist and resort scores
 
-        setInterval( this._deleteUselessWaitlists.bind(this), 30*1000 + Math.random()*20 );
+        setTimeout( this._deleteUselessWaitlists.bind(this), 30*1000 + Math.random()*3000 );
 
     }
 
@@ -10139,9 +10141,9 @@ class NodesWaitlist {
             try {
 
                 let sckAddress = __WEBPACK_IMPORTED_MODULE_2_common_sockets_protocol_extend_socket_Socket_Address__["a" /* default */].createSocketAddress(addresses[i], port);
-                if (sckAddress.address.indexOf("192.168") === 0 ) continue;
+                if (sckAddress.address.indexOf("192.168") === 0 && !__WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].DEBUG ) continue;
 
-                if (true && !sckAddress.SSL && __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].SETTINGS.NODE.SSL) continue;
+                if (true && !sckAddress.SSL && __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].SETTINGS.NODE.SSL && !__WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].DEBUG )  continue;
 
                 let answer = this._searchNodesWaitlist(sckAddress, port, type);
 
@@ -10254,8 +10256,6 @@ class NodesWaitlist {
      */
     _deleteUselessWaitlist(listType){
 
-        console.warn("_deleteUselessWaitlist started");
-
         let list, max;
 
 
@@ -10287,8 +10287,6 @@ class NodesWaitlist {
             list.splice(max);
         }
 
-        console.warn("_deleteUselessWaitlist ended");
-
         return false;
 
     }
@@ -10306,6 +10304,7 @@ class NodesWaitlist {
         this._deleteUselessWaitlist( __WEBPACK_IMPORTED_MODULE_3_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL );
         this._deleteUselessWaitlist( __WEBPACK_IMPORTED_MODULE_3_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER );
 
+        setTimeout( this._deleteUselessWaitlists.bind(this), 30*1000 + Math.random()*3000 );
     }
 
     resetWaitlist(listType){
@@ -12813,7 +12812,7 @@ module.exports = Hash
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_main_blockchain_Blockchain__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_main_blockchain_Blockchain__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_events_Status_Events__ = __webpack_require__(21);
 /* Added by Silviu Bogdan Stroe - https://www.silviu-s.com */
 /* Edited by Cosmin-Dumitru Oprea */
@@ -14884,7 +14883,7 @@ class InterfaceBlockchainFork {
                 return false
             }
 
-            this.sleep(100);
+            await this.sleep(50);
 
             this.forkIsSaving = true;
 
@@ -14899,7 +14898,7 @@ class InterfaceBlockchainFork {
                 return false;
             }
 
-            this.sleep(100);
+            await this.sleep(70);
 
             try {
 
@@ -14917,7 +14916,7 @@ class InterfaceBlockchainFork {
                 return false;
             }
 
-            this.sleep(100);
+            await this.sleep(70);
 
             this.blockchain.blocks.spliceBlocks(this.forkStartingHeight, false);
 
@@ -14938,15 +14937,17 @@ class InterfaceBlockchainFork {
                     this.forkBlocks[index].blockValidation = this._createBlockValidation_BlockchainValidation( this.forkBlocks[index].height , index);
                     this.forkBlocks[index].blockValidation.blockValidationType['skip-validation-PoW-hash'] = true; //It already validated the hash
 
+                    if (true) this.forkBlocks[index].blockValidation.blockValidationType['skip-sleep'] = true;
+
                     if (! (await this.saveIncludeBlock(index, revertActions)) )
                         throw({message: "fork couldn't be included in main Blockchain ", index: index});
 
-                    this.sleep(100);
+                    if (false) await this.sleep(70);
                 }
 
                 await this.blockchain.saveBlockchain( this.forkStartingHeight );
 
-                this.sleep(100);
+                await this.sleep(30);
 
                 console.log("FORK STATUS SUCCESS5: ", forkedSuccessfully, "position", this.forkStartingHeight);
 
@@ -14964,23 +14965,23 @@ class InterfaceBlockchainFork {
                 //revert the accountant tree
                 //revert the last K block
                 revertActions.revertOperations('', "all");
-                this.sleep(100);
+                await this.sleep(30);
 
                 //reverting back to the clones, especially light settings
                 await this.revertFork();
-                this.sleep(100);
+                await this.sleep(30);
 
             }
 
-            this.sleep(100);
+            await this.sleep(30);
 
             await this.postForkTransactions(forkedSuccessfully);
 
-            this.sleep(100);
+            await this.sleep(30);
 
             this.postFork(forkedSuccessfully);
 
-            this.sleep(100);
+            await this.sleep(30);
 
             if (forkedSuccessfully) {
                 this.blockchain.mining.resetMining();
@@ -15001,7 +15002,7 @@ class InterfaceBlockchainFork {
             //successfully, let's delete the backup blocks
             this._deleteBackupBlocks();
 
-            this.sleep(100);
+            await this.sleep(100);
 
             //propagate last block
             __WEBPACK_IMPORTED_MODULE_5_common_sockets_protocol_propagation_Node_Blockchain_Propagation__["a" /* default */].propagateBlock( this.blockchain.blocks[ this.blockchain.blocks.length-1 ], this.sockets);
@@ -15012,7 +15013,7 @@ class InterfaceBlockchainFork {
 
             }
 
-            this.sleep(100);
+            await this.sleep(100);
 
         }
 
@@ -15708,7 +15709,7 @@ module.exports = function (KEY, length, exec) {
 
 // 7.3.20 SpeciesConstructor(O, defaultConstructor)
 var anObject = __webpack_require__(6);
-var aFunction = __webpack_require__(23);
+var aFunction = __webpack_require__(24);
 var SPECIES = __webpack_require__(12)('species');
 module.exports = function (O, D) {
   var C = anObject(O).constructor;
@@ -15886,7 +15887,7 @@ module.exports = function (COLLECTION) {
 
 // https://tc39.github.io/proposal-setmap-offrom/
 var $export = __webpack_require__(0);
-var aFunction = __webpack_require__(23);
+var aFunction = __webpack_require__(24);
 var ctx = __webpack_require__(42);
 var forOf = __webpack_require__(74);
 
@@ -16776,7 +16777,7 @@ class RevertActions {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_main_blockchain_Blockchain__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_main_blockchain_Blockchain__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_Nodes_List__ = __webpack_require__(11);
 
@@ -16804,7 +16805,7 @@ class NodeBlockchainPropagation{
 
         });
 
-        setTimeout( this.processPropagation.bind(this), 300);
+        setTimeout( this.processPropagation.bind(this), 400);
 
         //remove disconnected sockets
         setInterval( this._deleteDisconenctedSockets.bind(this), 20000)
@@ -16876,7 +16877,7 @@ class NodeBlockchainPropagation{
                         if (this._socketsPropagating[i] === socket)
                             this._socketsPropagating.splice(i,1);
 
-                }, 200);
+                }, 500 + Math.random()*400 );
 
             }
 
@@ -17564,7 +17565,7 @@ module.exports = __webpack_require__(704);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_types_Connections_Type__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_main_blockchain_Blockchain__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_main_blockchain_Blockchain__ = __webpack_require__(23);
 
 
 
@@ -17623,6 +17624,9 @@ class NodeProtocol {
             console.warn("too many terminal connections");
             return false;
         }
+
+        if (response.uuid === __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.UUID)
+            return false;
 
         this.node.sckAddress.uuid = response.uuid;
 
@@ -17959,7 +17963,7 @@ class InterfaceBlockchainProtocol {
             });
 
         if (this.acceptBlockHeaders)
-            socket.node.on("head/new-block",  (data) => {
+            socket.node.on("head/new-block", async (data) => {
 
                 try {
 
@@ -17974,6 +17978,8 @@ class InterfaceBlockchainProtocol {
                     if (Math.random() < 0.1)
                         console.log("newForkTip", data.l );
 
+                    await this.blockchain.sleep(15+Math.random()*20);
+
                     this.forksManager.newForkTip(socket, data.l, data.s, data.h, data.p);
 
                 } catch (exception){
@@ -17983,11 +17989,13 @@ class InterfaceBlockchainProtocol {
             });
 
         if (this.acceptBlockHeaders)
-            socket.node.on("head/hash", (h) => {
+            socket.node.on("head/hash", async (h) => {
 
                 try {
 
                     // height
+
+                    await this.blockchain.sleep(15+Math.random()*20);
 
                     if (typeof h !== 'number' || this.blockchain.blocks.length <= h) {
                         socket.node.sendRequest("head/hash", null);
@@ -18008,7 +18016,7 @@ class InterfaceBlockchainProtocol {
 
         if (this.acceptBlocks)
 
-            socket.node.on("blockchain/blocks/request-block-by-height", (data) => {
+            socket.node.on("blockchain/blocks/request-block-by-height", async (data) => {
 
                 // data.height
                 // data.onlyHeader
@@ -18025,6 +18033,8 @@ class InterfaceBlockchainProtocol {
 
                     if (block === undefined)
                         throw {message: "block is empty", height: data.height};
+
+                    await this.blockchain.sleep( 15 + Math.random() * 20 );
 
                     socket.node.sendRequest("blockchain/blocks/request-block-by-height/" + (data.height || 0), {
                         result: true,
@@ -18061,6 +18071,8 @@ class InterfaceBlockchainProtocol {
             let data = await socket.node.sendRequestWaitOnce("head/last-block", undefined, "a");
 
             if (data === null) return false;
+
+            await this.blockchain.sleep(15+Math.random()*20);
 
             return await this.forksManager.newForkTip(socket, data.l, data.s, data.h, data.p);
 
@@ -18939,7 +18951,7 @@ module.exports = function () {
 "use strict";
 
 // 25.4.1.5 NewPromiseCapability(C)
-var aFunction = __webpack_require__(23);
+var aFunction = __webpack_require__(24);
 
 function PromiseCapability(C) {
   var resolve, reject;
@@ -22701,6 +22713,7 @@ class InterfaceBlockchainBlock {
         
         //computed data
         this.computedBlockPrefix = null;
+        this.computedSerialization = null;
 
         this.difficultyTarget = null; // difficulty set by Blockchain
         this.difficultyTargetPrev = null; // difficulty set by Blockchain
@@ -22945,16 +22958,22 @@ class InterfaceBlockchainBlock {
 
         // serialize block is ( hash + nonce + header )
 
+        if (this.computedSerialization !== null && requestHeader === true) return this.computedSerialization;
+
         this._computeBlockHeaderPrefix(true, requestHeader);
 
         if (!Buffer.isBuffer(this.hash) || this.hash.length !== __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_POW_LENGTH)
             this.hash = this.computeHash();
 
-        return Buffer.concat( [
-                                  this.hash,
-                                  __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].serializeNumber4Bytes( this.nonce ),
-                                  this.computedBlockPrefix,
-                                ]);
+        let data = Buffer.concat( [
+                                     this.hash,
+                                     __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].serializeNumber4Bytes( this.nonce ),
+                                     this.computedBlockPrefix,
+                                  ]);
+
+        if (this.computedSerialization === null && requestHeader === true) this.computedSerialization = data;
+
+        return data;
 
     }
 
@@ -26925,7 +26944,7 @@ class InterfaceBlockchainProtocolForkSolver{
             if (left < 0 || answer === null || !Buffer.isBuffer(answer.hash) )
                 return {position: null, header: answer };
 
-            this.blockchain.sleep(5);
+            await this.blockchain.sleep(7);
 
             //i have finished the binary search
             if (left >= right) {
@@ -27002,6 +27021,8 @@ class InterfaceBlockchainProtocolForkSolver{
             if (!this.blockchain.agent.light  && currentBlockchainLength > forkChainLength)
                 throw {message: "discoverAndProcessFork - fork is smaller fork than mine"};
 
+            await this.blockchain.sleep(15);
+
             let forkFound = this.blockchain.forksAdministrator.findForkBySockets(socket);
 
             if ( forkFound !== null ) {
@@ -27022,6 +27043,8 @@ class InterfaceBlockchainProtocolForkSolver{
                 return {result: true, fork: forkFound};
 
             }
+
+            await this.blockchain.sleep(15);
 
             //optimization
             //check if n-2 was ok, but I need at least 1 block
@@ -27060,6 +27083,8 @@ class InterfaceBlockchainProtocolForkSolver{
                     throw {message: "connection dropped discoverForkBinarySearch"}
 
             }
+
+            await this.blockchain.sleep(15);
 
             //process light and NiPoPow
             await this.optionalProcess(socket, binarySearchResult, currentBlockchainLength, forkChainLength, forkChainStartingPoint);
@@ -27113,6 +27138,8 @@ class InterfaceBlockchainProtocolForkSolver{
                 console.warn("BANNNNNNNNNNNNNNNNN", socket.node.sckAddress.toString(), exception.message);
                 __WEBPACK_IMPORTED_MODULE_6_common_utils_bans_BansList__["a" /* default */].addBan(socket, 2000, exception.message);
             }
+
+            await this.blockchain.sleep(15);
 
             return { result:false, error: exception };
 
@@ -27177,6 +27204,8 @@ class InterfaceBlockchainProtocolForkSolver{
             let blockValidation = fork._createBlockValidation_ForkValidation(nextBlockHeight, fork.forkBlocks.length-1);
             let block = this._deserializeForkBlock(fork, answer.block, nextBlockHeight, blockValidation );
 
+            await this.blockchain.sleep(15);
+
             let result;
 
             try {
@@ -27200,7 +27229,7 @@ class InterfaceBlockchainProtocolForkSolver{
             else
                 throw {message: "Fork didn't work at height ", nextBlockHeight};
 
-            this.blockchain.sleep(30);
+            await this.blockchain.sleep(30);
 
         }
 
@@ -28859,7 +28888,7 @@ module.exports = !$assign || __webpack_require__(9)(function () {
 
 "use strict";
 
-var aFunction = __webpack_require__(23);
+var aFunction = __webpack_require__(24);
 var isObject = __webpack_require__(10);
 var invoke = __webpack_require__(220);
 var arraySlice = [].slice;
@@ -29020,7 +29049,7 @@ module.exports = function (iterator, fn, value, entries) {
 /* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var aFunction = __webpack_require__(23);
+var aFunction = __webpack_require__(24);
 var toObject = __webpack_require__(20);
 var IObject = __webpack_require__(90);
 var toLength = __webpack_require__(16);
@@ -50259,12 +50288,12 @@ class MiniBlockchainAdvanced extends  __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
                 if (! (await this.db.save("lightAccountantTreeAdvanced_offset", __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.SAFETY_LAST_ACCOUNTANT_TREES )))
                     throw {message: "Couldn't be saved _lightAccountantTreeAdvanced_offset", index: this._blockchainFileName + __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.SAFETY_LAST_ACCOUNTANT_TREES};
 
-                this.sleep(10);
+                await this.sleep(70);
 
                 if (!(await this.accountantTree.saveMiniAccountant( true, "lightAccountantTreeAdvanced", this.lightAccountantTreeSerializations[this.blocks.length - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.SAFETY_LAST_ACCOUNTANT_TREES + 1])))
                     throw {message: "saveMiniAccountant couldn't be saved"};
 
-                this.sleep(100);
+                await this.sleep(80);
             }
 
             console.log("saving ended");
@@ -50460,12 +50489,12 @@ class InterfaceBlockchain {
 
         }
 
+        if (!block.blockValidation.blockValidationType['skip-sleep']) await this.sleep(50);
 
-        this.sleep(70);
         if (! (await this.validateBlockchainBlock(block)) ) // the block has height === this.blocks.length
             return false;
 
-        this.sleep(80);
+        if (!block.blockValidation.blockValidationType['skip-sleep']) await this.sleep(50);
 
         //let's check again the heights
         if (block.height !== this.blocks.length)
@@ -50655,7 +50684,7 @@ class InterfaceBlockchain {
                         if (!( await this.blocks[i].saveBlock()))
                             throw {message: "couldn't save block", block: i};
 
-                        this.sleep(20);
+                        await this.sleep(20);
 
                     } catch (exception){
                         console.error(exception);
@@ -50672,7 +50701,7 @@ class InterfaceBlockchain {
 
     _getLoadBlockchainValidationType(indexStart, i, numBlocks, indexStartProcessingOffset){
 
-        let validationType = {};
+        let validationType = {"skip-sleep": true} ;
 
         if (indexStartProcessingOffset !== undefined ){
 
@@ -52029,12 +52058,12 @@ class NodesWaitlistObject {
 
         let obj = {
 
-            type: this.type,
-            addr: this.sckAddresses[0].getAddress(true, true),
+            a: this.sckAddresses[0].getAddress(true, true), // address
+            t: this.type, // type
 
         };
 
-        if (this.connected) obj.connected = this.connected;
+        if (this.connected) obj.c = this.connected;
 
         return obj;
     }
@@ -52214,14 +52243,14 @@ class SemaphoreProcessing{
 
             if (index > 0) {
                 await this._list[index - 1].promise;
-                this.sleep(100);
+                await this.sleep(70);
             }
 
             let answer;
 
             try {
                 answer = await callback();
-                this.sleep(100);
+                await this.sleep(70);
             } catch (ex){
                 console.error("error processingSemaphoreList callback !!!!!!!!!!!!!!!!!!!!!!!!", ex);
                 resolve(false);
@@ -52231,7 +52260,7 @@ class SemaphoreProcessing{
 
             try {
                 resolve(answer);
-                this.sleep(100);
+                await this.sleep(70);
             } catch (ex){
                 console.error("error processingSemaphoreList RESOLVER !!!!!!!!!!!!!!!!!!!!!!!!", ex);
                 resolve(false)
@@ -52829,7 +52858,7 @@ class InterfaceRadixMerkleTree extends __WEBPACK_IMPORTED_MODULE_0__Interface_Ra
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_Serialization__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_BufferExtended__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__ = __webpack_require__(23);
 
 
 
@@ -53764,7 +53793,7 @@ class PPoWBlockchainAgentFullNode extends __WEBPACK_IMPORTED_MODULE_0_common_blo
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_blockchain_interface_blockchain_blockchain_forks_Interface_Blockchain_Fork__ = __webpack_require__(100);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_helpers_Version_Checker_Helper__ = __webpack_require__(203);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Agent_Status__ = __webpack_require__(134);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Interface_Blockchain_Agent_Basic__ = __webpack_require__(765);
@@ -55919,11 +55948,14 @@ class SocketExtend{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_sockets_protocol_extend_socket_Node_Protocol__ = __webpack_require__(131);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_main_blockchain_Blockchain__ = __webpack_require__(23);
 
 
 
 
 
+
+const MAX_WAITLIST_QUEUE_LENGTH = 100;
 
 class NodePropagationProtocol {
 
@@ -55933,32 +55965,36 @@ class NodePropagationProtocol {
         this._waitlistSimple = [];
         this._waitlistSimpleSSL = [];
 
-        this._newFullNodesWaitList = [];
-        this._newLightNodesWaitList = [];
+        this._newFullNodesWaitList = {length: 0};  //for key-value
+        this._newLightNodesWaitList = {length: 0}; //for key-value
 
-        setTimeout(this._processNewWaitlistInterval.bind(this), 5000);
+
+        this._waitlistProccessed = {};
+
+        setTimeout(this._processNewWaitlistInterval.bind(this), 5000 + Math.random()*2000 );
 
     }
 
     async _processList(list){
 
-        for (let i=0; i<list.length; i++) {
+        for (let key in list){
 
-            let waitlist = null;
+            if (key === "length") continue;
+            if (!list.hasOwnProperty(key)) continue;
 
-            while (waitlist === null && list.length > 0) {
+            let answer = await __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].addNewNodeToWaitlist( key, undefined, list[key].t,  list[key].c, list[key].sock.node.level + 1, list[key].sock );
 
-                let index = 0;
-                let newNode = list[index];
+            if (answer !== null ){
 
-                waitlist = await __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].addNewNodeToWaitlist( newNode.address.addr, undefined, newNode.address.type,  newNode.address.connected, newNode.socket.node.level + 1, newNode.socket);
-
-                list.splice(index, 1);
+                this._waitlistProccessed[key] = true;
 
                 return;
             }
 
+            delete list[key];
+            list.length--;
         }
+
 
     }
 
@@ -56005,6 +56041,7 @@ class NodePropagationProtocol {
             try{
 
                 let list = [];
+
                 for (let i=0; i<__WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListFullNodes.length; i++) {
 
                     if (socket.node.protocol.nodeType === __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER && !__WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListFullNodes[i].sckAddresses[0].SSL) //let's send only SSL
@@ -56041,7 +56078,9 @@ class NodePropagationProtocol {
                 let addresses = response.addresses || [];
                 if (typeof addresses === "string") addresses = [addresses];
 
-                if (!Array.isArray(addresses)) throw {message: "addresses is not an array"};
+                if (!Array.isArray(addresses)) throw { message: "addresses is not an array" };
+
+                if (addresses.length > 50) addresses.splice(50); //only the first 50 nodes
 
                 let op = response.op || '';
 
@@ -56060,32 +56099,47 @@ class NodePropagationProtocol {
                             type = __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER;
                         }
 
-                        for (let i = 0; i < addresses.length; i++)
-                            if(addresses[i].type === type) {
+                        if (list.length > MAX_WAITLIST_QUEUE_LENGTH)
+                            break;
 
-                                let found = false;
-                                for (let j = 0; j < list.length; j++)
-                                    if (list[j].addr === addresses[i].addr) {
-                                        found = true;
-                                        break;
-                                    }
 
-                                if (!found)
-                                    list.push({address: addresses[i], socket: socket});
+                        for (let i = 0; i < addresses.length; i++){
+
+                            if ( typeof addresses[ i ].a === "string" && list[ addresses[ i ].a ] === undefined && addresses[ i ].a !== "length"){
+
+                                list[ addresses[ i ].a ] = {
+                                    a: addresses[i].a,
+                                    t: addresses[i].t,
+                                    c: addresses[i].c,
+                                    sock: socket,
+                                };
+
+                                list.length++;
+
+                                if (list.length > MAX_WAITLIST_QUEUE_LENGTH)
+                                    break;
+
                             }
 
+                        }
 
                         break;
 
-                    case "disconnected-light-nodes":
-                    case "disconnected-full-nodes":
+                    //TODO remove addresses from list
 
-                        for (let i = 0; i < addresses.length; i++) {
-
-                            if (__WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__["a" /* default */]._findNodesWaitlist(addresses[i].addr, undefined, addresses[i].type) !== -1)
-                                await __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].addNewNodeToWaitlist(addresses[i].addr, undefined, addresses[i].type, addresses[i].connected, socket.node.level + 1, socket);
-
-                        }
+                    // case "disconnected-light-nodes":
+                    // case "disconnected-full-nodes":
+                    //
+                    //     for (let i = 0; i < addresses.length; i++) {
+                    //
+                    //         let answer = NodesWaitlist._searchNodesWaitlist(addresses[i].addr, undefined, addresses[i].type);
+                    //         if (answer.waitlist !== null)
+                    //             answer.removeBackedBy(socket.sckAddress);
+                    //
+                    //         if (i%20 === 0)
+                    //             await Blockchain.blockchain.sleep(50);
+                    //
+                    //     }
 
                         break;
 
@@ -56104,15 +56158,15 @@ class NodePropagationProtocol {
 
     _newNodeConnected( nodeWaitListObject ){
 
-        if (nodeWaitListObject.type === __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL) __WEBPACK_IMPORTED_MODULE_3_common_sockets_protocol_extend_socket_Node_Protocol__["a" /* default */].broadcastRequest("propagation/nodes", {op: "new-full-nodes", addresses: [nodeWaitListObject.toJSON() ]}, undefined, nodeWaitListObject.socket);
-        else if(nodeWaitListObject.type === __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER) __WEBPACK_IMPORTED_MODULE_3_common_sockets_protocol_extend_socket_Node_Protocol__["a" /* default */].broadcastRequest("propagation/nodes", {op: "new-light-nodes", addresses: [nodeWaitListObject.toJSON() ]}, undefined, nodeWaitListObject.socket);
+        // if (nodeWaitListObject.type === NODES_TYPE.NODE_TERMINAL) NodeProtocol.broadcastRequest("propagation/nodes", {op: "new-full-nodes", addresses: [nodeWaitListObject.toJSON() ]}, undefined, nodeWaitListObject.socket);
+        // else if(nodeWaitListObject.type === NODES_TYPE.NODE_WEB_PEER) NodeProtocol.broadcastRequest("propagation/nodes", {op: "new-light-nodes", addresses: [nodeWaitListObject.toJSON() ]}, undefined, nodeWaitListObject.socket);
 
     }
 
     _nodeDisconnected(nodeWaitListObject){
 
-        if (nodeWaitListObject.type === __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL) __WEBPACK_IMPORTED_MODULE_3_common_sockets_protocol_extend_socket_Node_Protocol__["a" /* default */].broadcastRequest("propagation/nodes", {op: "disconnected-full-nodes", addresses: [nodeWaitListObject.toJSON() ]}, undefined, nodeWaitListObject.socket);
-        else if(nodeWaitListObject.type === __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER) __WEBPACK_IMPORTED_MODULE_3_common_sockets_protocol_extend_socket_Node_Protocol__["a" /* default */].broadcastRequest("propagation/nodes", {op: "disconnected-light-nodes", addresses: [nodeWaitListObject.toJSON() ]} , undefined, nodeWaitListObject.socket );
+        // if (nodeWaitListObject.type === NODES_TYPE.NODE_TERMINAL) NodeProtocol.broadcastRequest("propagation/nodes", {op: "disconnected-full-nodes", addresses: [nodeWaitListObject.toJSON() ]}, undefined, nodeWaitListObject.socket);
+        // else if(nodeWaitListObject.type === NODES_TYPE.NODE_WEB_PEER) NodeProtocol.broadcastRequest("propagation/nodes", {op: "disconnected-light-nodes", addresses: [nodeWaitListObject.toJSON() ]} , undefined, nodeWaitListObject.socket );
 
     }
 
@@ -56161,7 +56215,7 @@ class NodePropagationProtocol {
 
     }
 
-    propagateWaitlistSimple(socket, disconnectSocket = true){
+    async propagateWaitlistSimple(socket, disconnectSocket = true){
 
         if (socket === undefined || socket.node === undefined ) return;
 
@@ -56173,6 +56227,8 @@ class NodePropagationProtocol {
             list = this._waitlistSimpleSSL;
 
         socket.emit( "propagation/nodes", { op: "new-full-nodes", addresses: list } );
+
+        await __WEBPACK_IMPORTED_MODULE_4_main_blockchain_Blockchain__["a" /* default */].blockchain.sleep(50);
 
         if (disconnectSocket){
             setTimeout(()=>{
@@ -58815,7 +58871,7 @@ $export($export.P + $export.F * __webpack_require__(9)(function () {
 "use strict";
 
 var $export = __webpack_require__(0);
-var aFunction = __webpack_require__(23);
+var aFunction = __webpack_require__(24);
 var toObject = __webpack_require__(20);
 var fails = __webpack_require__(9);
 var $sort = [].sort;
@@ -59324,7 +59380,7 @@ var ctx = __webpack_require__(42);
 var classof = __webpack_require__(92);
 var $export = __webpack_require__(0);
 var isObject = __webpack_require__(10);
-var aFunction = __webpack_require__(23);
+var aFunction = __webpack_require__(24);
 var anInstance = __webpack_require__(73);
 var forOf = __webpack_require__(74);
 var speciesConstructor = __webpack_require__(111);
@@ -59781,7 +59837,7 @@ __webpack_require__(54)('Float64', 8, function (init) {
 
 // 26.1.1 Reflect.apply(target, thisArgument, argumentsList)
 var $export = __webpack_require__(0);
-var aFunction = __webpack_require__(23);
+var aFunction = __webpack_require__(24);
 var anObject = __webpack_require__(6);
 var rApply = (__webpack_require__(7).Reflect || {}).apply;
 var fApply = Function.apply;
@@ -59804,7 +59860,7 @@ $export($export.S + $export.F * !__webpack_require__(9)(function () {
 // 26.1.2 Reflect.construct(target, argumentsList [, newTarget])
 var $export = __webpack_require__(0);
 var create = __webpack_require__(70);
-var aFunction = __webpack_require__(23);
+var aFunction = __webpack_require__(24);
 var anObject = __webpack_require__(6);
 var isObject = __webpack_require__(10);
 var fails = __webpack_require__(9);
@@ -60139,7 +60195,7 @@ var $export = __webpack_require__(0);
 var flattenIntoArray = __webpack_require__(241);
 var toObject = __webpack_require__(20);
 var toLength = __webpack_require__(16);
-var aFunction = __webpack_require__(23);
+var aFunction = __webpack_require__(24);
 var arraySpeciesCreate = __webpack_require__(157);
 
 $export($export.P, 'Array', {
@@ -60385,7 +60441,7 @@ $export($export.S, 'Object', {
 
 var $export = __webpack_require__(0);
 var toObject = __webpack_require__(20);
-var aFunction = __webpack_require__(23);
+var aFunction = __webpack_require__(24);
 var $defineProperty = __webpack_require__(15);
 
 // B.2.2.2 Object.prototype.__defineGetter__(P, getter)
@@ -60404,7 +60460,7 @@ __webpack_require__(14) && $export($export.P + __webpack_require__(114), 'Object
 
 var $export = __webpack_require__(0);
 var toObject = __webpack_require__(20);
-var aFunction = __webpack_require__(23);
+var aFunction = __webpack_require__(24);
 var $defineProperty = __webpack_require__(15);
 
 // B.2.2.3 Object.prototype.__defineSetter__(P, setter)
@@ -60966,7 +61022,7 @@ metadata.exp({ hasOwnMetadata: function hasOwnMetadata(metadataKey, target /* , 
 
 var $metadata = __webpack_require__(55);
 var anObject = __webpack_require__(6);
-var aFunction = __webpack_require__(23);
+var aFunction = __webpack_require__(24);
 var toMetaKey = $metadata.key;
 var ordinaryDefineOwnMetadata = $metadata.set;
 
@@ -61011,7 +61067,7 @@ var global = __webpack_require__(7);
 var core = __webpack_require__(46);
 var microtask = __webpack_require__(161)();
 var OBSERVABLE = __webpack_require__(12)('observable');
-var aFunction = __webpack_require__(23);
+var aFunction = __webpack_require__(24);
 var anObject = __webpack_require__(6);
 var anInstance = __webpack_require__(73);
 var redefineAll = __webpack_require__(75);
@@ -62089,7 +62145,7 @@ module.exports = function (regExp, replace) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_main_blockchain_Blockchain__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_main_blockchain_Blockchain__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_Node__ = __webpack_require__(781);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_applications_Applications__ = __webpack_require__(817);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_events_Status_Events__ = __webpack_require__(21);
@@ -81135,7 +81191,7 @@ class MiniBlockchain extends  inheritBlockchain{
                 if (!block.data.transactions.validateTransactions(block.height, block.blockValidation.blockValidationType))
                     throw {message: "Validate Transactions is wrong"};
 
-                this.sleep(70);
+                if (!block.blockValidation.blockValidationType['skip-sleep']) await this.sleep(50);
 
                 if (block.blockValidation.blockValidationType['skip-validation-transactions-from-values'] !== true) {
 
@@ -81146,13 +81202,14 @@ class MiniBlockchain extends  inheritBlockchain{
                 if (!block.data.transactions.processBlockDataTransactions( block, + 1, revertActions ))
                     throw {message: "Process Block Data Transactions failed"};
 
-                this.sleep(70);
+
+                if (!block.blockValidation.blockValidationType['skip-sleep']) await this.sleep(50);
 
             }
 
             let callbackDone = await callback();
 
-            this.sleep(70);
+            if (!block.blockValidation.blockValidationType['skip-sleep']) await this.sleep(50);
 
             if (callbackDone === false)
                 throw {message: "couldn't process the InterfaceBlockchain.prototype.includeBlockchainBlock"};
@@ -81513,7 +81570,7 @@ class InterfaceBlockchainBlocks{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_Serialization__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__transactions_transaction_Interface_Blockchain_Transaction__ = __webpack_require__(196);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__ = __webpack_require__(23);
 
 
 
@@ -83125,9 +83182,9 @@ class NodesListObject {
     toJSON(){
 
         return {
-            type: this.type,
-            addr: this.socket.node.sckAddress.getAddress(true, true),
-            connected: true,
+            a: this.socket.node.sckAddress.getAddress(true, true), //addresses
+            t: this.type, //type
+            c: true, //connected
         }
 
     }
@@ -83343,7 +83400,7 @@ class InterfaceTransactionsPendingQueue {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_sockets_protocol_extend_socket_Node_Protocol__ = __webpack_require__(131);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_events_Status_Events__ = __webpack_require__(21);
 
 
@@ -83364,9 +83421,10 @@ class InterfaceBlockchainTransactionsProtocol{
 
         let socket = nodesListObject.socket;
 
+        this.initializeTransactionsPropagation(socket);
+
         if (__WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].loaded){
-            this.initializeTransactionsPropagation(socket);
-            return;
+            this.downloadTransactions(socket, 0, 30);
         }
 
         //after
@@ -83375,9 +83433,9 @@ class InterfaceBlockchainTransactionsProtocol{
 
             setTimeout(()=>{
 
-                this.initializeTransactionsPropagation(socket);
+                this.downloadTransactions(socket, 0, 30);
 
-            }, 8000)
+            }, 5000 + Math.random()*5000 );
 
         });
 
@@ -83388,7 +83446,7 @@ class InterfaceBlockchainTransactionsProtocol{
         // in case the Blockchain was not loaded, I will not be interested in transactions
         let node = socket.node;
 
-        node.on("transactions/new-pending-transaction", response =>{
+        node.on("transactions/new-pending-transaction", async (response) =>{
 
             try {
 
@@ -83411,6 +83469,7 @@ class InterfaceBlockchainTransactionsProtocol{
                 if (!transaction.isTransactionOK())
                     return false;
 
+                await __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.sleep(25);
 
                 if (!__WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions.pendingQueue.includePendingTransaction(transaction, socket))
                     throw {message: "I already have this transaction"};
@@ -83425,11 +83484,11 @@ class InterfaceBlockchainTransactionsProtocol{
 
         });
 
-        node.on("transactions/get-pending-transactions-ids", response => {
+        node.on("transactions/get-pending-transactions-ids", async (response) => {
 
             try{
 
-                if (typeof response === "object") return false;
+                if (typeof response !== "object") return false;
 
                 if (response.format !== "json")  response.format = "buffer";
                 if (typeof response.start  !== "number") response.start = 0;
@@ -83442,11 +83501,15 @@ class InterfaceBlockchainTransactionsProtocol{
 
                 let length = Math.min( response.start + response.count, __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions.pendingQueue.list.length );
 
+                await __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.sleep(20);
+
                 for (let i=response.start; i < length; i++ ){
 
                     if (response.format === "json") list.push( __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions.pendingQueue.list[i].txId.toString("hex") ); else
                     if (response.format === "buffer") list.push( __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions.pendingQueue.list[i].txId );
                 }
+
+                await __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.sleep(15);
 
                 node.sendRequest('transactions/get-pending-transactions-ids/answer', { result: true, format: response.format, transactions: list, next: response.index + response.count, length: __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions.pendingQueue.list.length } );
 
@@ -83455,17 +83518,19 @@ class InterfaceBlockchainTransactionsProtocol{
 
         });
 
-        node.on("transactions/get-pending-transactions-by-ids", response => {
+        node.on("transactions/get-pending-transactions-by-ids", async (response) => {
 
             try{
 
-                if (typeof response === "object") return false;
+                if (typeof response !== "object") return false;
 
                 if (response.format !== "json")  response.format = "buffer";
 
                 if (response.ids === undefined || response.ids === null || !Array.isArray ( response.ids) ) return false;
 
                 let list = [];
+
+                await __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.sleep(20);
 
                 for (let i=0; i<response.ids.length; i++ ){
 
@@ -83478,14 +83543,16 @@ class InterfaceBlockchainTransactionsProtocol{
                     if (response.format === "buffer") list.push( transaction.serializeTransaction() );
                 }
 
-                node.sendRequest('transactions/get-pending-transactions-ids/answer', { result: true, format: response.format, transactions: list } );
+                await __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.sleep(25);
+
+                node.sendRequest('transactions/get-pending-transactions-by-ids/answer', { result: true, format: response.format, transactions: list } );
 
             } catch (exception){
             }
 
         });
 
-        node.on("transactions/get-all-pending-transactions", response => {
+        node.on("transactions/get-all-pending-transactions", async (response) => {
 
             if (Math.random() >= 0.3) return false; // avoid spamming
 
@@ -83504,6 +83571,12 @@ class InterfaceBlockchainTransactionsProtocol{
                     if (response.format === "json") list.push(__WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions.pendingQueue.list[i].toJSON()); else
                     if (response.format === "buffer") list.push(__WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions.pendingQueue.list[i].serializeTransaction());
 
+                    if (i % 10 === 0){
+
+                        await __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.sleep(25);
+
+                    }
+
                 }
 
                 node.sendRequest('transactions/get-all-pending-transactions/answer', {result: true, format: response.format, transactions: list });
@@ -83514,8 +83587,6 @@ class InterfaceBlockchainTransactionsProtocol{
         });
 
 
-        this.downloadTransactions(socket, 0, 30);
-
     }
 
 
@@ -83523,12 +83594,14 @@ class InterfaceBlockchainTransactionsProtocol{
 
         try {
 
-            let answer = await socket.node.sendRequestWaitOnce("transactions/get-pending-transactions-by-ids", {format: "buffer", start: start, count: count}, 'answer', 5000);
+            let answer = await socket.node.sendRequestWaitOnce("transactions/get-pending-transactions-ids", {format: "buffer", start: start, count: count}, 'answer', 5000);
 
             if (answer === null || answer === undefined || answer.result !== true || answer.transactions === null && !Array.isArray(answer.transactions)) return false;
 
             let ids = answer.transactions;
             let downloadingTransactions = [];
+
+            await __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.sleep(30);
 
             for (let i=0; i<ids.length; i++)
 
@@ -83537,6 +83610,11 @@ class InterfaceBlockchainTransactionsProtocol{
                     downloadingTransactions.push(ids[i]);
 
                 }
+
+            await __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.sleep(40);
+
+            if ( downloadingTransactions.length === 0) //nothing to download
+                return;
 
             let answerTransactions = await socket.node.sendRequestWaitOnce("transactions/get-pending-transactions-by-ids", {format: "buffer", ids: downloadingTransactions }, "answer" , 5000);
 
@@ -83560,9 +83638,11 @@ class InterfaceBlockchainTransactionsProtocol{
 
             }
 
+            await __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.sleep(50);
+
 
             if (start + count < answer.length)
-                setTimeout( async ()=>{ await this.downloadTransactions(this, start+count, count)}, 1500 );
+                setTimeout( async ()=>{ await this.downloadTransactions(this, start+count, count)}, 1500 + (Math.random()*1000) );
 
 
         } catch (exception){
@@ -85509,7 +85589,7 @@ class InterfaceMerkleTree extends __WEBPACK_IMPORTED_MODULE_1_common_trees_Inter
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_utils_Serialization__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_trees_radix_tree_merkle_tree_Interface_Merkle_Radix_Tree_Node__ = __webpack_require__(323);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_main_blockchain_Blockchain__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_main_blockchain_Blockchain__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_utils_coins_WebDollar_Coins__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_common_blockchain_global_Blockchain_Mining_Reward__ = __webpack_require__(87);
@@ -88961,7 +89041,7 @@ class MiniBlockchainAgentFullNode extends inheritAgentClass{
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Agent_Status__ = __webpack_require__(134);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__ = __webpack_require__(23);
 const EventEmitter = __webpack_require__(34);
 
 
@@ -89509,7 +89589,7 @@ class PPoWBlockchainAgentBlockHeaders extends __WEBPACK_IMPORTED_MODULE_0_common
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_node_lists_Nodes_List__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_node_lists_types_Connections_Type__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_agents_Agent_Status__ = __webpack_require__(134);
 
 
@@ -90762,7 +90842,7 @@ class NodeClientsService {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_Nodes_List__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__types_Connections_Type__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_common_blockchain_interface_blockchain_agents_Agent_Status__ = __webpack_require__(134);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_common_utils_helpers_Version_Checker_Helper__ = __webpack_require__(203);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_node_lists_types_Nodes_Type__ = __webpack_require__(41);
@@ -90926,7 +91006,7 @@ class NodesWaitlistConnecting {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_Nodes_List__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Connections_Type__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_node_lists_types_Nodes_Type__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__ = __webpack_require__(23);
 
 
 
@@ -91039,7 +91119,7 @@ class NodeClient {
                         socket.disconnect();
                         resolve(false);
 
-                    }, 15*1000 + Math.floor(Math.random()*10));
+                    }, 15*1000 + Math.floor( Math.random()*10*1000) );
 
 
                     let answer = await socket.node.protocol.sendHello(["ip","uuid"]);
@@ -95501,7 +95581,7 @@ class FallBackObject {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_webrtc_service_discovery_node_web_peers_discovery_service__ = __webpack_require__(815);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_main_blockchain_Blockchain__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_main_blockchain_Blockchain__ = __webpack_require__(23);
 
 
 
@@ -95591,7 +95671,7 @@ class NodeWebPeersDiscoveryService {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geolocation_lists__ = __webpack_require__(306);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_Nodes_Waitlist__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connections_Type__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__ = __webpack_require__(23);
 
 
 
@@ -95641,26 +95721,26 @@ class NodesStats {
         console.log("server: ",string2);
 
 
-        // let waitlist1 = [];
-        // for ( let i=0; i<NodesWaitlist.waitListFullNodes.length; i++ )
-        //     if ( ! NodesWaitlist.waitListFullNodes[i].isFallback) {
-        //         let obj = NodesWaitlist.waitListFullNodes[i].toJSON();
-        //         obj.score = NodesWaitlist.waitListFullNodes[i].sortingScore();
-        //         obj.connected = NodesWaitlist.waitListFullNodes[i].connected;
-        //         waitlist1.push(obj);
-        //     }
-        //
-        // let waitlist2 = [];
-        // for ( let i=0; i<NodesWaitlist.waitListLightNodes.length; i++ )
-        //     if ( ! NodesWaitlist.waitListLightNodes[i].isFallback) {
-        //         let obj = NodesWaitlist.waitListLightNodes[i].toJSON();
-        //         obj.score = NodesWaitlist.waitListLightNodes[i].sortingScore();
-        //         obj.connected = NodesWaitlist.waitListLightNodes[i].connected;
-        //         waitlist2.push(obj);
-        //     }
+        let waitlist1 = [];
+        for ( let i=0; i<__WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListFullNodes.length; i++ )
+            if ( ! __WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListFullNodes[i].isFallback) {
+                let obj = __WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListFullNodes[i].toJSON();
+                obj.score = __WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListFullNodes[i].sortingScore();
+                obj.connected = __WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListFullNodes[i].connected;
+                waitlist1.push(obj);
+            }
+
+        let waitlist2 = [];
+        for ( let i=0; i<__WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListLightNodes.length; i++ )
+            if ( ! __WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListLightNodes[i].isFallback) {
+                let obj = __WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListLightNodes[i].toJSON();
+                obj.score = __WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListLightNodes[i].sortingScore();
+                obj.connected = __WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListLightNodes[i].connected;
+                waitlist2.push(obj);
+            }
 
         console.log("waitlist full node ", __WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListFullNodes.length);
-        console.log("waitlist full node ", __WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListLightNodes.length);
+        console.log("waitlist light node ", __WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListLightNodes.length);
 
     }
 

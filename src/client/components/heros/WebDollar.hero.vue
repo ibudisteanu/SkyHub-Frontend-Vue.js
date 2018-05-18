@@ -76,8 +76,8 @@
                 this.status = "Mining Blockchain...";
             }
 
-//            if (process.env.NODE_ENV === 'development')
-//                WebDollarUserInterface.initializeParams.mining.startAutomatically = false;
+            if (process.env.NODE_ENV === 'development')
+                WebDollarUserInterface.initializeParams.mining.startAutomatically = false;
 
             WebDollar.StatusEvents.on("blockchain/status", (data)=>{
                 this.status = data.message;
