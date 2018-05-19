@@ -1957,6 +1957,7 @@ consts.BLOCKCHAIN = {
 
     HARD_FORKS : {
 
+        TRANSACTIONS_BUG_2_BYTES: 46950,
 
     }
 
@@ -2253,7 +2254,6 @@ if ( consts.DEBUG === true ){
 
 }
 
-consts.SETTINGS.NODE.PORT = 9095;
 
 /* harmony default export */ __webpack_exports__["a"] = (consts);
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
@@ -26157,6 +26157,11 @@ class InterfaceBlockchainTransaction{
         if (nonce === undefined || nonce === null)
             nonce = this._computeNonce();
 
+        if (blockchain.blocks.length < __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TRANSACTIONS_BUG_2_BYTES)
+            nonce = nonce % 0x100;
+        else
+            nonce = nonce % 0X10000;
+
         this.nonce = nonce; //1 bytes
 
         if (txId === undefined || txId === null)
@@ -26220,9 +26225,11 @@ class InterfaceBlockchainTransaction{
         if (typeof this.timeLock !== "number") throw {message: 'timeLock is empty', timeLock:this.timeLock};
 
         if (this.version !== 0x00) throw {message: "version is ivnalid", version: this.version};
+        if (this.nonce > 0xFFFF) throw {message: "nonce is ivnalid", nonce : this.nonce};
         if (this.timeLock > 0xFFFFFF || this.timeLock < 0) throw {message: "version is invalid", version: this.version};
 
         if (this.timeLock !== 0 && blockHeight < this.timeLock) throw {message: "blockHeight < timeLock", timeLock:this.timeLock, blockHeight: blockHeight };
+        if (this.timeLock - blockHeight > 100) throw { message: "timelock - blockHeight < 100", timelock : this.timelock };
 
         let txId = this._computeTxId();
         if (! __WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].safeCompare(txId, this.txId ) ) throw {message: "txid don't match"};
@@ -26305,11 +26312,14 @@ class InterfaceBlockchainTransaction{
         let array = [
 
             __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].serializeNumber1Byte( this.version ),
-            __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].serializeNumber1Byte( this.nonce ),
+
+            this.blockchain.blocks.length < __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TRANSACTIONS_BUG_2_BYTES ? __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].serializeNumber1Byte( this.nonce ) : __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].serializeNumber2Bytes( this.nonce ),
+
             __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].serializeNumber3Bytes( this.timeLock ), //16777216 it should be to 4 bytes afterwards
 
             this.from.serializeFrom(),
             this.to.serializeTo(),
+
         ];
 
         return Buffer.concat (array);
@@ -26331,8 +26341,14 @@ class InterfaceBlockchainTransaction{
             this.version = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 1) );
             offset += 1;
 
-            this.nonce =   __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 1) );
-            offset += 1;
+            if (this.blockchain.blocks.length < __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TRANSACTIONS_BUG_2_BYTES) {
+                this.nonce = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber(__WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 1));
+                offset += 1;
+            } else
+            if (this.blockchain.blocks.length >= __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TRANSACTIONS_BUG_2_BYTES) {
+                this.nonce = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber(__WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 2));
+                offset += 2;
+            }
 
             this.timeLock =  __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 3) );
             offset += 3;
