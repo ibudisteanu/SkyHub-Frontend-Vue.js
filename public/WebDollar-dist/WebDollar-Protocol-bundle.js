@@ -14926,7 +14926,13 @@ class InterfaceBlockchainFork {
 
                 revertActions.revertOperations('', "all");
                 this._blocksCopy = []; //We didn't use them so far
-                await this.revertFork();
+
+                try {
+                    await this.revertFork();
+                } catch (exception){
+
+                }
+
                 this.blockchain.accountantTree.deserializeMiniAccountant(accountantTreeClone,undefined, true);
 
                 this.forkIsSaving = false;
@@ -14954,7 +14960,7 @@ class InterfaceBlockchainFork {
                 for (let j=0; j< this.forkBlocks[i].data.transactions.transactions.length; j++)
                     console.log("transaction", this.forkBlocks[i].data.transactions.transactions[j].toJSON());
 
-                console.log("transactions hash", this.forkBlocks[i].data.transactions.transactions);
+                console.log("transactions hash", this.forkBlocks[i].data.transactions.hashTransactions);
 
             }
 
