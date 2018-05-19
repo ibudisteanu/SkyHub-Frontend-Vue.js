@@ -87639,6 +87639,7 @@ class InterfaceBlockchainMiningWorkers extends __WEBPACK_IMPORTED_MODULE_0__Inte
         if (newWorkers > this.workers.workers)
             await this.increaseWorkers( newWorkers - this.workers.workers );
         else
+        if (newWorkers < this.workers.workers)
             await this.decreaseWorkers( - (newWorkers - this.workers.workers)  );
 
     }
