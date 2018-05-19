@@ -9596,9 +9596,10 @@ class NodesWaitlist {
                     if (backedBy === "fallback")
                         sckAddresses.push(sckAddress);
                     else {
+
                         let response = await __WEBPACK_IMPORTED_MODULE_5_common_utils_helpers_Download_Manager__["a" /* default */].downloadFile(sckAddress.getAddress(true, true), 5000);
 
-                        if (response !== null && response.protocol === __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].SETTINGS.NODE.PROTOCOL) {
+                        if (response !== null && response.protocol === __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].SETTINGS.NODE.PROTOCOL && response.version >= __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].SETTINGS.NODE.VERSION_COMPATIBILITY) {
 
                             //search again because i have waited for a promise
                             let answer = this._searchNodesWaitlist(sckAddress, port, type);
@@ -14933,7 +14934,7 @@ class InterfaceBlockchainFork {
                     console.log("revertFork rasied an error", exception );
                 }
 
-                this.blockchain.accountantTree.deserializeMiniAccountant(accountantTreeClone,undefined, true);
+                this.blockchain.accountantTree.deserializeMiniAccountant(accountantTreeClone, undefined, true);
 
                 this.forkIsSaving = false;
                 return false;
@@ -14952,15 +14953,18 @@ class InterfaceBlockchainFork {
 
             //accountant tree
 
-            console.log( "accountant tree", this.blockchain.accountantTree.root.hash.sha256.toString("hex") );
+            if (__WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].DEBUG) {
 
-            for (let i=0; i < this.forkBlocks.length; i++){
+                console.log("accountant tree", this.blockchain.accountantTree.root.hash.sha256.toString("hex"));
 
-                console.log("transactions");
-                for (let j=0; j< this.forkBlocks[i].data.transactions.transactions.length; j++)
-                    console.log("transaction", this.forkBlocks[i].data.transactions.transactions[j].toJSON());
+                for (let i = 0; i < this.forkBlocks.length; i++) {
 
-                console.log("transactions hash", this.forkBlocks[i].data.transactions.hashTransactions.toString("hex"));
+                    console.log("transactions");
+                    for (let j = 0; j < this.forkBlocks[i].data.transactions.transactions.length; j++)
+                        console.log("transaction", this.forkBlocks[i].data.transactions.transactions[j].toJSON());
+
+                    console.log("transactions hash", this.forkBlocks[i].data.transactions.hashTransactions.toString("hex"));
+                }
 
             }
 
@@ -52799,7 +52803,7 @@ class NodesWaitlistObject {
 
         if (this.isFallback === true) return 100000 - this.errorTrials*100;
 
-        let score = 200 + Math.random()*10;
+        let score = 200 + Math.random()*100;
 
         score += (this.connected ? 1000 : 0);
 
@@ -87937,8 +87941,6 @@ class InterfaceBlockchainMining extends  __WEBPACK_IMPORTED_MODULE_5__Interface_
                 //simulating the new block and calculate the hashAccountantTree
                 let revertActions = new __WEBPACK_IMPORTED_MODULE_9__utils_Revert_Actions_Revert_Actions__["a" /* default */]( this.blockchain );
 
-                console.log("mining 1", this.blockchain.accountantTree.root.hash.sha256.toString("hex"));
-
                 if (await this.blockchain.semaphoreProcessing.processSempahoreCallback(
 
                     async ()=>{
@@ -87951,10 +87953,7 @@ class InterfaceBlockchainMining extends  __WEBPACK_IMPORTED_MODULE_5__Interface_
 
                     }) === false) throw {message: "Mining1 returned False"};
 
-                console.log("mining 2", this.blockchain.accountantTree.root.hash.sha256.toString("hex"));
-
                 revertActions.destroyRevertActions();
-                console.log("mining 3", this.blockchain.accountantTree.root.hash.sha256.toString("hex"));
 
             } catch (Exception){
                 console.error("Error processBlocksSempahoreCallback ", Exception, nextBlock);
