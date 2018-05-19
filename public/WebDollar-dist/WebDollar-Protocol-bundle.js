@@ -52559,7 +52559,7 @@ class SemaphoreProcessing{
 
     }
 
-    async processSempahoreCallback( callback ){
+    processSempahoreCallback( callback ){
 
         let id = uuid.v4();
         let resolver;
@@ -52570,50 +52570,57 @@ class SemaphoreProcessing{
 
         this._list.push({uuid: id, callback: callback, resolver: resolver, promise: promise});
 
-        let index = -1;
-        for (let i=0; i<this._list.length; i++)
-            if (this._list[i].uuid === id) {
-                index = i;
-                break;
+        return new Promise( async (resolve)=>{
+
+            let index = -1;
+
+            for (let i=0; i<this._list.length; i++)
+                if (this._list[i].uuid === id) {
+                    index = i;
+                    break;
+                }
+
+            if (index === -1)
+                console.error("STRANGE!!!! uuid was not found");
+
+            if (index > 0) {
+
+                try {
+
+                    await this._list[ index - 1 ].promise;
+
+                } catch (exception) {
+
+                }
+
+                await this.sleep(70);
             }
 
-        if (index === -1)
-            console.error("STRANGE!!!! uuid was not found");
-
-        if (index > 0) {
+            let answer;
 
             try {
 
-                await this._list[ index - 1 ].promise;
+                answer = await callback();
+                await this.sleep(70);
 
-            } catch (exception) {
-
+            } catch (ex){
+                console.error("error processingSemaphoreList callback !!!!!!!!!!!!!!!!!!!!!!!!", ex);
             }
 
-            await this.sleep(70);
-        }
+            this._deleteSemaphore(id);
 
-        let answer;
+            try {
 
-        try {
+                resolve(answer);
+                resolver(answer);
 
-            answer = await callback();
-            await this.sleep(70);
+            } catch (ex){
+                console.error("error processingSemaphoreList RESOLVER !!!!!!!!!!!!!!!!!!!!!!!!", ex);
+                resolve(false);
+                resolver(false);
+            }
 
-        } catch (ex){
-            console.error("error processingSemaphoreList callback !!!!!!!!!!!!!!!!!!!!!!!!", ex);
-        }
-
-        this._deleteSemaphore(id);
-
-        try {
-
-            return answer;
-
-        } catch (ex){
-            console.error("error processingSemaphoreList RESOLVER !!!!!!!!!!!!!!!!!!!!!!!!", ex);
-            return false;
-        }
+        });
 
     }
 
@@ -88417,7 +88424,8 @@ class InterfaceBlockchainMiningBasic {
 
         this._intervalMiningOutput = setInterval(() => {
 
-            console.log( this._hashesPerSecond+ " hashes/s");
+            if (typeof this._hashesPerSecond === "number")
+                console.log( this._hashesPerSecond+ " hashes/s");
 
             __WEBPACK_IMPORTED_MODULE_1_common_events_Status_Events__["a" /* default */].emit("mining/hash-rate", this._hashesPerSecond );
 
@@ -88435,8 +88443,11 @@ class InterfaceBlockchainMiningBasic {
 
     _destroyMiningInterval(){
         if (this._intervalMiningOutput !== undefined) {
+
             clearInterval(this._intervalMiningOutput);
-            this._intervalMiningOutput = 0;
+            this._intervalMiningOutput = undefined;
+            this._hashesPerSecond = 0;
+
         }
     }
 
