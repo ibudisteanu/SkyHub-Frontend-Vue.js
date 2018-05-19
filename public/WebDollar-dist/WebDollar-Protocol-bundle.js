@@ -14951,7 +14951,8 @@ class InterfaceBlockchainFork {
                     if (! (await this.saveIncludeBlock(index, revertActions)) )
                         throw({message: "fork couldn't be included in main Blockchain ", index: index});
 
-                    if ( false ) await this.sleep(70);
+                    if ( false )
+                        await this.sleep( this.downloadAllBlocks ? 10 : 100 );
 
                 }
 
@@ -15012,7 +15013,7 @@ class InterfaceBlockchainFork {
             //successfully, let's delete the backup blocks
             this._deleteBackupBlocks();
 
-            await this.sleep( this.forkBlocks.length === __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.FORKS.MAXIMUM_BLOCKS_TO_DOWNLOAD ? 10 : 100 );
+            await this.sleep( this.downloadAllBlocks ? 10 : 100 );
 
             //propagate last block
             __WEBPACK_IMPORTED_MODULE_5_common_sockets_protocol_propagation_Node_Blockchain_Propagation__["a" /* default */].propagateBlock( this.blockchain.blocks[ this.blockchain.blocks.length-1 ], this.sockets);
@@ -89676,42 +89677,42 @@ class MiniBlockchainAgentLightNode extends inheritAgentClass{
     initializeStartAgentOnce(){
 
         this._initializeProtocol();
-
-        __WEBPACK_IMPORTED_MODULE_5_node_lists_Nodes_List__["a" /* default */].emitter.on("nodes-list/disconnected", async (result) => {
-
-
-
-            if ( __WEBPACK_IMPORTED_MODULE_5_node_lists_Nodes_List__["a" /* default */].countNodesByConnectionType(__WEBPACK_IMPORTED_MODULE_6_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_WEBRTC) < 3)
-                __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].synchronizeBlockchain(); //let's synchronize again
-
-        });
-
-        __WEBPACK_IMPORTED_MODULE_5_node_lists_Nodes_List__["a" /* default */].emitter.on("nodes-list/connected", async (result) => {
-
-            let webrtc = __WEBPACK_IMPORTED_MODULE_5_node_lists_Nodes_List__["a" /* default */].countNodesByConnectionType(__WEBPACK_IMPORTED_MODULE_6_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_WEBRTC);
-
-            if ( webrtc > WEBRTC_MINIMUM_LIGHT) {
-                //let's disconnect from full nodes
-
-                if ( this.status !== __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_agents_Agent_Status__["a" /* default */].AGENT_STATUS_SYNCHRONIZED_SLAVES ) {
-
-                    this.status = __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_agents_Agent_Status__["a" /* default */].AGENT_STATUS_SYNCHRONIZED_SLAVES;
-
-                    if (Math.random() > WEBRTC_MINIMUM_LIGHT_PROBABILITY + 0.15) // most will disconnect from full nodes
-                        __WEBPACK_IMPORTED_MODULE_5_node_lists_Nodes_List__["a" /* default */].disconnectAllNodes(__WEBPACK_IMPORTED_MODULE_6_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_CLIENT_SOCKET);
-
-                }
-
-            }
-
-            if ( webrtc > WEBRTC_MINIMUM_LIGHT + 2) {
-
-                if (Math.random() <= 0.1)
-                    __WEBPACK_IMPORTED_MODULE_5_node_lists_Nodes_List__["a" /* default */].disconnectAllNodes(__WEBPACK_IMPORTED_MODULE_6_node_lists_types_Connections_Type__["a" /* default */].CONNECTION_CLIENT_SOCKET);
-
-            }
-
-        });
+        //
+        // NodesList.emitter.on("nodes-list/disconnected", async (result) => {
+        //
+        //
+        //
+        //     if ( NodesList.countNodesByConnectionType(CONNECTION_TYPE.CONNECTION_WEBRTC) < 3)
+        //         Blockchain.synchronizeBlockchain(); //let's synchronize again
+        //
+        // });
+        //
+        // NodesList.emitter.on("nodes-list/connected", async (result) => {
+        //
+        //     let webrtc = NodesList.countNodesByConnectionType(CONNECTION_TYPE.CONNECTION_WEBRTC);
+        //
+        //     if ( webrtc > WEBRTC_MINIMUM_LIGHT) {
+        //         //let's disconnect from full nodes
+        //
+        //         if ( this.status !== AGENT_STATUS.AGENT_STATUS_SYNCHRONIZED_SLAVES ) {
+        //
+        //             this.status = AGENT_STATUS.AGENT_STATUS_SYNCHRONIZED_SLAVES;
+        //
+        //             if (Math.random() > WEBRTC_MINIMUM_LIGHT_PROBABILITY + 0.15) // most will disconnect from full nodes
+        //                 NodesList.disconnectAllNodes(CONNECTION_TYPE.CONNECTION_CLIENT_SOCKET);
+        //
+        //         }
+        //
+        //     }
+        //
+        //     if ( webrtc > WEBRTC_MINIMUM_LIGHT + 2) {
+        //
+        //         if (Math.random() <= 0.1)
+        //             NodesList.disconnectAllNodes(CONNECTION_TYPE.CONNECTION_CLIENT_SOCKET);
+        //
+        //     }
+        //
+        // });
     }
 
 
@@ -94950,7 +94951,9 @@ class NodeWebPeerRTC {
 
     // Hook up data channel event handlers
     setupDataChannel() {
+
         this.checkDataChannelState();
+
         this.peer.dataChannel.onopen = ()=>{this.checkDataChannelState()};
         this.peer.dataChannel.onclose = ()=>{ this.checkDataChannelState()};
         this.peer.dataChannel.onerror = ()=>{ this.checkDataChannelState()};
