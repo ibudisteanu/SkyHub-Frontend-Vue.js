@@ -2121,8 +2121,8 @@ consts.SETTINGS = {
 
     NODE: {
 
-        VERSION: "1.11",
-        VERSION_COMPATIBILITY: "1.11",
+        VERSION: "1.12",
+        VERSION_COMPATIBILITY: "1.12",
         PROTOCOL: "WebDollar",
         SSL: true,
 
@@ -2254,6 +2254,7 @@ if ( consts.DEBUG === true ){
 
 }
 
+consts.SETTINGS.NODE.PORT = 9095;
 
 /* harmony default export */ __webpack_exports__["a"] = (consts);
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
@@ -14898,7 +14899,7 @@ class InterfaceBlockchainFork {
                 return false
             }
 
-            await this.sleep(50);
+            if (!this.downloadAllBlocks) await this.sleep(50);
 
             this.forkIsSaving = true;
 
@@ -14913,7 +14914,7 @@ class InterfaceBlockchainFork {
                 return false;
             }
 
-            await this.sleep(70);
+            if (!this.downloadAllBlocks) await this.sleep(70);
 
             try {
 
@@ -14932,7 +14933,7 @@ class InterfaceBlockchainFork {
                 return false;
             }
 
-            await this.sleep(70);
+            if (!this.downloadAllBlocks) await this.sleep(70);
 
             this.blockchain.blocks.spliceBlocks(this.forkStartingHeight, false);
 
@@ -14942,6 +14943,20 @@ class InterfaceBlockchainFork {
             console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
 
             //TODO use the revertActions to revert the process
+
+            //accountant tree
+
+            console.log( "accountant tree", this.blockchain.accountantTree.root.hash.sha256.toString("hex") );
+
+            for (let i=0; i < this.forkBlocks.length; i++){
+
+                console.log("transactions");
+                for (let j=0; j< this.forkBlocks[i].data.transactions.transactions.length; j++)
+                    console.log("transaction", this.forkBlocks[i].data.transactions.transactions[j].toJSON());
+
+                console.log("transactions hash", this.forkBlocks[i].data.transactions.transactions);
+
+            }
 
             let index;
             try {
@@ -14965,7 +14980,7 @@ class InterfaceBlockchainFork {
 
                 await this.blockchain.saveBlockchain( this.forkStartingHeight );
 
-                await this.sleep(30);
+                if (!this.downloadAllBlocks) await this.sleep(30);
 
                 console.log("FORK STATUS SUCCESS5: ", forkedSuccessfully, "position", this.forkStartingHeight);
 
@@ -15032,7 +15047,7 @@ class InterfaceBlockchainFork {
 
                 this.blockchain.agent.protocol.askBlockchain(this.getSocket());
 
-                await this.sleep(20);
+                await this.sleep(10);
 
             } else await this.sleep(100);
 
@@ -26119,7 +26134,14 @@ class InterfaceBlockchainTransaction{
         if (timeLock === undefined)
             this.timeLock = blockchain.blocks.length-1;
 
-        this.version = version||0x00; //version
+        if (version === undefined){
+
+            if (this.timeLock < __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TRANSACTIONS_BUG_2_BYTES ) version = 0x00;
+            if (this.timeLock >= __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TRANSACTIONS_BUG_2_BYTES ) version = 0x01;
+
+        }
+
+        this.version = version; //version
 
         try {
 
@@ -26157,10 +26179,8 @@ class InterfaceBlockchainTransaction{
         if (nonce === undefined || nonce === null)
             nonce = this._computeNonce();
 
-        if (blockchain.blocks.length < __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TRANSACTIONS_BUG_2_BYTES)
-            nonce = nonce % 0x100;
-        else
-            nonce = nonce % 0X10000;
+        if (version === 0x00) nonce = nonce % 0x100;
+        else if (version === 0x01) nonce = nonce % 0X10000;
 
         this.nonce = nonce; //1 bytes
 
@@ -26224,7 +26244,9 @@ class InterfaceBlockchainTransaction{
         if (typeof this.version  !== "number") throw {message: 'version is empty', version:this.version};
         if (typeof this.timeLock !== "number") throw {message: 'timeLock is empty', timeLock:this.timeLock};
 
-        if (this.version !== 0x00) throw {message: "version is ivnalid", version: this.version};
+        if (this.timeLock < __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TRANSACTIONS_BUG_2_BYTES && this.version !== 0x00) throw {message: "version is ivnalid", version: this.version};
+        if (this.timeLock >= __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TRANSACTIONS_BUG_2_BYTES && this.version !== 0x01) throw {message: "version is ivnalid", version: this.version};
+
         if (this.nonce > 0xFFFF) throw {message: "nonce is ivnalid", nonce : this.nonce};
         if (this.timeLock > 0xFFFFFF || this.timeLock < 0) throw {message: "version is invalid", version: this.version};
 
@@ -26313,7 +26335,7 @@ class InterfaceBlockchainTransaction{
 
             __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].serializeNumber1Byte( this.version ),
 
-            this.blockchain.blocks.length < __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TRANSACTIONS_BUG_2_BYTES ? __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].serializeNumber1Byte( this.nonce ) : __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].serializeNumber2Bytes( this.nonce ),
+            this.version === 0x00 ? __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].serializeNumber1Byte( this.nonce ) :  __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].serializeNumber2Bytes( this.nonce ),
 
             __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].serializeNumber3Bytes( this.timeLock ), //16777216 it should be to 4 bytes afterwards
 
@@ -26341,11 +26363,11 @@ class InterfaceBlockchainTransaction{
             this.version = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 1) );
             offset += 1;
 
-            if (this.blockchain.blocks.length < __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TRANSACTIONS_BUG_2_BYTES) {
+            //hard fork
+            if (this.version === 0x00){
                 this.nonce = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber(__WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 1));
                 offset += 1;
-            } else
-            if (this.blockchain.blocks.length >= __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TRANSACTIONS_BUG_2_BYTES) {
+            } else if (this.version === 0x01){
                 this.nonce = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber(__WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 2));
                 offset += 2;
             }
@@ -27355,7 +27377,7 @@ class InterfaceBlockchainProtocolForkSolver{
             if (!this.blockchain.agent.light  && currentBlockchainLength > forkChainLength)
                 throw {message: "discoverAndProcessFork - fork is smaller fork than mine"};
 
-            await this.blockchain.sleep(15);
+            await this.blockchain.sleep(10);
 
             let forkFound = this.blockchain.forksAdministrator.findForkBySockets(socket);
 
@@ -27378,7 +27400,7 @@ class InterfaceBlockchainProtocolForkSolver{
 
             }
 
-            await this.blockchain.sleep(15);
+            await this.blockchain.sleep(10);
 
             //optimization
             //check if n-2 was ok, but I need at least 1 block
@@ -27418,7 +27440,7 @@ class InterfaceBlockchainProtocolForkSolver{
 
             }
 
-            await this.blockchain.sleep(15);
+            await this.blockchain.sleep(10);
 
             //process light and NiPoPow
             await this.optionalProcess(socket, binarySearchResult, currentBlockchainLength, forkChainLength, forkChainStartingPoint);
@@ -27476,7 +27498,7 @@ class InterfaceBlockchainProtocolForkSolver{
                 __WEBPACK_IMPORTED_MODULE_6_common_utils_bans_BansList__["a" /* default */].addBan(socket, 2000, exception.message);
             }
 
-            await this.blockchain.sleep(15);
+            await this.blockchain.sleep(10);
 
             return { result:false, error: exception };
 
@@ -27541,7 +27563,7 @@ class InterfaceBlockchainProtocolForkSolver{
             let blockValidation = fork._createBlockValidation_ForkValidation(nextBlockHeight, fork.forkBlocks.length-1);
             let block = this._deserializeForkBlock(fork, answer.block, nextBlockHeight, blockValidation );
 
-            await this.blockchain.sleep(15);
+            if (!fork.downloadAllBlocks) await this.blockchain.sleep(15);
 
             let result;
 
@@ -27566,7 +27588,7 @@ class InterfaceBlockchainProtocolForkSolver{
             else
                 throw {message: "Fork didn't work at height ", nextBlockHeight};
 
-            await this.blockchain.sleep(30);
+            if (!fork.downloadAllBlocks) await this.blockchain.sleep(30);
 
         }
 
