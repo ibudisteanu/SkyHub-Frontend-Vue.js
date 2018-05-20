@@ -7,8 +7,7 @@ Vue.use(Router)
 
 const HomePage = () => import('client/pages/Home.page.vue');
 const Bounty = () => import('client/pages/Bounty.page.vue');
-const ExplorerBlocks = () => import('client/pages/ExplorerBlocks.page.vue');
-const TransactionsPage = () => import('client/pages/Transactions.page.vue');
+const ExplorerBlocks = () => import('client/pages/Explorer.page.vue');
 const NetworkPage = () => import('client/pages/Pool.page.vue');
 const FaqPage = () => import('client/pages/Faq.page.vue');
 const ClearIndexedDBPage = () => import('client/pages/ClearIndexedDB.page.vue');
@@ -39,7 +38,6 @@ export function createRouter (){
             { path: '/faq', component: FaqPage },
             { path: '/mypool', component: NetworkPage },
             { path: '/clearIndexedDB', component: ClearIndexedDBPage },
-            { path: '/transactions', component: TransactionsPage },
             { path: '/:a?/:b?/:c?/:d?', component: HomePage },
             { path: '/:a?/:b?/:c?', component: HomePage },
             { path: '/:a?/:b?', component: HomePage },

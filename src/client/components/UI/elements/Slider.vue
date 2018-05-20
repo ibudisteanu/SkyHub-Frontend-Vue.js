@@ -64,7 +64,7 @@
         background-color: #fec02c!important;
         border: 1px solid #bdbdbd2e!important;
         background-color: #bdbdbd2e!important;
-        color: #585858!important;
+        color: #fec02c!important;
     }
 
 </style>
