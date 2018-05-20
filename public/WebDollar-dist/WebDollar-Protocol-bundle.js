@@ -2121,7 +2121,7 @@ consts.SETTINGS = {
 
     NODE: {
 
-        VERSION: "1.13",
+        VERSION: "1.131",
         VERSION_COMPATIBILITY: "1.13",
         PROTOCOL: "WebDollar",
         SSL: true,
@@ -2254,6 +2254,7 @@ if ( consts.DEBUG === true ){
 
 }
 
+consts.SETTINGS.NODE.PORT = 9095;
 
 /* harmony default export */ __webpack_exports__["a"] = (consts);
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
@@ -14891,6 +14892,8 @@ class InterfaceBlockchainFork {
         let revertActions = new __WEBPACK_IMPORTED_MODULE_4_common_utils_Revert_Actions_Revert_Actions__["a" /* default */](this.blockchain);
         revertActions.push({action: "breakpoint"});
 
+        this.forkIsSaving = true; //marking it saved because we want to avoid the forksAdministrator to delete it
+
         let success = await this.blockchain.semaphoreProcessing.processSempahoreCallback( async () => {
 
             let accountantTreeClone = this.blockchain.accountantTree.serializeMiniAccountant(true);
@@ -14901,8 +14904,6 @@ class InterfaceBlockchainFork {
             }
 
             if (!this.downloadAllBlocks) await this.sleep(50);
-
-            this.forkIsSaving = true;
 
             try {
 
@@ -14959,7 +14960,6 @@ class InterfaceBlockchainFork {
 
                 for (let i = 0; i < this.forkBlocks.length; i++) {
 
-                    console.log("transactions");
                     for (let j = 0; j < this.forkBlocks[i].data.transactions.transactions.length; j++)
                         console.log("transaction", this.forkBlocks[i].data.transactions.transactions[j].toJSON());
 
@@ -15007,19 +15007,24 @@ class InterfaceBlockchainFork {
 
                 //revert the accountant tree
                 //revert the last K block
-                revertActions.revertOperations('', "all");
-                await this.sleep(30);
-
-                //reverting back to the clones, especially light settings
 
                 try {
-                    await this.revertFork();
+                    revertActions.revertOperations('', "all");
                 } catch (exception){
-                    console.log("revertFork rasied an error", exception );
+                    console.error("revertOptions rasied an error", exception );
                 }
                 await this.sleep(30);
 
+                try {
+                    //reverting back to the clones, especially light settings
+                    await this.revertFork();
+                } catch (exception){
+                    console.error("revertFork rasied an error", exception );
+                }
+
+                await this.sleep(30);
                 this.blockchain.accountantTree.deserializeMiniAccountant(accountantTreeClone,undefined, true);
+
             }
 
             if (!this.downloadAllBlocks) await this.sleep(30);
@@ -15097,6 +15102,9 @@ class InterfaceBlockchainFork {
 
 
     async revertFork(){
+
+        let index = 0;
+
         try {
 
             let revertActions = new __WEBPACK_IMPORTED_MODULE_4_common_utils_Revert_Actions_Revert_Actions__["a" /* default */](this.blockchain);
@@ -15115,7 +15123,7 @@ class InterfaceBlockchainFork {
                 }
 
         } catch (exception){
-            console.error("saveFork includeBlockchainBlock2 raised exception", exception);
+            console.error("saveFork includeBlockchainBlock2 raised exception", index, exception);
         }
     }
 
@@ -27313,7 +27321,7 @@ class InterfaceBlockchainProtocolForkSolver{
 
             console.log("_discoverForkBinarySearch", initialLeft, "left", left, "right ", right);
 
-            if (left < 0 || answer === null || !Buffer.isBuffer(answer.hash) )
+            if (left < 0 || answer === null  || !Buffer.isBuffer(answer.hash) ) // timeout
                 return {position: null, header: answer };
 
             await this.blockchain.sleep(7);
@@ -27331,9 +27339,11 @@ class InterfaceBlockchainProtocolForkSolver{
 
                         answer = await socket.node.sendRequestWaitOnce("head/hash", mid-1, mid-1, __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.TIMEOUT.WAIT_ASYNC_DISCOVERY_TIMEOUT );
 
-                        if ( answer !== null && Buffer.isBuffer(answer.hash) )
-                            if (answer.hash.equals( this.blockchain.getHashPrev(mid-1 +1) ) )
-                                return {position: mid-1, header: answer.hash };
+                        if (answer === null || !Buffer.isBuffer(answer.hash))
+                            return {position: null, header: answer }; // timeout
+
+                        if (answer.hash.equals( this.blockchain.getHashPrev(mid-1 +1) ) ) // it is a match
+                            return {position: mid-1, header: answer.hash };
 
                     }
 
@@ -54466,7 +54476,8 @@ class InterfaceBlockchainProtocolForksManager {
                 if (this.blockchain.blocks[newChainLength] !== undefined && this.blockchain.blocks[newChainLength].hash.equals( forkLastBlockHash ))
                     socket.node.protocol.blocks = newChainLength;
 
-                socket.node.protocol.sendLastBlock();
+                if (Math.random() < 0.5)
+                    socket.node.protocol.sendLastBlock();
 
                 if (newChainLength < this.blockchain.blocks.length - 50)
                     __WEBPACK_IMPORTED_MODULE_0_common_utils_bans_BansList__["a" /* default */].addBan(socket, 5000, "Your blockchain is way smaller than mine. "+newChainLength+" / "+this.blockchain.blocks.length );
@@ -81869,7 +81880,7 @@ class InterfaceBlockchainForksAdministrator {
                             break;
                         }
 
-                    if (this.forks[i].sockets.length === 0) {
+                    if (this.forks[i].sockets.length === 0 && !this.forks[i].forkIsSaving ) {
 
                         this.forks[i].destroyFork();
                         this.forks.splice(i, 1);
@@ -84728,6 +84739,7 @@ class InterfaceBlockchainTransactionsProtocol{
 
         try {
 
+            if (socket === undefined) return;
             let answer = await socket.node.sendRequestWaitOnce("transactions/get-pending-transactions-ids", {format: "buffer", start: start, count: count}, 'answer', 5000);
 
             if (answer === null || answer === undefined || answer.result !== true || answer.transactions === null && !Array.isArray(answer.transactions)) return false;
@@ -84750,25 +84762,34 @@ class InterfaceBlockchainTransactionsProtocol{
             if ( downloadingTransactions.length === 0) //nothing to download
                 return;
 
+            if (socket === undefined) return;
+
             let answerTransactions = await socket.node.sendRequestWaitOnce("transactions/get-pending-transactions-by-ids", {format: "buffer", ids: downloadingTransactions }, "answer" , 5000);
 
             if (answerTransactions === null || answerTransactions === undefined || answerTransactions.result !== true || answerTransactions.transactions === null && !Array.isArray(answerTransactions.transactions)) return false;
 
+            let errors = 0;
             for (let i=0; i<answerTransactions.transactions.length; i++){
 
                 let transaction = __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions._createTransactionFromBuffer(answerTransactions.transactions[i]).transaction;
 
                 try {
 
-                    if ( !transaction.isTransactionOK() )
+                    if ( !transaction.isTransactionOK(true) ) {
+                        errors++;
                         continue;
+                    }
 
                     if (!__WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions.pendingQueue.includePendingTransaction(transaction, socket))
                         ; //console.warn("I already have this transaction", transaction.txId.toString("hex"))
 
                 } catch (exception){
-
+                    errors++;
                 }
+
+                if (errors > 6)
+                    return;
+
 
             }
 
@@ -84776,7 +84797,7 @@ class InterfaceBlockchainTransactionsProtocol{
 
 
             if (start + count < answer.length)
-                setTimeout( async ()=>{ await this.downloadTransactions(this, start+count, count)}, 1500 + (Math.random()*1000) );
+                setTimeout( async ()=>{ await this.downloadTransactions(socket, start+count, count)}, 1500 + (Math.random()*1000) );
 
 
         } catch (exception){
