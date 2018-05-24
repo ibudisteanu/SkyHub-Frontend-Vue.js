@@ -1966,7 +1966,7 @@ consts.BLOCKCHAIN = {
 
 consts.BLOCKCHAIN.LIGHT.SAFETY_LAST_BLOCKS_DELETE = ( true ? consts.BLOCKCHAIN.LIGHT.SAFETY_LAST_BLOCKS_DELETE_BROWSER : consts.BLOCKCHAIN.LIGHT.SAFETY_LAST_BLOCKS_DELETE_NODE );
 
-consts.BLOCKCHAIN.LIGHT.VALIDATE_LAST_BLOCKS = consts.BLOCKCHAIN.DIFFICULTY.NO_BLOCKS * 1 ;
+consts.BLOCKCHAIN.LIGHT.VALIDATE_LAST_BLOCKS = consts.BLOCKCHAIN.DIFFICULTY.NO_BLOCKS * 2 ;
 consts.BLOCKCHAIN.LIGHT.SAFETY_LAST_BLOCKS = consts.BLOCKCHAIN.LIGHT.VALIDATE_LAST_BLOCKS + 2* consts.BLOCKCHAIN.DIFFICULTY.NO_BLOCKS ;
 
 consts.MINI_BLOCKCHAIN = {
@@ -2258,7 +2258,7 @@ if ( consts.DEBUG === true ){
     consts.SETTINGS.NODE.PORT = 9095;
 
     __WEBPACK_IMPORTED_MODULE_0_node_sockets_node_clients_service_discovery_fallbacks_fallback_nodes_list__["a" /* default */].nodes = [{
-        "addr": ["http://127.0.0.1:9095"],
+        "addr": ["http://192.168.2.8:9095"],
     }];
 
 
@@ -2629,6 +2629,11 @@ class NodesList {
                     socket.node.protocol.nodeDomain = socket.node.protocol.nodeDomain.replace("browser", socket.node.sckAddress.address);
 
                 await __WEBPACK_IMPORTED_MODULE_4_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].addNewNodeToWaitlist(socket.node.protocol.nodeDomain, undefined, socket.node.type, true, socket.node.level, socket, socket);
+
+            }
+
+            if (socket.node.type === __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER ){ //add light waitlist
+                await __WEBPACK_IMPORTED_MODULE_4_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].addNewNodeToWaitlist( socket.node.sckAddress, undefined, socket.node.type, true, socket.node.level, socket, socket);
             }
 
 
@@ -9564,7 +9569,8 @@ class NodesWaitlist {
                 let sckAddress = __WEBPACK_IMPORTED_MODULE_2_common_sockets_protocol_extend_socket_Socket_Address__["a" /* default */].createSocketAddress(addresses[i], port);
                 if (sckAddress.address.indexOf("192.168") === 0 && !__WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].DEBUG ) continue;
 
-                if (true && !sckAddress.SSL && __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].SETTINGS.NODE.SSL && !__WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].DEBUG )  continue;
+                //it if is a fallback, maybe it requires SSL
+                if ( type === __WEBPACK_IMPORTED_MODULE_3_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL && true && !sckAddress.SSL && __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].SETTINGS.NODE.SSL && !__WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].DEBUG )  continue;
 
                 let answer = this._searchNodesWaitlist(sckAddress, port, type);
 
@@ -9573,9 +9579,12 @@ class NodesWaitlist {
                         sckAddresses.push(sckAddress);
                     else {
 
-                        let response = await __WEBPACK_IMPORTED_MODULE_5_common_utils_helpers_Download_Manager__["a" /* default */].downloadFile(sckAddress.getAddress(true, true), 5000);
+                        let response;
 
-                        if (response !== null && response.protocol === __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].SETTINGS.NODE.PROTOCOL && response.version >= __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].SETTINGS.NODE.VERSION_COMPATIBILITY) {
+                        if ( type === __WEBPACK_IMPORTED_MODULE_3_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL)
+                            response = await __WEBPACK_IMPORTED_MODULE_5_common_utils_helpers_Download_Manager__["a" /* default */].downloadFile(sckAddress.getAddress(true, true), 5000);
+
+                        if (type === __WEBPACK_IMPORTED_MODULE_3_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER || (response !== null && response.protocol === __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].SETTINGS.NODE.PROTOCOL && response.version >= __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].SETTINGS.NODE.VERSION_COMPATIBILITY)) {
 
                             //search again because i have waited for a promise
                             let answer = this._searchNodesWaitlist(sckAddress, port, type);
@@ -9598,6 +9607,7 @@ class NodesWaitlist {
 
                 }
                 else{
+
 
 
                 }
@@ -28931,12 +28941,12 @@ class NodeSignalingClientProtocol {
 
     initializeSignalingClientService(socket) {
 
-        // this._initializeSimpleProtocol(socket);
-        //
-        // this._initializeSignalingClientService1(socket);
-        // this._initializeSignalingClientService2(socket);
-        //
-        // NodeSignalingClientSerivce.subscribeSignalingServer(socket);
+        this._initializeSimpleProtocol(socket);
+
+        this._initializeSignalingClientService1(socket);
+        this._initializeSignalingClientService2(socket);
+
+        __WEBPACK_IMPORTED_MODULE_3__signaling_client_service_Node_Signaling_Client_Service__["a" /* default */].subscribeSignalingServer(socket);
     }
 
 
@@ -88705,7 +88715,7 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_2__Mini_Blockchain_
 
             if (this.proofPi !== undefined) {
                 let proofPiBlock = this.proofPi.hasBlock(height-1);
-                if (proofPiBlock !== undefined)
+                if (proofPiBlock !== undefined && proofPiBlock !== null)
                     return proofPiBlock;
             }
 
@@ -95868,7 +95878,7 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
         if ( this.forkChainStartingPoint === this.forkStartingHeight && forkHeight < __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.TIMESTAMP.VALIDATION_NO_BLOCKS )
             validationType["skip-validation-timestamp"] = true;
 
-        if ( this.forkProofPi !== undefined && forkHeight < ( this.forkChainLength - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].POPOW_PARAMS.m))
+        if ( this.forkProofPi !== undefined && height < ( this.forkChainLength - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].POPOW_PARAMS.m))
             validationType["skip-validation-interlinks"] = true;
 
 
@@ -95888,7 +95898,7 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
         if (this.forkChainStartingPoint === this.forkStartingHeight && forkHeight < __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.TIMESTAMP.VALIDATION_NO_BLOCKS )
             validationType["skip-validation-timestamp"] = true;
 
-        if (this.forkProofPi !== undefined && forkHeight < ( this.forkChainLength - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].POPOW_PARAMS.m))
+        if (this.forkProofPi !== undefined && height < ( this.forkChainLength - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].POPOW_PARAMS.m))
             validationType["skip-validation-interlinks"] = true;
 
         if ( forkHeight === 0)
