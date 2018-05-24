@@ -28484,15 +28484,16 @@ class NodePropagationProtocol {
 
             let answer = await __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].addNewNodeToWaitlist( key, undefined, list[key].t,  list[key].c, list[key].sock.node.level + 1, list[key].sock );
 
+            delete list[key];
+            list.length--;
+
             if (answer !== null ){
 
                 this._waitlistProccessed[key] = true;
-
                 return;
+
             }
 
-            delete list[key];
-            list.length--;
         }
 
 
@@ -30625,6 +30626,12 @@ module.exports = bytesToUuid;
         {"addr": ["https://noden03.webd.trade:80"]}, // Thanks to @volvx & @vladflorin
         {"addr": ["https://noden04.webd.trade:80"]}, // Thanks to @volvx & @vladflorin
         {"addr": ["https://noden05.webd.trade:80"]}, // Thanks to @volvx & @vladflorin
+        
+        {"addr": ["https://chucknorris.webdollarvpn.io:80"]}, // Thanks to @cbusuioceanu
+        {"addr": ["https://chucknorris.webdollarvpn.io:443"]}, // Thanks to @cbusuioceanu
+        {"addr": ["https://chucknorris.webdollarvpn.io:8080"]}, // Thanks to @cbusuioceanu
+        {"addr": ["https://chucknorris.webdollarvpn.io:8081"]}, // Thanks to @cbusuioceanu
+        {"addr": ["https://chucknorris.webdollarvpn.io:8082"]}, // Thanks to @cbusuioceanu
 
         //---------------------------------------------------------
         //--------------WebDollar FallBack Nodes-------------------
