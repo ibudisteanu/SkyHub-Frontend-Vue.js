@@ -1922,6 +1922,7 @@ let consts = {
 
     DEBUG: false,
     OPEN_SERVER: true,
+
 };
 
 
@@ -2183,6 +2184,7 @@ consts.SETTINGS = {
 
                 SERVER: {
                     MAXIMUM_CONNECTIONS_FROM_TERMINAL: 100,
+                    MAXIMUM_CONNECTIONS_FROM_BROWSER: 600,
 
                     TERMINAL_CONNECTIONS_REQUIRED_TO_DISCONNECT_FROM_FALLBACK: 10,
                 },
@@ -2244,9 +2246,6 @@ if (Object({"BROWSER":true}).MAXIMUM_CONNECTIONS_FROM_BROWSER !== undefined)
 
 if (Object({"BROWSER":true}).MAXIMUM_CONNECTIONS_FROM_TERMINAL !== undefined)
     consts.SETTINGS.PARAMS.CONNECTIONS.TERMINAL.SERVER.MAXIMUM_CONNECTIONS_FROM_TERMINAL = Object({"BROWSER":true}).MAXIMUM_CONNECTIONS_FROM_TERMINAL;
-
-if (Object({"BROWSER":true}).MAXIMUM_CONNECTIONS_IN_TERMINAL !== undefined)
-    consts.SETTINGS.PARAMS.CONNECTIONS.TERMINAL.CLIENT.MAXIMUM_CONNECTIONS_IN_TERMINAL = Object({"BROWSER":true}).MAXIMUM_CONNECTIONS_IN_TERMINAL;
 
 
 if ( consts.DEBUG === true ){
@@ -27601,7 +27600,7 @@ class InterfaceBlockchainProtocolForkSolver{
                     binarySearchResult.position = 0;
 
                 //maximum blocks to download
-                if ( forkChainLength >= this.blockchain.blocks.length + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.FORKS.MAXIMUM_BLOCKS_TO_DOWNLOAD){
+                if ( !this.blockchain.agent.light && forkChainLength >= this.blockchain.blocks.length + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.FORKS.MAXIMUM_BLOCKS_TO_DOWNLOAD){
                     fork.downloadAllBlocks = true;
                     forkChainLength = Math.min(forkChainLength, this.blockchain.blocks.length + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.FORKS.MAXIMUM_BLOCKS_TO_DOWNLOAD);
                 }
@@ -28932,12 +28931,12 @@ class NodeSignalingClientProtocol {
 
     initializeSignalingClientService(socket) {
 
-        this._initializeSimpleProtocol(socket);
-
-        this._initializeSignalingClientService1(socket);
-        this._initializeSignalingClientService2(socket);
-
-        __WEBPACK_IMPORTED_MODULE_3__signaling_client_service_Node_Signaling_Client_Service__["a" /* default */].subscribeSignalingServer(socket);
+        // this._initializeSimpleProtocol(socket);
+        //
+        // this._initializeSignalingClientService1(socket);
+        // this._initializeSignalingClientService2(socket);
+        //
+        // NodeSignalingClientSerivce.subscribeSignalingServer(socket);
     }
 
 
@@ -94502,6 +94501,8 @@ class NodeWebPeerRTC {
 
             while (i < chunks){
 
+                if (this.peer === undefined) return; //already disconnected
+
                 this.peer.dataChannel.send("chunk"+i+"/"+chunks+"@"+id+"#"+data.substr(i*SIZE, SIZE ));
                 i++;
             }
@@ -95864,10 +95865,10 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
             validationType["validation-timestamp-adjusted-time"] = true;
 
         //it's a new light fork && i have less than forkHeight
-        if (this.forkChainStartingPoint === this.forkStartingHeight && forkHeight < __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.TIMESTAMP.VALIDATION_NO_BLOCKS )
+        if ( this.forkChainStartingPoint === this.forkStartingHeight && forkHeight < __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.TIMESTAMP.VALIDATION_NO_BLOCKS )
             validationType["skip-validation-timestamp"] = true;
 
-        if (this.forkProofPi !== undefined && forkHeight < this.forkChainLength - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].POPOW_PARAMS.m)
+        if ( this.forkProofPi !== undefined && forkHeight < ( this.forkChainLength - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].POPOW_PARAMS.m))
             validationType["skip-validation-interlinks"] = true;
 
 
@@ -95887,7 +95888,7 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
         if (this.forkChainStartingPoint === this.forkStartingHeight && forkHeight < __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.TIMESTAMP.VALIDATION_NO_BLOCKS )
             validationType["skip-validation-timestamp"] = true;
 
-        if (this.forkProofPi !== undefined && forkHeight < this.forkChainLength - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].POPOW_PARAMS.m)
+        if (this.forkProofPi !== undefined && forkHeight < ( this.forkChainLength - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].POPOW_PARAMS.m))
             validationType["skip-validation-interlinks"] = true;
 
         if ( forkHeight === 0)
