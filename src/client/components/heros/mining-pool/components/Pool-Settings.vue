@@ -47,6 +47,11 @@
         <div class="buttonContainer">
             <button @click="handleSaveSettings" class="minerData buttonSmall settingsButton">Save Settings</button>
         </div>
+        <div class="buttonContainer">
+            <button @click="handleGenerateLink" class="minerData buttonSmall settingsButton">Generate URL</button>
+
+            {{this.poolURL}}
+        </div>
 
     </div>
 
@@ -68,6 +73,8 @@
                 poolFee: 0,
                 poolName: '',
                 poolWebsite: '',
+
+                poolURL: '',
             }
 
         },
@@ -86,7 +93,12 @@
 
                 WebDollar.Blockchain.PoolManagement.savePoolDetails();
 
-            }
+            },
+
+            handleGenerateLink(){
+
+                this.poolURL = WebDollar.Blockchain.PoolManagement.generatePoolURL();
+            },
 
         }
 
