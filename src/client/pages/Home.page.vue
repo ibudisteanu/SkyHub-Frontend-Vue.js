@@ -40,7 +40,7 @@
 
     import Layout from "client/components/layout/Layout.vue";
 
-    import MiningPool from "client/components/heros/miningPool.hero.vue";
+    import MiningPool from "client/components/heros/mining-pool/Mining-Pool.hero.vue";
     import Newsletter from "client/components/heros/Newsletter.hero.vue";
     import TeamHero from "client/components/heros/Team.hero.vue";
     import WebDollarHero from "client/components/heros/WebDollar.hero.vue";

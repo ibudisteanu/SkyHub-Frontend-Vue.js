@@ -1431,7 +1431,8 @@ background-color:#ff2200}
   padding-top: 65px;
   background-color: #2d2d2d;
   border-bottom: solid 1px #444;
-  height: 300px;
+  height: auto;
+  padding-bottom: 50px;
 }
 
 #miningPoolController .poolSlider .miningSlider {
@@ -1947,7 +1948,7 @@ background-color:#ff2200}
   padding-left: 10px;
 }
 
-.dezactivatedColors{
+.disabledColors{
   background-color: #bdbdbd2e!important;
   color: #585858!important;
 }

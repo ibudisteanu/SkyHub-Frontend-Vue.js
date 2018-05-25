@@ -22,7 +22,7 @@
                                 <p class="createPoolLink">Mine WEBD with your friends! Create your own Mining Pool now, by using the Button below. See your Mining Pool stats in real-time.</p>
 
                                 <router-link to="/mypool">
-                                    <p class="copyPoolLink dezactivatedColors">My mining pool</p>
+                                    <p class="copyPoolLink disabledColors">My mining pool</p>
                                 </router-link>
 
                             </div>
@@ -33,7 +33,7 @@
                             <div class="verticalAlignMiddle">
 
                                 <p class="poolDescription">Invite friends to start mining in your pool, instantly</p>
-                                <p class="copyPoolLink dezactivatedColors" @click="copyToClipboard">
+                                <p class="copyPoolLink disabledColors" @click="copyToClipboard">
                                     Copy invite link
                                 </p>
 
@@ -56,7 +56,7 @@
 
     import Vue from 'vue/dist/vue';
 
-    import slider from '../UI/elements/Slider.vue';
+    import slider from '../../UI/elements/Slider.vue';
     import Clipboard from 'v-clipboard';
 
     export default{
