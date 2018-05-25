@@ -41,8 +41,6 @@
 
         <div id="yourPoolSection">
 
-            <pool-link-generator></pool-link-generator>
-
             <pool-miners-list :displayType="this.displayType"></pool-miners-list>
 
         </div>
@@ -57,11 +55,10 @@
 
     import PoolMinersList from  "./components/Pool-Miners-List.vue"
     import PoolSettings from  "./components/Pool-Settings.vue"
-    import PoolLinkGenerator from "./components/Pool-Link-Generator.vue"
 
     export default{
 
-        components: { PoolMinersList, PoolSettings, PoolLinkGenerator },
+        components: { PoolMinersList, PoolSettings },
 
         data: () => {
             return {

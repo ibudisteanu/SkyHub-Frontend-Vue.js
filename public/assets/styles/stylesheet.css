@@ -1391,12 +1391,14 @@ background-color:#ff2200}
   color: #fec02c;
 }
 
-#miningPoolController .generalController{
+#miningPoolController .generalController {
   padding-top: 65px;
   background-color: #2d2d2d;
   border-bottom: solid 1px #444;
-  height: auto;
   padding-bottom: 50px;
+  height: 400px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 #miningPoolController .poolSlider .miningSlider {
