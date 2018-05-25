@@ -9,7 +9,7 @@
         <input type="text" class="input" v-model="poolName" value="POOL NAME" ><br>
 
         <h2>POOL URL</h2>
-        <input type="text" class="input" v-model="poolURL" placeholder="http://url" ><br>
+        <input type="text" class="input" v-model="poolWebsite" placeholder="http://url" ><br>
 
         <span class="minerData buttonSmall selected" @click="handleSaveSettings">Save Settings</span>
 
@@ -32,7 +32,7 @@
             return {
                 poolFee: 0,
                 poolName: '',
-                poolURL: '',
+                poolWebsite: '',
             }
 
         },
@@ -47,9 +47,9 @@
 
                 WebDollar.Blockchain.PoolManagement._poolFee =  this.poolFee;
                 WebDollar.Blockchain.PoolManagement._poolName = this.poolName;
-                WebDollar.Blockchain.PoolManagement._poolURL = this.poolURL;
+                WebDollar.Blockchain.PoolManagement._poolWebsite = this.poolWebsite;
 
-                WebDollar.Blockchain.PoolManagement._savePoolDetails();
+                WebDollar.Blockchain.PoolManagement.savePoolDetails();
 
             }
 

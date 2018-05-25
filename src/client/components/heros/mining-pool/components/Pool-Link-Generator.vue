@@ -10,13 +10,8 @@
             server2.com
         </textarea>
 
-        <h2>PRIVATE PASSWORD POOL</h2>
-        <div style="display: inline-block">
-            <input type="password" class="input" v-model="poolPrivatePassword" ><br>
-        </div>
-
         <p class="copyPoolLink" @click="generateLink">
-            Copy invite link
+            Generate Link
         </p>
 
     </div>
@@ -34,7 +29,7 @@
 
             return {
                 poolServers: 'server.com',
-                poolPrivatePassword: '123',
+                poolSecret: '',
             }
 
         },
@@ -42,6 +37,8 @@
         methods: {
 
             generateLink() {
+
+                WebDollar.Blockchain.PoolManagement.setPoolServers ( this.poolServers.split(",\n") );
 
                 return '';
 
