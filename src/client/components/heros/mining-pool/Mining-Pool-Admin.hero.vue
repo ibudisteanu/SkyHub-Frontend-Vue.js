@@ -1,6 +1,6 @@
 <template>
 
-    <Div>
+    <div>
 
         <div id="miningPoolController">
 
@@ -36,25 +36,21 @@
 
             <div class="poolSectionContainer">
 
-                <span class="disclaimer"><span class="attention">ATTENTION!</span> This page is just a mock up for mining pool management system.</span>
+                <pool-link-generator></pool-link-generator>
 
                 <pool-miners-list></pool-miners-list>
-
-                <pool-link-generator></pool-link-generator>
 
             </div>
 
         </div>
 
-    </Div>
+    </div>
     
 </template>
 
 <script>
 
     import Vue from 'vue/dist/vue';
-
-    import Clipboard from 'v-clipboard';
 
     import PoolMinersList from  "./components/Pool-Miners-List.vue"
     import PoolSettings from  "./components/Pool-Settings.vue"
@@ -66,9 +62,6 @@
 
         methods: {
 
-            copyToClipboard(){
-                this.$clipboard('test-link');
-            }
 
         },
 

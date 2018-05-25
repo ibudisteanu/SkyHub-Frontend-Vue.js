@@ -2,22 +2,22 @@
 
     <div>
 
-        <p class="poolDescription">Invite friends to start mining in your pool, instantly</p>
-
-        <p class="copyPoolLink disabledColors" @click="copyToClipboard">
-            Copy invite link
-        </p>
+        <p class="poolDescription">Generate Mining Pool Link</p>
 
         <h2>SERVERS</h2>
-        <textarea rows="5" cols="100">
+        <textarea rows="5" cols="100" v-model="poolServers">
             server1.com
             server2.com
         </textarea>
 
         <h2>PRIVATE PASSWORD POOL</h2>
         <div style="display: inline-block">
-            <input type="password" class="input" v-model="poolPrivatePassword" placeholder="pool123" ><br> <p class="button">Set Password</p>
+            <input type="password" class="input" v-model="poolPrivatePassword" ><br>
         </div>
+
+        <p class="copyPoolLink" @click="generateLink">
+            Copy invite link
+        </p>
 
     </div>
 
@@ -26,13 +26,15 @@
 <script>
 
     import slider from 'client/components/UI/elements/Slider.vue';
+    import Clipboard from 'v-clipboard';
 
     export default{
 
         data: ()=>{
 
             return {
-                poolPrivatePassword: '',
+                poolServers: 'server.com',
+                poolPrivatePassword: '123',
             }
 
         },
@@ -40,6 +42,8 @@
         methods: {
 
             generateLink() {
+
+
 
             },
 
