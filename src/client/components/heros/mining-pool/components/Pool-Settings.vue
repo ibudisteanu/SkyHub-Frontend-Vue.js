@@ -3,7 +3,7 @@
     <div>
 
         <h2>SET YOUR POOL FEE</h2>
-        <slider ref="refMiningSlider" @sliderChanged="this.handleChangePoolFee"/>
+        <slider ref="refMiningSlider" @changed="this.handleChangePoolFee"/>
 
         <h2>POOL NAME</h2>
         <input type="text" class="input" v-model="poolName" value="POOL NAME" ><br>
@@ -11,7 +11,7 @@
         <h2>POOL URL</h2>
         <input type="text" class="input" v-model="poolURL" placeholder="http://url" ><br>
 
-        <button @click="handleSaveSettings"></button>
+        <span class="minerData buttonSmall selected" @click="handleSaveSettings">Save Settings</span>
 
     </div>
 
