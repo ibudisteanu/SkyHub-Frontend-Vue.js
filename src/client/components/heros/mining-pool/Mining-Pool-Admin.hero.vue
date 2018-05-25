@@ -14,19 +14,26 @@
 
             <div class="selectedMinerInfo">
 
-                <p>Address: <span class="minerData">43t1431hg2qfwwqDSADSAD</span></p>
+                <p>
+                    <span class="titlePool">Pool address:</span>
+                    <span class="minerData address">{{this.poolLeader.address}}</span>
+                </p>
 
-                <p>Miner reward for today: <span class="minerData">24 WEBD</span></p>
+                <p>
+                    <span class="titlePool">Display Type:</span>
+                    <span class="minerData buttonSmall" @click="changeDisplayType('list')" :class="this.displayType === 'list' ? 'selected' : ''">LIST</span>
+                    <span class="minerData buttonSmall" @click="changeDisplayType('normal')"  :class="this.displayType === 'normal' ? 'selected' : ''">NORMAL</span>
+                </p>
 
-                <p>Miner reward from your pool: <span class="minerData">512 WEBD</span></p>
+                <p>
+                    <span class="titlePool">Your Reward for next block:</span>
+                    <span class="minerData">600 WEBD</span>
+                </p>
 
-                <p>Total hours mined: <span class="minerData">24h</span></p>
-
-                <p>Arability mining percentage: <span class="minerData">90%</span></p>
-
-                <p>Mining power: <span class="minerData">5 Threads</span></p>
-
-                <p>Hash/s: <span class="minerData">~ 800</span></p>
+                <p>
+                    <span class="titlePool">Miners Reward for next block:</span>
+                    <span class="minerData">5400 WEBD</span>
+                </p>
 
             </div>
 
@@ -36,7 +43,7 @@
 
             <pool-link-generator></pool-link-generator>
 
-            <pool-miners-list></pool-miners-list>
+            <pool-miners-list :displayType="this.displayType"></pool-miners-list>
 
         </div>
 
@@ -56,8 +63,21 @@
 
         components: { PoolMinersList, PoolSettings, PoolLinkGenerator },
 
+        data: () => {
+            return {
+                displayType: 'list',
+                poolLeader:{
+                    address: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
+                    poolLeaderCommission: 20
+                },
+            }
+        },
+
         methods: {
 
+            changeDisplayType(type){
+                this.displayType=type;
+            },
 
         },
 

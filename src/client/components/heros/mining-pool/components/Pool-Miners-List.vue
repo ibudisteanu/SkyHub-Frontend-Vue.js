@@ -30,9 +30,12 @@
 
     export default{
 
+        props: {
+            displayType: {default: 'list'},
+        },
+
         data: () => {
             return {
-                displayType: 'list',
                 minersList: [
                     {
                         active: true,
