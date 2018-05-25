@@ -34,13 +34,9 @@
 
         <div id="yourPoolSection">
 
-            <div class="poolSectionContainer">
+            <pool-link-generator></pool-link-generator>
 
-                <pool-link-generator></pool-link-generator>
-
-                <pool-miners-list></pool-miners-list>
-
-            </div>
+            <pool-miners-list></pool-miners-list>
 
         </div>
 
