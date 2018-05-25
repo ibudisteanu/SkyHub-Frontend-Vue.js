@@ -68,7 +68,6 @@
                 poolFee: 0,
                 poolName: '',
                 poolURL: '',
-                poolServers: ''
             }
 
         },

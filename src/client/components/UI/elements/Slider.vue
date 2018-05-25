@@ -1,7 +1,7 @@
 <template>
     <div class="poolSlider" >
         <vueSlider class="miningSlider" ref="slider" :piecewise="false"
-                    tooltip="always" v-model="value" ></vueSlider>
+                    tooltip="always" v-model="value" @callback="handleValueChanged" ></vueSlider>
     </div>
 </template>
 
@@ -17,6 +17,10 @@
             "vueSlider":vueSlider,
         },
 
+        props: [],
+
+        //@changed
+
         data() {
             return {
                 value: 0,
@@ -24,6 +28,12 @@
         },
 
         methods: {
+
+            handleValueChanged(){
+
+                this.$emit('changed', this.value );
+
+            }
 
         },
 
