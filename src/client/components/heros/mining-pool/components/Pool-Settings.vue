@@ -3,14 +3,15 @@
     <div>
 
         <h2>SET YOUR POOL FEE</h2>
-        <slider ref="refMiningSlider" @sliderChanged="this.changeCommission"/>
+        <slider ref="refMiningSlider" @sliderChanged="this.handleChangePoolFee"/>
 
         <h2>POOL NAME</h2>
-        <input type="text" class="input" v-model="poolName" value="POOL NAME"><br>
+        <input type="text" class="input" v-model="poolName" value="POOL NAME" ><br>
 
         <h2>POOL URL</h2>
-        <input type="text" class="input" v-model="poolURL" placeholder="http://url"><br>
+        <input type="text" class="input" v-model="poolURL" placeholder="http://url" ><br>
 
+        <button @click="handleSaveSettings"></button>
 
     </div>
 
@@ -29,6 +30,7 @@
         data: ()=>{
 
             return {
+                poolFee: 0,
                 poolName: '',
                 poolURL: '',
             }
@@ -37,9 +39,19 @@
 
         methods: {
 
-            changeCommission() {
-
+            handleChangePoolFee(value){
+                this.poolFee = value;
             },
+
+            handleSaveSettings(){
+
+                WebDollar.Blockchain.PoolManagement._poolFee =  this.poolFee;
+                WebDollar.Blockchain.PoolManagement._poolName = this.poolName;
+                WebDollar.Blockchain.PoolManagement._poolURL = this.poolURL;
+
+                WebDollar.Blockchain.PoolManagement._savePoolDetails();
+
+            }
 
         }
 
