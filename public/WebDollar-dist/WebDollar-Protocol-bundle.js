@@ -2122,7 +2122,7 @@ consts.SETTINGS = {
 
     NODE: {
 
-        VERSION: "1.133.8",
+        VERSION: "1.133.9",
         VERSION_COMPATIBILITY: "1.13",
         PROTOCOL: "WebDollar",
         SSL: true,
@@ -27529,9 +27529,19 @@ class InterfaceBlockchainProtocolForkSolver{
 
             fork = await this.blockchain.forksAdministrator.createNewFork( socket, undefined, undefined, undefined, [ forkLastBlockHash ], false );
 
+            //only for light node when there is a new proof
+            if ( currentBlockchainLength === forkChainLength && currentBlockchainLength  >= 1 && this.blockchain.agent.light && forkProof){
+                if (  this.blockchain.blocks.last.hash.equals( forkLastBlockHash ) ) {
+                    binarySearchResult = {
+                        position: currentBlockchainLength,
+                        header: forkLastBlockHash,
+                    };
+                }
+            }
+
             //optimization
             //check if n-2 was ok, but I need at least 1 block
-            if ( (!this.blockchain.agent.light || (this.blockchain.agent.light && !forkProof)) && currentBlockchainLength === forkChainLength-1 && currentBlockchainLength-2  >= 0 ){
+            if ( currentBlockchainLength === forkChainLength-1 && currentBlockchainLength-2  >= 0 && binarySearchResult.position === -1 ){
 
                 let answer = await socket.node.sendRequestWaitOnce( "head/hash", currentBlockchainLength-1, currentBlockchainLength-1, __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.TIMEOUT.WAIT_ASYNC_DISCOVERY_TIMEOUT );
                 if (answer === null || answer.hash === undefined) throw {message: "connection dropped headers-info", height: currentBlockchainLength-1 };
@@ -28458,7 +28468,8 @@ Transport.prototype.onClose = function () {
 
 
 
-const MAX_WAITLIST_QUEUE_LENGTH = 100;
+const MAX_WAITLIST_QUEUE_LENGTH = 1000;
+const DOWNLOAD_WAITLIST_COUNT = 20;
 
 class NodePropagationProtocol {
 
@@ -28475,7 +28486,7 @@ class NodePropagationProtocol {
 
     }
 
-    async _processList(list){
+    async _processList(list, nodeType){
 
         for (let key in list){
 
@@ -28484,14 +28495,16 @@ class NodePropagationProtocol {
 
             let answer = await __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].addNewNodeToWaitlist( key, undefined, list[key].t,  list[key].c, list[key].sock.node.level + 1, list[key].sock );
 
+            //downloading the next elements
+            if (list[key].next !== undefined && list[key].next > 0)
+                list[key].sock.node.sendRequest( (nodeType === __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL ? "propagation/request-all-wait-list/full-nodes" : "propagation/request-all-wait-list/light-nodes"), { index: list[key].next, count: DOWNLOAD_WAITLIST_COUNT });
+
             delete list[key];
             list.length--;
 
             if (answer !== null ){
-
                 this._waitlistProccessed[key] = true;
                 return;
-
             }
 
         }
@@ -28501,8 +28514,8 @@ class NodePropagationProtocol {
 
     async _processNewWaitlistInterval(){
 
-        await this._processList(this._newFullNodesWaitList);
-        await this._processList(this._newLightNodesWaitList);
+        await this._processList(this._newFullNodesWaitList, __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_TERMINAL);
+        await this._processList(this._newLightNodesWaitList, __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER);
 
 
         setTimeout( async ()=>{ await this._processNewWaitlistInterval() } , 1500 + Math.floor( Math.random() * 200 ) );
@@ -28526,8 +28539,8 @@ class NodePropagationProtocol {
 
         setTimeout( ()=>{
 
-            socket.node.sendRequest("propagation/request-all-wait-list/full-nodes");
-            socket.node.sendRequest("propagation/request-all-wait-list/light-nodes");
+            socket.node.sendRequest("propagation/request-all-wait-list/full-nodes", { index: 0, count: DOWNLOAD_WAITLIST_COUNT });
+            socket.node.sendRequest("propagation/request-all-wait-list/light-nodes", { index:0, count: DOWNLOAD_WAITLIST_COUNT });
 
         },  3000 + Math.floor( Math.random()*5000));
 
@@ -28541,7 +28554,7 @@ class NodePropagationProtocol {
         socket.on("propagation/simple-waitlist-nodes", async ( data, callback )=>{
 
 
-            await this._processNodesList(data, socket)
+            await this._processNodesList(data, socket);
 
             callback("received",{ });
 
@@ -28580,6 +28593,7 @@ class NodePropagationProtocol {
                     if (list.length > MAX_WAITLIST_QUEUE_LENGTH)
                         break;
 
+                    let lastWaitlist = undefined;
 
                     for (let i = 0; i < addresses.length; i++){
 
@@ -28592,6 +28606,8 @@ class NodePropagationProtocol {
                                 sock: socket,
                             };
 
+                            lastWaitlist = list[ addresses[ i ].a ];
+
                             list.length++;
 
                             if (list.length > MAX_WAITLIST_QUEUE_LENGTH)
@@ -28601,13 +28617,16 @@ class NodePropagationProtocol {
 
                     }
 
+                    if (lastWaitlist !== undefined && response.next !== undefined && response.next > 0  )
+                        lastWaitlist.next = response.next ;
+
                     break;
 
                     //TODO remove addresses from list
 
-                    // case "disconnected-light-nodes":
-                    // case "disconnected-full-nodes":
-                    //
+                    case "disconnected-light-nodes":
+                    case "disconnected-full-nodes":
+
                     //     for (let i = 0; i < addresses.length; i++) {
                     //
                     //         let answer = NodesWaitlist._searchNodesWaitlist(addresses[i].addr, undefined, addresses[i].type);
@@ -28639,37 +28658,44 @@ class NodePropagationProtocol {
 
         socket.node.on("propagation/request-all-wait-list/full-nodes", response =>{
 
-            try{
+            let answer = this._getWaitlist( response, __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListFullNodes );
 
-                let list;
-
-                if (socket.node.protocol.nodeType === __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Nodes_Type__["a" /* default */].NODE_WEB_PEER) //let's send only SSL
-                    list = __WEBPACK_IMPORTED_MODULE_5_common_sockets_protocol_Node_Propagation_List__["a" /* default */]._waitlistSimpleSSL;
-                else
-                    list = __WEBPACK_IMPORTED_MODULE_5_common_sockets_protocol_Node_Propagation_List__["a" /* default */]._waitlistSimple;
-
-                socket.node.sendRequest("propagation/nodes", {"op": "new-full-nodes", addresses: list });
-
-            } catch(exception){
-            }
+            if (answer !== null && answer.list.length > 0)
+                socket.node.sendRequest("propagation/nodes", {"op": "new-full-nodes", addresses: answer.list, next: answer.next});
 
         });
 
         socket.node.on("propagation/request-all-wait-list/light-nodes", response =>{
 
-            try{
+            let answer = this._getWaitlist( response, __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListFullNodes );
 
-                let list = [];
-                for (let i=0; i<__WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListFullNodes.length; i++) list.push(__WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListLightNodes[i].toJSON());
-
-                socket.node.sendRequest("propagation/nodes", {"op": "new-light-nodes", addresses: list });
-
-            } catch(exception){
-            }
+            if (answer !== null && answer.list.length > 0)
+                socket.node.sendRequest("propagation/nodes", {"op": "new-light-nodes", addresses: answer.list, next: answer.next});
 
         });
 
         this.initializeNodesSimpleWaitlist(socket);
+
+    }
+
+    _getWaitlist(response, list){
+
+        try {
+            let index = response.index || 0;
+            let count = response.count || 50;
+            count = Math.min(count, 50);
+            count = Math.max(count, 5);
+
+            let answer = [];
+            for (let i = index * count; i < (index + 1) * count && i < list.length; i++)
+                answer.push(list[i].toJSON());
+
+            return {list: answer, next:  ( (index+1) * count < list.length ) ? (index+1) : 0 }
+
+        } catch (exception){
+
+            return null;
+        }
 
     }
 
@@ -54727,7 +54753,9 @@ class InterfaceBlockchainProtocolForksManager {
             //for Light Nodes, I am also processing the smaller blocks
 
             //in case the hashes are the same, and I have already the block
-            if (( (!this.blockchain.agent.light || (this.blockchain.agent.light && !forkProof)) && newChainLength > 0 && this.blockchain.blocks.length === newChainLength )) {
+
+            //todo should compare the proof because maybe it is the same with mine
+            if ( newChainLength > 0 && this.blockchain.blocks.length === newChainLength && (!this.blockchain.agent.light || (this.blockchain.agent.light && ( !forkProof || !this.blockchain.proofPi.validatesLastBlock() ))) ) {
 
                 //in case the hashes are exactly the same, there is no reason why we should download it
                 let comparison = this.blockchain.blocks[this.blockchain.blocks.length - 1].hash.compare( forkLastBlockHash );
@@ -54744,7 +54772,7 @@ class InterfaceBlockchainProtocolForksManager {
 
             }
 
-            if ( (!this.blockchain.agent.light || (this.blockchain.agent.light && !forkProof) ) && newChainLength < this.blockchain.blocks.length) {
+            if ( newChainLength < this.blockchain.blocks.length && (!this.blockchain.agent.light || (this.blockchain.agent.light && ( !forkProof || !this.blockchain.proofPi.validatesLastBlock() )))) {
 
                 if (this.blockchain.blocks[newChainLength] !== undefined && this.blockchain.blocks[newChainLength].hash.equals( forkLastBlockHash ))
                     socket.node.protocol.blocks = newChainLength;
@@ -93758,7 +93786,7 @@ class NodePropagationList{
 
 
 }
-/* harmony default export */ __webpack_exports__["a"] = (new NodePropagationList());
+/* unused harmony default export */ var _unused_webpack_default_export = (new NodePropagationList());
 
 /***/ }),
 /* 792 */
