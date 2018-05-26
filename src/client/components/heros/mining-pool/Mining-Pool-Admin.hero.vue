@@ -6,7 +6,19 @@
 
             <div class="generalController">
 
-                <pool-settings></pool-settings>
+                <h2>SETTINGS</h2>
+                <slider ref="refMiningSlider" @changed="this.handleChangePoolFee"/>
+
+                <div class="listType">
+
+                    <span class="minerData buttonSmall" @click="changeDisplayType('list')" :class="this.displayType === 'list' ? 'selected' : ''">LIST</span>
+                    <span class="minerData buttonSmall" @click="changeDisplayType('normal')"  :class="this.displayType === 'normal' ? 'selected' : ''">NORMAL</span>
+
+                </div>
+
+                <div class="buttonContainer">
+                    <button @click="" class="minerData buttonSmall settingsButton">Advanced Settings</button>
+                </div>
 
             </div>
 
@@ -17,12 +29,6 @@
                 <p>
                     <span class="titlePool">Pool address:</span>
                     <span class="minerData address">{{this.poolLeader.address}}</span>
-                </p>
-
-                <p>
-                    <span class="titlePool">Display Type:</span>
-                    <span class="minerData buttonSmall" @click="changeDisplayType('list')" :class="this.displayType === 'list' ? 'selected' : ''">LIST</span>
-                    <span class="minerData buttonSmall" @click="changeDisplayType('normal')"  :class="this.displayType === 'normal' ? 'selected' : ''">NORMAL</span>
                 </p>
 
                 <p>
@@ -52,13 +58,12 @@
 <script>
 
     import Vue from 'vue/dist/vue';
-
+    import slider from 'client/components/UI/elements/Slider.vue';
     import PoolMinersList from  "./components/Pool-Miners-List.vue"
-    import PoolSettings from  "./components/Pool-Settings.vue"
 
     export default{
 
-        components: { PoolMinersList, PoolSettings },
+        components: { PoolMinersList, slider },
 
         data: () => {
             return {
@@ -67,6 +72,10 @@
                     address: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
                     poolLeaderCommission: 20
                 },
+                poolFee: 0,
+                poolName: '',
+                poolWebsite: '',
+                poolURL: '',
             }
         },
 
@@ -74,6 +83,25 @@
 
             changeDisplayType(type){
                 this.displayType=type;
+            },
+
+            handleChangePoolFee(value){
+                this.poolFee = value;
+            },
+
+            handleSaveSettings(){
+
+                WebDollar.Blockchain.PoolManagement._poolFee =  this.poolFee;
+                WebDollar.Blockchain.PoolManagement._poolName = this.poolName;
+                WebDollar.Blockchain.PoolManagement._poolWebsite = this.poolWebsite;
+
+                WebDollar.Blockchain.PoolManagement.savePoolDetails();
+
+            },
+
+            handleGenerateLink(){
+
+                this.poolURL = WebDollar.Blockchain.PoolManagement.generatePoolURL();
             },
 
         },
@@ -91,3 +119,84 @@
 
 </script>
 
+<style>
+    .poolSettingsRow{
+        display: grid;
+        grid-template-columns: 100px 1fr;
+    }
+
+    .settingsButton{
+        background-color: #fec02c;
+        color:#000;
+        border:none;
+        padding: 5px 20px;
+        margin: 0 auto;
+        left:0;
+        display: block;
+        right: 0;
+        border-radius: 3px;
+        transition: all 0.5s ease
+    }
+
+    .settingsButton:hover{
+        background-color: #fedd88;
+        transition: all 0.5s ease
+    }
+
+    .buttonContainer{
+        display: block;
+        margin: 20px 0;
+    }
+
+    .smallSettings{
+        display: grid;
+        grid-template-columns: 1fr;
+        padding: 5px;
+        grid-row-gap: 5px;
+    }
+
+    .settingsTitle{
+        font-size: 14px;
+        text-transform: capitalize;
+    }
+
+    .poolSettingsRow input{
+        background-color: #e4e4e4;
+        border: solid 1px #ffffff;
+        border-radius: 3px;
+        width: 100%;
+    }
+
+    .listType .buttonSmall{
+        font-size: 12px;
+        border-radius:3px;
+        margin: 15px 5px 0 5px;
+    }
+
+    .listType{
+        width: 100%;
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .listType .minerData{
+        display: block;
+        width: 85%;
+        margin: 0 auto;
+        border-radius: 0;
+        background-color: #262626;
+        color: #fff
+    }
+
+    .listType .selected{
+        background-color: #424242;
+        color: #fff;
+        transition: all 0.5s ease
+    }
+
+    .vue-slider-tooltip{
+        padding: 0!important;
+    }
+
+</style>
