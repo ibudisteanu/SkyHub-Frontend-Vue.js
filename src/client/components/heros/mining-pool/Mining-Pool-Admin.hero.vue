@@ -7,6 +7,7 @@
             <div class="generalController">
 
                 <h2>SETTINGS</h2>
+
                 <slider ref="refMiningSlider" @changed="this.handleChangePoolFee"/>
 
                 <div class="listType">
@@ -17,7 +18,7 @@
                 </div>
 
                 <div class="buttonContainer">
-                    <button @click="" class="minerData buttonSmall settingsButton">Advanced Settings</button>
+                    <button v-on:click="this.showAdvancedSettings" class="minerData buttonSmall settingsButton">{{ !this.showAdvancedSettingsStatus ? 'Advanced Settings' : 'Miners List' }}</button>
                 </div>
 
             </div>
@@ -47,7 +48,9 @@
 
         <div id="yourPoolSection">
 
-            <pool-miners-list :displayType="this.displayType"></pool-miners-list>
+            <pool-miners-list v-if="!this.showAdvancedSettingsStatus" :displayType="this.displayType"></pool-miners-list>
+
+            <SettingsPage v-else="this.showAdvancedSettingsStatus"></SettingsPage>
 
         </div>
 
@@ -59,14 +62,16 @@
 
     import Vue from 'vue/dist/vue';
     import slider from 'client/components/UI/elements/Slider.vue';
-    import PoolMinersList from  "./components/Pool-Miners-List.vue"
+    import PoolMinersList from  "./components/Pool-Miners-List.vue";
+    import SettingsPage from "./components/Pool-Advanced-Settings.vue";
 
     export default{
 
-        components: { PoolMinersList, slider },
+        components: { PoolMinersList, slider, SettingsPage },
 
         data: () => {
             return {
+                showAdvancedSettingsStatus: false,
                 displayType: 'list',
                 poolLeader:{
                     address: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
@@ -104,12 +109,15 @@
                 this.poolURL = WebDollar.Blockchain.PoolManagement.generatePoolURL();
             },
 
+            showAdvancedSettings(){
+                this.showAdvancedSettingsStatus = !this.showAdvancedSettingsStatus;
+            }
+
         },
 
         mounted() {
 
             if (typeof window === 'undefined') return;
-
 
             Vue.use(Clipboard);
 
