@@ -70,6 +70,8 @@
         data: ()=>{
 
             return {
+                loaded:false,
+
                 poolFee: 0,
                 poolName: '',
                 poolWebsite: '',
@@ -99,6 +101,35 @@
 
                 this.poolURL = WebDollar.Blockchain.PoolManagement.generatePoolURL();
             },
+
+            async loadData(){
+
+                this.poolName = WebDollar.Blockchain.PoolManagement.poolName;
+                this.poolFee = WebDollar.Blockchain.PoolManagement.poolFee;
+                this.poolServers = WebDollar.Blockchain.PoolManagement.poolServers;
+                this.poolWebsite = WebDollar.Blockchain.PoolManagement.poolWebsite;
+                this.poolURL = await WebDollar.Blockchain.PoolManagement.generatePoolURL();
+            }
+
+        },
+
+        mounted(){
+
+            if (typeof window === "undefined") return;
+
+            if (WebDollar.Blockchain.loaded){
+
+                this.loaded= true;
+                this.loadData();
+            }
+
+            WebDollar.Blockchain.onLoaded.then((answer)=>{
+
+                this.loaded = true;
+
+                this.loadData();
+
+            });
 
         }
 
