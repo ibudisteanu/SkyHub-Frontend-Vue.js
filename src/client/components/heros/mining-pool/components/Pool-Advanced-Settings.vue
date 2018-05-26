@@ -20,7 +20,7 @@
                     URL:
                 </div>
                 <div>
-                    <input type="text" class="input" v-model="poolURL" placeholder="http://url" >
+                    <input type="text" class="input" v-model="poolWebsite" placeholder="http://url" >
                 </div>
             </div>
 
@@ -28,9 +28,7 @@
                 <div class="settingsTitle">
                     FEE Percent:
                 </div>
-                <div>
-                    <input type="text" class="input" v-model="poolFee" placeholder="10" >
-                </div>
+                <slider ref="refBar"  @changed="this.handleSaveSettings"/>
             </div>
 
             <div class="poolSettingsRow">
@@ -38,7 +36,10 @@
                     Servers:
                 </div>
                 <div>
-                    <input type="text" class="input" v-model="poolServers" placeholder="832.213.23.21:312; 32.123.12.312:221">
+                    <textarea rows="4" cols="50" v-model="poolServers">
+                        832.213.23.21:312;
+                        32.123.12.312:221
+                    </textarea>
                 </div>
             </div>
 
@@ -46,11 +47,16 @@
 
         <div class="buttonContainer">
             <button @click="handleSaveSettings" class="minerData buttonSmall settingsButton">Save Settings</button>
+            {{this.error}}
         </div>
         <div class="buttonContainer">
-            <button @click="handleGenerateLink" class="minerData buttonSmall settingsButton">Generate URL</button>
 
-            {{this.poolURL}}
+            <button @click="handleGenerateLink" class="minerData buttonSmall settingsButton" style="margin-bottom: 20px">Generate URL</button>
+
+            <p>
+                {{this.poolURL}}
+            </p>
+
         </div>
 
     </div>
@@ -76,7 +82,9 @@
                 poolName: '',
                 poolWebsite: '',
 
+                poolServers: '',
                 poolURL: '',
+                error: '',
             }
 
         },
@@ -87,13 +95,18 @@
                 this.poolFee = value;
             },
 
-            handleSaveSettings(){
+            async handleSaveSettings(){
 
                 WebDollar.Blockchain.PoolManagement._poolFee =  this.poolFee;
                 WebDollar.Blockchain.PoolManagement._poolName = this.poolName;
                 WebDollar.Blockchain.PoolManagement._poolWebsite = this.poolWebsite;
 
-                WebDollar.Blockchain.PoolManagement.savePoolDetails();
+                try {
+                    await WebDollar.Blockchain.PoolManagement.savePoolDetails();
+                    this.error = '';
+                } catch (exception){
+                    this.error = exception.message;
+                }
 
             },
 
@@ -109,6 +122,8 @@
                 this.poolServers = WebDollar.Blockchain.PoolManagement.poolServers;
                 this.poolWebsite = WebDollar.Blockchain.PoolManagement.poolWebsite;
                 this.poolURL = await WebDollar.Blockchain.PoolManagement.generatePoolURL();
+
+                this.$refs['refBar'].value = this.poolFee;
             }
 
         },

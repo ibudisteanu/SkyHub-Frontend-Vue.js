@@ -17,8 +17,6 @@
             "vueSlider":vueSlider,
         },
 
-        props: [],
-
         //@changed
 
         data() {
@@ -29,9 +27,9 @@
 
         methods: {
 
-            handleValueChanged(){
+            handleValueChanged(value){
 
-                this.$emit('changed', this.value );
+                this.$emit('changed', value );
 
             }
 
