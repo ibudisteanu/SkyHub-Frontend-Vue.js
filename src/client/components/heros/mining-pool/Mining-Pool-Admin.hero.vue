@@ -6,10 +6,6 @@
 
             <div class="generalController">
 
-                <h2>SETTINGS</h2>
-
-                <slider ref="refMiningSlider" @changed="this.handleChangePoolFee"/>
-
                 <div class="listType">
 
                     <span class="minerData buttonSmall" @click="changeDisplayType('list')" :class="this.displayType === 'list' ? 'selected' : ''">LIST</span>
@@ -18,37 +14,22 @@
                 </div>
 
                 <div class="buttonContainer">
-                    <button v-on:click="this.showAdvancedSettings" class="minerData buttonSmall settingsButton">{{ !this.showAdvancedSettingsStatus ? 'Advanced Settings' : 'Miners List' }}</button>
+                    <span v-on:click="this.showAdvancedSettings" class="minerData buttonSmall settingsButton">
+                        {{ !this.showAdvancedSettingsStatus ? 'Advanced Settings' : 'Miners List' }}
+                    </span>
                 </div>
 
             </div>
 
             <h2>Selected miner statistics</h2>
 
-            <div class="selectedMinerInfo">
-
-                <p>
-                    <span class="titlePool">Pool address:</span>
-                    <span class="minerData address">{{this.poolLeader.address}}</span>
-                </p>
-
-                <p>
-                    <span class="titlePool">Your Reward for next block:</span>
-                    <span class="minerData">600 WEBD</span>
-                </p>
-
-                <p>
-                    <span class="titlePool">Miners Reward for next block:</span>
-                    <span class="minerData">5400 WEBD</span>
-                </p>
-
-            </div>
+            <miner-details :miner="this.minersList[this.selectedMinerIndex]"></miner-details>
 
         </div>
 
         <div id="yourPoolSection">
 
-            <pool-miners-list v-if="!this.showAdvancedSettingsStatus" :displayType="this.displayType"></pool-miners-list>
+            <pool-miners-list v-if="!this.showAdvancedSettingsStatus" :displayType="this.displayType" :minersList="this.minersList"></pool-miners-list>
 
             <SettingsPage v-else="this.showAdvancedSettingsStatus"></SettingsPage>
 
@@ -64,10 +45,11 @@
     import slider from 'client/components/UI/elements/Slider.vue';
     import PoolMinersList from  "./components/Pool-Miners-List.vue";
     import SettingsPage from "./components/Pool-Advanced-Settings.vue";
+    import MinerDetails from  "./components/Miner-Details.vue";
 
     export default{
 
-        components: { PoolMinersList, slider, SettingsPage },
+        components: { PoolMinersList, slider, SettingsPage, MinerDetails },
 
         data: () => {
             return {
@@ -81,6 +63,103 @@
                 poolName: '',
                 poolWebsite: '',
                 poolURL: '',
+                selectedMinerIndex: 0,
+                minersList: [
+                    {
+                        active: true,
+                        address: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
+                        nextReward: '200',
+                        avaiableReward: '20000',
+                        averageHash: '',
+                    },
+                    {
+                        active: true,
+                        address: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
+                        nextReward: '200',
+                        avaiableReward: '20000',
+                        averageHash: '',
+                    },
+                    {
+                        active: true,
+                        address: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
+                        nextReward: '200',
+                        avaiableReward: '20000',
+                        averageHash: '',
+                    },
+                    {
+                        active: true,
+                        address: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
+                        nextReward: '200',
+                        avaiableReward: '20000',
+                        averageHash: '',
+                    },
+                    {
+                        active: true,
+                        address: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
+                        nextReward: '200',
+                        avaiableReward: '20000',
+                        averageHash: '',
+                    },
+                    {
+                        active: true,
+                        address: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
+                        nextReward: '200',
+                        avaiableReward: '20000',
+                        averageHash: '',
+                    },
+                    {
+                        active: true,
+                        address: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
+                        nextReward: '200',
+                        avaiableReward: '20000',
+                        averageHash: '',
+                    },
+                    {
+                        active: false
+                    },
+                    {
+                        active: false
+                    },
+                    {
+                        active: true
+                    },
+                    {
+                        active: false
+                    },
+                    {
+                        active: true
+                    },
+                    {
+                        active: false
+                    },
+                    {
+                        active: true
+                    },
+                    {
+                        active: false
+                    },
+                    {
+                        active: false
+                    },
+                    {
+                        active: true
+                    },
+                    {
+                        active: false
+                    },
+                    {
+                        active: true
+                    },
+                    {
+                        active: false
+                    },
+                    {
+                        active: true
+                    },
+                    {
+                        active: false
+                    }
+                ]
             }
         },
 
@@ -128,26 +207,36 @@
 </script>
 
 <style>
+
     .poolSettingsRow{
         display: grid;
         grid-template-columns: 100px 1fr;
     }
 
-    .settingsButton{
+    .generalController .settingsButton{
         background-color: #fec02c;
         color:#000;
         border:none;
-        padding: 5px 20px;
+        padding: 0 20px;
         margin: 0 auto;
+        width: 80%;
         left:0;
         display: block;
         right: 0;
-        border-radius: 3px;
+        border-radius: 0;
+        text-align: center;
+        font-size: 12px;
+        text-transform: uppercase;
         transition: all 0.5s ease
     }
 
-    .settingsButton:hover{
+    .generalController .settingsButton:hover{
         background-color: #fedd88;
+        transition: all 0.5s ease
+    }
+
+    .poolSectionContainer .list .transactionInfo:hover{
+        background-color: #333;
         transition: all 0.5s ease
     }
 

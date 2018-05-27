@@ -2,13 +2,20 @@
 
     <div>
 
-        <h2>SETTINGS</h2>
+        <h2 class="alignCenter yellowColor">SETTINGS</h2>
 
-        <div class="smallSettings">
+        <div class="smallSettings largePadding">
+
+            <div class="poolSettingsRow">
+                <div class="settingsTitle feeHeight">
+                    FEE Percent:
+                </div>
+                <slider ref="refBar" @changed="this.handleSaveSettings"/>
+            </div>
 
             <div class="poolSettingsRow">
                 <div class="settingsTitle">
-                    Name:
+                    Pool Name:
                 </div>
                 <div>
                     <input type="text" class="input" v-model="poolName" placeholder="WebDollar Pool">
@@ -17,7 +24,7 @@
 
             <div class="poolSettingsRow">
                 <div class="settingsTitle">
-                    URL:
+                    Pool Website:
                 </div>
                 <div>
                     <input type="text" class="input" v-model="poolWebsite" placeholder="http://url" >
@@ -26,14 +33,7 @@
 
             <div class="poolSettingsRow">
                 <div class="settingsTitle">
-                    FEE Percent:
-                </div>
-                <slider ref="refBar"  @changed="this.handleSaveSettings"/>
-            </div>
-
-            <div class="poolSettingsRow">
-                <div class="settingsTitle">
-                    Servers:
+                    Pool Servers:
                 </div>
                 <div>
                     <textarea rows="4" cols="50" v-model="poolServers">
@@ -51,7 +51,7 @@
         </div>
         <div class="buttonContainer">
 
-            <button @click="handleGenerateLink" class="minerData buttonSmall settingsButton" style="margin-bottom: 20px">Generate URL</button>
+            <button @click="handleGenerateLink" class="minerData buttonSmall settingsButton" style="margin-bottom: 20px">Copy Pool Invite URL</button>
 
             <p>
                 {{this.poolURL}}
@@ -156,7 +156,9 @@
 
     .poolSettingsRow{
         display: grid;
-        grid-template-columns: 100px 1fr;
+        grid-template-columns: 150px 1fr;
+        box-sizing: border-box!important;
+        padding: 10px 0;
     }
 
     .settingsButton{
@@ -183,15 +185,25 @@
     }
 
     .settingsTitle{
-        font-size: 14px;
+        font-size: 16px;
+        line-height: 26px;
         text-transform: capitalize;
     }
 
-    .poolSettingsRow input{
+    .poolSettingsRow input, .poolSettingsRow textarea{
         background-color: #e4e4e4;
         border: solid 1px #ffffff;
         border-radius: 3px;
+        padding: 5px;
         width: 100%;
+    }
+
+    .largePadding{
+        padding: 10px 30px;
+    }
+
+    .feeHeight{
+        line-height: 36px;
     }
 
 </style>
