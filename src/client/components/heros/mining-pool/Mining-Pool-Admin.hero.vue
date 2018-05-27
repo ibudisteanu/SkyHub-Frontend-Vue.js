@@ -4,9 +4,9 @@
 
         <div id="miningPoolController">
 
-            <div class="generalController">
+            <div class="generalController" :class="this.showAdvancedSettingsStatus ? 'ajustedHeight' : ''">
 
-                <div class="listType">
+                <div class="listType" v-if="!this.showAdvancedSettingsStatus" >
 
                     <span class="minerData buttonSmall" @click="changeDisplayType('list')" :class="this.displayType === 'list' ? 'selected' : ''">LIST</span>
                     <span class="minerData buttonSmall" @click="changeDisplayType('normal')"  :class="this.displayType === 'normal' ? 'selected' : ''">NORMAL</span>
@@ -21,9 +21,9 @@
 
             </div>
 
-            <h2>Selected miner statistics</h2>
+            <miner-details v-if="!this.showAdvancedSettingsStatus" :miner="this.minersList[this.selectedMinerIndex]"></miner-details>
 
-            <miner-details :miner="this.minersList[this.selectedMinerIndex]"></miner-details>
+            <pool-details v-if="this.showAdvancedSettingsStatus" :pool="this.poolDetails"></pool-details>
 
         </div>
 
@@ -46,23 +46,23 @@
     import PoolMinersList from  "./components/Pool-Miners-List.vue";
     import SettingsPage from "./components/Pool-Advanced-Settings.vue";
     import MinerDetails from  "./components/Miner-Details.vue";
+    import PoolDetails from  "./components/Pool-Details.vue";
 
     export default{
 
-        components: { PoolMinersList, slider, SettingsPage, MinerDetails },
+        components: { PoolMinersList, slider, SettingsPage, MinerDetails, PoolDetails },
 
         data: () => {
             return {
                 showAdvancedSettingsStatus: false,
                 displayType: 'list',
-                poolLeader:{
-                    address: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
-                    poolLeaderCommission: 20
+                poolDetails: {
+                    poolAddress: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
+                    poolFee: 0,
+                    poolName: '',
+                    poolWebsite: '',
+                    poolURL: '',
                 },
-                poolFee: 0,
-                poolName: '',
-                poolWebsite: '',
-                poolURL: '',
                 selectedMinerIndex: 0,
                 minersList: [
                     {
@@ -294,6 +294,10 @@
 
     .vue-slider-tooltip{
         padding: 0!important;
+    }
+
+    .ajustedHeight{
+        height: 35px!important;
     }
 
 </style>

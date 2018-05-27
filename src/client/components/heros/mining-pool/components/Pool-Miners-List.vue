@@ -38,3 +38,11 @@
     }
 
 </script>
+
+<style>
+
+    .miner{
+        transition: none;
+    }
+
+</style>

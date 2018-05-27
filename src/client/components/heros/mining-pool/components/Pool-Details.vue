@@ -2,7 +2,7 @@
 
     <div>
 
-        <h2>Selected miner statistics</h2>
+        <h2>Pool statistics</h2>
 
         <div class="selectedMinerInfo">
 
