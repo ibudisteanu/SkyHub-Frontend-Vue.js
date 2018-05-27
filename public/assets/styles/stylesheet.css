@@ -1396,7 +1396,8 @@ background-color:#ff2200}
   background-color: #2d2d2d;
   border-bottom: solid 1px #444;
   padding-bottom: 50px;
-  height: 210px
+  height: 100px;
+  margin-top: 15px;
 }
 
 #miningPoolController .poolSlider .miningSlider {
@@ -1410,7 +1411,7 @@ background-color:#ff2200}
 }
 
 .selectedMinerInfo{
-  padding: 0 20px;
+  padding: 0;
   font-size: 12px;
   color: #adadad;
 }

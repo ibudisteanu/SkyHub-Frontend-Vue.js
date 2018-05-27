@@ -32,85 +32,17 @@
 
         props: {
             displayType: {default: 'list'},
-        },
-
-        data: () => {
-            return {
-                minersList: [
-                    {
-                        active: true,
-                        address: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
-                        nextReward: '200',
-                        avaiableReward: '20000',
-                        averageHash: '',
-                    },
-                    {
-                        active: false
-                    },
-                    {
-                        active: true
-                    },
-                    {
-                        active: false
-                    },
-                    {
-                        active: true
-                    },
-                    {
-                        active: false
-                    },
-                    {
-                        active: true
-                    },
-                    {
-                        active: false
-                    },
-                    {
-                        active: false
-                    },
-                    {
-                        active: true
-                    },
-                    {
-                        active: false
-                    },
-                    {
-                        active: true
-                    },
-                    {
-                        active: false
-                    },
-                    {
-                        active: true
-                    },
-                    {
-                        active: false
-                    },
-                    {
-                        active: false
-                    },
-                    {
-                        active: true
-                    },
-                    {
-                        active: false
-                    },
-                    {
-                        active: true
-                    },
-                    {
-                        active: false
-                    },
-                    {
-                        active: true
-                    },
-                    {
-                        active: false
-                    }
-                ]
-            }
+            minersList: {default: []}
         },
 
     }
 
 </script>
+
+<style>
+
+    .miner{
+        transition: none;
+    }
+
+</style>
