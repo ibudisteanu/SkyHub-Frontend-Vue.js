@@ -97,12 +97,12 @@
 
             async handleSaveSettings(){
 
-                WebDollar.Blockchain.PoolManagement._poolFee =  this.poolFee;
-                WebDollar.Blockchain.PoolManagement._poolName = this.poolName;
-                WebDollar.Blockchain.PoolManagement._poolWebsite = this.poolWebsite;
+                WebDollar.Blockchain.PoolManagement.poolSettings._poolFee =  this.poolFee;
+                WebDollar.Blockchain.PoolManagement.poolSettings._poolName = this.poolName;
+                WebDollar.Blockchain.PoolManagement.poolSettings._poolWebsite = this.poolWebsite;
 
                 try {
-                    await WebDollar.Blockchain.PoolManagement.savePoolDetails();
+                    await WebDollar.Blockchain.PoolManagement.poolSettings.savePoolDetails();
                     this.error = '';
                 } catch (exception){
                     this.error = exception.message;
@@ -112,16 +112,16 @@
 
             handleGenerateLink(){
 
-                this.poolURL = WebDollar.Blockchain.PoolManagement.generatePoolURL();
+                this.poolURL = WebDollar.Blockchain.PoolManagement.poolSettings.generatePoolURL();
             },
 
             async loadData(){
 
-                this.poolName = WebDollar.Blockchain.PoolManagement.poolName;
-                this.poolFee = WebDollar.Blockchain.PoolManagement.poolFee;
-                this.poolServers = WebDollar.Blockchain.PoolManagement.poolServers;
-                this.poolWebsite = WebDollar.Blockchain.PoolManagement.poolWebsite;
-                this.poolURL = await WebDollar.Blockchain.PoolManagement.generatePoolURL();
+                this.poolName = WebDollar.Blockchain.PoolManagement.poolSettings.poolName;
+                this.poolFee = WebDollar.Blockchain.poolSettings.poolFee;
+                this.poolServers = WebDollar.Blockchain.PoolManagement.poolSettings.poolServers;
+                this.poolWebsite = WebDollar.Blockchain.PoolManagement.poolSettings.poolWebsite;
+                this.poolURL = await WebDollar.Blockchain.PoolManagement.poolSettings.generatePoolURL();
 
                 this.$refs['refBar'].value = this.poolFee;
             }
