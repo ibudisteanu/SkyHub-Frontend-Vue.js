@@ -118,7 +118,7 @@
             async loadData(){
 
                 this.poolName = WebDollar.Blockchain.PoolManagement.poolSettings.poolName;
-                this.poolFee = WebDollar.Blockchain.poolSettings.poolFee;
+                this.poolFee = WebDollar.Blockchain.PoolManagement.poolSettings.poolFee;
                 this.poolServers = WebDollar.Blockchain.PoolManagement.poolSettings.poolServers;
                 this.poolWebsite = WebDollar.Blockchain.PoolManagement.poolSettings.poolWebsite;
                 this.poolURL = await WebDollar.Blockchain.PoolManagement.poolSettings.generatePoolURL();
