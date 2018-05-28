@@ -57,8 +57,8 @@
                 showAdvancedSettingsStatus: false,
                 displayType: 'list',
                 poolDetails: {
-                    poolAddress: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
-                    poolFee: 0,
+                    address: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
+                    Fee: 0,
                     poolName: '',
                     poolWebsite: '',
                     poolURL: '',

@@ -2,27 +2,37 @@
 
     <div>
 
-        <h2>Pool statistics</h2>
+        <h2>Pool Address</h2>
 
         <div class="selectedMinerInfo">
 
-            <span class="minerData address addressTextBox">{{this.miner.address}}</span>
+            <span class="minerData address addressTextBox">{{this.pool.address}}</span>
 
             <div class="statisticsContent">
 
-                <div class="dataStatisticsItem">
-                    <span class="titlePool">Next Block Reward:</span>
-                    <span class="minerData">{{this.miner.nextReward}} WEBD</span>
+                <div class="dataStatisticsItem" title="All your miners estimated hash rate">
+                    <span class="titlePool">Pool Hash/s:</span>
+                    <span class="minerData">{{this.pool.hashs}} WEBD</span>
                 </div>
 
                 <div class="dataStatisticsItem">
-                    <span class="titlePool">History Reward:</span>
-                    <span class="minerData">{{this.miner.allRewards}} WEBD</span>
+                    <span class="titlePool" title="Your reward at next block mined by pool">NB Reward:</span>
+                    <span class="minerData">{{this.pool.hashrate}}</span>
                 </div>
 
                 <div class="dataStatisticsItem">
-                    <span class="titlePool">Hash/s:</span>
-                    <span class="minerData">{{this.miner.hashs}} WEBD</span>
+                    <span class="titlePool" title="All yours miners reward at next block mined by your pool">NB Miner Reward:</span>
+                    <span class="minerData">{{this.pool.NextBlockMinerReward}} WEBD</span>
+                </div>
+
+                <div class="dataStatisticsItem">
+                    <span class="titlePool" title="All your servers reward at next block mined by your pool">NB Servers Reward:</span>
+                    <span class="minerData">{{this.pool.NextBlockServerReward}} WEBD</span>
+                </div>
+
+                <div class="dataStatisticsItem" title="Aproximed time to wait until your pool will mine the next block">
+                    <span class="titlePool">NB Mining Time:</span>
+                    <span class="minerData">{{this.pool.hashs}} WEBD</span>
                 </div>
 
             </div>
@@ -38,7 +48,7 @@
     export default{
 
         props: {
-            miner: {default: 'list'},
+            pool: {default: 'list'},
         },
 
         mounted(){
