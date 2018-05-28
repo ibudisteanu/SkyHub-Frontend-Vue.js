@@ -2184,7 +2184,7 @@ consts.SETTINGS = {
 
                 SERVER: {
                     MAXIMUM_CONNECTIONS_FROM_TERMINAL: 100,
-                    MAXIMUM_CONNECTIONS_FROM_BROWSER: 600,
+                    MAXIMUM_CONNECTIONS_FROM_BROWSER: 700,
 
                     TERMINAL_CONNECTIONS_REQUIRED_TO_DISCONNECT_FROM_FALLBACK: 10,
                 },
@@ -30630,6 +30630,8 @@ module.exports = bytesToUuid;
         {"addr": ["https://webdollar.csland.ro:8441"]}, // Thanks to @mariotheodor
         {"addr": ["https://webdollar.csland.ro:8442"]}, // Thanks to @mariotheodor
         {"addr": ["https://webdollar.csland.ro:8443"]}, // Thanks to @mariotheodor
+        {"addr": ["https://node4.petreus.ro:443"]}, // Thanks to Timi
+        {"addr": ["https://wb.ciuc.ro:443"]}, // Thanks to Adi Clar
         {"addr": ["https://nodecstl.ddns.net:80"]},
         {"addr": ["https://webd.5q.ro:3333"]},
         {"addr": ["https://shpool.ml:443"]}, // Thanks to @Amahte
@@ -30675,7 +30677,7 @@ module.exports = bytesToUuid;
         // {"addr": ["https://chucknorris.webdollarvpn.io:8082"]}, // Thanks to @cbusuioceanu
 
         {"addr": ["https://webdollarinfinitypool.io"]}, //Thanks to @Tibi Popescu
-
+        {"addr": ["https://webdollarinfinitypool.io:80"]}, //Thanks to @Tibi Popescu
         //---------------------------------------------------------
         //--------------WebDollar FallBack Nodes-------------------
         //---------------------------------------------------------
