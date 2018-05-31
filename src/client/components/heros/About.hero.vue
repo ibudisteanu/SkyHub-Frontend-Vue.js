@@ -9,7 +9,7 @@
                 <div id="whatContainer">
                     <div>
                         <img src="public/assets/images/WebDollar-ming.png" alt="webdollar-mining">
-                        <h4>Start Mining in just 5 seconds</h4>
+                        <h4>Start Mining in seconds</h4>
                         <p>You can start mining WEBD immediately with the first blockchain running directly in your Browser, on any device</p>
                     </div>
                     <div>

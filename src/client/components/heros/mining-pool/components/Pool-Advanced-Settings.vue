@@ -6,56 +6,62 @@
 
         <div class="smallSettings largePadding">
 
-            <div class="poolSettingsRow">
-                <div class="settingsTitle feeHeight">
-                    FEE Percent:
-                </div>
-                <slider ref="refBar" @changed="this.handleSaveSettings"/>
-            </div>
+            <div>
 
-            <div class="poolSettingsRow">
-                <div class="settingsTitle">
-                    Pool Name:
+                <div class="poolSettingsRow">
+                    <div class="settingsTitle feeHeight">
+                        FEE Percent:
+                    </div>
+                    <slider ref="refBar" @changed="this.handleSaveSettings"/>
                 </div>
-                <div>
-                    <input type="text" class="input" v-model="poolName" placeholder="WebDollar Pool">
-                </div>
-            </div>
 
-            <div class="poolSettingsRow">
-                <div class="settingsTitle">
-                    Pool Website:
+                <div class="poolSettingsRow">
+                    <div class="settingsTitle">
+                        Pool Name:
+                    </div>
+                    <div>
+                        <input type="text" class="input" v-model="poolName" placeholder="WebDollar Pool">
+                    </div>
                 </div>
-                <div>
-                    <input type="text" class="input" v-model="poolWebsite" placeholder="http://url" >
-                </div>
-            </div>
 
-            <div class="poolSettingsRow">
-                <div class="settingsTitle">
-                    Pool Servers:
+                <div class="poolSettingsRow">
+                    <div class="settingsTitle">
+                        Pool Website:
+                    </div>
+                    <div>
+                        <input type="text" class="input" v-model="poolWebsite" placeholder="http://url" >
+                    </div>
                 </div>
-                <div>
+
+                <div class="poolSettingsRow">
+                    <div class="settingsTitle">
+                        Pool Servers:
+                    </div>
+                    <div>
                     <textarea rows="4" cols="50" v-model="poolServers">
                         832.213.23.21:312;
                         32.123.12.312:221
                     </textarea>
+                    </div>
                 </div>
+
             </div>
 
         </div>
 
-        <div class="buttonContainer">
-            <button @click="handleSaveSettings" class="minerData buttonSmall settingsButton">Save Settings</button>
-            {{this.error}}
-        </div>
-        <div class="buttonContainer">
+        <div class="buttonsContainer">
 
-            <button @click="handleGenerateLink" class="minerData buttonSmall settingsButton" style="margin-bottom: 20px">Copy Pool Invite URL</button>
+            <div class="buttonContainer">
+                <button @click="handleSaveSettings" class="minerData buttonSmall settingsButton">Save Settings</button>
+                {{this.error}}
+            </div>
+            <div class="buttonContainer">
 
-            <p>
-                {{this.poolURL}}
-            </p>
+                <button @click="handleGenerateLink" class="minerData buttonSmall settingsButton" style="margin-bottom: 20px">Copy Pool Invite URL</button>
+
+                <p>{{this.poolURL}}</p>
+
+            </div>
 
         </div>
 
@@ -113,9 +119,12 @@
             handleGenerateLink(){
 
                 this.poolURL = WebDollar.Blockchain.PoolManagement.poolSettings.generatePoolURL();
+
             },
 
             async loadData(){
+
+                this.load=true;
 
                 this.poolName = WebDollar.Blockchain.PoolManagement.poolSettings.poolName;
                 this.poolFee = WebDollar.Blockchain.PoolManagement.poolSettings.poolFee;
@@ -124,6 +133,9 @@
                 this.poolURL = await WebDollar.Blockchain.PoolManagement.poolSettings.generatePoolURL();
 
                 this.$refs['refBar'].value = this.poolFee;
+
+                this.load=true;
+
             }
 
         },
@@ -136,6 +148,7 @@
 
                 this.loaded= true;
                 this.loadData();
+
             }
 
             WebDollar.Blockchain.onLoaded.then((answer)=>{
@@ -191,20 +204,48 @@
     }
 
     .poolSettingsRow input, .poolSettingsRow textarea{
-        background-color: #e4e4e4;
-        border: solid 1px #ffffff;
         border-radius: 3px;
-        padding: 5px;
+        padding: 10px 5px;
         width: 100%;
+        background-color: #262626;
+        border: solid 1px #3e3e3e;
+        color:#fff
+    }
+
+    .poolSettingsRow input::-webkit-input-placeholder, .poolSettingsRow textarea::-webkit-input-placeholder {
+        color:#bdbdbd
     }
 
     .largePadding{
-        padding: 10px 30px;
+        padding: 10px 40px;
     }
 
     .feeHeight{
         line-height: 36px;
     }
 
-</style>
+    .buttonsContainer{
+        margin: 0 auto;
+        width: 500px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
 
+    .buttonsContainer .settingsButton{
+        padding: 10px 30px;
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+
+    .poolSlider .miningSlider{
+        border: solid 1px #3e3e3e;
+        border-radius:5px
+    }
+
+    .vue-slider-component .vue-slider-tooltip{
+        background-color: #3c3a3a!important;
+        margin-bottom: 2px;
+        border: solid 1px #3e3e3e!important;
+    }
+
+</style>

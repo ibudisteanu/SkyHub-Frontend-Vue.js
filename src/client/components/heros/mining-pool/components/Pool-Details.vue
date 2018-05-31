@@ -12,12 +12,12 @@
 
                 <div class="dataStatisticsItem" title="All your miners estimated hash rate">
                     <span class="titlePool">Pool Hash/s:</span>
-                    <span class="minerData">{{this.pool.hashs}} WEBD</span>
+                    <span class="minerData">{{this.pool.hashs}}</span>
                 </div>
 
                 <div class="dataStatisticsItem">
                     <span class="titlePool" title="Your reward at next block mined by pool">NB Reward:</span>
-                    <span class="minerData">{{this.pool.hashrate}}</span>
+                    <span class="minerData">{{this.pool.hashrate}} WEBD</span>
                 </div>
 
                 <div class="dataStatisticsItem">

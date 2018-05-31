@@ -19,15 +19,6 @@
 
                 <collapse :selected="false">
                     <div slot="collapse-header">
-                        What Test Net means?
-                    </div>
-                    <div slot="collapse-body">
-                        Test Net means a fully functional and real network before the official launch, specifically to test and improve the security of the main network, before the official launch.
-                    </div>
-                </collapse>
-
-                <collapse :selected="false">
-                    <div slot="collapse-header">
                         How was it created?
                     </div>
                     <div slot="collapse-body">
