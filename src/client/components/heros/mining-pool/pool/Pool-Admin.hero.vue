@@ -21,7 +21,7 @@
 
             </div>
 
-            <miner-details v-if="!this.showAdvancedSettingsStatus" :miner="this.minersList[this.selectedMinerIndex]"></miner-details>
+            <pool-miner-details v-if="!this.showAdvancedSettingsStatus" :miner="this.minersList[this.selectedMinerIndex]"></pool-miner-details>
 
             <pool-details v-if="this.showAdvancedSettingsStatus" :pool="this.poolDetails"></pool-details>
 
@@ -43,14 +43,14 @@
 
     import Vue from 'vue/dist/vue';
     import slider from 'client/components/UI/elements/Slider.vue';
-    import PoolMinersList from  "./components/Pool-Miners-List.vue";
+    import PoolMinersList from "./components/Pool-Miners-List.vue";
     import SettingsPage from "./components/Pool-Advanced-Settings.vue";
-    import MinerDetails from  "./components/Miner-Details.vue";
-    import PoolDetails from  "./components/Pool-Details.vue";
+    import PoolMinerDetails from "./components/Pool-Miner-Details.vue";
+    import PoolDetails from "./components/Pool-Details.vue";
 
     export default{
 
-        components: { PoolMinersList, slider, SettingsPage, MinerDetails, PoolDetails },
+        components: { PoolMinersList, slider, SettingsPage, PoolMinerDetails, PoolDetails },
 
         data: () => {
             return {

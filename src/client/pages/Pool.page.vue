@@ -21,7 +21,7 @@
 <script>
 
     import Layout from "client/components/layout/Layout.vue"
-    import NetworkHero from "client/components/heros/mining-pool/Mining-Pool-Admin.hero.vue"
+    import NetworkHero from "client/components/heros/mining-pool/pool/Pool-Admin.hero.vue"
     import MultipleTabs from "../components/heros/Multiple-Tabs.hero.vue";
 
     export default {

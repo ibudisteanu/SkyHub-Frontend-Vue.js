@@ -49,6 +49,7 @@
             <button @click="handleSaveSettings" class="minerData buttonSmall settingsButton">Save Settings</button>
             {{this.error}}
         </div>
+
         <div class="buttonContainer">
 
             <button @click="handleGenerateLink" class="minerData buttonSmall settingsButton" style="margin-bottom: 20px">Copy Pool Invite URL</button>
