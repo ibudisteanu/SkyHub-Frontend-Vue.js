@@ -17,6 +17,16 @@
             </div>
 
             <div class="mediaContentBox">
+                <a href=" http://web.ep.streamovations.be/index.php/event/stream/20180602-1200-eye22" target="_blank">
+
+                    <img alt="itbitcoin" src="public/assets/images/media/WebDollar-Eu-Parliament.jpg">
+                    <h3>Technology summit</h3>
+                    <span>UE Parliament</span>
+
+                </a>
+            </div>
+
+            <div class="mediaContentBox">
                 <a href ="https://www.facebook.com/webdollar.io/videos/131800187541413/" target="_blank">
 
                     <img src="public/assets/images/media/omega.jpg" alt="webDollar-omega-crypto-presentation" title="webDollar-omega-crypto-presentation">
@@ -122,16 +132,6 @@
                     <img alt="itbitcoin" src="public/assets/images/media/poolparty.jpeg">
                     <h3>Get Ready for the Pool Party!</h3>
                     <span>Medium</span>
-
-                </a>
-            </div>
-
-            <div class="mediaContentBox">
-                <a href ="https://ibitcoin.ro/exclusiv-interviu-cu-adrian-stratulat-lead-evangelist-la-webdollar-prima-criptomoneda-romaneasca/" target="_blank">
-
-                    <img alt="itbitcoin" src="public/assets/images/media/ibitcoin.jpg">
-                    <h3>Interview</h3>
-                    <span>Bitcoin News Romania</span>
 
                 </a>
             </div>

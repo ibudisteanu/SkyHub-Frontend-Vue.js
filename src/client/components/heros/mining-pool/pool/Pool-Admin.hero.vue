@@ -13,17 +13,21 @@
 
                 </div>
 
-                <div class="buttonContainer">
-                    <span v-on:click="this.showAdvancedSettings" class="minerData buttonSmall settingsButton">
+                <div class="buttonContainer" :class="this.showAdvancedSettingsStatus ? 'poolSingleButton' : ''">
+                    <span v-on:click="this.showAdvancedSettings" class="minerData buttonSmall settingsButton" >
                         {{ !this.showAdvancedSettingsStatus ? 'Advanced Settings' : 'Miners List' }}
                     </span>
                 </div>
 
             </div>
 
-            <pool-miner-details v-if="!this.showAdvancedSettingsStatus" :miner="this.minersList[this.selectedMinerIndex]"></pool-miner-details>
+            <div class="infoSection">
 
-            <pool-details v-if="this.showAdvancedSettingsStatus" :pool="this.poolDetails"></pool-details>
+                <pool-miner-details v-if="!this.showAdvancedSettingsStatus" :miner="this.minersList[this.selectedMinerIndex]"></pool-miner-details>
+
+                <pool-details v-if="this.showAdvancedSettingsStatus" :pool="this.poolDetails"></pool-details>
+
+            </div>
 
         </div>
 
@@ -208,6 +212,10 @@
 
 <style>
 
+    .poolSingleButton{
+        margin: 44px 0;
+    }
+
     .poolSettingsRow{
         display: grid;
         grid-template-columns: 100px 1fr;
@@ -217,9 +225,8 @@
         background-color: #fec02c;
         color:#000;
         border:none;
-        padding: 0 20px;
         margin: 0 auto;
-        width: 80%;
+        width: 85%;
         left:0;
         display: block;
         right: 0;

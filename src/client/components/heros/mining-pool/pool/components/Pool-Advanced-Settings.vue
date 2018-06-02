@@ -178,7 +178,7 @@
         background-color: #fec02c;
         color:#000;
         border:none;
-        padding: 5px 20px;
+        padding: 0;
         margin: 0 auto;
         left:0;
         display: block;
