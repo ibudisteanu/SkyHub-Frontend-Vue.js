@@ -1373,6 +1373,18 @@ background-color:#ff2200}
   position: fixed;
 }
 
+.tableHeader{
+  background-color: #505050!important;
+}
+
+.tableHeader span{
+  color: #d4d4d4;
+}
+
+.mobileTableShowTitle{
+  display: none;
+}
+
 #yourPoolSection{
   margin-left: 350px;
 }

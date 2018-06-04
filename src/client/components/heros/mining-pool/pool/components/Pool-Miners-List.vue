@@ -13,11 +13,37 @@
 
         <div v-if="this.displayType==='list'" class="list">
 
+            <div class="transactionInfo tableHeader">
+
+                <span>Status</span>
+                <span>Next Reward</span>
+                <span>Address</span>
+                <span>Total WIN</span>
+
+            </div>
+
             <div v-for="(element, index) in this.minersList" :key="'miningPoolListElement '+index" class="transactionInfo">
-                <span class="status" :class="element.active===true ? 'yellowText' : ''">{{element.active===true ? 'Mining' : 'Offline'}}</span>
-                <span class="time">{{element.nextReward + ' WEBD'}}</span>
-                <span class="minedBy">{{element.address}}</span>
-                <span class="size yellowText">{{element.avaiableReward}}</span>
+
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Status:</span>
+                    <span class="status" :class="element.active===true ? 'yellowText' : ''">{{element.active===true ? 'Mining' : 'Offline'}}</span>
+                </div>
+
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Next Reward:</span>
+                    <span class="time">{{element.nextReward + ' WEBD'}}</span>
+                </div>
+
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Address:</span>
+                    <span class="minedBy">{{element.address}}</span>
+                </div>
+
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Total Win:</span>
+                    <span class="size yellowText">{{element.avaiableReward}}</span>
+                </div>
+
             </div>
 
         </div>

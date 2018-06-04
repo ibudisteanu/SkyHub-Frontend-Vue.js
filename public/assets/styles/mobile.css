@@ -115,6 +115,10 @@
 
 @media only screen and (max-width : 992px) {
 
+    .transactionInfo{
+        font-size: 12px;
+    }
+
     #yourPoolSection .poolContainer{
         grid-template-columns:  1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     }
@@ -213,6 +217,14 @@
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
+
+    .transactionInfo span{
+        width: 100%;
+    }
+
+    .transactionInfo{
+        grid-template-columns: 80px 100px 1fr 80px;
+    }
 
     #yourPoolSection .poolContainer{
         grid-template-columns:  1fr 1fr 1fr 1fr 1fr 1fr;
@@ -465,6 +477,35 @@
 
 }
 
+@media only screen and (max-width: 610px) {
+
+    .transactionInfo{
+        display: block;
+        text-align: left;
+        padding-left: 10px;
+    }
+
+    .mobileTableShowTitle{
+        display: block;
+        text-transform: uppercase;
+        color: #fff;
+    }
+
+    .mobileTableShow{
+        display: grid;
+        grid-template-columns: 120px 1fr;
+    }
+
+    .tableHeader{
+        display: none;
+    }
+
+    .transactionInfo:nth-child(2n+0){
+        background-color: #333;
+    }
+
+}
+
 @media only screen and (max-width: 550px){
 
     .distributionContainer .stats{
@@ -488,6 +529,14 @@
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width : 480px) {
+
+    .mobileTableShowTitle{
+        display: none;
+    }
+
+    .mobileTableShow{
+        display: block;
+    }
 
     .show-balance-span{
         font-size: 18px;
@@ -533,4 +582,13 @@
     .secondCopyRight{
         font-size: 7px;
     }
+
+}
+
+@media only screen and (max-width : 370px) {
+
+    .minedBy{
+        font-size: 10px;
+    }
+
 }
