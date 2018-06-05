@@ -1322,7 +1322,7 @@ background-color:#ff2200}
 
 #yourPoolSection{
   padding-top: 90px;
-  padding-bottom: 110px;
+  padding-bottom: 80px;
 }
 
 #createPoolSection{
@@ -1391,6 +1391,7 @@ background-color:#ff2200}
 
 #yourPoolSection .poolSectionContainer{
   margin: 0 auto;
+  padding: 0 10px;
 }
 
 #newsLetter{
@@ -1577,12 +1578,13 @@ background-color:#ff2200}
   position: fixed;
   background-color: #484848;
   height: 100%;
+  z-index: 50;
 }
 
 .bountyMain{
   padding: 10px 10px 100px 80px;
   width: 100%;
-  min-width: 1200px;
+  /*min-width: 1200px;*/
   display: inline-block;
   vertical-align: top;
   box-sizing: border-box!important;
@@ -1654,10 +1656,10 @@ background-color:#ff2200}
   transition: all .5s linear;
 }
 
-.listElement div{
-  padding: 5px 0;
-  border-right: solid 1px #313131;
-}
+/*.listElement div{*/
+  /*padding: 5px 0;*/
+  /*border-right: solid 1px #313131;*/
+/*}*/
 
 .listElement div:last-child{
   border:none
@@ -1880,9 +1882,10 @@ background-color:#ff2200}
 .bountySpinner{
   margin: 0 auto;
   display: block;
-  width: 150px;
-  height: 150px;
-  margin-top: 150px;
+  width: 80px;
+  height: 80px;
+  fill: #fec02c;
+  margin-top: 120px;
 }
 
 .submitLink{
@@ -2048,4 +2051,10 @@ background-color:#ff2200}
 
 .poolContainer{
   padding-top: 25px;
+}
+
+.mobileTableShow .title{
+  line-height: 28px;
+  height: 28px;
+  overflow: hidden;
 }

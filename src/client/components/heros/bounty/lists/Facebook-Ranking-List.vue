@@ -18,13 +18,35 @@
 
             <div class="listElement facebookElement" v-for="(element, index) in list" :key="'FacebookRankingListElement '+index">
 
-                <div>{{index+1}}</div>
-                <div class="title">{{element.description !== undefined ? element.description.substring(0, 50) : ''}}</div>
-                <div>{{element.likes}}</div>
-                <div>{{element.shares}}</div>
-                <div>{{element.comments}}</div>
-                <div>{{element.score !== undefined ? element.score.toFixed(2) : 'na'}}</div>
-                <div class="score">{{element.reward !== undefined ? element.reward.toFixed(2) : 'na'}}</div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Position:</span>
+                    <div>{{index+1}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Post description:</span>
+                    <div class="title">{{element.description !== undefined ? element.description.substring(0, 50) : ''}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Likes:</span>
+                    <div>{{element.likes}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Shares:</span>
+                    <div>{{element.shares}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Comments:</span>
+                    <div>{{element.comments}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Score:</span>
+                    <div>{{element.score !== undefined ? element.score.toFixed(2) : 'na'}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Reward:</span>
+                    <div class="score">{{element.reward !== undefined ? element.reward.toFixed(2) : 'na'}}</div>
+                </div>
+
             </div>
 
         </div>

@@ -94,6 +94,8 @@
         display: block;
         width: 100%;
         height: auto;
+        margin-top: -1px;
+        z-index: 9;
     }
     .bountyPage{
         display: block;
@@ -102,18 +104,38 @@
         display: inline-block;
         width: 60px;
         border-left: solid 1px#3a3a3a;
+        transition: none;
     }
     .bountyCampaigns span:last-child{
         border-right: solid 1px#3a3a3a;
     }
     .bountyMain{
-        min-width: 1100px;
-        padding: 70px 10px 100px 20px;
+        /*min-width: 1100px;*/
+        padding: 70px 0 100px 0;
+    }
+
+    .bountySpinner{
+        margin-top: 50px;
+        width: 50px;
+        height: 50px;
+        margin-bottom: 70px;
     }
 
 }
 
 @media only screen and (max-width : 992px) {
+
+    .mobileTableShowTitle {
+        display: block;
+    }
+
+    .infoBounty{
+        display: block;
+    }
+
+    .countDown{
+        height: 140px;
+    }
 
     .transactionInfo{
         font-size: 12px;
@@ -194,6 +216,73 @@
         display: none;
     }
 
+    .list{
+        text-align: left;
+    }
+
+    .mobileTableShow .title{
+        line-height: normal;
+        height: 28px;
+        overflow: hidden;
+    }
+
+    .mobileTableShow{
+        white-space: nowrap;
+    }
+
+    .listElement{
+        display: block;
+        text-align: left;
+    }
+
+    .listHead{
+        display: none;
+    }
+
+    .bountyMain .mobileTableShow{
+        grid-template-columns: 160px 1fr;
+        padding: 4px 0 2px 0;
+        display: grid;
+    }
+
+    .bountyMain .mobileTableShow:nth-child(2n+0){
+        background-color: #2b2b2b;
+    }
+
+    .bountyMain .mobileTableShowTitle, .bountyMain .mobileTableShowTitle div{
+        font-size: 12px;
+        padding: 0!important;
+        line-height: 20px;
+        margin: 0 0 0 5px;
+    }
+
+    .bountyMain .listElement{
+        margin-bottom: 20px;
+        border-color: #131313;
+    }
+
+    .bountyMain .list{
+        margin-top: 20px;
+    }
+
+    .bountyMain .list .title{
+        height: auto;
+        padding-left: 0;
+    }
+
+    .bountyMain .listElement:nth-child(2n+0){
+        background-color: #464646
+    }
+
+    .listElement{
+        color: #a9a9a9;
+    }
+
+    .mobileTableShowTitle{
+        color: #fff;
+        text-transform: uppercase;
+    }
+
 }
 
 @media only screen and (max-width : 831px) {
@@ -213,6 +302,7 @@
     .our-team:hover{
         transform: none;
     }
+
 }
 
 /* Small Devices, Tablets */
@@ -529,14 +619,6 @@
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width : 480px) {
-
-    .mobileTableShowTitle{
-        display: none;
-    }
-
-    .mobileTableShow{
-        display: block;
-    }
 
     .show-balance-span{
         font-size: 18px;
