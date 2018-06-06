@@ -2058,3 +2058,7 @@ background-color:#ff2200}
   height: 28px;
   overflow: hidden;
 }
+
+.listElement div{
+  line-height: 28px;
+}

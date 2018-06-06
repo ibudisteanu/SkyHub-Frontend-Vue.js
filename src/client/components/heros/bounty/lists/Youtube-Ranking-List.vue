@@ -17,45 +17,42 @@
                 <div>Reward WEBD</div>
             </div>
 
-                <div v-for="(element, index) in this.list" :key="'YoutubeRankingListElement '+index" class="listElement youtubeElement">
-                    <a :href="element.url" target="_blank">
-                        <div>
-                            <div class="mobileTableShow">
-                                <span class="mobileTableShowTitle">Position:</span>
-                                <div>{{index+1}}</div>
-                            </div>
-                            <div class="mobileTableShow">
-                                <span class="mobileTableShowTitle">Title:</span>
-                                <div class="title">{{element.title.substring(0, 50)}}</div>
-                            </div>
-                            <div class="mobileTableShow">
-                                <span class="mobileTableShowTitle">Views:</span>
-                                <div>{{numberWithCommas(element.views)}}</div>
-                            </div>
-                            <div class="mobileTableShow">
-                                <span class="mobileTableShowTitle">Comments:</span>
-                                <div>{{element.comments}}</div>
-                            </div>
-                            <div class="mobileTableShow">
-                                <span class="mobileTableShowTitle">T-Up:</span>
-                                <div>{{element.thumbsUp}}</div>
-                            </div>
-                            <div class="mobileTableShow">
-                                <span class="mobileTableShowTitle">T-Down:</span>
-                                <div>{{element.thumbsDown}}</div>
-                            </div>
-                            <div class="mobileTableShow">
-                                <span class="mobileTableShowTitle">Score:</span>
-                                <div>{{element.score !== undefined ? element.score.toFixed(2) : 'na'}}</div>
-                            </div>
-                            <div class="mobileTableShow">
-                                <span class="mobileTableShowTitle">Reward WEBD:</span>
-                                <div class="score">{{element.reward !== undefined ? element.reward.toFixed(2) : 'na'}}</div>
-                            </div>
-                        </div>
-                    </a>
+            <a v-for="(element, index) in this.list" :key="'YoutubeRankingListElement '+index"  :href="element.url" target="_blank" class="listElement youtubeElement">
+
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Position:</span>
+                    <div>{{index+1}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Title:</span>
+                    <div class="title">{{element.title.substring(0, 50)}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Views:</span>
+                    <div>{{numberWithCommas(element.views)}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Comments:</span>
+                    <div>{{element.comments}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">T-Up:</span>
+                    <div>{{element.thumbsUp}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">T-Down:</span>
+                    <div>{{element.thumbsDown}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Score:</span>
+                    <div>{{element.score !== undefined ? element.score.toFixed(2) : 'na'}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Reward WEBD:</span>
+                    <div class="score">{{element.reward !== undefined ? element.reward.toFixed(2) : 'na'}}</div>
                 </div>
 
+            </a>
 
         </div>
 

@@ -125,6 +125,10 @@
 
 @media only screen and (max-width : 992px) {
 
+    .listElement div{
+        line-height: normal;
+    }
+
     .mobileTableShowTitle {
         display: block;
     }
@@ -241,7 +245,7 @@
 
     .bountyMain .mobileTableShow{
         grid-template-columns: 160px 1fr;
-        padding: 4px 0 2px 0;
+        padding: 6px 0 2px 0;
         display: grid;
     }
 
