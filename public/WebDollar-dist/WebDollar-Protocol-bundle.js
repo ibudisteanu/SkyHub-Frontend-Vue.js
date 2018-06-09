@@ -85665,7 +85665,7 @@ class MiniBlockchainAccountantTreeNode extends __WEBPACK_IMPORTED_MODULE_3_commo
                 list[i].address = list[i].node.getAddress();
 
                 if (!bIncludeMiningReward)
-                    if ( ["WEBD$gAHF1r0FJjDxWvEAZe3MV8izwWKEXhNt03$", "WEBD$gCSiJ0yUAV#TPnoFDYJu+opGmKCHHXDw3z$", "WEBD$gD#Ws@o65Imk9DLWJTsPRd0oMxnUeU7S@r$", "WEBD$gAuP5uvvJo6c#hxTtor9n5GV5m1Ysd0zjT$", "WEBD$gAvnyWnGSVcrVu4ERMEK8PHm8WCZiwa2ET$", "WEBD$gDvYAPvIDAe+gnqByY$A2kMF21yiQiE#0j$", "WEBD$gAIhBLJi6yvx#+PZtxMg5piwIW0p1#4HU3$" ].indexOf( list[i].address ) >= 0 ){
+                    if ( [ "WEBD$gAHF1r0FJjDxWvEAZe3MV8izwWKEXhNt03$", "WEBD$gCSiJ0yUAV#TPnoFDYJu+opGmKCHHXDw3z$", "WEBD$gD#Ws@o65Imk9DLWJTsPRd0oMxnUeU7S@r$", "WEBD$gAuP5uvvJo6c#hxTtor9n5GV5m1Ysd0zjT$", "WEBD$gAvnyWnGSVcrVu4ERMEK8PHm8WCZiwa2ET$", "WEBD$gDvYAPvIDAe+gnqByY$A2kMF21yiQiE#0j$", "WEBD$gAIhBLJi6yvx#+PZtxMg5piwIW0p1#4HU3$", "WEBD$gDH2IIR+DprpggngzC5Ssw5eMjgiPFM@sf$", "WEBD$gC9ri$@bfpHLhiDppCfcxDzRvnNLH79L2j$", "WEBD$gBwnT+PoK1sI9xyz1PI1t9ZqVK5htrwLWn$" ].indexOf( list[i].address ) >= 0 ){
                         list.splice(i,1);
                         i++;
                     }
