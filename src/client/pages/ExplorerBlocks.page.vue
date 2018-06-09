@@ -106,7 +106,6 @@
 <style>
 
     .header{
-        padding-top: 65px;
         width: 95px;
         background-color: #525252;
         display: block;

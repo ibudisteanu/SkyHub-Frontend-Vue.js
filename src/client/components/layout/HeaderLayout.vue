@@ -17,7 +17,6 @@
                 <div v-on:click="this.collapseMenuBack">Forum</div>
             </a>
 
-
             <router-link to="/faq" :class="this.mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
                 <div v-on:click="this.collapseMenuBack">FAQ</div>
             </router-link>
