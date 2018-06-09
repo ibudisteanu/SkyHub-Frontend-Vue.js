@@ -187,11 +187,6 @@
 
             },
 
-            handleGenerateLink(){
-
-                this.poolURL = WebDollar.Blockchain.PoolManagement.generatePoolURL();
-            },
-
             showAdvancedSettings(){
                 this.showAdvancedSettingsStatus = !this.showAdvancedSettingsStatus;
             }
@@ -201,8 +196,6 @@
         mounted() {
 
             if (typeof window === 'undefined') return;
-
-            Vue.use(Clipboard);
 
         }
 

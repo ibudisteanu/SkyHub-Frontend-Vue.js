@@ -57,7 +57,7 @@
             </div>
             <div class="buttonContainer">
 
-                <button @click="handleGenerateLink" class="minerData buttonSmall settingsButton" style="margin-bottom: 20px">Copy Pool Invite URL</button>
+                <button @click="copyClipboardPoolURL" class="minerData buttonSmall settingsButton" style="margin-bottom: 20px">Copy Pool Invite URL</button>
 
                 <p>{{this.poolURL}}</p>
 
@@ -116,9 +116,7 @@
 
             },
 
-            handleGenerateLink(){
-
-                this.poolURL = WebDollar.Blockchain.PoolManagement.poolSettings.generatePoolURL();
+            copyClipboardPoolURL(){
 
             },
 
@@ -130,7 +128,7 @@
                 this.poolFee = WebDollar.Blockchain.PoolManagement.poolSettings.poolFee;
                 this.poolServers = WebDollar.Blockchain.PoolManagement.poolSettings.poolServers;
                 this.poolWebsite = WebDollar.Blockchain.PoolManagement.poolSettings.poolWebsite;
-                this.poolURL = await WebDollar.Blockchain.PoolManagement.poolSettings.generatePoolURL();
+                this.poolURL = await WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
 
                 this.$refs['refBar'].value = this.poolFee;
 
