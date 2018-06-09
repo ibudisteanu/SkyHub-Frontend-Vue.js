@@ -27143,11 +27143,7 @@ class MiniBlockchainAccountantTree extends __WEBPACK_IMPORTED_MODULE_5__Mini_Blo
     getAccountantTreeList(){
 
         let list = [];
-        this.root.getAccountantTreeList(list);
-
-        list.sort(function(a, b) {
-            return a.balance - b.balance;
-        });
+        list = this.root.getAccountantTreeList(list, false, true, 500);
 
         return list;
 
@@ -85629,7 +85625,7 @@ class MiniBlockchainAccountantTreeNode extends __WEBPACK_IMPORTED_MODULE_3_commo
     }
 
 
-    getAccountantTreeList(list, bIncludeMiningReward = true, excludeEmpty = true ){
+    getAccountantTreeList(list, bIncludeMiningReward = false, excludeEmpty = true, countOnly = undefined ){
 
         if (this.isLeaf()) {
 
@@ -85638,18 +85634,42 @@ class MiniBlockchainAccountantTreeNode extends __WEBPACK_IMPORTED_MODULE_3_commo
             if (excludeEmpty)
                 if (balance === 0) return false;
 
-            if (bIncludeMiningReward)
-                for (let i=1; i<=40; i++ )
-                    if ( balance === __WEBPACK_IMPORTED_MODULE_7_common_blockchain_global_Blockchain_Mining_Reward__["a" /* default */].getReward(i) )
+            if (!bIncludeMiningReward) {
+                for (let i = 1; i <= 40; i++)
+                    if (balance === __WEBPACK_IMPORTED_MODULE_7_common_blockchain_global_Blockchain_Mining_Reward__["a" /* default */].getReward(i))
                         return;
+            }
 
-            list.push({address: this.getAddress(), balance: balance });
+
+            list.push({node: this, balance: balance });
+
         }
 
         for (let i = 0; i < this.edges.length; i++)
-            this.edges[i].targetNode.getAccountantTreeList(list);
+            this.edges[i].targetNode.getAccountantTreeList(list, bIncludeMiningReward, excludeEmpty, countOnly );
 
-        return list;
+
+        if (this === this.root){ //root, let's process it
+
+            list.sort(function(a, b) {
+                return b.balance - a.balance;
+            });
+
+            if ( countOnly !== undefined )
+                list = list.splice(0, countOnly);
+
+            for (let i=0; i<list.length; i++) {
+                list[i].address = list[i].node.getAddress();
+
+                if (!bIncludeMiningReward)
+                    if ( ["WEBD$gAHF1r0FJjDxWvEAZe3MV8izwWKEXhNt03$", "WEBD$gCSiJ0yUAV#TPnoFDYJu+opGmKCHHXDw3z$" ].indexOf( list[i].address ) >= 0 ) list.splice(i,1);
+
+            }
+
+            return list;
+
+        }
+
     }
 
 }

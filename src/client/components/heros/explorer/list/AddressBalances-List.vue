@@ -3,6 +3,7 @@
     <div class="balanceExp">
 
         <h1>Balances</h1>
+        <h3 style="text-align: center">Top 500 Addresses</h3>
 
         <loading-spinner class="bountySpinner" v-if="this.loaded===false" />
 
@@ -136,14 +137,17 @@
             if (typeof window === "undefined") return false;
 
             if (WebDollar.Blockchain.synchronized){
-                this.data = WebDollar.Blockchain.AccountantTree.getAccountantTreeList();
+
+                let data = WebDollar.Blockchain.AccountantTree.getAccountantTreeList();
+                this.data = data;
                 this.updateChart();
             }
 
             WebDollar.StatusEvents.emitter.on("blockchain/status", (data)=>{
 
                 if (data.message === "Blockchain Ready to Mine"){
-                    this.data = WebDollar.Blockchain.AccountantTree.getAccountantTreeList();
+                    let data = WebDollar.Blockchain.AccountantTree.getAccountantTreeList();
+                    this.data = data;
                     this.updateChart();
                 }
 
