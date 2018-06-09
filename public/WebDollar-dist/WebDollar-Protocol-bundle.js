@@ -27143,7 +27143,7 @@ class MiniBlockchainAccountantTree extends __WEBPACK_IMPORTED_MODULE_5__Mini_Blo
     getAccountantTreeList(){
 
         let list = [];
-        list = this.root.getAccountantTreeList(list, false, true, 500);
+        list = this.root.getAccountantTreeList(list, false, true, 2000);
 
         return list;
 
@@ -84163,7 +84163,8 @@ class InterfaceBlockchainBlocks{
         let answer = SumDiff.dividedToIntegerBy(how_much_it_took_to_mine_X_Blocks).toNumber();
 
         __WEBPACK_IMPORTED_MODULE_1_common_events_Status_Events__["a" /* default */].emit("blockchain/new-network-hash-rate", answer);
-
+        this.networkHashRate = answer;
+        
         return answer;
 
     }
@@ -84171,6 +84172,7 @@ class InterfaceBlockchainBlocks{
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (InterfaceBlockchainBlocks);
+
 
 /***/ }),
 /* 728 */
@@ -85658,11 +85660,14 @@ class MiniBlockchainAccountantTreeNode extends __WEBPACK_IMPORTED_MODULE_3_commo
             if ( countOnly !== undefined )
                 list = list.splice(0, countOnly);
 
-            for (let i=0; i<list.length; i++) {
+            for (let i=list.length-1; i>=0; i--) {
                 list[i].address = list[i].node.getAddress();
 
                 if (!bIncludeMiningReward)
-                    if ( ["WEBD$gAHF1r0FJjDxWvEAZe3MV8izwWKEXhNt03$", "WEBD$gCSiJ0yUAV#TPnoFDYJu+opGmKCHHXDw3z$" ].indexOf( list[i].address ) >= 0 ) list.splice(i,1);
+                    if ( ["WEBD$gAHF1r0FJjDxWvEAZe3MV8izwWKEXhNt03$", "WEBD$gCSiJ0yUAV#TPnoFDYJu+opGmKCHHXDw3z$", "WEBD$gD#Ws@o65Imk9DLWJTsPRd0oMxnUeU7S@r$" ].indexOf( list[i].address ) >= 0 ){
+                        list.splice(i,1);
+                        i++;
+                    }
 
             }
 
