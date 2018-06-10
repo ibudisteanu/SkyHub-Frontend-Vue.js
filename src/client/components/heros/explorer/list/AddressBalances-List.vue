@@ -3,7 +3,7 @@
     <div class="balanceExp">
 
         <h1>Balances</h1>
-        <h3 style="text-align: center">Top 500 Addresses</h3>
+        <h3 style="text-align: center">Top 2000 Addresses</h3>
 
         <loading-spinner class="bountySpinner" v-if="this.loaded===false" />
 
