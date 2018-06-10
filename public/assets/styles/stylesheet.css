@@ -290,6 +290,10 @@ a:hover{
 
 }
 
+.threeMembersTeam{
+  grid-template-columns: 1fr 1fr 1fr
+}
+
 .teamWrapper h4{
   line-height: 25px;
 }
