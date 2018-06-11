@@ -106,12 +106,17 @@
                 WebDollar.Blockchain.PoolManagement.poolSettings._poolFee =  this.poolFee;
                 WebDollar.Blockchain.PoolManagement.poolSettings._poolName = this.poolName;
                 WebDollar.Blockchain.PoolManagement.poolSettings._poolWebsite = this.poolWebsite;
+                WebDollar.Blockchain.PoolManagement.poolSettings._poolServers = this.poolServers;
 
                 try {
+
                     await WebDollar.Blockchain.PoolManagement.poolSettings.savePoolDetails();
                     this.error = '';
+
                 } catch (exception){
+
                     this.error = exception.message;
+
                 }
 
             },
