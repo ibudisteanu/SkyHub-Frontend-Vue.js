@@ -319,19 +319,6 @@
 
             <div class="teamWrapper threeMembersTeam">
 
-                <div class="our-team patrick">
-                    <div class="team-pic">
-                        <img src="/public/assets/images/team/Patrick-McCullough.jpg" alt="Patrick McCullough">
-                        <div class="over-layer">
-                            <ul class="social-link">
-                                <li> <a href="https://www.linkedin.com/in/patrick-mccullough-982643b/" target="_blank" class="fa fa-linkedin2"></a> </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <span class="teamName">Patrick McCullough</span>
-                    <span class="teamRole">Community ADVISOR</span>
-                    <p>Patrick is the presentation coach for Singularity University's SU Ventures in Silicon Valley. He recently joined the Unreasonable Group for their Project Literacy Lab with Pearson, and he coaches senior executives for GE in Europe.</p>
-                </div>
                 <div class="our-team smirna">
                     <div class="team-pic">
                         <img src="/public/assets/images/team/Tudor-Smirna.jpeg" alt="Tudor Smirna">
