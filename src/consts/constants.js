@@ -1,5 +1,5 @@
 export default {
 
-    SERVER_API: "https://webdollar.ddns.net:443/"
+    SERVER_API: "https://webdollar.ddns.net:80/"
 
 };
