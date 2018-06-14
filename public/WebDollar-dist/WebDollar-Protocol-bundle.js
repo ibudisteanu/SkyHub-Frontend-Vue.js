@@ -3689,11 +3689,25 @@ class Blockchain{
 
     async _initializeMiningPools(){
 
-        await this.PoolManagement.initializePoolManagement();
-        await this.MinerPoolManagement.initializeMinerPoolManagement();
+        try {
+            await this.PoolManagement.initializePoolManagement();
+        } catch (exception){
+            console.error("PoolManagement raised an error", exception);
+        }
 
-        if (this.ServerPoolManagement !== undefined)
-            await this.ServerPoolManagement.initializeServerPoolManagement();
+        try {
+            await this.MinerPoolManagement.initializeMinerPoolManagement();
+        } catch (exception){
+            console.error("MinerPool raised an error", exception);
+        }
+
+        try {
+            if (this.ServerPoolManagement !== undefined)
+                await this.ServerPoolManagement.initializeServerPoolManagement();
+        } catch (exception){
+
+            console.error("ServerPool raised an error", exception)
+        }
 
     }
 
@@ -8305,7 +8319,7 @@ class NodesWaitlist {
 
                         let response;
 
-                        if ( nodeType === __WEBPACK_IMPORTED_MODULE_3_node_lists_types_Node_Type__["a" /* default */].NODE_TERMINAL)
+                        if ( !forceInsertingWaitlist && nodeType === __WEBPACK_IMPORTED_MODULE_3_node_lists_types_Node_Type__["a" /* default */].NODE_TERMINAL)
                             response = await __WEBPACK_IMPORTED_MODULE_5_common_utils_helpers_Download_Manager__["a" /* default */].downloadFile(sckAddress.getAddress(true, true), 5000);
 
                         if ( forceInsertingWaitlist || nodeType === __WEBPACK_IMPORTED_MODULE_3_node_lists_types_Node_Type__["a" /* default */].NODE_WEB_PEER || (response !== null && response.protocol === __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].SETTINGS.NODE.PROTOCOL && response.version >= __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].SETTINGS.NODE.VERSION_COMPATIBILITY)) {
@@ -97072,14 +97086,7 @@ class PoolSettings {
 
         let result = await this._getPoolPrivateKey();
 
-        try {
-            result = result && await this._getPoolDetails();
-        } catch (exception){
-            console.error("MiningPools", exception);
-            if (true) alert("MiningPools: "+exception.message);
-
-            result = false;
-        }
+        result = result && await this._getPoolDetails();
 
         if (poolFee !== undefined)
             this.setPoolFee(poolFee);
@@ -97216,8 +97223,10 @@ class PoolSettings {
         this._generatePoolURL();
 
         if ( this.poolURL !== ''){ //start automatically
-            this.poolManagement.startPool();
+            await this.poolManagement.startPool();
         }
+
+        return true;
 
     }
 
