@@ -2010,6 +2010,14 @@ background-color:#ff2200}
   text-align: center;
 }
 
+.poolSectionContainer .transactionInfo{
+  cursor: pointer;
+}
+
+.poolSectionContainer .tableHeader{
+  cursor: auto;
+}
+
 .buttonSmall{
   cursor: pointer;
   background-color: #6f6e6f;

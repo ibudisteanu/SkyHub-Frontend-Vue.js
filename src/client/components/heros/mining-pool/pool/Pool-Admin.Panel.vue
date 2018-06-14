@@ -71,7 +71,21 @@
                 minersList: [
                     {
                         active: true,
-                        address: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
+                        address: 'WEBD$gCPE#0MUG@RedsadasQk3wD7EB5vmMGDdo#YhHSr$',
+                        nextReward: '2020',
+                        avaiableReward: '200200',
+                        averageHash: '',
+                    },
+                    {
+                        active: true,
+                        address: 'WEBD$gCPE#0MUG@ReQksdas3wD7EB5vmMGDdo#YhHSr$',
+                        nextReward: '2100',
+                        avaiableReward: '200100',
+                        averageHash: '',
+                    },
+                    {
+                        active: true,
+                        address: 'WEBD$gCPE#0MUG@RgasdaseQk3wD7EB5vmMGDdo#YhHSr$',
                         nextReward: '200',
                         avaiableReward: '20000',
                         averageHash: '',
@@ -79,22 +93,8 @@
                     {
                         active: true,
                         address: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
-                        nextReward: '200',
-                        avaiableReward: '20000',
-                        averageHash: '',
-                    },
-                    {
-                        active: true,
-                        address: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
-                        nextReward: '200',
-                        avaiableReward: '20000',
-                        averageHash: '',
-                    },
-                    {
-                        active: true,
-                        address: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
-                        nextReward: '200',
-                        avaiableReward: '20000',
+                        nextReward: '2300',
+                        avaiableReward: '20030',
                         averageHash: '',
                     },
                     {

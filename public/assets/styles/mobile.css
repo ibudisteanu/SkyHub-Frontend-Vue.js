@@ -133,6 +133,10 @@
         display: block;
     }
 
+    .poolSectionContainer .mobileTableShowTitle {
+        display: none;
+    }
+
     .infoBounty{
         display: block;
     }
