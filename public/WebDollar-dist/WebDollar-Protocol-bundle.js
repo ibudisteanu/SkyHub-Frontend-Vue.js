@@ -98042,6 +98042,8 @@ class PoolConnectedServersProtocol{
 
                 socket.node.protocol.nodeConsensusType = __WEBPACK_IMPORTED_MODULE_3_node_lists_types_Node_Consensus_Type__["a" /* default */].NODE_CONSENSUS_SERVER_FOR_POOL;
 
+                return true;
+
             } else {
                 throw {message: "ServerPool returned a wrong confirmation"};
             }
@@ -98053,6 +98055,8 @@ class PoolConnectedServersProtocol{
             socket.disconnect();
 
         }
+
+        return false;
 
 
     }
