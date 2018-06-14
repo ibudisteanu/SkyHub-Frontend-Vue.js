@@ -153,6 +153,7 @@
                         name: poolServers[i],
                         connected: connected,
                     };
+
                 }
 
             }

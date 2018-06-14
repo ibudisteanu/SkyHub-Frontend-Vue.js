@@ -95151,7 +95151,7 @@ class SocketProtocol {
                     if (__WEBPACK_IMPORTED_MODULE_1_is_array_buffer___default()(data[prop]))
                         data[prop] = Buffer.from(data[prop]);
                     else
-                    if (prop === "type" && data.nodeType === "Buffer" && data.hasOwnProperty("data")) {
+                    if (prop === "type" && data.type === "Buffer" && data.hasOwnProperty("data")) {
                         data = new Buffer(data);
                         return data;
                     }
