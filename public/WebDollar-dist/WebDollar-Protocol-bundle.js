@@ -97090,7 +97090,7 @@ class PoolSettings {
             return '';
         }
 
-        this.poolURL = 'https://webdollar.io/pool/'+encodeURI(this._poolName)+"/"+encodeURI(this.poolFee)+"/"+encodeURI(this.poolPublicKey.toString("hex"))+"/"+encodeURI(this.poolServers.join(";"));
+        this.poolURL = 'https://'+ ( __WEBPACK_IMPORTED_MODULE_1_consts_const_global__["a" /* default */].DEBUG? 'webdollar.ddns.net:9094' : 'webdollar.io') +'/pool/'+encodeURI(this._poolName)+"/"+encodeURI(this.poolFee)+"/"+encodeURI(this.poolPublicKey.toString("hex"))+"/"+encodeURI(this.poolServers.join(";"));
 
         return this.poolURL;
 
