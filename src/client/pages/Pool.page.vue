@@ -6,7 +6,7 @@
 
             <div slot="content">
 
-                <network-hero/>
+                <pool-admin-panel/>
 
             </div>
 
@@ -21,7 +21,7 @@
 <script>
 
     import Layout from "client/components/layout/Layout.vue"
-    import NetworkHero from "client/components/heros/mining-pool/pool/Pool-Admin.hero.vue"
+    import PoolAdminPanel from "client/components/heros/mining-pool/pool/Pool-Admin.Panel.vue"
     import MultipleTabs from "../components/heros/Multiple-Tabs.hero.vue";
 
     export default {
@@ -30,7 +30,7 @@
 
         components:{
             Layout,
-            NetworkHero,
+            PoolAdminPanel,
             MultipleTabs,
         },
 
