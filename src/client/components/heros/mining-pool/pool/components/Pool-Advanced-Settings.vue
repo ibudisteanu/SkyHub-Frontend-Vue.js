@@ -12,7 +12,7 @@
                     <div class="settingsTitle feeHeight">
                         FEE Percent:
                     </div>
-                    <slider ref="refBar" @changed="this.handleSaveSettings"/>
+                    <slider ref="refBar" @changed="this.handleChangePoolFee"/>
                 </div>
 
                 <div class="poolSettingsRow">
@@ -98,10 +98,15 @@
         methods: {
 
             handleChangePoolFee(value){
-                this.poolFee = value;
+                this.poolFee = value/100;
             },
 
             async handleSaveSettings(){
+
+                if (!WebDollar.Blockchain.loaded){
+                    console.warn("Blockchain was not loaded!");
+                    return;
+                }
 
                 WebDollar.Blockchain.PoolManagement.poolSettings._poolFee =  this.poolFee;
                 WebDollar.Blockchain.PoolManagement.poolSettings._poolName = this.poolName;
@@ -112,6 +117,8 @@
 
                     await WebDollar.Blockchain.PoolManagement.poolSettings.savePoolDetails();
                     this.error = '';
+
+                    this.poolURL = await WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
 
                 } catch (exception){
 
@@ -130,8 +137,8 @@
                 this.load=true;
 
                 this.poolName = WebDollar.Blockchain.PoolManagement.poolSettings.poolName;
-                this.poolFee = WebDollar.Blockchain.PoolManagement.poolSettings.poolFee;
-                this.poolServers = WebDollar.Blockchain.PoolManagement.poolSettings.poolServers;
+                this.poolFee = WebDollar.Blockchain.PoolManagement.poolSettings.poolFee*100;
+                this.poolServers = WebDollar.Blockchain.PoolManagement.poolSettings.getPoolServersText();
                 this.poolWebsite = WebDollar.Blockchain.PoolManagement.poolSettings.poolWebsite;
                 this.poolURL = await WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
 
