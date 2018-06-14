@@ -33,7 +33,7 @@
 
         <div id="yourPoolSection">
 
-            <pool-miners-list v-if="!this.showAdvancedSettingsStatus" :displayType="this.displayType" :minersList="this.minersList"></pool-miners-list>
+            <pool-miners-list v-if="!this.showAdvancedSettingsStatus" :displayType="this.displayType" :minersList="this.minersList" @selectMiner="this.selectNewMiner"></pool-miners-list>
 
             <SettingsPage v-else="this.showAdvancedSettingsStatus"></SettingsPage>
 
@@ -189,6 +189,12 @@
 
             showAdvancedSettings(){
                 this.showAdvancedSettingsStatus = !this.showAdvancedSettingsStatus;
+            },
+
+            selectNewMiner(index){
+
+                this.selectedMinerIndex = index;
+
             }
 
         },

@@ -1973,7 +1973,7 @@ background-color:#ff2200}
 }
 
 .blocksExplorer .list, .blocksExplorer .listHead{
-  grid-template-columns: 50px 30px 120px 450px 150px;
+  grid-template-columns: 70px 30px 120px 450px 150px;
 }
 
 .balancesExplorer .title{
