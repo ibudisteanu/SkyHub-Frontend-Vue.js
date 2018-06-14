@@ -17,10 +17,10 @@
             </div>
 
             <div class="mediaContentBox">
-                <a href=" http://web.ep.streamovations.be/index.php/event/stream/20180602-1200-eye22" target="_blank">
+                <a href="http://web.ep.streamovations.be/index.php/event/stream/20180602-1200-eye22" target="_blank">
 
-                    <img alt="itbitcoin" src="public/assets/images/media/WebDollar-Eu-Parliament.jpg">
-                    <h3>Technology summit</h3>
+                    <img alt="itbitcoin" src="public/assets/images/media/WebDollar-Eu-Parliament.jpeg">
+                    <h3>Technology summit in Strasbourg</h3>
                     <span>UE Parliament</span>
 
                 </a>
