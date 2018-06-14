@@ -20,7 +20,7 @@
                         Pool Name:
                     </div>
                     <div>
-                        <input type="text" class="input" v-model="poolName" placeholder="WebDollar Pool">
+                        <input type="text" class="input" v-model="poolName" placeholder="WebDollar Pool" :disabled="!this.initialized">
                     </div>
                 </div>
 
@@ -29,7 +29,7 @@
                         Pool Website:
                     </div>
                     <div>
-                        <input type="text" class="input" v-model="poolWebsite" placeholder="http://url" >
+                        <input type="text" class="input" v-model="poolWebsite" placeholder="http://url" :disabled="!this.initialized">
                     </div>
                 </div>
 
@@ -38,7 +38,7 @@
                         Pool Servers:
                     </div>
                     <div>
-                    <textarea rows="4" cols="50" v-model="poolServers">
+                    <textarea rows="4" cols="50" v-model="poolServers" :disabled="!this.initialized">
                         832.213.23.21:312;
                         32.123.12.312:221
                     </textarea>
@@ -52,12 +52,12 @@
         <div class="buttonsContainer">
 
             <div class="buttonContainer">
-                <button @click="handleSaveSettings" class="minerData buttonSmall settingsButton">Save Settings</button>
+                <button @click="handleSaveSettings" class="minerData buttonSmall settingsButton" :disabled="!this.initialized">Save Settings</button>
                 {{this.error}}
             </div>
             <div class="buttonContainer">
 
-                <button @click="copyClipboardPoolURL" class="minerData buttonSmall settingsButton" style="margin-bottom: 20px">Copy Pool Invite URL</button>
+                <button @click="copyClipboardPoolURL" class="minerData buttonSmall settingsButton" style="margin-bottom: 20px" :disabled="!this.initialized">Copy Pool Invite URL</button>
 
                 <p>{{this.poolURL}}</p>
 
@@ -82,7 +82,9 @@
         data: ()=>{
 
             return {
+
                 loaded:false,
+                initialized: false,
 
                 poolFee: 0,
                 poolName: '',
@@ -150,22 +152,36 @@
 
         },
 
-        mounted(){
+        mounted() {
 
             if (typeof window === "undefined") return;
 
-            if (WebDollar.Blockchain.loaded){
+            this.initialized = WebDollar.Blockchain.PoolManagement.poolInitialized;
 
-                this.loaded= true;
+            if (WebDollar.Blockchain.loaded) {
+
+                this.loaded = true;
                 this.loadData();
 
             }
 
-            WebDollar.Blockchain.onLoaded.then((answer)=>{
+            WebDollar.Blockchain.onLoaded.then((answer) => {
 
                 this.loaded = true;
 
                 this.loadData();
+
+            });
+
+            WebDollar.StatusEvents.on("pools/status", (data) => {
+
+                switch (data.message === "") {
+
+                    case "Pool was Initialized":
+                        this.initialized = data.initialized;
+                        break;
+
+                }
 
             });
 
