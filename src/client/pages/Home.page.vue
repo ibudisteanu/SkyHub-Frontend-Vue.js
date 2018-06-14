@@ -122,7 +122,31 @@
 
             });
 
-        }
+        },
+
+        methods:{
+
+            loadPool(){
+
+                //verify the Pool
+                //alert( this.$store.state.route.fullPath );
+
+                if (this.$store.state.route.params.a === "pool"){
+
+                    WebDollar.Blockchain.MinerPoolManagement.startMinerPool( this.$store.state.route.params['0'] );
+
+                }
+
+            }
+
+        },
+
+        async asyncData ({ store,  route: { params: { a,b, c, d, e, f }} }) {
+
+            return true;
+
+        },
+
 
     }
 

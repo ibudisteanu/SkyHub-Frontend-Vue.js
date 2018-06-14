@@ -97071,7 +97071,15 @@ class PoolSettings {
     async initializePoolSettings(poolFee){
 
         let result = await this._getPoolPrivateKey();
-        result = result && await this._getPoolDetails();
+
+        try {
+            result = result && await this._getPoolDetails();
+        } catch (exception){
+            console.error("MiningPools", exception);
+            if (true) alert("MiningPools: "+exception.message);
+
+            result = false;
+        }
 
         if (poolFee !== undefined)
             this.setPoolFee(poolFee);
@@ -97090,7 +97098,7 @@ class PoolSettings {
             return '';
         }
 
-        this.poolURL = 'https://'+ ( __WEBPACK_IMPORTED_MODULE_1_consts_const_global__["a" /* default */].DEBUG? 'webdollar.ddns.net:9094' : 'webdollar.io') +'/pool/'+encodeURI(this._poolName)+"/"+encodeURI(this.poolFee)+"/"+encodeURI(this.poolPublicKey.toString("hex"))+"/"+encodeURI(this.poolServers.join(";"));
+        this.poolURL =  ( __WEBPACK_IMPORTED_MODULE_1_consts_const_global__["a" /* default */].DEBUG? 'http://webdollar.ddns.net:9094' : 'https://webdollar.io') +'/pool/'+encodeURI(this._poolName)+"/"+encodeURI(this.poolFee)+"/"+encodeURI(this.poolPublicKey.toString("hex"))+"/"+encodeURI(this.poolServers.join(";"));
 
         return this.poolURL;
 
@@ -97249,10 +97257,8 @@ class PoolSettings {
         this._poolServers = JSON.parse( await this._db.get("pool_servers", 30*1000, true) );
         if (this._poolServers === null) this._poolServers = '';
 
-        await this.validatePoolDetails();
+        return await this.validatePoolDetails();
 
-
-        return true;
     }
 
     poolDigitalSign(message){
@@ -98108,12 +98114,16 @@ class MinerProtocol {
 
     }
 
-    async startMinerPool(){
+    async startMinerPool(poolURL){
 
-        if (this.minerPoolSettings.poolURL !== undefined && this.minerPoolSettings.poolURL !== ''){
-            await this.minerPoolProtocol.startMinerProtocol(this.minerPoolSettings.poolURL);
-        } else {
+        if (poolURL !== undefined)
+            this.minerPoolSettings.setPoolURL(poolURL);
+
+        if (this.minerPoolSettings.poolURL !== undefined && this.minerPoolSettings.poolURL !== '')
+            return await this.minerPoolProtocol.startMinerProtocol(this.minerPoolSettings.poolURL);
+        else {
             console.error("Couldn't start MinerPool");
+            return false;
         }
 
     }
@@ -98387,7 +98397,7 @@ class MinerPoolSettings {
 
     async initializeMinerPoolSettings(poolURL){
 
-        await this._getPoolDetails();
+        await this._getMinerPoolDetails();
         await this._getMinerPoolPrivateKey();
 
         if (poolURL !== undefined)
@@ -98479,7 +98489,7 @@ class MinerPoolSettings {
         return  result;
     }
 
-    async _getPoolDetails(){
+    async _getMinerPoolDetails(){
 
         let poolURL = await this._db.get("miner_pool_url", 30*1000, true);
 
