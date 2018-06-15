@@ -55,7 +55,7 @@
                         <div class="settingsTitle feeHeight">
                             Invitation URL:
                         </div>
-                        <input type="text" class="input" v-model="poolURL" placeholder="http://url" @focus="$event.target.select()">
+                        <input type="text" class="input" v-model="poolURL" placeholder="http://url" @focus="$event.target.select()" disabled>
                     </div>
 
                     <div class="poolSettingsRow" v-if="this.poolURL!='-'">
@@ -109,7 +109,7 @@
                 poolWebsite: '',
 
                 poolServers: '',
-                poolURL: '-',
+                poolURL: '-dsa',
 
                 poolSettings: [],
 
