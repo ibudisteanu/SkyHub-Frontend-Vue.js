@@ -45,7 +45,7 @@
 <style>
 
     .poolSlider .miningSlider{
-        width: 98%!important;
+        width: 100%!important;
     }
 
     .miningSlider {

@@ -316,6 +316,14 @@
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
 
+    .specialRaw{
+        grid-template-columns: 1fr!important;
+    }
+
+    .specialTitle{
+        text-align: left!important;
+    }
+
     .transactionInfo span{
         width: 100%;
     }

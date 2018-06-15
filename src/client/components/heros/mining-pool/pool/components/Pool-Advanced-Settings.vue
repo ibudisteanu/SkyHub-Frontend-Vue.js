@@ -21,22 +21,26 @@
                         <slider ref="refBar" @changed="this.handleChangePoolFee"/>
                     </div>
 
-                    <div class="poolSettingsRow">
-                        <div class="settingsTitle">
-                            Pool Name:
-                        </div>
-                        <div>
-                            <input type="text" class="input" v-model="poolName" placeholder="WebDollar Pool">
-                        </div>
-                    </div>
+                    <div class="poolSettingsRow specialRaw">
 
-                    <div class="poolSettingsRow">
-                        <div class="settingsTitle">
-                            Pool Website:
+                        <div class="poolSettingsRow specialSegment">
+                            <div class="settingsTitle">
+                                Pool Name:
+                            </div>
+                            <div>
+                                <input type="text" class="input" v-model="poolName" placeholder="WebDollar Pool">
+                            </div>
                         </div>
-                        <div>
-                            <input type="text" class="input" v-model="poolWebsite" placeholder="http://url" >
+
+                        <div class="poolSettingsRow specialSegment">
+                            <div class="settingsTitle specialTitle">
+                                Pool Website:
+                            </div>
+                            <div>
+                                <input type="text" class="input" v-model="poolWebsite" placeholder="http://url" >
+                            </div>
                         </div>
+
                     </div>
 
                     <div class="poolSettingsRow">
@@ -55,7 +59,7 @@
                         <div class="settingsTitle feeHeight">
                             Invitation URL:
                         </div>
-                        <input type="text" class="input" v-model="poolURL" placeholder="http://url" @focus="$event.target.select()" disabled>
+                        <input ref="poolUrl" type="text" class="input" :value="this.poolURL" placeholder="http://url" @click="selectURL($event.target)">
                     </div>
 
                     <div class="poolSettingsRow" v-if="this.poolURL!=''">
@@ -109,7 +113,7 @@
                 poolWebsite: '',
 
                 poolServers: '',
-                poolURL: '-',
+                poolURL: '',
 
                 poolSettings: [],
 
@@ -119,6 +123,10 @@
         },
 
         methods: {
+
+            selectURL(target){
+                target.select();
+            },
 
             handleChangePoolFee(value){
                 this.poolFee = value/100;
@@ -151,13 +159,6 @@
                 }
 
                 this.poolURL = WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
-
-            },
-
-            copyClipboardPoolURL(){
-
-                this.$refs['poolUrl'].select();
-                document.execCommand('copy');
 
             },
 
@@ -223,13 +224,8 @@
 
 <style>
 
-    .poolLink{
-        /*width: 100%;*/
-        word-break: break-all;
-        /*margin: 0 auto;*/
-        /*color: #fec02c;*/
-        /*font-size: 14px;*/
-        /*cursor: pointer;*/
+    textarea{
+        resize:vertical;
     }
 
     .poolSettingsRow{
@@ -270,15 +266,18 @@
         font-size: 16px;
         line-height: 26px;
         text-transform: capitalize;
+        padding-top: 5px;
+        box-sizing: border-box!important;
     }
 
     .poolSettingsRow input, .poolSettingsRow textarea{
         border-radius: 3px;
-        padding: 10px 5px;
+        padding: 10px 0 10px 5px;
         width: 100%;
         background-color: #262626;
         border: solid 1px #3e3e3e;
-        color:#fff
+        color:#fff;
+        box-sizing: border-box!important;
     }
 
     .poolSettingsRow input::-webkit-input-placeholder, .poolSettingsRow textarea::-webkit-input-placeholder {
@@ -306,6 +305,10 @@
         letter-spacing: 1px;
     }
 
+    .poolSlider{
+        box-sizing: border-box;
+    }
+
     .poolSlider .miningSlider{
         border: solid 1px #3e3e3e;
         border-radius:5px
@@ -315,6 +318,15 @@
         background-color: #3c3a3a!important;
         margin-bottom: 2px;
         border: solid 1px #3e3e3e!important;
+    }
+
+    .specialRaw{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .specialTitle{
+        text-align: center;
     }
 
 </style>
