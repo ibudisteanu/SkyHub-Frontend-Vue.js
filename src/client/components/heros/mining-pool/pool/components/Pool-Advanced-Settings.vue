@@ -4,11 +4,11 @@
 
         <h2 class="alignCenter yellowColor">SETTINGS</h2>
 
-        <div class="alignCenter bigMarginTop" v-if="this.initialized===true">
+        <div class="alignCenter bigMarginTop" v-if="!this.initialized">
             <loading-spinner class="fillColor"></loading-spinner>
         </div>
 
-        <div v-if="this.initialized===false">
+        <div v-show="this.initialized">
 
             <div class="smallSettings largePadding" >
 
@@ -173,7 +173,8 @@
 
                 this.poolURL = WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
 
-                this.$refs['refBar'].value = this.poolFee;
+                if (this.$refs['refBar'] !== undefined)
+                    this.$refs['refBar'].value = this.poolFee;
 
             }
 
@@ -184,7 +185,7 @@
             if (typeof window === "undefined") return;
 
             if (WebDollar.Blockchain.PoolManagement === undefined) this.initialized = false;
-            else this.initialized = WebDollar.Blockchain.PoolManagement.poolInitialized;
+            else this.initialized = WebDollar.Blockchain.PoolManagement.poolInitialized || false;
 
             if (WebDollar.Blockchain.loaded) {
 
@@ -203,10 +204,11 @@
 
             WebDollar.StatusEvents.on("pools/status", (data) => {
 
-                switch (data.message === "") {
+                switch (data.message) {
 
                     case "Pool Initialization changed":
                         this.initialized = data.result;
+                        this.loadData();
                         break;
 
                 }
