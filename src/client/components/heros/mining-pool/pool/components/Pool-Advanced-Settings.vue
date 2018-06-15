@@ -136,9 +136,16 @@
 
                 let poolActivated = this.poolSettings.indexOf("poolActivated") >= 0;
 
+                this.poolURL = '';
+
                 try{
 
-                    WebDollar.Blockchain.PoolManagement.poolSettings.justValidatePoolDetails(this.poolName, this.poolFee, this.poolWebsite, this.poolServers, poolActivated);
+                    await WebDollar.Blockchain.PoolManagement.poolSettings.setPoolName(this.poolName);
+                    await WebDollar.Blockchain.PoolManagement.poolSettings.setPoolFee(this.poolFee);
+                    await WebDollar.Blockchain.PoolManagement.poolSettings.setPoolWebsite(this.poolWebsite);
+                    await WebDollar.Blockchain.PoolManagement.poolSettings.setPoolServers(this.poolServers);
+                    await WebDollar.Blockchain.PoolManagement.poolSettings.setPoolActivated(poolActivated);
+
                     this.error = '';
 
                 } catch (exception){
@@ -146,24 +153,7 @@
                     return;
                 }
 
-                WebDollar.Blockchain.PoolManagement.poolSettings._poolFee =  this.poolFee;
-                WebDollar.Blockchain.PoolManagement.poolSettings._poolName = this.poolName;
-                WebDollar.Blockchain.PoolManagement.poolSettings._poolWebsite = this.poolWebsite;
-                WebDollar.Blockchain.PoolManagement.poolSettings._poolServers = this.poolServers;
-                WebDollar.Blockchain.PoolManagement.poolSettings._poolActivated = poolActivated;
-
-                try {
-
-                    await WebDollar.Blockchain.PoolManagement.poolSettings.savePoolDetails();
-                    this.error = '';
-
-                    this.poolURL = await WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
-
-                } catch (exception){
-
-                    this.error = exception.message;
-
-                }
+                this.poolURL = WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
 
             },
 
@@ -177,8 +167,9 @@
                 this.poolFee = WebDollar.Blockchain.PoolManagement.poolSettings.poolFee*100;
                 this.poolServers = WebDollar.Blockchain.PoolManagement.poolSettings.getPoolServersText();
                 this.poolWebsite = WebDollar.Blockchain.PoolManagement.poolSettings.poolWebsite;
-                this.poolURL = WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
                 this.poolSettings  = WebDollar.Blockchain.PoolManagement.poolSettings.poolActivated ? ["poolActivated"] : [];
+
+                this.poolURL = WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
 
                 this.$refs['refBar'].value = this.poolFee;
 

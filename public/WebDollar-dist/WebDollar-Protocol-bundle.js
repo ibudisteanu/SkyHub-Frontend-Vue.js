@@ -22163,25 +22163,47 @@ class PoolsUtils {
         this.servers = [];
     }
 
-    validatePoolsDetails(poolName, poolFee, poolWebsite, poolPublicKey, poolServers, poolActivated = false){
+    validatePoolName(poolName){
 
         if (typeof poolName !== "string") throw {message: "pool name is not a string"};
         if (poolName !=='' && ! /^[A-Za-z\d\s]+$/.test(poolName)) throw {message: "pool name is invalid"};
 
+    }
+
+    validatePoolFee(poolFee){
         if ( typeof poolFee !== "number") throw {message: "pool fee is invalid"};
         if ( poolFee < 0 && poolFee > 1 ) throw {message: "pool fee is invalid"};
+    }
 
+    validatePoolWebsite(poolWebsite){
         if (typeof poolWebsite !== "string") throw {message: "pool website is not a string"};
         if (poolWebsite !== '' && ! __WEBPACK_IMPORTED_MODULE_0_common_utils_helpers_Utils__["a" /* default */].validateUrl(poolWebsite)) throw {message:"pool website is invalid"};
+    }
 
+    validatePoolPublicKey(poolPublicKey){
         if (!Buffer.isBuffer(poolPublicKey) || poolPublicKey.length !== __WEBPACK_IMPORTED_MODULE_5_consts_const_global__["a" /* default */].ADDRESSES.PUBLIC_KEY.LENGTH) throw {message: "pool publicKey is not valid"};
+    }
 
+    validatePoolServers(poolServers){
         poolServers = this.processServersList( poolServers );
 
         if (!Array.isArray(poolServers)) throw {message: "pool servers is not an array"};
         if (poolServers.length <= 0) throw {message: "pool servers is empty"};
 
+    }
+
+    validatePoolActiviated( poolActivated = false){
         if (typeof poolActivated !== "boolean") throw {message: "poolActivated is not a boolean"};
+    }
+
+    validatePoolsDetails(poolName, poolFee, poolWebsite, poolPublicKey, poolServers, poolActivated = false){
+
+        this.validatePoolName(poolName);
+        this.validatePoolFee(poolFee);
+        this.validatePoolWebsite(poolWebsite);
+        this.validatePoolPublicKey(poolPublicKey);
+        this.validatePoolServers(poolServers);
+        this.validatePoolActiviated(poolActivated);
 
         return true;
     }
@@ -97087,7 +97109,7 @@ class PoolSettings {
         this._poolFee = 0.02;
         this._poolName = '';
         this._poolWebsite = '';
-        this._poolServers = '';
+        this._poolServers = [];
         this._poolPOWValidationProbability = 0.10; //from 100
         this._poolActivated = false;
 
@@ -97095,12 +97117,6 @@ class PoolSettings {
         this.poolPublicKey = undefined;
 
         this.poolURL = '';
-
-        //TODO: this stores the entire reward of pool(miners + poolLeader), this goes to Accountant Tree
-        this._poolRewardsAddress = null;
-
-        //TODO: this stores pool leader's reward, this goes to Accountant Tree
-        this._poolLeaderRewardAddress = null;
 
     }
 
@@ -97122,7 +97138,7 @@ class PoolSettings {
 
     _generatePoolURL(){
 
-        if (this._poolName === '' || this._poolFee === 0 ){
+        if (this._poolName === '' || this._poolFee === 0 || this._poolServers === [] ){
             this.poolURL = '';
             return '';
         }
@@ -97132,7 +97148,8 @@ class PoolSettings {
 
         let website = this.poolWebsite.replace(/\//g, '$' );
 
-        this.poolURL =  ( __WEBPACK_IMPORTED_MODULE_1_consts_const_global__["a" /* default */].DEBUG? 'http://webdollar.ddns.net:9094' : 'https://webdollar.io') +'/pool/'+encodeURI(this._poolName)+"/"+encodeURI(this.poolFee)+"/"+encodeURI(this.poolPublicKey.toString("hex"))+"/"+encodeURI(website)+"/"+encodeURI(servers);
+        this.poolURL =  ( __WEBPACK_IMPORTED_MODULE_1_consts_const_global__["a" /* default */].DEBUG? 'http://webdollar.ddns.net:9094' : 'https://webdollar.io') +'/pool/0/'+encodeURI(this._poolName)+"/"+encodeURI(this.poolFee)+"/"+encodeURI(this.poolPublicKey.toString("hex"))+"/"+encodeURI(website)+"/"+encodeURI(servers);
+        __WEBPACK_IMPORTED_MODULE_7_common_events_Status_Events__["a" /* default */].emit("pools/settings", { message: "Pool Settings were saved", poolName: this._poolName, poolServer: this._poolServers, poolFee: this._poolFee, poolWebsite: this._poolServers });
 
         return this.poolURL;
 
@@ -97144,27 +97161,55 @@ class PoolSettings {
         return this._poolName;
     }
 
-    setPoolName(newValue){
+    async setPoolName(newValue, skipSaving = false){
 
         if (this._poolName === newValue ) return;
 
+        __WEBPACK_IMPORTED_MODULE_5_common_mining_pools_common_Pools_Utils__["a" /* default */].validatePoolName(newValue);
+
         this._poolName = newValue;
 
-        return this.savePoolDetails();
+        if (!skipSaving)
+            if (false === await this._db.save("pool_name", this._poolName)) throw {message: "PoolName couldn't be saved"};
+
+        this._generatePoolURL();
     }
 
     get poolWebsite(){
-
         return this._poolWebsite;
     }
 
-    setPoolWebsite(newValue){
+    get poolFee(){
+        return this._poolFee;
+    }
+
+    async setPoolFee(newValue, skipSaving = false){
+
+        if (this._poolFee !== newValue) return;
+
+        __WEBPACK_IMPORTED_MODULE_5_common_mining_pools_common_Pools_Utils__["a" /* default */].validatePoolFee(newValue);
+
+        this._poolFee = newValue;
+
+        if (!skipSaving)
+            if (false === await this._db.save("pool_fee", this._poolFee)) throw {message: "PoolFee couldn't be saved"};
+
+        this._generatePoolURL();
+    }
+
+
+    async setPoolWebsite(newValue, skipSaving = false){
 
         if (this._poolWebsite === newValue ) return;
 
+        __WEBPACK_IMPORTED_MODULE_5_common_mining_pools_common_Pools_Utils__["a" /* default */].validatePoolWebsite(newValue);
+
         this._poolWebsite = newValue;
 
-        return this.savePoolDetails();
+        if (!skipSaving)
+            if (false === await await this._db.save("pool_website", this._poolWebsite)) throw {message: "PoolWebsite couldn't be saved"};
+
+        this._generatePoolURL();
     }
 
     get poolPrivateKey(){
@@ -97172,43 +97217,37 @@ class PoolSettings {
         return this._poolPrivateKey;
     }
 
-    setPoolActivated(newValue){
+    async setPoolActivated(newValue, skipSaving = false){
 
-        if (this._poolActivated === newValue ) return;
+        __WEBPACK_IMPORTED_MODULE_5_common_mining_pools_common_Pools_Utils__["a" /* default */].validatePoolActiviated(newValue);
 
         this._poolActivated = newValue;
 
-        return this.savePoolDetails();
+        if (!skipSaving)
+            if (false === await this._db.save("pool_activated", this._poolActivated ? "true" : "false")) throw {message: "poolActivated couldn't be saved"};
+
+        if (!newValue)
+            await this.poolManagement.poolProtocol.stopPoolProtocol();
+        else await this.poolManagement.poolProtocol.startPoolProtocol();
+
+        __WEBPACK_IMPORTED_MODULE_7_common_events_Status_Events__["a" /* default */].emit("pools/settings", { message: "Pool Settings were saved", poolName: this._poolName, poolServer: this._poolServers, poolFee: this._poolFee, poolWebsite: this._poolServers });
     }
 
-    get poolActivated(){
 
+
+    get poolActivated(){
         return this._poolActivated;
     }
 
-    get poolFee(){
 
-        return this._poolFee;
-    }
 
     get poolPOWValidationProbability(){
         return this._poolPOWValidationProbability;
     }
 
-    setPoolFee(newValue){
-
-        if (this._poolFee !== newValue) return;
-
-        this._poolFee = newValue;
-
-        return this.savePoolDetails();
-    }
 
     get poolServers(){
-
-
         return this._poolServers;
-
     }
 
     getPoolServersText(){
@@ -97217,12 +97256,20 @@ class PoolSettings {
         return __WEBPACK_IMPORTED_MODULE_5_common_mining_pools_common_Pools_Utils__["a" /* default */].convertServersList(this._poolServers);
     }
 
-    setPoolServers(newValue){
+    async setPoolServers(newValue, skipSaving = false){
 
-        if (this._poolServers !== newValue) return;
+        __WEBPACK_IMPORTED_MODULE_5_common_mining_pools_common_Pools_Utils__["a" /* default */].validatePoolServers(newValue);
 
+        if ( JSON.stringify(this._poolServers ) === JSON.stringify( newValue ) ) return;
+
+        newValue = __WEBPACK_IMPORTED_MODULE_5_common_mining_pools_common_Pools_Utils__["a" /* default */].processServersList( newValue );
         this._poolServers = newValue;
-        return this.savePoolDetails();
+
+        if (!skipSaving)
+            if (false === await this._db.save("pool_servers", JSON.stringify(this._poolServers))) throw {message: "PoolServers couldn't be stored"};
+
+        await this.poolManagement.poolProtocol.poolConnectedServersProtocol.insertServersListWaitlist( this._poolServers );
+        this._generatePoolURL();
 
     }
 
@@ -97231,7 +97278,6 @@ class PoolSettings {
         let result = await this._db.save("pool_privateKey", this._poolPrivateKey);
 
         return result;
-
     }
 
     async _getPoolPrivateKey(){
@@ -97259,40 +97305,6 @@ class PoolSettings {
 
         return __WEBPACK_IMPORTED_MODULE_5_common_mining_pools_common_Pools_Utils__["a" /* default */].validatePoolsDetails(poolName, poolFee, poolWebsite, this.poolPublicKey, poolServers, poolActivated);
 
-    }
-
-    async validatePoolDetails(){
-
-        if (!__WEBPACK_IMPORTED_MODULE_5_common_mining_pools_common_Pools_Utils__["a" /* default */].validatePoolsDetails(this._poolName, this._poolFee, this._poolWebsite, this.poolPublicKey, this._poolServers, this._poolActivated))
-            throw {message: "poolData is invalid"};
-
-        this._poolServers = __WEBPACK_IMPORTED_MODULE_5_common_mining_pools_common_Pools_Utils__["a" /* default */].processServersList( this._poolServers );
-
-        await this.poolManagement.poolProtocol.poolConnectedServersProtocol.insertServersListWaitlist( this._poolServers );
-
-        this._generatePoolURL();
-
-        if ( this.poolURL !== '' && this._poolActivated === true){ //start automatically
-            await this.poolManagement.startPool();
-        }
-
-        return true;
-
-    }
-
-    async savePoolDetails(){
-
-        await this.validatePoolDetails();
-
-        let result = await this._db.save("pool_name", this._poolName);
-        result = result && await this._db.save("pool_fee", this._poolFee);
-        result = result  && await this._db.save("pool_website", this._poolWebsite);
-        result = result  && await this._db.save("pool_servers", JSON.stringify(this._poolServers));
-        result = result  && await this._db.save("pool_activated", this._poolActivated ? "true" : "false");
-
-        __WEBPACK_IMPORTED_MODULE_7_common_events_Status_Events__["a" /* default */].emit("pools/settings", { message: "Pool Settings were saved", poolName: this._poolName, poolServer: this._poolServers, poolFee: this._poolFee, poolWebsite: this._poolServers });
-
-        return  result;
     }
 
     async _getPoolDetails(){
@@ -97329,11 +97341,11 @@ class PoolSettings {
         if (false === await this.justValidatePoolDetails(poolName, poolFee, poolWebsite, poolServers, poolActivated))
             return false;
 
-        this._poolName = poolName;
-        this._poolFee = poolFee;
-        this._poolWebsite = poolWebsite;
-        this._poolServers = poolServers;
-        this._poolActivated = poolActivated;
+        await this.setPoolName( poolName , false );
+        await this.setPoolFee ( poolFee , false);
+        await this.setPoolWebsite ( poolWebsite , false );
+        await this.setPoolServers ( poolServers , false );
+        await this.setPoolActivated( poolActivated , false );
 
         return true;
 
@@ -97879,6 +97891,10 @@ class PoolProtocol {
         this.loaded = true;
 
         return true;
+    }
+
+    stopPoolProtocol(){
+
     }
 
     _subscribeMiner(nodesListObject) {
@@ -98581,6 +98597,9 @@ class MinerPoolSettings {
 
         let search = url;
 
+        let version = search.substr(0, search.indexOf( "/" ));
+        search = search.substr(search.indexOf( "/" )+1);
+
         let poolName = search.substr(0, search.indexOf( "/" ));
         search = search.substr(search.indexOf( "/" )+1);
 
@@ -98592,10 +98611,10 @@ class MinerPoolSettings {
 
         poolPublicKey = new Buffer(poolPublicKey, "hex");
 
-        let poolWebsite = search.substr( 0, search.indexOf( "/" )).replace(/$/g, '/' );
+        let poolWebsite = search.substr( 0, search.indexOf( "/" )).replace(/\$/g, '/' );
         search = search.substr(search.indexOf( "/" )+1);
 
-        let poolServers = search.replace(/$/g, '/' ).split(";");
+        let poolServers = search.replace(/\$/g, '/' ).split(";");
 
         if (!__WEBPACK_IMPORTED_MODULE_6_common_mining_pools_common_Pools_Utils__["a" /* default */].validatePoolsDetails(poolName, poolFee, poolWebsite, poolPublicKey, poolServers)) throw {message: "validate pools "};
 
