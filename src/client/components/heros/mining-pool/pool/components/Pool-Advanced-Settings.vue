@@ -4,45 +4,55 @@
 
         <h2 class="alignCenter yellowColor">SETTINGS</h2>
 
-        <div class="smallSettings largePadding">
+        <div class="alignCenter bigMarginTop">
+            <loading-spinner class="fillColor" v-if="this.initialized===false"></loading-spinner>
+        </div>
 
-            <div>
+        {{this.initialized}}
 
-                <div class="poolSettingsRow">
-                    <div class="settingsTitle feeHeight">
-                        FEE Percent:
-                    </div>
-                    <slider ref="refBar" @changed="this.handleChangePoolFee"/>
-                </div>
+        <div v-if="this.initialized===true">
 
-                <div class="poolSettingsRow">
-                    <div class="settingsTitle">
-                        Pool Name:
-                    </div>
-                    <div>
-                        <input type="text" class="input" v-model="poolName" placeholder="WebDollar Pool" :disabled="!this.initialized">
-                    </div>
-                </div>
+            <div class="smallSettings largePadding" >
 
-                <div class="poolSettingsRow">
-                    <div class="settingsTitle">
-                        Pool Website:
-                    </div>
-                    <div>
-                        <input type="text" class="input" v-model="poolWebsite" placeholder="http://url" :disabled="!this.initialized">
-                    </div>
-                </div>
+                <div>
 
-                <div class="poolSettingsRow">
-                    <div class="settingsTitle">
-                        Pool Servers:
+                    <div class="poolSettingsRow">
+                        <div class="settingsTitle feeHeight">
+                            FEE Percent:
+                        </div>
+                        <slider ref="refBar" @changed="this.handleChangePoolFee"/>
                     </div>
-                    <div>
-                    <textarea rows="4" cols="50" v-model="poolServers" :disabled="!this.initialized">
+
+                    <div class="poolSettingsRow">
+                        <div class="settingsTitle">
+                            Pool Name:
+                        </div>
+                        <div>
+                            <input type="text" class="input" v-model="poolName" placeholder="WebDollar Pool">
+                        </div>
+                    </div>
+
+                    <div class="poolSettingsRow">
+                        <div class="settingsTitle">
+                            Pool Website:
+                        </div>
+                        <div>
+                            <input type="text" class="input" v-model="poolWebsite" placeholder="http://url" >
+                        </div>
+                    </div>
+
+                    <div class="poolSettingsRow">
+                        <div class="settingsTitle">
+                            Pool Servers:
+                        </div>
+                        <div>
+                    <textarea rows="4" cols="50" v-model="poolServers">
                         832.213.23.21:312;
                         32.123.12.312:221
                     </textarea>
+                        </div>
                     </div>
+
                 </div>
 
 
@@ -57,19 +67,19 @@
 
             </div>
 
-        </div>
+            <div class="buttonsContainer">
 
-        <div class="buttonsContainer">
+                <div class="buttonContainer">
+                    <button @click="handleSaveSettings" class="minerData buttonSmall settingsButton" :disabled="!this.initialized">Save Settings</button>
+                    {{this.error}}
+                </div>
+                <div class="buttonContainer">
 
-            <div class="buttonContainer">
-                <button @click="handleSaveSettings" class="minerData buttonSmall settingsButton" :disabled="!this.initialized">Save Settings</button>
-                {{this.error}}
-            </div>
-            <div class="buttonContainer">
+                    <button @click="copyClipboardPoolURL" class="minerData buttonSmall settingsButton" style="margin-bottom: 20px" :disabled="!this.initialized">Copy Pool Invite URL</button>
 
-                <button @click="copyClipboardPoolURL" class="minerData buttonSmall settingsButton" style="margin-bottom: 20px" :disabled="!this.initialized">Copy Pool Invite URL</button>
+                    <p>{{this.poolURL}}</p>
 
-                <p>{{this.poolURL}}</p>
+                </div>
 
             </div>
 
@@ -82,11 +92,12 @@
 <script>
 
     import slider from 'client/components/UI/elements/Slider.vue';
+    import LoadingSpinner from "client/components/UI/elements/Loading-Spinner.vue"
 
     export default{
 
         components: {
-            "slider":slider
+            slider,LoadingSpinner
         },
 
         data: ()=>{
@@ -234,6 +245,10 @@
         left:0;
         display: block;
         right: 0;
+    }
+
+    .fillColor{
+        fill: #fec02c!important;
     }
 
     .buttonContainer{
