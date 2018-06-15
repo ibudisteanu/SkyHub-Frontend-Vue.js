@@ -51,14 +51,14 @@
                         </div>
                     </div>
 
-                    <div class="poolSettingsRow" v-if="this.poolURL!='-'">
+                    <div class="poolSettingsRow" v-if="this.poolURL!=''">
                         <div class="settingsTitle feeHeight">
                             Invitation URL:
                         </div>
                         <input type="text" class="input" v-model="poolURL" placeholder="http://url" @focus="$event.target.select()" disabled>
                     </div>
 
-                    <div class="poolSettingsRow" v-if="this.poolURL!='-'">
+                    <div class="poolSettingsRow" v-if="this.poolURL!=''">
                         <div class="settingsTitle">
                             Pool Activated:
                         </div>
@@ -74,7 +74,7 @@
             <div class="buttonsContainer">
 
                 <div class="buttonContainer">
-                    <button @click="handleSaveSettings" class="minerData buttonSmall settingsButton" :disabled="!this.initialized">Save Settings</button>
+                    <button @click="handleSaveSettings" class="minerData buttonSmall settingsButton">Save Settings</button>
                     {{this.error}}
                 </div>
 
@@ -109,7 +109,7 @@
                 poolWebsite: '',
 
                 poolServers: '',
-                poolURL: '',
+                poolURL: '-',
 
                 poolSettings: [],
 
