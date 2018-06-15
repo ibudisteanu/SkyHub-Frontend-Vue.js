@@ -84,17 +84,9 @@
 
             if (typeof window === "undefined") return;
 
-            if (WebDollar.Blockchain.loaded){
-
-                this.loaded= true;
-                this.loadData();
-
-            }
-
             WebDollar.Blockchain.onLoaded.then((answer)=>{
 
                 this.loaded = true;
-
                 this.loadData();
 
             });

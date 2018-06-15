@@ -18,7 +18,7 @@
                         <div class="settingsTitle feeHeight">
                             FEE Percent:
                         </div>
-                        <slider ref="refBar" @changed="this.handleChangePoolFee"/>
+                        <slider ref="refPoolFee" @changed="this.handleChangePoolFee"/>
                     </div>
 
                     <div class="poolSettingsRow specialRaw">
@@ -129,7 +129,7 @@
             },
 
             handleChangePoolFee(value){
-                this.poolFee = value/100;
+                this.poolFee = value;
             },
 
             async handleSaveSettings(){
@@ -146,7 +146,7 @@
                 try{
 
                     await WebDollar.Blockchain.PoolManagement.poolSettings.setPoolName(this.poolName);
-                    await WebDollar.Blockchain.PoolManagement.poolSettings.setPoolFee(this.poolFee);
+                    await WebDollar.Blockchain.PoolManagement.poolSettings.setPoolFee(this.poolFee/100);
                     await WebDollar.Blockchain.PoolManagement.poolSettings.setPoolWebsite(this.poolWebsite);
                     await WebDollar.Blockchain.PoolManagement.poolSettings.setPoolServers(this.poolServers);
                     await WebDollar.Blockchain.PoolManagement.poolSettings.setPoolActivated(poolActivated);
@@ -174,8 +174,8 @@
 
                 this.poolURL = WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
 
-                if (this.$refs['refBar'] !== undefined)
-                    this.$refs['refBar'].value = this.poolFee;
+                if (this.$refs['refPoolFee'] !== undefined)
+                    this.$refs['refPoolFee'].value = this.poolFee;
 
             }
 
@@ -188,17 +188,9 @@
             if (WebDollar.Blockchain.PoolManagement === undefined) this.initialized = false;
             else this.initialized = WebDollar.Blockchain.PoolManagement.poolInitialized || false;
 
-            if (WebDollar.Blockchain.loaded) {
-
-                this.loaded = true;
-                this.loadData();
-
-            }
-
             WebDollar.Blockchain.onLoaded.then((answer) => {
 
                 this.loaded = true;
-
                 this.loadData();
 
             });

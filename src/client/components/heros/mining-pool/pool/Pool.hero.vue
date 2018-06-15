@@ -8,7 +8,7 @@
 
                     <h1 class="alignCenter bigMarginBottom">CREATE YOUR OWN MINING POOL</h1>
 
-                    <h2 class="alignCenter bigMarginBottom">will be activated very soon</h2>
+                    <h3 class="alignLeft bigMarginBottom">Status: {{ this.poolStatus }}</h3>
 
                     <div class="distributionContainer">
 
@@ -17,7 +17,7 @@
                             <div class="verticalAlignMiddle">
 
                                 <p class="subtitle">SET YOUR POOL FEE</p>
-                                <slider ref="refMiningSlider" @sliderChanged="this.changeCommission"/>
+                                <slider ref="refPoolFee" @changed="this.handleChangePoolFee"/>
 
                                 <p class="createPoolLink">Mine WEBD with your friends! Create your own Mining Pool now, by using the Button below. See your Mining Pool stats in real-time.</p>
 
@@ -33,9 +33,11 @@
                             <div class="verticalAlignMiddle">
 
                                 <p class="poolDescription">Invite friends to start mining in your pool, instantly</p>
-                                <p class="copyPoolLink" @click="copyToClipboard">
+                                <p class="copyPoolLink" v-show="this.poolURL !== ''" @click="copyToClipboard">
                                     Copy invite link
                                 </p>
+
+                                {{this.poolURL}}
 
                             </div>
 
@@ -64,7 +66,8 @@
 
         data: () => {
             return {
-
+                poolStatus: '',
+                poolURL: '',
             }
         },
 
@@ -74,12 +77,39 @@
 
         methods: {
 
-            changeCommission(){
+            async handleChangePoolFee(fee){
 
+                this.poolFee = fee;
+
+                if (WebDollar.Blockchain.PoolManagement !== undefined)
+                    await WebDollar.Blockchain.PoolManagement.poolSettings.setPoolFee(this.poolFee/100);
             },
 
             copyToClipboard(){
                 this.$clipboard('test-link');
+            },
+
+            loadPoolData(){
+
+                if (WebDollar.Blockchain.PoolManagement === undefined){
+
+                    this.poolStatus = "not initialized";
+
+                } else {
+
+                    if (WebDollar.Blockchain.PoolManagement.poolInitialized) this.poolStatus = "initialized";
+                    if (WebDollar.Blockchain.PoolManagement.poolOpened) this.poolStatus = "configured";
+                    if (WebDollar.Blockchain.PoolManagement.poolStarted) this.poolStatus = "started";
+
+                    this.poolFee = WebDollar.Blockchain.PoolManagement.poolSettings.poolFee*100;
+                    this.poolURL = WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
+
+                    if (this.$refs['refPoolFee'] !== undefined)
+                        this.$refs['refPoolFee'].value = this.poolFee;
+
+                }
+
+
             }
 
         },
@@ -89,6 +119,14 @@
             if (typeof window === 'undefined') return;
 
             Vue.use(Clipboard);
+
+            WebDollar.StatusEvents.on("pools/status", (data) => {
+
+                this.loadPoolData();
+
+            });
+
+            this.loadPoolData();
 
         }
 

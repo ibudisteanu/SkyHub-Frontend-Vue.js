@@ -12,9 +12,11 @@
 
                 <peer-to-peer-hero/>
 
-                <newsletter/>
+                <newsletter-hero/>
 
-                <mining-pool/>
+                <miner-pool-hero />
+
+                <pool-hero/>
 
                 <new-crypto-generation-hero/>
 
@@ -40,8 +42,9 @@
 
     import Layout from "client/components/layout/Layout.vue";
 
-    import MiningPool from "client/components/heros/mining-pool/pool/Pool.hero.vue";
-    import Newsletter from "client/components/heros/Newsletter.hero.vue";
+    import PoolHero from "client/components/heros/mining-pool/pool/Pool.hero.vue";
+    import MinerPoolHero from "client/components/heros/mining-pool/miner-pool/Miner-Pool.hero.vue";
+    import NewsletterHero from "client/components/heros/Newsletter.hero.vue";
     import TeamHero from "client/components/heros/Team.hero.vue";
     import WebDollarHero from "client/components/heros/WebDollar.hero.vue";
     import WhatIsHero from "client/components/heros/About.hero.vue";
@@ -51,7 +54,6 @@
     import FaqHero from "client/components/heros/Faq.hero.vue";
     import NewCryptoGenerationHero from "client/components/heros/Features.hero.vue";
     import BlockChainDistributionHero from "client/components/heros/Blockchain-Distribution.hero.vue";
-    import WebdollarHero from "../components/heros/WebDollar.hero.vue";
     import MultipleTabs from "../components/heros/Multiple-Tabs.hero.vue";
 
     export default {
@@ -59,19 +61,20 @@
         name: "ViewHome",
 
         components:{
-            "layout": Layout,
-            "team-hero": TeamHero,
-            "webdollar-hero": WebDollarHero,
-            "what-is-hero": WhatIsHero,
-            "peer-to-peer-hero": PeerToPeerHero,
-            "timeline-hero": TimelineHero,
-            "know-us-hero": KnowUsHero,
-            "faq-hero": FaqHero,
-            "new-crypto-generation-hero":NewCryptoGenerationHero,
-            "blockchain-distribution-hero":BlockChainDistributionHero,
-            "MultipleTabs":MultipleTabs,
-            Newsletter,
-            MiningPool
+            Layout,
+            TeamHero,
+            WebDollarHero,
+            WhatIsHero,
+            PeerToPeerHero,
+            TimelineHero,
+            KnowUsHero,
+            FaqHero,
+            NewCryptoGenerationHero,
+            BlockChainDistributionHero,
+            PoolHero,
+            MinerPoolHero,
+            MultipleTabs,
+            NewsletterHero,
         },
 
         data: () => {
@@ -136,6 +139,7 @@
                 if (this.$store.state.route.params.a === "pool"){
 
                     await WebDollar.Blockchain.onPoolsInitialized;
+
                     return await WebDollar.Blockchain.MinerPoolManagement.startMinerPool( this.$store.state.route.params['0'] );
 
                 }

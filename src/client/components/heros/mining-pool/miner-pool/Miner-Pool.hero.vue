@@ -8,6 +8,8 @@
 
                 <h1 class="alignCenter bigMarginBottom">Miner Pool</h1>
 
+                <h3 class="alignLeft bigMarginBottom">Status: {{ this.minerPoolStatus }}</h3>
+
                 <h2 class="alignCenter bigMarginBottom">{{this.poolName}}</h2>
                 <h3 class="alignCenter bigMarginBottom">{{this.poolWebsite}}</h3>
                 <h4 class="alignCenter bigMarginBottom">{{this.poolURL}}</h4>
@@ -18,9 +20,9 @@
 
                         <div class="verticalAlignMiddle">
 
-                            <p class="subtitle">REWARD: {{this.poolReward}}</p>
+                            <p class="subtitle">REWARD: {{this.minerPoolReward}}</p>
 
-                            <p class="createPoolLink">{{}this.poolDescription}</p>
+                            <p class="createPoolLink">{{this.poolDescription}}</p>
 
                         </div>
 
@@ -50,10 +52,13 @@
 
         data: () => {
             return {
+
+                minerPoolStatus: false,
+                minerPoolReward: 0,
+
                 poolName: '',
                 poolWebsite: '',
                 poolURL: '',
-                poolReward: 0,
                 poolDescription: '',
 
                 protocolUsedOnMultipleTabs: false,
