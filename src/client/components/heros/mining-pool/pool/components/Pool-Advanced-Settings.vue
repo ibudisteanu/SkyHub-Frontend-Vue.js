@@ -163,6 +163,8 @@
 
             async loadData(){
 
+                if (WebDollar.Blockchain.PoolManagement === undefined) return;
+
                 this.poolName = WebDollar.Blockchain.PoolManagement.poolSettings.poolName;
                 this.poolFee = WebDollar.Blockchain.PoolManagement.poolSettings.poolFee*100;
                 this.poolServers = WebDollar.Blockchain.PoolManagement.poolSettings.getPoolServersText();
@@ -173,8 +175,6 @@
 
                 this.$refs['refBar'].value = this.poolFee;
 
-                this.load=true;
-
             }
 
         },
@@ -183,7 +183,8 @@
 
             if (typeof window === "undefined") return;
 
-            this.initialized = WebDollar.Blockchain.PoolManagement.poolInitialized;
+            if (WebDollar.Blockchain.PoolManagement === undefined) this.initialized = false;
+            else this.initialized = WebDollar.Blockchain.PoolManagement.poolInitialized;
 
             if (WebDollar.Blockchain.loaded) {
 
@@ -205,7 +206,7 @@
                 switch (data.message === "") {
 
                     case "Pool Initialization changed":
-                        this.initialized = data.initialized;
+                        this.initialized = data.result;
                         break;
 
                 }
