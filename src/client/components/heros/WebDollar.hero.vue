@@ -11,6 +11,7 @@
 
             <div>
                 <h5 class="fadeIn fadeIn4">{{this.status}}</h5>
+                <h5 class="fadeIn fadeIn4" v-show="minerPoolName !== ''">Pool: {{this.minerPoolName}}</h5>
                 <div class='btn-cont btnPosition fadeIn fadeIn5'> </div>
 
                 <h5 class="fadeIn fadeIn3" v-if="this.loaded === false">
@@ -62,12 +63,16 @@
                 countDownStatus: true,
                 countDown: 'April 26, 2018 13:00:00 GMT+0',
                 randomReloader: 10,
+
+                minerPoolName: '',
             }
         },
 
         mounted(){
 
             if (typeof window === "undefined") return;
+
+            this.loadPoolInfo();
 
             WebDollarUserInterface.initializeParams.createElements();
 
@@ -151,6 +156,21 @@
 
                 }
 
+
+            },
+
+            loadPoolInfo(){
+
+                //pool
+                if (WebDollar.Blockchain.MinerPoolManagement !== undefined && WebDollar.Blockchain.MinerPoolManagement.minerPoolStarted ) this.minerPoolName =  WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolName;
+                else this.minerPoolName = '';
+
+                WebDollar.StatusEvents.emitter.on("miner-pools/status", (data)=>{
+
+                    if (data.message === "Miner Pool Started changed" || data.message === "Miner Pool Opened changed" || data.message === "Miner Pool Initialized changed")
+                        if (WebDollar.Blockchain.MinerPoolManagement !== undefined && WebDollar.Blockchain.MinerPoolManagement.minerPoolStarted) this.minerPoolName = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolName;
+                        else this.minerPoolName = '';
+                });
 
             }
 

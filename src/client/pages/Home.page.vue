@@ -99,6 +99,8 @@
 
             });
 
+            this.loadPool();
+
             WebDollar.StatusEvents.on("blockchain/logs", (data)=> {
 
                 switch (data.message) {
@@ -126,14 +128,15 @@
 
         methods:{
 
-            loadPool(){
+            async loadPool(){
 
                 //verify the Pool
                 //alert( this.$store.state.route.fullPath );
 
                 if (this.$store.state.route.params.a === "pool"){
 
-                    WebDollar.Blockchain.MinerPoolManagement.startMinerPool( this.$store.state.route.params['0'] );
+                    await WebDollar.Blockchain.onPoolsInitialized;
+                    return await WebDollar.Blockchain.MinerPoolManagement.startMinerPool( this.$store.state.route.params['0'] );
 
                 }
 

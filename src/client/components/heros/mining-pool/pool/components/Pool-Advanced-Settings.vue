@@ -45,6 +45,16 @@
                     </div>
                 </div>
 
+
+                <div class="poolSettingsRow">
+                    <div class="settingsTitle">
+                        Pool Activated:
+                    </div>
+                    <div>
+                        <input type="checkbox" value="poolActivated" v-model="poolSettings" :disabled="!this.initialized">
+                    </div>
+                </div>
+
             </div>
 
         </div>
@@ -92,6 +102,9 @@
 
                 poolServers: '',
                 poolURL: '',
+
+                poolSettings: [],
+
                 error: '',
             }
 
@@ -110,10 +123,23 @@
                     return;
                 }
 
+                let poolActivated = this.poolSettings.indexOf("poolActivated") >= 0;
+
+                try{
+
+                    WebDollar.Blockchain.PoolManagement.poolSettings.justValidatePoolDetails(this.poolName, this.poolFee, this.poolWebsite, this.poolServers, poolActivated);
+                    this.error = '';
+
+                } catch (exception){
+                    this.error = exception.message;
+                    return;
+                }
+
                 WebDollar.Blockchain.PoolManagement.poolSettings._poolFee =  this.poolFee;
                 WebDollar.Blockchain.PoolManagement.poolSettings._poolName = this.poolName;
                 WebDollar.Blockchain.PoolManagement.poolSettings._poolWebsite = this.poolWebsite;
                 WebDollar.Blockchain.PoolManagement.poolSettings._poolServers = this.poolServers;
+                WebDollar.Blockchain.PoolManagement.poolSettings._poolActivated = poolActivated;
 
                 try {
 
@@ -136,13 +162,12 @@
 
             async loadData(){
 
-                this.load=true;
-
                 this.poolName = WebDollar.Blockchain.PoolManagement.poolSettings.poolName;
                 this.poolFee = WebDollar.Blockchain.PoolManagement.poolSettings.poolFee*100;
                 this.poolServers = WebDollar.Blockchain.PoolManagement.poolSettings.getPoolServersText();
                 this.poolWebsite = WebDollar.Blockchain.PoolManagement.poolSettings.poolWebsite;
-                this.poolURL = await WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
+                this.poolURL = WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
+                this.poolSettings  = WebDollar.Blockchain.PoolManagement.poolSettings.poolActivated ? ["poolActivated"] : [];
 
                 this.$refs['refBar'].value = this.poolFee;
 
@@ -177,7 +202,7 @@
 
                 switch (data.message === "") {
 
-                    case "Pool was Initialized":
+                    case "Pool Initialization changed":
                         this.initialized = data.initialized;
                         break;
 

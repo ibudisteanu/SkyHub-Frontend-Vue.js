@@ -103,15 +103,15 @@
 
                 switch (data.message === ""){
 
-                    case "Pool was Initialized":
+                    case "Pool Initialization changed":
                         this.initialized = data.result;
                         break;
 
-                    case "Pool was Opened":
+                    case "Pool Opened changed":
                         this.open = data.result;
                         break;
 
-                    case "Pool was Started":
+                    case "Pool Started changed":
                         this.started = data.result;
                         break;
 
