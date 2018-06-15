@@ -167,7 +167,7 @@
                 if (WebDollar.Blockchain.PoolManagement === undefined) return;
 
                 this.poolName = WebDollar.Blockchain.PoolManagement.poolSettings.poolName;
-                this.poolFee = WebDollar.Blockchain.PoolManagement.poolSettings.poolFee*100;
+                this.poolFee = Math.floor( WebDollar.Blockchain.PoolManagement.poolSettings.poolFee*100, 2);
                 this.poolServers = WebDollar.Blockchain.PoolManagement.poolSettings.getPoolServersText();
                 this.poolWebsite = WebDollar.Blockchain.PoolManagement.poolSettings.poolWebsite;
                 this.poolSettings  = WebDollar.Blockchain.PoolManagement.poolSettings.poolActivated ? ["poolActivated"] : [];
@@ -205,6 +205,10 @@
                         break;
 
                 }
+
+            });
+
+            WebDollar.StatusEvents.on("pools/settings",(data)=>{
 
             });
 

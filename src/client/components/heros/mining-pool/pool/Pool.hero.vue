@@ -101,7 +101,7 @@
                     if (WebDollar.Blockchain.PoolManagement.poolOpened) this.poolStatus = "configured";
                     if (WebDollar.Blockchain.PoolManagement.poolStarted) this.poolStatus = "started";
 
-                    this.poolFee = WebDollar.Blockchain.PoolManagement.poolSettings.poolFee*100;
+                    this.poolFee = Math.floor( WebDollar.Blockchain.PoolManagement.poolSettings.poolFee*100 , 2 );
                     this.poolURL = WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
 
                     if (this.$refs['refPoolFee'] !== undefined)
@@ -121,6 +121,12 @@
             Vue.use(Clipboard);
 
             WebDollar.StatusEvents.on("pools/status", (data) => {
+
+                this.loadPoolData();
+
+            });
+
+            WebDollar.StatusEvents.on("pools/settings",(data)=>{
 
                 this.loadPoolData();
 

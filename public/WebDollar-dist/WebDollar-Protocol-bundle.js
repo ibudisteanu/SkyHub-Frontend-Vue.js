@@ -97231,7 +97231,7 @@ class PoolSettings {
 
     async setPoolFee(newValue, skipSaving = false){
 
-        if (this._poolFee !== newValue) return;
+        if (this._poolFee === newValue) return;
 
         __WEBPACK_IMPORTED_MODULE_5_common_mining_pools_common_Pools_Utils__["a" /* default */].validatePoolFee(newValue);
 
