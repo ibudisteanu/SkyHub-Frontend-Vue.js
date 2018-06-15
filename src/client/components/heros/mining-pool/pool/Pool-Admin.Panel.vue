@@ -241,6 +241,10 @@
         transition: all 0.5s ease
     }
 
+    .generalController .buttonSmall{
+        box-sizing: border-box!important;
+    }
+
     .poolSectionContainer .list .transactionInfo:hover{
         background-color: #333;
         transition: all 0.5s ease

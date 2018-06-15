@@ -306,7 +306,7 @@
     }
 
     .poolSlider{
-        box-sizing: border-box;
+        box-sizing: border-box!important;
     }
 
     .poolSlider .miningSlider{

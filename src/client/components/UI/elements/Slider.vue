@@ -44,10 +44,6 @@
 
 <style>
 
-    .poolSlider .miningSlider{
-        width: 100%!important;
-    }
-
     .miningSlider {
         padding-top: 15px !important;
         padding-bottom: 15px !important;
