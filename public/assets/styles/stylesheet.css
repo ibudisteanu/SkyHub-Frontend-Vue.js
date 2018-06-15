@@ -1375,6 +1375,7 @@ background-color:#ff2200}
   width: 350px;
   height: 100%;
   position: fixed;
+  overflow-y: scroll!important;
 }
 
 .tableHeader{
