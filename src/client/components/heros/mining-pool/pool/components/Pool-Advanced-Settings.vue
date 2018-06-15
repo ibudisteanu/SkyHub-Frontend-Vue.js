@@ -4,13 +4,11 @@
 
         <h2 class="alignCenter yellowColor">SETTINGS</h2>
 
-        <div class="alignCenter bigMarginTop">
-            <loading-spinner class="fillColor" v-if="this.initialized===false"></loading-spinner>
+        <div class="alignCenter bigMarginTop" v-if="this.initialized===true">
+            <loading-spinner class="fillColor"></loading-spinner>
         </div>
 
-        {{this.initialized}}
-
-        <div v-if="this.initialized===true">
+        <div v-if="this.initialized===false">
 
             <div class="smallSettings largePadding" >
 
@@ -53,16 +51,22 @@
                         </div>
                     </div>
 
-                </div>
-
-
-                <div class="poolSettingsRow">
-                    <div class="settingsTitle">
-                        Pool Activated:
+                    <div class="poolSettingsRow" v-if="this.poolURL!='-'">
+                        <div class="settingsTitle feeHeight">
+                            Invitation URL:
+                        </div>
+                        <input type="text" class="input" v-model="poolURL" placeholder="http://url" @focus="$event.target.select()">
                     </div>
-                    <div>
-                        <input type="checkbox" value="poolActivated" v-model="poolSettings" :disabled="!this.initialized">
+
+                    <div class="poolSettingsRow" v-if="this.poolURL!='-'">
+                        <div class="settingsTitle">
+                            Pool Activated:
+                        </div>
+                        <div>
+                            <input type="checkbox" value="poolActivated" v-model="poolSettings">
+                        </div>
                     </div>
+
                 </div>
 
             </div>
@@ -72,13 +76,6 @@
                 <div class="buttonContainer">
                     <button @click="handleSaveSettings" class="minerData buttonSmall settingsButton" :disabled="!this.initialized">Save Settings</button>
                     {{this.error}}
-                </div>
-                <div class="buttonContainer">
-
-                    <button @click="copyClipboardPoolURL" class="minerData buttonSmall settingsButton" style="margin-bottom: 20px" :disabled="!this.initialized">Copy Pool Invite URL</button>
-
-                    <p>{{this.poolURL}}</p>
-
                 </div>
 
             </div>
@@ -112,7 +109,7 @@
                 poolWebsite: '',
 
                 poolServers: '',
-                poolURL: '',
+                poolURL: '-',
 
                 poolSettings: [],
 
@@ -157,7 +154,7 @@
                     await WebDollar.Blockchain.PoolManagement.poolSettings.savePoolDetails();
                     this.error = '';
 
-                    this.poolURL = await WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
+//                    this.poolURL = await WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
 
                 } catch (exception){
 
@@ -169,6 +166,9 @@
 
             copyClipboardPoolURL(){
 
+                this.$refs['poolUrl'].select();
+                document.execCommand('copy');
+
             },
 
             async loadData(){
@@ -177,7 +177,7 @@
                 this.poolFee = WebDollar.Blockchain.PoolManagement.poolSettings.poolFee*100;
                 this.poolServers = WebDollar.Blockchain.PoolManagement.poolSettings.getPoolServersText();
                 this.poolWebsite = WebDollar.Blockchain.PoolManagement.poolSettings.poolWebsite;
-                this.poolURL = WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
+//                this.poolURL = WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
                 this.poolSettings  = WebDollar.Blockchain.PoolManagement.poolSettings.poolActivated ? ["poolActivated"] : [];
 
                 this.$refs['refBar'].value = this.poolFee;
@@ -228,6 +228,15 @@
 </script>
 
 <style>
+
+    .poolLink{
+        /*width: 100%;*/
+        word-break: break-all;
+        /*margin: 0 auto;*/
+        /*color: #fec02c;*/
+        /*font-size: 14px;*/
+        /*cursor: pointer;*/
+    }
 
     .poolSettingsRow{
         display: grid;
@@ -294,7 +303,7 @@
         margin: 0 auto;
         width: 500px;
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
     }
 
     .buttonsContainer .settingsButton{
