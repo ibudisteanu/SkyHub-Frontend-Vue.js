@@ -136,11 +136,11 @@
                 //verify the Pool
                 //alert( this.$store.state.route.fullPath );
 
-                if (this.$store.state.route.params.a === "pool"){
+                if (this.$store.state.route.params.a === "pool" && this.$store.state.route.params['0'].length > 5 ){
 
                     await WebDollar.Blockchain.onPoolsInitialized;
 
-                    return await WebDollar.Blockchain.MinerPoolManagement.startMinerPool( this.$store.state.route.params['0'] );
+                    return await WebDollar.Blockchain.MinerPoolManagement.startMinerPool( this.$store.state.route.params['0'], true);
 
                 }
 
