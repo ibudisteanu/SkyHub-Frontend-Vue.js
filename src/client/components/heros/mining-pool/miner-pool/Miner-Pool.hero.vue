@@ -31,7 +31,6 @@
 
 
                             <select v-model="poolsListSelected">
-                                <option disabled value="">Please select one</option>
                                 <option>Pool Mining Disabled</option>
                                 <option v-for="(poolListElement, index) in this.poolsList">
                                     {{poolListElement.poolName}}
@@ -113,6 +112,27 @@
                     this.poolServers = WebDollar.Applications.PoolsUtilsHelper.getPoolServersStatus(poolServers);
 
                     this.poolsList = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolsList;
+
+                    let minerPoolFound = false;
+
+                    if (WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.minerPoolActivated){
+
+                        let minerPoolPublicKey = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.minerPoolPublicKey.toString("hex");
+
+                        for (let poolPublicKey in this.poolsList){
+
+                            if (poolPublicKey === minerPoolPublicKey){
+                                this.poolsListSelected = this.poolsList[poolPublicKey].poolName;
+                                minerPoolFound = true;
+                                break;
+                            }
+
+                        }
+
+                    }
+
+                    if (!minerPoolFound)
+                        this.poolsListSelected = 'Pool Mining Disabled';
 
                 }
 

@@ -6,7 +6,7 @@
 
             <div slot="content">
 
-                <webdollar-hero/>
+                <web-dollar-hero/>
 
                 <what-is-hero/>
 
