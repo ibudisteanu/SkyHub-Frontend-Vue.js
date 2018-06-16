@@ -185,6 +185,7 @@
 
             if (typeof window === "undefined") return;
 
+
             if (WebDollar.Blockchain.PoolManagement === undefined) this.initialized = false;
             else this.initialized = WebDollar.Blockchain.PoolManagement.poolInitialized || false;
 
@@ -207,6 +208,8 @@
                 }
 
             });
+
+
 
             WebDollar.StatusEvents.on("pools/settings",(data)=>{
 

@@ -39,7 +39,14 @@
 
                                 {{this.poolURL}}
 
+                                <div class="dataStatisticsItem" v-for="(poolServer, index) in this.poolServers">
+                                    <span class="titlePool serverPool" >{{poolServer.name}}</span>
+                                    <span class="minerData serverPoolStatus" >{{poolServer.connected ? 'established' : 'not established'}} </span>
+                                </div>
+
+
                             </div>
+
 
                         </div>
 
@@ -68,6 +75,8 @@
             return {
                 poolStatus: '',
                 poolURL: '',
+                poolFee: 0,
+                poolServers: {},
             }
         },
 
@@ -89,6 +98,7 @@
                 this.$clipboard('test-link');
             },
 
+
             loadPoolData(){
 
                 if (WebDollar.Blockchain.PoolManagement === undefined){
@@ -101,11 +111,15 @@
                     if (WebDollar.Blockchain.PoolManagement.poolOpened) this.poolStatus = "configured";
                     if (WebDollar.Blockchain.PoolManagement.poolStarted) this.poolStatus = "started";
 
-                    this.poolFee = Math.floor( WebDollar.Blockchain.PoolManagement.poolSettings.poolFee*100 , 2 );
+                    let poolServers = WebDollar.Blockchain.PoolManagement.poolSettings.poolServers;
+                    this.poolServers = WebDollar.Applications.PoolsUtilsHelper.getPoolServersStatus(poolServers);
+
                     this.poolURL = WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
 
+                    this.poolFee = Math.floor( WebDollar.Blockchain.PoolManagement.poolSettings.poolFee*100 , 2 );
                     if (this.$refs['refPoolFee'] !== undefined)
                         this.$refs['refPoolFee'].value = this.poolFee;
+
 
                 }
 
@@ -119,6 +133,7 @@
             if (typeof window === 'undefined') return;
 
             Vue.use(Clipboard);
+
 
             WebDollar.StatusEvents.on("pools/status", (data) => {
 
@@ -139,3 +154,16 @@
     }
 
 </script>
+
+<style>
+
+    .serverPool{
+        display: inline;
+        padding-right: 20px ;
+    }
+
+    .serverPoolStatus{
+        display: inline;
+    }
+
+</style>

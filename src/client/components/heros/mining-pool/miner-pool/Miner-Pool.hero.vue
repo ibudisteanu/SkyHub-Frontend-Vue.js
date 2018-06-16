@@ -10,9 +10,9 @@
 
                 <h3 class="alignLeft bigMarginBottom">Status: {{ this.minerPoolStatus }}</h3>
 
-                <h2 class="alignCenter bigMarginBottom">{{this.poolName}}</h2>
-                <h3 class="alignCenter bigMarginBottom">{{this.poolWebsite}}</h3>
-                <h4 class="alignCenter bigMarginBottom">{{this.poolURL}}</h4>
+                <h4 class="alignCenter">Name: {{this.poolName}}</h4>
+                <h4 class="alignCenter">Website: {{this.poolWebsite}}</h4>
+                <h4 class="alignCenter">Fee: {{this.poolFee}} % </h4>
 
                 <div class="distributionContainer">
 
@@ -23,6 +23,21 @@
                             <p class="subtitle">REWARD: {{this.minerPoolReward}}</p>
 
                             <p class="createPoolLink">{{this.poolDescription}}</p>
+
+                            <div class="dataStatisticsItem" v-for="(poolServer, index) in this.poolServers">
+                                <span class="titlePool serverPool" >{{poolServer.name}}</span>
+                                <span class="minerData serverPoolStatus" >{{poolServer.connected ? 'established' : 'not established'}} </span>
+                            </div>
+
+
+                            <select v-model="poolsListSelected">
+                                <option disabled value="">Please select one</option>
+                                <option>Pool Mining Disabled</option>
+                                <option v-for="(poolListElement, index) in this.poolsList">
+                                    {{poolListElement.poolName}}
+                                </option>
+                            </select>
+
 
                         </div>
 
@@ -53,15 +68,20 @@
         data: () => {
             return {
 
-                minerPoolStatus: false,
+                minerPoolStatus: '',
                 minerPoolReward: 0,
 
                 poolName: '',
                 poolWebsite: '',
                 poolURL: '',
                 poolDescription: '',
+                poolFee: '',
 
-                protocolUsedOnMultipleTabs: false,
+                poolServers: {},
+
+                poolsList: {},
+                poolsListSelected: '',
+
             }
         },
 
@@ -71,9 +91,34 @@
 
         methods: {
 
-            changeCommission(){
+            loadPoolData(){
 
-            },
+                if ( WebDollar.Blockchain.MinerPoolManagement === undefined){
+
+                    this.minerPoolStatus = "not initialized";
+
+                } else {
+
+                    if (WebDollar.Blockchain.MinerPoolManagement.minerPoolInitialized) this.minerPoolStatus = "initialized";
+                    if (WebDollar.Blockchain.MinerPoolManagement.minerPoolOpened) this.minerPoolStatus = "configured";
+                    if (WebDollar.Blockchain.MinerPoolManagement.minerPoolStarted) this.minerPoolStatus = "started";
+
+                    this.poolFee = Math.floor( WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolFee*100 , 2 );
+                    this.poolURL = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolURL;
+                    this.poolName = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolName;
+                    this.poolWebsite = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolWebsite;
+                    this.poolDescription = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolDescription;
+
+                    let poolServers = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolServers;
+                    this.poolServers = WebDollar.Applications.PoolsUtilsHelper.getPoolServersStatus(poolServers);
+
+                    this.poolsList = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolsList;
+
+                }
+
+
+            }
+
 
         },
 
@@ -82,15 +127,19 @@
 
             if (typeof window === "undefined") return;
 
-            WebDollar.StatusEvents.on("blockchain/status", (data)=>{
+            WebDollar.StatusEvents.on("miner-pool/status", (data) => {
 
-                if (data.message === "Single Window")
-                    this.protocolUsedOnMultipleTabs= false;
-                else
-                if (data.message === "Multiple Windows Detected")
-                    this.protocolUsedOnMultipleTabs=true;
+                this.loadPoolData();
 
             });
+
+            WebDollar.StatusEvents.on("miner-pool/settings",(data)=>{
+
+                this.loadPoolData();
+
+            });
+
+            this.loadPoolData();
 
         }
 

@@ -140,24 +140,7 @@
                 if (poolServers === undefined)
                     poolServers = WebDollar.Blockchain.PoolManagement.poolSettings.poolServers;
 
-                this.poolServers = {};
-
-                for (let i=0; i<poolServers.length; i++) {
-
-                    let connected = false;
-
-                    for (let j=0; j< WebDollar.Applications.NodesList.nodes.length; j++ )
-                        if (WebDollar.Applications.NodesList.nodes[j].socket.node.sckAddress.matchAddress( poolServers[i] )){
-                            connected = true;
-                            break;
-                        }
-
-                    this.poolServers[i] = {
-                        name: poolServers[i],
-                        connected: connected,
-                    };
-
-                }
+                this.poolServers = WebDollar.Applications.PoolsUtilsHelper.getPoolServersStatus(poolServers);
 
             }
 
