@@ -1257,12 +1257,13 @@ background-color:#ff2200}
   font-weight: bolder;
   line-height: 40px;
   border-radius: 10px;
-  margin-top: 40px;
+  transition: all 0.5s ease
 }
 
 .copyPoolLink:hover{
-  background-color: #c18800;
+  background-color: #ffdc87;
   color: #383838;
+  transition: all 0.5s ease
 }
 
 .map-dialog{

@@ -10,10 +10,10 @@
 
                     <div class="distributionContainer">
 
-                        <div class="distributionGrid">
-                            <h2 class="subtitle">SET YOUR POOL FEE</h2>
+                        <div class="distributionGrid borderBottom">
+                            <h2 class="subtitle">Pool Quick Command</h2>
                         </div>
-                        <div class="distributionGrid">
+                        <div class="distributionGrid borderBottom">
                             <h2 class="subtitle">Pool Statistics</h2>
                         </div>
 
@@ -21,13 +21,17 @@
 
                             <div class="verticalAlignMiddle">
 
-                                <slider ref="refPoolFee" @changed="this.handleChangePoolFee"/>
+                                <div class="twoButtons">
 
-                                <p class="createPoolLink">Mine WEBD with your friends! Create your own Mining Pool now, by using the Button below. See your Mining Pool stats in real-time.</p>
+                                    <router-link to="/mypool">
+                                        <p class="copyPoolLink">Pool Dashboard</p>
+                                    </router-link>
 
-                                <router-link to="/mypool">
-                                    <p class="copyPoolLink">My mining pool</p>
-                                </router-link>
+                                    <p class="copyPoolLink" v-show="this.poolURL !== ''" @click="copyToClipboard">
+                                        Copy invite link
+                                    </p>
+
+                                </div>
 
                             </div>
 
@@ -35,13 +39,6 @@
                         <div class="distributionGrid poolDescription">
 
                             <div class="verticalAlignMiddle">
-
-                                <!--<p class="poolDescription">Invite friends to start mining in your pool, instantly</p>-->
-                                <!--<p class="copyPoolLink disabledColors" v-show="this.poolURL !== ''" @click="copyToClipboard">-->
-                                    <!--Copy invite link-->
-                                <!--</p>-->
-
-                                {{this.poolURL}}
 
                                 <span class="oneLineText">
                                     Your Role: <span class="normalSpan yellowColor"> Owner </span>
@@ -53,7 +50,7 @@
                                     Online Hosts: <span class="normalSpan" :class="this.selectOnlineHostColor()"> {{ this.onlineHosts() }} </span>
                                 </span>
                                 <span class="oneLineText">
-                                    Pool Hash: <span class="normalSpan"> 500 MH/s </span>
+                                    Pool Hash: <span class="normalSpan yellowColor"> 500 MH/s </span>
                                 </span>
                                 <span class="oneLineText">
                                     Miners: <span class="normalSpan" :class="this.isNotNullColor()"> {{this.poolMinerNumber}} </span>
@@ -76,12 +73,11 @@
 
 <script>
 
-    import Vue from 'vue/dist/vue';
-
-    Vue.use(Clipboard);
-
+    import Vue from 'vue';
     import slider from '../../../UI/elements/Slider.vue';
     import Clipboard from 'v-clipboard';
+
+    Vue.use(Clipboard);
 
     export default{
 
@@ -228,6 +224,11 @@
 
     .serverPoolStatus{
         display: inline;
+    }
+
+    .twoButtons{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
     }
 
 </style>
