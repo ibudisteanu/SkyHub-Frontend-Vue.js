@@ -14,9 +14,9 @@
 
                 <newsletter-hero/>
 
-                <!--<miner-pool-hero />-->
+                <miner-pool-hero v-show="!poolActivated"/>
 
-                <pool-hero/>
+                <pool-hero v-show="poolActivated"/>
 
                 <new-crypto-generation-hero/>
 
@@ -79,7 +79,8 @@
 
         data: () => {
             return {
-                protocolUsedOnMultipleTabs: false
+                protocolUsedOnMultipleTabs: false,
+                poolActivated: true,
             }
         },
 
@@ -102,7 +103,7 @@
 
             });
 
-            this.loadPool();
+            this.initializePool();
 
             WebDollar.StatusEvents.on("blockchain/logs", (data)=> {
 
@@ -127,22 +128,55 @@
 
             });
 
+
+            this.loadPoolSettings();
+
         },
 
         methods:{
 
-            async loadPool(){
+            async initializePool(){
 
                 //verify the Pool
                 //alert( this.$store.state.route.fullPath );
 
                 if (this.$store.state.route.params.a === "pool" && this.$store.state.route.params['0'].length > 5 ){
 
-                    await WebDollar.Blockchain.onPoolsInitialized;
+                    WebDollar.StatusEvents.on("main-pools/status", async (data)=> {
 
-                    return await WebDollar.Blockchain.MinerPoolManagement.startMinerPool( this.$store.state.route.params['0'], true);
+                        if (data.message === "Pool Initialized") {
+
+                            await WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.setPoolURL(this.$store.state.route.params['0']);
+;
+                            console.log(this.$store.state.route.params['0']);
+                        }
+
+                    });
+
 
                 }
+
+            },
+
+            loadPoolSettings(){
+
+                if (WebDollar.Blockchain.PoolManagement !== undefined && WebDollar.Blockchain.PoolManagement.poolStarted) this.poolActivated = true;
+                else if (WebDollar.Blockchain.MinerPoolManagement !== undefined && WebDollar.Blockchain.MinerPoolManagement.minerPoolStarted) this.poolActivated = false;
+                else this.poolActivated = false;
+
+                WebDollar.StatusEvents.on("miner-pool/status", (data) => {
+
+                    if (data.message === "Miner Pool Started changed")
+                        this.poolActivated = !data.result;
+
+                });
+
+                WebDollar.StatusEvents.on("pools/status", (data) => {
+
+                    if (data.message === "Pool Started changed")
+                        this.poolActivated = data.result;
+
+                });
 
             }
 
