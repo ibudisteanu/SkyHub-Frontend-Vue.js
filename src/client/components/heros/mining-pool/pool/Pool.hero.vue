@@ -4,68 +4,70 @@
 
         <div id="createPoolSection">
 
-                <div class="">
+            <h1 class="alignCenter bigMarginBottom">POOL Mining</h1>
 
-                    <h1 class="alignCenter bigMarginBottom">POOL Mining</h1>
+            <div class="distributionContainer">
 
-                    <div class="distributionContainer">
+                <div class="distributionGrid borderBottom">
+                    <h2 class="subtitle">Pool Quick Command</h2>
+                </div>
+                <div class="distributionGrid borderBottom">
+                    <h2 class="subtitle">Pool Statistics</h2>
+                </div>
 
-                        <div class="distributionGrid borderBottom">
-                            <h2 class="subtitle">Pool Quick Command</h2>
-                        </div>
-                        <div class="distributionGrid borderBottom">
-                            <h2 class="subtitle">Pool Statistics</h2>
-                        </div>
+                <div class="distributionGrid">
 
-                        <div class="distributionGrid">
+                    <div class="verticalAlignMiddle">
 
-                            <div class="verticalAlignMiddle">
+                        <div class="twoButtons">
 
-                                <div class="twoButtons">
+                            <router-link to="/mypool">
+                                <p class="copyPoolLink">Pool Dashboard</p>
+                            </router-link>
 
-                                    <router-link to="/mypool">
-                                        <p class="copyPoolLink">Pool Dashboard</p>
-                                    </router-link>
-
-                                    <p class="copyPoolLink" v-show="this.poolURL !== ''" @click="copyToClipboard">
-                                        Copy invite link
-                                    </p>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <div class="distributionGrid poolDescription">
-
-                            <div class="verticalAlignMiddle">
-
-                                <span class="oneLineText">
-                                    Your Role: <span class="normalSpan yellowColor"> Owner </span>
-                                </span>
-                                <span class="oneLineText">
-                                    Pool Status: <span class="normalSpan" :class="this.selectStatusColor()">{{ this.poolStatus }}</span>
-                                </span>
-                                <span class="oneLineText">
-                                    Online Hosts: <span class="normalSpan" :class="this.selectOnlineHostColor()"> {{ this.onlineHosts() }} </span>
-                                </span>
-                                <span class="oneLineText">
-                                    Pool Hash: <span class="normalSpan yellowColor"> 500 MH/s </span>
-                                </span>
-                                <span class="oneLineText">
-                                    Miners: <span class="normalSpan" :class="this.isNotNullColor()"> {{this.poolMinerNumber}} </span>
-                                </span>
-
-                            </div>
-
+                            <p class="copyPoolLink" v-show="this.poolURL !== ''" @click="copyToClipboard">
+                                Copy invite link
+                            </p>
 
                         </div>
 
                     </div>
 
                 </div>
+                <div class="distributionGrid poolDescription">
+
+                    <div class="verticalAlignMiddle">
+
+                        <span class="oneLineText">
+                            Your Role: <span class="normalSpan greenColor"> Owner </span>
+                        </span>
+                        <span class="oneLineText">
+                            Pool Name: <span class="normalSpan yellowColor"> <a :href="this.poolWebsite"> {{this.poolName}} </a></span>
+                        </span>
+                        <span class="oneLineText">
+                            Pool Status: <span class="normalSpan" :class="this.selectStatusColor()">{{ this.poolStatus }}</span>
+                        </span>
+                        <span class="oneLineText">
+                            Pool Fee: <span class="normalSpan yellowColor"> <a :href="this.poolWebsite"> {{this.poolFee}} </a></span>
+                        </span>
+                        <span class="oneLineText">
+                            Online Hosts: <span class="normalSpan" :class="this.selectOnlineHostColor()"> {{ this.onlineHosts() }} </span>
+                        </span>
+                        <span class="oneLineText">
+                            Pool Hash: <span class="normalSpan yellowColor"> 500 MH/s </span>
+                        </span>
+                        <span class="oneLineText">
+                            Miners: <span class="normalSpan" :class="this.isNotNullColor()"> {{this.poolMinerNumber}} </span>
+                        </span>
+
+                    </div>
+
+
+                </div>
 
             </div>
+
+        </div>
 
     </div>
 
