@@ -170,7 +170,12 @@
                 this.poolFee = Math.floor( WebDollar.Blockchain.PoolManagement.poolSettings.poolFee*100, 2);
                 this.poolServers = WebDollar.Blockchain.PoolManagement.poolSettings.getPoolServersText();
                 this.poolWebsite = WebDollar.Blockchain.PoolManagement.poolSettings.poolWebsite;
-                this.poolSettings  = WebDollar.Blockchain.PoolManagement.poolSettings.poolActivated ? ["poolActivated"] : [];
+
+                let poolSettings = [];
+                if (WebDollar.Blockchain.PoolManagement.poolSettings.poolActivated)
+                    poolSettings.push("poolActivated");
+
+                this.poolSettings = poolSettings;
 
                 this.poolURL = WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
 

@@ -117,7 +117,7 @@
 
                     if (WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.minerPoolActivated){
 
-                        let minerPoolPublicKey = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.minerPoolPublicKey.toString("hex");
+                        let minerPoolPublicKey = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolPublicKey.toString("hex");
 
                         for (let poolPublicKey in this.poolsList){
 
