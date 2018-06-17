@@ -76,7 +76,6 @@
 <script>
 
     import Vue from 'vue';
-    import slider from '../../../UI/elements/Slider.vue';
     import Clipboard from 'v-clipboard';
 
     Vue.use(Clipboard);
@@ -94,10 +93,6 @@
                 poolGlobalHash: 0,
                 poolServers: {},
             }
-        },
-
-        components: {
-            "slider":slider
         },
 
         methods: {

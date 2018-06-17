@@ -74,10 +74,10 @@
 
 <script>
 
-    import Vue from 'vue/dist/vue';
-
-    import slider from '../../../UI/elements/Slider.vue';
+    import Vue from 'vue';
     import Clipboard from 'v-clipboard';
+
+    Vue.use(Clipboard);
 
     export default{
 
@@ -103,11 +103,58 @@
             }
         },
 
-        components: {
-            "slider":slider
-        },
-
         methods: {
+
+            numberOfConnectedHosts(){
+
+                var enabledHosts=0;
+
+                for(var i=0;i<=this.poolServers;i++){
+
+                    if(this.poolServers.connected === true) enabledHosts++
+
+                }
+
+                return enabledHosts;
+
+            },
+
+            copyToClipboard(){
+                this.$clipboard(this.poolURL);
+            },
+
+            isNotNullColor(){
+
+                if (this.poolMinerNumber===0) return 'redColor';
+
+                return 'greenColor';
+
+            },
+
+            selectStatusColor(){
+
+                if (this.poolStatus==='Started') return 'greenColor';
+                if (this.poolStatus==='Configured') return 'redColor';
+
+                return 'yellowColor';
+
+            },
+
+            selectOnlineHostColor(){
+
+                if(this.numberOfConnectedHosts()===0)  return 'redColor';
+
+                if (Object.keys(this.poolServers).length=== this.numberOfConnectedHosts()) return 'greenColor';
+
+                return 'yellowColor'
+
+            },
+
+            onlineHosts(){
+
+                return this.numberOfConnectedHosts() + ' / ' + Object.keys(this.poolServers).length;
+
+            },
 
             loadPoolData(){
 
