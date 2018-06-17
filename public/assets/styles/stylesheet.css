@@ -2102,3 +2102,15 @@ background-color:#ff2200}
   font-size: 22px;
   letter-spacing: 1px;
 }
+
+.poolSelect{
+  background: transparent;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 1px;
+  border: none;
+}
+
+.poolSelect:focus{
+  outline:none
+}
