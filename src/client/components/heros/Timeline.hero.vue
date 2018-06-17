@@ -60,17 +60,27 @@
                     </div>
                     <div class="timeline timelineUnfinishedMilestones">
                         <div class="timeline-icon unfinishedMilestones"><i class="fa fa-gift"></i></div>
-                        <span class="year">MAY 2018</span>
+                        <span class="year">JUN 2018</span>
                         <div class="timeline-content">
                             <h5 class="title">Mining pools & Exchange</h5>
                             <p class="description">
-                                Developing a easy way to mine with your friends in social mining. And listing on first official exchanges
+                                Developing a easy way to mine with your friends in social mining. And creating the first exchange for ecosystem.
                             </p>
                         </div>
                     </div>
                     <div class="timeline timelineUnfinishedMilestones">
                         <div class="timeline-icon unfinishedMilestones"><i class="fa fa-gift"></i></div>
-                        <span class="year">JUNE-JULY 2018</span>
+                        <span class="year">JUL-SEP 2018</span>
+                        <div class="timeline-content">
+                            <h5 class="title">EVANGHELISM & MARKETING</h5>
+                            <p class="description">
+                                Growing the community, running bounties programs & attend to cryptocurrencies confereces.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline timelineUnfinishedMilestones">
+                        <div class="timeline-icon unfinishedMilestones"><i class="fa fa-gift"></i></div>
+                        <span class="year">OCT 2018</span>
                         <div class="timeline-content">
                             <h5 class="title">SMART CONTRACTS, ANONYMITY</h5>
                             <p class="description">

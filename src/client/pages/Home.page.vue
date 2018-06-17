@@ -14,7 +14,7 @@
 
                 <newsletter-hero/>
 
-                <miner-pool-hero />
+                <!--<miner-pool-hero />-->
 
                 <pool-hero/>
 
