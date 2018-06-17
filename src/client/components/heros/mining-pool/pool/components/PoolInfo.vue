@@ -64,7 +64,7 @@
 
             isNotNullColor(){
 
-                if (this.poolMinerNumber===0) return 'redColor';
+                if (this.statistics.poolMinerNumber===0) return 'redColor';
 
                 return 'greenColor';
 
