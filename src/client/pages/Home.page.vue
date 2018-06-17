@@ -102,7 +102,7 @@
 
             });
 
-            this.loadPool();
+            this.initializePool();
 
             WebDollar.StatusEvents.on("blockchain/logs", (data)=> {
 
@@ -131,16 +131,26 @@
 
         methods:{
 
-            async loadPool(){
+            async initializePool(){
 
                 //verify the Pool
                 //alert( this.$store.state.route.fullPath );
 
                 if (this.$store.state.route.params.a === "pool" && this.$store.state.route.params['0'].length > 5 ){
 
-                    await WebDollar.Blockchain.onPoolsInitialized;
+                    WebDollar.StatusEvents.on("main-pools/status", async (data)=> {
 
-                    return await WebDollar.Blockchain.MinerPoolManagement.startMinerPool( this.$store.state.route.params['0'], true);
+                        if (data.message === "Pool Initialized") {
+                            console.log("111");
+
+                            await WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.setPoolURL(this.$store.state.route.params['0']);
+
+                            console.log("2222");
+                            console.log(this.$store.state.route.params['0']);
+                        }
+
+                    });
+
 
                 }
 

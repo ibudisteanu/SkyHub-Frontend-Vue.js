@@ -56,6 +56,11 @@
                                     Miners: <span class="normalSpan" :class="this.isNotNullColor()"> {{this.poolMinerNumber}} </span>
                                 </span>
 
+                                <div class="dataStatisticsItem" v-for="(poolServer, index) in this.poolServers">
+                                    <span class="titlePool serverPool" >{{poolServer.name}}</span>
+                                    <span class="minerData serverPoolStatus" >{{poolServer.connected ? 'connected - '  + (poolServer.established ? 'established' : 'not established' )  : 'not connected'}} </span>
+                                </div>
+
                             </div>
 
 
