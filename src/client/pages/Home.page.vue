@@ -53,7 +53,7 @@
     import KnowUsHero from "client/components/heros/Media.hero.vue";
     import FaqHero from "client/components/heros/Faq.hero.vue";
     import NewCryptoGenerationHero from "client/components/heros/Features.hero.vue";
-    import BlockChainDistributionHero from "client/components/heros/Blockchain-Distribution.hero.vue";
+    import BlockchainDistributionHero from "client/components/heros/Blockchain-Distribution.hero.vue";
     import MultipleTabs from "../components/heros/Multiple-Tabs.hero.vue";
 
     export default {
@@ -70,7 +70,7 @@
             KnowUsHero,
             FaqHero,
             NewCryptoGenerationHero,
-            BlockChainDistributionHero,
+            BlockchainDistributionHero,
             PoolHero,
             MinerPoolHero,
             MultipleTabs,
