@@ -41,18 +41,22 @@
                                     <!--Copy invite link-->
                                 <!--</p>-->
 
+                                {{this.poolURL}}
 
                                 <span class="oneLineText">
-                                    Status: <span class="normalSpan" :class="this.selectStatusColor()">{{ this.poolStatus }}</span>
+                                    Your Role: <span class="normalSpan yellowColor"> Owner </span>
+                                </span>
+                                <span class="oneLineText">
+                                    Pool Status: <span class="normalSpan" :class="this.selectStatusColor()">{{ this.poolStatus }}</span>
                                 </span>
                                 <span class="oneLineText">
                                     Online Hosts: <span class="normalSpan" :class="this.selectOnlineHostColor()"> {{ this.onlineHosts() }} </span>
                                 </span>
                                 <span class="oneLineText">
-                                    Miners: <span class="normalSpan" :class="this.isNotNullColor()"> {{this.poolMinerNumber}} </span>
+                                    Pool Hash: <span class="normalSpan"> 500 MH/s </span>
                                 </span>
                                 <span class="oneLineText">
-                                    Pool Hash: <span class="normalSpan"> 500 MH/s </span>
+                                    Miners: <span class="normalSpan" :class="this.isNotNullColor()"> {{this.poolMinerNumber}} </span>
                                 </span>
 
                             </div>
