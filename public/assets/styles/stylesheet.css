@@ -1250,6 +1250,7 @@ background-color:#ff2200}
   color: #262626;
   text-align: center;
   font-size: 14px;
+  cursor:pointer;
   background-color: #fec02c;
   width: 200px;
   margin: 0 auto;
@@ -1936,6 +1937,7 @@ background-color:#ff2200}
 .disabledColors{
   background-color: #bdbdbd2e!important;
   color: #585858!important;
+  cursor: auto!important;
 }
 
 .vue-slider-component .vue-slider-process {
@@ -2074,4 +2076,28 @@ background-color:#ff2200}
 
 .listElement div{
   line-height: 28px;
+}
+
+.greenColor{
+  color:#76d631;
+}
+
+.oneLineText{
+  display: block;
+}
+
+.normalSpan{
+  width: auto;
+  display: inline-block;
+}
+
+.redColor{
+  color:#ec7360;
+}
+
+.marginSubtitle{
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  font-size: 22px;
+  letter-spacing: 1px;
 }

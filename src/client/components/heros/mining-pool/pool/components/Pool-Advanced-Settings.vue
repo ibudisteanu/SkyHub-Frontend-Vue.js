@@ -45,7 +45,7 @@
 
                     <div class="poolSettingsRow">
                         <div class="settingsTitle">
-                            Pool Servers:
+                            Pool Host:
                         </div>
                         <div>
                     <textarea rows="4" cols="50" v-model="poolServers">
