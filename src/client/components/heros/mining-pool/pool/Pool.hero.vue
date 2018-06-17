@@ -25,7 +25,7 @@
                                 <p class="copyPoolLink">Pool Dashboard</p>
                             </router-link>
 
-                            <p class="copyPoolLink" v-show="this.poolURL !== ''" @click="copyToClipboard">
+                            <p class="copyPoolLink" v-show="this.statistics.poolURL !== ''" @click="copyToClipboard">
                                 Copy invite link
                             </p>
 
@@ -39,7 +39,8 @@
 
             </div>
 
-            <div class="dataStatisticsItem" v-for="(poolServer, index) in this.poolServers">
+            
+            <div class="dataStatisticsItem" v-for="(poolServer, index) in this.statistics.poolServers">
                 <span class="titlePool serverPool" >{{poolServer.name}}</span>
                 <span class="minerData serverPoolStatus" >{{poolServer.connected ? 'connected - '  + (poolServer.established ? 'established' : 'not established' )  : 'not connected'}} </span>
             </div>
@@ -93,7 +94,7 @@
             },
 
             copyToClipboard(){
-                this.$clipboard(this.poolURL);
+                this.$clipboard(this.statistics.poolURL);
             },
 
             loadPoolData(){
@@ -111,7 +112,7 @@
                     let poolServers = WebDollar.Blockchain.PoolManagement.poolSettings.poolServers;
                     this.statistics.poolServers = WebDollar.Applications.PoolsUtilsHelper.getPoolServersStatus(poolServers);
 
-                    this.poolURL = WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
+                    this.statistics.poolURL = WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
 
                     this.statistics.poolFee = Math.floor( WebDollar.Blockchain.PoolManagement.poolSettings.poolFee*100 , 2 );
                     if (this.$refs['refPoolFee'] !== undefined)

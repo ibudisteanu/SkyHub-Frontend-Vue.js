@@ -14,9 +14,9 @@
 
                 <newsletter-hero/>
 
-                <!--<miner-pool-hero />-->
+                <miner-pool-hero v-show="!poolActivated"/>
 
-                <pool-hero/>
+                <pool-hero v-show="poolActivated"/>
 
                 <new-crypto-generation-hero/>
 
@@ -79,7 +79,8 @@
 
         data: () => {
             return {
-                protocolUsedOnMultipleTabs: false
+                protocolUsedOnMultipleTabs: false,
+                poolActivated: true,
             }
         },
 
@@ -127,6 +128,9 @@
 
             });
 
+
+            this.loadPoolSettings();
+
         },
 
         methods:{
@@ -141,11 +145,9 @@
                     WebDollar.StatusEvents.on("main-pools/status", async (data)=> {
 
                         if (data.message === "Pool Initialized") {
-                            console.log("111");
 
                             await WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.setPoolURL(this.$store.state.route.params['0']);
-
-                            console.log("2222");
+;
                             console.log(this.$store.state.route.params['0']);
                         }
 
@@ -153,6 +155,28 @@
 
 
                 }
+
+            },
+
+            loadPoolSettings(){
+
+                if (WebDollar.Blockchain.PoolManagement !== undefined && WebDollar.Blockchain.PoolManagement.poolStarted) this.poolActivated = true;
+                else if (WebDollar.Blockchain.MinerPoolManagement !== undefined && WebDollar.Blockchain.MinerPoolManagement.minerPoolStarted) this.poolActivated = false;
+                else this.poolActivated = false;
+
+                WebDollar.StatusEvents.on("miner-pool/status", (data) => {
+
+                    if (data.message === "Miner Pool Started changed")
+                        this.poolActivated = !data.result;
+
+                });
+
+                WebDollar.StatusEvents.on("pools/status", (data) => {
+
+                    if (data.message === "Pool Started changed")
+                        this.poolActivated = data.result;
+
+                });
 
             }
 
