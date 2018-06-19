@@ -73,6 +73,8 @@
                 poolHashes: 0,
                 poolMinersOnline: 0,
 
+                subscribedMinerPoolStatistics:false,
+
             }
         },
 
@@ -126,6 +128,8 @@
                     if (!minerPoolFound)
                         this.poolsListSelected = 'Pool Mining Disabled';
 
+                    this.subscribeMinerPoolStatistics();
+
                 }
 
 
@@ -134,6 +138,24 @@
             getPoolServers(){
                 let poolServers = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolServers;
                 this.poolServers = WebDollar.Applications.PoolsUtilsHelper.getPoolServersStatus(poolServers);
+            },
+
+            subscribeMinerPoolStatistics(){
+
+                if (this.subscribedMinerPoolStatistics) return ;
+
+                this.subscribedMinerPoolStatistics = true;
+
+                this.poolHashes = WebDollar.Blockchain.MinerPoolManagement.minerPoolStatistics.poolHashes;
+                this.poolMinersOnline = WebDollar.Blockchain.MinerPoolManagement.minerPoolStatistics.poolMinersOnline.length;
+
+                WebDollar.Blockchain.MinerPoolManagement.minerPoolStatistics.emitter.on("miner-pool/statistics/update",(data)=>{
+
+                    this.poolHashes = data.poolHashes;
+                    this.poolMinersOnline = data.poolMinersOnline;
+
+                });
+
             }
 
 

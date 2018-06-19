@@ -136,8 +136,8 @@
 
                 this.subscribedPoolStatistics = true;
 
-                this.poolHashes = WebDollar.Blockchain.PoolManagement.poolSettings.poolHashes;
-                this.poolMinersOnline = WebDollar.Blockchain.PoolManagement.poolSettings.poolMinersOnline;
+                this.poolHashes = WebDollar.Blockchain.PoolManagement.poolStatistics.poolHashes;
+                this.poolMinersOnline = WebDollar.Blockchain.PoolManagement.poolStatistics.poolMinersOnline.length;
 
                 WebDollar.Blockchain.PoolManagement.poolStatistics.emitter.on("pools/statistics/update",(data)=>{
 

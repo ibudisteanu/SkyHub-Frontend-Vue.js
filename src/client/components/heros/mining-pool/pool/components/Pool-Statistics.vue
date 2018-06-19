@@ -20,7 +20,7 @@
                 Pool Status: <span class="normalSpan" :class="this.selectStatusColor">{{ this.poolStatus }}</span>
             </span>
             <span class="oneLineText">
-                Pool Fee: <span class="normalSpan yellowColor"> <a :href="this.poolWebsite"> {{this.poolFee}} </a></span>
+                Pool Fee: <span class="normalSpan yellowColor"> <a :href="this.poolWebsite"> {{this.poolFee}} %</a></span>
             </span>
             <span class="oneLineText">
                 Online Hosts: <span class="normalSpan" :class="this.selectOnlineHostColor"> {{ this.onlineHosts }} </span>
