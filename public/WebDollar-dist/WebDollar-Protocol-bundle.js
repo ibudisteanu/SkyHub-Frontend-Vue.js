@@ -2850,7 +2850,7 @@ module.exports = function (it) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_common_crypto_WebDollar_Crypto__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__node_lists_types_Node_Type__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_common_mining_pools_pool_pool_management_Pool_Management__ = __webpack_require__(816);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_common_mining_pools_miner_Miner_Pool_Management__ = __webpack_require__(828);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_common_mining_pools_miner_Miner_Pool_Management__ = __webpack_require__(829);
 
 
 
@@ -63589,8 +63589,8 @@ module.exports = function (regExp, replace) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_main_blockchain_Blockchain__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_Node__ = __webpack_require__(835);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_applications_Applications__ = __webpack_require__(842);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_Node__ = __webpack_require__(836);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_applications_Applications__ = __webpack_require__(843);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_events_Status_Events__ = __webpack_require__(15);
 
 
@@ -96818,9 +96818,9 @@ class DetectMultipleWindows {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Pool_Settings__ = __webpack_require__(817);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_mining_pools_pool_pool_management_pool_data_Pool_Data__ = __webpack_require__(818);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Pool_Work_Management__ = __webpack_require__(823);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__protocol_Pool_Protocol__ = __webpack_require__(824);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pool_statistics_Pool_Statistics__ = __webpack_require__(827);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pool_work_Pool_Work_Management__ = __webpack_require__(823);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__protocol_Pool_Protocol__ = __webpack_require__(825);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pool_statistics_Pool_Statistics__ = __webpack_require__(828);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_common_events_Status_Events__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__ = __webpack_require__(12);
 
@@ -96846,7 +96846,7 @@ class PoolManagement{
         this.blockchain = blockchain;
 
         this.poolSettings = new __WEBPACK_IMPORTED_MODULE_0__Pool_Settings__["a" /* default */](wallet, this);
-        this.poolWorkManagement = new __WEBPACK_IMPORTED_MODULE_3__Pool_Work_Management__["a" /* default */]( this, blockchain );
+        this.poolWorkManagement = new __WEBPACK_IMPORTED_MODULE_3__pool_work_Pool_Work_Management__["a" /* default */]( this, blockchain );
         this.poolProtocol = new __WEBPACK_IMPORTED_MODULE_4__protocol_Pool_Protocol__["a" /* default */]( this );
         this.poolStatistics = new __WEBPACK_IMPORTED_MODULE_5__pool_statistics_Pool_Statistics__["a" /* default */]( this );
 
@@ -98014,13 +98014,9 @@ class PoolDataBlockInformationMinerInstance {
     async validateWorkHash(workHash, workNonce){
 
         //validate hash
-        if ( Math.random() < this.poolManagement.poolSettings.poolPOWValidationProbability ){
+        let hash = await this.workBlock.computeHash( workNonce );
 
-            let hash = await this.workBlock.computeHash( workNonce );
-
-            if ( ! __WEBPACK_IMPORTED_MODULE_1_common_utils_BufferExtended__["a" /* default */].safeCompare(hash, workHash ) ) return false;
-
-        }
+        if ( ! __WEBPACK_IMPORTED_MODULE_1_common_utils_BufferExtended__["a" /* default */].safeCompare(hash, workHash ) ) return false;
 
         return true;
 
@@ -98105,10 +98101,10 @@ class PoolDataBlockInformationMinerInstance {
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_utils_Serialization__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_utils_BufferExtended__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_main_blockchain_Blockchain__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_utils_coins_WebDollar_Coins__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_utils_Revert_Actions_Revert_Actions__ = __webpack_require__(92);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_common_sockets_protocol_propagation_Node_Blockchain_Propagation__ = __webpack_require__(93);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_coins_WebDollar_Coins__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_utils_Revert_Actions_Revert_Actions__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_sockets_protocol_propagation_Node_Blockchain_Propagation__ = __webpack_require__(93);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Pool_Work__ = __webpack_require__(824);
 
 
 
@@ -98124,23 +98120,11 @@ class PoolWorkManagement{
         this.poolManagement = poolManagement;
         this.blockchain = blockchain;
 
-        this._lastBlock = undefined;
-        this._lastBlockNonce = 0;
+        this.poolWork = new __WEBPACK_IMPORTED_MODULE_6__Pool_Work__["a" /* default */](poolManagement, blockchain);
 
     }
 
-    async getNextBlock(){
 
-        if (!__WEBPACK_IMPORTED_MODULE_3_main_blockchain_Blockchain__["a" /* default */].synchronized)
-            throw {message: "Blockchain is not yet synchronized"};
-
-        this._lastBlock = await this.blockchain.mining.getNextBlock();
-        this._lastBlockNonce = 0;
-
-        if (this._lastBlock.computedBlockPrefix === null )
-            this._lastBlock._computeBlockHeaderPrefix();
-
-    }
 
 
     async getWork(minerInstance){
@@ -98148,36 +98132,39 @@ class PoolWorkManagement{
         let hashes = minerInstance.hashesPerSecond;
         if (hashes === undefined ) hashes = 500;
 
-        if (this._lastBlock === undefined || ( this._lastBlockNonce + hashes ) > 0xFFFFFFFF )
-            await this.getNextBlock();
+        let blockInformationMinerInstance = this.poolManagement.poolData.lastBlockInformation._addBlockInformationMinerInstance(minerInstance);
 
-        if ( this._lastBlock.height !==  this.blockchain.blocks.length || !this._lastBlock.hashPrev.equals( this.blockchain.blocks.last.hash ) )
-            await this.getNextBlock();
+        console.log(11111);
+
+        await this.poolWork.lastBlockPromise; //it's a promise, let's wait
+
+        if (this.poolWork.lastBlock === undefined || ( this.poolWork.lastBlockNonce + hashes ) > 0xFFFFFFFF  || this.poolWork.lastBlock.height !==  this.blockchain.blocks.length || !this.poolWork.lastBlock.hashPrev.equals( this.blockchain.blocks.last.hash ))
+            await this.poolWork.getNextBlockForWork();
+
+        console.log(33333);
 
         let serialization = Buffer.concat( [
-            __WEBPACK_IMPORTED_MODULE_0_common_utils_Serialization__["a" /* default */].serializeBufferRemovingLeadingZeros( __WEBPACK_IMPORTED_MODULE_0_common_utils_Serialization__["a" /* default */].serializeNumber4Bytes(this._lastBlock.height) ),
-            __WEBPACK_IMPORTED_MODULE_0_common_utils_Serialization__["a" /* default */].serializeBufferRemovingLeadingZeros( this._lastBlock.difficultyTargetPrev ),
-            this._lastBlock.computedBlockPrefix
+            __WEBPACK_IMPORTED_MODULE_0_common_utils_Serialization__["a" /* default */].serializeBufferRemovingLeadingZeros( __WEBPACK_IMPORTED_MODULE_0_common_utils_Serialization__["a" /* default */].serializeNumber4Bytes(this.poolWork.lastBlock.height) ),
+            __WEBPACK_IMPORTED_MODULE_0_common_utils_Serialization__["a" /* default */].serializeBufferRemovingLeadingZeros( this.poolWork.lastBlock.difficultyTargetPrev ),
+            this.poolWork.lastBlock.computedBlockPrefix
         ]);
 
         let answer = {
 
-            h: this._lastBlock.height,
-            t: this._lastBlock.difficultyTargetPrev,
-            s: this._lastBlock.computedBlockPrefix,
+            h: this.poolWork.lastBlock.height,
+            t: this.poolWork.lastBlock.difficultyTargetPrev,
+            s: this.poolWork.lastBlock.computedBlockPrefix,
 
-            start: this._lastBlockNonce,
-            end: this._lastBlockNonce + hashes,
+            start: this.poolWork.lastBlockNonce,
+            end: this.poolWork.lastBlockNonce + hashes,
 
             serialization: serialization,
         };
 
-        this._lastBlockNonce += hashes;
+        this.poolWork.lastBlockNonce += hashes;
 
         minerInstance.work = answer;
-
-        let blockInformationMinerInstance = this.poolManagement.poolData.lastBlockInformation._addBlockInformationMinerInstance(minerInstance);
-        blockInformationMinerInstance.workBlock = this._lastBlock;
+        blockInformationMinerInstance.workBlock = this.poolWork.lastBlock;
 
         return answer;
 
@@ -98185,24 +98172,29 @@ class PoolWorkManagement{
 
     async processWork(minerInstance, work){
 
-        if (work === null || typeof work !== "object") throw {message: "work is undefined"};
+        try{
 
-        if ( !Buffer.isBuffer(work.hash) || work.hash.length !== __WEBPACK_IMPORTED_MODULE_2_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_POW_LENGTH) throw {message: "hash is invalid"};
-        if ( typeof work.nonce !== "number" ) throw {message: "nonce is invalid"};
-        if ( typeof work.timeDiff !== "number" ) throw {message: "timeDiff is invalid"};
+            if (work === null || typeof work !== "object") throw {message: "work is undefined"};
 
-        let hashesFactor = Math.min(5, (3000/work.timeDiff));
-        hashesFactor = Math.max(0.01, hashesFactor);
+            if ( !Buffer.isBuffer(work.hash) || work.hash.length !== __WEBPACK_IMPORTED_MODULE_2_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_POW_LENGTH) throw {message: "hash is invalid"};
+            if ( typeof work.nonce !== "number" ) throw {message: "nonce is invalid"};
+            if ( typeof work.timeDiff !== "number" ) throw {message: "timeDiff is invalid"};
 
-        minerInstance.hashesPerSecond *= Math.floor( hashesFactor );
-        minerInstance.hashesPerSecond = Math.min( minerInstance.hashesPerSecond , 5000);
-        minerInstance.hashesPerSecond = Math.max( minerInstance.hashesPerSecond , 100);
+            let blockInformationMinerInstance = this.poolManagement.poolData.lastBlockInformation._addBlockInformationMinerInstance(minerInstance);
+
+            if (blockInformationMinerInstance.workBlock === undefined)
+                throw {message: "no block"};
+
+            let hashesFactor = Math.min(5, (3000/work.timeDiff));
+            hashesFactor = Math.max(0.01, hashesFactor);
+
+            minerInstance.hashesPerSecond *= Math.floor( hashesFactor );
+            minerInstance.hashesPerSecond = Math.min( minerInstance.hashesPerSecond , 5000);
+            minerInstance.hashesPerSecond = Math.max( minerInstance.hashesPerSecond , 100);
 
 
-
-        let blockInformationMinerInstance = this.poolManagement.poolData.lastBlockInformation._addBlockInformationMinerInstance(minerInstance);
-
-        if ( await blockInformationMinerInstance.validateWorkHash( work.hash, work.nonce ) ){
+            if ( false === await blockInformationMinerInstance.validateWorkHash( work.hash, work.nonce )  )
+                throw {message: "block was incorrectly mined"};
 
             blockInformationMinerInstance.workHash = work.hash;
             blockInformationMinerInstance.workHashNonce = work.nonce;
@@ -98213,63 +98205,45 @@ class PoolWorkManagement{
             //statistics
             this.poolManagement.poolStatistics.addStatistics(blockInformationMinerInstance.workDifficulty, minerInstance.publicKey, minerInstance);
 
-            if (work.result)
-                if (await blockInformationMinerInstance.wasBlockMined() ) {
+            if (work.result && await blockInformationMinerInstance.wasBlockMined() ) {
 
-                    console.warn("----------------------------------------------------------------------------");
-                    console.warn("WebDollar Block was mined in Pool ", blockInformationMinerInstance.workBlock.height, " nonce (", blockInformationMinerInstance.workHashNonce + ")", blockInformationMinerInstance.workHash.toString("hex"), " reward", (blockInformationMinerInstance.workBlock.reward / __WEBPACK_IMPORTED_MODULE_4_common_utils_coins_WebDollar_Coins__["a" /* default */].WEBD), "WEBD", blockInformationMinerInstance.workBlock.data.minerAddress.toString("hex"));
-                    console.warn("----------------------------------------------------------------------------");
+                console.warn("----------------------------------------------------------------------------");
+                console.warn("WebDollar Block was mined in Pool ", blockInformationMinerInstance.workBlock.height, " nonce (", blockInformationMinerInstance.workHashNonce + ")", blockInformationMinerInstance.workHash.toString("hex"), " reward", (blockInformationMinerInstance.workBlock.reward / __WEBPACK_IMPORTED_MODULE_3_common_utils_coins_WebDollar_Coins__["a" /* default */].WEBD), "WEBD", blockInformationMinerInstance.workBlock.data.minerAddress.toString("hex"));
+                console.warn("----------------------------------------------------------------------------");
 
+                let revertActions = new __WEBPACK_IMPORTED_MODULE_4_common_utils_Revert_Actions_Revert_Actions__["a" /* default */](this.blockchain);
 
-                    try {
+                if (await this.blockchain.semaphoreProcessing.processSempahoreCallback(async () => {
 
-                        let revertActions = new __WEBPACK_IMPORTED_MODULE_5_common_utils_Revert_Actions_Revert_Actions__["a" /* default */](this.blockchain);
+                        blockInformationMinerInstance.workBlock.hash = blockInformationMinerInstance.workHash;
+                        blockInformationMinerInstance.workBlock.nonce = blockInformationMinerInstance.workHashNonce;
 
-                        if (await this.blockchain.semaphoreProcessing.processSempahoreCallback(async () => {
+                        //returning false, because a new fork was changed in the mean while
+                        if (this.blockchain.blocks.length !== blockInformationMinerInstance.workBlock.height)
+                            return false;
 
-                                blockInformationMinerInstance.workBlock.hash = blockInformationMinerInstance.workHash;
-                                blockInformationMinerInstance.workBlock.nonce = blockInformationMinerInstance.workHashNonce;
+                        return this.blockchain.includeBlockchainBlock(blockInformationMinerInstance.workBlock, false, ["all"], true, revertActions);
 
-                                //returning false, because a new fork was changed in the mean while
-                                if (this.blockchain.blocks.length !== blockInformationMinerInstance.workBlock.height)
-                                    return false;
+                    }) === false) throw {message: "Mining2 returned false"};
 
-                                return this.blockchain.includeBlockchainBlock(blockInformationMinerInstance.workBlock, false, ["all"], true, revertActions);
+                __WEBPACK_IMPORTED_MODULE_5_common_sockets_protocol_propagation_Node_Blockchain_Propagation__["a" /* default */].propagateLastBlockFast(blockInformationMinerInstance.workBlock);
 
-                            }) === false) throw {message: "Mining2 returned false"};
+                revertActions.destroyRevertActions();
 
-                        __WEBPACK_IMPORTED_MODULE_6_common_sockets_protocol_propagation_Node_Blockchain_Propagation__["a" /* default */].propagateLastBlockFast(blockInformationMinerInstance.workBlock);
-
-                        revertActions.destroyRevertActions();
-
-                        //confirming transactions
-                        blockInformationMinerInstance.workBlock.data.transactions.transactions.forEach((transaction) => {
-                            transaction.confirmed = true;
-                            this.blockchain.transactions.pendingQueue._removePendingTransaction(transaction);
-                        });
-
-                    } catch (exception) {
-
-                        console.error("Mining processBlocksSempahoreCallback raised an error ", blockInformationMinerInstance.workBlock.height, exception);
-
-                    }
-
-                } else {
-                    //remove blockInformation
-                    this.poolManagement.poolData.lastBlockInformation._deleteBLockInformationMinerInstance(minerInstance);
-                    throw {message: "block was incorrectly mined"};
-                }
+                //confirming transactions
+                blockInformationMinerInstance.workBlock.data.transactions.transactions.forEach((transaction) => {
+                    transaction.confirmed = true;
+                    this.blockchain.transactions.pendingQueue._removePendingTransaction(transaction);
+                });
+            }
 
             return {result: true, potentialReward: blockInformationMinerInstance.reward, confirmedReward: minerInstance.miner.calculateConfirmedReward() };
 
-        } else {
+        } catch (exception){
 
-            //remove blockInformation
-            this.poolManagement.poolData.lastBlockInformation._deleteBLockInformationMinerInstance(minerInstance);
+            return {result: false, potentialReward: 0, message: exception.message };
 
         }
-
-        return {result: false, potentialReward: 0 };
 
     }
 
@@ -98283,12 +98257,98 @@ class PoolWorkManagement{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_main_blockchain_Blockchain__ = __webpack_require__(12);
+
+
+class PoolWork {
+
+    constructor(poolManagement, blockchain){
+
+        this.poolManagement = poolManagement;
+        this.blockchain = blockchain;
+
+        this.lastBlockPromise = undefined;
+        this.lastBlock = undefined;
+        this.lastBlockNonce = 0;
+
+    }
+
+    getNextBlockForWork(){
+
+        //still pending
+        if (this.lastBlockPromise !== undefined && this.lastBlockPromise.isPending() )
+            return this.lastBlockPromise;
+
+        //new work
+
+        if (!__WEBPACK_IMPORTED_MODULE_0_main_blockchain_Blockchain__["a" /* default */].synchronized)
+            throw {message: "Blockchain is not yet synchronized"};
+
+        let promise = new Promise( async (resolve)=>{
+
+            console.log(222);
+
+            this.lastBlock = await this.blockchain.mining.getNextBlock();
+            this.lastBlockNonce = 0;
+
+            if (this.lastBlock.computedBlockPrefix === null )
+                this.lastBlock._computeBlockHeaderPrefix();
+
+            resolve(true);
+        });
+
+        this.lastBlockPromise = this.MakeQuerablePromise( promise );
+
+        return this.lastBlockPromise;
+
+
+    }
+
+
+    MakeQuerablePromise(promise) {
+        // Don't modify any promise that has been already modified.
+        if (promise.isResolved) return promise;
+
+        // Set initial state
+        var isPending = true;
+        var isRejected = false;
+        var isFulfilled = false;
+
+        // Observe the promise, saving the fulfillment in a closure scope.
+        var result = promise.then(
+            function(v) {
+                isFulfilled = true;
+                isPending = false;
+                return v;
+            },
+            function(e) {
+                isRejected = true;
+                isPending = false;
+                throw e;
+            }
+        );
+
+        result.isFulfilled = function() { return isFulfilled; };
+        result.isPending = function() { return isPending; };
+        result.isRejected = function() { return isRejected; };
+        return result;
+    }
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (PoolWork);
+
+/***/ }),
+/* 825 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_helpers_Utils__ = __webpack_require__(110);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_crypto_ed25519__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__connected_servers_Pool_Connected_Servers_Protocol__ = __webpack_require__(825);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__connected_miners_Pool_Connected_Miners_Protocol__ = __webpack_require__(826);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__connected_servers_Pool_Connected_Servers_Protocol__ = __webpack_require__(826);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__connected_miners_Pool_Connected_Miners_Protocol__ = __webpack_require__(827);
 
 
 
@@ -98357,7 +98417,7 @@ class PoolProtocol {
 /* harmony default export */ __webpack_exports__["a"] = (PoolProtocol);
 
 /***/ }),
-/* 825 */
+/* 826 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -98528,7 +98588,7 @@ class PoolConnectedServersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_mi
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 826 */
+/* 827 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -98816,7 +98876,7 @@ class PoolConnectedMinersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_min
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 827 */
+/* 828 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -98870,7 +98930,7 @@ class PoolStatistics{
 
     addStatistics(hashes, minerPoolPublicKey, minerInstance){
 
-        this.poolManagement.poolStatistics.poolHashesNow += hashes;
+        this.poolManagement.poolStatistics.poolHashesNow += hashes.toNumber();
 
         let address = minerPoolPublicKey.toString("hex");
         if (this.poolMinersOnlineNow[address.toString("hex")] === undefined) {
@@ -98885,16 +98945,16 @@ class PoolStatistics{
 /* harmony default export */ __webpack_exports__["a"] = (PoolStatistics);
 
 /***/ }),
-/* 828 */
+/* 829 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_mining_pools_miner_mining_Miner_Pool_Mining__ = __webpack_require__(829);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_mining_pools_miner_mining_Miner_Pool_Reward__ = __webpack_require__(831);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_mining_pools_miner_pool_statistics_Miner_Pool_Statistics__ = __webpack_require__(832);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_mining_pools_miner_protocol_Miner_Pool_Protocol__ = __webpack_require__(833);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_mining_pools_miner_Miner_Pool_Settings__ = __webpack_require__(834);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_mining_pools_miner_mining_Miner_Pool_Mining__ = __webpack_require__(830);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_mining_pools_miner_mining_Miner_Pool_Reward__ = __webpack_require__(832);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_mining_pools_miner_pool_statistics_Miner_Pool_Statistics__ = __webpack_require__(833);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_mining_pools_miner_protocol_Miner_Pool_Protocol__ = __webpack_require__(834);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_mining_pools_miner_Miner_Pool_Settings__ = __webpack_require__(835);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_common_events_Status_Events__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__ = __webpack_require__(12);
 
@@ -99010,7 +99070,7 @@ class MinerProtocol {
 /* harmony default export */ __webpack_exports__["a"] = (MinerProtocol);
 
 /***/ }),
-/* 829 */
+/* 830 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -99027,7 +99087,7 @@ let InheritedPoolMining;
 
 
 if (true){
-    InheritedPoolMining = __webpack_require__(830).default;
+    InheritedPoolMining = __webpack_require__(831).default;
 }  else {
     InheritedPoolMining = require('./backbone/Pool-Backbone-Mining').default;
 }
@@ -99156,7 +99216,7 @@ class MinerPoolMining extends InheritedPoolMining {
 /* harmony default export */ __webpack_exports__["a"] = (MinerPoolMining);
 
 /***/ }),
-/* 830 */
+/* 831 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -99185,7 +99245,7 @@ class PoolBrowserMining extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_in
 /* harmony default export */ __webpack_exports__["default"] = (PoolBrowserMining);
 
 /***/ }),
-/* 831 */
+/* 832 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -99239,7 +99299,7 @@ class MinerPoolReward{
 /* harmony default export */ __webpack_exports__["a"] = (MinerPoolReward);
 
 /***/ }),
-/* 832 */
+/* 833 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -99289,7 +99349,7 @@ class MinerPoolStatistics{
 /* harmony default export */ __webpack_exports__["a"] = (MinerPoolStatistics);
 
 /***/ }),
-/* 833 */
+/* 834 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -99509,7 +99569,7 @@ class MinerProtocol extends __WEBPACK_IMPORTED_MODULE_7_common_mining_pools_comm
         let answer = await poolSocket.node.sendRequestWaitOnce("mining-pool/get-work", {
             minerPublicKey: this.minerPoolManagement.minerPoolSettings.minerPoolPublicKey,
             poolPublicKey: this.minerPoolManagement.minerPoolSettings.poolPublicKey,
-        }, "answer");
+        }, "answer", 6000);
 
         if (answer === null) throw {message: "get-work answered null" };
 
@@ -99533,10 +99593,10 @@ class MinerProtocol extends __WEBPACK_IMPORTED_MODULE_7_common_mining_pools_comm
                 poolPublicKey: this.minerPoolManagement.minerPoolSettings.poolPublicKey,
                 minerPublicKey: this.minerPoolManagement.minerPoolSettings.minerPoolPublicKey,
                 work: miningAnswer,
-            }, "answer");
+            }, "answer", 6000);
 
             if (answer === null) throw {message: "WorkDone: Answer is null"};
-            if (answer.result !== true) throw {message: "WorkDone: Result is not True"};
+            if (answer.result !== true) throw {message: "WorkDone: Result is not True", reason: answer.message};
 
             if (answer.result){
 
@@ -99571,7 +99631,7 @@ class MinerProtocol extends __WEBPACK_IMPORTED_MODULE_7_common_mining_pools_comm
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 834 */
+/* 835 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -99797,15 +99857,15 @@ class MinerPoolSettings {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
-/* 835 */
+/* 836 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_sockets_node_clients_service_node_clients_service__ = __webpack_require__(836);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_webrtc_service_node_web_peers_service__ = __webpack_require__(839);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_stats_Nodes_Stats__ = __webpack_require__(841);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_sockets_node_clients_service_node_clients_service__ = __webpack_require__(837);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_webrtc_service_node_web_peers_service__ = __webpack_require__(840);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_stats_Nodes_Stats__ = __webpack_require__(842);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_sockets_protocol_Node_Propagation_Protocol__ = __webpack_require__(211);
 var NodeServer, NodeExpress;
 
@@ -99849,13 +99909,13 @@ class Node{
 
 
 /***/ }),
-/* 836 */
+/* 837 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_waitlist_Nodes_Waitlist_Connecting__ = __webpack_require__(334);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_sockets_node_clients_service_discovery_node_clients_discovery_service__ = __webpack_require__(837);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_sockets_node_clients_service_discovery_node_clients_discovery_service__ = __webpack_require__(838);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_Nodes_List__ = __webpack_require__(6);
 
 
@@ -99886,7 +99946,7 @@ class NodeClientsService {
 /* harmony default export */ __webpack_exports__["a"] = (new NodeClientsService());
 
 /***/ }),
-/* 837 */
+/* 838 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -99894,7 +99954,7 @@ class NodeClientsService {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_waitlist_Nodes_Waitlist__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_waitlist_Nodes_Waitlist_Object__ = __webpack_require__(319);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_Nodes_List__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__fallbacks_fallback_object__ = __webpack_require__(838);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__fallbacks_fallback_object__ = __webpack_require__(839);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__fallbacks_fallback_nodes_list__ = __webpack_require__(256);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_node_lists_types_Node_Type__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_node_lists_types_Node_Consensus_Type__ = __webpack_require__(67);
@@ -100072,7 +100132,7 @@ class NodeDiscoveryService {
 
 
 /***/ }),
-/* 838 */
+/* 839 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -100106,11 +100166,11 @@ class FallBackObject {
 /* harmony default export */ __webpack_exports__["a"] = (FallBackObject);
 
 /***/ }),
-/* 839 */
+/* 840 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_webrtc_service_discovery_node_web_peers_discovery_service__ = __webpack_require__(840);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_webrtc_service_discovery_node_web_peers_discovery_service__ = __webpack_require__(841);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_main_blockchain_Blockchain__ = __webpack_require__(12);
 
 
@@ -100142,7 +100202,7 @@ class NodeWebPeersService {
 /* harmony default export */ __webpack_exports__["a"] = (new NodeWebPeersService());
 
 /***/ }),
-/* 840 */
+/* 841 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -100192,7 +100252,7 @@ class NodeWebPeersDiscoveryService {
 
 
 /***/ }),
-/* 841 */
+/* 842 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -100304,7 +100364,7 @@ class NodesStats {
 /* harmony default export */ __webpack_exports__["a"] = (new NodesStats());
 
 /***/ }),
-/* 842 */
+/* 843 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
