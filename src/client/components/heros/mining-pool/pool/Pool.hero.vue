@@ -25,7 +25,7 @@
                                 <p class="copyPoolLink">Pool Dashboard</p>
                             </router-link>
 
-                            <p class="copyPoolLink" v-show="this.statistics.poolURL !== ''" @click="copyToClipboard">
+                            <p class="copyPoolLink" v-show="this.poolURL !== ''" @click="copyToClipboard">
                                 Copy invite link
                             </p>
 
@@ -35,12 +35,12 @@
 
                 </div>
 
-                <pool-statistics :statistics="this.statistics"></pool-statistics>
+                <pool-statistics :poolName="poolName" :poolWebsite="poolWebsite" :poolURL="poolURL" :poolFee="poolFee" :poolServers="poolServers" :poolsList="poolsList" :poolsListSelected="poolsListSelected" :poolStatus="poolStatus" :poolHashes="poolHashes" :poolMinersOnline="poolMinersOnline"> </pool-statistics>
 
             </div>
 
-            
-            <div class="dataStatisticsItem" v-for="(poolServer, index) in this.statistics.poolServers">
+
+            <div class="dataStatisticsItem" v-for="(poolServer, index) in this.poolServers">
                 <span class="titlePool serverPool" >{{poolServer.name}}</span>
                 <span class="minerData serverPoolStatus" >{{poolServer.connected ? 'connected - '  + (poolServer.established ? 'established' : 'not established' )  : 'not connected'}} </span>
             </div>
@@ -55,7 +55,7 @@
 
     import Vue from 'vue';
     import Clipboard from 'v-clipboard';
-    import PoolStatistics from '../pool/components/PoolInfo.vue'
+    import PoolStatistics from './components/Pool-Statistics.vue'
 
     Vue.use(Clipboard);
 
@@ -63,23 +63,24 @@
 
         name: 'pool',
 
-        components:{PoolStatistics},
+        components:{ PoolStatistics },
 
         data: () => {
             return {
 
-                statistics:{
-                    poolName: '',
-                    poolWebsite: '',
-                    poolURL: '',
-                    poolFee: '',
-                    poolServers: {},
-                    poolsList: {},
-                    poolsListSelected: '',
-                    poolHash: 0,
-                    poolStatus: '',
-                    poolMinerNumber: 0
-                },
+                poolName: '',
+                poolWebsite: '',
+                poolURL: '',
+                poolFee: '',
+                poolServers: {},
+                poolsList: {},
+                poolsListSelected: '',
+                poolStatus: '',
+
+                poolHashes: 0,
+                poolMinersOnline: 0,
+
+                subscribedPoolStatistics: false,
             }
         },
 
@@ -87,40 +88,63 @@
 
             async handleChangePoolFee(fee){
 
-                this.statistics.poolFee = fee;
+                this.poolFee = fee;
 
                 if (WebDollar.Blockchain.PoolManagement !== undefined)
-                    await WebDollar.Blockchain.PoolManagement.poolSettings.setPoolFee(this.statistics.poolFee/100);
+                    await WebDollar.Blockchain.PoolManagement.poolSettings.setPoolFee(this.poolFee/100);
             },
 
             copyToClipboard(){
-                this.$clipboard(this.statistics.poolURL);
+                this.$clipboard(this.poolURL);
             },
 
             loadPoolData(){
 
                 if (WebDollar.Blockchain.PoolManagement === undefined){
 
-                    this.statistics.poolStatus = "not initialized";
+                    this.poolStatus = "not initialized";
 
                 } else {
 
-                    if (WebDollar.Blockchain.PoolManagement.poolInitialized) this.statistics.poolStatus = "Initialized";
-                    if (WebDollar.Blockchain.PoolManagement.poolOpened) this.statistics.poolStatus = "Configured";
-                    if (WebDollar.Blockchain.PoolManagement.poolStarted) this.statistics.poolStatus = "Started";
+                    if (WebDollar.Blockchain.PoolManagement.poolInitialized) this.poolStatus = "Initialized";
+                    if (WebDollar.Blockchain.PoolManagement.poolOpened) this.poolStatus = "Configured";
+                    if (WebDollar.Blockchain.PoolManagement.poolStarted) this.poolStatus = "Started";
 
-                    let poolServers = WebDollar.Blockchain.PoolManagement.poolSettings.poolServers;
-                    this.statistics.poolServers = WebDollar.Applications.PoolsUtilsHelper.getPoolServersStatus(poolServers);
+                    this.poolURL = WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
 
-                    this.statistics.poolURL = WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
+                    this.getPoolServers();
 
-                    this.statistics.poolFee = Math.floor( WebDollar.Blockchain.PoolManagement.poolSettings.poolFee*100 , 2 );
+                    this.poolFee = Math.floor( WebDollar.Blockchain.PoolManagement.poolSettings.poolFee*100 , 2 );
                     if (this.$refs['refPoolFee'] !== undefined)
-                        this.$refs['refPoolFee'].value = this.statistics.poolFee;
+                        this.$refs['refPoolFee'].value = this.poolFee;
 
+                    this.subscribePoolStatistics();
 
                 }
 
+
+            },
+
+            getPoolServers(){
+                let poolServers = WebDollar.Blockchain.PoolManagement.poolSettings.poolServers;
+                this.poolServers = WebDollar.Applications.PoolsUtilsHelper.getPoolServersStatus(poolServers);
+            },
+
+            subscribePoolStatistics(){
+
+                if (this.subscribedPoolStatistics) return ;
+
+                this.subscribedPoolStatistics = true;
+
+                this.poolHashes = WebDollar.Blockchain.PoolManagement.poolSettings.poolHashes;
+                this.poolMinersOnline = WebDollar.Blockchain.PoolManagement.poolSettings.poolMinersOnline;
+
+                WebDollar.Blockchain.PoolManagement.poolStatistics.emitter.on("pools/statistics/update",(data)=>{
+
+                    this.poolHashes = data.poolHashes;
+                    this.poolMinersOnline = data.poolMinersOnline.length;
+
+                });
 
             }
 
@@ -131,18 +155,19 @@
             if (typeof window === 'undefined') return;
 
             WebDollar.StatusEvents.on("pools/status", (data) => {
-
                 this.loadPoolData();
-
             });
 
             WebDollar.StatusEvents.on("pools/settings",(data)=>{
-
                 this.loadPoolData();
-
             });
 
             this.loadPoolData();
+
+            WebDollar.StatusEvents.on("pools/servers-connections",(data)=>{
+                this.getPoolServers();
+            });
+
 
         }
 

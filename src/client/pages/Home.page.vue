@@ -147,6 +147,7 @@
                         if (data.message === "Pool Initialized") {
 
                             await WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.setPoolURL(this.$store.state.route.params['0']);
+                            await WebDollar.Blockchain.MinerPoolManagement.setMinerPoolStarted(true, true);
 ;
                             console.log(this.$store.state.route.params['0']);
                         }

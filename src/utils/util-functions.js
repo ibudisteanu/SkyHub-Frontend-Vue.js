@@ -68,6 +68,23 @@ export default {
 
         return newNumber.substring(0,decimals);
 
+    },
+    
+    showHashes(hashes){
+
+        if (hashes >= 1000000) return (hashes / 1000000).toFixed(2);
+        if (hashes >= 1000) return (hashes / 1000).toFixed(0);
+        return hashes
+        
+    },
+    
+    showHashesSign(hashes){
+
+
+        if (hashes >= 1000000) return 'Mh/s';
+        if (hashes >= 1000) return 'Kh/s';
+        return 'h/s';
+        
     }
 
 }
