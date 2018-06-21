@@ -85447,7 +85447,7 @@ class MiniBlockchainAccountantTreeNode extends __WEBPACK_IMPORTED_MODULE_3_commo
 
         // Converting balances into Hex Object fo
         for (let i = 0; i < this.balances.length; i++)
-            list[ "0x"+this.balances[i].id.toString("hex") ] = this.balances[i].amount.toString();
+            list[ "0x"+this.balances[i].id.toString("hex") ] = this.balances[i].amount;
 
 
         return list;
@@ -99587,13 +99587,16 @@ class PoolPayouts{
 
         this.blockchain = blockchain;
 
+        this._payoutInProgress = false;
 
         __WEBPACK_IMPORTED_MODULE_1_common_events_Status_Events__["a" /* default */].on("blockchain/blocks-count-changed",async (data)=>{
 
             if (!this.poolManagement._poolStarted) return;
 
-            if (this.blockchain.blocks.length % PAYOUT_INTERVAL === 0)
+
+            if (this.blockchain.blocks.length % PAYOUT_INTERVAL === 0) {
                 await this.doPayout();
+            }
 
 
         });
@@ -99604,19 +99607,29 @@ class PoolPayouts{
 
     async doPayout(){
 
+        if (this._payoutInProgress) return;
+
+        this._payoutInProgress = true;
+        await this._doPayout();
+        this._payoutInProgress = false;
+    }
+
+    async _doPayout(){
+
+        let blocksConfirmed = [];
+        for (let i=0; i<this.poolData.blocksInfo.length; i++)
+            if (this.poolData.blocksInfo[i].confirmed && !this.poolData.blocksInfo[i].payout)
+                blocksConfirmed.push(this.poolData.blocksInfo[i]);
+
+
+        if (blocksConfirmed.length === 0){
+            console.warn("No payouts, because no blocks were confirmed");
+            return false;
+        }
+
         try{
 
-            let blocksConfirmed = [];
-            for (let i=0; i<this.poolData.blocksInfo.length; i++)
-                if (this.poolData.blocksInfo[i].confirmed && !this.poolData.blocksInfo[i].payout)
-                    blocksConfirmed.push(this.poolData.blocksInfo[i]);
-
-
-            if (blocksConfirmed.length === 0){
-                console.warn("No payouts, because no blocks were confirmed");
-                return false;
-            }
-
+            this._toAddresses = [];
 
             for (let i=0; i<blocksConfirmed.length; i++) {
 
@@ -99696,9 +99709,10 @@ class PoolPayouts{
 
                     blockInformationMinerInstance.miner.rewardSent += blockInformationMinerInstance.reward;
                     blockInformationMinerInstance.miner.rewardTotal -= blockInformationMinerInstance.reward;
+                    blockInformationMinerInstance.miner.rewardConfirmedOther = 0;
 
                     blockInformationMinerInstance.reward = 0;
-                    blockInformationMinerInstance.miner.rewardConfirmedOther = 0;
+                    blockInformationMinerInstance.minerInstanceTotalDifficulty = undefined;
 
                 });
 
@@ -100072,11 +100086,9 @@ class MinerPoolReward{
     set potentialReward(newValue){
 
         if (this._potentialReward === newValue || typeof newValue !== "number") return;
-        this._potentialReward = newValue;
+        this._potentialReward = parseInt( newValue);
 
         __WEBPACK_IMPORTED_MODULE_0_common_events_Status_Events__["a" /* default */].emit("miner-pool/potential-reward", { potentialReward: newValue });
-
-        console.info("Pool Potential Reward: ", newValue/10000);
 
     }
 
@@ -100087,10 +100099,9 @@ class MinerPoolReward{
     set confirmedReward(newValue){
 
         if (this._confirmedReward === newValue || typeof newValue !== "number") return;
-        this._confirmedReward = newValue;
+        this._confirmedReward = parseInt( newValue );
 
-        __WEBPACK_IMPORTED_MODULE_0_common_events_Status_Events__["a" /* default */].emit("miner-pool/confirmed-reward", { confirmedReward: newValue });
-        console.info("Pool Confirmed Reward: ", newValue/10000);
+        __WEBPACK_IMPORTED_MODULE_0_common_events_Status_Events__["a" /* default */].emit("miner-pool/confirmed-reward", { confirmedReward: this._confirmedReward });
 
     }
 
