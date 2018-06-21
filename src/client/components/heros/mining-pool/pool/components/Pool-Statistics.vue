@@ -31,6 +31,12 @@
             <span class="oneLineText">
                 Miners in pool: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolMinersOnline}} </span>
             </span>
+            <span class="oneLineText">
+                Blocks confirmed: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksConfirmed}} </span>
+            </span>
+            <span class="oneLineText">
+                Blocks unconfirmed: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksUnconfirmed}} </span>
+            </span>
 
         </div>
 
@@ -55,6 +61,8 @@
 
             poolHashes: 0,
             poolMinersOnline: 0,
+            poolBlocksConfirmed: 0,
+            poolBlocksUnconfirmed: 0,
         },
 
         computed:{

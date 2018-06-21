@@ -35,7 +35,7 @@
 
                 </div>
 
-                <pool-statistics :poolName="poolName" :poolWebsite="poolWebsite" :poolURL="poolURL" :poolFee="poolFee" :poolServers="poolServers" :poolsList="poolsList" :poolsListSelected="poolsListSelected" :poolStatus="poolStatus" :poolHashes="poolHashes" :poolMinersOnline="poolMinersOnline"> </pool-statistics>
+                <pool-statistics :poolName="poolName" :poolWebsite="poolWebsite" :poolURL="poolURL" :poolFee="poolFee" :poolServers="poolServers" :poolsList="poolsList" :poolsListSelected="poolsListSelected" :poolStatus="poolStatus" :poolHashes="poolHashes" :poolMinersOnline="poolMinersOnline"  :poolBlocksConfirmed="poolBlocksConfirmed" :poolBlocksUnconfirmed="poolBlocksUnconfirmed"> </pool-statistics>
 
             </div>
 
@@ -79,6 +79,8 @@
 
                 poolHashes: 0,
                 poolMinersOnline: 0,
+                poolBlocksConfirmed: 0,
+                poolBlocksUnconfirmed: 0,
 
                 subscribedPoolStatistics: false,
             }
@@ -138,11 +140,15 @@
 
                 this.poolHashes = WebDollar.Blockchain.PoolManagement.poolStatistics.poolHashes;
                 this.poolMinersOnline = WebDollar.Blockchain.PoolManagement.poolStatistics.poolMinersOnline.length;
+                this.poolBlocksConfirmed = WebDollar.Blockchain.PoolManagement.poolStatistics.poolBlocksConfirmed;
+                this.poolBlocksUnconfirmed = WebDollar.Blockchain.PoolManagement.poolStatistics.poolBlocksUnconfirmed;
 
                 WebDollar.Blockchain.PoolManagement.poolStatistics.emitter.on("pools/statistics/update",(data)=>{
 
                     this.poolHashes = data.poolHashes;
                     this.poolMinersOnline = data.poolMinersOnline.length;
+                    this.poolBlocksConfirmed = data.poolBlocksConfirmed;
+                    this.poolBlocksUnconfirmed = data.poolBlocksUnconfirmed;
 
                 });
 
