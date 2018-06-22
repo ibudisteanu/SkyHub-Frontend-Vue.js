@@ -92016,39 +92016,10 @@ class InterfaceBlockchainAgentBasic{
 
         this._status = __WEBPACK_IMPORTED_MODULE_0__Agent_Status__["a" /* default */].AGENT_STATUS_NOT_SYNCHRONIZED;
 
-        this._intervalVerifyConesnsus = undefined;
-        this.startVerifyConsensusInterval();
+        this.consensus = true;
 
     }
 
-    startVerifyConsensusInterval(){
-
-        if (this._intervalVerifyConesnsus !== undefined) return;
-
-        this._prevBlocks = 0;
-        this._prevDate = 0;
-
-        this._intervalVerifyConesnsus = setInterval( () => {
-
-            if (this._prevDate !== undefined && this._prevBlocks === this.blockchain.blocks.length ) {
-
-                if (this.status !== __WEBPACK_IMPORTED_MODULE_0__Agent_Status__["a" /* default */].AGENT_STATUS_NOT_SYNCHRONIZED) {
-                    console.warn("agent basic synchronization");
-                    __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].synchronizeBlockchain(); //let's synchronize again
-                }
-
-            }
-
-            this._prevDate = new Date();
-            this._prevBlocks = this.blockchain.blocks.length;
-
-        },  true ? TIME_TO_RESYNCHRONIZE_IN_CASE_NO_NEW_BLOCKS_WERE_RECEIVED_BROWSER : TIME_TO_RESYNCHRONIZE_IN_CASE_NO_NEW_BLOCKS_WERE_RECEIVED_TERMINAL );
-
-    }
-
-    clearVerifyConsensusInterval(){
-        clearInterval(this._intervalVerifyConesnsus);
-    }
 
     setBlockchain(blockchain){
         this.blockchain = blockchain;
@@ -92056,6 +92027,53 @@ class InterfaceBlockchainAgentBasic{
     }
 
 
+    get consensus(){
+        return this._consensus;
+    }
+
+    set consensus(newValue){
+
+        this._consensus = newValue;
+        this.initializeConsensus(newValue);
+
+    }
+
+    initializeConsensus(newConsensus){
+
+        if (newConsensus){
+
+
+            //disconnect if no blocks are received
+            if (this._intervalVerifyConesnsus === undefined){
+
+                this._prevBlocks = 0;
+                this._prevDate = 0;
+
+                this._intervalVerifyConesnsus = setInterval( () => {
+
+                    if (this._prevDate !== undefined && this._prevBlocks === this.blockchain.blocks.length ) {
+
+                        if (this.status !== __WEBPACK_IMPORTED_MODULE_0__Agent_Status__["a" /* default */].AGENT_STATUS_NOT_SYNCHRONIZED) {
+                            console.warn("agent basic synchronization");
+                            __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].synchronizeBlockchain(); //let's synchronize again
+                        }
+
+                    }
+
+                    this._prevDate = new Date();
+                    this._prevBlocks = this.blockchain.blocks.length;
+
+                },  true ? TIME_TO_RESYNCHRONIZE_IN_CASE_NO_NEW_BLOCKS_WERE_RECEIVED_BROWSER : TIME_TO_RESYNCHRONIZE_IN_CASE_NO_NEW_BLOCKS_WERE_RECEIVED_TERMINAL );
+
+            }
+
+
+        } else {
+
+            clearInterval(this._intervalVerifyConesnsus);
+
+        }
+    }
 
 }
 
@@ -96973,33 +96991,6 @@ class MiniBlockchainAgentLightNode extends inheritAgentClass{
 
         this.light = true;
 
-        setInterval( () => {
-
-            if (this.blockchain.proofPi !== undefined)
-                if ( new Date().getTime() - this.blockchain.proofPi.date.getTime() >= __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK *1000 * 2) {
-                    if (Math.random() < 2*WEBRTC_MINIMUM_LIGHT_PROBABILITY && this.status === __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_agents_Agent_Status__["a" /* default */].AGENT_STATUS_SYNCHRONIZED_SLAVES) {
-                        console.warn("mini blockchain agent light synchronization");
-                        __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].synchronizeBlockchain(); //let's synchronize again
-                    }
-                }
-
-        }, (__WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK - 10) * 1000);
-
-        this._lastBlocks = undefined;
-        setInterval(()=>{
-
-            if (this.blockchain.blocks.length > 0){
-
-                if (this._lastBlocks !== undefined)
-                    if (this._lastBlocks === this.blockchain.blocks.length){
-                        location.reload();
-                    }
-
-                this._lastBlocks = this.blockchain.blocks.length;
-            }
-
-        }, __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK * 10 * 1000)
-
     }
 
 
@@ -97056,6 +97047,45 @@ class MiniBlockchainAgentLightNode extends inheritAgentClass{
         // });
     }
 
+
+    setConsensus(){
+
+        if (newConsensus){
+
+
+            this._intervalWebRTC =  setInterval( () => {
+
+                if (this.blockchain.proofPi !== undefined)
+                    if ( new Date().getTime() - this.blockchain.proofPi.date.getTime() >= __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK *1000 * 2) {
+                        if (Math.random() < 2*WEBRTC_MINIMUM_LIGHT_PROBABILITY && this.status === __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_agents_Agent_Status__["a" /* default */].AGENT_STATUS_SYNCHRONIZED_SLAVES) {
+                            console.warn("mini blockchain agent light synchronization");
+                            __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].synchronizeBlockchain(); //let's synchronize again
+                        }
+                    }
+
+            }, (__WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK - 10) * 1000);
+
+            this._lastBlocks = undefined;
+            this._intervalBlocksSame = setInterval(()=>{
+
+                if (this.blockchain.blocks.length <= 10) return;
+
+                if (this._lastBlocks !== undefined)
+                    if (this._lastBlocks === this.blockchain.blocks.length)
+                        location.reload();
+
+                this._lastBlocks = this.blockchain.blocks.length;
+
+            }, __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK * 10 * 1000)
+
+        } else {
+
+            clearInterval(this._intervalWebRTC);
+            clearInterval(this._intervalBlocksSame);
+
+        }
+
+    }
 
 
 }
@@ -100744,7 +100774,7 @@ class PoolWorkManagement{
             let blockInformationMinerInstance = this.poolManagement.poolData.lastBlockInformation._addBlockInformationMinerInstance(minerInstance);
 
             if (blockInformationMinerInstance.workBlock === undefined)
-                throw {message: "no block"};
+                throw {message: "miner instance - no block"};
 
             let hashesFactor = Math.min(5, (5000/work.timeDiff));
             hashesFactor = Math.max(0.01, hashesFactor);
@@ -101070,10 +101100,10 @@ class PoolConnectedServersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_mi
     async startPoolConnectedServersProtocol(){
 
         for (let i=0; i<__WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__["a" /* default */].nodes.length; i++)
-            await this._subscribePoolConnectedServer(__WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__["a" /* default */].nodes[i]);
+            await this._subscribePoolConnectedServer(__WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__["a" /* default */].nodes[i].socket);
 
         __WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__["a" /* default */].emitter.on("nodes-list/connected", async (nodesListObject) => {
-            await this._subscribePoolConnectedServer(nodesListObject)
+            await this._subscribePoolConnectedServer(nodesListObject.socket)
         });
 
         __WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__["a" /* default */].emitter.on("nodes-list/disconnected", (nodesListObject) => {
@@ -101083,9 +101113,7 @@ class PoolConnectedServersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_mi
 
     }
 
-    async _subscribePoolConnectedServer(nodesListObject){
-
-        let socket = nodesListObject.socket;
+    async _subscribePoolConnectedServer(socket){
 
         if (!this.poolManagement._poolStarted) return;
 
@@ -101192,6 +101220,8 @@ class PoolConnectedServersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_mi
 
         __WEBPACK_IMPORTED_MODULE_6_common_events_Status_Events__["a" /* default */].emit("pools/servers-connections", {message: "Server Removed"});
 
+         this.poolManagement.poolProtocol.poolConnectedMinersProtocol._subscribePoolConnectedMiners(socket);
+
     }
 
 }
@@ -101243,19 +101273,17 @@ class PoolConnectedMinersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_min
     async startPoolConnectedMinersProtocol(){
 
         for (let i=0; i<__WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__["a" /* default */].nodes.length; i++)
-            await this._subscribePoolConnectedMiners(__WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__["a" /* default */].nodes[i]);
+            await this._subscribePoolConnectedMiners(__WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__["a" /* default */].nodes[i].socket);
 
         __WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__["a" /* default */].emitter.on("nodes-list/connected", async (nodesListObject) => {
-            await this._subscribePoolConnectedMiners(nodesListObject)
+            await this._subscribePoolConnectedMiners(nodesListObject.socket)
         });
 
 
 
     }
 
-    async _subscribePoolConnectedMiners(nodesListObject){
-
-        let socket = nodesListObject.socket;
+    async _subscribePoolConnectedMiners(socket){
 
         if (!this.poolManagement._poolStarted) return;
 
@@ -102237,7 +102265,7 @@ class MinerProtocol {
                 await this.minerPoolProtocol.insertServersListWaitlist( this.minerPoolSettings.poolServers );
                 await this.minerPoolProtocol._startMinerProtocol();
 
-                this.blockchain.agent.clearVerifyConsensusInterval();
+                this.blockchain.agent.consensus = true;
             }
             else {
                 this.blockchain.mining = __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].blockchain.miningSolo;
@@ -102245,7 +102273,7 @@ class MinerProtocol {
 
                 await this.minerPoolProtocol._stopMinerProtocol();
 
-                this.blockchain.agent.startVerifyConsensusInterval();
+                this.blockchain.agent.consensus = false;
             }
 
             __WEBPACK_IMPORTED_MODULE_6_common_events_Status_Events__["a" /* default */].emit("miner-pool/status", {result: value, message: "Miner Pool Started changed" });
@@ -103148,7 +103176,7 @@ class Node{
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_waitlist_Nodes_Waitlist_Connecting__ = __webpack_require__(334);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_sockets_node_clients_service_discovery_node_clients_discovery_service__ = __webpack_require__(843);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_sockets_node_clients_service_discovery_Node_Clients_Discovery_Service__ = __webpack_require__(843);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_Nodes_List__ = __webpack_require__(6);
 
 
@@ -103167,7 +103195,7 @@ class NodeClientsService {
 
     startService(){
         __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].initializeWaitlist();
-        __WEBPACK_IMPORTED_MODULE_2_node_sockets_node_clients_service_discovery_node_clients_discovery_service__["a" /* default */].startDiscovery();
+        __WEBPACK_IMPORTED_MODULE_2_node_sockets_node_clients_service_discovery_Node_Clients_Discovery_Service__["a" /* default */].startDiscovery();
         __WEBPACK_IMPORTED_MODULE_1_node_lists_waitlist_Nodes_Waitlist_Connecting__["a" /* default */].startConnecting();
     }
 
