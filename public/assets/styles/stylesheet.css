@@ -33,9 +33,8 @@ h1{
   vertical-align: baseline;
   background: #9a9a9a24;
   color: #ffc12c;
-  text-transform: uppercase;
   line-height: 2.2em;
-  font-size: 32px;
+  font-size: 36px;
   font-weight: 100!important;
   word-wrap: break-word;
   transition: all .5s linear;
@@ -44,7 +43,7 @@ h1{
 h2{
   color: #8e8e8e;
   letter-spacing: 5px;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 100!important;
   line-height: 60px;
   transition: all .5s linear;
@@ -117,7 +116,7 @@ a:hover{
   display: grid;
   margin-left: 40px;
   margin-right: 40px;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-column-gap: 40px;
   grid-row-gap: 40px;
   text-align: center;
@@ -126,7 +125,7 @@ a:hover{
 
 #mediaContainer img{
   /*height: 50px;*/
-  width: 100%;
+  width: 290px;
     height:190px;
   border-radius: 10px;
   /*-webkit-filter: grayscale(100%); !* Safari 6.0 - 9.0 *!*/
@@ -136,6 +135,14 @@ a:hover{
 .twoColums{
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+
+.twoTeamColums{
+  grid-template-columns: 1fr 1fr!important;
+}
+
+.threeTeamColums{
+  grid-template-columns: 1fr 1fr 1fr!important;
 }
 
 #whatContainer img{
@@ -150,7 +157,7 @@ a:hover{
 }
 
 .hide{
-  display: none;
+  display: none!important;
 }
 
 .fullHeight{
@@ -269,6 +276,7 @@ a:hover{
   font-size: 12px;
   margin-top: 8px;
   letter-spacing: 2px;
+  line-height: 18px;
   text-transform: uppercase;
 }
 
@@ -1486,7 +1494,7 @@ background-color:#ff2200}
 
 #mediaContainer{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     margin: 0 auto;
     padding: 0 30px;
 }
@@ -1519,9 +1527,9 @@ background-color:#ff2200}
   vertical-align: baseline;
   background: #9a9a9a24;
   color: #ffc12c;
-  text-transform: uppercase;
+  text-transform: none;
   line-height: 2.2em;
-  font-size: 32px;
+  font-size: 36px;
   width: 100%;
   word-wrap: break-word;
   transition: all .5s linear;
@@ -1534,6 +1542,7 @@ background-color:#ff2200}
 .teamName{
   margin-bottom: 20px;
   font-size: 18px;
+  line-height: 22px;
   font-weight: 100!important;
   color: #fff;
 }
@@ -2113,4 +2122,38 @@ background-color:#ff2200}
 
 .poolSelect:focus{
   outline:none
+}
+
+.noTransform{
+  text-transform: none;
+}
+
+.titleWebSite{
+  font-size:40px;
+}
+
+.mottoWebSite{
+  font-size: 20px;
+  margin-top: 0;
+  line-height: 0px;
+}
+
+.statusMining{
+  margin-top: 80px!important;
+  font-size: 16px!important;
+  letter-spacing: 1px;
+  color: #f3daa0;
+  margin-bottom: 0;
+}
+
+.webSiteVerticalMiddle{
+  margin: 0;
+  position: absolute;
+  top: 50%!important;
+  left: 50%!important;
+  transform: translate(-50%, -50%)!important;
+}
+
+.noOverflow{
+  overflow: hidden;
 }

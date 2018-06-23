@@ -5,7 +5,7 @@
         <a id="newsletter"> </a>
         <div id="newsletterSection" class="backgroundSection">
 
-            <span class="pageTitle alignCenter titleMarginBottom removeBackground">Follow us on</span>
+            <span class="pageTitle alignCenter titleMarginBottom removeBackground">Follow us</span>
 
             <div class="socialLinksNewsletter">
                 <a href="https://facebook.com/webdollar.io" target="_blank">

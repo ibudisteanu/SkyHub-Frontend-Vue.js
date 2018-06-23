@@ -11,7 +11,7 @@
         grid-template-columns: 1fr;
     }
     #mediaContainer{
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
     }
 }
 
@@ -88,7 +88,7 @@
         grid-template-columns:  1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     }
     #mediaContainer{
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
     }
     .bountySide{
         display: block;
@@ -154,7 +154,7 @@
     }
 
     #mediaContainer{
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
     }
     .teamWrapper{
         grid-template-columns: 1fr 1fr 1fr;
@@ -316,6 +316,19 @@
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
 
+    .mottoWebSite{
+        margin-top: 30px;
+        line-height: 30px;
+    }
+
+    .statusMining {
+        margin-top: 30px!important;
+    }
+
+    .threeTeamColums, .twoTeamColums{
+        grid-template-columns: 1fr!important;
+    }
+
     .specialRaw{
         grid-template-columns: 1fr!important;
     }
@@ -347,7 +360,7 @@
     }
 
     #mediaContainer{
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
     }
 
     #yourPoolSection{
@@ -458,9 +471,14 @@
         margin-bottom: 30px;
     }
 
+    .statusMining{
+        margin-bottom: 0;
+    }
+
     #createPoolSection .distributionContainer {
         grid-template-columns: 1fr;
         grid-row-gap: 50px;
+        padding-top: 0;
     }
 
     #createPoolSection{
@@ -510,7 +528,7 @@
     }
     .mainLogo {
         width: 40%;
-        margin-bottom: 0;
+        /*margin-bottom: 0;*/
     }
     .teamWrapper{
         grid-template-columns: 1fr 1fr;

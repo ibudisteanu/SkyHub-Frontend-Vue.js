@@ -12,7 +12,7 @@
 
         <div id="websiteBody">
 
-            <slot name="content"></slot>
+            <slot class="noOverflow" name="content"></slot>
 
         </div>
 
