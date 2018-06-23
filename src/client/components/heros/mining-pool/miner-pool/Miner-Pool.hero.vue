@@ -36,7 +36,7 @@
 
                 </div>
 
-                <pool-statistics :poolName="poolName" :poolWebsite="poolWebsite" :poolURL="poolURL" :poolFee="poolFee" :poolServers="poolServers" :poolsList="poolsList" :poolsListSelected="poolsListSelected" :poolStatus="minerPoolStatus" :poolHashes="poolHashes" :poolMinersOnline="poolMinersOnline" :poolBlocksConfirmed="poolBlocksConfirmed" :poolBlocksUnconfirmed="poolBlocksUnconfirmed" > </pool-statistics>
+                <pool-statistics :poolName="poolName" :poolWebsite="poolWebsite" :poolURL="poolURL" :poolFee="poolFee" :poolServers="poolServers" :poolsList="poolsList" :poolsListSelected="poolsListSelected" :poolStatus="minerPoolStatus" :poolHashes="poolHashes" :poolMinersOnline="poolMinersOnline" :poolBlocksConfirmed="poolBlocksConfirmed" :poolBlocksUnconfirmed="poolBlocksUnconfirmed" :poolTimeRemaining="poolTimeRemaining" > </pool-statistics>
 
             </div>
 
@@ -74,6 +74,7 @@
                 poolMinersOnline: 0,
                 poolBlocksConfirmed: 0,
                 poolBlocksUnconfirmed: 0,
+                poolTimeRemaining: 0,
 
                 subscribedMinerPoolStatistics:false,
 
@@ -152,6 +153,7 @@
                 this.poolMinersOnline = WebDollar.Blockchain.MinerPoolManagement.minerPoolStatistics.poolMinersOnline.length;
                 this.poolBlocksConfirmed = WebDollar.Blockchain.MinerPoolManagement.minerPoolStatistics.poolBlocksConfirmed;
                 this.poolBlocksUnconfirmed = WebDollar.Blockchain.MinerPoolManagement.minerPoolStatistics.poolBlocksUnconfirmed;
+                this.poolTimeRemaining = WebDollar.Blockchain.MinerPoolManagement.minerPoolStatistics.poolTimeRemaining;
 
                 WebDollar.Blockchain.MinerPoolManagement.minerPoolStatistics.emitter.on("miner-pool/statistics/update",(data)=>{
 
@@ -159,6 +161,7 @@
                     this.poolMinersOnline = data.poolMinersOnline;
                     this.poolBlocksConfirmed = data.poolBlocksConfirmed;
                     this.poolBlocksUnconfirmed = data.poolBlocksUnconfirmed;
+                    this.poolTimeRemaining = data.poolTimeRemaining;
 
                 });
 

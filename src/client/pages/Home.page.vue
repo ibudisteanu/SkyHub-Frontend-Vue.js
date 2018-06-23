@@ -136,26 +136,22 @@
         methods:{
 
             async initializePool(){
-
-                //verify the Pool
-                //alert( this.$store.state.route.fullPath );
-
-                if (this.$store.state.route.params.a === "pool" && this.$store.state.route.params['0'].length > 5 ){
-
-                    WebDollar.StatusEvents.on("main-pools/status", async (data)=> {
-
-                        if (data.message === "Pool Initialized") {
-
-                            await WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.setPoolURL(this.$store.state.route.params['0']);
-                            await WebDollar.Blockchain.MinerPoolManagement.setMinerPoolStarted(true, true);
-;
-                            console.log(this.$store.state.route.params['0']);
-                        }
-
-                    });
-
-
+                
+                if (this.$store.state.route.params.a !== "pool" || this.$store.state.route.params['0'].length < 5 ) {
+                    return false;n
                 }
+
+                WebDollar.StatusEvents.on("main-pools/status", async (data)=> {
+
+                    if (data.message === "Pool Initialized") {
+
+                        await WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.setPoolURL(this.$store.state.route.params['0']);
+                        await WebDollar.Blockchain.MinerPoolManagement.setMinerPoolStarted(true, true);
+
+                        console.log(this.$store.state.route.params['0']);
+                    }
+
+                });
 
             },
 

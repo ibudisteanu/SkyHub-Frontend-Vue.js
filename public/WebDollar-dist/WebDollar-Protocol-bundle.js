@@ -2130,15 +2130,14 @@ consts.MINING_POOL = {
 
 };
 
-
 consts.SETTINGS = {
 
     UUID: uuid.v4(),
 
     NODE: {
 
-        VERSION: "1.135.1",
-        VERSION_COMPATIBILITY: "1.135.1",
+        VERSION: "1.135.2",
+        VERSION_COMPATIBILITY: "1.135.2",
         PROTOCOL: "WebDollar",
         SSL: true,
 
@@ -2152,6 +2151,8 @@ consts.SETTINGS = {
         WAITLIST: {
             TRY_RECONNECT_AGAIN: 30 * 1000,             //miliseconds
             INTERVAL: 2 * 1000,                         //miliseconds
+
+            BLOCKED_NODES: [ ], //addresses that will be blocked example: "domain.com"
         },
 
         SIGNALING: {
@@ -2271,6 +2272,8 @@ if ( consts.DEBUG === true ){
     consts.MINING_POOL.MINING.MAXIMUM_BLOCKS_TO_MINE_BEFORE_ERROR = 10000;
 
     consts.SETTINGS.NODE.PORT = 9095;
+
+    consts.BLOCKCHAIN.HARD_FORKS.TRANSACTIONS_BUG_2_BYTES = 100;
 
     __WEBPACK_IMPORTED_MODULE_0_node_sockets_node_clients_service_discovery_fallbacks_fallback_nodes_list__["a" /* default */].nodes = [{
         "addr": ["http://webdollar.ddns.net:9095"],
@@ -3191,12 +3194,11 @@ class Blockchain{
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BufferExtended__ = __webpack_require__(3);
 
-const BigNumber = __webpack_require__ (65);
+const BigNumber = __webpack_require__(65);
 
 class Serialization{
 
     /**
-     *
      * @param data
      */
     serializeBigInteger(bigInteger){
@@ -3219,7 +3221,7 @@ class Serialization{
         return buffer;
     }
 
-    convertBigNumberToBuffer( bigNumber, length ){
+    convertBigNumber( bigNumber, length ){
         //converting number value into a buffer
 
         let buffer = new Buffer(length);
@@ -3263,8 +3265,8 @@ class Serialization{
         return  buffer;
     }
 
+    //converting number value into a buffer
     serializeNumber4Bytes(data){
-        //converting number value into a buffer
         let buffer = Buffer(4);
         buffer[3] = data & 0xff;
         buffer[2] = data>>8 & 0xff;
@@ -3274,7 +3276,36 @@ class Serialization{
         return  buffer;
     }
 
+    //will show the nonce positive
+    deserializeNumber4Bytes_Positive(buffer, offset = 0){
+
+        let value = 0;
+
+        for ( let i = offset; i<=offset + 3 ; i++)
+                value = (value *256 ) + buffer[i];
+
+        return value;
+    }
+
+    deserializeNumber4Bytes(buffer, offset=0){
+        return buffer[3+offset] | (buffer[2+offset] << 8) | (buffer[1+offset] << 16) | (buffer[0+offset] << 24);
+    }
+
+    deserializeNumber3Bytes(buffer, offset=0){
+        return buffer[2+offset] | (buffer[1+offset] << 8) | (buffer[0+offset] << 16);
+    }
+
+    deserializeNumber2Bytes(buffer, offset=0){
+        return buffer[1+offset] | (buffer[0+offset] << 8);
+    }
+
+    deserializeNumber1Bytes(buffer, offset=0){
+        return buffer[0+offset];
+    }
+
+
     serializeNumber7Bytes(long){
+
         // we want to represent the input as a 8-bytes array
         var byteArray = new Buffer(7);
 
@@ -3286,7 +3317,6 @@ class Serialization{
 
         return byteArray;
     }
-
 
     deserializeNumber7Bytes(buffer, offset = 0){
 
@@ -3483,6 +3513,21 @@ class Serialization{
             number: res,
             newOffset: 2+length*6 + offset,
         }
+    }
+
+
+
+
+    deserializeNumber(buffer){
+
+        if(buffer.length === 1) return buffer[0]; else
+
+        if (buffer.length === 2) return buffer[1] | (buffer[0] << 8); else
+
+        if (buffer.length === 3) return buffer[2] | (buffer[1] << 8) | (buffer[0] << 16); else
+
+        if (buffer.length === 4) return buffer[3] | (buffer[2] << 8) | (buffer[1] << 16) | (buffer[0] << 24);
+
     }
 
 
@@ -8620,6 +8665,10 @@ class NodesWaitlist {
 
                 let sckAddress = __WEBPACK_IMPORTED_MODULE_2_common_sockets_protocol_extend_socket_Socket_Address__["a" /* default */].createSocketAddress(addresses[i], port);
                 if (sckAddress.address.indexOf("192.168") === 0 && !__WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].DEBUG ) continue;
+
+                //check blocked addresses
+                for (let i=0; i<__WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].SETTINGS.PARAMS.WAITLIST.BLOCKED_NODES.length; i++)
+                    if (sckAddress.address.indexOf(__WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].SETTINGS.PARAMS.WAITLIST.BLOCKED_NODES[i])) continue;
 
                 //it if is a fallback, maybe it requires SSL
                 if ( nodeType === __WEBPACK_IMPORTED_MODULE_3_node_lists_types_Node_Type__["a" /* default */].NODE_TERMINAL && true && !sckAddress.SSL && __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].SETTINGS.NODE.SSL && !__WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].DEBUG )  continue;
@@ -15555,10 +15604,6 @@ class WebDollarCryptoData {
         return this.buffer.compare(data.buffer)
     }
 
-    toInt(){
-        
-        return __WEBPACK_IMPORTED_MODULE_2_common_utils_Serialization__["a" /* default */].deserializeNumber(this.buffer);
-    }
 
 }
 
@@ -19406,7 +19451,7 @@ class InterfaceTreeNode {
         offset = offset || 0;
 
 
-        let valueLength = __WEBPACK_IMPORTED_MODULE_0__utils_Serialization__["a" /* default */].deserializeNumber(__WEBPACK_IMPORTED_MODULE_1__utils_BufferExtended__["a" /* default */].substr(buffer, offset, 2));
+        let valueLength = __WEBPACK_IMPORTED_MODULE_0__utils_Serialization__["a" /* default */].deserializeNumber2Bytes( buffer, offset );
         offset += 2;
 
         let value = __WEBPACK_IMPORTED_MODULE_0__utils_Serialization__["a" /* default */].deserializeNumber(__WEBPACK_IMPORTED_MODULE_1__utils_BufferExtended__["a" /* default */].substr(buffer, offset, valueLength));
@@ -19428,7 +19473,7 @@ class InterfaceTreeNode {
             if (includeEdges) {
 
                 //1 byte
-                let length = __WEBPACK_IMPORTED_MODULE_0__utils_Serialization__["a" /* default */].deserializeNumber(buffer[offset]);
+                let length = __WEBPACK_IMPORTED_MODULE_0__utils_Serialization__["a" /* default */].deserializeNumber1Bytes(buffer, offset);
 
                 for (let i = 0; i < length; i++) {
 
@@ -21051,12 +21096,12 @@ class InterfaceBlockchainBlock {
             this.hash = __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_POW_LENGTH);
             offset += __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_POW_LENGTH;
 
-            this.nonce = __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_NONCE) );
-            offset += __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_NONCE;
+            this.nonce = __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].deserializeNumber4Bytes( __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 4) );
+            offset += 4;
 
 
             //TODO 1 byte version
-            this.version = __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 2) );
+            this.version = __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].deserializeNumber2Bytes( buffer, offset );
             offset += 2;
 
             //TODO  put hashPrev into block.data
@@ -21064,7 +21109,7 @@ class InterfaceBlockchainBlock {
             offset += __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_POW_LENGTH;
 
 
-            this.timeStamp = __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 4) );
+            this.timeStamp = __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].deserializeNumber4Bytes( __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 4) );
             offset += 4;
 
             offset = this.data.deserializeData(buffer, offset);
@@ -27084,6 +27129,8 @@ class InterfaceBlockchainTransaction{
 
     validateTransactionEveryTime( blockHeight , blockValidationType = {}){
 
+        if (this.blockchain === undefined) throw {message: "blockchain is empty"};
+
         if (blockHeight === undefined) blockHeight = this.blockchain.blocks.length-1;
 
         if (this.timeLock !== 0 && blockHeight < this.timeLock) throw {message: "blockHeight < timeLock", timeLock: this.timeLock};
@@ -27155,19 +27202,19 @@ class InterfaceBlockchainTransaction{
 
         try{
 
-            this.version = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 1) );
+            this.version = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber1Bytes( buffer, offset );
             offset += 1;
 
             //hard fork
             if (this.version === 0x00){
-                this.nonce = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber(__WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 1));
+                this.nonce = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber1Bytes( buffer, offset);
                 offset += 1;
             } else if (this.version === 0x01){
-                this.nonce = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber(__WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 2));
+                this.nonce = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber2Bytes( buffer, offset);
                 offset += 2;
             }
 
-            this.timeLock =  __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 3) );
+            this.timeLock =  __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber3Bytes( buffer, offset );
             offset += 3;
 
             offset = this.from.deserializeFrom(buffer, offset);
@@ -31348,15 +31395,21 @@ module.exports = bytesToUuid;
         {"addr": ["https://chucknorris.webdollarvpn.io:8081"]}, // Thanks to @cbusuioceanu
         {"addr": ["https://chucknorris.webdollarvpn.io:8082"]}, // Thanks to @cbusuioceanu
         {"addr": ["https://chucknorris.webdollarvpn.io:8083"]}, // Thanks to @cbusuioceanu     
-        {"addr": ["https://angrybirds.webdollarvpn.io:4433"]}, // Thanks to @cbusuioceanu
+        {"addr": ["https://chucknorris.webdollarvpn.io:8084"]}, // Thanks to @cbusuioceanu     
+        {"addr": ["https://chucknorris.webdollarvpn.io:8085"]}, // Thanks to @cbusuioceanu     
+        {"addr": ["https://chucknorris.webdollarvpn.io:8086"]}, // Thanks to @cbusuioceanu     
+        {"addr": ["https://chucknorris.webdollarvpn.io:8087"]}, // Thanks to @cbusuioceanu     
         {"addr": ["https://angrybirds.webdollarvpn.io:1666"]}, // Thanks to @cbusuioceanu        
         {"addr": ["https://angrybirds.webdollarvpn.io:2666"]}, // Thanks to @cbusuioceanu
         {"addr": ["https://angrybirds.webdollarvpn.io:3666"]}, // Thanks to @cbusuioceanu
         {"addr": ["https://angrybirds.webdollarvpn.io:4666"]}, // Thanks to @cbusuioceanu
         {"addr": ["https://angrybirds.webdollarvpn.io:5666"]}, // Thanks to @cbusuioceanu
         
-        {"addr": ["https://webdollarinfinitypool.io"]}, //Thanks to @Tibi Popescu
+        {"addr": ["https://webdollarinfinitypool.io:443"]}, //Thanks to @Tibi Popescu
         {"addr": ["https://webdollarinfinitypool.io:80"]}, //Thanks to @Tibi Popescu
+        {"addr": ["https://webdollarinfinitypool.io:8080"]}, //Thanks to @Tibi Popescu
+        {"addr": ["https://webdollarinfinitypool.io:8081"]}, //Thanks to @Tibi Popescu
+        {"addr": ["https://webdollarinfinitypool.io:8082"]}, //Thanks to @Tibi Popescu
         
         {"addr": ["https://bacm.ro:80"]}, //Thanks to @jigodia
         {"addr": ["https://bacm.ro:443"]}, //Thanks to @jigodia
@@ -52107,7 +52160,7 @@ class InterfaceBlockchain {
     }
 
     _createBlockchainElements(){
-        this.transactions = new __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_transactions_Interface_Blockchain_Transactions__["a" /* default */](this);
+        this.transactions = new __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_transactions_Interface_Blockchain_Transactions__["a" /* default */]( this);
         this.blockCreator = new __WEBPACK_IMPORTED_MODULE_4_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Creator__["a" /* default */]( this, this.db, __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Data__["a" /* default */]);
     }
 
@@ -52234,7 +52287,7 @@ class InterfaceBlockchain {
 
             block.difficultyTarget = block.blockValidation.getDifficulty( block.timeStamp, block.height );
 
-            block.difficultyTarget = __WEBPACK_IMPORTED_MODULE_11_common_utils_Serialization__["a" /* default */].convertBigNumberToBuffer(block.difficultyTarget, __WEBPACK_IMPORTED_MODULE_9_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_POW_LENGTH);
+            block.difficultyTarget = __WEBPACK_IMPORTED_MODULE_11_common_utils_Serialization__["a" /* default */].convertBigNumber(block.difficultyTarget, __WEBPACK_IMPORTED_MODULE_9_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_POW_LENGTH);
 
         }
 
@@ -52840,7 +52893,7 @@ class InterfaceBlockchainTransactionFrom{
 
         this.addresses = [];
 
-        let length =  __WEBPACK_IMPORTED_MODULE_1_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_0_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 1) );
+        let length =  __WEBPACK_IMPORTED_MODULE_1_common_utils_Serialization__["a" /* default */].deserializeNumber1Bytes( buffer, offset );
         offset += 1;
 
         for (let i = 0; i < length; i++){
@@ -52862,7 +52915,7 @@ class InterfaceBlockchainTransactionFrom{
             this.addresses.push(address);
         }
 
-        let currencyLength =  __WEBPACK_IMPORTED_MODULE_1_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_0_common_utils_BufferExtended__["a" /* default */].substr( buffer, offset, 1 ) );
+        let currencyLength =  __WEBPACK_IMPORTED_MODULE_1_common_utils_Serialization__["a" /* default */].deserializeNumber1Bytes( buffer, offset, );
         offset += 1;
 
         this.currencyTokenId = __WEBPACK_IMPORTED_MODULE_0_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, currencyLength );
@@ -53026,7 +53079,7 @@ class InterfaceBlockchainTransactionTo{
 
         this.addresses = [];
 
-        let length = __WEBPACK_IMPORTED_MODULE_1_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_0_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 1) );
+        let length = __WEBPACK_IMPORTED_MODULE_1_common_utils_Serialization__["a" /* default */].deserializeNumber1Bytes( buffer, offset );
         offset += 1;
 
         for (let i = 0; i < length; i++){
@@ -54080,7 +54133,7 @@ class InterfaceRadixTreeEdge extends __WEBPACK_IMPORTED_MODULE_0_common_trees_In
 
     deserializeEdge(buffer, offset, createNewNode){
 
-        let labelLength = __WEBPACK_IMPORTED_MODULE_2__utils_Serialization__["a" /* default */].deserializeNumber(buffer[offset]);
+        let labelLength = __WEBPACK_IMPORTED_MODULE_2__utils_Serialization__["a" /* default */].deserializeNumber1Bytes(buffer, offset);
         offset +=1;
 
         this.label =  __WEBPACK_IMPORTED_MODULE_3_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, labelLength);
@@ -55745,6 +55798,7 @@ class NodesWaitlistConnecting {
         };
 
         setInterval(this._calculateNumberOfConnections.bind(this), 5000);
+
         this._calculateNumberOfConnections();
 
     }
@@ -65283,7 +65337,7 @@ class MainBlockchainWallet {
 
         try {
 
-            let numAddresses = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].substr(data, offset, 4) );
+            let numAddresses = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber4Bytes( __WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].substr(data, offset, 4) );
             offset += 4;
 
             this.addresses = [];
@@ -65484,12 +65538,12 @@ class MainBlockchainWallet {
                 //Deserialize public addresses and push back to addresses array
                 let offset = 0;
 
-                let numAddresses = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 1) );
+                let numAddresses = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber1Bytes( buffer, offset );
                 offset += 1;
 
                 for (let i = 0; i < numAddresses; ++i) {
 
-                    let len = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 1) );
+                    let len = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber1Bytes( buffer, offset, );
                     offset += 1;
 
                     let blockchainAddress = await this._justCreateNewAddress();
@@ -79111,16 +79165,17 @@ class InterfaceBlockchainAddress{
             readStream.on('data', async (buffer) => {
 
                 let offset = 0;
-                let len = __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 1) );
+                let len = __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].deserializeNumber1Bytes( buffer, offset, );
                 offset += 1;
 
                 let privateKey = __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, len);
                 offset += len;
 
-                let totalMultiSig = __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 1) );
+                let totalMultiSig = __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].deserializeNumber1Bytes( buffer, offset );
                 offset += 1;
 
-                let requiredMultiSig = __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 1) );
+                let requiredMultiSig = __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].deserializeNumber1Bytes( buffer, offset);
+                offset += 1;
 
                 resolve({result: await this.savePrivateKey(privateKey), totalMultiSig: totalMultiSig, requiredMultiSig: requiredMultiSig});
             });
@@ -79187,14 +79242,14 @@ class InterfaceBlockchainAddress{
         try {
 
             //read Address
-            len = __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 1) );
+            len = __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].deserializeNumber1Bytes( buffer, offset );
             offset += 1;
 
             this.address = __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__["a" /* default */].toBase( __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, len) );
             offset += len;
 
             //read unencodedAddress
-            len = __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 1) );
+            len = __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].deserializeNumber1Bytes( buffer, offset );
             offset += 1;
 
             this.unencodedAddress = __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, len);
@@ -79204,14 +79259,14 @@ class InterfaceBlockchainAddress{
             if (__WEBPACK_IMPORTED_MODULE_3__Interface_Blockchain_Address_Helper__["a" /* default */].getUnencodedAddressFromWIF(this.address).result === false)
                 throw {message: "address didn't pass the valdiateAddressChecksum "};
 
-            len = __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 1) );
+            len = __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].deserializeNumber1Bytes( buffer, offset );
             offset += 1;
 
             this.publicKey = __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, len);
             offset += len;
 
             if (deserializePrivateKey){
-                len = __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 1) );
+                len = __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__["a" /* default */].deserializeNumber1Bytes( buffer, offset );
                 offset += 1;
 
                 let privateKey = __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, len);
@@ -84257,7 +84312,7 @@ class InterfaceBlockchainBlockDataTransactions {
 
         for (let i=0; i<this.transactions.length; i++) {
 
-            if ( !__WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions.pendingQueue.findPendingTransaction(this.transactions[i]) )
+            if ( __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions.pendingQueue.findPendingTransaction(this.transactions[i]) === -1 )
                 this.transactions[i].destroyTransaction();
 
             this.transactions[i] = undefined;
@@ -84350,6 +84405,7 @@ class InterfaceBlockchainBlockDataTransactions {
         let list = [ __WEBPACK_IMPORTED_MODULE_3_common_utils_Serialization__["a" /* default */].serializeToFixedBuffer( 32, this.hashTransactions ) ];
 
         if ( !onlyHeader  && !this.blockData._onlyHeader ) {
+
             list.push(__WEBPACK_IMPORTED_MODULE_3_common_utils_Serialization__["a" /* default */].serializeNumber4Bytes(this.transactions.length));
 
             for (let i = 0; i < this.transactions.length; i++)
@@ -84367,7 +84423,7 @@ class InterfaceBlockchainBlockDataTransactions {
 
         if (!onlyHeader && !this.blockData._onlyHeader) {
 
-            let length = __WEBPACK_IMPORTED_MODULE_3_common_utils_Serialization__["a" /* default */].deserializeNumber(__WEBPACK_IMPORTED_MODULE_0_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 4)); //TODO change  2 elements
+            let length = __WEBPACK_IMPORTED_MODULE_3_common_utils_Serialization__["a" /* default */].deserializeNumber4Bytes( buffer, offset ); //TODO change  2 elements
             offset += 4 ;
 
             for (let i = 0; i < length; i++) {
@@ -86701,10 +86757,10 @@ class MiniBlockchainAccountantTreeNode extends __WEBPACK_IMPORTED_MODULE_3_commo
 
             if (this.isLeafBasedOnParents()){
 
-                this.nonce = __WEBPACK_IMPORTED_MODULE_1_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_0_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 2) ); //2 byte
+                this.nonce = __WEBPACK_IMPORTED_MODULE_1_common_utils_Serialization__["a" /* default */].deserializeNumber2Bytes( buffer, offset ); //2 byte
                 offset += 2;
 
-                let balancesLength = __WEBPACK_IMPORTED_MODULE_1_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_0_common_utils_BufferExtended__["a" /* default */].substr(buffer, offset, 1) ); //1 byte
+                let balancesLength = __WEBPACK_IMPORTED_MODULE_1_common_utils_Serialization__["a" /* default */].deserializeNumber1Bytes( buffer, offset ); //1 byte
                 offset += 1;
 
                 this.balances = []; // initialization
@@ -89200,13 +89256,13 @@ class PPoWBlockchainBlock extends __WEBPACK_IMPORTED_MODULE_1_common_blockchain_
 
         try {
 
-            let numInterlink = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].substr( buffer, offset, 1 ) );
+            let numInterlink = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber1Bytes( buffer, offset );
             offset += 1;
 
             this.interlink = [];
             for (let i = 0; i < numInterlink; ++i) {
 
-                let height = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_5_common_utils_BufferExtended__["a" /* default */].substr( buffer, offset, 3 ) );
+                let height = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeNumber3Bytes( buffer, offset );
                 offset += 3;
 
                 if (height === 0) {
@@ -91964,32 +92020,10 @@ class InterfaceBlockchainAgentBasic{
 
         this._status = __WEBPACK_IMPORTED_MODULE_0__Agent_Status__["a" /* default */].AGENT_STATUS_NOT_SYNCHRONIZED;
 
-        this.verifyConsensus();
+        this.consensus = true;
 
     }
 
-    verifyConsensus(){
-
-        this._prevBlocks = 0;
-        this._prevDate = 0;
-
-        setInterval( () => {
-
-            if (this._prevDate !== undefined && this._prevBlocks === this.blockchain.blocks.length ) {
-
-                if (this.status !== __WEBPACK_IMPORTED_MODULE_0__Agent_Status__["a" /* default */].AGENT_STATUS_NOT_SYNCHRONIZED) {
-                    console.warn("agent basic synchronization");
-                    __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].synchronizeBlockchain(); //let's synchronize again
-                }
-
-            }
-
-            this._prevDate = new Date();
-            this._prevBlocks = this.blockchain.blocks.length;
-
-        },  true ? TIME_TO_RESYNCHRONIZE_IN_CASE_NO_NEW_BLOCKS_WERE_RECEIVED_BROWSER : TIME_TO_RESYNCHRONIZE_IN_CASE_NO_NEW_BLOCKS_WERE_RECEIVED_TERMINAL );
-
-    }
 
     setBlockchain(blockchain){
         this.blockchain = blockchain;
@@ -91997,6 +92031,53 @@ class InterfaceBlockchainAgentBasic{
     }
 
 
+    get consensus(){
+        return this._consensus;
+    }
+
+    set consensus(newValue){
+
+        this._consensus = newValue;
+        this._initializeConsensus(newValue);
+
+    }
+
+    _initializeConsensus(newConsensus){
+
+        if (newConsensus){
+
+
+            //disconnect if no blocks are received
+            if (this._intervalVerifyConesnsus === undefined){
+
+                this._prevBlocks = 0;
+                this._prevDate = 0;
+
+                this._intervalVerifyConesnsus = setInterval( () => {
+
+                    if (this._prevDate !== undefined && this._prevBlocks === this.blockchain.blocks.length ) {
+
+                        if (this.status !== __WEBPACK_IMPORTED_MODULE_0__Agent_Status__["a" /* default */].AGENT_STATUS_NOT_SYNCHRONIZED) {
+                            console.warn("agent basic synchronization");
+                            __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].synchronizeBlockchain(); //let's synchronize again
+                        }
+
+                    }
+
+                    this._prevDate = new Date();
+                    this._prevBlocks = this.blockchain.blocks.length;
+
+                },  true ? TIME_TO_RESYNCHRONIZE_IN_CASE_NO_NEW_BLOCKS_WERE_RECEIVED_BROWSER : TIME_TO_RESYNCHRONIZE_IN_CASE_NO_NEW_BLOCKS_WERE_RECEIVED_TERMINAL );
+
+            }
+
+
+        } else {
+
+            clearInterval(this._intervalVerifyConesnsus);
+
+        }
+    }
 
 }
 
@@ -96914,33 +96995,6 @@ class MiniBlockchainAgentLightNode extends inheritAgentClass{
 
         this.light = true;
 
-        setInterval( () => {
-
-            if (this.blockchain.proofPi !== undefined)
-                if ( new Date().getTime() - this.blockchain.proofPi.date.getTime() >= __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK *1000 * 2) {
-                    if (Math.random() < 2*WEBRTC_MINIMUM_LIGHT_PROBABILITY && this.status === __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_agents_Agent_Status__["a" /* default */].AGENT_STATUS_SYNCHRONIZED_SLAVES) {
-                        console.warn("mini blockchain agent light synchronization");
-                        __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].synchronizeBlockchain(); //let's synchronize again
-                    }
-                }
-
-        }, (__WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK - 10) * 1000);
-
-        this._lastBlocks = undefined;
-        setInterval(()=>{
-
-            if (this.blockchain.blocks.length > 0){
-
-                if (this._lastBlocks !== undefined)
-                    if (this._lastBlocks === this.blockchain.blocks.length){
-                        location.reload();
-                    }
-
-                this._lastBlocks = this.blockchain.blocks.length;
-            }
-
-        }, __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK * 10 * 1000)
-
     }
 
 
@@ -96997,6 +97051,46 @@ class MiniBlockchainAgentLightNode extends inheritAgentClass{
         // });
     }
 
+    _initializeConsensus(newConsensus){
+
+        inheritAgentClass.prototype._initializeConsensus.call(this, newConsensus);
+
+        if (newConsensus){
+
+
+            this._intervalWebRTC =  setInterval( () => {
+
+                if (this.blockchain.proofPi !== undefined)
+                    if ( new Date().getTime() - this.blockchain.proofPi.date.getTime() >= __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK *1000 * 2) {
+                        if (Math.random() < 2*WEBRTC_MINIMUM_LIGHT_PROBABILITY && this.status === __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_agents_Agent_Status__["a" /* default */].AGENT_STATUS_SYNCHRONIZED_SLAVES) {
+                            console.warn("mini blockchain agent light synchronization");
+                            __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].synchronizeBlockchain(); //let's synchronize again
+                        }
+                    }
+
+            }, (__WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK - 10) * 1000);
+
+            this._lastBlocks = undefined;
+            this._intervalBlocksSame = setInterval(()=>{
+
+                if (this.blockchain.blocks.length <= 10) return;
+
+                if (this._lastBlocks !== undefined)
+                    if (this._lastBlocks === this.blockchain.blocks.length)
+                        location.reload();
+
+                this._lastBlocks = this.blockchain.blocks.length;
+
+            }, __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK * 10 * 1000)
+
+        } else {
+
+            clearInterval(this._intervalWebRTC);
+            clearInterval(this._intervalBlocksSame);
+
+        }
+
+    }
 
 
 }
@@ -99767,6 +99861,31 @@ class PoolData {
         return blockInformation;
     }
 
+    findBlockInformation(blockInformation){
+
+        for (let i=0; i<this.blocksInfo.length; i++)
+            if (blockInformation === this.blocksInfo[i])
+                return i;
+
+        return -1;
+
+    }
+
+    deleteBlockInformationByIndex(index){
+        this.blocksInfo[index].destroyPoolDataBlockInformation(  );
+        this.blocksInfo.splice(index, 1);
+    }
+
+    deleteBlockInformation(blockInformation){
+
+        let position = this.findBlockInformation(blockInformation);
+        if (position === -1) return null;
+
+        blockInformation.destroyPoolDataBlockInformation(  );
+
+        this.blocksInfo.splice(position, 1);
+    }
+
 
     
     /**
@@ -100235,6 +100354,7 @@ class PoolDataBlockInformation {
             totalDifficulty = new BigNumber(0);
 
         this.totalDifficulty = totalDifficulty;
+        this.totalDifficultyLength = 0;
 
         this.blockInformationMinersInstances = [];
 
@@ -100245,12 +100365,18 @@ class PoolDataBlockInformation {
         this.payout = false;
 
         this.block = block;
+        this.date = new Date().getTime();
 
+        this.bestHash = undefined;
+        this.timeRemaining = -1;
+
+        this.calculateTargetDifficulty();
     }
 
     destroyPoolDataBlockInformation(){
 
         this.poolManagement = undefined;
+
         for (let i=0; i<this.blockInformationMinersInstances.length; i++)
             this.blockInformationMinersInstances[i].destroyBlockInformationMinerInstance();
 
@@ -100266,7 +100392,7 @@ class PoolDataBlockInformation {
         if (difficulty === undefined)
             difficulty = __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_MAX_TARGET.dividedToIntegerBy( new BigNumber ( "0x"+ hash.toString("hex") ) );
 
-        this.totalDifficulty  = this.totalDifficulty.plus( difficulty );
+        this.totalDifficultyPlus( difficulty );
 
     }
 
@@ -100337,6 +100463,7 @@ class PoolDataBlockInformation {
             this.blockInformationMinersInstances.push(blockInformationMinerInstance);
 
         }
+        this._calculateTimeRemaining();
 
         let payout = __WEBPACK_IMPORTED_MODULE_0_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_3_common_utils_BufferExtended__["a" /* default */].substr( buffer, offset, 1 )  );
         offset += 1;
@@ -100396,13 +100523,56 @@ class PoolDataBlockInformation {
 
                 this.blockInformationMinersInstances[i].cancelReward();
 
-                this.totalDifficulty = this.totalDifficulty.minus(this.blockInformationMinersInstances[i].minerInstanceTotalDifficulty);
+                this.totalDifficultyMinus(this.blockInformationMinersInstances[i].minerInstanceTotalDifficulty);
                 this.blockInformationMinersInstances.splice(i,1);
 
                 for (let j=0; j<this.blockInformationMinersInstances.length; j++)
                     this.blockInformationMinersInstances.adjustDifficulty(0);
 
             }
+    }
+
+
+    calculateTargetDifficulty(){
+
+        this.targetDifficulty = __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_MAX_TARGET.dividedBy( new BigNumber ( "0x"+ this.poolManagement.blockchain.getDifficultyTarget().toString("hex") ) );
+
+    }
+
+    _calculateTimeRemaining(){
+
+        // my_difficulty ... x sec
+        // target_difficulty ... y sec
+        //
+        // y = x * target_difficulty / ( sum(  difficulties ) / n);
+        if (this.poolManagement.poolData.blocksInfo.length !== 0 && this.poolManagement.poolData.lastBlockInformation !== this) return;
+
+        if (this.bestHash === undefined) return 40;
+
+        let dTime = (new Date().getTime() - this.date)/1000;
+        this.timeRemaining =  Math.max(0, Math.floor( new BigNumber ( "0x"+ this.bestHash.toString("hex")) .dividedBy( new BigNumber ( "0x"+ this.poolManagement.blockchain.getDifficultyTarget().toString("hex") )) .multipliedBy( dTime ).toNumber() - dTime));
+
+    }
+
+    totalDifficultyPlus(value){
+        this.totalDifficulty = this.totalDifficulty.plus(value);
+        this.totalDifficultyLength++;
+        this._calculateTimeRemaining();
+    }
+
+    totalDifficultyMinus(value){
+        this.totalDifficulty = this.totalDifficulty.minus(value);
+        this.totalDifficultyLength--;
+        this._calculateTimeRemaining();
+    }
+
+    set timeRemaining(newValue){
+
+        this._timeRemaining = newValue;
+
+        if (this.poolManagement.poolData.blocksInfo.length === 0 || this.poolManagement.poolData.lastBlockInformation === this)
+            this.poolManagement.poolStatistics.poolTimeRemaining = newValue;
+
     }
 
 }
@@ -100438,7 +100608,7 @@ class PoolDataBlockInformationMinerInstance {
 
         this.reward = 0;
 
-        this.workHash = undefined;
+        this._workHash = undefined;
         this.workHashNonce = undefined;
         this.workBlock = undefined;
 
@@ -100482,7 +100652,7 @@ class PoolDataBlockInformationMinerInstance {
 
         // target     =     maximum target / difficulty
         // difficulty =     maximum target / target
-        this._workDifficulty = __WEBPACK_IMPORTED_MODULE_2_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_MAX_TARGET.dividedBy( new BigNumber ( "0x"+ this.workHash.toString("hex") ) );
+        this._workDifficulty = __WEBPACK_IMPORTED_MODULE_2_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_MAX_TARGET.dividedBy( new BigNumber ( "0x"+ this._workHash.toString("hex") ) );
 
     }
 
@@ -100560,6 +100730,20 @@ class PoolDataBlockInformationMinerInstance {
         return this.minerInstance.miner;
     }
 
+    set workHash(newValue){
+
+        this._workHash = newValue;
+
+        if (this.blockInformation.bestHash === undefined || newValue.compare(this.blockInformation.bestHash) <= 0)
+            this.blockInformation.bestHash = newValue;
+
+    }
+
+    get workHash(){
+
+        return this._workHash;
+
+    }
 
 }
 
@@ -100600,8 +100784,6 @@ class PoolWorkManagement{
         this.poolWork = new __WEBPACK_IMPORTED_MODULE_6__Pool_Work__["a" /* default */](poolManagement, blockchain);
 
     }
-
-
 
 
     async getWork(minerInstance){
@@ -100659,7 +100841,7 @@ class PoolWorkManagement{
             let blockInformationMinerInstance = this.poolManagement.poolData.lastBlockInformation._addBlockInformationMinerInstance(minerInstance);
 
             if (blockInformationMinerInstance.workBlock === undefined)
-                throw {message: "no block"};
+                throw {message: "miner instance - no block"};
 
             let hashesFactor = Math.min(5, (5000/work.timeDiff));
             hashesFactor = Math.max(0.01, hashesFactor);
@@ -100720,6 +100902,8 @@ class PoolWorkManagement{
                 } catch (exception){
                     console.error("PoolWork include raised an exception", exception);
                     revertActions.revertOperations();
+
+                    this.poolWork.getNextBlockForWork();
                 }
 
                 revertActions.destroyRevertActions();
@@ -100985,10 +101169,10 @@ class PoolConnectedServersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_mi
     async startPoolConnectedServersProtocol(){
 
         for (let i=0; i<__WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__["a" /* default */].nodes.length; i++)
-            await this._subscribePoolConnectedServer(__WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__["a" /* default */].nodes[i]);
+            await this._subscribePoolConnectedServer(__WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__["a" /* default */].nodes[i].socket);
 
         __WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__["a" /* default */].emitter.on("nodes-list/connected", async (nodesListObject) => {
-            await this._subscribePoolConnectedServer(nodesListObject)
+            await this._subscribePoolConnectedServer(nodesListObject.socket)
         });
 
         __WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__["a" /* default */].emitter.on("nodes-list/disconnected", (nodesListObject) => {
@@ -100998,9 +101182,7 @@ class PoolConnectedServersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_mi
 
     }
 
-    async _subscribePoolConnectedServer(nodesListObject){
-
-        let socket = nodesListObject.socket;
+    async _subscribePoolConnectedServer(socket){
 
         if (!this.poolManagement._poolStarted) return;
 
@@ -101107,6 +101289,8 @@ class PoolConnectedServersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_mi
 
         __WEBPACK_IMPORTED_MODULE_6_common_events_Status_Events__["a" /* default */].emit("pools/servers-connections", {message: "Server Removed"});
 
+         this.poolManagement.poolProtocol.poolConnectedMinersProtocol._subscribePoolConnectedMiners(socket);
+
     }
 
 }
@@ -101158,19 +101342,17 @@ class PoolConnectedMinersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_min
     async startPoolConnectedMinersProtocol(){
 
         for (let i=0; i<__WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__["a" /* default */].nodes.length; i++)
-            await this._subscribePoolConnectedMiners(__WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__["a" /* default */].nodes[i]);
+            await this._subscribePoolConnectedMiners(__WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__["a" /* default */].nodes[i].socket);
 
         __WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__["a" /* default */].emitter.on("nodes-list/connected", async (nodesListObject) => {
-            await this._subscribePoolConnectedMiners(nodesListObject)
+            await this._subscribePoolConnectedMiners(nodesListObject.socket)
         });
 
 
 
     }
 
-    async _subscribePoolConnectedMiners(nodesListObject){
-
-        let socket = nodesListObject.socket;
+    async _subscribePoolConnectedMiners(socket){
 
         if (!this.poolManagement._poolStarted) return;
 
@@ -101232,6 +101414,7 @@ class PoolConnectedMinersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_min
 
                     h:this.poolManagement.poolStatistics.poolHashes,
                     m: this.poolManagement.poolStatistics.poolMinersOnline.length,
+                    t: this.poolManagement.poolStatistics.poolTimeRemaining,
 
                 }, "confirmation" );
 
@@ -101288,7 +101471,8 @@ class PoolConnectedMinersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_min
 
                 work.serialization = undefined; //don't send the data 2 times
 
-                socket.node.sendRequest("mining-pool/get-work/answer"+suffix, {result: true, work: work, signature: signature, h:this.poolManagement.poolStatistics.poolHashes, m: this.poolManagement.poolStatistics.poolMinersOnline.length, b: this.poolManagement.poolStatistics.poolBlocksConfirmed, ub: this.poolManagement.poolStatistics.blocksUnconfirmed  } )
+                socket.node.sendRequest("mining-pool/get-work/answer"+suffix, {result: true, work: work, signature: signature,
+                    h:this.poolManagement.poolStatistics.poolHashes, m: this.poolManagement.poolStatistics.poolMinersOnline.length, b: this.poolManagement.poolStatistics.poolBlocksConfirmed, ub: this.poolManagement.poolStatistics.poolBlocksUnconfirmed, t: this.poolManagement.poolStatistics.poolTimeRemaining,  } )
 
             } catch (exception){
 
@@ -101329,7 +101513,8 @@ class PoolConnectedMinersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_min
 
 
                 //the new reward
-                socket.node.sendRequest("mining-pool/work-done/answer"+suffix, {result: true, answer: answer.result, reward: minerInstance.miner.rewardTotal, confirmed: minerInstance.miner.rewardConfirmedTotal, newWork: newWork, signature: signature, h:this.poolManagement.poolStatistics.poolHashes, m: this.poolManagement.poolStatistics.poolMinersOnline.length, b: this.poolManagement.poolStatistics.poolBlocksConfirmed, ub: this.poolManagement.poolStatistics.blocksUnconfirmed } );
+                socket.node.sendRequest("mining-pool/work-done/answer"+suffix, {result: true, answer: answer.result, reward: minerInstance.miner.rewardTotal, confirmed: minerInstance.miner.rewardConfirmedTotal, newWork: newWork, signature: signature,
+                    h:this.poolManagement.poolStatistics.poolHashes, m: this.poolManagement.poolStatistics.poolMinersOnline.length, b: this.poolManagement.poolStatistics.poolBlocksConfirmed, ub: this.poolManagement.poolStatistics.poolBlocksUnconfirmed, t: this.poolManagement.poolStatistics.poolTimeRemaining } );
 
             } catch (exception){
                 socket.node.sendRequest("mining-pool/work-done/answer"+suffix, {result: false, message: exception.message } )
@@ -101373,7 +101558,8 @@ class PoolConnectedMinersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_min
                 let miner = this.poolManagement.poolData.getMiner(data.minerAddress);
                 if (miner === null) throw {message: "mine was not found"};
 
-                let answer = await this.poolManagement.sendReward(data.minerAddress);
+//                let answer = await this.poolManagement.sendReward(data.minerAddress);
+                let answer = false;
 
                 socket.node.sendRequest("mining-pool/request-reward"+"/answer", {result: answer } )
 
@@ -101435,6 +101621,7 @@ class PoolStatistics{
 
         this.poolBlocksUnconfirmed = 0;
         this.poolBlocksConfirmed = 0;
+        this.poolTimeRemaining = 0;
 
 
 
@@ -101458,7 +101645,7 @@ class PoolStatistics{
             length: 0,
         };
 
-        this.emitter.emit("pools/statistics/update", { poolHashes: this.poolHashes, poolMinersOnline: this.poolMinersOnline, poolBlocksConfirmed: this.poolBlocksConfirmed,  poolBlocksUnconfirmed: this.poolBlocksUnconfirmed });
+        this.emitter.emit("pools/statistics/update", { poolHashes: this.poolHashes, poolMinersOnline: this.poolMinersOnline, poolBlocksConfirmed: this.poolBlocksConfirmed,  poolBlocksUnconfirmed: this.poolBlocksUnconfirmed, poolTimeRemaining: this.poolTimeRemaining, });
 
     }
 
@@ -101554,14 +101741,12 @@ class PoolRewardsManagement{
         let confirmations = {
         };
 
-        let blocksInfoStart = 0;
-        for (let i = 0; i< this.poolData.blocksInfo.length; i++)
-            if (this.poolData.blocksInfo[i].block !== undefined) {
-                blocksInfoStart = this.poolData.blocksInfo[i].block.height;
-                break;
-            }
+        let firstBlock;
+        for (let i=0; i < this.poolData.blocksInfo.length; i++)
+            if ( this.poolData.blocksInfo[ i ].block !== undefined )
+                if ( firstBlock === undefined || this.poolData.blocksInfo[i].block.height < firstBlock) firstBlock = this.poolData.blocksInfo[ i ].block.height;
 
-        for (let i = this.blockchain.blocks.length-1, n = Math.max( this.blockchain.blocks.blocksStartingPoint, blocksInfoStart ); i>= n; i-- ){
+        for (let i = this.blockchain.blocks.length-1, n = Math.max( this.blockchain.blocks.blocksStartingPoint, firstBlock ); i>= n; i-- ) {
 
             if ( this.blockchain.mining.unencodedMinerAddress.equals( this.blockchain.blocks[i].data.minerAddress ))
                 confirmationsPool++;
@@ -101581,28 +101766,37 @@ class PoolRewardsManagement{
 
         }
 
-
-        //maybe the last block was not finished
-        let start = this.poolData.blocksInfo.length-1;
-        if ( this.poolData.blocksInfo[start].block === undefined )
-            start --;
-
-
         //recalculate the confirmations
-        for (let i = start ; i >= 0; i--  ){
-
-            let blockInfo = this.poolData.blocksInfo[i].block;
+        for (let i = this.poolData.blocksInfo.length-1; i >= 0; i--  ){
 
             //already confirmed
-            if (this.poolData.blocksInfo[i].payout){
+            if ( this.poolData.blocksInfo[i].payout){
+
+                //let's delete old payouts
+                if (this.poolData.blocksInfo[i].block.height - this.blockchain.blocks.length > 40)
+                    this.poolData.deleteBlockInformationByIndex(i);
+
                 poolBlocksConfirmed++;
                 continue;
+
             }
 
             //already confirmed
             if (this.poolData.blocksInfo[i].confirmed){
                 poolBlocksConfirmed++;
                 continue;
+            }
+
+            let blockInfo = this.poolData.blocksInfo[i].block;
+
+            if (blockInfo === undefined){
+
+                if (i === this.poolData.blocksInfo.length-1 ) continue;
+                else { //for some reasons, maybe save/load
+                    this.redistributePoolDataBlockInformation(this.poolData.blocksInfo[i], i );
+                    continue;
+                }
+
             }
 
             //confirm using my own blockchain / light blockchain
@@ -101666,8 +101860,6 @@ class PoolRewardsManagement{
             } else {
                 poolBlocksUnconfirmed++;
             }
-
-
 
         }
 
@@ -101817,7 +102009,7 @@ class PoolRewardsManagement{
         }
 
         //clear the blockInformation
-        this.poolData.blocksInfo.splice(index, 1);
+        this.poolData.deleteBlockInformationByIndex(index);
         
     }
 
@@ -102054,9 +102246,12 @@ class PoolPayouts{
 
 
 
+
 class MinerProtocol {
 
-    constructor (){
+    constructor (blockchain){
+
+        this.blockchain = blockchain;
 
         //this stores the last sent hash
 
@@ -102136,15 +102331,22 @@ class MinerProtocol {
             await this.minerPoolSettings.setMinerPoolActivated(value);
 
             if (value) {
-                __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].blockchain.mining = this.minerPoolMining;
+
+                this.blockchain.mining = this.minerPoolMining;
                 __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].Mining = this.minerPoolMining;
+
                 await this.minerPoolProtocol.insertServersListWaitlist( this.minerPoolSettings.poolServers );
                 await this.minerPoolProtocol._startMinerProtocol();
+
+                this.blockchain.agent.consensus = false;
             }
             else {
-                __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].blockchain.mining = __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].blockchain.miningSolo;
+                this.blockchain.mining = __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].blockchain.miningSolo;
                 __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].Mining = __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].blockchain.miningSolo;
+
                 await this.minerPoolProtocol._stopMinerProtocol();
+
+                this.blockchain.agent.consensus = true;
             }
 
             __WEBPACK_IMPORTED_MODULE_6_common_events_Status_Events__["a" /* default */].emit("miner-pool/status", {result: value, message: "Miner Pool Started changed" });
@@ -102403,6 +102605,7 @@ class MinerPoolStatistics{
         this._poolMinersOnline = 0;
         this._poolBlocksConfirmed = 0;
         this._poolBlocksUnconfirmed = 0;
+        this._poolTimeRemaining = 0;
 
     }
 
@@ -102454,8 +102657,20 @@ class MinerPoolStatistics{
         return this._poolBlocksUnconfirmed;
     }
 
+    set poolTimeRemaining (newValue){
+
+        if (this._poolTimeRemaining === newValue) return;
+
+        this._poolTimeRemaining = newValue;
+        this._emitNotification();
+    }
+
+    get poolTimeRemaining(){
+        return this._poolTimeRemaining;
+    }
+
     _emitNotification(){
-        this.emitter.emit("miner-pool/statistics/update", { poolHashes: this._poolHashes, poolMinersOnline: this._poolMinersOnline, poolBlocksConfirmed: this.poolBlocksConfirmed, poolBlocksUnconfirmed: this.poolBlocksUnconfirmed });
+        this.emitter.emit("miner-pool/statistics/update", { poolHashes: this._poolHashes, poolMinersOnline: this._poolMinersOnline, poolBlocksConfirmed: this.poolBlocksConfirmed, poolBlocksUnconfirmed: this.poolBlocksUnconfirmed, poolTimeRemaining: this.poolTimeRemaining });
     }
 
 }
@@ -102623,6 +102838,7 @@ class MinerProtocol extends __WEBPACK_IMPORTED_MODULE_7_common_mining_pools_comm
                 if (typeof answer.h === "number") this.minerPoolManagement.minerPoolStatistics.poolHashes = answer.h;
                 if (typeof answer.b === "number") this.minerPoolManagement.minerPoolStatistics.poolBlocksConfirmed = answer.b;
                 if (typeof answer.ub === "number") this.minerPoolManagement.minerPoolStatistics.poolBlocksUnconfirmed = answer.ub;
+                if (typeof answer.t === "number") this.minerPoolManagement.minerPoolStatistics.poolTimeRemaining = answer.t;
 
                 return true;
 
@@ -102706,6 +102922,7 @@ class MinerProtocol extends __WEBPACK_IMPORTED_MODULE_7_common_mining_pools_comm
         if (typeof answer.h === "number") this.minerPoolManagement.minerPoolStatistics.poolHashes = answer.h;
         if (typeof answer.b === "number") this.minerPoolManagement.minerPoolStatistics.poolBlocksConfirmed = answer.b;
         if (typeof answer.ub === "number") this.minerPoolManagement.minerPoolStatistics.poolBlocksUnconfirmed = answer.ub;
+        if (typeof answer.t === "number") this.minerPoolManagement.minerPoolStatistics.poolTimeRemaining = answer.t;
 
         return true;
 
@@ -102736,6 +102953,7 @@ class MinerProtocol extends __WEBPACK_IMPORTED_MODULE_7_common_mining_pools_comm
                 if (typeof answer.h === "number") this.minerPoolManagement.minerPoolStatistics.poolHashes = answer.h;
                 if (typeof answer.b === "number") this.minerPoolManagement.minerPoolStatistics.poolBlocksConfirmed = answer.b;
                 if (typeof answer.ub === "number") this.minerPoolManagement.minerPoolStatistics.poolBlocksUnconfirmed = answer.ub;
+                if (typeof answer.t === "number") this.minerPoolManagement.minerPoolStatistics.poolTimeRemaining = answer.t;
 
             } else {
 
@@ -102828,7 +103046,7 @@ class MinerPoolSettings {
 
         newValue = sanitizer.sanitize(newValue);
 
-        if (newValue === this._poolURL) return;
+        if (newValue === null || newValue === this._poolURL) return;
 
         let data = __WEBPACK_IMPORTED_MODULE_6_common_mining_pools_common_Pools_Utils__["a" /* default */].extractPoolURL(newValue);
         if (data === null) throw {message: "poolURL is invalid"};
@@ -102995,7 +103213,7 @@ class MinerPoolSettings {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_sockets_node_clients_service_node_clients_service__ = __webpack_require__(842);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_sockets_node_clients_service_Node_Clients_Service__ = __webpack_require__(842);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_webrtc_service_node_web_peers_service__ = __webpack_require__(845);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_stats_Nodes_Stats__ = __webpack_require__(847);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_sockets_protocol_Node_Propagation_Protocol__ = __webpack_require__(211);
@@ -103028,7 +103246,7 @@ class Node{
         this.NodeExpress = NodeExpress;
         this.NodeServer = NodeServer;
 
-        this.NodeClientsService = __WEBPACK_IMPORTED_MODULE_2_node_sockets_node_clients_service_node_clients_service__["a" /* default */];
+        this.NodeClientsService = __WEBPACK_IMPORTED_MODULE_2_node_sockets_node_clients_service_Node_Clients_Service__["a" /* default */];
         this.NodeWebPeersService = __WEBPACK_IMPORTED_MODULE_3_node_webrtc_service_node_web_peers_service__["a" /* default */];
         this.NodesStats = __WEBPACK_IMPORTED_MODULE_4_node_lists_stats_Nodes_Stats__["a" /* default */];
 
@@ -103047,7 +103265,7 @@ class Node{
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_waitlist_Nodes_Waitlist_Connecting__ = __webpack_require__(334);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_sockets_node_clients_service_discovery_node_clients_discovery_service__ = __webpack_require__(843);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_sockets_node_clients_service_discovery_Node_Clients_Discovery_Service__ = __webpack_require__(843);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_Nodes_List__ = __webpack_require__(6);
 
 
@@ -103066,7 +103284,7 @@ class NodeClientsService {
 
     startService(){
         __WEBPACK_IMPORTED_MODULE_0_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].initializeWaitlist();
-        __WEBPACK_IMPORTED_MODULE_2_node_sockets_node_clients_service_discovery_node_clients_discovery_service__["a" /* default */].startDiscovery();
+        __WEBPACK_IMPORTED_MODULE_2_node_sockets_node_clients_service_discovery_Node_Clients_Discovery_Service__["a" /* default */].startDiscovery();
         __WEBPACK_IMPORTED_MODULE_1_node_lists_waitlist_Nodes_Waitlist_Connecting__["a" /* default */].startConnecting();
     }
 
@@ -103512,6 +103730,8 @@ class NodesStats {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_node_lists_waitlist_Nodes_Waitlist__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_node_lists_Nodes_List__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_common_mining_pools_common_Pools_Utils__ = __webpack_require__(97);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_common_crypto_WebDollar_Crypto__ = __webpack_require__(23);
+
 
 
 
@@ -103539,6 +103759,7 @@ class Applications {
         this.NodesList = __WEBPACK_IMPORTED_MODULE_9_node_lists_Nodes_List__["a" /* default */];
         this.NodesWaitlist = __WEBPACK_IMPORTED_MODULE_8_node_lists_waitlist_Nodes_Waitlist__["a" /* default */];
 
+        this.WebDollarCrypto = __WEBPACK_IMPORTED_MODULE_11_common_crypto_WebDollar_Crypto__["a" /* default */];
 
         this.CONSTS = __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */];
 
