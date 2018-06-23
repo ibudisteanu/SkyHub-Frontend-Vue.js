@@ -2136,8 +2136,8 @@ consts.SETTINGS = {
 
     NODE: {
 
-        VERSION: "1.135.1",
-        VERSION_COMPATIBILITY: "1.135.1",
+        VERSION: "1.135.2",
+        VERSION_COMPATIBILITY: "1.135.2",
         PROTOCOL: "WebDollar",
         SSL: true,
 
@@ -2272,6 +2272,8 @@ if ( consts.DEBUG === true ){
     consts.MINING_POOL.MINING.MAXIMUM_BLOCKS_TO_MINE_BEFORE_ERROR = 10000;
 
     consts.SETTINGS.NODE.PORT = 9095;
+
+    consts.BLOCKCHAIN.HARD_FORKS.TRANSACTIONS_BUG_2_BYTES = 100;
 
     __WEBPACK_IMPORTED_MODULE_0_node_sockets_node_clients_service_discovery_fallbacks_fallback_nodes_list__["a" /* default */].nodes = [{
         "addr": ["http://webdollar.ddns.net:9095"],
@@ -27126,6 +27128,8 @@ class InterfaceBlockchainTransaction{
     }
 
     validateTransactionEveryTime( blockHeight , blockValidationType = {}){
+
+        if (this.blockchain === undefined) throw {message: "blockchain is empty"};
 
         if (blockHeight === undefined) blockHeight = this.blockchain.blocks.length-1;
 
@@ -52156,7 +52160,7 @@ class InterfaceBlockchain {
     }
 
     _createBlockchainElements(){
-        this.transactions = new __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_transactions_Interface_Blockchain_Transactions__["a" /* default */](this);
+        this.transactions = new __WEBPACK_IMPORTED_MODULE_8_common_blockchain_interface_blockchain_transactions_Interface_Blockchain_Transactions__["a" /* default */]( this);
         this.blockCreator = new __WEBPACK_IMPORTED_MODULE_4_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Creator__["a" /* default */]( this, this.db, __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2_common_blockchain_interface_blockchain_blocks_Interface_Blockchain_Block_Data__["a" /* default */]);
     }
 
@@ -84308,7 +84312,7 @@ class InterfaceBlockchainBlockDataTransactions {
 
         for (let i=0; i<this.transactions.length; i++) {
 
-            if ( !__WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions.pendingQueue.findPendingTransaction(this.transactions[i]) )
+            if ( __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].blockchain.transactions.pendingQueue.findPendingTransaction(this.transactions[i]) === -1 )
                 this.transactions[i].destroyTransaction();
 
             this.transactions[i] = undefined;
@@ -92034,11 +92038,11 @@ class InterfaceBlockchainAgentBasic{
     set consensus(newValue){
 
         this._consensus = newValue;
-        this.initializeConsensus(newValue);
+        this._initializeConsensus(newValue);
 
     }
 
-    initializeConsensus(newConsensus){
+    _initializeConsensus(newConsensus){
 
         if (newConsensus){
 
@@ -97047,8 +97051,9 @@ class MiniBlockchainAgentLightNode extends inheritAgentClass{
         // });
     }
 
+    _initializeConsensus(newConsensus){
 
-    setConsensus(){
+        inheritAgentClass.prototype._initializeConsensus.call(this, newConsensus);
 
         if (newConsensus){
 
@@ -100349,6 +100354,7 @@ class PoolDataBlockInformation {
             totalDifficulty = new BigNumber(0);
 
         this.totalDifficulty = totalDifficulty;
+        this.totalDifficultyLength = 0;
 
         this.blockInformationMinersInstances = [];
 
@@ -100359,7 +100365,12 @@ class PoolDataBlockInformation {
         this.payout = false;
 
         this.block = block;
+        this.date = new Date().getTime();
 
+        this.bestHash = undefined;
+        this.timeRemaining = -1;
+
+        this.calculateTargetDifficulty();
     }
 
     destroyPoolDataBlockInformation(){
@@ -100381,7 +100392,7 @@ class PoolDataBlockInformation {
         if (difficulty === undefined)
             difficulty = __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_MAX_TARGET.dividedToIntegerBy( new BigNumber ( "0x"+ hash.toString("hex") ) );
 
-        this.totalDifficulty  = this.totalDifficulty.plus( difficulty );
+        this.totalDifficultyPlus( difficulty );
 
     }
 
@@ -100452,6 +100463,7 @@ class PoolDataBlockInformation {
             this.blockInformationMinersInstances.push(blockInformationMinerInstance);
 
         }
+        this._calculateTimeRemaining();
 
         let payout = __WEBPACK_IMPORTED_MODULE_0_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_3_common_utils_BufferExtended__["a" /* default */].substr( buffer, offset, 1 )  );
         offset += 1;
@@ -100511,13 +100523,56 @@ class PoolDataBlockInformation {
 
                 this.blockInformationMinersInstances[i].cancelReward();
 
-                this.totalDifficulty = this.totalDifficulty.minus(this.blockInformationMinersInstances[i].minerInstanceTotalDifficulty);
+                this.totalDifficultyMinus(this.blockInformationMinersInstances[i].minerInstanceTotalDifficulty);
                 this.blockInformationMinersInstances.splice(i,1);
 
                 for (let j=0; j<this.blockInformationMinersInstances.length; j++)
                     this.blockInformationMinersInstances.adjustDifficulty(0);
 
             }
+    }
+
+
+    calculateTargetDifficulty(){
+
+        this.targetDifficulty = __WEBPACK_IMPORTED_MODULE_4_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_MAX_TARGET.dividedBy( new BigNumber ( "0x"+ this.poolManagement.blockchain.getDifficultyTarget().toString("hex") ) );
+
+    }
+
+    _calculateTimeRemaining(){
+
+        // my_difficulty ... x sec
+        // target_difficulty ... y sec
+        //
+        // y = x * target_difficulty / ( sum(  difficulties ) / n);
+        if (this.poolManagement.poolData.blocksInfo.length !== 0 && this.poolManagement.poolData.lastBlockInformation !== this) return;
+
+        if (this.bestHash === undefined) return 40;
+
+        let dTime = (new Date().getTime() - this.date)/1000;
+        this.timeRemaining =  Math.max(0, Math.floor( new BigNumber ( "0x"+ this.bestHash.toString("hex")) .dividedBy( new BigNumber ( "0x"+ this.poolManagement.blockchain.getDifficultyTarget().toString("hex") )) .multipliedBy( dTime ).toNumber() - dTime));
+
+    }
+
+    totalDifficultyPlus(value){
+        this.totalDifficulty = this.totalDifficulty.plus(value);
+        this.totalDifficultyLength++;
+        this._calculateTimeRemaining();
+    }
+
+    totalDifficultyMinus(value){
+        this.totalDifficulty = this.totalDifficulty.minus(value);
+        this.totalDifficultyLength--;
+        this._calculateTimeRemaining();
+    }
+
+    set timeRemaining(newValue){
+
+        this._timeRemaining = newValue;
+
+        if (this.poolManagement.poolData.blocksInfo.length === 0 || this.poolManagement.poolData.lastBlockInformation === this)
+            this.poolManagement.poolStatistics.poolTimeRemaining = newValue;
+
     }
 
 }
@@ -100553,7 +100608,7 @@ class PoolDataBlockInformationMinerInstance {
 
         this.reward = 0;
 
-        this.workHash = undefined;
+        this._workHash = undefined;
         this.workHashNonce = undefined;
         this.workBlock = undefined;
 
@@ -100597,7 +100652,7 @@ class PoolDataBlockInformationMinerInstance {
 
         // target     =     maximum target / difficulty
         // difficulty =     maximum target / target
-        this._workDifficulty = __WEBPACK_IMPORTED_MODULE_2_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_MAX_TARGET.dividedBy( new BigNumber ( "0x"+ this.workHash.toString("hex") ) );
+        this._workDifficulty = __WEBPACK_IMPORTED_MODULE_2_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_MAX_TARGET.dividedBy( new BigNumber ( "0x"+ this._workHash.toString("hex") ) );
 
     }
 
@@ -100675,6 +100730,20 @@ class PoolDataBlockInformationMinerInstance {
         return this.minerInstance.miner;
     }
 
+    set workHash(newValue){
+
+        this._workHash = newValue;
+
+        if (this.blockInformation.bestHash === undefined || newValue.compare(this.blockInformation.bestHash) <= 0)
+            this.blockInformation.bestHash = newValue;
+
+    }
+
+    get workHash(){
+
+        return this._workHash;
+
+    }
 
 }
 
@@ -100715,8 +100784,6 @@ class PoolWorkManagement{
         this.poolWork = new __WEBPACK_IMPORTED_MODULE_6__Pool_Work__["a" /* default */](poolManagement, blockchain);
 
     }
-
-
 
 
     async getWork(minerInstance){
@@ -100835,6 +100902,8 @@ class PoolWorkManagement{
                 } catch (exception){
                     console.error("PoolWork include raised an exception", exception);
                     revertActions.revertOperations();
+
+                    this.poolWork.getNextBlockForWork();
                 }
 
                 revertActions.destroyRevertActions();
@@ -101345,6 +101414,7 @@ class PoolConnectedMinersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_min
 
                     h:this.poolManagement.poolStatistics.poolHashes,
                     m: this.poolManagement.poolStatistics.poolMinersOnline.length,
+                    t: this.poolManagement.poolStatistics.poolTimeRemaining,
 
                 }, "confirmation" );
 
@@ -101401,7 +101471,8 @@ class PoolConnectedMinersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_min
 
                 work.serialization = undefined; //don't send the data 2 times
 
-                socket.node.sendRequest("mining-pool/get-work/answer"+suffix, {result: true, work: work, signature: signature, h:this.poolManagement.poolStatistics.poolHashes, m: this.poolManagement.poolStatistics.poolMinersOnline.length, b: this.poolManagement.poolStatistics.poolBlocksConfirmed, ub: this.poolManagement.poolStatistics.blocksUnconfirmed  } )
+                socket.node.sendRequest("mining-pool/get-work/answer"+suffix, {result: true, work: work, signature: signature,
+                    h:this.poolManagement.poolStatistics.poolHashes, m: this.poolManagement.poolStatistics.poolMinersOnline.length, b: this.poolManagement.poolStatistics.poolBlocksConfirmed, ub: this.poolManagement.poolStatistics.poolBlocksUnconfirmed, t: this.poolManagement.poolStatistics.poolTimeRemaining,  } )
 
             } catch (exception){
 
@@ -101442,7 +101513,8 @@ class PoolConnectedMinersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_min
 
 
                 //the new reward
-                socket.node.sendRequest("mining-pool/work-done/answer"+suffix, {result: true, answer: answer.result, reward: minerInstance.miner.rewardTotal, confirmed: minerInstance.miner.rewardConfirmedTotal, newWork: newWork, signature: signature, h:this.poolManagement.poolStatistics.poolHashes, m: this.poolManagement.poolStatistics.poolMinersOnline.length, b: this.poolManagement.poolStatistics.poolBlocksConfirmed, ub: this.poolManagement.poolStatistics.blocksUnconfirmed } );
+                socket.node.sendRequest("mining-pool/work-done/answer"+suffix, {result: true, answer: answer.result, reward: minerInstance.miner.rewardTotal, confirmed: minerInstance.miner.rewardConfirmedTotal, newWork: newWork, signature: signature,
+                    h:this.poolManagement.poolStatistics.poolHashes, m: this.poolManagement.poolStatistics.poolMinersOnline.length, b: this.poolManagement.poolStatistics.poolBlocksConfirmed, ub: this.poolManagement.poolStatistics.poolBlocksUnconfirmed, t: this.poolManagement.poolStatistics.poolTimeRemaining } );
 
             } catch (exception){
                 socket.node.sendRequest("mining-pool/work-done/answer"+suffix, {result: false, message: exception.message } )
@@ -101486,7 +101558,8 @@ class PoolConnectedMinersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_min
                 let miner = this.poolManagement.poolData.getMiner(data.minerAddress);
                 if (miner === null) throw {message: "mine was not found"};
 
-                let answer = await this.poolManagement.sendReward(data.minerAddress);
+//                let answer = await this.poolManagement.sendReward(data.minerAddress);
+                let answer = false;
 
                 socket.node.sendRequest("mining-pool/request-reward"+"/answer", {result: answer } )
 
@@ -101548,6 +101621,7 @@ class PoolStatistics{
 
         this.poolBlocksUnconfirmed = 0;
         this.poolBlocksConfirmed = 0;
+        this.poolTimeRemaining = 0;
 
 
 
@@ -101571,7 +101645,7 @@ class PoolStatistics{
             length: 0,
         };
 
-        this.emitter.emit("pools/statistics/update", { poolHashes: this.poolHashes, poolMinersOnline: this.poolMinersOnline, poolBlocksConfirmed: this.poolBlocksConfirmed,  poolBlocksUnconfirmed: this.poolBlocksUnconfirmed });
+        this.emitter.emit("pools/statistics/update", { poolHashes: this.poolHashes, poolMinersOnline: this.poolMinersOnline, poolBlocksConfirmed: this.poolBlocksConfirmed,  poolBlocksUnconfirmed: this.poolBlocksUnconfirmed, poolTimeRemaining: this.poolTimeRemaining, });
 
     }
 
@@ -101667,14 +101741,12 @@ class PoolRewardsManagement{
         let confirmations = {
         };
 
-        let blocksInfoStart = 0;
-        for (let i = 0; i< this.poolData.blocksInfo.length; i++)
-            if (this.poolData.blocksInfo[i].block !== undefined) {
-                blocksInfoStart = this.poolData.blocksInfo[i].block.height;
-                break;
-            }
+        let firstBlock;
+        for (let i=0; i < this.poolData.blocksInfo.length; i++)
+            if ( this.poolData.blocksInfo[ i ].block !== undefined )
+                if ( firstBlock === undefined || this.poolData.blocksInfo[i].block.height < firstBlock) firstBlock = this.poolData.blocksInfo[ i ].block.height;
 
-        for (let i = this.blockchain.blocks.length-1, n = Math.max( this.blockchain.blocks.blocksStartingPoint, blocksInfoStart ); i>= n; i-- ){
+        for (let i = this.blockchain.blocks.length-1, n = Math.max( this.blockchain.blocks.blocksStartingPoint, firstBlock ); i>= n; i-- ) {
 
             if ( this.blockchain.mining.unencodedMinerAddress.equals( this.blockchain.blocks[i].data.minerAddress ))
                 confirmationsPool++;
@@ -101694,17 +101766,8 @@ class PoolRewardsManagement{
 
         }
 
-
-        //maybe the last block was not finished
-        let start = this.poolData.blocksInfo.length-1;
-        if ( this.poolData.blocksInfo[start].block === undefined )
-            start --;
-
-
         //recalculate the confirmations
-        for (let i = start ; i >= 0; i--  ){
-
-            let blockInfo = this.poolData.blocksInfo[i].block;
+        for (let i = this.poolData.blocksInfo.length-1; i >= 0; i--  ){
 
             //already confirmed
             if ( this.poolData.blocksInfo[i].payout){
@@ -101722,6 +101785,18 @@ class PoolRewardsManagement{
             if (this.poolData.blocksInfo[i].confirmed){
                 poolBlocksConfirmed++;
                 continue;
+            }
+
+            let blockInfo = this.poolData.blocksInfo[i].block;
+
+            if (blockInfo === undefined){
+
+                if (i === this.poolData.blocksInfo.length-1 ) continue;
+                else { //for some reasons, maybe save/load
+                    this.redistributePoolDataBlockInformation(this.poolData.blocksInfo[i], i );
+                    continue;
+                }
+
             }
 
             //confirm using my own blockchain / light blockchain
@@ -101785,8 +101860,6 @@ class PoolRewardsManagement{
             } else {
                 poolBlocksUnconfirmed++;
             }
-
-
 
         }
 
@@ -102265,7 +102338,7 @@ class MinerProtocol {
                 await this.minerPoolProtocol.insertServersListWaitlist( this.minerPoolSettings.poolServers );
                 await this.minerPoolProtocol._startMinerProtocol();
 
-                this.blockchain.agent.consensus = true;
+                this.blockchain.agent.consensus = false;
             }
             else {
                 this.blockchain.mining = __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].blockchain.miningSolo;
@@ -102273,7 +102346,7 @@ class MinerProtocol {
 
                 await this.minerPoolProtocol._stopMinerProtocol();
 
-                this.blockchain.agent.consensus = false;
+                this.blockchain.agent.consensus = true;
             }
 
             __WEBPACK_IMPORTED_MODULE_6_common_events_Status_Events__["a" /* default */].emit("miner-pool/status", {result: value, message: "Miner Pool Started changed" });
@@ -102532,6 +102605,7 @@ class MinerPoolStatistics{
         this._poolMinersOnline = 0;
         this._poolBlocksConfirmed = 0;
         this._poolBlocksUnconfirmed = 0;
+        this._poolTimeRemaining = 0;
 
     }
 
@@ -102583,8 +102657,20 @@ class MinerPoolStatistics{
         return this._poolBlocksUnconfirmed;
     }
 
+    set poolTimeRemaining (newValue){
+
+        if (this._poolTimeRemaining === newValue) return;
+
+        this._poolTimeRemaining = newValue;
+        this._emitNotification();
+    }
+
+    get poolTimeRemaining(){
+        return this._poolTimeRemaining;
+    }
+
     _emitNotification(){
-        this.emitter.emit("miner-pool/statistics/update", { poolHashes: this._poolHashes, poolMinersOnline: this._poolMinersOnline, poolBlocksConfirmed: this.poolBlocksConfirmed, poolBlocksUnconfirmed: this.poolBlocksUnconfirmed });
+        this.emitter.emit("miner-pool/statistics/update", { poolHashes: this._poolHashes, poolMinersOnline: this._poolMinersOnline, poolBlocksConfirmed: this.poolBlocksConfirmed, poolBlocksUnconfirmed: this.poolBlocksUnconfirmed, poolTimeRemaining: this.poolTimeRemaining });
     }
 
 }
@@ -102752,6 +102838,7 @@ class MinerProtocol extends __WEBPACK_IMPORTED_MODULE_7_common_mining_pools_comm
                 if (typeof answer.h === "number") this.minerPoolManagement.minerPoolStatistics.poolHashes = answer.h;
                 if (typeof answer.b === "number") this.minerPoolManagement.minerPoolStatistics.poolBlocksConfirmed = answer.b;
                 if (typeof answer.ub === "number") this.minerPoolManagement.minerPoolStatistics.poolBlocksUnconfirmed = answer.ub;
+                if (typeof answer.t === "number") this.minerPoolManagement.minerPoolStatistics.poolTimeRemaining = answer.t;
 
                 return true;
 
@@ -102835,6 +102922,7 @@ class MinerProtocol extends __WEBPACK_IMPORTED_MODULE_7_common_mining_pools_comm
         if (typeof answer.h === "number") this.minerPoolManagement.minerPoolStatistics.poolHashes = answer.h;
         if (typeof answer.b === "number") this.minerPoolManagement.minerPoolStatistics.poolBlocksConfirmed = answer.b;
         if (typeof answer.ub === "number") this.minerPoolManagement.minerPoolStatistics.poolBlocksUnconfirmed = answer.ub;
+        if (typeof answer.t === "number") this.minerPoolManagement.minerPoolStatistics.poolTimeRemaining = answer.t;
 
         return true;
 
@@ -102865,6 +102953,7 @@ class MinerProtocol extends __WEBPACK_IMPORTED_MODULE_7_common_mining_pools_comm
                 if (typeof answer.h === "number") this.minerPoolManagement.minerPoolStatistics.poolHashes = answer.h;
                 if (typeof answer.b === "number") this.minerPoolManagement.minerPoolStatistics.poolBlocksConfirmed = answer.b;
                 if (typeof answer.ub === "number") this.minerPoolManagement.minerPoolStatistics.poolBlocksUnconfirmed = answer.ub;
+                if (typeof answer.t === "number") this.minerPoolManagement.minerPoolStatistics.poolTimeRemaining = answer.t;
 
             } else {
 
@@ -102957,7 +103046,7 @@ class MinerPoolSettings {
 
         newValue = sanitizer.sanitize(newValue);
 
-        if (newValue === this._poolURL) return;
+        if (newValue === null || newValue === this._poolURL) return;
 
         let data = __WEBPACK_IMPORTED_MODULE_6_common_mining_pools_common_Pools_Utils__["a" /* default */].extractPoolURL(newValue);
         if (data === null) throw {message: "poolURL is invalid"};

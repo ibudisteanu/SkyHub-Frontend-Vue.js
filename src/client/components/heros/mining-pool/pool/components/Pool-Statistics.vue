@@ -37,6 +37,9 @@
             <span class="oneLineText">
                 Blocks unconfirmed: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksUnconfirmed}} </span>
             </span>
+            <span class="oneLineText">
+                Time to next block: <span class="normalSpan" :class="this.isNotNullColor"> {{this.showPoolRemainingTime}} </span>
+            </span>
 
         </div>
 
@@ -63,9 +66,39 @@
             poolMinersOnline: 0,
             poolBlocksConfirmed: 0,
             poolBlocksUnconfirmed: 0,
+            poolTimeRemaining: 0,
         },
 
         computed:{
+
+            showPoolRemainingTime(){
+
+                if (this.poolTimeRemaining === undefined || this.poolTimeRemaining === -1) return `na`;
+
+                let time = this.poolTimeRemaining;
+
+                let y = Math.floor(time / (12*30*7*24*60*60));
+                time %= (12*30*7*24*60*60);
+
+                let mo = Math.floor(time / (30*7*24*60*60));
+                time %= (30*7*24*60*60);
+
+                let w = Math.floor(time / (7*24*60*60));
+                time %= (7*24*60*60);
+
+                let d = Math.floor(time / (24*60*60));
+                time %= (24*60*60);
+
+                let h = Math.floor(time / (60*60));
+                time %= (60*60);
+
+                let m = Math.floor(time / (60));
+                time %= (60);
+
+                let s = Math.floor(time );
+
+                return (y !== 0 ? ` ${y} y` : ``)+(mo !== 0 ? ` ${mo} mo` : ``)+(w !== 0 ? ` ${w} w` : ``)+(d !== 0 ? ` ${d} d` : ``)+(h !== 0 ? ` ${h} h` : ``)+(m !== 0 ? ` ${m} m` : ``)+(s !== 0 ? ` ${s} s` : ``)
+            },
 
             numberOfConnectedHosts(){
 

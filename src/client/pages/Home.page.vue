@@ -136,9 +136,9 @@
         methods:{
 
             async initializePool(){
-
-                if (this.$store.state.route.params.a !== "pool" || this.$store.state.route.params['0'].length > 5 ) {
-                    return false;
+                
+                if (this.$store.state.route.params.a !== "pool" || this.$store.state.route.params['0'].length < 5 ) {
+                    return false;n
                 }
 
                 WebDollar.StatusEvents.on("main-pools/status", async (data)=> {
