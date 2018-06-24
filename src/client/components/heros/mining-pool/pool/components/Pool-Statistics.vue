@@ -104,8 +104,8 @@
 
                 let enabledHosts = 0;
 
-                for(let i=0;i<=this.poolServers;i++)
-                    if (this.poolServers[i].connected === true ) enabledHosts++;
+                for(var key in this.poolServers)
+                    if (key.connected) enabledHosts++;
 
                 return enabledHosts;
 

@@ -10,12 +10,10 @@
             <h3 class="fadeIn fadeIn3 mottoWebSite">Currency of the Internet</h3>
 
             <div>
-                <h5 class="fadeIn fadeIn4 statusMining">{{this.status}}</h5>
-                <h5 class="fadeIn fadeIn3" :class="this.loaded? '' : 'hide'">
-                    <span class="alreadyMining">You are already mining...</span>
-                </h5>
 
-                <div :class="this.loaded? '' : 'hide'" class='btn-cont btnPosition fadeIn fadeIn4'>
+                <h5 class="fadeIn fadeIn4 statusMining" :class="this.loaded? 'hide' : ''">{{this.status}}</h5>
+
+                <div :class="this.loaded? '' : 'hide'" class='btn-cont btnPosition fadeIn fadeIn2'>
                     <a class='btn' href="#p2p-network">
                         See your Network
                         <span class='line-1'></span>
@@ -24,6 +22,7 @@
                         <span class='line-4'></span>
                     </a>
                 </div>
+
             </div>
 
         </div>
