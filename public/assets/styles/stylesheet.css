@@ -2132,10 +2132,18 @@ background-color:#ff2200}
   font-size:40px;
 }
 
-.mottoWebSite{
+.mottoWebSite {
   font-size: 20px;
   margin-top: 0;
   line-height: 0px;
+}
+
+.Uppercase{
+  text-transform: capitalize;
+}
+
+.aboutTitle{
+  margin-bottom: 90px!important;
 }
 
 .statusMining{

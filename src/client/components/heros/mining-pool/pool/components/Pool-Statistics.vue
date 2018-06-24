@@ -17,7 +17,7 @@
                 </select>
             </span>
             <span class="oneLineText">
-                Pool Status: <span class="normalSpan" :class="this.selectStatusColor">{{ this.poolStatus }}</span>
+                Pool Status: <span class="normalSpan Uppercase" :class="this.selectStatusColor">{{ this.poolStatus }}</span>
             </span>
             <span class="oneLineText">
                 Pool Fee: <span class="normalSpan yellowColor"> <a :href="this.poolWebsite"> {{this.poolFee}} %</a></span>
@@ -104,8 +104,11 @@
 
                 let enabledHosts = 0;
 
-                for(var key in this.poolServers)
-                    if (key.connected) enabledHosts++;
+                for(var key in this.poolServers){
+                    if (this.poolServers[key].connected) enabledHosts++;
+                    console.log("key");
+                    console.log(key)
+                }
 
                 return enabledHosts;
 
@@ -140,7 +143,11 @@
 
             onlineHosts(){
 
-                return this.numberOfConnectedHosts + ' / ' + Object.keys(this.poolServers).length;
+                let onlineServersNumber = this.numberOfConnectedHosts;
+
+                if (onlineServersNumber===0) return 'Offline';
+
+                return onlineServersNumber + ' / ' + Object.keys(this.poolServers).length;
 
             },
 

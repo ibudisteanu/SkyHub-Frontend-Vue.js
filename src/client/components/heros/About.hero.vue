@@ -5,7 +5,7 @@
         <div id="aboutSection" class="fullSection backgroundSection">
             <div class="verticalAlignMiddle">
 
-                <span class="pageTitle alignCenter titleMarginBottom removeBackground">WebDollar</span>
+                <span class="pageTitle alignCenter titleMarginBottom removeBackground aboutTitle">What is WebDollar?</span>
                 <div id="whatContainer">
                     <div>
                         <img src="/public/assets/images/WebDollar-ming.png" alt="webdollar-mining">
