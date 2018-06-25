@@ -2,7 +2,7 @@
 
     <div>
 
-        <h2 class="alignCenter yellowColor">SETTINGS</h2>
+        <h2 class="alignCenter yellowColor marginTop">SETTINGS</h2>
 
         <div class="alignCenter bigMarginTop" v-if="!this.initialized">
             <loading-spinner class="fillColor"></loading-spinner>
@@ -14,44 +14,113 @@
 
                 <div>
 
-                    <div class="poolSettingsRow">
-                        <div class="settingsTitle feeHeight">
-                            FEE Percent:
+                    <div class="slidersSection">
+
+                        <div class="poolSettingsRow specialRaw">
+
+                            <div class="poolSettingsRow feeSlider">
+                                <div class="settingsTitle">
+                                    Owner Fee:
+                                </div>
+                                <slider ref="refPoolFee" :interval="0.01" @changed="this.handleChangePoolFee"/>
+                            </div>
+
+                            <div class="poolSettingsRow feeSlider">
+                                <div class="settingsTitle specialTitle">
+                                    Hosts Fee:
+                                </div>
+                                <slider ref="refPoolFee" :interval="0.01" @changed="this.handleChangePoolFee"/>
+                            </div>
+
                         </div>
-                        <slider ref="refPoolFee" @changed="this.handleChangePoolFee"/>
+
+                        <div class="poolSettingsRow specialRaw">
+
+                            <div class="poolSettingsRow feeSlider">
+                                <div class="settingsTitle">
+                                    Referral Fee:
+                                </div>
+                                <slider ref="refPoolFee" :interval="0.01" :disabled="true" @changed="this.handleChangePoolFee"/>
+                            </div>
+
+                            <div class="poolSettingsRow feeSlider">
+                                <div class="settingsTitle specialTitle">
+                                    Pay frequency:
+                                </div>
+                                <slider ref="refPoolFee" :interval="10" :min="10" :max="1000" @changed="this.handleChangePoolFee"/>
+                            </div>
+
+                        </div>
+
+                        <div class="poolSettingsRow specialRaw">
+
+                            <div class="poolSettingsRow specialSegment">
+                                <div class="settingsTitle">
+                                    Pool Name:
+                                </div>
+                                <div>
+                                    <input type="text" class="input" v-model="poolName" placeholder="WebDollar Pool">
+                                </div>
+                            </div>
+
+                            <div class="poolSettingsRow specialSegment">
+                                <div class="settingsTitle specialTitle">
+                                    Pool Website:
+                                </div>
+                                <div>
+                                    <input type="text" class="input" v-model="poolWebsite" placeholder="http://url" >
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
 
-                    <div class="poolSettingsRow specialRaw">
-
-                        <div class="poolSettingsRow specialSegment">
-                            <div class="settingsTitle">
-                                Pool Name:
-                            </div>
-                            <div>
-                                <input type="text" class="input" v-model="poolName" placeholder="WebDollar Pool">
-                            </div>
-                        </div>
-
-                        <div class="poolSettingsRow specialSegment">
-                            <div class="settingsTitle specialTitle">
-                                Pool Website:
-                            </div>
-                            <div>
-                                <input type="text" class="input" v-model="poolWebsite" placeholder="http://url" >
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="poolSettingsRow">
+                    <div class="poolSettingsRow slidersSection paddingBottom40">
                         <div class="settingsTitle">
                             Pool Host:
                         </div>
-                        <div>
-                    <textarea rows="4" cols="50" v-model="poolServers">
-                        832.213.23.21:312;
-                        32.123.12.312:221
-                    </textarea>
+                        <div class="twoColums serverHostItemsBox">
+                            <!--<div class="addNewHostBox" v-for="(poolServer, index) in this.poolServers">-->
+                                <!--<div class="serverInfo">-->
+                                    <!--<span class="titlePool serverPool" >{{poolServer.name}}</span>-->
+                                    <!--<span class="minerData serverPoolStatus" >{{poolServer.connected ? 'connected - '  + (poolServer.established ? 'established' : 'not established' )  : 'not connected'}} </span>-->
+                                <!--</div>-->
+                                <!--<div class="deleteButton" @click="this.removePoolHost(index)">-->
+                                    <!--Remove-->
+                                <!--</div>-->
+                           <!--</div>-->
+                            <div class="addNewHostBox" >
+                                <div class="serverInfo">
+                                    <span class="titlePool serverPool" >321.321.321.322:8888</span>
+                                    <span class="minerData serverPoolStatus" > (test) </span>
+                                </div>
+                                <span class="deleteButton">
+                                    Remove
+                                </span>
+                            </div>
+                            <div class="addNewHostBox" >
+                                <div class="serverInfo">
+                                    <span class="titlePool serverPool" >9321.321.321.3.2</span>
+                                    <span class="minerData serverPoolStatus" > (tess)  </span>
+                                </div>
+                                <span class="deleteButton">
+                                    Remove
+                                </span>
+                            </div>
+                            <div class="addNewHostBox" >
+                                <div class="serverInfo">
+                                    <span class="titlePool serverPool" >9321.321.321.3.2</span>
+                                    <span class="minerData serverPoolStatus" > (test)  </span>
+                                </div>
+                                <span class="deleteButton">
+                                    Remove
+                                </span>
+                            </div>
+                            <div class="addNewHostBox">
+                                <input v-model="newServer" placeholder="Add New Host" class="addNewHostInput">
+                                <button @click="addNewHost" class="minerData buttonSmall settingsButton addNewHostButton">Add</button>
+                            </div>
                         </div>
                     </div>
 
@@ -78,7 +147,7 @@
             <div class="buttonsContainer">
 
                 <div class="buttonContainer">
-                    <button @click="handleSaveSettings" class="minerData buttonSmall settingsButton">Save Settings</button>
+                    <button @click="handleSaveSettings" class="minerData buttonSmall settingsButton saveButton">Save Settings</button>
                     {{this.error}}
                 </div>
 
@@ -118,11 +187,25 @@
                 poolSettings: [],
 
                 error: '',
+                newServer: ''
             }
 
         },
 
         methods: {
+
+            removePoolHost(index){
+
+                this.poolServers
+
+            },
+
+            addNewHost(){
+
+                this.poolServers = this.poolServers + ' ' + this.newServer;
+                this.newServer ='';
+
+            },
 
             selectURL(target){
                 target.select();
@@ -190,7 +273,6 @@
 
             if (typeof window === "undefined") return;
 
-
             if (WebDollar.Blockchain.PoolManagement === undefined) this.initialized = false;
             else this.initialized = WebDollar.Blockchain.PoolManagement.poolInitialized || false;
 
@@ -214,8 +296,6 @@
 
             });
 
-
-
             WebDollar.StatusEvents.on("pools/settings",(data)=>{
 
             });
@@ -228,6 +308,96 @@
 
 <style>
 
+    .paddingBottom40{
+        padding-bottom: 40px;
+    }
+
+    .serverHostItemsBox{
+        grid-row-gap: 10px;
+        grid-column-gap: 20px;
+    }
+
+    .serverPool{
+        line-height: 39px;
+        margin-left: 10px;
+        color: #fff;
+    }
+
+    .smallSettings input::placeholder{
+        color: #686868 !important;
+    }
+
+    .addNewHostButton:hover{
+        background-color: #ffdb85;
+    }
+
+    .slidersSection{
+        border-bottom: solid 1px #a9a9a9;
+        margin-bottom: 30px;
+        padding-bottom: 30px;
+    }
+
+    .deleteButton{
+        background-color: #8a1c0b;
+        border: none;
+        padding: 0;
+        margin: 0 auto;
+        width: 100%;
+        font-size: 14px;
+        line-height: 39px;
+        border-radius: 5px;
+        cursor: pointer;
+        color: #fff;
+        text-align: center;
+        left: 0;
+        display: block;
+        right: 0;
+        border-top-left-radius: 0;
+        font-weight: bolder!important;
+        border-bottom-left-radius: 0;
+    }
+
+    .deleteButton:hover{
+        background-color: #8a413b;
+    }
+
+    .serverPoolStatus{
+        line-height: 39px;
+        padding-left: 5px;
+        font-size: 14px;
+    }
+
+    .serversItem{
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        width: 370px;
+    }
+
+    .serverInfo{
+        border-radius: 3px;
+        /* padding: 10px 0 10px 5px; */
+        width: 100%;
+        background-color: #262626;
+        border: solid 1px #3e3e3e;
+        color: #fff;
+        box-sizing: border-box!important;
+        display: block;
+        grid-template-columns: auto auto;
+        border-top-right-radius:0;
+        border-bottom-right-radius:0;
+    }
+
+    .serverInfo span{
+        display: inline-block;
+        width: auto
+    ;
+    }
+
+    .addNewHostBox{
+        display: grid;
+        grid-template-columns: 1fr 100px;
+    }
+
     textarea{
         resize:vertical;
     }
@@ -236,15 +406,21 @@
         display: grid;
         grid-template-columns: 150px 1fr;
         box-sizing: border-box!important;
-        padding: 10px 0;
+        padding: 5px 0;
+    }
+
+    .feeSlider{
+        margin-top: 20px;
     }
 
     .settingsButton{
         background-color: #fec02c;
         color:#000;
+        font-weight: bolder;
         border:none;
         padding: 0;
         margin: 0 auto;
+        font-size: 14px;
         left:0;
         display: block;
         right: 0;
@@ -266,6 +442,18 @@
         grid-row-gap: 5px;
     }
 
+    .addNewHostButton{
+        width: 100%;
+        border-top-left-radius: 0;
+        font-weight: bolder;
+        border-bottom-left-radius: 0;
+    }
+
+    .addNewHostInput{
+        border-top-right-radius:0;
+        border-bottom-right-radius:0;
+    }
+
     .settingsTitle{
         font-size: 16px;
         line-height: 26px;
@@ -276,7 +464,7 @@
 
     .poolSettingsRow input, .poolSettingsRow textarea{
         border-radius: 3px;
-        padding: 10px 0 10px 5px;
+        padding: 10px 0 10px 10px;
         width: 100%;
         background-color: #262626;
         border: solid 1px #3e3e3e;
@@ -294,6 +482,10 @@
 
     .feeHeight{
         line-height: 36px;
+    }
+
+    .poolSettingsRow .vue-slider-process{
+        background: #fec02c !important;
     }
 
     .buttonsContainer{
@@ -327,6 +519,12 @@
     .specialRaw{
         display: grid;
         grid-template-columns: 1fr 1fr;
+    }
+
+    .saveButton{
+        width: 400px;
+        padding: 16px!important;
+        font-size: 18px!important;
     }
 
     .specialTitle{

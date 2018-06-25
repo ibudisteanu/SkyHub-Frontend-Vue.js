@@ -169,6 +169,12 @@
 
         methods: {
 
+            loadPoolData(){
+
+
+
+            },
+
             changeDisplayType(type){
                 this.displayType=type;
             },
@@ -203,7 +209,10 @@
 
             if (typeof window === 'undefined') return;
 
-        }
+            this.loadPoolData();
+
+        },
+
 
     }
 

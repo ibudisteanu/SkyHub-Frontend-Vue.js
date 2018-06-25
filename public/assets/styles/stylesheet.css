@@ -1950,7 +1950,7 @@ background-color:#ff2200}
   cursor: auto!important;
 }
 
-.vue-slider-component .vue-slider-process {
+.disabledSlider {
   /*background: #fec02c !important;*/
   background: linear-gradient(to right, #3e3623 29%, #422d2d 100%) !important;
 }

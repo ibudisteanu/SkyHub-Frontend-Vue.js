@@ -29,6 +29,9 @@
                 Pool Hash: <span class="normalSpan yellowColor"> {{this.getHashrate }} {{this.getHashrateSign}}</span>
             </span>
             <span class="oneLineText">
+                Pool Power: <span class="normalSpan yellowColor"> {{this.getPoolPower }}% </span>
+            </span>
+            <span class="oneLineText">
                 Miners in pool: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolMinersOnline}} </span>
             </span>
             <span class="oneLineText">
@@ -67,9 +70,14 @@
             poolBlocksConfirmed: 0,
             poolBlocksUnconfirmed: 0,
             poolTimeRemaining: 0,
+            networkHashRate:0
         },
 
         computed:{
+
+            getPoolPower(){
+                return Utils.showHashes(this.poolHashes/this.networkHashRate*100)
+            },
 
             showPoolRemainingTime(){
 
@@ -104,11 +112,8 @@
 
                 let enabledHosts = 0;
 
-                for(var key in this.poolServers){
+                for(var key in this.poolServers)
                     if (this.poolServers[key].connected) enabledHosts++;
-                    console.log("key");
-                    console.log(key)
-                }
 
                 return enabledHosts;
 
@@ -116,7 +121,7 @@
 
             isNotNullColor(){
 
-                if (this.poolMinerNumber===0) return 'redColor';
+                if (this.numberOfConnectedHosts===0) return 'redColor';
 
                 return 'greenColor';
 
@@ -165,6 +170,19 @@
         methods:{
 
 
+
+        },
+
+        mounted(){
+
+            if (typeof window === "undefined") return;
+
+            // Should be recieved from pool leader
+            if (WebDollar.Blockchain.synchronized){
+
+                this.networkHashRate = WebDollar.Blockchain.Chain.blocks.networkHashRate;
+
+            }
 
         }
 

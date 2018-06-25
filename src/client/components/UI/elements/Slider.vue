@@ -1,7 +1,6 @@
 <template>
     <div class="poolSlider" >
-        <vueSlider class="miningSlider" ref="slider" :piecewise="false"
-                    tooltip="always" v-model="value" @callback="handleValueChanged" ></vueSlider>
+        <vueSlider class="miningSlider" ref="slider" :disabled="this.disabled" :interval="this.interval" :min="this.min" :max="this.max" :dot-size="14" :piecewise="false" tooltip="always" v-model="value" @callback="handleValueChanged" ></vueSlider>
     </div>
 </template>
 
@@ -12,6 +11,12 @@
 
     export default {
         name: 'slider',
+        props:{
+            max:{default:'100'},
+            min:{default:'0'},
+            interval:{default:'1'},
+            disabled:{default:false}
+        },
 
         components: {
             "vueSlider":vueSlider,
@@ -56,7 +61,7 @@
         background-color: #424242 !important;
     }
 
-    .vue-slider-component .vue-slider-process {
+    .disabledSlider {
         /*background: #fec02c !important;*/
         background: linear-gradient(to right, #3e3623 29%, #422d2d 100%) !important;
     }
