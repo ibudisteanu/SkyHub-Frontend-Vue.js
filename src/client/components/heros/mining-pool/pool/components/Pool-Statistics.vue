@@ -180,7 +180,7 @@
             // Should be recieved from pool leader
             if (WebDollar.Blockchain.synchronized){
 
-                this.networkHashRate = WebDollar.Blockchain.Chain.blocks.networkHashRate;
+                //this.networkHashRate = WebDollar.Blockchain.Chain.blocks.networkHashRate;
 
             }
 

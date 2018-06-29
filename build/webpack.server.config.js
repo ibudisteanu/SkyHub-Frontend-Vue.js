@@ -36,4 +36,4 @@ module.exports = merge(base, {
     }),
     new VueSSRServerPlugin()
   ]
-})
+});
