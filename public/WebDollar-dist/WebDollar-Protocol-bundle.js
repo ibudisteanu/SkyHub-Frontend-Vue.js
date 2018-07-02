@@ -18429,7 +18429,7 @@ class AdvancedMessages{
     input(message){
 
         if (true)
-            return confirm(message);
+            return prompt(message);
         else
             return this._questionCLI(message);
     }
@@ -54234,7 +54234,7 @@ class InterfaceBlockchainAgent extends __WEBPACK_IMPORTED_MODULE_8__Interface_Bl
         if (!this.light)
             __WEBPACK_IMPORTED_MODULE_0_node_lists_Nodes_List__["a" /* default */].emitter.on("nodes-list/connected", async (result) => {
 
-                if (!NodeExpress.amIFallback() )
+                if (!NodeExpress.amIFallback() && !__WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].PoolManagement.poolStarted && !__WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].ServerPoolManagement.serverPoolStarted )
                     if ( __WEBPACK_IMPORTED_MODULE_0_node_lists_Nodes_List__["a" /* default */].countNodesByType(__WEBPACK_IMPORTED_MODULE_9_node_lists_types_Node_Type__["a" /* default */].NODE_TERMINAL) > __WEBPACK_IMPORTED_MODULE_7_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.TERMINAL.SERVER.TERMINAL_CONNECTIONS_REQUIRED_TO_DISCONNECT_FROM_FALLBACK){
 
                         this.status = __WEBPACK_IMPORTED_MODULE_6__Agent_Status__["a" /* default */].AGENT_STATUS_SYNCHRONIZED_SLAVES;
@@ -91467,247 +91467,260 @@ let nonce, noncePrevious, nonceEnd;
 let WorkerInitialized = false;
 let WorkerChanged = false;
 
-/* harmony default export */ __webpack_exports__["default"] = (function (self) {
 
-    var _librayLoaded = false;
-    var _libraryLoadPromise = false;
 
-    var global = typeof window === 'undefined' ? self : window;
-    var root = "https://antelle.net/argon2-browser/";
+var _librayLoaded = false;
+var _libraryLoadPromise = false;
 
-    function calcAsmJs() {
+var global = typeof window === 'undefined' ? self : window;
+var root = "https://antelle.net/argon2-browser/";
 
-        let promise = new Promise( async (resolve) => {
+var log;
 
-            // log('Testing Argon2 using asm.js...');
+function calcAsmJs() {
 
-            if (global.Module && !global.Module.wasmJSMethod) {
+    let promise = new Promise( async (resolve) => {
 
-                if (!_librayLoaded) await _libraryLoadPromise;
+        // log('Testing Argon2 using asm.js...');
 
-                resolve ( calcHash() );
-                return;
+        if (global.Module && !global.Module.wasmJSMethod) {
 
-            }
+            if (!_librayLoaded) await _libraryLoadPromise;
 
-            _librayLoaded = false;
-            global.Module = {
-                print: log,
-                printErr: log,
-                setStatus: log
-            };
+            resolve ( calcHash() );
+            return;
 
+        }
+
+        _librayLoaded = false;
+        global.Module = {
+            print: log,
+            printErr: log,
+            setStatus: log
+        };
+
+        var ts = now();
+        //log('Loading script...');
+
+        loadScript(root + 'dist/argon2-asm.min.js', () => {
+            //log('Script loaded in ' + Math.round(now() - ts) + 'ms');
+            //log('Calculating hash....');
+
+            _librayLoaded = true;
+            resolve(calcHash())
+
+        }, () => {
+
+            _librayLoaded = true;
+            log('Error loading script');
+        });
+
+        // calcBinaryen(arg, 'asmjs');
+
+    });
+
+    if (!_librayLoaded)
+        _libraryLoadPromise = promise;
+
+    return promise;
+}
+
+function calcWasm() {
+    return calcBinaryen('native-wasm');
+}
+
+function calcBinaryenSexpr() {
+    return calcBinaryen('interpret-s-expr');
+}
+
+function calcBinaryenBin() {
+    return calcBinaryen('interpret-binary');
+}
+
+function calcBinaryen(method) {
+
+    let promise =  new Promise (async (resolve)=>{
+
+        if (!global.WebAssembly) {
+
+            log('Your browser doesn\'t support WebAssembly, please try it in Chrome Canary or Firefox Nightly with WASM flag enabled');
+            resolve(null); // return
+            return;
+        }
+
+        //log('Testing Argon2 using Binaryen ' + method);
+        if (global.Module && global.Module.wasmJSMethod === method && global.Module._argon2_hash) {
+            //log('Calculating hash.... WASM optimized');
+
+            if (!_librayLoaded) await _libraryLoadPromise;
+
+            resolve (calcHash());
+            return;
+        }
+
+        _librayLoaded = false;
+
+        const KB = 1024 * 1024;
+        const MB = 1024 * KB;
+        const GB = 1024 * MB;
+        const WASM_PAGE_SIZE = 64 * 1024;
+
+        const totalMemory = (2*GB - 64*KB) / 1024 / WASM_PAGE_SIZE;
+        const initialMemory = Math.min(Math.max(Math.ceil(ARGON2_PARAM.mem * 1024 / WASM_PAGE_SIZE), 256) + 256, totalMemory);
+
+        log('Memory: ' + initialMemory + ' pages (' + Math.round(initialMemory * 64) + ' KB)', totalMemory);
+
+        const wasmMemory = new WebAssembly.Memory({
+            initial: initialMemory,
+            maximum: totalMemory
+        });
+
+        global.Module = {
+            print: log,
+            printErr: log,
+            setStatus: log,
+            wasmBinary: null,
+            wasmJSMethod: method,
+            asmjsCodeFile: root + 'dist/argon2-asm.min.asm.js',
+            wasmBinaryFile: root + 'dist/argon2.wasm',
+            wasmTextFile: root + 'dist/argon2.wast',
+            wasmMemory: wasmMemory,
+            buffer: wasmMemory.buffer,
+            TOTAL_MEMORY: initialMemory * WASM_PAGE_SIZE
+        };
+
+        log('Loading wasm...');
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', root + 'dist/argon2.wasm', true);
+        xhr.responseType = 'arraybuffer';
+        xhr.onload = () => {
+            global.Module.wasmBinary = xhr.response;
+            global.Module.postRun = () => resolve(calcHash());
             var ts = now();
-            //log('Loading script...');
-
-            loadScript(root + 'dist/argon2-asm.min.js', () => {
-                //log('Script loaded in ' + Math.round(now() - ts) + 'ms');
-                //log('Calculating hash....');
+            log('Wasm loaded, loading script...');
+            loadScript(root + 'dist/argon2.min.js', () => {
+                log('Script loaded in ' + Math.round(now() - ts) + 'ms');
+                log('Calculating hash....');
 
                 _librayLoaded = true;
-                resolve(calcHash())
 
             }, () => {
 
                 _librayLoaded = true;
                 log('Error loading script');
+
             });
+        };
+        xhr.onerror = () => {
+            log('Error loading wasm');
+        };
+        xhr.send(null);
 
-            // calcBinaryen(arg, 'asmjs');
+    });
 
-        });
+    if (!_librayLoaded)
+        _libraryLoadPromise = promise;
 
-        if (!_librayLoaded)
-            _libraryLoadPromise = promise;
+    return promise;
 
-        return promise;
-    }
+}
 
-    function calcWasm() {
-        return calcBinaryen('native-wasm');
-    }
+function calcHash() {
 
-    function calcBinaryenSexpr() {
-        return calcBinaryen('interpret-s-expr');
-    }
-
-    function calcBinaryenBin() {
-        return calcBinaryen('interpret-binary');
-    }
-
-    function calcBinaryen(method) {
-
-        let promise =  new Promise (async (resolve)=>{
-
-            if (!global.WebAssembly) {
-
-                log('Your browser doesn\'t support WebAssembly, please try it in Chrome Canary or Firefox Nightly with WASM flag enabled');
-                return resolve(null); // return
-            }
-
-            //log('Testing Argon2 using Binaryen ' + method);
-            if (global.Module && global.Module.wasmJSMethod === method && global.Module._argon2_hash) {
-                //log('Calculating hash.... WASM optimized');
-
-                if (!_librayLoaded) await _libraryLoadPromise;
-
-                return resolve (calcHash());
-            }
-
-            _librayLoaded = false;
-
-            const KB = 1024 * 1024;
-            const MB = 1024 * KB;
-            const GB = 1024 * MB;
-            const WASM_PAGE_SIZE = 64 * 1024;
-
-            const totalMemory = (2*GB - 64*KB) / 1024 / WASM_PAGE_SIZE;
-            const initialMemory = Math.min(Math.max(Math.ceil(ARGON2_PARAM.mem * 1024 / WASM_PAGE_SIZE), 256) + 256, totalMemory);
-
-            log('Memory: ' + initialMemory + ' pages (' + Math.round(initialMemory * 64) + ' KB)', totalMemory);
-
-            const wasmMemory = new WebAssembly.Memory({
-                initial: initialMemory,
-                maximum: totalMemory
-            });
-
-            global.Module = {
-                print: log,
-                printErr: log,
-                setStatus: log,
-                wasmBinary: null,
-                wasmJSMethod: method,
-                asmjsCodeFile: root + 'dist/argon2-asm.min.asm.js',
-                wasmBinaryFile: root + 'dist/argon2.wasm',
-                wasmTextFile: root + 'dist/argon2.wast',
-                wasmMemory: wasmMemory,
-                buffer: wasmMemory.buffer,
-                TOTAL_MEMORY: initialMemory * WASM_PAGE_SIZE
-            };
-
-            log('Loading wasm...');
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', root + 'dist/argon2.wasm', true);
-            xhr.responseType = 'arraybuffer';
-            xhr.onload = () => {
-                global.Module.wasmBinary = xhr.response;
-                global.Module.postRun = () => resolve(calcHash());
-                var ts = now();
-                log('Wasm loaded, loading script...');
-                loadScript(root + 'dist/argon2.min.js', () => {
-                    log('Script loaded in ' + Math.round(now() - ts) + 'ms');
-                    log('Calculating hash....');
-
-                    _librayLoaded = true;
-
-                }, () => {
-
-                    _librayLoaded = true;
-                    log('Error loading script');
-
-                });
-            };
-            xhr.onerror = () => {
-                log('Error loading wasm');
-            };
-            xhr.send(null);
-
-        });
-
-        if (!_librayLoaded)
-            _libraryLoadPromise = promise;
-
-        return promise;
-
-    }
-
-    function calcHash() {
-
-        var hashArr = new Uint8Array(32);
+    var hashArr = new Uint8Array(32);
 
 
-        if (!Module._argon2_hash)
-            return hashArr;
-
-
-        //var dt = now();
-        var pwd = allocateArray( ARGON2_PARAM.pass);
-        var salt = allocateArray( ARGON2_PARAM.salt );
-        var hash = Module.allocate(new Array( ARGON2_PARAM.hashLen ), 'i8', Module.ALLOC_NORMAL);
-        var encoded = Module.allocate(new Array(512), 'i8', Module.ALLOC_NORMAL);
-        var err;
-        try {
-
-            var res = Module._argon2_hash(ARGON2_PARAM.time, ARGON2_PARAM.mem, ARGON2_PARAM.parallelism, pwd, ARGON2_PARAM.pass.length, salt, ARGON2_PARAM.salt.length,
-                hash, ARGON2_PARAM.hashLen, encoded, 512,
-                ARGON2_PARAM.type, 0x13);
-
-        } catch (e) {
-            err = e;
-        }
-        //var elapsed = now() - dt;
-        if (res === 0 && !err) {
-
-            /**
-             * changed by Alexandru Ionut Budisteanu
-             * to return UInt8Array aka Buffer
-             */
-
-
-            for (var i = hash; i < hash + ARGON2_PARAM.hashLen; i++)
-                hashArr[i-hash] = Module.HEAP8[i];
-
-        }  else {
-            try {
-                if (!err)
-                    err = Module.Pointer_stringify(Module._argon2_error_message(res))
-            } catch (e) {
-            }
-            log('Error: ' + res + (err ? ': ' + err : ''));
-        }
-        try {
-            Module._free(pwd);
-            Module._free(salt);
-            Module._free(hash);
-            Module._free(encoded);
-        } catch (e) { }
-
+    if (!Module._argon2_hash)
         return hashArr;
+
+
+    //var dt = now();
+    var pwd = allocateArray( ARGON2_PARAM.pass);
+    var salt = allocateArray( ARGON2_PARAM.salt );
+    var hash = Module.allocate(new Array( ARGON2_PARAM.hashLen ), 'i8', Module.ALLOC_NORMAL);
+    var encoded = Module.allocate(new Array(512), 'i8', Module.ALLOC_NORMAL);
+    var err;
+    try {
+
+        var res = Module._argon2_hash(ARGON2_PARAM.time, ARGON2_PARAM.mem, ARGON2_PARAM.parallelism, pwd, ARGON2_PARAM.pass.length, salt, ARGON2_PARAM.salt.length,
+            hash, ARGON2_PARAM.hashLen, encoded, 512,
+            ARGON2_PARAM.type, 0x13);
+
+    } catch (e) {
+        err = e;
     }
+    //var elapsed = now() - dt;
+    if (res === 0 && !err) {
 
-    function allocateArray(strOrArr) {
-        var arr = strOrArr instanceof Uint8Array || strOrArr instanceof Array ? strOrArr
-            : Module.intArrayFromString(strOrArr);
-        return Module.allocate(arr, 'i8', Module.ALLOC_NORMAL);
-    }
-
-    function now() {
-        return global.performance ? performance.now() : Date.now();
-    }
+        /**
+         * changed by Alexandru Ionut Budisteanu
+         * to return UInt8Array aka Buffer
+         */
 
 
+        for (var i = hash, n = hash + ARGON2_PARAM.hashLen; i < n; i++)
+            hashArr[i-hash] = Module.HEAP8[i];
 
-
-    /**
-     * This will load scripts/WASM files in a web worker
-     * @param script
-     * @param callback
-     * @param errorCallback
-     */
-    let loadScript =  (script, callback, errorCallback) => {
+    }  else {
         try {
-            importScripts(script);
+            if (!err)
+                err = Module.Pointer_stringify(Module._argon2_error_message(res))
         } catch (e) {
-            console.error('Error loading script', script, e);
-            errorCallback(e);
-            return;
         }
-        callback();
-    };
+        log('Error: ' + res + (err ? ': ' + err : ''));
+    }
+    try {
+        Module._free(pwd);
+        Module._free(salt);
+        Module._free(hash);
+        Module._free(encoded);
+    } catch (e) { }
+
+    return hashArr;
+}
+
+function allocateArray(strOrArr) {
+    var arr = strOrArr instanceof Uint8Array || strOrArr instanceof Array ? strOrArr
+        : Module.intArrayFromString(strOrArr);
+    return Module.allocate(arr, 'i8', Module.ALLOC_NORMAL);
+}
+
+function now() {
+    return global.performance ? performance.now() : Date.now();
+}
 
 
 
-    var log = (msg) => {
+
+/**
+ * This will load scripts/WASM files in a web worker
+ * @param script
+ * @param callback
+ * @param errorCallback
+ */
+let loadScript =  (script, callback, errorCallback) => {
+    try {
+        importScripts(script);
+    } catch (e) {
+        console.error('Error loading script', script, e);
+        errorCallback(e);
+        return;
+    }
+    callback();
+};
+
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (function (self) {
+
+
+
+    log = (msg) => {
         if (!msg )
             return;
         self.postMessage({message: "log", log: msg});
@@ -91825,6 +91838,8 @@ let WorkerChanged = false;
 
 
             if ( change ) {
+
+
                 bestHash = hash;
                 bestNonce = nonce;
             }
@@ -91852,9 +91867,6 @@ let WorkerChanged = false;
 
     }
 
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
 
 });;
 
@@ -98308,8 +98320,8 @@ class PoolManagement{
         this.poolSettings = new __WEBPACK_IMPORTED_MODULE_0__Pool_Settings__["a" /* default */](wallet, this);
         this.poolWorkManagement = new __WEBPACK_IMPORTED_MODULE_3__pool_work_Pool_Work_Management__["a" /* default */]( this, blockchain );
         this.poolProtocol = new __WEBPACK_IMPORTED_MODULE_4__protocol_Pool_Protocol__["a" /* default */]( this );
-        this.poolStatistics = new __WEBPACK_IMPORTED_MODULE_5__pool_statistics_Pool_Statistics__["a" /* default */]( this );
         this.poolData = new __WEBPACK_IMPORTED_MODULE_1_common_mining_pools_pool_pool_management_pool_data_Pool_Data__["a" /* default */](this, databaseName);
+        this.poolStatistics = new __WEBPACK_IMPORTED_MODULE_5__pool_statistics_Pool_Statistics__["a" /* default */]( this );
 
         this.poolRewardsManagement = new __WEBPACK_IMPORTED_MODULE_8__pool_work_rewards_Pool_Rewards_Management__["a" /* default */](this, this.poolData, blockchain);
 
@@ -101548,7 +101560,7 @@ class PoolNewWorkManagement{
             let processedWork = await this.poolWorkManagement.processWork( minerInstance, answer, prevBlock );
 
             minerInstance.socket.node.sendRequest("mining-pool/new-work/answer/confirm", {  result: processedWork.result,  reward: processedWork.reward, confirmed: processedWork.confirmed, miner: minerInstance.publicKey,
-                h:this.poolManagement.poolStatistics.poolHashes, m: this.poolManagement.poolStatistics.poolMinersOnline.length, b: this.poolManagement.poolStatistics.poolBlocksConfirmed + this.poolManagement.poolStatistics.poolBlocksConfirmedAndPaid, ub: this.poolManagement.poolStatistics.poolBlocksUnconfirmed, t: this.poolManagement.poolStatistics.poolTimeRemaining
+                h: this.poolManagement.poolStatistics.poolHashes, m: this.poolManagement.poolStatistics.poolMinersOnline.length, b: this.poolManagement.poolStatistics.poolBlocksConfirmed + this.poolManagement.poolStatistics.poolBlocksConfirmedAndPaid, ub: this.poolManagement.poolStatistics.poolBlocksUnconfirmed, t: this.poolManagement.poolStatistics.poolTimeRemaining
             } ,"answer" );
 
         } catch (exception){
@@ -101698,7 +101710,7 @@ class PoolConnectedServersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_mi
     async _subscribePoolConnectedServer(socket){
 
         if (! this.poolManagement._poolStarted) return;
-        if (this.poolManagement.poolSettings.poolUsePoolServers) return
+        if (!this.poolManagement.poolSettings.poolUsePoolServers) return;
 
         try{
 
@@ -101943,7 +101955,7 @@ class PoolConnectedMinersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_min
                     m: this.poolManagement.poolStatistics.poolMinersOnline.length,
                     t: this.poolManagement.poolStatistics.poolTimeRemaining,
 
-                }, "confirmation" );
+                }, "confirmation", 16000 );
 
                 try {
 
@@ -102143,13 +102155,7 @@ class PoolStatistics{
         this.poolHashes = 0;
         this.poolHashesNow = 0;
 
-        this.poolMinersOnline ={
-            length: 0,
-        };
-        this.poolMinersOnlineNow = {
-            length: 0
-        };
-
+        this.poolMinersOnline = this.poolManagement.poolData.connectedMinerInstances.list;
 
         this.poolBlocksUnconfirmed = 0;
         this.poolBlocksConfirmed = 0;
@@ -102161,11 +102167,10 @@ class PoolStatistics{
 
         //calculate mean
         this._poolHashesLast = [];
-        this._poolMinersOnlineLast = [];
 
     }
 
-     initializePoolStatistics(){
+    initializePoolStatistics(){
 
         return  this._load();
 
@@ -102173,7 +102178,6 @@ class PoolStatistics{
 
     startInterval(){
         this._interval = setInterval( this._poolStatisticsInterval.bind(this), this.POOL_STATISTICS_TIME );
-        this._intervalMinersOnline = setInterval( this._poolStatisticsInterval.bind(this), this.POOL_STATISTICS_TIME );
         this._saveInterval = setInterval( this._save.bind(this), 5*this.POOL_STATISTICS_TIME);
     }
 
@@ -102196,15 +102200,12 @@ class PoolStatistics{
 
             for (let i=0; i<this._poolHashesLast.length-1; i++) {
                 this._poolHashesLast[i] = this._poolHashesLast[ i + 1 ];
-                this._poolMinersOnlineLast[i] = this._poolMinersOnlineLast[ i + 1 ];
             }
 
             this._poolHashesLast[this._poolHashesLast.length-1] = poolHashes;
-            this._poolMinersOnlineLast[this._poolMinersOnlineLast.length-1] = poolMinersOnline;
 
         } else{
             this._poolHashesLast.push(poolHashes);
-            this._poolMinersOnlineLast.push(poolMinersOnline);
         }
 
 
@@ -102218,30 +102219,14 @@ class PoolStatistics{
 
         this.poolHashes = array[Math.floor(array.length / 2)];
 
-        this.poolMinersOnline = {
-            length: 0,
-        };
-
-        for (let key in this._poolMinersOnlineLast ){
-            if (key !== "length" && this._poolMinersOnlineLast[key] !== undefined ) {
-                this.poolMinersOnline[key] = this._poolMinersOnlineLast[key];
-            }
-        }
-
         this.emitter.emit("pools/statistics/update", { poolHashes: this.poolHashes, poolMinersOnline: this.poolMinersOnline, poolBlocksConfirmed: this.poolBlocksConfirmed,  poolBlocksUnconfirmed: this.poolBlocksUnconfirmed, poolTimeRemaining: this.poolTimeRemaining, });
 
     }
 
 
-    addStatistics(hashes, minerInstance){
+    addStatistics(hashes){
 
         this.poolManagement.poolStatistics.poolHashesNow += hashes.toNumber();
-
-
-        if (this.poolMinersOnlineNow[minerInstance.publicKeyString] === undefined) {
-            this.poolMinersOnlineNow[minerInstance.publicKeyString] = minerInstance;
-            this.poolMinersOnlineNow.length ++;
-        }
 
     }
 
@@ -102262,20 +102247,32 @@ class PoolStatistics{
 
     async _load(){
 
-         let confirmedAndPaid = await this._db.get("serverPool_statistics_confirmedAndPaid", 30*1000, true);
+        let confirmedAndPaid = await this._db.get("serverPool_statistics_confirmedAndPaid", 30*1000, true);
 
-         if (typeof confirmedAndPaid === "number") {
-             this.poolBlocksConfirmedAndPaid = confirmedAndPaid;
+        if (typeof confirmedAndPaid === "number") {
+            this.poolBlocksConfirmedAndPaid = confirmedAndPaid;
 
-             if (this.poolBlocksConfirmedAndPaid === 200) this.poolBlocksConfirmedAndPaid = 0;
-         }
+            if (this.poolBlocksConfirmedAndPaid === 200) this.poolBlocksConfirmedAndPaid = 0;
+        }
 
-         return true;
+        return true;
+    }
+
+    async _clear(){
+
+        try {
+            return (await this._db.remove("serverPool_statistics_confirmedAndPaid"));
+        }
+        catch(exception) {
+            console.log('Exception on clear serverPool_statistics_confirmedAndPaid: ', exception);
+            return false;
+        }
     }
 
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (PoolStatistics);
+
 
 /***/ }),
 /* 836 */
@@ -103483,7 +103480,7 @@ class MinerProtocol extends __WEBPACK_IMPORTED_MODULE_7_common_mining_pools_comm
                 pool: this.minerPoolManagement.minerPoolSettings.poolPublicKey,
                 miner: this.minerPoolManagement.minerPoolSettings.minerPoolPublicKey,
                 minerAddress: __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.mining.minerAddress,
-            }, "answer", 6000  );
+            }, "answer", 16000  );
 
 
             if (answer === null ) throw {message: "pool : didn't respond"}; //in case there was an error message

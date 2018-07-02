@@ -35,7 +35,7 @@
 
             <pool-miners-list v-if="!this.showAdvancedSettingsStatus" :displayType="this.displayType" :minersList="this.minersList" @selectMiner="this.selectNewMiner"></pool-miners-list>
 
-            <SettingsPage v-else="this.showAdvancedSettingsStatus"></SettingsPage>
+            <settings-page v-else="this.showAdvancedSettingsStatus"></settings-page>
 
         </div>
 
