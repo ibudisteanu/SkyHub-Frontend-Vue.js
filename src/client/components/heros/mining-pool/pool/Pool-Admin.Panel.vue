@@ -4,18 +4,28 @@
 
         <div id="miningPoolController">
 
-            <div class="generalController" :class="this.showAdvancedSettingsStatus ? 'ajustedHeight' : ''">
+            <div class="generalController" :class="this.menuClass()">
 
                 <div class="listType" v-if="!this.showAdvancedSettingsStatus" >
-
                     <span class="minerData buttonSmall" @click="changeDisplayType('list')" :class="this.displayType === 'list' ? 'selected' : ''">LIST</span>
                     <span class="minerData buttonSmall" @click="changeDisplayType('normal')"  :class="this.displayType === 'normal' ? 'selected' : ''">NORMAL</span>
-
                 </div>
 
-                <div class="buttonContainer" :class="this.showAdvancedSettingsStatus ? 'poolSingleButton' : ''">
-                    <span v-on:click="this.showAdvancedSettings" class="minerData buttonSmall settingsButton" >
-                        {{ !this.showAdvancedSettingsStatus ? 'Advanced Settings' : 'Miners List' }}
+                <div v-if="!this.showReferralListStatus" class="buttonContainer poolSingleButton">
+                    <span v-on:click="this.showReferralListEnable" class="minerData buttonSmall settingsButton" >
+                       {{ this.poolDetails.iAmOwner ? 'Pool Referrals' : 'Your Referrals' }}
+                    </span>
+                </div>
+
+                <div v-if="!this.showMinersListStatus && this.poolDetails.iAmOwner" class="buttonContainer poolSingleButton">
+                    <span v-on:click="this.showMinersListEnable" class="minerData buttonSmall settingsButton" >
+                        Miners List
+                    </span>
+                </div>
+
+                <div v-if="!this.showAdvancedSettingsStatus" class="buttonContainer poolSingleButton">
+                    <span v-on:click="this.showAdvancedSettingsEnable" class="minerData buttonSmall settingsButton" >
+                        {{ this.poolDetails.iAmOwner ? 'Advanced Settings' : 'Create your own pool' }}
                     </span>
                 </div>
 
@@ -23,7 +33,9 @@
 
             <div class="infoSection">
 
-                <pool-miner-details v-if="!this.showAdvancedSettingsStatus" :miner="this.minersList[this.selectedMinerIndex]"></pool-miner-details>
+                <pool-miner-details v-if="this.showMinersListStatus" :miner="this.minersList[this.selectedMinerIndex]"></pool-miner-details>
+
+                <pool-referral-details v-if="this.showReferralListStatus" :miner="this.minersList[this.selectedMinerIndex]"></pool-referral-details>
 
                 <pool-details v-if="this.showAdvancedSettingsStatus" :pool="this.poolDetails"></pool-details>
 
@@ -33,9 +45,11 @@
 
         <div id="yourPoolSection">
 
-            <pool-miners-list v-if="!this.showAdvancedSettingsStatus" :displayType="this.displayType" :minersList="this.minersList" @selectMiner="this.selectNewMiner"></pool-miners-list>
+            <pool-miners-list v-if="this.showMinersListStatus && this.poolDetails.iAmOwner" :displayType="this.displayType" :minersList="this.minersList" @selectMiner="this.selectNewMiner"></pool-miners-list>
 
-            <SettingsPage v-else="this.showAdvancedSettingsStatus"></SettingsPage>
+            <pool-referral-list v-if="this.showReferralListStatus" :displayType="this.displayType" :minersList="this.minersList" @selectMiner="this.selectNewMiner"></pool-referral-list>
+
+            <SettingsPage v-if="this.showAdvancedSettingsStatus"></SettingsPage>
 
         </div>
 
@@ -48,17 +62,21 @@
     import Vue from 'vue/dist/vue';
     import slider from 'client/components/UI/elements/Slider.vue';
     import PoolMinersList from "./components/Pool-Miners-List.vue";
+    import PoolReferralList from "./components/Pool-Referral-List.vue";
     import SettingsPage from "./components/Pool-Advanced-Settings.vue";
     import PoolMinerDetails from "./components/Pool-Miner-Details.vue";
     import PoolDetails from "./components/Pool-Details.vue";
+    import PoolReferralDetails from "./components/Pool-Referral-Details.vue";
 
     export default{
 
-        components: { PoolMinersList, slider, SettingsPage, PoolMinerDetails, PoolDetails },
+        components: { PoolMinersList, slider, SettingsPage, PoolMinerDetails, PoolDetails, PoolReferralList, PoolReferralDetails },
 
         data: () => {
             return {
                 showAdvancedSettingsStatus: false,
+                showMinersListStatus: true,
+                showReferralListStatus: false,
                 displayType: 'list',
                 poolDetails: {
                     address: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
@@ -66,6 +84,7 @@
                     poolName: '',
                     poolWebsite: '',
                     poolURL: '',
+                    iAmOwner: false
                 },
                 selectedMinerIndex: 0,
                 minersList: [
@@ -171,6 +190,22 @@
 
             loadPoolData(){
 
+            },
+
+            menuClass(){
+
+                if( !this.poolDetails.iAmOwner ){
+
+                    if (this.showAdvancedSettingsStatus) return 'ajustedHeightMiner';
+                        else return 'normalMiner';
+
+                }
+                else{
+
+                    if (this.showAdvancedSettingsStatus) return 'ajustedHeight';
+
+                }
+
 
 
             },
@@ -193,15 +228,43 @@
 
             },
 
-            showAdvancedSettings(){
-                this.showAdvancedSettingsStatus = !this.showAdvancedSettingsStatus;
+            showAdvancedSettingsEnable(){
+                this.showReferralListStatus = false;
+                this.showMinersListStatus = false;
+                this.showAdvancedSettingsStatus = true;
+            },
+
+            showReferralListEnable(){
+                this.showAdvancedSettingsStatus = false;
+                this.showMinersListStatus = false;
+                this.showReferralListStatus = true;
+            },
+
+            showMinersListEnable(){
+                this.showMinersListStatus = true;
+                this.showReferralListStatus = false;
+                this.showAdvancedSettingsStatus = false;
             },
 
             selectNewMiner(index){
-
                 this.selectedMinerIndex = index;
-
             }
+
+        },
+
+        computed:{
+
+            selectUserStatus(){
+
+                if(this.poolDetails.iAmOwner === false){
+
+                    this.showMinersListStatus=false;
+
+                    if(!this.showAdvancedSettingsStatus) this.showReferralListStatus = true;
+
+                }
+
+            },
 
         },
 
@@ -210,6 +273,7 @@
             if (typeof window === 'undefined') return;
 
             this.loadPoolData();
+            this.selectUserStatus();
 
         },
 
@@ -243,6 +307,10 @@
         font-size: 12px;
         text-transform: uppercase;
         transition: all 0.5s ease
+    }
+
+    .normalMiner{
+        height: 100px!important;
     }
 
     .generalController .settingsButton:hover{
@@ -315,8 +383,12 @@
         padding: 0!important;
     }
 
-    .ajustedHeight{
+    .ajustedHeightMiner{
         height: 35px!important;
+    }
+
+    .ajustedHeight{
+        height: 85px!important;
     }
 
 </style>

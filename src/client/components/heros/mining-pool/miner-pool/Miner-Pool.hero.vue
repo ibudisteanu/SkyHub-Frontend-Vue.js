@@ -21,7 +21,7 @@
 
                         <div class="">
 
-                            <router-link to="/mypool">
+                            <router-link to="/pool">
                                 <p class="copyPoolLink">Create Your Own Pool</p>
                             </router-link>
 

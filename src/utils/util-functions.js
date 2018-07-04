@@ -80,7 +80,6 @@ export default {
     
     showHashesSign(hashes){
 
-
         if (hashes >= 1000000) return 'Mh/s';
         if (hashes >= 1000) return 'Kh/s';
         return 'h/s';

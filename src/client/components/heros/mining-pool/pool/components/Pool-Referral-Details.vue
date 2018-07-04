@@ -2,7 +2,7 @@
 
     <div>
 
-        <h2>Miner Details</h2>
+        <h2>Referral Details</h2>
 
         <div class="selectedMinerInfo">
 

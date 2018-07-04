@@ -196,13 +196,15 @@
 
             removePoolHost(index){
 
-                this.poolServers
+//                this.poolServers
 
             },
 
             addNewHost(){
 
-                this.poolServers = this.poolServers + ' ' + this.newServer;
+                if (this.poolServers==='') this.poolServers = this.newServer;
+                    else this.poolServers = this.poolServers + ',' + this.newServer;
+
                 this.newServer ='';
 
             },
@@ -251,7 +253,7 @@
 
                 this.poolName = WebDollar.Blockchain.PoolManagement.poolSettings.poolName;
                 this.poolFee = Math.floor( WebDollar.Blockchain.PoolManagement.poolSettings.poolFee*100, 2);
-                this.poolServers = WebDollar.Blockchain.PoolManagement.poolSettings.getPoolServersText();
+                this.poolServers = WebDollar.Blockchain.PoolManagement.poolSettings.poolServers;
                 this.poolWebsite = WebDollar.Blockchain.PoolManagement.poolSettings.poolWebsite;
 
                 let poolSettings = [];
@@ -265,7 +267,13 @@
                 if (this.$refs['refPoolFee'] !== undefined)
                     this.$refs['refPoolFee'].value = this.poolFee;
 
-            }
+            },
+
+            async asyncData ({ store,  route: { params: { a,b, c, d, e, f }} }) {
+
+                return true;
+
+            },
 
         },
 
@@ -309,7 +317,7 @@
 <style>
 
     .paddingBottom40{
-        padding-bottom: 40px;
+        padding-bottom: 40px!important;
     }
 
     .serverHostItemsBox{
