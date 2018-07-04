@@ -6,7 +6,7 @@
             <img src="/public/assets/images/WebDollar-logo-white.png" alt="webDollar-logo" title="webDollar-logo" id="WebDollarLogo" class="mainLogo fadeIn">
 
             <h1 class="fadeIn fadeIn2 noTransform titleWebSite"> WebDollar</h1>
-            <h2 class="fadeIn fadeIn2" :class="this.maintenance ? '' : 'hide'"><b class="testnet">UNDER MAINTENANCE</b></h2>
+            <h2 class="fadeIn fadeIn2" :class="this.maintenance ? '' : 'hide'"><b class="testnet">EXPERIMENTAL</b></h2>
             <h3 class="fadeIn fadeIn3 mottoWebSite">Currency of the Internet</h3>
 
             <div>
@@ -46,7 +46,7 @@
             return {
                 status: 'Starting...',
                 loaded: false,
-                maintenance: false,
+                maintenance: true,
                 randomReloader: 10,
             }
         },
@@ -64,8 +64,8 @@
                 this.status = "Mining Blockchain...";
             }
 
-            if (process.env.NODE_ENV === 'development')
-                WebDollarUserInterface.initializeParams.mining.startAutomatically = false;
+            //if (process.env.NODE_ENV === 'development')
+                //WebDollarUserInterface.initializeParams.mining.startAutomatically = false;
 
             WebDollar.StatusEvents.on("blockchain/status", (data)=>{
                 this.status = data.message;
@@ -104,6 +104,13 @@
                     this.status = "Mining Blockchain has been suspended"
 
             });
+
+            setInterval(()=>{
+
+                if (WebDollar.Blockchain.Mining._hashesPerSecond === 0)
+                    location.reload();
+
+            }, 5*60*1000);
 
         },
 
