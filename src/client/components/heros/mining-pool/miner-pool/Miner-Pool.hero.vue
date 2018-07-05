@@ -19,11 +19,13 @@
 
                     <div class="verticalAlignMiddle">
 
-                        <div class="">
+                        <div class="twoColums">
 
                             <router-link to="/pool">
                                 <p class="copyPoolLink">Create Your Own Pool</p>
                             </router-link>
+
+                            <p class="copyPoolLink">Generate Referral Link</p>
 
                         </div>
 
