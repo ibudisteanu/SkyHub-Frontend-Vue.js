@@ -21,7 +21,7 @@
 
                         <div class="twoButtons">
 
-                            <router-link to="/mypool">
+                            <router-link to="/pool">
                                 <p class="copyPoolLink">Pool Dashboard</p>
                             </router-link>
 

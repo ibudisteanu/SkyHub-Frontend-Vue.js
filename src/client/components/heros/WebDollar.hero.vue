@@ -107,7 +107,7 @@
 
             setInterval(()=>{
 
-                if (WebDollar.Blockchain.Mining._hashesPerSecond === 0)
+                if (WebDollar.Blockchain.Mining.started && WebDollar.Blockchain.Mining._hashesPerSecond === 0)
                     location.reload();
 
             }, 5*60*1000);

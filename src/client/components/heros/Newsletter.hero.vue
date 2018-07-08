@@ -23,6 +23,9 @@
                 <a href="https://www.reddit.com/r/webdollar/" target="_blank">
                     <i class="fa fa-reddit-alien socialLinkWEBD"></i>
                 </a>
+                <a href="https://medium.com/@webdollar" target="_blank">
+                    <i class="fa fa-medium socialLinkWEBD"></i>
+                </a>
             </div>
 
             <div id="newsletterContainer">

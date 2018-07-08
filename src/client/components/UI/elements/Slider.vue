@@ -12,9 +12,9 @@
     export default {
         name: 'slider',
         props:{
-            max:{default:'100'},
-            min:{default:'0'},
-            interval:{default:'1'},
+            max:{default:100},
+            min:{default:0},
+            interval:{default:1},
             disabled:{default:false}
         },
 
