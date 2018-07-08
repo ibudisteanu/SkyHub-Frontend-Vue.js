@@ -26,7 +26,7 @@
                             </router-link>
 
                             <p class="copyPoolLink" @click="copyToClipboard">
-                                Generate Referral Link
+                                Copy Referral Link
                             </p>
                             Pool Referral Fee {{this.poolReferralFee}} %
 
