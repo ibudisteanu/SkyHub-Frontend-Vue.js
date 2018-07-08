@@ -42,6 +42,7 @@
                 Time to next block: <span class="normalSpan" :class="this.isNotNullColor"> {{this.showPoolRemainingTime}} </span>
             </span>
 
+
             <span v-if="this.statsType === 'miner' " class="oneLineText">
                 Referral Potential Reward: <span class="normalSpan" :class="this.isNotNullColor"> {{this.referralPotential}} WEBD</span>
             </span>
