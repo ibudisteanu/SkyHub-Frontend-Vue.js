@@ -153,8 +153,10 @@
             },
 
             getPoolServers(){
+
                 let poolServers = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolServers;
                 this.poolServers = WebDollar.Applications.PoolsUtilsHelper.getPoolServersStatus(poolServers);
+
             },
 
             subscribeMinerPoolStatistics(){
