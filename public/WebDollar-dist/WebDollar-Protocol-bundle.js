@@ -1921,7 +1921,7 @@ const BigNumber = __webpack_require__(64);
 
 let consts = {
 
-    DEBUG: true,
+    DEBUG: false,
     OPEN_SERVER: true,
 
 };
@@ -98463,12 +98463,15 @@ class PoolManagement{
 
     async initializePoolManagement(poolFee){
 
-        await this.poolData.initializePoolData();
-
         let answer;
+
         try {
+
             answer = await this.poolSettings.initializePoolSettings(poolFee);
+
             console.info("The url is just your domain: " + this.poolSettings.poolURL);
+
+            answer = await this.poolData.initializePoolData();
 
             if (!answer)
                 throw {message: "Pool Couldn't be started"};
@@ -98499,7 +98502,7 @@ class PoolManagement{
     }
 
     receivePoolWork(minerInstance, work){
-       return this.poolWorkManagement.processWork(minerInstance, work)
+        return this.poolWorkManagement.processWork(minerInstance, work)
     }
 
     /**
@@ -98660,7 +98663,7 @@ class PoolSettings {
 
     }
     
-  printPoolSettings(){
+  printPoolSettings(showPoolPrivateKey=false){
   
       console.log("Fee: ", this._poolFee);
       console.log("Referral Fee: ", this._poolReferralFee);
@@ -98676,7 +98679,10 @@ class PoolSettings {
 
       console.log("POWValidationProbability: ", this._poolPOWValidationProbability);
       console.log("UsePoolServers: ", this._poolUsePoolServers);
-      //console.log("PrivateKey: ", this._poolPrivateKey.toString("hex"));
+
+      if (showPoolPrivateKey)
+        console.log("PrivateKey: ", this._poolPrivateKey.toString("hex"));
+
       console.log("PublicKey: ", this.poolPublicKey.toString("hex"));
       console.log("Address: ", this.poolAddress.toString("hex"));
       console.log("URL: ", this.poolURL);
@@ -98692,8 +98698,6 @@ class PoolSettings {
 
         let servers = this.poolServers.join(";");
         servers = servers.replace(/\//g, '$' );
-
-        let website = this.poolWebsite.replace(/\//g, '$' );
 
         let poolName = this.poolName.replace(" ","_");
 
@@ -100551,25 +100555,26 @@ class PoolData {
 
     _clearEmptyMiners(){
 
-        for (let i=this.miners.length-1; i>=0; i--)
-            if ( (this.miners[i].rewardTotal + this.miners[i].rewardConfirmed + this.miners[i].rewardConfirmedOther + this.miners[i].rewardSent + this.miners[i].referrals.rewardReferralsSent + this.miners[i].referrals.rewardReferralsConfirmed + this.miners[i].referrals.rewardReferralsTotal ) === 0) {
-
-
-                //delete blockInformationMinerInstances
-                this.blocksInfo.forEach((blockInfo)=>{
-
-                    blockInfo.blockInformationMinersInstances.forEach((minerInstance, index)=>{
-
-                        if (minerInstance.address.equals(this.miners[i].address))
-                            blockInfo._deleteBlockInformationMinerInstance(index);
-
-                    });
-
-                });
-
-                this.miners[i].destroyPoolDataMiner();
-                this.miners.splice(i, 1);
-            }
+        // for (let i=this.miners.length-1; i>=0; i--)
+        //     if ( this.miners[i].referrals.array.length === 0 && this.miners[i].referrals.referralLinkMiner !== undefined &&
+        //         (this.miners[i].rewardTotal + this.miners[i].rewardConfirmed + this.miners[i].rewardConfirmedOther + this.miners[i].rewardSent + this.miners[i].referrals.rewardReferralsSent + this.miners[i].referrals.rewardReferralsConfirmed + this.miners[i].referrals.rewardReferralsTotal ) === 0) {
+        //
+        //
+        //         //delete blockInformationMinerInstances
+        //         this.blocksInfo.forEach((blockInfo)=>{
+        //
+        //             blockInfo.blockInformationMinersInstances.forEach((minerInstance, index)=>{
+        //
+        //                 if (minerInstance.address.equals(this.miners[i].address))
+        //                     blockInfo._deleteBlockInformationMinerInstance(index);
+        //
+        //             });
+        //
+        //         });
+        //
+        //         this.miners[i].destroyPoolDataMiner();
+        //         this.miners.splice(i, 1);
+        //     }
 
 
     }
@@ -100864,6 +100869,10 @@ class PoolDataMinerReferrals {
         if ( address === null || address === undefined || !Buffer.isBuffer(address) || address.length !== __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.LENGTH )
             return false;
 
+        //avoid to be the same person
+        if (address.equals(this.miner.address))
+            return false;
+
         this.referralLinkAddress = address;
         this.findReferralLinkAddress();
 
@@ -101054,7 +101063,8 @@ class PoolDataMinerReferral {
         this.refereeAddress = refereeAddress; //the referee
         this.refereeMiner = refereeMiner; //the referee
 
-        this.findRefereeAddress();
+        if (this.refereeAddress !== undefined)
+            this.findRefereeAddress();
 
         this._rewardReferralTotal = 0; // total - no confirmed
         this._rewardReferralConfirmed = 0; //confirmed but not sent
@@ -101283,7 +101293,7 @@ class PoolDataBlockInformation {
         let version = __WEBPACK_IMPORTED_MODULE_0_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_3_common_utils_BufferExtended__["a" /* default */].substr( buffer, offset, 1 )  );
         offset += 1;
 
-        if (version === 0x01){
+        if (version >= 0x01){
 
             let height = __WEBPACK_IMPORTED_MODULE_0_common_utils_Serialization__["a" /* default */].deserializeNumber( __WEBPACK_IMPORTED_MODULE_3_common_utils_BufferExtended__["a" /* default */].substr( buffer, offset, 4 )  );
             offset +=4;
@@ -101629,14 +101639,14 @@ class PoolDataBlockInformationMinerInstance {
 
 
         let miner = this.poolManagement.poolData.findMiner( address );
-        this.minerInstance = miner.addInstance({
-            _diff: Math.random(),
-            node:{
-                protocol:{
-
+        if (miner !== undefined && miner !== null) {
+            this.minerInstance = miner.addInstance({
+                _diff: Math.random(),
+                node: {
+                    protocol: {}
                 }
-            }
-        });
+            });
+        }
 
         let answer = __WEBPACK_IMPORTED_MODULE_0_common_utils_Serialization__["a" /* default */].deserializeBigNumber(buffer, offset);
         this.minerInstanceTotalDifficulty = answer.number;
@@ -102184,7 +102194,7 @@ class PoolNewWorkManagement{
             if (this.poolWorkManagement.poolWork.lastBlock === prevBlock  ) return true;
 
 
-            let answer = await minerInstance.socket.node.sendRequestWaitOnce("mining-pool/new-work", {  work: newWork, miner: minerInstance.publicKey, } ,"answer" );
+            let answer = await minerInstance.socket.node.sendRequestWaitOnce("mining-pool/new-work", {  work: newWork,  } ,"answer" );
 
             if ( answer === null ) throw {message: "answer is not null"};
 
@@ -104367,9 +104377,8 @@ class MinerProtocol extends __WEBPACK_IMPORTED_MODULE_7_common_mining_pools_comm
         socket.node.on("mining-pool/new-work", async (data)=>{
 
             try {
+
                 if (typeof data.work !== "object") throw {message: "new-work invalid work"};
-                if (!Buffer.isBuffer(data.miner)) throw {message: "new-work invalid minerPublicKey"};
-                if (!Buffer.isBuffer(data.miner)) throw {message: "new-work invalid minerPublicKey"};
 
                 let confirmation = socket.node.sendRequestWaitOnce("mining-pool/new-work/answer", {
                     hash: this.minerPoolManagement.minerPoolMining.bestHash,
