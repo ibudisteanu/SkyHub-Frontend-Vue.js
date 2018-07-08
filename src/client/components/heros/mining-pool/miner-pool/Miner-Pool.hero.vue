@@ -25,7 +25,10 @@
                                 <p class="copyPoolLink">Create Your Own Pool</p>
                             </router-link>
 
-                            <p class="copyPoolLink">Generate Referral Link</p>
+                            <p class="copyPoolLink" @click="copyToClipboard">
+                                Copy Referral Link
+                            </p>
+                            Pool Referral Fee {{this.poolReferralFee}} %
 
                         </div>
 
@@ -33,7 +36,12 @@
 
                 </div>
 
-                <pool-statistics :poolName="poolName" :poolWebsite="poolWebsite" :poolURL="poolURL" :poolFee="poolFee" :poolServers="poolServers" :poolsList="poolsList" :poolsListSelected="poolsListSelected" :poolStatus="minerPoolStatus" :poolHashes="poolHashes" :poolMinersOnline="poolMinersOnline" :poolBlocksConfirmed="poolBlocksConfirmed" :poolBlocksUnconfirmed="poolBlocksUnconfirmed" :poolTimeRemaining="poolTimeRemaining" > </pool-statistics>
+                <pool-statistics statsType="miner" :poolName="poolName" :poolWebsite="poolWebsite" :poolURL="poolURL" :poolFee="poolFee" :poolReferralFee="poolReferralFee"
+                                 :poolServers="poolServers" :poolsList="poolsList" :poolsListSelected="poolsListSelected"
+                                 :poolStatus="minerPoolStatus" :poolHashes="poolHashes" :poolMinersOnline="poolMinersOnline"
+                                 :poolBlocksConfirmed="poolBlocksConfirmed" :poolBlocksUnconfirmed="poolBlocksUnconfirmed"
+                                 :poolTimeRemaining="poolTimeRemaining" :rewardReferralTotal="rewardReferralTotal" :rewardReferralConfirmed="rewardReferralConfirmed"  >
+                </pool-statistics>
 
             </div>
 
@@ -61,7 +69,8 @@
                 poolName: '',
                 poolWebsite: '',
                 poolURL: '',
-                poolFee: '',
+                poolFee: 0,
+                poolReferralFee: 0,
                 poolServers: {},
                 poolsList: {},
                 poolsListSelected: '',
@@ -73,6 +82,11 @@
                 poolBlocksUnconfirmed: 0,
                 poolTimeRemaining: 0,
 
+                poolURLReferral: '',
+
+                rewardReferralTotal: 0,
+                rewardReferralConfirmed: 0,
+
                 subscribedMinerPoolStatistics:false,
 
             }
@@ -83,7 +97,7 @@
         methods: {
 
             copyToClipboard(){
-                this.$clipboard(this.poolURL);
+                this.$clipboard(this.poolURLReferral);
             },
 
             loadPoolData(){
@@ -99,9 +113,12 @@
                     if (WebDollar.Blockchain.MinerPoolManagement.minerPoolStarted) this.minerPoolStatus = "started";
 
                     this.poolFee = Math.floor( WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolFee*100 , 2 );
+                    this.poolReferralFee = Math.floor( WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolReferralFee*100 , 2 );
                     this.poolURL = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolURL;
                     this.poolName = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolName;
                     this.poolWebsite = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolWebsite;
+
+                    this.poolURLReferral = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolURLReferral;
 
                     this.getPoolServers();
 
@@ -152,6 +169,7 @@
                 this.poolBlocksUnconfirmed = WebDollar.Blockchain.MinerPoolManagement.minerPoolStatistics.poolBlocksUnconfirmed;
                 this.poolTimeRemaining = WebDollar.Blockchain.MinerPoolManagement.minerPoolStatistics.poolTimeRemaining;
 
+
                 WebDollar.Blockchain.MinerPoolManagement.minerPoolStatistics.emitter.on("miner-pool/statistics/update",(data)=>{
 
                     this.poolHashes = data.poolHashes;
@@ -172,15 +190,21 @@
 
             if (typeof window === "undefined") return;
 
-            WebDollar.StatusEvents.on("miner-pool/status", (data) => {
-                this.loadPoolData();
-            });
+            WebDollar.StatusEvents.on("miner-pool/status", data => this.loadPoolData() );
 
-            WebDollar.StatusEvents.on("miner-pool/settings",(data)=>{
-                this.loadPoolData();
-            });
+            WebDollar.StatusEvents.on("miner-pool/settings",data =>  this.loadPoolData() );
+
+            WebDollar.StatusEvents.on("miner-pool/referral-url", data =>  this.poolURLReferral = data.poolURLReferral );
 
             this.loadPoolData();
+
+            WebDollar.StatusEvents.on("miner-pool/referral-confirmed-reward", data => this.rewardReferralConfirmed = data.referralConfirmedReward );
+            WebDollar.StatusEvents.on("miner-pool/referral-total-reward", data => this.rewardReferralTotal = data.referralTotalReward );
+
+            if (WebDollar.Blockchain.MinerPoolManagement !== undefined){
+                this.rewardReferralTotal = WebDollar.Blockchain.MinerPoolManagement.totalReferralReward;
+                this.rewardReferralConfirmed = WebDollar.Blockchain.MinerPoolManagement.confirmedReferralReward;
+            }
 
             //servers
 
