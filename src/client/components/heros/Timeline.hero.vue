@@ -3,7 +3,7 @@
 
     <div id="timelineSection" >
 
-        <span class='alignCenter pageTitle'>TIMELINE</span>
+        <span class='alignCenter pageTitle'>ROAD MAP</span>
         <h3>Fastest Development of a Browser-Based Cryptocurrency</h3>
 
         <div id="timeline" class="backgroundSection">
@@ -54,7 +54,7 @@
                     <div class="timeline-content">
                         <h5 class="title">BUILT IN BOUNTY PROGRAM</h5>
                         <p class="description">
-                            Development of a bounty program that helped evangelists to spread the word of Webdollar wordlwide.
+                            Development of a bounty program that helped evangelists to spread the word of Webdollar worldwide.
                         </p>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                     <div class="timeline-content">
                         <h5 class="title">MINING POOLS & REFERRAL SYSTEM</h5>
                         <p class="description">
-                            Developing a easy way to mine with your friends in social mining. And creating the first Mining Pools Referral System.
+                            Developing a easy way to mine with your friends in social mining. Also, creation of the Mining Pools Referral System.
                         </p>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                     <div class="timeline-content">
                         <h5 class="title">EVANGELISM & MARKETING</h5>
                         <p class="description">
-                            Growing the community, running bounties programs & attend to cryptocurrencies confereces.
+                            Growing the community, running bounties programs & attend to cryptocurrency confereces.
                         </p>
                     </div>
                 </div>
