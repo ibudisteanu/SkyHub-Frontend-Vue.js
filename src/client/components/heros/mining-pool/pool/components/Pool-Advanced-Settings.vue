@@ -22,14 +22,14 @@
                                 <div class="settingsTitle">
                                     Owner Fee:
                                 </div>
-                                <slider ref="refPoolFee" :interval="0.01" @changed="this.handleChangePoolFee"/>
+                                <slider ref="refPoolFee" :interval="10" :min="10" :max="1000" @changed="this.handleChangePoolFee"/>
                             </div>
 
                             <div class="poolSettingsRow feeSlider">
                                 <div class="settingsTitle specialTitle">
                                     Hosts Fee:
                                 </div>
-                                <slider ref="refPoolFee" :interval="0.01" @changed="this.handleChangePoolFee"/>
+                                <slider ref="refHostsFee" :interval="10" :min="10" :max="1000" @changed="this.handleChangePoolFee"/>
                             </div>
 
                         </div>
@@ -40,14 +40,14 @@
                                 <div class="settingsTitle">
                                     Referral Fee:
                                 </div>
-                                <slider ref="refPoolFee" :interval="0.01" :disabled="true" @changed="this.handleChangePoolFee"/>
+                                <slider ref="refReferralFee" :interval="10" :min="10" :max="1000" :disabled="true" @changed="this.handleChangePoolFee"/>
                             </div>
 
                             <div class="poolSettingsRow feeSlider">
                                 <div class="settingsTitle specialTitle">
                                     Pay frequency:
                                 </div>
-                                <slider ref="refPoolFee" :interval="10" :min="10" :max="1000" @changed="this.handleChangePoolFee"/>
+                                <slider ref="refFrequency" :interval="10" :min="10" :max="1000" @changed="this.handleChangePoolFee"/>
                             </div>
 
                         </div>
@@ -92,7 +92,7 @@
                            <!--</div>-->
                             <div class="addNewHostBox" >
                                 <div class="serverInfo">
-                                    <span class="titlePool serverPool" >321.321.321.322:8888</span>
+                                    <span class="titlePool serverPool" >127.22.11.33:8888</span>
                                     <span class="minerData serverPoolStatus" > (test) </span>
                                 </div>
                                 <span class="deleteButton">
@@ -101,7 +101,7 @@
                             </div>
                             <div class="addNewHostBox" >
                                 <div class="serverInfo">
-                                    <span class="titlePool serverPool" >9321.321.321.3.2</span>
+                                    <span class="titlePool serverPool" >127.22.33.3.2</span>
                                     <span class="minerData serverPoolStatus" > (tess)  </span>
                                 </div>
                                 <span class="deleteButton">
@@ -110,7 +110,7 @@
                             </div>
                             <div class="addNewHostBox" >
                                 <div class="serverInfo">
-                                    <span class="titlePool serverPool" >9321.321.321.3.2</span>
+                                    <span class="titlePool serverPool" >127.22.33.3.2</span>
                                     <span class="minerData serverPoolStatus" > (test)  </span>
                                 </div>
                                 <span class="deleteButton">
@@ -288,6 +288,7 @@
                 switch (data.message) {
 
                     case "Pool Initialization changed":
+                        console.log("Pool Initialization changed");
                         this.initialized = data.result;
                         this.loadData();
                         break;
