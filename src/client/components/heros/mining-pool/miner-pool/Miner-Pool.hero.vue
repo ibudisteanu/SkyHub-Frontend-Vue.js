@@ -31,7 +31,11 @@
                                     Copy Referral Link
                                 </p>
 
-                                <span>Referral Fee {{this.poolReferralFee}} %</span>
+                                <p class="copyPoolLink">
+                                    Manage Referrals
+                                </p>
+
+                                <span class="normalSpan yellowColor" :class="this.isNotNullColor"> Pool Referral Fee  {{this.poolReferralFee}} % </span>
 
                             </div>
 
