@@ -9,7 +9,7 @@
             <div class="distributionContainer">
 
                 <div class="distributionGrid borderBottom">
-                    <h2 class="subtitle">Pool Quick Command</h2>
+                    <h2 class="subtitle">Pool Quick Actions</h2>
                 </div>
                 <div class="distributionGrid borderBottom">
                     <h2 class="subtitle">Pool Statistics</h2>
@@ -19,16 +19,21 @@
 
                     <div class="verticalAlignMiddle">
 
-                        <div class="twoColums">
+                        <div class="twoColums poolQuickActions">
 
                             <router-link to="/pool">
                                 <p class="copyPoolLink">Create Your Own Pool</p>
                             </router-link>
 
-                            <p class="copyPoolLink" @click="copyToClipboard">
-                                Copy Referral Link
-                            </p>
-                            Pool Referral Fee {{this.poolReferralFee}} %
+                            <div>
+
+                                <p class="copyPoolLink" @click="copyToClipboard">
+                                    Copy Referral Link
+                                </p>
+
+                                <span>Referral Fee {{this.poolReferralFee}} %</span>
+
+                            </div>
 
                         </div>
 
@@ -220,3 +225,18 @@
     }
 
 </script>
+
+<style>
+
+    .poolQuickActions{
+        max-width: 540px;
+        margin:auto;
+    }
+
+    .poolQuickActions span{
+        text-align: center;
+        margin-top: 20px;
+        color: #fff;
+    }
+
+</style>

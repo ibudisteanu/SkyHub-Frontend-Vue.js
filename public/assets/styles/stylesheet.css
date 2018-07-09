@@ -2165,3 +2165,23 @@ background-color:#ff2200}
 .noOverflow{
   overflow: hidden;
 }
+
+.notificationsBox{
+  cursor: pointer;
+}
+
+.notificationsBox span{
+  width: 100%!important;
+  line-height: 14px!important;
+  letter-spacing: 0!important;
+  font-family: sans-serif;
+}
+
+.notificationsBox .notification-content{
+  font-size: 14px;
+}
+
+.notificationsBox .notification-title{
+  font-size: 16px;
+  font-weight: bold;
+}

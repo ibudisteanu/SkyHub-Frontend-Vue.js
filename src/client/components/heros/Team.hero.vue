@@ -253,7 +253,7 @@
 
             <span class="pageTitle alignCenter bigMarginTop" >Evanghelists</span>
 
-            <div class="teamWrapper threeTeamColums">
+            <div class="teamWrapper">
 
                 <div class="our-team robescu">
                     <div class="team-pic">
@@ -304,16 +304,6 @@
                     </p>
                 </div>
 
-            </div>
-
-        </div>
-
-        <div class="">
-
-            <span class="pageTitle alignCenter bigMarginTop" >Advisors</span>
-
-            <div class="teamWrapper twoTeamColums">
-
                 <div class="our-team smirna">
                     <div class="team-pic">
                         <img src="/public/assets/images/team/Tudor-Smirna.jpeg" alt="Tudor Smirna">
@@ -326,19 +316,6 @@
                     <span class="teamName">Tudor Smirna</span>
                     <span class="teamRole">Economic Advisor</span>
                     <p>Tudor Smirna, Ph.D., is an economist and entrepreneur specialized in money and banking. He is a fellow of the Ludwig von Mises Institute and teaches at the Bucharest University of Economic Studies.</p>
-                </div>
-                <div class="our-team issam">
-                    <div class="team-pic">
-                        <img src="public/assets/images/team/Issam-Outaleb.jpg" alt="Issam Outaleb">
-                        <div class="over-layer">
-                            <ul class="social-link">
-                                <li> <a href="https://www.linkedin.com/in/issame-outaleb-phd-84442577/" target="_blank" class="fa fa-linkedin2"></a> </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <span class="teamName">Issam Outaleb</span>
-                    <span class="teamRole">MANAGEMENT ADVISOR</span>
-                    <p>Issam is a Business Management Senior Consultant and Strategist who partners with top tier executives and marketers. Issam knows what truly drives conversions, product launches, and successful strategic and operational planning.</p>
                 </div>
 
             </div>
