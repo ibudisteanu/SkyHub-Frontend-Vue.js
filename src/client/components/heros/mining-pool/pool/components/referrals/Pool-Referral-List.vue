@@ -13,7 +13,7 @@
 
         <div v-if="this.displayType==='list'" class="list">
 
-            <div class="transactionInfo tableHeader">
+            <div class="transactionInfo referralInfo tableHeader">
 
                 <span>Status</span>
                 <span>Potential Referral Reward</span>
@@ -23,7 +23,7 @@
 
             </div>
 
-            <div v-for="(element, index) in this.minersList" :key="'miningPoolListElement '+index" @click="selectMiner(index)" class="transactionInfo">
+            <div v-for="(element, index) in this.minersList" :key="'miningPoolListElement '+index" @click="selectMiner(index)" class="transactionInfo referralInfo">
 
                 <div class="mobileTableShow">
                     <span class="mobileTableShowTitle">Status:</span>
@@ -91,6 +91,10 @@
 
     .miner{
         transition: none;
+    }
+
+    .referralInfo{
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     }
 
 </style>
