@@ -1129,7 +1129,8 @@ background-color:#ff2200}
 }
 
 .distributionContainer{
-  padding-top: 50px;
+  padding: 50px 0;
+  background-color: #ffffff1c;
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-column-gap: 40px;
@@ -1261,10 +1262,11 @@ background-color:#ff2200}
   cursor:pointer;
   background-color: #fec02c;
   width: 200px;
-  margin: 0 auto;
   font-weight: bolder;
-  line-height: 40px;
-  border-radius: 10px;
+  line-height: 34px;
+  margin: 0 auto;
+  border-radius: 5px;
+  display: block;
   transition: all 0.5s ease
 }
 

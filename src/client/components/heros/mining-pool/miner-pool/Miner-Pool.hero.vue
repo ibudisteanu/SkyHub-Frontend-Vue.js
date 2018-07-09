@@ -9,7 +9,7 @@
             <div class="distributionContainer">
 
                 <div class="distributionGrid borderBottom">
-                    <h2 class="subtitle">Pool Quick Actions</h2>
+                    <h2 class="subtitle">{{ this.minerPoolStatus === 'miner' ? 'Referral Quick Actions' : 'Pool Quick Actions'}}</h2>
                 </div>
                 <div class="distributionGrid borderBottom">
                     <h2 class="subtitle">Pool Statistics</h2>
@@ -19,10 +19,10 @@
 
                     <div class="verticalAlignMiddle">
 
-                        <div class="twoColums poolQuickActions">
+                        <div class="twoColums poolQuickActions" v-if="this.poolReferralFee!=0">
 
-                            <router-link to="/pool">
-                                <p class="copyPoolLink">Create Your Own Pool</p>
+                            <router-link class="copyPoolLink" to="/pool">
+                                Referrals Dashboard
                             </router-link>
 
                             <div>
@@ -31,13 +31,19 @@
                                     Copy Referral Link
                                 </p>
 
-                                <p class="copyPoolLink">
-                                    Manage Referrals
-                                </p>
-
-                                <span class="normalSpan yellowColor" :class="this.isNotNullColor"> Pool Referral Fee  {{this.poolReferralFee}} % </span>
+                                <span :class="this.isNotNullColor"> Pool Referral Fee  {{this.poolReferralFee}} % </span>
 
                             </div>
+
+                        </div>
+
+                        <div v-if="this.poolReferralFee===0" class="poolQuickActions">
+
+                            <span class="noMarginTop">Your current pools doesn't has referral system.</span>
+
+                            <router-link class="copyPoolLink" to="/pool">
+                                Create Your Own Pool
+                            </router-link>
 
                         </div>
 
@@ -241,6 +247,11 @@
         text-align: center;
         margin-top: 20px;
         color: #fff;
+    }
+
+    .noMarginTop{
+        margin-top: 0!important;
+        margin-bottom: 20px!important;
     }
 
 </style>
