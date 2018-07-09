@@ -28,7 +28,12 @@
                             <p class="copyPoolLink" @click="copyToClipboard">
                                 Copy Referral Link
                             </p>
-                            Pool Referral Fee {{this.poolReferralFee}} %
+
+                            <p class="copyPoolLink">
+                                Manage Referrals
+                            </p>
+
+                            Pool Referral Fee <span class="normalSpan yellowColor" :class="this.isNotNullColor"> {{this.poolReferralFee}} % </span>
 
                         </div>
 
