@@ -16,9 +16,10 @@
             <div class="transactionInfo tableHeader">
 
                 <span>Status</span>
-                <!--<span>Next Reward</span>-->
-                <!--<span>Address</span>-->
-                <span>Total WIN</span>
+                <span>Potential Referral Reward</span>
+                <span>Confirmed Referral Reward</span>
+                <span>Total Referral Sent</span>
+                <span>h/s</span>
 
             </div>
 
@@ -29,15 +30,20 @@
                     <span class="status" :class="element.active===true ? 'yellowText' : ''">{{element.active===true ? 'Mining' : 'Offline'}}</span>
                 </div>
 
-                <!--<div class="mobileTableShow">-->
-                    <!--<span class="mobileTableShowTitle">Next Reward:</span>-->
-                    <!--<span class="time">{{element.nextReward + ' WEBD'}}</span>-->
-                <!--</div>-->
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Next Reward:</span>
+                    <span class="time">{{element.nextReward + ' WEBD'}}</span>
+                </div>
 
-                <!--<div class="mobileTableShow">-->
-                    <!--<span class="mobileTableShowTitle">Address:</span>-->
-                    <!--<span class="minedBy">{{element.address}}</span>-->
-                <!--</div>-->
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Address:</span>
+                    <span class="minedBy">{{element.address}}</span>
+                </div>
+
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Total Win:</span>
+                    <span class="size yellowText">{{element.avaiableReward}}</span>
+                </div>
 
                 <div class="mobileTableShow">
                     <span class="mobileTableShowTitle">Total Win:</span>
@@ -68,6 +74,12 @@
                 this.$emit('selectMiner', index);
 
             }
+
+        },
+
+        mounted(){
+
+            if (typeof window !== "undefined") return;
 
         }
 

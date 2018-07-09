@@ -64275,8 +64275,8 @@ class MainBlockchainWallet {
 
     async _insertAddress(blockchainAddress){
 
-        let index = this.getAddressIndex(blockchainAddress);
-        if (index >= 0)
+        let answer = this.getAddress(blockchainAddress);
+        if (answer === null)
             return false;
 
         this.addresses.push(blockchainAddress);
@@ -64393,33 +64393,20 @@ class MainBlockchainWallet {
      * @param address
      * @returns {*}
      */
-    getAddress(address){
+    getAddress(address, returnPos = false ){
 
         if (typeof address === "object" && address.hasOwnProperty("address"))
             address = address.address;
 
-        let index = this.getAddressIndex(address);
-        if (index === -1)
-            return null;
-        else
-            return this.addresses[index];
-    }
-
-    /**
-     * Finding stringAddress or address
-     * @param address
-     * @returns {*}
-     */
-    getAddressIndex(address){
-
         for (let i = 0; i < this.addresses.length; i++)
             if (address === this.addresses[i].address || address === this.addresses[i])
-                return i;
+                return returnPos ? i : this.addresses[i];
             else
             if (typeof address ==="object" && (this.addresses[i].address === address.address || this.addresses[i].unencodedAddress === address.unencodedAddress))
-                return i;
+                return returnPos ? i : this.addresses[i];
 
-        return -1;
+        return returnPos ? -1 : null;
+
     }
 
     getAddressPic(address){
@@ -64726,8 +64713,8 @@ class MainBlockchainWallet {
         if (typeof address === "object" && address.hasOwnProperty("address"))
             address = address.address;
 
-        let index = this.getAddressIndex(address);
-        if (index < 0)
+        let found = this.getAddress(address, true);
+        if ( found === null )
             return {result: false, message: "Address was not found ", address: address};
 
         if (await this.isAddressEncrypted(address)) {
@@ -91157,7 +91144,7 @@ class InterfaceBlockchainMiningBasic {
                 return true;
             }
 
-            if ( Wallet.getAddressIndex( minerAddress ) === -1 ){
+            if ( Wallet.getAddress( minerAddress ) === null ){
                 if (typeof window === "undefined"){
 
                     console.error("You are mining on an address that is not in your wallet. Do you want to change the mining address on your wallet?")
@@ -102644,6 +102631,11 @@ class PoolConnectedMinersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_min
 
                 this.poolManagement.poolData.lastBlockInformation._findBlockInformationMinerInstance(minerInstance);
 
+                //generate a message for confirming pool Owner
+                let messageAddressConfirmation = undefined;
+                if ( __WEBPACK_IMPORTED_MODULE_10_main_blockchain_Blockchain__["a" /* default */].Wallet.getAddress(unencodedAddress) )
+                    messageAddressConfirmation = new Buffer(32);
+
                 let work = await this.poolManagement.generatePoolWork(minerInstance, true);
 
                 let confirmation = await socket.node.sendRequestWaitOnce("mining-pool/hello-pool/answer"+suffix, {
@@ -102671,6 +102663,8 @@ class PoolConnectedMinersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_min
 
                     work: work,
 
+                    msg: messageAddressConfirmation,
+
                 }, "confirmation", 16000 );
 
                 try {
@@ -102682,6 +102676,17 @@ class PoolConnectedMinersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_min
                     if (confirmation.result){
 
                         this._addConnectedMinerPool(socket, confirmation.sckAddress || socket.node.sckAddress.address, minerInstance);
+
+                        //checking the person is actually a Pool Owner
+                        //validate pool Answer message
+                        if ( __WEBPACK_IMPORTED_MODULE_10_main_blockchain_Blockchain__["a" /* default */].Wallet.getAddress(unencodedAddress) && Buffer.isBuffer(confirmation.sig) && confirmation.sig.length > 5 ){
+
+                            let address = __WEBPACK_IMPORTED_MODULE_10_main_blockchain_Blockchain__["a" /* default */].Wallet.getAddress(unencodedAddress);
+
+                            if ( __WEBPACK_IMPORTED_MODULE_8_common_crypto_ed25519__["a" /* default */].verify( confirmation.sig, messageAddressConfirmation, address.publicKey ) )
+                                socket.node.protocol.minerPool.poolOwner = true;
+
+                        }
 
                         return true;
 
@@ -102736,6 +102741,40 @@ class PoolConnectedMinersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_min
 
         });
 
+
+        socket.node.on("mining-pool/get-referrals", async (data) => {
+
+            if (!this.poolManagement._poolStarted) return;
+
+            //in case there is an suffix in the answer
+            let suffix = "";
+            if ( typeof data.suffix === "string")
+                suffix = '/'+data.suffix;
+
+            try {
+
+                if (!Buffer.isBuffer( data.pool )  || data.pool.length !== __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].ADDRESSES.PUBLIC_KEY.LENGTH) throw {message: "poolPublicKey is invalid"};
+
+                if (! data.pool.equals(__WEBPACK_IMPORTED_MODULE_10_main_blockchain_Blockchain__["a" /* default */].PoolManagement.poolSettings.poolPublicKey )) throw {message: "poolPublicKey is invalid"};
+
+                let minerInstance = socket.node.protocol.minerPool.minerInstance;
+                if (minerInstance === null || minerInstance === undefined) throw {message: "publicKey was not found"};
+
+                for (let i=0; i < minerInstance.miner.referrals.length; i++){
+
+                }
+
+                socket.node.sendRequest("mining-pool/get-work/answer"+suffix, {result: true, work: work, reward: minerInstance.miner.rewardTotal, confirmed: minerInstance.miner.rewardConfirmedTotal, refReward: minerInstance.miner.referrals.rewardReferralsTotal, refConfirmed: minerInstance.miner.referrals.rewardReferralsConfirmed,
+                    h:this.poolManagement.poolStatistics.poolHashes, m: this.poolManagement.poolStatistics.poolMinersOnline.length, b: this.poolManagement.poolStatistics.poolBlocksConfirmed + this.poolManagement.poolStatistics.poolBlocksConfirmedAndPaid, ub: this.poolManagement.poolStatistics.poolBlocksUnconfirmed, t: this.poolManagement.poolStatistics.poolTimeRemaining, n: __WEBPACK_IMPORTED_MODULE_10_main_blockchain_Blockchain__["a" /* default */].blockchain.blocks.networkHashRate, } )
+
+
+            } catch (exception){
+
+                socket.node.sendRequest("mining-pool/get-work/answer", {result: false, message: exception.message } );
+
+            }
+
+        });
 
 
         socket.node.on("mining-pool/work-done", async (data) => {
