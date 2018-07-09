@@ -123,7 +123,7 @@
 
                 let enabledHosts = 0;
 
-                for(var key in this.poolServers)
+                for(let key in this.poolServers)
                     if (this.poolServers[key].connected) enabledHosts++;
 
                 return enabledHosts;
@@ -133,7 +133,6 @@
             isNotNullColor(){
 
                 if (this.numberOfConnectedHosts===0) return 'redColor';
-
                 return 'greenColor';
 
             },
