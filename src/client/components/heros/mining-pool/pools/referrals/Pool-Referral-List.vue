@@ -64,7 +64,6 @@
 
         props: {
             displayType: {default: 'list'},
-            minersList: {default: []}
         },
 
         methods:{
@@ -77,9 +76,32 @@
 
         },
 
+        data(){
+
+            return{
+                referrals:[],
+            }
+
+        },
+
+        beforeDestroy(){
+
+
+        },
+
+        methods:{
+
+            loadPoolReferralStatistics(){
+
+            }
+
+        },
+
         mounted(){
 
             if (typeof window !== "undefined") return;
+
+            WebDollar.StatusEvents.on("miner-pool/status", data => this.loadPoolReferralStatistics() );
 
         }
 

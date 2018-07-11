@@ -62,11 +62,11 @@
     import Vue from 'vue/dist/vue';
     import slider from 'client/components/UI/elements/Slider.vue';
     import PoolMinersList from "./components/Pool-Miners-List.vue";
-    import PoolReferralList from "./components/referrals/Pool-Referral-List.vue";
+    import PoolReferralList from "../pools/referrals/Pool-Referral-List.vue";
     import SettingsPage from "./components/Pool-Advanced-Settings.vue";
     import PoolMinerDetails from "./components/Pool-Miner-Details.vue";
     import PoolDetails from "./components/Pool-Details.vue";
-    import PoolReferralDetails from "./components/referrals/Pool-Referral-Details.vue";
+    import PoolReferralDetails from "../pools/referrals/Pool-Referral-Details.vue";
 
     export default{
 
