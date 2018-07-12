@@ -19509,52 +19509,62 @@ class InterfaceBlockchainFork {
 
             // remove transactions and place them in the queue
             this._blocksCopy.forEach((block) => {
-                block.data.transactions.transactions.forEach((transaction) => {
 
-                    transaction.confirmed = false;
+                if (block.data !==  undefined && block.data.transactions !== undefined)
+                    block.data.transactions.transactions.forEach((transaction) => {
 
-                    try {
-                        this.blockchain.transactions.pendingQueue.includePendingTransaction(transaction, "all");
-                    }
-                    catch (exception) {
-                        console.warn("Transaction Was Rejected to be Added to the Pending Queue ", transaction.toJSON() );
-                    }
+                        transaction.confirmed = false;
 
-                });
+                        try {
+                            this.blockchain.transactions.pendingQueue.includePendingTransaction(transaction, "all");
+                        }
+                        catch (exception) {
+                            console.warn("Transaction Was Rejected to be Added to the Pending Queue ", transaction.toJSON() );
+                        }
+
+                    });
             });
 
             this.forkBlocks.forEach((block)=> {
-                block.data.transactions.transactions.forEach((transaction) => {
-                    transaction.confirmed = true;
 
-                    this.blockchain.transactions.pendingQueue._removePendingTransaction(transaction);
+                if (block.data !==  undefined && block.data.transactions !== undefined)
+                    block.data.transactions.transactions.forEach((transaction) => {
+                        transaction.confirmed = true;
 
-                });
+                        this.blockchain.transactions.pendingQueue._removePendingTransaction(transaction);
+
+                    });
+
             });
 
         } else {
 
             this._blocksCopy.forEach( (block) => {
-                block.data.transactions.transactions.forEach((transaction) => {
-                    transaction.confirmed = true;
 
-                    this.blockchain.transactions.pendingQueue._removePendingTransaction(transaction);
+                if (block.data !==  undefined && block.data.transactions !== undefined)
+                    block.data.transactions.transactions.forEach((transaction) => {
+                        transaction.confirmed = true;
 
-                });
+                        this.blockchain.transactions.pendingQueue._removePendingTransaction(transaction);
+
+                    });
+
             });
 
             this.forkBlocks.forEach((block)=>{
-                block.data.transactions.transactions.forEach((transaction)=>{
-                    transaction.confirmed = false;
 
-                    try {
-                        this.blockchain.transactions.pendingQueue.includePendingTransaction(transaction, "all");
-                    }
-                    catch (exception) {
-                        console.warn("Transaction Was Rejected to be Added to the Pending Queue ", transaction.toJSON() );
-                    }
+                if (block.data !==  undefined && block.data.transactions !== undefined)
+                    block.data.transactions.transactions.forEach((transaction)=>{
+                        transaction.confirmed = false;
 
-                });
+                        try {
+                            this.blockchain.transactions.pendingQueue.includePendingTransaction(transaction, "all");
+                        }
+                        catch (exception) {
+                            console.warn("Transaction Was Rejected to be Added to the Pending Queue ", transaction.toJSON() );
+                        }
+
+                    });
             })
         }
 
@@ -31506,25 +31516,24 @@ module.exports = bytesToUuid;
         {"addr": ["https://nodecstl.ddns.net:80"]},
         {"addr": ["https://webd.5q.ro:3333"]},
         {"addr": ["https://shpool.ml:443"]}, // Thanks to @Amahte */
-        {"addr": ["https://webdollar.network:5000"]}, // Thanks to @ader1990
+
         // {"addr": ["https://titan.serg.at:80/"]}, // Thanks to @SergiuWX
         // {"addr": ["https://titan.serg.at:8080/"]}, // Thanks to @SergiuWX
         // {"addr": ["https://titan.serg.at:8081/"]}, // Thanks to @SergiuWX
         // {"addr": ["https://titan.serg.at:8082/"]}, // Thanks to @SergiuWX
-        // {"addr": ["https://node1.petreus.ro:443"]}, // Thanks to Dani Petreus
-        // {"addr": ["https://node2.petreus.ro:443"]}, // Thanks to Dani Petreus
-        // {"addr": ["https://node3.petreus.ro:443"]}, // Thanks to Dani Petreus
-        // {"addr": ["https://node4.petreus.ro:443"]}, // Thanks to Dani Petreus
-        // {"addr": ["https://node5.petreus.ro:443"]}, // Thanks to Dani Petreus
-        // {"addr": ["https://node6.petreus.ro:443"]}, // Thanks to Dani Petreus
-        // {"addr": ["https://node7.petreus.ro:443"]}, // Thanks to Dani Petreus
-        // {"addr": ["https://node8.petreus.ro:443"]}, // Thanks to Dani Petreus
+        {"addr": ["https://node1.petreus.ro:443"]}, // Thanks to Dani Petreus
+        {"addr": ["https://node2.petreus.ro:443"]}, // Thanks to Dani Petreus
+        {"addr": ["https://node3.petreus.ro:443"]}, // Thanks to Dani Petreus
+        {"addr": ["https://node4.petreus.ro:443"]}, // Thanks to Dani Petreus
+        {"addr": ["https://node5.petreus.ro:443"]}, // Thanks to Dani Petreus
+        {"addr": ["https://node6.petreus.ro:443"]}, // Thanks to Dani Petreus
+        {"addr": ["https://node7.petreus.ro:443"]}, // Thanks to Dani Petreus
+        {"addr": ["https://node8.petreus.ro:443"]}, // Thanks to Dani Petreus
         {"addr": ["https://pool.webd.club:80/"]}, // Thanks to @ermethic
         {"addr": ["https://romeonet.ddns.net:65101/"]}, // Thanks to @romeonet
         {"addr": ["https://romeonet.ddns.net:65001/"]}, // Thanks to @romeonet
 
         // {"addr": ["https://nodecstl.ddns.net:81/"]}, // Thanks to @taralungaCostel
-        {"addr": ["https://robitza.ddns.net:80"]}, // Thanks to @robertclaudiu
         {"addr": ["https://robitza.ddns.net:443"]}, // Thanks to @robertclaudiu
         {"addr": ["https://robitza.ddns.net:8080"]}, // Thanks to @robertclaudiu
         {"addr": ["https://robitza.ddns.net:8081"]}, // Thanks to @robertclaudiu
@@ -31535,6 +31544,8 @@ module.exports = bytesToUuid;
         // {"addr": ["https://wd2.hoste.ro:55974"]}, // Thanks to @morion4000
         // {"addr": ["https://wd2.hoste.ro:63980"]}, // Thanks to @morion4000
         // {"addr": ["https://wd2.hoste.ro:65279"]}, // Thanks to @morion4000
+
+        {"addr": ["https://webdollar.network:5000"]}, // Thanks to @ader1990
         //
         // {"addr": ["https://chucknorris.webdollarvpn.io:80"]}, // Thanks to @cbusuioceanu
         // {"addr": ["https://chucknorris.webdollarvpn.io:443"]}, // Thanks to @cbusuioceanu
