@@ -1965,10 +1965,9 @@ consts.BLOCKCHAIN = {
         TRANSACTIONS_BUG_2_BYTES: 46950,
 
 
-
-        TRANSACTIONS_OPTIMIZATION: 153258,
-        DIFFICULTY_TIME_BIGGER: 153258,
-        WALLET_RECOVERY: 153258,
+        TRANSACTIONS_OPTIMIZATION: 153060,
+        DIFFICULTY_TIME_BIGGER: 153060,
+        WALLET_RECOVERY: 153060,
 
     }
 
@@ -2151,7 +2150,7 @@ consts.SETTINGS = {
 
     NODE: {
 
-        VERSION: "1.140.0",
+        VERSION: "1.140.3",
         VERSION_COMPATIBILITY: "1.140.0",
         PROTOCOL: "WebDollar",
         SSL: true,
@@ -2208,10 +2207,11 @@ consts.SETTINGS = {
                     },
 
                     SSL:{
-                        MAX_SOCKET_CLIENTS_WAITLIST_WHEN_SSL: 8,
+                        MAX_SOCKET_CLIENTS_WAITLIST_WHEN_SSL: 30,
                         MAX_SOCKET_CLIENTS_WAITLIST_FALLBACK_WHEN_SSL: 8,
                     },
                 },
+
 
                 SERVER: {
                     MAXIMUM_CONNECTIONS_FROM_TERMINAL: 400,
@@ -16862,8 +16862,9 @@ class NodeBlockchainPropagation{
             if (! Array.isArray(socketsAvoidBroadcast) )
                 socketsAvoidBroadcast = [socketsAvoidBroadcast];
 
+            //avoid sending to those sockets
             for (let i=0; i < __WEBPACK_IMPORTED_MODULE_2_node_lists_Nodes_List__["a" /* default */].nodes.length; i++)
-                if ( __WEBPACK_IMPORTED_MODULE_2_node_lists_Nodes_List__["a" /* default */].nodes[i].socket.node.protocol.nodeConsensusType !== __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Node_Consensus_Type__["a" /* default */].NODE_CONSENSUS_MINER_POOL && __WEBPACK_IMPORTED_MODULE_2_node_lists_Nodes_List__["a" /* default */].nodes[i].socket.node.protocol.nodeConsensusType !== __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Node_Consensus_Type__["a" /* default */].NODE_CONSENSUS_SERVER_FOR_MINER )
+                if ( __WEBPACK_IMPORTED_MODULE_0_main_blockchain_Blockchain__["a" /* default */].isPoolActivated  && ( [__WEBPACK_IMPORTED_MODULE_4_node_lists_types_Node_Consensus_Type__["a" /* default */].NODE_CONSENSUS_MINER_POOL, __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Node_Consensus_Type__["a" /* default */].NODE_CONSENSUS_SERVER_FOR_MINER].indexOf(__WEBPACK_IMPORTED_MODULE_2_node_lists_Nodes_List__["a" /* default */].nodes[i].socket.node.protocol.nodeConsensusType) >= 0  ))
                     socketsAvoidBroadcast.push(__WEBPACK_IMPORTED_MODULE_2_node_lists_Nodes_List__["a" /* default */].nodes[i].socket);
 
             this._socketsAlreadyBroadcast = socketsAvoidBroadcast;
@@ -16884,7 +16885,7 @@ class NodeBlockchainPropagation{
 
         //sending the block, except poolMiners
         for (let i=0; i < __WEBPACK_IMPORTED_MODULE_2_node_lists_Nodes_List__["a" /* default */].nodes.length; i++)
-            if ( __WEBPACK_IMPORTED_MODULE_2_node_lists_Nodes_List__["a" /* default */].nodes[i].socket.node.protocol.nodeConsensusType !== __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Node_Consensus_Type__["a" /* default */].NODE_CONSENSUS_MINER_POOL && __WEBPACK_IMPORTED_MODULE_2_node_lists_Nodes_List__["a" /* default */].nodes[i].socket.node.protocol.nodeConsensusType !== __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Node_Consensus_Type__["a" /* default */].NODE_CONSENSUS_SERVER_FOR_MINER )
+            if ( !__WEBPACK_IMPORTED_MODULE_0_main_blockchain_Blockchain__["a" /* default */].isPoolActivated  || ( [__WEBPACK_IMPORTED_MODULE_4_node_lists_types_Node_Consensus_Type__["a" /* default */].NODE_CONSENSUS_MINER_POOL, __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Node_Consensus_Type__["a" /* default */].NODE_CONSENSUS_SERVER_FOR_MINER].indexOf(__WEBPACK_IMPORTED_MODULE_2_node_lists_Nodes_List__["a" /* default */].nodes[i].socket.node.protocol.nodeConsensusType) < 0  ))
                 __WEBPACK_IMPORTED_MODULE_2_node_lists_Nodes_List__["a" /* default */].nodes[i].socket.node.protocol.sendLastBlock();
 
     }
@@ -17809,7 +17810,7 @@ class PoolsUtils {
 
         poolPublicKey = new Buffer(poolPublicKey, "hex");
 
-        let poolWebsite;
+        let poolWebsite = '';
 
         if (version === 0) {
             poolWebsite = this.substr(url).replace(/\$/g, '/');
@@ -19983,11 +19984,17 @@ class BansList{
     _listBans(){
 
         console.info("BANNNNNNNNNNNNNNS");
-        for (let i=0; i<this.bans.length; i++)
-            console.warn( "Address", this.bans[i].sckAddress.toString(),
-                          "banTime", this.bans[i].banTime,
-                          "timeLeft", new Date().getTime() -  (this.bans[i].banTimestamp + this.bans[i].banTime) ,
-                          "messages", this.bans[i].banReasons );
+        for (let i=0; i<this.bans.length; i++) {
+
+
+            let timeLeft  = (this.bans[i].banTimestamp + this.bans[i].banTime) - new Date().getTime() ;
+
+            if (timeLeft > 0)
+                console.warn("Address", this.bans[i].sckAddress.toString(),
+                    "banTime", this.bans[i].banTime,
+                    "timeLeft", timeLeft ,
+                    "messages", this.bans[i].banReasons);
+        }
 
     }
 
@@ -29479,7 +29486,7 @@ class NodePropagationProtocol {
     initializeSocketForPropagation(socket){
 
         //avoiding download the list from
-        if ( [__WEBPACK_IMPORTED_MODULE_0_node_lists_types_Node_Consensus_Type__["a" /* default */].NODE_CONSENSUS_MINER_POOL].indexOf( socket.node.protocol.nodeConsensusType ) <=0 )
+        if ( [__WEBPACK_IMPORTED_MODULE_0_node_lists_types_Node_Consensus_Type__["a" /* default */].NODE_CONSENSUS_MINER_POOL].indexOf( socket.node.protocol.nodeConsensusType ) === 0 )
             return;
 
 
@@ -31498,66 +31505,65 @@ module.exports = bytesToUuid;
         {"addr": ["https://wb.ciuc.ro:443"]}, // Thanks to Adi Clar
         {"addr": ["https://nodecstl.ddns.net:80"]},
         {"addr": ["https://webd.5q.ro:3333"]},
-        {"addr": ["https://shpool.ml:443"]}, // Thanks to @Amahte
+        {"addr": ["https://shpool.ml:443"]}, // Thanks to @Amahte */
         {"addr": ["https://webdollar.network:5000"]}, // Thanks to @ader1990
-        {"addr": ["https://titan.serg.at:80/"]}, // Thanks to @SergiuWX
-        {"addr": ["https://titan.serg.at:8080/"]}, // Thanks to @SergiuWX
-        {"addr": ["https://titan.serg.at:8081/"]}, // Thanks to @SergiuWX
-        {"addr": ["https://titan.serg.at:8082/"]}, // Thanks to @SergiuWX
-        {"addr": ["https://node1.petreus.ro:443"]}, // Thanks to Dani Petreus
-        {"addr": ["https://node2.petreus.ro:443"]}, // Thanks to Dani Petreus
-        {"addr": ["https://node3.petreus.ro:443"]}, // Thanks to Dani Petreus
-        {"addr": ["https://node4.petreus.ro:443"]}, // Thanks to Dani Petreus
-        {"addr": ["https://node5.petreus.ro:443"]}, // Thanks to Dani Petreus
-        {"addr": ["https://node6.petreus.ro:443"]}, // Thanks to Dani Petreus
-        {"addr": ["https://node7.petreus.ro:443"]}, // Thanks to Dani Petreus
-        {"addr": ["https://node8.petreus.ro:443"]}, // Thanks to Dani Petreus
+        // {"addr": ["https://titan.serg.at:80/"]}, // Thanks to @SergiuWX
+        // {"addr": ["https://titan.serg.at:8080/"]}, // Thanks to @SergiuWX
+        // {"addr": ["https://titan.serg.at:8081/"]}, // Thanks to @SergiuWX
+        // {"addr": ["https://titan.serg.at:8082/"]}, // Thanks to @SergiuWX
+        // {"addr": ["https://node1.petreus.ro:443"]}, // Thanks to Dani Petreus
+        // {"addr": ["https://node2.petreus.ro:443"]}, // Thanks to Dani Petreus
+        // {"addr": ["https://node3.petreus.ro:443"]}, // Thanks to Dani Petreus
+        // {"addr": ["https://node4.petreus.ro:443"]}, // Thanks to Dani Petreus
+        // {"addr": ["https://node5.petreus.ro:443"]}, // Thanks to Dani Petreus
+        // {"addr": ["https://node6.petreus.ro:443"]}, // Thanks to Dani Petreus
+        // {"addr": ["https://node7.petreus.ro:443"]}, // Thanks to Dani Petreus
+        // {"addr": ["https://node8.petreus.ro:443"]}, // Thanks to Dani Petreus
         {"addr": ["https://pool.webd.club:80/"]}, // Thanks to @ermethic
         {"addr": ["https://romeonet.ddns.net:65101/"]}, // Thanks to @romeonet
         {"addr": ["https://romeonet.ddns.net:65001/"]}, // Thanks to @romeonet
 
-        {"addr": ["https://nodecstl.ddns.net:81/"]}, // Thanks to @taralungaCostel
+        // {"addr": ["https://nodecstl.ddns.net:81/"]}, // Thanks to @taralungaCostel
         {"addr": ["https://robitza.ddns.net:80"]}, // Thanks to @robertclaudiu
         {"addr": ["https://robitza.ddns.net:443"]}, // Thanks to @robertclaudiu
         {"addr": ["https://robitza.ddns.net:8080"]}, // Thanks to @robertclaudiu
         {"addr": ["https://robitza.ddns.net:8081"]}, // Thanks to @robertclaudiu
         {"addr": ["https://robitza.ddns.net:8082"]}, // Thanks to @robertclaudiu
-        {"addr": ["https://wd1.hoste.ro:51261"]}, // Thanks to @morion4000
-        {"addr": ["https://wd1.hoste.ro:60260"]}, // Thanks to @morion4000
-        {"addr": ["https://wd1.hoste.ro:61099"]}, // Thanks to @morion4000
-        {"addr": ["https://wd2.hoste.ro:55974"]}, // Thanks to @morion4000
-        {"addr": ["https://wd2.hoste.ro:63980"]}, // Thanks to @morion4000
-        {"addr": ["https://wd2.hoste.ro:65279"]}, // Thanks to @morion4000
-
-        {"addr": ["https://chucknorris.webdollarvpn.io:80"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://chucknorris.webdollarvpn.io:443"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://wd1.hoste.ro:51261"]}, // Thanks to @morion4000
+        // {"addr": ["https://wd1.hoste.ro:60260"]}, // Thanks to @morion4000
+        // {"addr": ["https://wd1.hoste.ro:61099"]}, // Thanks to @morion4000
+        // {"addr": ["https://wd2.hoste.ro:55974"]}, // Thanks to @morion4000
+        // {"addr": ["https://wd2.hoste.ro:63980"]}, // Thanks to @morion4000
+        // {"addr": ["https://wd2.hoste.ro:65279"]}, // Thanks to @morion4000
+        //
+        // {"addr": ["https://chucknorris.webdollarvpn.io:80"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://chucknorris.webdollarvpn.io:443"]}, // Thanks to @cbusuioceanu
         {"addr": ["https://chucknorris.webdollarvpn.io:8080"]}, // Thanks to @cbusuioceanu
         {"addr": ["https://chucknorris.webdollarvpn.io:8081"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://chucknorris.webdollarvpn.io:8082"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://chucknorris.webdollarvpn.io:8083"]}, // Thanks to @cbusuioceanu     
-        {"addr": ["https://chucknorris.webdollarvpn.io:8084"]}, // Thanks to @cbusuioceanu     
-        {"addr": ["https://chucknorris.webdollarvpn.io:8085"]}, // Thanks to @cbusuioceanu     
-        {"addr": ["https://chucknorris.webdollarvpn.io:8086"]}, // Thanks to @cbusuioceanu     
-        {"addr": ["https://chucknorris.webdollarvpn.io:8087"]}, // Thanks to @cbusuioceanu     
-        {"addr": ["https://angrybirds.webdollarvpn.io:1666"]}, // Thanks to @cbusuioceanu        
-        {"addr": ["https://angrybirds.webdollarvpn.io:2666"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://angrybirds.webdollarvpn.io:3666"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://angrybirds.webdollarvpn.io:4666"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://angrybirds.webdollarvpn.io:5666"]}, // Thanks to @cbusuioceanu
-        
-        {"addr": ["https://webdollarinfinitypool.space:8085"]}, //Thanks to @Tibi Popescu
-        {"addr": ["https://webdollarinfinitypool.space:8086"]}, //Thanks to @Tibi Popescu
-        {"addr": ["https://webdollarinfinitypool.space:8087"]}, //Thanks to @Tibi Popescu
-        {"addr": ["https://webdollarinfinitypool.space:8088"]}, //Thanks to @Tibi Popescu        
-        {"addr": ["https://webdollarinfinitypool.space:8089"]}, //Thanks to @Tibi Popescu        
-        
-        {"addr": ["https://bacm.ro:80"]}, //Thanks to @jigodia
-        {"addr": ["https://bacm.ro:443"]}, //Thanks to @jigodia
-        {"addr": ["https://bacm.ro:8080"]}, //Thanks to @jigodia
-        {"addr": ["https://bacm.ro:8081"]}, //Thanks to @jigodia
-        {"addr": ["https://bacm.ro:8082"]}, //Thanks to @jigodia
+        // {"addr": ["https://chucknorris.webdollarvpn.io:8082"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://chucknorris.webdollarvpn.io:8083"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://chucknorris.webdollarvpn.io:8084"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://chucknorris.webdollarvpn.io:8085"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://chucknorris.webdollarvpn.io:8086"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://chucknorris.webdollarvpn.io:8087"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://angrybirds.webdollarvpn.io:1666"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://angrybirds.webdollarvpn.io:2666"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://angrybirds.webdollarvpn.io:3666"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://angrybirds.webdollarvpn.io:4666"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://angrybirds.webdollarvpn.io:5666"]}, // Thanks to @cbusuioceanu
+        //
+        // {"addr": ["https://webdollarinfinitypool.space:8085"]}, //Thanks to @Tibi Popescu
+        // {"addr": ["https://webdollarinfinitypool.space:8086"]}, //Thanks to @Tibi Popescu
+        // {"addr": ["https://webdollarinfinitypool.space:8087"]}, //Thanks to @Tibi Popescu
+        // {"addr": ["https://webdollarinfinitypool.space:8088"]}, //Thanks to @Tibi Popescu
+        // {"addr": ["https://webdollarinfinitypool.space:8089"]}, //Thanks to @Tibi Popescu
+        //
+        // {"addr": ["https://bacm.ro:80"]}, //Thanks to @jigodia
+        // {"addr": ["https://bacm.ro:443"]}, //Thanks to @jigodia
+        // {"addr": ["https://bacm.ro:8080"]}, //Thanks to @jigodia
+        // {"addr": ["https://bacm.ro:8081"]}, //Thanks to @jigodia
+        // {"addr": ["https://bacm.ro:8082"]}, //Thanks to @jigodia*/
 
-        */
 
         //---------------------------------------------------------
         //--------------WebDollar FallBack Nodes-------------------
@@ -50944,12 +50950,10 @@ class InterfaceBlockchain extends __WEBPACK_IMPORTED_MODULE_9__Interface_Blockch
 
         this.blocks.addBlock(block, revertActions);
 
-
-        if ( this.blocks.length === __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.WALLET_RECOVERY ){
-
+        //hard fork
+        if ( !block.blockValidation.blockValidationType['skip-accountant-tree-validation'] && this.blocks.length === __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.WALLET_RECOVERY )
             await this.hardForks.revertAllTransactions("WEBD$gC9h7iFUURqhGUL23U@7Ccyb@X$2BCCpSH$", 150940, revertActions, 18674877890000);
 
-        }
 
         await this._blockIncluded( block);
 
@@ -51230,6 +51234,7 @@ class InterfaceBlockchain extends __WEBPACK_IMPORTED_MODULE_9__Interface_Blockch
             try {
 
                 for (index = indexStart; index < numBlocks; ++index ) {
+
 
                     let validationType = this._getLoadBlockchainValidationType(indexStart, index, numBlocks, indexStartProcessingOffset );
 
@@ -51928,9 +51933,9 @@ class NodesWaitlistObject {
         if (this.isFallback === true) {
 
             if (true)
-                this.errorTrials = Math.min(this.errorTrials, 4 + Math.floor( Math.random() * 2) );
+                this.errorTrials = Math.min(this.errorTrials, 3 + Math.floor( Math.random() * 2) );
             else
-                this.errorTrials = Math.min(this.errorTrials, 7 + Math.floor( Math.random() * 5) );
+                this.errorTrials = Math.min(this.errorTrials, 4 + Math.floor( Math.random() * 5) );
 
         }
 
@@ -54198,10 +54203,10 @@ class InterfaceBlockchainAgent extends __WEBPACK_IMPORTED_MODULE_8__Interface_Bl
         this._initializeProtocol();
 
 
-        if (!this.light)
+        if (!this.light )
             __WEBPACK_IMPORTED_MODULE_0_node_lists_Nodes_List__["a" /* default */].emitter.on("nodes-list/connected", async (result) => {
 
-                if (!NodeExpress.amIFallback() && !__WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].isPoolActivated )
+                if (!NodeExpress.SSL && !NodeExpress.amIFallback() && !__WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].isPoolActivated )
                     if ( __WEBPACK_IMPORTED_MODULE_0_node_lists_Nodes_List__["a" /* default */].countNodesByType(__WEBPACK_IMPORTED_MODULE_9_node_lists_types_Node_Type__["a" /* default */].NODE_TERMINAL) > __WEBPACK_IMPORTED_MODULE_7_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.TERMINAL.SERVER.TERMINAL_CONNECTIONS_REQUIRED_TO_DISCONNECT_FROM_FALLBACK){
 
                         this.status = __WEBPACK_IMPORTED_MODULE_6__Agent_Status__["a" /* default */].AGENT_STATUS_SYNCHRONIZED_SLAVES;
@@ -54234,11 +54239,14 @@ class InterfaceBlockchainAgent extends __WEBPACK_IMPORTED_MODULE_8__Interface_Bl
         else { //terminal
 
             //let's check if we downloaded blocks in the last 2 minutes
+
             let set = true;
 
             if (this.lastTimeChecked !== undefined ){
 
-                if ( new Date().getTime() -  this.lastTimeChecked.date > 4*60*1000 ){
+                if (Math.random() < 0.1) console.log("Diff Time for syncing", (new Date().getTime() -  this.lastTimeChecked.date)/1000 );
+
+                if ( new Date().getTime() -  this.lastTimeChecked.date > 2*60*1000 ){
 
                     let diffBlocks = this.blockchain.blocks.length - this.lastTimeChecked.blocks;
 
@@ -54669,6 +54677,7 @@ class NodesWaitlistConnecting {
                     for (let i=this._connectingQueue.length-1; i>=0; i--)
                         if (this._connectingQueue[i] === nextWaitListObject){
                             this._connectingQueue.splice(i,1);
+                            break;
                         }
 
                     nextWaitListObject.checked = true;
@@ -54745,19 +54754,22 @@ class NodesWaitlistConnecting {
             this.connectingMaximum.minimum_fallbacks = consts.SETTINGS.PARAMS.CONNECTIONS.TERMINAL.CLIENT.MIN_SOCKET_CLIENTS_WAITLIST_FALLBACK;
             this.connectingMaximum.minimum_waitlist = consts.SETTINGS.PARAMS.CONNECTIONS.TERMINAL.CLIENT.MIN_SOCKET_CLIENTS_WAITLIST;
 
-            if ( server <= 5) {
+            if (NodeExpress.SSL){
+                this.connectingMaximum.maximum_waitlist =  consts.SETTINGS.PARAMS.CONNECTIONS.TERMINAL.CLIENT.SSL.MAX_SOCKET_CLIENTS_WAITLIST_WHEN_SSL;
+                this.connectingMaximum.maximum_fallbacks = consts.SETTINGS.PARAMS.CONNECTIONS.TERMINAL.CLIENT.SSL.MAX_SOCKET_CLIENTS_WAITLIST_FALLBACK_WHEN_SSL;
+            } else {
 
-                this.connectingMaximum.maximum_fallbacks = consts.SETTINGS.PARAMS.CONNECTIONS.TERMINAL.CLIENT.MAX_SOCKET_CLIENTS_WAITLIST_FALLBACK;
-                this.connectingMaximum.maximum_waitlist =  consts.SETTINGS.PARAMS.CONNECTIONS.TERMINAL.CLIENT.MAX_SOCKET_CLIENTS_WAITLIST;
 
-            } else { //people already connected
+                if ( server <= 5) {
 
-                this.connectingMaximum.maximum_fallbacks = consts.SETTINGS.PARAMS.CONNECTIONS.TERMINAL.CLIENT.SERVER_OPEN.MAX_SOCKET_CLIENTS_WAITLIST_FALLBACK;
-                this.connectingMaximum.maximum_waitlist =  consts.SETTINGS.PARAMS.CONNECTIONS.TERMINAL.CLIENT.SERVER_OPEN.MAX_SOCKET_CLIENTS_WAITLIST;
+                    this.connectingMaximum.maximum_fallbacks = consts.SETTINGS.PARAMS.CONNECTIONS.TERMINAL.CLIENT.MAX_SOCKET_CLIENTS_WAITLIST_FALLBACK;
+                    this.connectingMaximum.maximum_waitlist =  consts.SETTINGS.PARAMS.CONNECTIONS.TERMINAL.CLIENT.MAX_SOCKET_CLIENTS_WAITLIST;
 
-                if (NodeExpress.SSL){
-                    this.connectingMaximum.maximum_waitlist =  consts.SETTINGS.PARAMS.CONNECTIONS.TERMINAL.CLIENT.SSL.MAX_SOCKET_CLIENTS_WAITLIST_WHEN_SSL;
-                    this.connectingMaximum.maximum_fallbacks = consts.SETTINGS.PARAMS.CONNECTIONS.TERMINAL.CLIENT.SSL.MAX_SOCKET_CLIENTS_WAITLIST_FALLBACK_WHEN_SSL;
+                } else { //people already connected
+
+                    this.connectingMaximum.maximum_fallbacks = consts.SETTINGS.PARAMS.CONNECTIONS.TERMINAL.CLIENT.SERVER_OPEN.MAX_SOCKET_CLIENTS_WAITLIST_FALLBACK;
+                    this.connectingMaximum.maximum_waitlist =  consts.SETTINGS.PARAMS.CONNECTIONS.TERMINAL.CLIENT.SERVER_OPEN.MAX_SOCKET_CLIENTS_WAITLIST;
+
                 }
 
             }
@@ -84089,7 +84101,7 @@ class PPoWBlockchain extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_inter
 
             if (!block.blockValidation.blockValidationType["skip-calculating-proofs"]){
 
-                this.prover.createProofs();
+                await this.prover.createProofs();
 
             }
 
@@ -84111,7 +84123,7 @@ class PPoWBlockchain extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_inter
         }
 
         this.prover.proofActivated = true;
-        this.prover.createProofs();
+        await this.prover.createProofs();
 
         return true;
 
@@ -84171,6 +84183,12 @@ class BlockchainDifficulty{
         //              blockNumber === 9
         // it should recalcule using [0...9]
 
+
+        let diff = blockTimestamp - getTimeStampCallback(blockNumber);
+        if (blockNumber > __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.DIFFICULTY_TIME_BIGGER && ( Math.abs(diff) <= __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK / 2 ))
+            throw {message: "Blocks generated too fast"};
+
+
         if ( (blockNumber+1) % __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.NO_BLOCKS !== 0)
             return  prevBlockDifficulty;
         else {
@@ -84184,17 +84202,10 @@ class BlockchainDifficulty{
 
             //adding blocks 0..8
             for (let i = firstBlock; i < blockNumber; i++) {
-
                 //the difference between Ti-(Ti-1) is actually the time for Ti
-
-                let diff = getTimeStampCallback(i+1) - getTimeStampCallback(i);
-
-                how_much_it_took_to_mine_X_Blocks += diff;
-
-                if (blockNumber > __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.DIFFICULTY_TIME_BIGGER && (diff < __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].BLOCKCHAIN.DIFFICULTY.TIME_PER_BLOCK / 2 ))
-                    throw {message: "Blocks generated too fast"};
-
+                how_much_it_took_to_mine_X_Blocks += getTimeStampCallback(i + 1) - getTimeStampCallback(i);
             }
+
 
             //adding block 9
             how_much_it_took_to_mine_X_Blocks += blockTimestamp - getTimeStampCallback(blockNumber);
@@ -89245,7 +89256,7 @@ class PPoWBlockchainProver{
      * create prover
      */
 
-    _createProofPi(chain){
+    async _createProofPi(chain){
 
         //B ← C[0]
         let B = chain.blocks[0];
@@ -89261,6 +89272,7 @@ class PPoWBlockchainProver{
         try {
 
             console.info("_createProofPi ProofPi CREATOR");
+            let count = 0;
 
             //for µ = |C[−k].interlink| down to 0 do
 
@@ -89296,6 +89308,10 @@ class PPoWBlockchainProver{
                     //if goodδ,m(C, α, µ)
                     if (__WEBPACK_IMPORTED_MODULE_1__helpers_PPoW_Helper__["a" /* default */].good(underlyingChain, superChain, miu) )
                         B = superChain.blocks[superChain.blocks.length - __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].POPOW_PARAMS.m];
+
+                    count ++;
+                    if (count % 20 === 0)
+                        await this.blockchain.sleep(5);
 
                 }
 
@@ -89334,7 +89350,7 @@ class PPoWBlockchainProver{
         return proofXi;
     }
 
-    createProofs() {
+    async createProofs() {
 
         if ( !this.proofActivated )
             return false;
@@ -89343,7 +89359,7 @@ class PPoWBlockchainProver{
             this.proofPi.destroyProof();
         }
 
-        this.proofPi = this._createProofPi(this.blockchain);
+        this.proofPi = await this._createProofPi(this.blockchain);
 
         //this.proofXi = this._createProofXi(this.blockchain);
 
@@ -93155,10 +93171,6 @@ class NodeClient {
         address = sckAddress.getAddress(true, true);
         port = sckAddress.port;
 
-
-        if (false) {
-            address = address.replace("https", "wss");
-        }
 
         return new Promise( (resolve) => {
 
@@ -104209,7 +104221,7 @@ class PoolDataBlockInformation {
         buffers.push( __WEBPACK_IMPORTED_MODULE_0_common_utils_Serialization__["a" /* default */].serializeNumber1Byte((this.block !== undefined ? 1 : 0)) );
 
         //serialize block
-        if (this.block !== undefined) {
+        if (this.block !== undefined && this.block.blockchain !== undefined) {
             buffers.push ( __WEBPACK_IMPORTED_MODULE_0_common_utils_Serialization__["a" /* default */].serializeNumber4Bytes(this.block.height));
             buffers.push ( this.block.difficultyTarget);
             buffers.push( this.block.serializeBlock() );
