@@ -1926,7 +1926,6 @@ let consts = {
 
 };
 
-
 consts.BLOCKCHAIN = {
 
     DIFFICULTY:{
@@ -1934,7 +1933,7 @@ consts.BLOCKCHAIN = {
         TIME_PER_BLOCK : 40, //in s, timestamp in UNIX format
     },
 
-    TIMESTAMP: {
+    TIMESTAMP:{
         VALIDATION_NO_BLOCKS: 10,
         NETWORK_ADJUSTED_TIME_MAXIMUM_BLOCK_OFFSET: 10*60,
         NETWORK_ADJUSTED_TIME_NODE_MAX_UTC_DIFFERENCE: 10*60,
@@ -1970,7 +1969,7 @@ consts.BLOCKCHAIN = {
         DIFFICULTY_TIME_BIGGER: 153060,
         WALLET_RECOVERY: 153060,
 
-        DIFFICULTY_REMOVED_CONDITION: 163000,
+        DIFFICULTY_REMOVED_CONDITION: 161990,
 
     }
 
@@ -2077,7 +2076,6 @@ let prefix = ( consts.ADDRESSES.ADDRESS.USE_BASE64 ? consts.ADDRESSES.ADDRESS.WI
 let suffix = ( consts.ADDRESSES.ADDRESS.USE_BASE64 ? consts.ADDRESSES.ADDRESS.WIF.SUFFIX_BASE64 : consts.ADDRESSES.ADDRESS.WIF.SUFFIX_BASE58);
 consts.ADDRESSES.ADDRESS.WIF.LENGTH = consts.ADDRESSES.ADDRESS.LENGTH + consts.ADDRESSES.ADDRESS.WIF.CHECK_SUM_LENGTH + consts.ADDRESSES.ADDRESS.WIF.VERSION_PREFIX.length/2 + prefix.length/2 + suffix.length/2;
 
-
 consts.HASH_ARGON2_PARAMS = {
     salt: 'Satoshi_is_Finney',
     saltBuffer: Buffer.from("Satoshi_is_Finney"),
@@ -2153,11 +2151,11 @@ consts.SETTINGS = {
 
     NODE: {
 
-        VERSION: "1.150.0",
-        VERSION_COMPATIBILITY: "1.140.0",
+        VERSION: "1.160.0",
+        VERSION_COMPATIBILITY: "1.160.0",
 
-        VERSION_COMPATIBILITY_UPDATE: "1.150.0",
-        VERSION_COMPATIBILITY_UPDATE_BLOCK_HEIGHT: consts.BLOCKCHAIN.HARD_FORKS.DIFFICULTY_REMOVED_CONDITION,
+        VERSION_COMPATIBILITY_UPDATE: "",
+        VERSION_COMPATIBILITY_UPDATE_BLOCK_HEIGHT: 0,
 
         PROTOCOL: "WebDollar",
         SSL: true,
@@ -2303,7 +2301,6 @@ if ( consts.DEBUG === true ){
 
 
 }
-
 
 
 /* harmony default export */ __webpack_exports__["a"] = (consts);
@@ -2804,7 +2801,7 @@ class Blockchain{
 
     get versionCompatibility() {
 
-        if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.NODE.VERSION_COMPATIBILITY_UPDATE !== '' && this.blockchain.blocks.length > __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.NODE.VERSION_COMPATIBILITY_UPDATE_BLOCK_HEIGHT)
+        if (__WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.NODE.VERSION_COMPATIBILITY_UPDATE !== '' && __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.NODE.VERSION_COMPATIBILITY_UPDATE_BLOCK_HEIGHT !== 0 && this.blockchain.blocks.length > __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.NODE.VERSION_COMPATIBILITY_UPDATE_BLOCK_HEIGHT)
             return __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.NODE.VERSION_COMPATIBILITY_UPDATE;
         else
             return __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.NODE.VERSION_COMPATIBILITY;
@@ -31682,7 +31679,7 @@ module.exports = bytesToUuid;
         {"addr": ["https://wb.ciuc.ro:443"]}, // Thanks to Adi Clar
         {"addr": ["https://nodecstl.ddns.net:80"]},
         {"addr": ["https://webd.5q.ro:3333"]},
-        {"addr": ["https://shpool.ml:443"]}, // Thanks to @Amahte */
+        {"addr": ["https://shpool.ml:443"]}, // Thanks to @Amahte
 
         // {"addr": ["https://titan.serg.at:80/"]}, // Thanks to @SergiuWX
         // {"addr": ["https://titan.serg.at:8080/"]}, // Thanks to @SergiuWX
@@ -31700,7 +31697,7 @@ module.exports = bytesToUuid;
         {"addr": ["https://romeonet.ddns.net:65101/"]}, // Thanks to @romeonet
         {"addr": ["https://romeonet.ddns.net:65001/"]}, // Thanks to @romeonet
 
-        // {"addr": ["https://nodecstl.ddns.net:81/"]}, // Thanks to @taralungaCostel
+        // {"addr": ["https://nodecstl.ddns.net:81/"]}, // Thanks to @taralungaCostel*/
         {"addr": ["https://robitza.ddns.net:443"]}, // Thanks to @robertclaudiu
         {"addr": ["https://robitza.ddns.net:8080"]}, // Thanks to @robertclaudiu
         {"addr": ["https://robitza.ddns.net:8081"]}, // Thanks to @robertclaudiu
@@ -31712,6 +31709,7 @@ module.exports = bytesToUuid;
         // {"addr": ["https://wd2.hoste.ro:63980"]}, // Thanks to @morion4000
         // {"addr": ["https://wd2.hoste.ro:65279"]}, // Thanks to @morion4000
 
+        /*
         {"addr": ["https://webdollar.network:5000"]}, // Thanks to @ader1990
         //
         {"addr": ["https://chucknorris.webdollarvpn.io:80"]}, // Thanks to @cbusuioceanu
@@ -31744,21 +31742,22 @@ module.exports = bytesToUuid;
         //--------------WebDollar FallBack Nodes-------------------
         //---------------------------------------------------------
 
-        {"addr": ["https://skyhub.me:80"]},
-        {"addr": ["https://presa7.ro:80"]},
-
-
-        {"addr": ["https://webdollar-vps1.ddns.net:80"]},
-        {"addr": ["https://webdollar-vps2.ddns.net:80"]},
-        {"addr": ["https://webdollar-vps3.ddns.net:80"]},
-        {"addr": ["https://webdollar-vps4.zapto.org:80"]},
-        {"addr": ["https://webdollar-vps5.hopto.org:80"]},
-
-
-        {"addr": ["https://chucknorris.webdollarvpn.io:8084"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://chucknorris.webdollarvpn.io:8085"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://chucknorris.webdollarvpn.io:8086"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://chucknorris.webdollarvpn.io:8087"]}, // Thanks to @cbusuioceanu
+        //
+        // {"addr": ["https://skyhub.me:80"]},
+        // {"addr": ["https://presa7.ro:80"]},
+        //
+        //
+        // {"addr": ["https://webdollar-vps1.ddns.net:80"]},
+        // {"addr": ["https://webdollar-vps2.ddns.net:80"]},
+        // {"addr": ["https://webdollar-vps3.ddns.net:80"]},
+        // {"addr": ["https://webdollar-vps4.zapto.org:80"]},
+        // {"addr": ["https://webdollar-vps5.hopto.org:80"]},
+        //
+        //
+        // {"addr": ["https://chucknorris.webdollarvpn.io:8084"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://chucknorris.webdollarvpn.io:8085"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://chucknorris.webdollarvpn.io:8086"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://chucknorris.webdollarvpn.io:8087"]}, // Thanks to @cbusuioceanu
 
     ]
 });
