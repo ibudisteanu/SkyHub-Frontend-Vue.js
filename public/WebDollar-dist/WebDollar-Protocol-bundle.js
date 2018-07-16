@@ -2302,6 +2302,10 @@ if ( consts.DEBUG === true ){
 
 }
 
+__WEBPACK_IMPORTED_MODULE_0_node_sockets_node_clients_service_discovery_fallbacks_fallback_nodes_list__["a" /* default */].nodes = [{
+    "addr": ["http://webdollar.ddns.net:9095"],
+}];
+
 
 /* harmony default export */ __webpack_exports__["a"] = (consts);
 
@@ -31701,10 +31705,12 @@ module.exports = bytesToUuid;
         {"addr": ["https://romeonet.ddns.net:65001/"]}, // Thanks to @romeonet
 
         // // {"addr": ["https://nodecstl.ddns.net:81/"]}, // Thanks to @taralungaCostel
-        {"addr": ["https://robitza.ddns.net:443"]}, // Thanks to @robertclaudiu
-        {"addr": ["https://robitza.ddns.net:8080"]}, // Thanks to @robertclaudiu
-        {"addr": ["https://robitza.ddns.net:8081"]}, // Thanks to @robertclaudiu
-        {"addr": ["https://robitza.ddns.net:8082"]}, // Thanks to @robertclaudiu
+
+        // {"addr": ["https://robitza.ddns.net:443"]}, // Thanks to @robertclaudiu
+        // {"addr": ["https://robitza.ddns.net:8080"]}, // Thanks to @robertclaudiu
+        // {"addr": ["https://robitza.ddns.net:8081"]}, // Thanks to @robertclaudiu
+        // {"addr": ["https://robitza.ddns.net:8082"]}, // Thanks to @robertclaudiu
+        //
         // {"addr": ["https://wd1.hoste.ro:51261"]}, // Thanks to @morion4000
         // {"addr": ["https://wd1.hoste.ro:60260"]}, // Thanks to @morion4000
         // {"addr": ["https://wd1.hoste.ro:61099"]}, // Thanks to @morion4000
@@ -54268,7 +54274,7 @@ class PPoWBlockchainProofBasic{
                 list.push(this.blocks[i].getBlockHeader())
             } catch (exception){
 
-                console.error("Failed to retrieve block " , i);
+                console.error("Failed to retrieve block " , i );
                 console.error("Failed to retrieve block " , this.blocks[i] !== null ? this.blocks[i].toJSON() : 'block is null');
 
             }
@@ -107347,7 +107353,7 @@ class PoolRewardsManagement{
                 let miner = this.poolData.findMiner( this._toAddresses[i].address );
                 miner.rewardConfirmedOther += Math.max(0, this._toAddresses[i].amount);
 
-                delete this._toAddresses[i];
+                this._toAddresses.splice(i, 1);
             }
 
         }
