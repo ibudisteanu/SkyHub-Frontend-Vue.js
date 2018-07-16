@@ -31716,9 +31716,13 @@ module.exports = bytesToUuid;
         // {"addr": ["https://node7.petreus.ro:443"]}, // Thanks to Dani Petreus
         // {"addr": ["https://node8.petreus.ro:443"]}, // Thanks to Dani Petreus
 
-        // {"addr": ["https://pool.webd.club:80/"]}, // Thanks to @ermethic
-        // {"addr": ["https://pool2.webd.club:80/"]}, // Thanks to @ermethic
-         {"addr": ["https://pool3.webd.club:80/"]}, // Thanks to @ermethic
+
+
+        {"addr": ["https://webdollarpool.win:80/"]}, // Thanks to @vladimirpetre
+
+        //{"addr": ["https://pool.webd.club:80/"]}, // Thanks to @ermethic
+        //{"addr": ["https://pool2.webd.club:80/"]}, // Thanks to @ermethic
+        {"addr": ["https://pool3.webd.club:80/"]}, // Thanks to @ermethic
         // {"addr": ["https://pool4.webd.club:80/"]}, // Thanks to @ermethic
 
         {"addr": ["https://romeonet.ddns.net:65101/"]}, // Thanks to @romeonet
@@ -31738,11 +31742,9 @@ module.exports = bytesToUuid;
         // {"addr": ["https://wd2.hoste.ro:63980"]}, // Thanks to @morion4000
         // {"addr": ["https://wd2.hoste.ro:65279"]}, // Thanks to @morion4000
 
-        /*
-        {"addr": ["https://webdollar.network:5000"]}, // Thanks to @ader1990
-        //
-        {"addr": ["https://chucknorris.webdollarvpn.io:80"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://chucknorris.webdollarvpn.io:443"]}, // Thanks to @cbusuioceanu
+
+        //{"addr": ["https://webdollar.network:5000"]}, // Thanks to @ader1990
+
         {"addr": ["https://chucknorris.webdollarvpn.io:8080"]}, // Thanks to @cbusuioceanu
         {"addr": ["https://chucknorris.webdollarvpn.io:8081"]}, // Thanks to @cbusuioceanu
         {"addr": ["https://chucknorris.webdollarvpn.io:8082"]}, // Thanks to @cbusuioceanu
@@ -31753,13 +31755,13 @@ module.exports = bytesToUuid;
         {"addr": ["https://angrybirds.webdollarvpn.io:3666"]}, // Thanks to @cbusuioceanu
         {"addr": ["https://angrybirds.webdollarvpn.io:4666"]}, // Thanks to @cbusuioceanu
         {"addr": ["https://angrybirds.webdollarvpn.io:5666"]}, // Thanks to @cbusuioceanu
-        //
+        /*
         {"addr": ["https://webdollarinfinitypool.space:8085"]}, //Thanks to @Tibi Popescu
         {"addr": ["https://webdollarinfinitypool.space:8086"]}, //Thanks to @Tibi Popescu
         {"addr": ["https://webdollarinfinitypool.space:8087"]}, //Thanks to @Tibi Popescu
         {"addr": ["https://webdollarinfinitypool.space:8088"]}, //Thanks to @Tibi Popescu
         {"addr": ["https://webdollarinfinitypool.space:8089"]}, //Thanks to @Tibi Popescu
-        //
+        */
         // {"addr": ["https://bacm.ro:80"]}, //Thanks to @jigodia
         // {"addr": ["https://bacm.ro:443"]}, //Thanks to @jigodia
         // {"addr": ["https://bacm.ro:8080"]}, //Thanks to @jigodia
@@ -31800,6 +31802,9 @@ module.exports = bytesToUuid;
         {"addr": ["https://chucknorris.webdollarvpn.io:8085"]}, // Thanks to @cbusuioceanu
         {"addr": ["https://chucknorris.webdollarvpn.io:8086"]}, // Thanks to @cbusuioceanu
         {"addr": ["https://chucknorris.webdollarvpn.io:8087"]}, // Thanks to @cbusuioceanu
+        {"addr": ["https://chucknorris.webdollarvpn.io:8088"]}, // Thanks to @cbusuioceanu
+        {"addr": ["https://chucknorris.webdollarvpn.io:8089"]}, // Thanks to @cbusuioceanu
+        {"addr": ["https://chucknorris.webdollarvpn.io:8090"]}, // Thanks to @cbusuioceanu
 
     ]
 });
@@ -89813,7 +89818,7 @@ class PPoWBlockchainProvesCalculated{
 
 
         //deleting old ones if they have a different level
-        if (this.allBlocks[block.height] !== undefined && this.allBlocks[block.height] !== level) {
+        if (this.allBlocks[block.height] !== undefined && this.allBlocks[block.height] === block && this.allBlocks[block.height] !== level) {
 
             let oldlevel = this.allBlocks[block.height];
             this.levelsLengths[oldlevel]--;
@@ -91943,7 +91948,7 @@ class InterfaceBlockchainMining extends  __WEBPACK_IMPORTED_MODULE_6__Interface_
     /**
      * mine next block
      */
-    async mineNextBlock(showMiningOutput, suspend, start, end){
+    async mineNextBlock(showMiningOutput, suspend){
 
         while (this.started && !__WEBPACK_IMPORTED_MODULE_3_consts_global__["a" /* default */].TERMINATED){
 
@@ -91981,11 +91986,9 @@ class InterfaceBlockchainMining extends  __WEBPACK_IMPORTED_MODULE_6__Interface_
                     nextBlock._computeBlockHeaderPrefix(); //calculate the Block Header Prefix
                 }
 
-                if (start === undefined) //avoid mining the same nonces on every machine that is mining the same address
-                    start = Math.floor( Math.random() * 3700000000 );
-
-                if (end === undefined)
-                    end = 0xFFFFFFFF;
+                //avoid mining the same nonces on every machine that is mining the same address
+                let start = Math.floor( Math.random() * 3700000000 );
+                let end = 0xFFFFFFFF;
 
                 await this.mineBlock(nextBlock, difficulty, start, end);
 
@@ -106631,7 +106634,9 @@ const MAXIMUM_FAIL_CONFIRMATIONS = 20; //blocks
 
 const CONFIRMATIONS_REQUIRED = __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].DEBUG ? 1 : 10;
 
-const REQUIRE_OTHER_CONFIRMATIONS = __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].DEBUG ? false : true;
+const CONFIRMATIONS_REQUIRE_OTHER_MINERS = __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].DEBUG ? false : true;
+
+const CONFIRMATION_METHOD = 2; //1 is not working properly
 
 
 
@@ -106675,31 +106680,38 @@ class PoolRewardsManagement{
 
         let confirmations = {};
 
-        let firstBlock;
-        for (let i=0; i < this.poolData.blocksInfo.length; i++)
-            if ( this.poolData.blocksInfo[ i ].block !== undefined )
-                if ( firstBlock === undefined || this.poolData.blocksInfo[i].block.height < firstBlock)
-                    firstBlock = this.poolData.blocksInfo[ i ].block.height;
+        //calcualte confirmations
 
-        for (let i = this.blockchain.blocks.length-1, n = Math.max( this.blockchain.blocks.blocksStartingPoint, firstBlock ); i>= n; i-- ) {
+        if (CONFIRMATION_METHOD === 1)
+            try {
+                let firstBlock;
+                for (let i = 0; i < this.poolData.blocksInfo.length; i++)
+                    if (this.poolData.blocksInfo[i].block !== undefined)
+                        if (firstBlock === undefined || this.poolData.blocksInfo[i].block.height < firstBlock)
+                            firstBlock = this.poolData.blocksInfo[i].block.height;
 
-            if ( this.blockchain.mining.unencodedMinerAddress.equals( this.blockchain.blocks[i].data.minerAddress ))
-                confirmationsPool++;
-            else {
-                if (uniques[this.blockchain.blocks[i].data.minerAddress.toString("hex")] === undefined){
-                    uniques[this.blockchain.blocks[i].data.minerAddress.toString("hex")] = true;
-                    confirmationsOthersUnique++;
-                } else
-                    confirmationsOthers++;
+                for (let i = this.blockchain.blocks.length - 1, n = Math.max(this.blockchain.blocks.blocksStartingPoint, firstBlock); i >= n; i--) {
+
+                    if (this.blockchain.mining.unencodedMinerAddress.equals(this.blockchain.blocks[i].data.minerAddress))
+                        confirmationsPool++;
+                    else {
+                        if (uniques[this.blockchain.blocks[i].data.minerAddress.toString("hex")] === undefined) {
+                            uniques[this.blockchain.blocks[i].data.minerAddress.toString("hex")] = true;
+                            confirmationsOthersUnique++;
+                        } else
+                            confirmationsOthers++;
+                    }
+
+                    confirmations[i] = {
+                        confirmationsPool: confirmationsPool,
+                        confirmationsOthers: confirmationsOthers,
+                        confirmationsOthersUnique: confirmationsOthersUnique,
+                    }
+
+                }
+            } catch (exception){
+
             }
-
-            confirmations[i] = {
-                confirmationsPool: confirmationsPool,
-                confirmationsOthers: confirmationsOthers,
-                confirmationsOthersUnique: confirmationsOthersUnique,
-            }
-
-        }
 
         //recalculate the confirmations
         for (let i = this.poolData.blocksInfo.length-1; i >= 0; i--  ){
@@ -106750,8 +106762,17 @@ class PoolRewardsManagement{
 
                     found = true;
 
-                    let confirmation = confirmations[ blockInfo.height ];
-                    this.poolData.blocksInfo[i].confirmations = confirmation.confirmationsOthersUnique + confirmation.confirmationsOthers/2 + Math.min(confirmation.confirmationsPool/4, REQUIRE_OTHER_CONFIRMATIONS ? 2 : 10000);
+                    if (CONFIRMATION_METHOD === 1) {
+                        //Method 1
+                        //using confirmations as a confirmation system
+                        let confirmation = confirmations[blockInfo.height];
+                        this.poolData.blocksInfo[i].confirmations = confirmation.confirmationsOthersUnique + confirmation.confirmationsOthers / 2 + Math.min(confirmation.confirmationsPool / 4, CONFIRMATIONS_REQUIRE_OTHER_MINERS ? 2 : 10000);
+                    } else if (CONFIRMATION_METHOD === 2){
+
+                        this.poolData.blocksInfo[i].confirmations = (this.blockchain.blocks.length - blockInfo.height) / 2;
+
+                    }
+
 
                 } else{
                     
