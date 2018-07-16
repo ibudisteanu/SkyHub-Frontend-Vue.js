@@ -2302,10 +2302,6 @@ if ( consts.DEBUG === true ){
 
 }
 
-__WEBPACK_IMPORTED_MODULE_0_node_sockets_node_clients_service_discovery_fallbacks_fallback_nodes_list__["a" /* default */].nodes = [{
-    "addr": ["http://webdollar.ddns.net:9095"],
-}];
-
 
 /* harmony default export */ __webpack_exports__["a"] = (consts);
 
