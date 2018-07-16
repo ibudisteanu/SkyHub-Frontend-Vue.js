@@ -18438,11 +18438,12 @@ class InterfaceBlockchainBlock {
 
         this.nonce = nonce||0;//	int 2^8^5 number (starts at 0)-  int,                              - 5 bytes
         
-        if ( timeStamp === undefined ) {
-            this.timeStamp = this.blockchain.timestamp.networkAdjustedTime - __WEBPACK_IMPORTED_MODULE_2_common_blockchain_global_Blockchain_Genesis__["a" /* default */].timeStampOffset;
+        if ( timeStamp === undefined  || timeStamp === null) {
 
-            if (this.timeStamp === undefined || this.timeStamp === null)
-                this.timeStamp = ( new Date().getTime() - __WEBPACK_IMPORTED_MODULE_2_common_blockchain_global_Blockchain_Genesis__["a" /* default */].timeStampOffset) / 1000;
+            timeStamp = this.blockchain.timestamp.networkAdjustedTime - __WEBPACK_IMPORTED_MODULE_2_common_blockchain_global_Blockchain_Genesis__["a" /* default */].timeStampOffset;
+
+            if (timeStamp === undefined || timeStamp === null)
+                timeStamp = ( new Date().getTime() - __WEBPACK_IMPORTED_MODULE_2_common_blockchain_global_Blockchain_Genesis__["a" /* default */].timeStampOffset) / 1000;
 
         }
 
