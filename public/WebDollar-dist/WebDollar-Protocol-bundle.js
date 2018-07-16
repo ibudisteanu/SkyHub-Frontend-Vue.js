@@ -18438,8 +18438,13 @@ class InterfaceBlockchainBlock {
 
         this.nonce = nonce||0;//	int 2^8^5 number (starts at 0)-  int,                              - 5 bytes
         
-        if ( timeStamp === undefined )
+        if ( timeStamp === undefined ) {
             this.timeStamp = this.blockchain.timestamp.networkAdjustedTime - __WEBPACK_IMPORTED_MODULE_2_common_blockchain_global_Blockchain_Genesis__["a" /* default */].timeStampOffset;
+
+            if (this.timeStamp === undefined)
+                this.timeStamp = ( new Date().getTime() - __WEBPACK_IMPORTED_MODULE_2_common_blockchain_global_Blockchain_Genesis__["a" /* default */].timeStampOffset) / 1000;
+
+        }
 
         this.timeStamp = timeStamp||null; //Current timestamp as seconds since 1970-01-01T00:00 UTC        - 4 bytes,
 
@@ -28449,16 +28454,19 @@ class InterfaceBlockchainProtocolForkSolver{
             //check if n-2 was ok, but I need at least 1 block
             if ( currentBlockchainLength === forkChainLength-1 && currentBlockchainLength-2  >= 0 && binarySearchResult.position === -1 ){
 
+                //veify last n elements
+
                 let answer = await socket.node.sendRequestWaitOnce( "head/hash", currentBlockchainLength-1, currentBlockchainLength-1, __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.TIMEOUT.WAIT_ASYNC_DISCOVERY_TIMEOUT );
                 if (answer === null || answer.hash === undefined) throw {message: "connection dropped headers-info", height: currentBlockchainLength-1 };
 
                 if (  this.blockchain.blocks.last.hash.equals( answer.hash ) ) {
+
                     binarySearchResult = {
                         position: currentBlockchainLength,
                         header: answer.hash,
                     };
 
-                    forkFound = this.blockchain.forksAdministrator._findForkyByHeader(answer.hash);
+                    forkFound = this.blockchain.forksAdministrator._findForkyByHeader( answer.hash );
 
                     if (forkFound !== null && forkFound !== fork) {
                         if (Math.random() < 0.01) console.error("discoverAndProcessFork - fork already found by n-2");
@@ -31687,14 +31695,15 @@ module.exports = bytesToUuid;
         {"addr": ["https://node7.petreus.ro:443"]}, // Thanks to Dani Petreus
         {"addr": ["https://node8.petreus.ro:443"]}, // Thanks to Dani Petreus
         {"addr": ["https://pool.webd.club:80/"]}, // Thanks to @ermethic*/
-        // {"addr": ["https://romeonet.ddns.net:65101/"]}, // Thanks to @romeonet
-        // {"addr": ["https://romeonet.ddns.net:65001/"]}, // Thanks to @romeonet
-        //
+
+        {"addr": ["https://romeonet.ddns.net:65101/"]}, // Thanks to @romeonet
+        {"addr": ["https://romeonet.ddns.net:65001/"]}, // Thanks to @romeonet
+
         // // {"addr": ["https://nodecstl.ddns.net:81/"]}, // Thanks to @taralungaCostel
-        // {"addr": ["https://robitza.ddns.net:443"]}, // Thanks to @robertclaudiu
-        // {"addr": ["https://robitza.ddns.net:8080"]}, // Thanks to @robertclaudiu
-        // {"addr": ["https://robitza.ddns.net:8081"]}, // Thanks to @robertclaudiu
-        // {"addr": ["https://robitza.ddns.net:8082"]}, // Thanks to @robertclaudiu
+        {"addr": ["https://robitza.ddns.net:443"]}, // Thanks to @robertclaudiu
+        {"addr": ["https://robitza.ddns.net:8080"]}, // Thanks to @robertclaudiu
+        {"addr": ["https://robitza.ddns.net:8081"]}, // Thanks to @robertclaudiu
+        {"addr": ["https://robitza.ddns.net:8082"]}, // Thanks to @robertclaudiu
         // {"addr": ["https://wd1.hoste.ro:51261"]}, // Thanks to @morion4000
         // {"addr": ["https://wd1.hoste.ro:60260"]}, // Thanks to @morion4000
         // {"addr": ["https://wd1.hoste.ro:61099"]}, // Thanks to @morion4000
@@ -31743,10 +31752,23 @@ module.exports = bytesToUuid;
         // {"addr": ["https://webdollar-vps1.ddns.net:80"]},
         // {"addr": ["https://webdollar-vps2.ddns.net:80"]},
         // {"addr": ["https://webdollar-vps3.ddns.net:80"]},
-        {"addr": ["https://webdollar-vps4.zapto.org:80"]},
+
+
+
         {"addr": ["https://webdollar-vps5.hopto.org:8080"]},
-        //
-        //
+        {"addr": ["https://webdollar-vps5.hopto.org:8081"]},
+        {"addr": ["https://webdollar-vps5.hopto.org:8082"]},
+        {"addr": ["https://webdollar-vps5.hopto.org:8083"]},
+        {"addr": ["https://webdollar-vps5.hopto.org:8084"]},
+
+
+        {"addr": ["https://webdollar-vps4.zapto.org:80"]},
+        {"addr": ["https://webdollar-vps4.zapto.org:8081"]},
+        {"addr": ["https://webdollar-vps4.zapto.org:8082"]},
+        {"addr": ["https://webdollar-vps4.zapto.org:8083"]},
+        {"addr": ["https://webdollar-vps4.zapto.org:8084"]},
+
+
         // {"addr": ["https://chucknorris.webdollarvpn.io:8084"]}, // Thanks to @cbusuioceanu
         // {"addr": ["https://chucknorris.webdollarvpn.io:8085"]}, // Thanks to @cbusuioceanu
         // {"addr": ["https://chucknorris.webdollarvpn.io:8086"]}, // Thanks to @cbusuioceanu
