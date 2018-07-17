@@ -2151,7 +2151,7 @@ consts.SETTINGS = {
 
     NODE: {
 
-        VERSION: "1.160.3",
+        VERSION: "1.160.4",
         VERSION_COMPATIBILITY: "1.160.0",
 
         VERSION_COMPATIBILITY_UPDATE: "",
@@ -2221,6 +2221,9 @@ consts.SETTINGS = {
                 SERVER: {
                     MAXIMUM_CONNECTIONS_FROM_TERMINAL: 400,
                     MAXIMUM_CONNECTIONS_FROM_BROWSER: 1000,
+
+                    MAXIMUM_CONNECTIONS_FROM_BROWSER_POOL: 2000,
+                    MAXIMUM_CONNECTIONS_FROM_TERMINAL_POOL: 2000,
 
                     TERMINAL_CONNECTIONS_REQUIRED_TO_DISCONNECT_FROM_FALLBACK: 10,
                 },
@@ -31742,6 +31745,12 @@ module.exports = bytesToUuid;
         {"addr": ["https://wd.hoste.ro:40001"]}, // Thanks to @morion4000
         {"addr": ["https://wd.hoste.ro:40002"]}, // Thanks to @morion4000
         {"addr": ["https://wd.hoste.ro:40003"]}, // Thanks to @morion4000
+        {"addr": ["https://wd.hoste.ro:40004"]}, // Thanks to @morion4000
+        {"addr": ["https://wd.hoste.ro:40005"]}, // Thanks to @morion4000
+        {"addr": ["https://wd.hoste.ro:40006"]}, // Thanks to @morion4000
+        {"addr": ["https://wd.hoste.ro:40007"]}, // Thanks to @morion4000
+        {"addr": ["https://wd.hoste.ro:40008"]}, // Thanks to @morion4000
+        {"addr": ["https://wd.hoste.ro:40009"]}, // Thanks to @morion4000
 
         //{"addr": ["https://webdollar.network:5000"]}, // Thanks to @ader1990
 
@@ -92266,6 +92275,8 @@ class MiningTransactionsSelector{
 
         }
 
+        return true;
+
 
     }
 
@@ -92284,7 +92295,7 @@ class MiningTransactionsSelector{
                 
                 console.log(transaction.txId.toString("hex"));
 
-                this.validateTransaction(transaction);
+                this.validateTransaction(transaction, miningFeeThreshold);
 
                 let bRemoveTransaction = false;
 
@@ -105875,7 +105886,10 @@ class PoolNewWorkManagement{
             } ,"answer" );
 
         } catch (exception){
-            console.error("_sendNewWork", exception);
+
+            if (exception.message !== "answer is null" || Math.random() < 0.2)
+                console.error("_sendNewWork", exception);
+
         }
     }
 
