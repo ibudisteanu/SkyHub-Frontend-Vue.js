@@ -16,10 +16,10 @@
             <div class="transactionInfo referralInfo tableHeader">
 
                 <span>Status</span>
-                <span>Potential Referral Reward</span>
-                <span>Confirmed Referral Reward</span>
-                <span>Total Referral Sent</span>
-                <span>h/s</span>
+                <span>Referral Address</span>
+                <span>Miner Address</span>
+                <span>Next Reward</span>
+                <span>Total Reward</span>
 
             </div>
 
@@ -31,23 +31,23 @@
                 </div>
 
                 <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Referral Address:</span>
+                    <span class="size yellowText">{{this.getWalletImage(element.refereeAddress)}}</span>
+                </div>
+
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Miner Address:</span>
+                    <span class="size yellowText">{{this.getWalletImage(element.refereeMiner)}}</span>
+                </div>
+
+                <div class="mobileTableShow">
                     <span class="mobileTableShowTitle">Next Reward:</span>
-                    <span class="time">{{element.nextReward + ' WEBD'}}</span>
+                    <span class="time">{{this.getNextReward(element) -  + ' WEBD'}}</span>
                 </div>
 
                 <div class="mobileTableShow">
-                    <span class="mobileTableShowTitle">Address:</span>
-                    <span class="minedBy">{{element.address}}</span>
-                </div>
-
-                <div class="mobileTableShow">
-                    <span class="mobileTableShowTitle">Total Win:</span>
-                    <span class="size yellowText">{{element.avaiableReward}}</span>
-                </div>
-
-                <div class="mobileTableShow">
-                    <span class="mobileTableShowTitle">Total Win:</span>
-                    <span class="size yellowText">{{element.avaiableReward}}</span>
+                    <span class="mobileTableShowTitle">Total Reward:</span>
+                    <span class="minedBy">{{element._rewardReferralSent}}</span>
                 </div>
 
             </div>
@@ -92,6 +92,12 @@
         methods:{
 
             loadPoolReferralStatistics(){
+
+            },
+
+            getNextReward(element){
+
+                return (element._rewardReferralTotal + element._rewardReferralConfirmed) - element.this._rewardReferralSent;
 
             }
 

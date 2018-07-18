@@ -6,23 +6,40 @@
 
         <div class="selectedMinerInfo">
 
-            <span class="minerData address addressTextBox">{{this.miner.address}}</span>
+            <span class="minerData address addressTextBox">{{this.refereeMiner}}</span>
 
             <div class="statisticsContent">
 
                 <div class="dataStatisticsItem">
-                    <span class="titlePool">Next Block Reward:</span>
-                    <span class="minerData">{{this.miner.nextReward}} WEBD</span>
+                    <span class="titlePool">Status:</span>
+                    <span class="minerData">{{element.active===true ? 'Mining' : 'Offline'}}</span>
                 </div>
 
                 <div class="dataStatisticsItem">
-                    <span class="titlePool">History Reward:</span>
-                    <span class="minerData">{{this.miner.allRewards}} WEBD</span>
+                    <span class="titlePool">Referral Address::</span>
+                    <span class="minerData">
+                        <div class="inlineBlock">
+                            {{this.getWalletImage(element.refereeAddress)}}
+                        </div>
+                        <span class="inlineBlock">
+                            {{element.refereeAddress}}
+                        </span>
+                    </span>
                 </div>
 
                 <div class="dataStatisticsItem">
                     <span class="titlePool">Hash/s:</span>
-                    <span class="minerData">{{this.miner.hashs}} WEBD</span>
+                    <span class="minerData">{{this.miner.hashs}}</span>
+                </div>
+
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Next Reward:</span>
+                    <span class="time">{{this.getNextReward(element) -  + ' WEBD'}}</span>
+                </div>
+
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Total Reward:</span>
+                    <span class="minedBy">{{element._rewardReferralSent}}</span>
                 </div>
 
             </div>
