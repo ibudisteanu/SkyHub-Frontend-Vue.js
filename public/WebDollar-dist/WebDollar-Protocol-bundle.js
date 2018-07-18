@@ -28521,7 +28521,7 @@ class InterfaceBlockchainProtocolForkSolver{
 
                         binarySearchResult = {
                             position: i+2,
-                            header: nextHash,
+                            header: answer.hash,
                         };
 
 
