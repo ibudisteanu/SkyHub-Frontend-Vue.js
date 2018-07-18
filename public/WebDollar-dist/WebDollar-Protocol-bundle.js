@@ -28480,14 +28480,9 @@ class InterfaceBlockchainProtocolForkSolver{
             //veify last n elements
             const count = 6;
 
-            let nextHash;
-            answer = null;
-
             if ( currentBlockchainLength >= count && ( forkChainLength >= currentBlockchainLength ||  (this.blockchain.agent.light && forkProof) )  )
                 for (let i = currentBlockchainLength-1; i >= currentBlockchainLength-1-count; i--){
 
-                    if (answer !== null)
-                        nextHash = answer ;
 
                     if (i === forkChainLength-1 && forkLastBlockHash !== undefined && forkLastBlockHash !== undefined) {
                         answer = {hash: forkLastBlockHash};
@@ -92292,6 +92287,9 @@ class MiningTransactionsSelector{
 
         if (miningFeeThreshold === undefined)
             miningFeeThreshold = __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].MINING_POOL.MINING.FEE_THRESHOLD;
+
+        if ( transaction.from.addresses.length > 100)
+            throw {message: "too many inputs"};
 
         //don't upset the SPAM_GUARDIAN
         for (let j = 0; j < transaction.from.addresses.length; j++) {
