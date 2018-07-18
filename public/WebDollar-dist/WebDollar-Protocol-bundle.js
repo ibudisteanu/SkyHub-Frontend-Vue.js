@@ -28481,20 +28481,22 @@ class InterfaceBlockchainProtocolForkSolver{
             const count = 6;
 
             let nextHash, nextPos;
-
-            answer = {hash: forkLastBlockHash};
+            answer = null;
 
             if ( currentBlockchainLength >= count && ( forkChainLength >= currentBlockchainLength ||  (this.blockchain.agent.light && forkProof) )  )
                 for (let i = currentBlockchainLength-1; i >= currentBlockchainLength-1-count; i--){
 
                     if (answer !== null) {
                         nextHash = answer.hash;
-                        nextPos = i+1;
+                        nextPos = i;
                     }
 
-                    if (i !== currentBlockchainLength-1){
+                    if (i === forkChainLength-1) {
+                        answer = {hash: forkLastBlockHash};
+                        nextPos = forkChainLength-1;
+                    } else {
                         answer = await socket.node.sendRequestWaitOnce( "head/hash", i, i, __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.TIMEOUT.WAIT_ASYNC_DISCOVERY_TIMEOUT );
-                        if (answer === null || answer.hash === undefined)
+                        if (answer === null || answer === undefined || answer.hash === undefined)
                             continue;
                     }
 
@@ -28521,7 +28523,7 @@ class InterfaceBlockchainProtocolForkSolver{
                     if (this.blockchain.blocks[i].hash.equals(answer.hash)){
 
                         binarySearchResult = {
-                            position: nextPos+1,
+                            position: nextPos+2,
                             header: nextHash,
                         };
 
@@ -105604,12 +105606,6 @@ class PoolWorkManagement{
 
             if ( work.result && prevBlock === undefined ) { //it is a solution and prevBlock is undefined
 
-                console.warn("----------------------------------------------------------------------------");
-                console.warn("----------------------------------------------------------------------------");
-                console.warn("WebDollar Block was mined in Pool 1 ", blockInformationMinerInstance.workBlock.height, work.hash.toString("hex"), "nonce", work.nonce );
-                console.warn("----------------------------------------------------------------------------");
-                console.warn("----------------------------------------------------------------------------");
-
                 if ( await blockInformationMinerInstance.wasBlockMined() ){
 
                     console.warn("----------------------------------------------------------------------------");
@@ -109552,6 +109548,10 @@ class Applications {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_global__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_waitlist_Nodes_Waitlist__ = __webpack_require__(27);
+
+
 
 
 let alreadySaved = false;
@@ -109564,6 +109564,10 @@ let alreadySaved = false;
 
     if (alreadySaved) return;
     alreadySaved = true;
+
+    __WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__["a" /* default */].disconnectAllNodes();
+    __WEBPACK_IMPORTED_MODULE_2_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListFullNodes = [];
+    __WEBPACK_IMPORTED_MODULE_2_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].waitListLightNodes = [];
 
     if (!__WEBPACK_IMPORTED_MODULE_0_consts_global__["a" /* default */].INTERFACE_BLOCKCHAIN_LOADING)
         await Blockchain.blockchain.saveBlockchainTerminated();
