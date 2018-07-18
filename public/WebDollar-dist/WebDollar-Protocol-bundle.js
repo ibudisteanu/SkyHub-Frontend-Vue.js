@@ -2160,7 +2160,7 @@ consts.SETTINGS = {
         PROTOCOL: "WebDollar",
         SSL: true,
 
-        PORT: 80, //port
+        PORT: 8085, //port
     },
 
     PARAMS: {
@@ -2313,7 +2313,7 @@ if ( consts.DEBUG === true ){
     //consts.BLOCKCHAIN.HARD_FORKS.TRANSACTIONS_BUG_2_BYTES = 100;
 
     __WEBPACK_IMPORTED_MODULE_0_node_sockets_node_clients_service_discovery_fallbacks_fallback_nodes_list__["a" /* default */].nodes = [{
-        "addr": ["http://webdollar.ddns.net:9095"],
+        "addr": ["http://127.0.0.1:8085"],
     }];
 
 
@@ -19703,7 +19703,7 @@ class InterfaceBlockchainFork {
                             this.blockchain.transactions.pendingQueue.includePendingTransaction(transaction, "all");
                         }
                         catch (exception) {
-                            console.warn("Transaction Was Rejected to be Added to the Pending Queue ", transaction.toJSON() );
+                            //console.warn("Transaction Was Rejected to be Added to the Pending Queue ", transaction.toJSON() );
                         }
 
                     });
@@ -19745,7 +19745,7 @@ class InterfaceBlockchainFork {
                             this.blockchain.transactions.pendingQueue.includePendingTransaction(transaction, "all");
                         }
                         catch (exception) {
-                            console.warn("Transaction Was Rejected to be Added to the Pending Queue ", transaction.toJSON() );
+                            //console.warn("Transaction Was Rejected to be Added to the Pending Queue ", transaction.toJSON() );
                         }
 
                     });
@@ -28486,7 +28486,7 @@ class InterfaceBlockchainProtocolForkSolver{
                     }
 
 
-                    console.log("_forkSolver_checking", i, currentBlockchainLength);
+                    console.log("_forkSolver_checking", i, currentBlockchainLength-1);
 
 
                     forkFound = this.blockchain.forksAdministrator._findForkyByHeader( answer.hash );
@@ -28507,7 +28507,7 @@ class InterfaceBlockchainProtocolForkSolver{
                     if (this.blockchain.blocks[i].hash.equals(answer.hash)){
 
                         binarySearchResult = {
-                            position: i+1,
+                            position: i+2,
                             header: answer.hash,
                         };
 
@@ -86170,7 +86170,7 @@ class InterfaceBlockchainTransactionsProtocol {
 
                         setTimeout(()=> {
 
-                            if (__WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__["a" /* default */].nodes[i].socket !== undefined)
+                            if (__WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__["a" /* default */].nodes[i] !== undefined && __WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__["a" /* default */].nodes[i].socket !== undefined)
                                 this.downloadTransactions(__WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__["a" /* default */].nodes[i].socket, 0, 30);
 
                         }, 5000 + Math.random()*15000 );
@@ -86187,7 +86187,7 @@ class InterfaceBlockchainTransactionsProtocol {
 
         let socket = nodesListObject.socket;
 
-        if (__WEBPACK_IMPORTED_MODULE_3_main_blockchain_Blockchain__["a" /* default */].MinerPoolManagement.minerPoolStarted)
+        if (__WEBPACK_IMPORTED_MODULE_3_main_blockchain_Blockchain__["a" /* default */].MinerPoolManagement !== undefined && __WEBPACK_IMPORTED_MODULE_3_main_blockchain_Blockchain__["a" /* default */].MinerPoolManagement.minerPoolStarted)
             return false;
 
         this.initializeTransactionsPropagation(socket);
@@ -92709,7 +92709,7 @@ class InterfaceBlockchainMiningWorkersList {
 
     _initializeWorker(worker){
         worker.suspended = false;
-        worker.postMessage({message: "initialize", block: this.block, nonce: this.mining._nonce , count: this.mining.WORKER_NONCES_WORK });
+        worker.postMessage({message: "initialize", block: this.block, difficulty: this.difficultyTarget, nonce: this.mining._nonce , count: this.mining.WORKER_NONCES_WORK });
 
         this.mining._nonce += this.mining.WORKER_NONCES_WORK;
 
@@ -93021,8 +93021,6 @@ let ARGON2_PARAM = { salt: 'Satoshi_is_Finney', time: 2, mem: 256, parallelism: 
 
 let algorithm = undefined;
 
-let nonceArray = new Uint8Array(4);
-
 let bestHash, bestNonce;
 let nonce, noncePrevious, nonceEnd;
 let WorkerInitialized = false;
@@ -93278,7 +93276,7 @@ function sleep(ms) {
 
 /* harmony default export */ __webpack_exports__["default"] = (function (self) {
 
-    let blockLen;
+    let blockLen, difficulty;
 
     log = (msg) => {
         if (!msg )
@@ -93326,8 +93324,10 @@ function sleep(ms) {
 
             if (ev.data.message === "initialize") {
 
-                if (ev.data.block !== undefined && ev.data.block !== null) {
+                if (ev.data.block !== undefined && ev.data.block !== null && ev.data.difficulty !== undefined && ev.data.difficulty !== null) {
+
                     block = ev.data.block;
+                    difficulty = ev.data.difficulty;
 
                     //solution using Uint8Array
                     ARGON2_PARAM.pass = new Uint8Array(block.length + 4 );
@@ -93366,6 +93366,8 @@ function sleep(ms) {
         if ( WorkerInitialized ) return;
         WorkerInitialized = true;
 
+        let change, found;
+
         while ( 1 === 1){
 
             if (nonce === nonceEnd || jobTerminated) {
@@ -93386,7 +93388,7 @@ function sleep(ms) {
 
                 if (WorkerChanged) continue; //it was changed in the meanwhile
 
-                let change = false;
+                change = false;
                 for (let i = 0, l = bestHash.length; i < l; i++)
                     if (hash[i] < bestHash[i]) {
                         change = true;
@@ -93399,6 +93401,19 @@ function sleep(ms) {
                 if ( change ) {
                     bestHash = hash;
                     bestNonce = nonce;
+
+                    found = false;
+                    for (let i = 0, l = difficulty.length; i < l; i++)
+                        if (hash[i] < difficulty[i]) {
+                            found = true;
+                            break;
+                        }
+                        else if (hash[i] > difficulty[i])
+                            break;
+
+                    if (found)
+                        nonce = nonceEnd - 1;
+
                 }
 
             } catch (exception){
