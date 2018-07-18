@@ -28480,20 +28480,17 @@ class InterfaceBlockchainProtocolForkSolver{
             //veify last n elements
             const count = 6;
 
-            let nextHash, nextPos = currentBlockchainLength-1;
+            let nextHash;
             answer = null;
 
             if ( currentBlockchainLength >= count && ( forkChainLength >= currentBlockchainLength ||  (this.blockchain.agent.light && forkProof) )  )
                 for (let i = currentBlockchainLength-1; i >= currentBlockchainLength-1-count; i--){
 
-                    if (answer !== null) {
-                        nextHash = answer.hash;
-                        nextPos = i;
-                    }
+                    if (answer !== null)
+                        nextHash = answer ;
 
                     if (i === forkChainLength-1) {
                         answer = {hash: forkLastBlockHash};
-                        nextPos = forkChainLength-1;
                     } else {
                         answer = await socket.node.sendRequestWaitOnce( "head/hash", i, i, __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.TIMEOUT.WAIT_ASYNC_DISCOVERY_TIMEOUT );
                         if (answer === null || answer === undefined || answer.hash === undefined)
@@ -28523,7 +28520,7 @@ class InterfaceBlockchainProtocolForkSolver{
                     if (this.blockchain.blocks[i].hash.equals(answer.hash)){
 
                         binarySearchResult = {
-                            position: nextPos+2,
+                            position: i+2,
                             header: nextHash,
                         };
 
