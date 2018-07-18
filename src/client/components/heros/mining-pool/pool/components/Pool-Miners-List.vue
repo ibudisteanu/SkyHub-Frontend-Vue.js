@@ -16,8 +16,9 @@
             <div class="transactionInfo tableHeader">
 
                 <span>Status</span>
+                <span>Instances</span>
+                <span>Invitated</span>
                 <span>Next Reward</span>
-                <span>Address</span>
                 <span>Total WIN</span>
 
             </div>
@@ -30,13 +31,18 @@
                 </div>
 
                 <div class="mobileTableShow">
-                    <span class="mobileTableShowTitle">Next Reward:</span>
-                    <span class="time">{{element.nextReward + ' WEBD'}}</span>
+                    <span class="mobileTableShowTitle">Instances:</span>
+                    <span class="time">{{element.instances.length}}</span>
                 </div>
 
                 <div class="mobileTableShow">
-                    <span class="mobileTableShowTitle">Address:</span>
-                    <span class="minedBy">{{element.address}}</span>
+                    <span class="mobileTableShowTitle">Invitated:</span>
+                    <span class="time">{{element.referrals.length}}</span>
+                </div>
+
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Next Reward:</span>
+                    <span class="time">{{this.getNextReward(element)}}</span>
                 </div>
 
                 <div class="mobileTableShow">
@@ -67,6 +73,10 @@
 
                 this.$emit('selectMiner', index);
 
+            },
+
+            getNextReward(element){
+                return element._rewardTotal - element._rewardSent;
             }
 
         }

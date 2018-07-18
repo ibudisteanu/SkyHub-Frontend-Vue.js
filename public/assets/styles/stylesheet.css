@@ -1099,6 +1099,10 @@ background-color:#ff2200}
   display: none;
 }
 
+.inlineBlock{
+  display: inline-block;
+}
+
 #myProgress {
   width: 100%;
   background-color: #292929;
@@ -1130,7 +1134,7 @@ background-color:#ff2200}
 
 .distributionContainer{
   padding: 50px 0;
-  background-color: #ffffff1c;
+  background-color: none;
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-column-gap: 40px;

@@ -97,7 +97,7 @@
 
             getNextReward(element){
 
-                return (element._rewardReferralTotal + element._rewardReferralConfirmed) - element.this._rewardReferralSent;
+                return element._rewardReferralTotal - element.this._rewardReferralSent;
 
             }
 
