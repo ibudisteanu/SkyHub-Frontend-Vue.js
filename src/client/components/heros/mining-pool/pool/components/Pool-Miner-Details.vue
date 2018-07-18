@@ -50,21 +50,25 @@
                     <span class="minerData">{{element.instances.length}}</span>
                 </div>
 
-                <div v-for="(element, index) in this.minersList" :key="'miningPoolListElement '+index" @click="selectMiner(index)" class="transactionInfo">
+                <div>
 
-                    <div class="mobileTableShow">
-                        <span class="mobileTableShowTitle">Next Reward:</span>
-                        <span class="time">{{this.getNextReward(element)}}</span>
-                    </div>
+                    <div v-for="(element, index) in element.instances" :key="'minerInstances '+index">
 
-                    <div class="mobileTableShow">
-                        <span class="mobileTableShowTitle">Total Win:</span>
-                        <span class="size yellowText">{{element.avaiableReward}}</span>
-                    </div>
+                        <div class="mobileTableShow">
+                            <span class="mobileTableShowTitle">Next Reward:</span>
+                            <span class="time">{{this.getNextReward(element)}}</span>
+                        </div>
 
-                    <div class="dataStatisticsItem">
-                        <span class="titlePool">Hash/s:</span>
-                        <span class="minerData">{{this.miner.hashs}} M/s</span>
+                        <div class="mobileTableShow">
+                            <span class="mobileTableShowTitle">Total Win:</span>
+                            <span class="size yellowText">{{element.avaiableReward}}</span>
+                        </div>
+
+                        <div class="dataStatisticsItem">
+                            <span class="titlePool">Hash/s:</span>
+                            <span class="minerData">{{this.miner.hashs}} M/s</span>
+                        </div>
+
                     </div>
 
                 </div>
