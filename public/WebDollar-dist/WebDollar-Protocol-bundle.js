@@ -28489,7 +28489,7 @@ class InterfaceBlockchainProtocolForkSolver{
                     if (answer !== null)
                         nextHash = answer ;
 
-                    if (i === forkChainLength-1) {
+                    if (i === forkChainLength-1 && forkLastBlockHash !== undefined && forkLastBlockHash !== undefined) {
                         answer = {hash: forkLastBlockHash};
                     } else {
                         answer = await socket.node.sendRequestWaitOnce( "head/hash", i, i, __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].SETTINGS.PARAMS.CONNECTIONS.TIMEOUT.WAIT_ASYNC_DISCOVERY_TIMEOUT );
@@ -28520,7 +28520,7 @@ class InterfaceBlockchainProtocolForkSolver{
                     if (this.blockchain.blocks[i].hash.equals(answer.hash)){
 
                         binarySearchResult = {
-                            position: i+2,
+                            position: (i === currentBlockchainLength-1) + 1 ? currentBlockchainLength :  i+2,
                             header: answer.hash,
                         };
 
@@ -28689,6 +28689,8 @@ class InterfaceBlockchainProtocolForkSolver{
 
             let blockValidation = fork._createBlockValidation_ForkValidation(nextBlockHeight, fork.forkBlocks.length-1);
             let block = this._deserializeForkBlock(fork, answer.block, nextBlockHeight, blockValidation );
+
+            //console.log("block.hash", block.hash.toString("hex"));
 
             if (fork.downloadAllBlocks && nextBlockHeight % 10 === 0) await this.blockchain.sleep(15);
 
