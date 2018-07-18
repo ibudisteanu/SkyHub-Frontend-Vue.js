@@ -28480,7 +28480,7 @@ class InterfaceBlockchainProtocolForkSolver{
             //veify last n elements
             const count = 6;
 
-            let nextHash, nextPos;
+            let nextHash, nextPos = currentBlockchainLength-1;
             answer = null;
 
             if ( currentBlockchainLength >= count && ( forkChainLength >= currentBlockchainLength ||  (this.blockchain.agent.light && forkProof) )  )
@@ -28529,8 +28529,6 @@ class InterfaceBlockchainProtocolForkSolver{
 
 
                         break;
-
-                    } else {
 
                     }
 
