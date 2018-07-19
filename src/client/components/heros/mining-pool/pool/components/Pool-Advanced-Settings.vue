@@ -22,14 +22,14 @@
                                 <div class="settingsTitle">
                                     Owner Fee:
                                 </div>
-                                <slider ref="refPoolFee" :interval="10" :min="10" :max="1000" @changed="this.handleChangePoolFee"/>
+                                <slider ref="refPoolFee" :interval="0.1" :min="1" :max="100" @changed="this.handleChangePoolFee"/>
                             </div>
 
                             <div class="poolSettingsRow feeSlider">
                                 <div class="settingsTitle specialTitle">
                                     Hosts Fee:
                                 </div>
-                                <slider ref="refHostsFee" :interval="10" :min="10" :max="1000" @changed="this.handleChangePoolFee"/>
+                                <slider ref="refHostsFee" :interval="0.1" :min="1" :max="100" @changed="this.handleChangePoolFee"/>
                             </div>
 
                         </div>
@@ -40,14 +40,14 @@
                                 <div class="settingsTitle">
                                     Referral Fee:
                                 </div>
-                                <slider ref="refReferralFee" :interval="10" :min="10" :max="1000" :disabled="true" @changed="this.handleChangePoolFee"/>
+                                <slider ref="refReferralFee" :interval="1" :min="1" :max="100" :disabled="true" @changed="this.handleChangePoolFee"/>
                             </div>
 
                             <div class="poolSettingsRow feeSlider">
                                 <div class="settingsTitle specialTitle">
                                     Pay frequency:
                                 </div>
-                                <slider ref="refFrequency" :interval="10" :min="10" :max="1000" @changed="this.handleChangePoolFee"/>
+                                <slider ref="refFrequency" :interval="10" :min="10" :max="10000" @changed="this.handleChangePoolFee"/>
                             </div>
 
                         </div>
@@ -133,6 +133,19 @@
 
                     <div class="poolSettingsRow" v-if="this.poolURL!=''">
                         <div class="settingsTitle">
+                            Referral Type:
+                        </div>
+                        <div>
+                            <select type="checkbox" value="poolActivated" v-model="referralSetting">
+                                <option>Dezactived</option>
+                                <option>Fee from invited</option>
+                                <option>Fee from block</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="poolSettingsRow" v-if="this.poolURL!=''">
+                        <div class="settingsTitle">
                             Pool Activated:
                         </div>
                         <div>
@@ -187,7 +200,8 @@
                 poolSettings: [],
 
                 error: '',
-                newServer: ''
+                newServer: '',
+                referralSetting:''
             }
 
         },

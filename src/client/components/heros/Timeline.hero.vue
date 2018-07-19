@@ -48,7 +48,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="timeline timelineUnfinishedMilestones">
+                <div class="timeline">
                     <div class="timeline-icon"><i class="fa fa-rocket"></i></div>
                     <span class="year">Q1 2018</span>
                     <div class="timeline-content">
@@ -110,6 +110,26 @@
                 </div>
                 <div class="timeline timelineUnfinishedMilestones">
                     <div class="timeline-icon unfinishedMilestones"><i class="fa fa-gift"></i></div>
+                    <span class="year">Q1 2019</span>
+                    <div class="timeline-content">
+                        <h5 class="title">Real Time Road Map</h5>
+                        <p class="description">
+                            Developing a Real time road map with the status of all apps developed by our devs and community.
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline timelineUnfinishedMilestones">
+                    <div class="timeline-icon unfinishedMilestones"><i class="fa fa-gift"></i></div>
+                    <span class="year">Q2 2019</span>
+                    <div class="timeline-content">
+                        <h5 class="title">Voting Community Center</h5>
+                        <p class="description">
+                            Voting center for community where features and updates are proposed to be upvote or downvote by our holders.
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline timelineUnfinishedMilestones">
+                    <div class="timeline-icon unfinishedMilestones"><i class="fa fa-gift"></i></div>
                     <span class="year">Q2 2019</span>
                     <div class="timeline-content">
                         <h5 class="title">SMART CONTRACTS</h5>
@@ -122,7 +142,7 @@
                     <div class="timeline-icon unfinishedMilestones"><i class="fa fa-gift"></i></div>
                     <span class="year">Q4 2019</span>
                     <div class="timeline-content">
-                        <h5 class="title">DECENTRALIZED BAZZAR</h5>
+                        <h5 class="title">DECENTRALIZED BAZAAR</h5>
                         <p class="description">
                             Creation of a decentralized Bazaar where people can buy or sell goods using Webdollar as a payment method.
                         </p>
