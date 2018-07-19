@@ -35,7 +35,8 @@
                 Miners in pool: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolMinersOnline}} </span>
             </span>
             <span class="oneLineText">
-                Confirmed: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksConfirmed}} </span> Unconfirmed <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksUnconfirmed}} </span>
+                Confirmed: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksConfirmed}} </span> Unconfirmed <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksUnconfirmed}} </span> <br/>
+                Being confirmed: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksBeingConfirmed}} </span>
             </span>
 
             <span class="oneLineText">
@@ -77,6 +78,7 @@
             poolMinersOnline: 0,
             poolBlocksConfirmed: 0,
             poolBlocksUnconfirmed: 0,
+            poolBlocksBeingConfirmed: 0,
             poolTimeRemaining: 0,
             networkHashRate:0,
 

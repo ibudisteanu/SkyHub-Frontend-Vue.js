@@ -55,7 +55,8 @@
                                  :poolServers="poolServers" :poolsList="poolsList" :poolsListSelected="poolsListSelected"
                                  :poolStatus="minerPoolStatus" :poolHashes="poolHashes" :poolMinersOnline="poolMinersOnline"
                                  :poolBlocksConfirmed="poolBlocksConfirmed" :poolBlocksUnconfirmed="poolBlocksUnconfirmed"
-                                 :poolTimeRemaining="poolTimeRemaining" :rewardReferralTotal="rewardReferralTotal" :rewardReferralConfirmed="rewardReferralConfirmed"  >
+                                 :poolTimeRemaining="poolTimeRemaining" :rewardReferralTotal="rewardReferralTotal" :rewardReferralConfirmed="rewardReferralConfirmed"
+                                 :poolBlocksBeingConfirmed="poolBlocksBeingConfirmed">
                 </pool-statistics>
 
             </div>
@@ -94,7 +95,9 @@
                 poolHashes: 0,
                 poolMinersOnline: 0,
                 poolBlocksConfirmed: 0,
+                poolBlocksBeingConfirmed: 0,
                 poolBlocksUnconfirmed: 0,
+
                 poolTimeRemaining: 0,
 
                 poolURLReferral: '',
@@ -206,6 +209,7 @@
                 this.poolMinersOnline = WebDollar.Blockchain.MinerPoolManagement.minerPoolStatistics.poolMinersOnline.length;
                 this.poolBlocksConfirmed = WebDollar.Blockchain.MinerPoolManagement.minerPoolStatistics.poolBlocksConfirmed;
                 this.poolBlocksUnconfirmed = WebDollar.Blockchain.MinerPoolManagement.minerPoolStatistics.poolBlocksUnconfirmed;
+                this.poolBlocksBeingConfirmed = WebDollar.Blockchain.MinerPoolManagement.minerPoolStatistics.poolBlocksBeingConfirmed;
                 this.poolTimeRemaining = WebDollar.Blockchain.MinerPoolManagement.minerPoolStatistics.poolTimeRemaining;
 
 
@@ -215,6 +219,7 @@
                     this.poolMinersOnline = data.poolMinersOnline;
                     this.poolBlocksConfirmed = data.poolBlocksConfirmed;
                     this.poolBlocksUnconfirmed = data.poolBlocksUnconfirmed;
+                    this.poolBlocksBeingConfirmed = data.poolBlocksBeingConfirmed;
                     this.poolTimeRemaining = data.poolTimeRemaining;
 
                 });
