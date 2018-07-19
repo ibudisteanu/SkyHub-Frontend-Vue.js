@@ -27633,7 +27633,7 @@ class InterfaceBlockchainTransaction{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_utils_coins_WebDollar_Coins__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_utils_coins_WebDollar_Coins__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_consts_const_global__ = __webpack_require__(2);
 
 
@@ -27813,13 +27813,13 @@ class InterfaceBlockchainTransactionsWizard{
     }
 
     calculateFeeSimple(){
-        return this.calculateFeeWizzard( new Buffer(141) );
+        return 10;
+        //return this.calculateFeeWizzard( new Buffer(141) );
     }
 
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (InterfaceBlockchainTransactionsWizard);
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
 /* 201 */
