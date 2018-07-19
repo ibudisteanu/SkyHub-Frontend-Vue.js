@@ -31991,13 +31991,8 @@ module.exports = bytesToUuid;
         {"addr": ["https://angrybirds.webdollarvpn.io:7666"]}, // Thanks to @cbusuioceanu
         {"addr": ["https://angrybirds.webdollarvpn.io:8666"]}, // Thanks to @cbusuioceanu   
         {"addr": ["https://angrybirds.webdollarvpn.io:9666"]}, // Thanks to @cbusuioceanu         
-        /*
-        {"addr": ["https://webdollarinfinitypool.space:8085"]}, //Thanks to @Tibi Popescu
-        {"addr": ["https://webdollarinfinitypool.space:8086"]}, //Thanks to @Tibi Popescu
-        {"addr": ["https://webdollarinfinitypool.space:8087"]}, //Thanks to @Tibi Popescu
-        {"addr": ["https://webdollarinfinitypool.space:8088"]}, //Thanks to @Tibi Popescu
-        {"addr": ["https://webdollarinfinitypool.space:8089"]}, //Thanks to @Tibi Popescu
-        */
+
+
         // {"addr": ["https://bacm.ro:80"]}, //Thanks to @jigodia
         // {"addr": ["https://bacm.ro:443"]}, //Thanks to @jigodia
         // {"addr": ["https://bacm.ro:8080"]}, //Thanks to @jigodia
@@ -32032,6 +32027,11 @@ module.exports = bytesToUuid;
         {"addr": ["https://webdollar-vps4.zapto.org:8083"]},
         {"addr": ["https://webdollar-vps4.zapto.org:8084"]},
 
+        {"addr": ["https://webdollarinfinitypool.space:8085"]}, //Thanks to @Tibi Popescu
+        {"addr": ["https://webdollarinfinitypool.space:8086"]}, //Thanks to @Tibi Popescu
+        {"addr": ["https://webdollarinfinitypool.space:8087"]}, //Thanks to @Tibi Popescu
+        {"addr": ["https://webdollarinfinitypool.space:8088"]}, //Thanks to @Tibi Popescu
+        {"addr": ["https://webdollarinfinitypool.space:8089"]}, //Thanks to @Tibi Popescu
 
         {"addr": ["https://chucknorris.webdollarvpn.io:8084"]}, // Thanks to @cbusuioceanu
         {"addr": ["https://chucknorris.webdollarvpn.io:8085"]}, // Thanks to @cbusuioceanu
