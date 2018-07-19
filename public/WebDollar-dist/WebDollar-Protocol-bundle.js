@@ -27813,7 +27813,7 @@ class InterfaceBlockchainTransactionsWizard{
     }
 
     calculateFeeSimple(){
-        return 10000;
+        return 10*10000;
         //return this.calculateFeeWizzard( new Buffer(141) );
     }
 
