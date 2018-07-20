@@ -246,7 +246,7 @@
 
                         Vue.set(this.poolsList, key, poolsList[key]);
 
-                        this.poolsList[key].poolName = this.poolsList[key].poolName + index > 0 ? ` (${index})` : '';
+                        this.poolsList[key].poolName = this.poolsList[key].poolName + (index > 0 ? ` (${index})` : '');
 
                     }
 
