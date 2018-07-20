@@ -235,8 +235,20 @@
                     let poolsList = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolsList;
 
                     this.poolsList = {};
-                    for (let key in poolsList)
+                    for (let key in poolsList) {
+
+                        let index = 0;
+                        for (let alreadyKey in this.poolsList)
+                            if (this.poolsList[alreadyKey].poolName === poolsList[key].poolName + (index > 0 ? ` (${index})` : '')) {
+                                index++;
+                                break;
+                            }
+
                         Vue.set(this.poolsList, key, poolsList[key]);
+
+                        this.poolsList[key].poolName = this.poolsList[key].poolName + index > 0 ? ` (${index})` : '';
+
+                    }
 
                     let minerPoolFound = false;
 
