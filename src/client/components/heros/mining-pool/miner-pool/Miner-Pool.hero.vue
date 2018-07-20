@@ -54,7 +54,7 @@
                 <pool-statistics statsType="miner" :poolName="poolName" :poolWebsite="poolWebsite" :poolURL="poolURL" :poolFee="poolFee" :poolReferralFee="poolReferralFee"
                                  :poolServers="poolServers" :poolsList="poolsList" :poolsListSelected="poolsListSelected"
                                  :poolStatus="minerPoolStatus" :poolHashes="poolHashes" :poolMinersOnline="poolMinersOnline"
-                                 :poolBlocksConfirmed="poolBlocksConfirmed" :poolBlocksUnconfirmed="poolBlocksUnconfirmed"
+                                 :poolBlocksConfirmed="poolBlocksConfirmed" :poolBlocksUnconfirmed="poolBlocksUnconfirmed" :poolBlocksConfirmedAndPaid="poolBlocksConfirmedAndPaid"
                                  :poolTimeRemaining="poolTimeRemaining" :rewardReferralTotal="rewardReferralTotal" :rewardReferralConfirmed="rewardReferralConfirmed"
                                  :poolBlocksBeingConfirmed="poolBlocksBeingConfirmed">
                 </pool-statistics>
@@ -95,6 +95,7 @@
                 poolHashes: 0,
                 poolMinersOnline: 0,
                 poolBlocksConfirmed: 0,
+                poolBlocksConfirmedAndPaid: 0,
                 poolBlocksBeingConfirmed: 0,
                 poolBlocksUnconfirmed: 0,
 
@@ -208,6 +209,7 @@
                 this.poolHashes = WebDollar.Blockchain.MinerPoolManagement.minerPoolStatistics.poolHashes;
                 this.poolMinersOnline = WebDollar.Blockchain.MinerPoolManagement.minerPoolStatistics.poolMinersOnline.length;
                 this.poolBlocksConfirmed = WebDollar.Blockchain.MinerPoolManagement.minerPoolStatistics.poolBlocksConfirmed;
+                this.poolBlocksConfirmedAndPaid = WebDollar.Blockchain.MinerPoolManagement.minerPoolStatistics.poolBlocksConfirmedAndPaid;
                 this.poolBlocksUnconfirmed = WebDollar.Blockchain.MinerPoolManagement.minerPoolStatistics.poolBlocksUnconfirmed;
                 this.poolBlocksBeingConfirmed = WebDollar.Blockchain.MinerPoolManagement.minerPoolStatistics.poolBlocksBeingConfirmed;
                 this.poolTimeRemaining = WebDollar.Blockchain.MinerPoolManagement.minerPoolStatistics.poolTimeRemaining;
@@ -218,6 +220,7 @@
                     this.poolHashes = data.poolHashes;
                     this.poolMinersOnline = data.poolMinersOnline;
                     this.poolBlocksConfirmed = data.poolBlocksConfirmed;
+                    this.poolBlocksConfirmedAndPaid = data.poolBlocksConfirmedAndPaid;
                     this.poolBlocksUnconfirmed = data.poolBlocksUnconfirmed;
                     this.poolBlocksBeingConfirmed = data.poolBlocksBeingConfirmed;
                     this.poolTimeRemaining = data.poolTimeRemaining;
