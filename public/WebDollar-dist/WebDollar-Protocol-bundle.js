@@ -107870,6 +107870,8 @@ class PoolRewardsManagement{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_mining_pools_miner_Miner_Pool_Settings__ = __webpack_require__(866);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_common_events_Status_Events__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_node_lists_Nodes_List__ = __webpack_require__(5);
+
 
 
 
@@ -107967,6 +107969,8 @@ class MinerProtocol {
             this._minerPoolStarted = value;
 
             await this.minerPoolSettings.setMinerPoolActivated(value);
+
+            __WEBPACK_IMPORTED_MODULE_8_node_lists_Nodes_List__["a" /* default */].disconnectAllNodes("all");
 
             if (value) {
 
