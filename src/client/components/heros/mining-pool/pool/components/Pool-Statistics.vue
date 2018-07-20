@@ -35,7 +35,7 @@
                 Miners in pool: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolMinersOnline}} </span>
             </span>
             <span class="oneLineText">
-                To be Paid: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksConfirmedAndPaid}} </span> Confirmed: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksConfirmed}} </span> <br/>
+                To be Paid: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksConfirmed}} </span> Paid already: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksConfirmedAndPaid}} </span> <br/>
                 Being confirmed: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksBeingConfirmed}} </span> Unconfirmed <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksUnconfirmed}} </span>
             </span>
 
