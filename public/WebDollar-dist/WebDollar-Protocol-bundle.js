@@ -17950,7 +17950,7 @@ class PoolsUtils {
 
         if (version === 0) {
             poolAddress = this.substr(url);
-            poolAddress = poolAddress.replace("%23","#");
+            poolAddress = poolAddress.replace(/%23/g,"#");
 
             url = this.substrNext(url);
         }
@@ -17977,7 +17977,7 @@ class PoolsUtils {
             url = this.substrNext(url);
 
             poolReferral  = this.substr(url);
-            poolReferral  = poolReferral.replace("%23","#");
+            poolReferral  = poolReferral.replace(/%23/g,"#");
 
             url = this.substrNext(url);
         }
@@ -102496,7 +102496,7 @@ class PoolSettings {
         let servers = this.poolServers.join(";");
         servers = servers.replace(/\//g, '$' );
 
-        let poolName = this.poolName.replace(" ","_");
+        let poolName = this.poolName.replace(/ /g,"_");
 
         this.poolURL =  (  true ? window.location.origin : 'http://webdollar.ddns.net:9094' ) +'/pool/1/'+encodeURI(poolName)+"/"+encodeURI(this.poolFee)+"/"+encodeURI(this.poolPublicKey.toString("hex"))+"/"+encodeURI(servers);
         __WEBPACK_IMPORTED_MODULE_7_common_events_Status_Events__["a" /* default */].emit("pools/settings", { message: "Pool Settings were saved", poolName: this._poolName, poolServer: this._poolServers, poolFee: this._poolFee, poolWebsite: this._poolServers });
@@ -106489,6 +106489,11 @@ class PoolConnectedMinersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_min
                     t: this.poolManagement.poolStatistics.poolTimeRemaining,
                     n: __WEBPACK_IMPORTED_MODULE_10_main_blockchain_Blockchain__["a" /* default */].blockchain.blocks.networkHashRate,
 
+                    b: this.poolManagement.poolStatistics.poolBlocksConfirmed,
+                    bp: this.poolManagement.poolStatistics.poolBlocksConfirmedAndPaid,
+                    ub: this.poolManagement.poolStatistics.poolBlocksUnconfirmed,
+                    bc: this.poolManagement.poolStatistics.poolBlocksBeingConfirmed,
+
                     work: work,
 
                     msg: messageAddressConfirmation,
@@ -108689,6 +108694,7 @@ class MinerProtocol extends __WEBPACK_IMPORTED_MODULE_7_common_mining_pools_comm
                 await this._connectionEstablishedWithPool(socket);
 
                 this._updateStatistics(answer);
+
                 this.minerPoolManagement.minerPoolReward.setReward(answer);
 
                 return true;
@@ -109064,7 +109070,7 @@ class MinerPoolSettings {
         if (url.indexOf("/r/", url) >= 0)
             url = url.substr(0, url.indexOf("/r/", url));
 
-        this.poolURLReferral =  (  true ? window.location.origin : "https://webdollar.ddns.net:9094"  ) + "/pool/"+url +"/r/"+encodeURI(__WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].Mining.minerAddress.replace("#", "%23"));
+        this.poolURLReferral =  (  true ? window.location.origin : "https://webdollar.ddns.net:9094"  ) + "/pool/"+url +"/r/"+encodeURI(__WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].Mining.minerAddress.replace(/#/g, "%23"));
 
         __WEBPACK_IMPORTED_MODULE_4_common_events_Status_Events__["a" /* default */].emit("miner-pool/referral-url",   { poolURLReferral: this.poolURLReferral });
     }
