@@ -3918,6 +3918,455 @@ module.exports = function (it) {
 
 /***/ }),
 /* 20 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_crypto_ed25519__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_crypto_WebDollar_Crypto__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_consts_const_global__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_menu_Advanced_Messages__ = __webpack_require__(70);
+
+
+
+
+
+// tutorial based on http://procbits.com/2013/08/27/generating-a-bitcoin-address-with-javascript
+// full demo https://bstavroulakis.com/demos/billcoin/address.php
+
+//video tutorial https://asecuritysite.com/encryption/base58
+
+
+
+
+class InterfaceBlockchainAddressHelper{
+
+    constructor (){
+
+    }
+
+    static _generatePrivateKeyAdvanced(salt, showDebug, privateKeyWIF){
+
+        //tutorial based on http://procbits.com/2013/08/27/generating-a-bitcoin-address-with-javascript
+
+        let privateKey;
+
+        if (privateKeyWIF !== undefined && privateKeyWIF !== null) {
+            let result = InterfaceBlockchainAddressHelper.validatePrivateKeyWIF(privateKeyWIF);
+            if (result.result) {
+                privateKey = result.privateKey;
+            }
+        }
+
+        if (privateKey === undefined) {
+            privateKey = __WEBPACK_IMPORTED_MODULE_0_common_crypto_ed25519__["a" /* default */].generatePrivateKey();
+        }
+
+
+        //if you want to follow the step-by-step results in this article, comment the
+        //previous code and uncomment the following
+
+        if (showDebug) {
+            console.log("privateKeyHex", privateKey.toString("hex"), "length", privateKey.length) //1184CD2CDD640CA42CFC3A091C51D549B2F016D454B2774019C2B2D2E08529FD
+        }
+
+        /**
+         * Private Key was calculated before
+         * Let's calculate the PrivateKeyWIF (with checksum)
+         */
+
+        //add 0x80 to the front, https://en.bitcoin.it/wiki/List_of_address_prefixes
+        let privateKeyAndVersion = Buffer.concat( [ Buffer.from(__WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.WIF.VERSION_PREFIX, "hex"),  privateKey] );
+        let checksum = InterfaceBlockchainAddressHelper._calculateChecksum(privateKeyAndVersion, showDebug);
+
+
+        //append checksum to end of the private key and version
+        let keyWithChecksum = Buffer.concat( [privateKeyAndVersion, checksum]);
+
+        if (showDebug)
+            console.log("keyWithChecksum", keyWithChecksum, typeof keyWithChecksum); //"801184CD2CDD640CA42CFC3A091C51D549B2F016D454B2774019C2B2D2E08529FD206EC97E"
+
+        privateKeyWIF = keyWithChecksum;
+
+        if (showDebug) {
+            console.log("privateKeyWIF", privateKeyWIF.toString("hex"), "length", privateKeyWIF.length); //base58 "5Hx15HFGyep2CfPxsJKe2fXJsCVn5DEiyoeGGF6JZjGbTRnqfiD"
+            console.log("privateKey", privateKey.toString("hex"), "length", privateKey.length) //base58 "5Hx15HFGyep2CfPxsJKe2fXJsCVn5DEiyoeGGF6JZjGbTRnqfiD"
+        }
+
+        return {
+            privateKeyWIF: privateKeyWIF,
+            privateKey: privateKey,
+        };
+    }
+
+    static _generatePrivateKey(salt, showDebug){
+        
+        return InterfaceBlockchainAddressHelper._generatePrivateKeyAdvanced(salt, showDebug).privateKeyWIF.string;
+    }
+
+    /**
+     * generate PublicKey from PrivateKeyWIF
+     * @param privateKeyWIF
+     * @param showDebug
+     * @returns {{result, privateKey}|*}
+     * @private
+     */
+    static _generatePublicKey(privateKeyWIF, showDebug){
+
+        // Tutorial based on https://github.com/cryptocoinjs/secp256k1-node
+
+        if (privateKeyWIF === null || privateKeyWIF === undefined || !Buffer.isBuffer(privateKeyWIF) ){
+            console.error("ERROR! ",  privateKeyWIF, " is not a Buffer");
+            throw {message: 'privateKeyWIF must be a Buffer', privateKeyWIF: privateKeyWIF};
+        }
+
+        let validation = InterfaceBlockchainAddressHelper.validatePrivateKeyWIF(privateKeyWIF);
+
+        if (showDebug)
+            console.log("VALIDATION", validation);
+
+        let privateKey = undefined;
+
+        if (validation.result === false) return validation;
+        else privateKey = validation.privateKey;
+
+        if (showDebug)
+            console.log("privateKey", privateKey, typeof privateKey);
+
+        // get the public key in a compressed format
+        const pubKey = __WEBPACK_IMPORTED_MODULE_0_common_crypto_ed25519__["a" /* default */].generatePublicKey(privateKey);
+
+        if (showDebug)
+            console.log("pubKey", pubKey);
+
+        return new Buffer(pubKey);
+    }
+
+    static verifySignedData(msg, signature, pubKey){
+        return __WEBPACK_IMPORTED_MODULE_0_common_crypto_ed25519__["a" /* default */].verify(signature, msg, pubKey)
+    }
+
+    static signMessage(msg, privateKey){
+        return __WEBPACK_IMPORTED_MODULE_0_common_crypto_ed25519__["a" /* default */].sign(msg, privateKey);
+    }
+
+    static _generateUnencodedAddressFromPublicKey(publicKey, showDebug){
+
+        if (!Buffer.isBuffer(publicKey))
+            throw {message: 'publicKey must be a Buffer', publicKey: publicKey};
+
+        //bitcoin original
+        let unencodedAddress =  __WEBPACK_IMPORTED_MODULE_1_common_crypto_WebDollar_Crypto__["a" /* default */].RIPEMD160(__WEBPACK_IMPORTED_MODULE_1_common_crypto_WebDollar_Crypto__["a" /* default */].SHA256(publicKey));
+
+        if (showDebug)
+            console.log("hash160 hex", unencodedAddress.toString('hex') ); //"3c176e659bea0f29a3e9bf7880c112b1b31b4dc8"
+
+        return unencodedAddress;
+    }
+
+    static _generateAddressFromPublicKey(publicKey, showDebug){
+
+        let unencodedAddress = InterfaceBlockchainAddressHelper._generateUnencodedAddressFromPublicKey(publicKey, showDebug);
+
+        let addressWIF = InterfaceBlockchainAddressHelper.generateAddressWIF(unencodedAddress);
+
+        if (showDebug)
+            console.log("addressWIF", __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].toBase(addressWIF)); //16UjcYNBG9GTK4uq2f7yYEbuifqCzoLMGS
+
+        return  {
+            unencodedAddress: unencodedAddress,
+            addressWIF: __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].toBase(addressWIF),
+            address: __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].toBase(unencodedAddress),
+        };
+    }
+
+    static generateAddressWIF(address, showDebug, toBase = false){
+
+        if (!Buffer.isBuffer(address) && typeof address === "string")
+            address = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].fromBase(address);
+
+        let prefix = ( __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.USE_BASE64 ? __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.PREFIX_BASE64 : __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.PREFIX_BASE58);
+        let suffix = ( __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.USE_BASE64 ? __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.SUFFIX_BASE64 : __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.SUFFIX_BASE58);
+
+        //maybe address is already a
+        if (address.length === __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.LENGTH + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.CHECK_SUM_LENGTH  + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.VERSION_PREFIX.length/2 + prefix.length/2 + suffix.length/2)
+            return (toBase ? __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].toBase(address) : address);
+
+        address = Buffer.concat ( [ Buffer.from(__WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.VERSION_PREFIX,"hex"), address ]) ; //if using testnet, would use 0x6F or 111.
+
+        let checksum = InterfaceBlockchainAddressHelper._calculateChecksum(address, showDebug);
+
+        let addressWIF = Buffer.concat([
+            Buffer.from( prefix , "hex"),
+            address,
+            checksum,
+            Buffer.from( suffix, "hex")
+        ]);
+
+
+        return (toBase ? __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].toBase(addressWIF) : addressWIF);
+    }
+
+    static generateAddress(salt, privateKeyWIF){
+
+        let privateKey, publicKey, address;
+
+        let invalidAddress = true;
+
+        while (invalidAddress) {
+
+            privateKey = InterfaceBlockchainAddressHelper._generatePrivateKeyAdvanced(salt, false, privateKeyWIF);
+            publicKey = InterfaceBlockchainAddressHelper._generatePublicKey(privateKey.privateKeyWIF, false);
+            address = InterfaceBlockchainAddressHelper._generateAddressFromPublicKey(publicKey, false);
+
+            try {
+                if (InterfaceBlockchainAddressHelper.getUnencodedAddressFromWIF(address.address) !== null)
+                    invalidAddress = false;
+            } catch (exception){
+                console.error("Address is invalid", address.address, address.address.length);
+                InterfaceBlockchainAddressHelper.getUnencodedAddressFromWIF(address.address);
+            }
+
+        }
+
+        return {
+            address: address.address,
+            addressWIF: address.addressWIF,
+
+            unencodedAddress: address.unencodedAddress,
+
+            publicKey: publicKey,
+            privateKey: privateKey,
+        };
+    }
+
+    /**
+     * address is usually a Base string and it coins Version+Checksum+Address
+     * @param address
+     */
+    static getUnencodedAddressFromWIF(address){
+
+        if (typeof address === "string")  //base
+            address = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].fromBase(address);
+
+        if (typeof address === "object" && address.hasOwnProperty("unencodedAddress"))
+            address = address.unencodedAddress;
+
+        let result = this._validateAddressWIF(address);
+
+        if (result.result === true)
+            return result.unencodedAddress;
+        else
+            return null;
+    }
+
+    static _calculateChecksum(privateKeyAndVersion, showDebug){
+
+        //add 0x80 to the front, https://en.bitcoin.it/wiki/List_of_address_prefixes
+
+        if (!Buffer.isBuffer(privateKeyAndVersion) && typeof privateKeyAndVersion === 'string')
+            privateKeyAndVersion = Buffer.from(privateKeyAndVersion, 'hex');
+
+        let secondSHA = __WEBPACK_IMPORTED_MODULE_1_common_crypto_WebDollar_Crypto__["a" /* default */].SHA256(__WEBPACK_IMPORTED_MODULE_1_common_crypto_WebDollar_Crypto__["a" /* default */].SHA256(privateKeyAndVersion));
+        let checksum = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(secondSHA, 0, __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.WIF.CHECK_SUM_LENGTH );
+
+        if (showDebug)
+            console.log("checksum", checksum.toString("hex")); //"206EC97E"
+
+        return checksum;
+    }
+
+    /**
+     * it returns the validity of PrivateKey
+
+        and in case privateKey is a WIF, it returns the private key without WIF
+
+     * @param privateKeyWIF
+     * @returns {{result: boolean, privateKey: *}}
+     */
+    static validatePrivateKeyWIF(privateKeyWIF){
+
+        if (privateKeyWIF === null || !Buffer.isBuffer(privateKeyWIF) ){
+            throw {message: 'privateKeyWIF must be a Buffer'};
+        }
+
+        //contains VERSION prefix
+        let versionDetected = false;
+        let versionDetectedBuffer = '';
+
+        if (privateKeyWIF.length === __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.LENGTH + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.WIF.CHECK_SUM_LENGTH  + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.WIF.VERSION_PREFIX.length/2 ){
+
+            //console.log("Buffer.IndexOf", privateKeyWIF.indexOf( Buffer.from(ADDRESSES.PRIVATE_KEY.VERSION_PREFIX, "hex") ))
+
+            if (privateKeyWIF.indexOf( Buffer.from(__WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.WIF.VERSION_PREFIX, "hex") ) === 0){
+                versionDetected = true;
+
+                versionDetectedBuffer = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(privateKeyWIF, 0, __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.WIF.VERSION_PREFIX.length/2 );
+                privateKeyWIF = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(privateKeyWIF, __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.WIF.VERSION_PREFIX.length/2);
+            }
+
+        }
+
+        let checkSumDetected = false;
+
+        if (privateKeyWIF.length === __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.LENGTH + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.WIF.CHECK_SUM_LENGTH ) {
+
+            //console.log(privateKeyWIF, privateKeyWIF.length, 32 + consts.ADDRESSES.PRIVATE_KEY.WIF.CHECK_SUM_LENGTH );
+            let privateKeyWIFCheckSum = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(privateKeyWIF, privateKeyWIF.length - __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.WIF.CHECK_SUM_LENGTH );
+
+            let privateKeyWithoutCheckSum = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(privateKeyWIF, 0, privateKeyWIF.length - __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.WIF.CHECK_SUM_LENGTH );
+
+            //versionDetectedBuffer + privateKeyWIFWithoutCheckSum;
+            let privateKeyJustVersionHex = Buffer.concat([versionDetectedBuffer, privateKeyWithoutCheckSum]);
+
+
+            let checksum = InterfaceBlockchainAddressHelper._calculateChecksum(privateKeyJustVersionHex);
+
+            // console.log("checkSum", privateKeyCheckSum, "privateKeyJustVersionHex", privateKeyJustVersionHex);
+            // console.log("checkSum2", checksum);
+
+            if (checksum.equals(privateKeyWIFCheckSum) ) {
+                checkSumDetected = true;
+
+                privateKeyWIF = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(privateKeyWIF, 0, privateKeyWIF.length - __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.WIF.CHECK_SUM_LENGTH )
+            }
+        }
+
+
+        if (privateKeyWIF.length !== __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.LENGTH){
+
+            if (!checkSumDetected) throw {message: "PRIVATE KEY  CHECK SUM is not right"};
+
+            if (!versionDetected) throw {message: "PRIVATE KEY  VERSION PREFIX is not recognized"};
+        }
+        
+        return {result: true, privateKey: privateKeyWIF};
+    }
+
+
+    /**
+     * it returns the validity of PrivateKey
+
+     and in case privateKey is a WIF, it returns the private key without WIF
+
+     * @param addressWIF
+     * @returns {{result: boolean, address: *}}
+     */
+    static _validateAddressWIF(addressWIF){
+
+        if (addressWIF === null || !Buffer.isBuffer(addressWIF) ){
+            throw { message: 'addressWIF must be a Buffer', addressWIF: addressWIF };
+        }
+
+        //contains VERSION prefix
+        let versionDetected = false;
+        let prefixDetected = false;
+        let suffixDetected = false;
+        let versionDetectedBuffer = '';
+
+        let prefix = ( __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.USE_BASE64 ? __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.PREFIX_BASE64 : __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.PREFIX_BASE58);
+        let suffix = ( __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.USE_BASE64 ? __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.SUFFIX_BASE64 : __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.SUFFIX_BASE58);
+
+        //prefix
+        if ( addressWIF.length === __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.LENGTH + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.CHECK_SUM_LENGTH  + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.VERSION_PREFIX.length/2 + prefix.length/2 + suffix.length/2 ){
+
+            if ( addressWIF.indexOf( Buffer.from(prefix, "hex") ) === 0 ) {
+                prefixDetected = true;
+                addressWIF = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(addressWIF, prefix.length/2);
+            }
+
+        }
+
+        if ( addressWIF.length === __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.LENGTH + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.CHECK_SUM_LENGTH  + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.VERSION_PREFIX.length/2 + suffix.length/2 ) {
+
+            if ( addressWIF.lastIndexOf( Buffer.from(suffix, "hex") ) === addressWIF.length - suffix.length/2 ) {
+                suffixDetected = true;
+                addressWIF = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(addressWIF, 0, addressWIF.length - suffix.length/2 );
+            }
+        }
+
+
+        if (addressWIF.length === __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.LENGTH + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.CHECK_SUM_LENGTH  + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.VERSION_PREFIX.length/2  ){
+
+            if (addressWIF.indexOf( Buffer.from(__WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.VERSION_PREFIX, "hex") ) === 0){
+                versionDetected = true;
+
+                versionDetectedBuffer = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(addressWIF, 0, __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.VERSION_PREFIX.length/2 );
+                addressWIF = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(addressWIF, __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.VERSION_PREFIX.length/2);
+            }
+
+        }
+
+        let checkSumDetected = false;
+
+        if (addressWIF.length === __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.LENGTH + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.CHECK_SUM_LENGTH ) {
+
+            let addressWIFCheckSum = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(addressWIF, addressWIF.length - __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.CHECK_SUM_LENGTH );
+
+            let privateKeyWithoutCheckSum = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(addressWIF, 0, addressWIF.length - __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.CHECK_SUM_LENGTH );
+
+            let privateKeyJustVersionHex = Buffer.concat([versionDetectedBuffer, privateKeyWithoutCheckSum]);
+
+            let checksum = InterfaceBlockchainAddressHelper._calculateChecksum(privateKeyJustVersionHex);
+
+            if (checksum.equals(addressWIFCheckSum) ) {
+                checkSumDetected = true;
+
+                addressWIF = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(addressWIF, 0, addressWIF.length - __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.CHECK_SUM_LENGTH )
+            }
+        }
+
+
+        if (addressWIF.length !== __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.LENGTH){
+
+            if (!prefixDetected) 
+                throw {message: "ADDRESS KEY  PREFIX  is not right", addressWIF: addressWIF};
+
+            if (!suffixDetected)
+                throw {message: "ADDRESS KEY  SUFFIX is not right", addressWIF: addressWIF};
+
+            if (!checkSumDetected)
+                throw {message: "ADDRESS KEY  CHECK SUM is not right", addressWIF: addressWIF};
+
+            if (!versionDetected)
+                throw {message: "ADDRESS KEY  VERSION PREFIX is not recognized", addressWIF: addressWIF};
+        }
+
+        return {result: true, unencodedAddress: addressWIF};
+    }
+
+    static askForPassword(message){
+
+        return new Promise( async (resolve) => {
+
+            let answer = await __WEBPACK_IMPORTED_MODULE_4_node_menu_Advanced_Messages__["a" /* default */].input("Please enter your last password (12 words separated by space):");
+
+            let oldPassword = answer.trim().split(' ');
+
+            if (oldPassword.length !== 12) {
+                __WEBPACK_IMPORTED_MODULE_4_node_menu_Advanced_Messages__["a" /* default */].alert('Your old password has ' + oldPassword.length + ' words. It must have 12!', "Password Error", "error", 5000);
+                resolve(null);
+                return;
+            }
+
+            resolve(oldPassword);
+
+
+        });
+
+    }
+
+
+
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (InterfaceBlockchainAddressHelper);
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
+
+/***/ }),
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {(function (module, exports) {
@@ -7349,455 +7798,6 @@ module.exports = function (it) {
 })(typeof module === 'undefined' || module, this);
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(102)(module)))
-
-/***/ }),
-/* 21 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_crypto_ed25519__ = __webpack_require__(68);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_crypto_WebDollar_Crypto__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_menu_Advanced_Messages__ = __webpack_require__(70);
-
-
-
-
-
-// tutorial based on http://procbits.com/2013/08/27/generating-a-bitcoin-address-with-javascript
-// full demo https://bstavroulakis.com/demos/billcoin/address.php
-
-//video tutorial https://asecuritysite.com/encryption/base58
-
-
-
-
-class InterfaceBlockchainAddressHelper{
-
-    constructor (){
-
-    }
-
-    static _generatePrivateKeyAdvanced(salt, showDebug, privateKeyWIF){
-
-        //tutorial based on http://procbits.com/2013/08/27/generating-a-bitcoin-address-with-javascript
-
-        let privateKey;
-
-        if (privateKeyWIF !== undefined && privateKeyWIF !== null) {
-            let result = InterfaceBlockchainAddressHelper.validatePrivateKeyWIF(privateKeyWIF);
-            if (result.result) {
-                privateKey = result.privateKey;
-            }
-        }
-
-        if (privateKey === undefined) {
-            privateKey = __WEBPACK_IMPORTED_MODULE_0_common_crypto_ed25519__["a" /* default */].generatePrivateKey();
-        }
-
-
-        //if you want to follow the step-by-step results in this article, comment the
-        //previous code and uncomment the following
-
-        if (showDebug) {
-            console.log("privateKeyHex", privateKey.toString("hex"), "length", privateKey.length) //1184CD2CDD640CA42CFC3A091C51D549B2F016D454B2774019C2B2D2E08529FD
-        }
-
-        /**
-         * Private Key was calculated before
-         * Let's calculate the PrivateKeyWIF (with checksum)
-         */
-
-        //add 0x80 to the front, https://en.bitcoin.it/wiki/List_of_address_prefixes
-        let privateKeyAndVersion = Buffer.concat( [ Buffer.from(__WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.WIF.VERSION_PREFIX, "hex"),  privateKey] );
-        let checksum = InterfaceBlockchainAddressHelper._calculateChecksum(privateKeyAndVersion, showDebug);
-
-
-        //append checksum to end of the private key and version
-        let keyWithChecksum = Buffer.concat( [privateKeyAndVersion, checksum]);
-
-        if (showDebug)
-            console.log("keyWithChecksum", keyWithChecksum, typeof keyWithChecksum); //"801184CD2CDD640CA42CFC3A091C51D549B2F016D454B2774019C2B2D2E08529FD206EC97E"
-
-        privateKeyWIF = keyWithChecksum;
-
-        if (showDebug) {
-            console.log("privateKeyWIF", privateKeyWIF.toString("hex"), "length", privateKeyWIF.length); //base58 "5Hx15HFGyep2CfPxsJKe2fXJsCVn5DEiyoeGGF6JZjGbTRnqfiD"
-            console.log("privateKey", privateKey.toString("hex"), "length", privateKey.length) //base58 "5Hx15HFGyep2CfPxsJKe2fXJsCVn5DEiyoeGGF6JZjGbTRnqfiD"
-        }
-
-        return {
-            privateKeyWIF: privateKeyWIF,
-            privateKey: privateKey,
-        };
-    }
-
-    static _generatePrivateKey(salt, showDebug){
-        
-        return InterfaceBlockchainAddressHelper._generatePrivateKeyAdvanced(salt, showDebug).privateKeyWIF.string;
-    }
-
-    /**
-     * generate PublicKey from PrivateKeyWIF
-     * @param privateKeyWIF
-     * @param showDebug
-     * @returns {{result, privateKey}|*}
-     * @private
-     */
-    static _generatePublicKey(privateKeyWIF, showDebug){
-
-        // Tutorial based on https://github.com/cryptocoinjs/secp256k1-node
-
-        if (privateKeyWIF === null || privateKeyWIF === undefined || !Buffer.isBuffer(privateKeyWIF) ){
-            console.error("ERROR! ",  privateKeyWIF, " is not a Buffer");
-            throw {message: 'privateKeyWIF must be a Buffer', privateKeyWIF: privateKeyWIF};
-        }
-
-        let validation = InterfaceBlockchainAddressHelper.validatePrivateKeyWIF(privateKeyWIF);
-
-        if (showDebug)
-            console.log("VALIDATION", validation);
-
-        let privateKey = undefined;
-
-        if (validation.result === false) return validation;
-        else privateKey = validation.privateKey;
-
-        if (showDebug)
-            console.log("privateKey", privateKey, typeof privateKey);
-
-        // get the public key in a compressed format
-        const pubKey = __WEBPACK_IMPORTED_MODULE_0_common_crypto_ed25519__["a" /* default */].generatePublicKey(privateKey);
-
-        if (showDebug)
-            console.log("pubKey", pubKey);
-
-        return new Buffer(pubKey);
-    }
-
-    static verifySignedData(msg, signature, pubKey){
-        return __WEBPACK_IMPORTED_MODULE_0_common_crypto_ed25519__["a" /* default */].verify(signature, msg, pubKey)
-    }
-
-    static signMessage(msg, privateKey){
-        return __WEBPACK_IMPORTED_MODULE_0_common_crypto_ed25519__["a" /* default */].sign(msg, privateKey);
-    }
-
-    static _generateUnencodedAddressFromPublicKey(publicKey, showDebug){
-
-        if (!Buffer.isBuffer(publicKey))
-            throw {message: 'publicKey must be a Buffer', publicKey: publicKey};
-
-        //bitcoin original
-        let unencodedAddress =  __WEBPACK_IMPORTED_MODULE_1_common_crypto_WebDollar_Crypto__["a" /* default */].RIPEMD160(__WEBPACK_IMPORTED_MODULE_1_common_crypto_WebDollar_Crypto__["a" /* default */].SHA256(publicKey));
-
-        if (showDebug)
-            console.log("hash160 hex", unencodedAddress.toString('hex') ); //"3c176e659bea0f29a3e9bf7880c112b1b31b4dc8"
-
-        return unencodedAddress;
-    }
-
-    static _generateAddressFromPublicKey(publicKey, showDebug){
-
-        let unencodedAddress = InterfaceBlockchainAddressHelper._generateUnencodedAddressFromPublicKey(publicKey, showDebug);
-
-        let addressWIF = InterfaceBlockchainAddressHelper.generateAddressWIF(unencodedAddress);
-
-        if (showDebug)
-            console.log("addressWIF", __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].toBase(addressWIF)); //16UjcYNBG9GTK4uq2f7yYEbuifqCzoLMGS
-
-        return  {
-            unencodedAddress: unencodedAddress,
-            addressWIF: __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].toBase(addressWIF),
-            address: __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].toBase(unencodedAddress),
-        };
-    }
-
-    static generateAddressWIF(address, showDebug, toBase = false){
-
-        if (!Buffer.isBuffer(address) && typeof address === "string")
-            address = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].fromBase(address);
-
-        let prefix = ( __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.USE_BASE64 ? __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.PREFIX_BASE64 : __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.PREFIX_BASE58);
-        let suffix = ( __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.USE_BASE64 ? __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.SUFFIX_BASE64 : __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.SUFFIX_BASE58);
-
-        //maybe address is already a
-        if (address.length === __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.LENGTH + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.CHECK_SUM_LENGTH  + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.VERSION_PREFIX.length/2 + prefix.length/2 + suffix.length/2)
-            return (toBase ? __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].toBase(address) : address);
-
-        address = Buffer.concat ( [ Buffer.from(__WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.VERSION_PREFIX,"hex"), address ]) ; //if using testnet, would use 0x6F or 111.
-
-        let checksum = InterfaceBlockchainAddressHelper._calculateChecksum(address, showDebug);
-
-        let addressWIF = Buffer.concat([
-            Buffer.from( prefix , "hex"),
-            address,
-            checksum,
-            Buffer.from( suffix, "hex")
-        ]);
-
-
-        return (toBase ? __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].toBase(addressWIF) : addressWIF);
-    }
-
-    static generateAddress(salt, privateKeyWIF){
-
-        let privateKey, publicKey, address;
-
-        let invalidAddress = true;
-
-        while (invalidAddress) {
-
-            privateKey = InterfaceBlockchainAddressHelper._generatePrivateKeyAdvanced(salt, false, privateKeyWIF);
-            publicKey = InterfaceBlockchainAddressHelper._generatePublicKey(privateKey.privateKeyWIF, false);
-            address = InterfaceBlockchainAddressHelper._generateAddressFromPublicKey(publicKey, false);
-
-            try {
-                if (InterfaceBlockchainAddressHelper.getUnencodedAddressFromWIF(address.address) !== null)
-                    invalidAddress = false;
-            } catch (exception){
-                console.error("Address is invalid", address.address, address.address.length);
-                InterfaceBlockchainAddressHelper.getUnencodedAddressFromWIF(address.address);
-            }
-
-        }
-
-        return {
-            address: address.address,
-            addressWIF: address.addressWIF,
-
-            unencodedAddress: address.unencodedAddress,
-
-            publicKey: publicKey,
-            privateKey: privateKey,
-        };
-    }
-
-    /**
-     * address is usually a Base string and it coins Version+Checksum+Address
-     * @param address
-     */
-    static getUnencodedAddressFromWIF(address){
-
-        if (typeof address === "string")  //base
-            address = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].fromBase(address);
-
-        if (typeof address === "object" && address.hasOwnProperty("unencodedAddress"))
-            address = address.unencodedAddress;
-
-        let result = this._validateAddressWIF(address);
-
-        if (result.result === true)
-            return result.unencodedAddress;
-        else
-            return null;
-    }
-
-    static _calculateChecksum(privateKeyAndVersion, showDebug){
-
-        //add 0x80 to the front, https://en.bitcoin.it/wiki/List_of_address_prefixes
-
-        if (!Buffer.isBuffer(privateKeyAndVersion) && typeof privateKeyAndVersion === 'string')
-            privateKeyAndVersion = Buffer.from(privateKeyAndVersion, 'hex');
-
-        let secondSHA = __WEBPACK_IMPORTED_MODULE_1_common_crypto_WebDollar_Crypto__["a" /* default */].SHA256(__WEBPACK_IMPORTED_MODULE_1_common_crypto_WebDollar_Crypto__["a" /* default */].SHA256(privateKeyAndVersion));
-        let checksum = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(secondSHA, 0, __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.WIF.CHECK_SUM_LENGTH );
-
-        if (showDebug)
-            console.log("checksum", checksum.toString("hex")); //"206EC97E"
-
-        return checksum;
-    }
-
-    /**
-     * it returns the validity of PrivateKey
-
-        and in case privateKey is a WIF, it returns the private key without WIF
-
-     * @param privateKeyWIF
-     * @returns {{result: boolean, privateKey: *}}
-     */
-    static validatePrivateKeyWIF(privateKeyWIF){
-
-        if (privateKeyWIF === null || !Buffer.isBuffer(privateKeyWIF) ){
-            throw {message: 'privateKeyWIF must be a Buffer'};
-        }
-
-        //contains VERSION prefix
-        let versionDetected = false;
-        let versionDetectedBuffer = '';
-
-        if (privateKeyWIF.length === __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.LENGTH + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.WIF.CHECK_SUM_LENGTH  + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.WIF.VERSION_PREFIX.length/2 ){
-
-            //console.log("Buffer.IndexOf", privateKeyWIF.indexOf( Buffer.from(ADDRESSES.PRIVATE_KEY.VERSION_PREFIX, "hex") ))
-
-            if (privateKeyWIF.indexOf( Buffer.from(__WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.WIF.VERSION_PREFIX, "hex") ) === 0){
-                versionDetected = true;
-
-                versionDetectedBuffer = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(privateKeyWIF, 0, __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.WIF.VERSION_PREFIX.length/2 );
-                privateKeyWIF = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(privateKeyWIF, __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.WIF.VERSION_PREFIX.length/2);
-            }
-
-        }
-
-        let checkSumDetected = false;
-
-        if (privateKeyWIF.length === __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.LENGTH + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.WIF.CHECK_SUM_LENGTH ) {
-
-            //console.log(privateKeyWIF, privateKeyWIF.length, 32 + consts.ADDRESSES.PRIVATE_KEY.WIF.CHECK_SUM_LENGTH );
-            let privateKeyWIFCheckSum = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(privateKeyWIF, privateKeyWIF.length - __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.WIF.CHECK_SUM_LENGTH );
-
-            let privateKeyWithoutCheckSum = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(privateKeyWIF, 0, privateKeyWIF.length - __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.WIF.CHECK_SUM_LENGTH );
-
-            //versionDetectedBuffer + privateKeyWIFWithoutCheckSum;
-            let privateKeyJustVersionHex = Buffer.concat([versionDetectedBuffer, privateKeyWithoutCheckSum]);
-
-
-            let checksum = InterfaceBlockchainAddressHelper._calculateChecksum(privateKeyJustVersionHex);
-
-            // console.log("checkSum", privateKeyCheckSum, "privateKeyJustVersionHex", privateKeyJustVersionHex);
-            // console.log("checkSum2", checksum);
-
-            if (checksum.equals(privateKeyWIFCheckSum) ) {
-                checkSumDetected = true;
-
-                privateKeyWIF = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(privateKeyWIF, 0, privateKeyWIF.length - __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.WIF.CHECK_SUM_LENGTH )
-            }
-        }
-
-
-        if (privateKeyWIF.length !== __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.PRIVATE_KEY.LENGTH){
-
-            if (!checkSumDetected) throw {message: "PRIVATE KEY  CHECK SUM is not right"};
-
-            if (!versionDetected) throw {message: "PRIVATE KEY  VERSION PREFIX is not recognized"};
-        }
-        
-        return {result: true, privateKey: privateKeyWIF};
-    }
-
-
-    /**
-     * it returns the validity of PrivateKey
-
-     and in case privateKey is a WIF, it returns the private key without WIF
-
-     * @param addressWIF
-     * @returns {{result: boolean, address: *}}
-     */
-    static _validateAddressWIF(addressWIF){
-
-        if (addressWIF === null || !Buffer.isBuffer(addressWIF) ){
-            throw { message: 'addressWIF must be a Buffer', addressWIF: addressWIF };
-        }
-
-        //contains VERSION prefix
-        let versionDetected = false;
-        let prefixDetected = false;
-        let suffixDetected = false;
-        let versionDetectedBuffer = '';
-
-        let prefix = ( __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.USE_BASE64 ? __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.PREFIX_BASE64 : __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.PREFIX_BASE58);
-        let suffix = ( __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.USE_BASE64 ? __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.SUFFIX_BASE64 : __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.SUFFIX_BASE58);
-
-        //prefix
-        if ( addressWIF.length === __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.LENGTH + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.CHECK_SUM_LENGTH  + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.VERSION_PREFIX.length/2 + prefix.length/2 + suffix.length/2 ){
-
-            if ( addressWIF.indexOf( Buffer.from(prefix, "hex") ) === 0 ) {
-                prefixDetected = true;
-                addressWIF = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(addressWIF, prefix.length/2);
-            }
-
-        }
-
-        if ( addressWIF.length === __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.LENGTH + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.CHECK_SUM_LENGTH  + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.VERSION_PREFIX.length/2 + suffix.length/2 ) {
-
-            if ( addressWIF.lastIndexOf( Buffer.from(suffix, "hex") ) === addressWIF.length - suffix.length/2 ) {
-                suffixDetected = true;
-                addressWIF = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(addressWIF, 0, addressWIF.length - suffix.length/2 );
-            }
-        }
-
-
-        if (addressWIF.length === __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.LENGTH + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.CHECK_SUM_LENGTH  + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.VERSION_PREFIX.length/2  ){
-
-            if (addressWIF.indexOf( Buffer.from(__WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.VERSION_PREFIX, "hex") ) === 0){
-                versionDetected = true;
-
-                versionDetectedBuffer = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(addressWIF, 0, __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.VERSION_PREFIX.length/2 );
-                addressWIF = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(addressWIF, __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.VERSION_PREFIX.length/2);
-            }
-
-        }
-
-        let checkSumDetected = false;
-
-        if (addressWIF.length === __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.LENGTH + __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.CHECK_SUM_LENGTH ) {
-
-            let addressWIFCheckSum = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(addressWIF, addressWIF.length - __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.CHECK_SUM_LENGTH );
-
-            let privateKeyWithoutCheckSum = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(addressWIF, 0, addressWIF.length - __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.CHECK_SUM_LENGTH );
-
-            let privateKeyJustVersionHex = Buffer.concat([versionDetectedBuffer, privateKeyWithoutCheckSum]);
-
-            let checksum = InterfaceBlockchainAddressHelper._calculateChecksum(privateKeyJustVersionHex);
-
-            if (checksum.equals(addressWIFCheckSum) ) {
-                checkSumDetected = true;
-
-                addressWIF = __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__["a" /* default */].substr(addressWIF, 0, addressWIF.length - __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.WIF.CHECK_SUM_LENGTH )
-            }
-        }
-
-
-        if (addressWIF.length !== __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].ADDRESSES.ADDRESS.LENGTH){
-
-            if (!prefixDetected) 
-                throw {message: "ADDRESS KEY  PREFIX  is not right", addressWIF: addressWIF};
-
-            if (!suffixDetected)
-                throw {message: "ADDRESS KEY  SUFFIX is not right", addressWIF: addressWIF};
-
-            if (!checkSumDetected)
-                throw {message: "ADDRESS KEY  CHECK SUM is not right", addressWIF: addressWIF};
-
-            if (!versionDetected)
-                throw {message: "ADDRESS KEY  VERSION PREFIX is not recognized", addressWIF: addressWIF};
-        }
-
-        return {result: true, unencodedAddress: addressWIF};
-    }
-
-    static askForPassword(message){
-
-        return new Promise( async (resolve) => {
-
-            let answer = await __WEBPACK_IMPORTED_MODULE_4_node_menu_Advanced_Messages__["a" /* default */].input("Please enter your last password (12 words separated by space):");
-
-            let oldPassword = answer.trim().split(' ');
-
-            if (oldPassword.length !== 12) {
-                __WEBPACK_IMPORTED_MODULE_4_node_menu_Advanced_Messages__["a" /* default */].alert('Your old password has ' + oldPassword.length + ' words. It must have 12!', "Password Error", "error", 5000);
-                resolve(null);
-                return;
-            }
-
-            resolve(oldPassword);
-
-
-        });
-
-    }
-
-
-
-
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (InterfaceBlockchainAddressHelper);
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
 /* 22 */
@@ -17754,7 +17754,7 @@ exports.decodePayloadAsBinary = function (data, binaryType, callback) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_types_Node_Type__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Node_Consensus_Type__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__sockets_protocol_extend_socket_Socket_Address__ = __webpack_require__(64);
 
 
@@ -18354,7 +18354,7 @@ BlockHash.prototype._pad = function pad() {
 
 var asn1 = exports;
 
-asn1.bignum = __webpack_require__(20);
+asn1.bignum = __webpack_require__(21);
 
 asn1.define = __webpack_require__(635).define;
 asn1.base = __webpack_require__(105);
@@ -25274,7 +25274,7 @@ exports.EDE = __webpack_require__(604);
 /* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var bn = __webpack_require__(20);
+/* WEBPACK VAR INJECTION */(function(Buffer) {var bn = __webpack_require__(21);
 var randomBytes = __webpack_require__(84);
 module.exports = crt;
 function blind(priv) {
@@ -27838,7 +27838,7 @@ class InterfaceBlockchainTransactionsWizard{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_Serialization__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_blockchain_global_Blockchain_Genesis__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Interface_Blockchain_Block_Data_Transactions__ = __webpack_require__(739);
 
 
@@ -28016,7 +28016,7 @@ class InterfaceBlockchainBlockData {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_trees_radix_tree_merkle_tree_Interface_Merkle_Radix_Tree__ = __webpack_require__(321);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Mini_Blockchain_Accountant_Tree_Node__ = __webpack_require__(744);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_BufferExtended__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Mini_Blockchain_Accountant_Tree_Events__ = __webpack_require__(745);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_common_utils_coins_WebDollar_Coins__ = __webpack_require__(28);
@@ -32022,7 +32022,7 @@ module.exports = bytesToUuid;
         // {"addr": ["https://webdollar-vps2.ddns.net:80"]},
         // {"addr": ["https://webdollar-vps3.ddns.net:80"]},
 
-        {"addr": ["https://webdollar.ddns.net:80"]},
+        //{"addr": ["https://webdollar.ddns.net:80"]},
 
         {"addr": ["https://webdollar-vps5.hopto.org:8080"]},
         {"addr": ["https://webdollar-vps5.hopto.org:8081"]},
@@ -34196,7 +34196,7 @@ var randomBytes = __webpack_require__(84);
 module.exports = findPrime;
 findPrime.simpleSieve = simpleSieve;
 findPrime.fermatTest = fermatTest;
-var BN = __webpack_require__(20);
+var BN = __webpack_require__(21);
 var TWENTYFOUR = new BN(24);
 var MillerRabin = __webpack_require__(275);
 var millerRabin = new MillerRabin();
@@ -34303,7 +34303,7 @@ function findPrime(bits, gen) {
 /* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var bn = __webpack_require__(20);
+var bn = __webpack_require__(21);
 var brorand = __webpack_require__(276);
 
 function MillerRabin(rand) {
@@ -35884,7 +35884,7 @@ module.exports = function xor(a, b) {
 /* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var bn = __webpack_require__(20);
+/* WEBPACK VAR INJECTION */(function(Buffer) {var bn = __webpack_require__(21);
 function withPublic(paddedMsg, key) {
   return new Buffer(paddedMsg
     .toRed(bn.mont(key.modulus))
@@ -52811,7 +52811,7 @@ class InterfaceBlockchainTransactions extends __WEBPACK_IMPORTED_MODULE_5__Inter
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_utils_BufferExtended__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_utils_Serialization__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_crypto_ed25519__ = __webpack_require__(68);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_utils_coins_WebDollar_Coins__ = __webpack_require__(28);
 
@@ -53178,7 +53178,7 @@ class InterfaceBlockchainTransactionFrom {
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_utils_BufferExtended__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_utils_Serialization__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_utils_coins_WebDollar_Coins__ = __webpack_require__(28);
 
 
@@ -64839,7 +64839,7 @@ module.exports = v4;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(21);
+/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_mini_blockchain_Mini_Blockchain_Address__ = __webpack_require__(663);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_satoshmindb_Interface_SatoshminDB__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_crypto_WebDollar_Crypto_Data__ = __webpack_require__(71);
@@ -70907,7 +70907,7 @@ module.exports = {"modp1":{"gen":"02","prime":"ffffffffffffffffc90fdaa22168c234c
 /* 610 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var BN = __webpack_require__(20);
+/* WEBPACK VAR INJECTION */(function(Buffer) {var BN = __webpack_require__(21);
 var MillerRabin = __webpack_require__(275);
 var millerRabin = new MillerRabin();
 var TWENTYFOUR = new BN(24);
@@ -71180,7 +71180,7 @@ module.exports = {
 var createHmac = __webpack_require__(129)
 var crt = __webpack_require__(181)
 var EC = __webpack_require__(31).ec
-var BN = __webpack_require__(20)
+var BN = __webpack_require__(21)
 var parseKeys = __webpack_require__(133)
 var curves = __webpack_require__(285)
 
@@ -71338,7 +71338,7 @@ module.exports = {"_from":"elliptic@^6.4.0","_id":"elliptic@6.4.0","_inBundle":f
 
 
 var utils = exports;
-var BN = __webpack_require__(20);
+var BN = __webpack_require__(21);
 var minAssert = __webpack_require__(45);
 var minUtils = __webpack_require__(277);
 
@@ -71464,7 +71464,7 @@ utils.intFromLE = intFromLE;
 "use strict";
 
 
-var BN = __webpack_require__(20);
+var BN = __webpack_require__(21);
 var elliptic = __webpack_require__(31);
 var utils = elliptic.utils;
 var getNAF = utils.getNAF;
@@ -71848,7 +71848,7 @@ BasePoint.prototype.dblp = function dblp(k) {
 
 var curve = __webpack_require__(132);
 var elliptic = __webpack_require__(31);
-var BN = __webpack_require__(20);
+var BN = __webpack_require__(21);
 var inherits = __webpack_require__(7);
 var Base = curve.base;
 
@@ -72792,7 +72792,7 @@ JPoint.prototype.isInfinity = function isInfinity() {
 
 
 var curve = __webpack_require__(132);
-var BN = __webpack_require__(20);
+var BN = __webpack_require__(21);
 var inherits = __webpack_require__(7);
 var Base = curve.base;
 
@@ -72980,7 +72980,7 @@ Point.prototype.getX = function getX() {
 
 var curve = __webpack_require__(132);
 var elliptic = __webpack_require__(31);
-var BN = __webpack_require__(20);
+var BN = __webpack_require__(21);
 var inherits = __webpack_require__(7);
 var Base = curve.base;
 
@@ -74797,7 +74797,7 @@ module.exports = {
 "use strict";
 
 
-var BN = __webpack_require__(20);
+var BN = __webpack_require__(21);
 var HmacDRBG = __webpack_require__(628);
 var elliptic = __webpack_require__(31);
 var utils = elliptic.utils;
@@ -75164,7 +75164,7 @@ HmacDRBG.prototype.generate = function generate(len, enc, add, addEnc) {
 "use strict";
 
 
-var BN = __webpack_require__(20);
+var BN = __webpack_require__(21);
 var elliptic = __webpack_require__(31);
 var utils = elliptic.utils;
 var assert = utils.assert;
@@ -75290,7 +75290,7 @@ KeyPair.prototype.inspect = function inspect() {
 "use strict";
 
 
-var BN = __webpack_require__(20);
+var BN = __webpack_require__(21);
 
 var elliptic = __webpack_require__(31);
 var utils = elliptic.utils;
@@ -75660,7 +75660,7 @@ module.exports = KeyPair;
 "use strict";
 
 
-var BN = __webpack_require__(20);
+var BN = __webpack_require__(21);
 var elliptic = __webpack_require__(31);
 var utils = elliptic.utils;
 var assert = utils.assert;
@@ -77126,7 +77126,7 @@ module.exports = function (okey, password) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {// much of this based on https://github.com/indutny/self-signed/blob/gh-pages/lib/rsa.js
-var BN = __webpack_require__(20)
+var BN = __webpack_require__(21)
 var EC = __webpack_require__(31).ec
 var parseKeys = __webpack_require__(133)
 var curves = __webpack_require__(285)
@@ -77216,7 +77216,7 @@ module.exports = verify
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var elliptic = __webpack_require__(31);
-var BN = __webpack_require__(20);
+var BN = __webpack_require__(21);
 
 module.exports = function createECDH(curve) {
 	return new ECDH(curve);
@@ -77364,7 +77364,7 @@ var randomBytes = __webpack_require__(84);
 var createHash = __webpack_require__(85);
 var mgf = __webpack_require__(286);
 var xor = __webpack_require__(287);
-var bn = __webpack_require__(20);
+var bn = __webpack_require__(21);
 var withPublic = __webpack_require__(288);
 var crt = __webpack_require__(181);
 
@@ -77463,7 +77463,7 @@ function nonZero(len, crypto) {
 /* WEBPACK VAR INJECTION */(function(Buffer) {var parseKeys = __webpack_require__(133);
 var mgf = __webpack_require__(286);
 var xor = __webpack_require__(287);
-var bn = __webpack_require__(20);
+var bn = __webpack_require__(21);
 var crt = __webpack_require__(181);
 var createHash = __webpack_require__(85);
 var withPublic = __webpack_require__(288);
@@ -78721,7 +78721,7 @@ class MiniBlockchainAddress extends  __WEBPACK_IMPORTED_MODULE_0_common_blockcha
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_crypto_ed25519__ = __webpack_require__(68);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_menu_Advanced_Messages__ = __webpack_require__(70);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Interface_Blockchain_Address_Helper__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Interface_Blockchain_Address_Helper__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_satoshmindb_Interface_SatoshminDB__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_utils_Serialization__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_common_utils_BufferExtended__ = __webpack_require__(3);
@@ -81151,7 +81151,7 @@ exports.parse = function (str) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_crypto_WebDollar_Crypto__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(20);
 /*
  * Copyright (c) Silviu Stroe 2018.
 */
@@ -86866,7 +86866,7 @@ class TransactionsDownloadManager{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(21);
+/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_utils_BufferExtended__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_Advanced_Emitter__ = __webpack_require__(319);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_consts_const_global__ = __webpack_require__(2);
@@ -88168,7 +88168,7 @@ class InterfaceMerkleTree extends __WEBPACK_IMPORTED_MODULE_1_common_trees_Inter
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_trees_radix_tree_merkle_tree_Interface_Merkle_Radix_Tree_Node__ = __webpack_require__(325);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_main_blockchain_Blockchain__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_utils_coins_WebDollar_Coins__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_common_blockchain_global_Blockchain_Mining_Reward__ = __webpack_require__(46);
 
 
@@ -88653,7 +88653,7 @@ class MiniBlockchainAccountantTreeNode extends __WEBPACK_IMPORTED_MODULE_3_commo
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_utils_BufferExtended__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_trees_radix_tree_merkle_tree_Interface_Merkle_Radix_Tree__ = __webpack_require__(321);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_Advanced_Emitter__ = __webpack_require__(319);
 
@@ -89592,7 +89592,7 @@ class Logger{
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_sockets_node_server_API_Node_API_Public__ = __webpack_require__(755);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_coins_WebDollar_Coins__ = __webpack_require__(28);
 
 
@@ -92430,6 +92430,8 @@ class InterfaceBlockchainMining extends  __WEBPACK_IMPORTED_MODULE_6__Interface_
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_utils_BufferExtended__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__transactions_wizard_Interface_Blockchain_Transactions_Wizard__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(20);
+
 
 
 
@@ -92481,7 +92483,7 @@ class MiningTransactionsSelector{
 
             try {
                 
-                console.log(transaction.txId.toString("hex"), transaction.from.addresses[0].address );
+                console.log(transaction.txId.toString("hex"), __WEBPACK_IMPORTED_MODULE_3__addresses_Interface_Blockchain_Address_Helper__["a" /* default */].generateAddressWIF(transaction.from.addresses[0].unencodedAddress, false, true) );
 
                 this.validateTransaction(transaction, miningFeePerByte);
 
@@ -92573,7 +92575,7 @@ class MiningTransactionsSelector{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_events_Status_Events__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_satoshmindb_Interface_SatoshminDB__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(20);
 
 
 
@@ -101707,7 +101709,7 @@ class MainBlockchainBalances extends __WEBPACK_IMPORTED_MODULE_0_common_blockcha
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_utils_BufferExtended__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(20);
 
 
 
@@ -104644,7 +104646,7 @@ class PoolDataMinerInstance {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Pool_Data_Miner_Referral__ = __webpack_require__(846);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_BufferExtended__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(20);
 
 
 
@@ -106356,7 +106358,7 @@ class PoolConnectedServersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_mi
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_mining_pools_common_Pools_Utils__ = __webpack_require__(96);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_mining_pools_common_Pool_Protocol_List__ = __webpack_require__(142);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_consts_const_global__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_common_crypto_ed25519__ = __webpack_require__(68);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_common_utils_Serialization__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_main_blockchain_Blockchain__ = __webpack_require__(6);
@@ -107613,7 +107615,7 @@ class PoolPayouts{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_main_blockchain_Blockchain__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_coins_WebDollar_Coins__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_common_utils_logging_Log__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_common_blockchain_global_Blockchain_Mining_Reward__ = __webpack_require__(46);
 
@@ -107910,6 +107912,11 @@ class MinerProtocol {
 
     async startMinerPool(poolURL, forceStartMinerPool = false ){
 
+        if ( poolURL === false){
+            await this.setMinerPoolStarted(false);
+            return;
+        }
+
         if (poolURL !== undefined)
             await this.minerPoolSettings.setPoolURL(poolURL);
 
@@ -107986,9 +107993,11 @@ class MinerProtocol {
                 await this.minerPoolProtocol._stopMinerProtocol();
                 await this.minerPoolMining._stopMinerPoolMining();
 
+                this.blockchain.blocks.length  = 0;
                 this.blockchain.agent.consensus = true;
 
                 __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].MINING_POOL.MINING_POOL_STATUS = __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].MINING_POOL_TYPE.MINING_POOL_DISABLED;
+
             }
 
             __WEBPACK_IMPORTED_MODULE_6_common_events_Status_Events__["a" /* default */].emit("miner-pool/status", {result: value, message: "Miner Pool Started changed" });
@@ -108491,7 +108500,7 @@ class MinerPoolStatistics{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_common_mining_pools_common_Pool_Protocol_List__ = __webpack_require__(142);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_common_utils_Serialization__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_common_events_Status_Events__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_node_menu_Advanced_Messages__ = __webpack_require__(70);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_common_utils_logging_Log__ = __webpack_require__(41);
@@ -109719,7 +109728,7 @@ class NodesStats {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_geolocation_lists_geo_helpers_geo_helper__ = __webpack_require__(198);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_blockchain_interface_blockchain_addresses_Interface_Blockchain_Address_Helper__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_common_utils_coins_WebDollar_Coins__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Node_Type__ = __webpack_require__(25);

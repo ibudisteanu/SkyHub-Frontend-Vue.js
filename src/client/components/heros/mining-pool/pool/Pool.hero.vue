@@ -2,6 +2,7 @@
 
     <div id="p2p-network">
 
+
         <div id="createPoolSection">
 
             <h1 class="alignCenter bigMarginBottom">POOL Mining</h1>
@@ -35,10 +36,11 @@
 
                 </div>
 
-                <pool-statistics :poolName="poolName" :poolWebsite="poolWebsite"
+                <pool-statistics ref="poolStatistics"
+                                 :poolName="poolName" :poolWebsite="poolWebsite"
                                  :poolURL="poolURL" :poolFee="poolFee"
-                                 :poolServers="poolServers" :poolsList="poolsList"
-                                 :poolsListSelected="poolsListSelected" :poolStatus="poolStatus"
+                                 :poolServers="poolServers"
+                                 :poolStatus="poolStatus"
                                  :poolHashes="poolHashes" :poolMinersOnline="poolMinersOnline"
                                  :poolBlocksConfirmed="poolBlocksConfirmed" :poolBlocksConfirmedAnPaid="poolBlocksConfirmedAndPaid" :poolBlocksUnconfirmed="poolBlocksUnconfirmed"
                                  :poolTimeRemaining="poolTimeRemaining" :poolBlocksBeingConfirmed="poolBlocksBeingConfirmed"> </pool-statistics>
@@ -126,8 +128,10 @@
                     this.getPoolServers();
 
                     this.poolFee = Math.floor( WebDollar.Blockchain.PoolManagement.poolSettings.poolFee*100 , 2 );
-                    if (this.$refs['refPoolFee'] !== undefined)
-                        this.$refs['refPoolFee'].value = this.poolFee;
+                    this.poolReferralFee = Math.floor( WebDollar.Blockchain.PoolManagement.poolSettings.poolReferralFee*100 , 2 );
+                    this.poolURL = WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
+                    this.poolName = WebDollar.Blockchain.PoolManagement.poolSettings.poolName;
+                    this.poolWebsite = WebDollar.Blockchain.PoolManagement.poolSettings.poolWebsite;
 
                     this.subscribePoolStatistics();
 

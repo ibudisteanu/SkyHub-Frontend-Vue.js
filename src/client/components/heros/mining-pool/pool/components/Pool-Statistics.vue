@@ -5,13 +5,14 @@
         <div class="verticalAlignMiddle">
 
             <span class="oneLineText">
-                Your Role: <span class="normalSpan yellowColor"> Miner </span>
+                Your Role: <span class="normalSpan yellowColor"> {{statsType}} </span>
             </span>
             <span class="oneLineText">
+
                 Pool Name:
-                <select v-model="poolsListSelected" class="poolSelect">
-                    <option>Pool Mining Disabled</option>
-                    <option v-for="(poolListElement, index) in this.poolsList">
+                <select v-model="poolsListSelected" class="poolSelect" @change="handlePoolSelect">
+                    <option class="poolSelectOption" >Pool Mining Disabled</option>
+                    <option v-for="(poolListElement, index) in this.poolsList" class="poolSelectOption"  >
                         {{poolListElement.poolName}}
                     </option>
                 </select>
@@ -56,13 +57,25 @@
 </template>
 
 <script>
+
+    import Vue from 'vue';
     import Utils from 'src/utils/util-functions'
 
     export default{
 
+        data: ()=>{
+            return {
+
+                poolsList: {},
+                poolsListSelected: '',
+
+            }
+        },
+
         props: {
 
             statsType: {default: 'pool'},
+
 
             poolName: '',
             poolWebsite: '',
@@ -70,8 +83,6 @@
             poolFee: 0,
             poolReferralFee: 0,
             poolServers: {},
-            poolsList: {},
-            poolsListSelected: '',
             poolStatus: '',
 
             poolHashes: 0,
@@ -189,7 +200,67 @@
 
         methods:{
 
+            handlePoolSelect(){
 
+                let poolName = this.poolsListSelected;
+                let value;
+
+                if (poolName === "Pool Mining Disabled")
+                    value = false;
+                else {
+
+                    for (let key in this.poolsList)
+                        if (this.poolsList[key].poolName === poolName){
+                            value = this.poolsList[key].poolURL;
+                            break;
+                        }
+
+                }
+
+                WebDollar.Blockchain.MinerPoolManagement.startMinerPool( value , true) ;
+
+            },
+
+            setPoolsList(list){
+                this.poolsList = list;
+            },
+
+
+            loadPoolData(){
+
+                if ( WebDollar.Blockchain.MinerPoolManagement === undefined){
+
+                } else {
+
+                    let poolsList = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolsList;
+
+                    this.poolsList = {};
+                    for (let key in poolsList)
+                        Vue.set(this.poolsList, key, poolsList[key]);
+
+                    let minerPoolFound = false;
+
+                    if (WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.minerPoolActivated) {
+
+                        let minerPoolPublicKey = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolPublicKey.toString("hex");
+
+                        for (let poolPublicKey in poolsList)
+                            if (poolPublicKey === minerPoolPublicKey) {
+                                this.poolsListSelected = poolsList[poolPublicKey].poolName;
+                                minerPoolFound = true;
+                                break;
+                            }
+
+
+                    }
+
+                    if (!minerPoolFound)
+                        this.poolsListSelected = 'Pool Mining Disabled';
+
+                }
+
+
+            },
 
         },
 
@@ -204,8 +275,22 @@
 
             }
 
+            WebDollar.StatusEvents.on("miner-pool/settings",data =>  this.loadPoolData() );
+
+            this.loadPoolData();
+
         }
 
     }
 
 </script>
+
+<style>
+
+    .poolSelectOption{
+
+        background-color: #8d8d8d;
+
+    }
+
+</style>

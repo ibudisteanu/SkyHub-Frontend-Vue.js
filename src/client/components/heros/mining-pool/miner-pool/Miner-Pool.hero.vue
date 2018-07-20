@@ -2,6 +2,7 @@
 
     <div id="p2p-network">
 
+
         <div id="createPoolSection">
 
             <h1 class="alignCenter bigMarginBottom">POOL Mining</h1>
@@ -51,8 +52,9 @@
 
                 </div>
 
-                <pool-statistics statsType="miner" :poolName="poolName" :poolWebsite="poolWebsite" :poolURL="poolURL" :poolFee="poolFee" :poolReferralFee="poolReferralFee"
-                                 :poolServers="poolServers" :poolsList="poolsList" :poolsListSelected="poolsListSelected"
+                <pool-statistics ref="poolStatistics"
+                                 statsType="miner" :poolName="poolName" :poolWebsite="poolWebsite" :poolURL="poolURL" :poolFee="poolFee" :poolReferralFee="poolReferralFee"
+                                 :poolServers="poolServers"
                                  :poolStatus="minerPoolStatus" :poolHashes="poolHashes" :poolMinersOnline="poolMinersOnline"
                                  :poolBlocksConfirmed="poolBlocksConfirmed" :poolBlocksUnconfirmed="poolBlocksUnconfirmed" :poolBlocksConfirmedAndPaid="poolBlocksConfirmedAndPaid"
                                  :poolTimeRemaining="poolTimeRemaining" :rewardReferralTotal="rewardReferralTotal" :rewardReferralConfirmed="rewardReferralConfirmed"
@@ -88,8 +90,6 @@
                 poolFee: 0,
                 poolReferralFee: 0,
                 poolServers: {},
-                poolsList: {},
-                poolsListSelected: '',
                 minerPoolStatus: '',
 
                 poolHashes: 0,
@@ -162,29 +162,6 @@
                     this.poolURLReferral = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolURLReferral;
 
                     this.getPoolServers();
-
-                    this.poolsList = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolsList;
-
-                    let minerPoolFound = false;
-
-                    if (WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.minerPoolActivated){
-
-                        let minerPoolPublicKey = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolPublicKey.toString("hex");
-
-                        for (let poolPublicKey in this.poolsList){
-
-                            if (poolPublicKey === minerPoolPublicKey){
-                                this.poolsListSelected = this.poolsList[poolPublicKey].poolName;
-                                minerPoolFound = true;
-                                break;
-                            }
-
-                        }
-
-                    }
-
-                    if (!minerPoolFound)
-                        this.poolsListSelected = 'Pool Mining Disabled';
 
                     this.subscribeMinerPoolStatistics();
 
