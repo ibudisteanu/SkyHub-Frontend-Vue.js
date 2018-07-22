@@ -2161,7 +2161,7 @@ consts.SETTINGS = {
         PROTOCOL: "WebDollar",
         SSL: true,
 
-        PORT: 8082, //port
+        PORT: 80, //port
     },
 
     PARAMS: {
@@ -19030,7 +19030,7 @@ class NodeProtocol {
             nodeType:  true ? __WEBPACK_IMPORTED_MODULE_2_node_lists_types_Node_Type__["a" /* default */].NODE_WEB_PEER : NODE_TYPE.NODE_TERMINAL,
             domain:  true ? "browser" : NodeServer.getServerHTTPAddress(),
             UTC: __WEBPACK_IMPORTED_MODULE_4_main_blockchain_Blockchain__["a" /* default */].blockchain.timestamp.timeUTC,
-        }, undefined, 4000);
+        }, undefined, 5000);
 
     }
 
@@ -19726,18 +19726,6 @@ class InterfaceBlockchainFork {
 
         } else {
 
-            this._blocksCopy.forEach( (block) => {
-
-                if (block.data !==  undefined && block.data.transactions !== undefined)
-                    block.data.transactions.transactions.forEach((transaction) => {
-                        transaction.confirmed = true;
-
-                        this.blockchain.transactions.pendingQueue._removePendingTransaction(transaction);
-
-                    });
-
-            });
-
             this.forkBlocks.forEach((block)=>{
 
                 if (block.data !==  undefined && block.data.transactions !== undefined)
@@ -19752,7 +19740,21 @@ class InterfaceBlockchainFork {
                         }
 
                     });
-            })
+            });
+
+
+            this._blocksCopy.forEach( (block) => {
+
+                if (block.data !==  undefined && block.data.transactions !== undefined)
+                    block.data.transactions.transactions.forEach((transaction) => {
+                        transaction.confirmed = true;
+
+                        this.blockchain.transactions.pendingQueue._removePendingTransaction(transaction);
+
+                    });
+
+            });
+
         }
 
 
@@ -31931,10 +31933,10 @@ module.exports = bytesToUuid;
         //--------------Community FallBack Nodes-------------------
         //---------------------------------------------------------
 
-        // //{"addr": ["https://webdollar.bitcoinplusplus.com:443"]},
-        // //{"addr": ["https://amsterdam.wdpool.io:443"]},
-        // //{"addr": ["https://strasbourg.wdpool.io:443"]},
-        // //{"addr": ["https://paris.wdpool.io:443"]},
+        // {"addr": ["https://webdollar.bitcoinplusplus.com:443"]},
+        // {"addr": ["https://amsterdam.wdpool.io:443"]},
+        // {"addr": ["https://strasbourg.wdpool.io:443"]},
+        // {"addr": ["https://paris.wdpool.io:443"]},
 
         // {"addr": ["https://wb.ciuc.ro:443"]}, // Thanks to Adi Clar
         // {"addr": ["https://nodecstl.ddns.net:80"]},
@@ -31955,8 +31957,6 @@ module.exports = bytesToUuid;
         {"addr": ["https://node7.petreus.ro:443"]}, // Thanks to Dani Petreus
         {"addr": ["https://node8.petreus.ro:443"]}, // Thanks to Dani Petreus
 
-
-
         {"addr": ["https://webdollarpool.win:80/"]}, // Thanks to @vladimirpetre
 
         {"addr": ["https://pool.webd.club:80/"]}, // Thanks to @ermethic
@@ -31967,7 +31967,7 @@ module.exports = bytesToUuid;
         {"addr": ["https://romeonet.ddns.net:65101/"]}, // Thanks to @romeonet
         {"addr": ["https://romeonet.ddns.net:65001/"]}, // Thanks to @romeonet
 
-        // // {"addr": ["https://nodecstl.ddns.net:81/"]}, // Thanks to @taralungaCostel
+        // {"addr": ["https://nodecstl.ddns.net:81/"]}, // Thanks to @taralungaCostel
 
         {"addr": ["https://robitza.ddns.net:443"]}, // Thanks to @robertclaudiu
         {"addr": ["https://robitza.ddns.net:8080"]}, // Thanks to @robertclaudiu
@@ -32001,6 +32001,22 @@ module.exports = bytesToUuid;
         {"addr": ["https://angrybirds.webdollarvpn.io:8666"]}, // Thanks to @cbusuioceanu   
         {"addr": ["https://angrybirds.webdollarvpn.io:9666"]}, // Thanks to @cbusuioceanu         
 
+        {"addr": ["https://int-webd.com:5001"]}, // Thanks to @int_webd
+        {"addr": ["https://int-webd.com:5002"]}, // Thanks to @int_webd
+        {"addr": ["https://int-webd.com:5003"]}, // Thanks to @int_webd
+        {"addr": ["https://int-webd.com:5004"]}, // Thanks to @int_webd
+        {"addr": ["https://int-webd.com:5005"]}, // Thanks to @int_webd
+        {"addr": ["https://int-webd.com:5006"]}, // Thanks to @int_webd
+        {"addr": ["https://int-webd.com:5007"]}, // Thanks to @int_webd
+        {"addr": ["https://int-webd.com:5008"]}, // Thanks to @int_webd
+        {"addr": ["https://int-webd.com:5009"]}, // Thanks to @int_webd
+        {"addr": ["https://int-webd.com:5010"]}, // Thanks to @int_webd
+        {"addr": ["https://int-webd.com:5011"]}, // Thanks to @int_webd
+        {"addr": ["https://int-webd.com:5012"]}, // Thanks to @int_webd
+        {"addr": ["https://int-webd.com:5013"]}, // Thanks to @int_webd
+        {"addr": ["https://int-webd.com:5014"]}, // Thanks to @int_webd
+        {"addr": ["https://int-webd.com:5015"]}, // Thanks to @int_webd
+        {"addr": ["https://int-webd.com:5016"]}, // Thanks to @int_webd
 
         // {"addr": ["https://bacm.ro:80"]}, //Thanks to @jigodia
         // {"addr": ["https://bacm.ro:443"]}, //Thanks to @jigodia
@@ -32028,8 +32044,6 @@ module.exports = bytesToUuid;
         {"addr": ["https://webdollar-vps5.hopto.org:8081"]},
         {"addr": ["https://webdollar-vps5.hopto.org:8082"]},
         {"addr": ["https://webdollar-vps5.hopto.org:8083"]},
-
-
 
         {"addr": ["https://webdollar-vps4.zapto.org:8081"]},
         {"addr": ["https://webdollar-vps4.zapto.org:8082"]},
@@ -52481,9 +52495,14 @@ class NodesWaitlistObject {
 
     socketErrorConnected(){
 
+        if (__WEBPACK_IMPORTED_MODULE_4_main_blockchain_Blockchain__["a" /* default */].MinerPoolManagement.minerPoolStarted){
+            this.errorTrials = 0;
+            return;
+        }
+
         this.errorTrials++;
 
-        if (this.isFallback === true) {
+        if (this.isFallback === true ) {
 
             if (true)
                 this.errorTrials = Math.min(this.errorTrials, 3 + Math.floor( Math.random() * 2) );
@@ -55271,17 +55290,21 @@ class NodesWaitlistConnecting {
 
     _tryToConnectNextNode( nextWaitListObject){
 
-        if (__WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].MinerPoolManagement !== undefined && __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].MinerPoolManagement.minerPoolStarted && [__WEBPACK_IMPORTED_MODULE_9__types_Node_Consensus_Type__["a" /* default */].NODE_CONSENSUS_SERVER].indexOf(nextWaitListObject.nodeConsensusType) < 0 ) return;
+        if (__WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].MinerPoolManagement !== undefined && __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].MinerPoolManagement.minerPoolStarted && [ __WEBPACK_IMPORTED_MODULE_9__types_Node_Consensus_Type__["a" /* default */].NODE_CONSENSUS_SERVER ].indexOf(nextWaitListObject.nodeConsensusType) < 0 ) return;
 
-        if (nextWaitListObject.isFallback) {
+        if (__WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].blockchain.agent.consensus) {
 
-            let fallbacks = this._countConnectingToFallbacks() + __WEBPACK_IMPORTED_MODULE_3_node_lists_Nodes_List__["a" /* default */].countFallbacks();
-            if (fallbacks >= this.connectingMaximum.maximum_fallbacks) return true;
+            if (nextWaitListObject.isFallback) {
 
-        } else {
+                let fallbacks = this._countConnectingToFallbacks() + __WEBPACK_IMPORTED_MODULE_3_node_lists_Nodes_List__["a" /* default */].countFallbacks();
+                if (fallbacks >= this.connectingMaximum.maximum_fallbacks) return true;
 
-            let simple = (this._connectingQueue.length - this._countConnectingToFallbacks()) + ( __WEBPACK_IMPORTED_MODULE_3_node_lists_Nodes_List__["a" /* default */].nodes.length - __WEBPACK_IMPORTED_MODULE_3_node_lists_Nodes_List__["a" /* default */].countFallbacks() );
-            if (simple >= this.connectingMaximum.maximum_waitlist) return true;
+            } else {
+
+                let simple = (this._connectingQueue.length - this._countConnectingToFallbacks()) + ( __WEBPACK_IMPORTED_MODULE_3_node_lists_Nodes_List__["a" /* default */].nodes.length - __WEBPACK_IMPORTED_MODULE_3_node_lists_Nodes_List__["a" /* default */].countFallbacks() );
+                if (simple >= this.connectingMaximum.maximum_waitlist) return true;
+
+            }
 
         }
 
@@ -86332,10 +86355,9 @@ class InterfaceTransactionsPendingQueue {
 
             try{
 
-                if ( this.blockchain.blocks.length > this.list[i].pendingDateBlockHeight + __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.MEM_POOL.TIME_LOCK.TRANSACTIONS_MAX_LIFE_TIME_IN_POOL_AFTER_EXPIRATION ||
-                     !this.list[i].validateTransactionEveryTime(undefined, blockValidationType ) &&
-                     ( this.list[i].timeLock === 0 || this.list[i].timeLock < this.blockchain.blocks.length ) &&
-                      !this.list[i].from.addresses[0].unencodedAddress.equals( this.blockchain.mining.unencodedMinerAddress )
+                if ( (this.blockchain.blocks.length > this.list[i].pendingDateBlockHeight + __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.MEM_POOL.TIME_LOCK.TRANSACTIONS_MAX_LIFE_TIME_IN_POOL_AFTER_EXPIRATION ||  !this.list[i].validateTransactionEveryTime(undefined, blockValidationType )) &&
+                     (this.list[i].timeLock === 0 || this.list[i].timeLock < this.blockchain.blocks.length ) &&
+                     !this.list[i].from.addresses[0].unencodedAddress.equals( this.blockchain.mining.unencodedMinerAddress )
                 ) {
                     this._removePendingTransaction(i);
                 }
@@ -91071,10 +91093,11 @@ class MiniBlockchainTransaction extends  __WEBPACK_IMPORTED_MODULE_0_common_bloc
 
                 transactionsList.forEach( (transaction)=>{
 
-                    if ( __WEBPACK_IMPORTED_MODULE_4_common_utils_BufferExtended__["a" /* default */].safeCompare(transaction.from.addresses[0].unencodedAddress, this.from.addresses[0].unencodedAddress))
+                    if ( transaction.from.addresses[0].unencodedAddress.equals( this.from.addresses[0].unencodedAddress ))
                         foundNonce[ transaction.nonce ] = true;
 
                 });
+
 
                 for (let i=nonce; i<this.nonce; i++)
                     if (!foundNonce[i])
@@ -105595,7 +105618,7 @@ class PoolDataConnectedMinerInstances extends __WEBPACK_IMPORTED_MODULE_0_common
         let time = new Date().getTime()/1000;
 
         for (let i=this.connectedMinerInstances.length-1; i>=0; i--)
-            if (time - this.connectedMinerInstances[i].miner.dateActivity > 240){ //4 minutes
+            if (time - this.connectedMinerInstances[i].miner.dateActivity > 480){ //8 minutes
 
                 if ( !this.poolManagement.poolSettings.poolUsePoolServers )
                     this.connectedMinerInstances[i].socket.disconnect();
@@ -105744,7 +105767,7 @@ class PoolWorkManagement{
                 hashesFactor = Math.max(0.2, hashesFactor);
 
                 let hashesPerSecond = Math.floor( minerInstance.hashesPerSecond * hashesFactor);
-                minerInstance.hashesPerSecond = Math.max( 100, Math.min( hashesPerSecond, 400000 ));
+                minerInstance.hashesPerSecond = Math.max( 100, Math.min( hashesPerSecond, 3000000 ));
 
             }
 
@@ -106005,7 +106028,7 @@ class PoolWork {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_events_Status_Events__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common_events_Status_Events__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_common_utils_logging_Log__ = __webpack_require__(41);
@@ -106026,6 +106049,7 @@ class PoolNewWorkManagement{
         this._payoutInProgress = false;
         this._payoutInProgressIndex = 0;
 
+        this.prevBlock = undefined;
 
         __WEBPACK_IMPORTED_MODULE_0_common_events_Status_Events__["a" /* default */].on("blockchain/new-blocks",async (data)=>{
 
@@ -106064,29 +106088,16 @@ class PoolNewWorkManagement{
             if (blockInformationMinerInstance === undefined ) blockInformationMinerInstance = minerInstance.lastBlockInformation;
             if (blockInformationMinerInstance === undefined) return false;
 
-            let prevBlock = blockInformationMinerInstance.workBlock;
+            this.prevBlock = blockInformationMinerInstance.workBlock;
 
             let newWork = await this.poolWorkManagement.getWork( minerInstance, blockInformationMinerInstance );
 
             if (payoutInProgressIndex !== this._payoutInProgressIndex) return false;
 
             // i have sent it already in the last - no new work
-            if (this.poolWorkManagement.poolWork.lastBlock === prevBlock  ) return true;
+            if (this.poolWorkManagement.poolWork.lastBlock === this.prevBlock  ) return true; //already sent
 
-
-            let answer = await minerInstance.socket.node.sendRequestWaitOnce("mining-pool/new-work", {  work: newWork,  } ,"answer", 10000 );
-
-            if ( answer === null ) throw {message: "answer is null"};
-
-            if ( !Buffer.isBuffer(answer.hash ) ) throw {message: "hash is not specified"};
-            if ( typeof answer.nonce !== "number" ) throw {message: "nonce is not specified"};
-
-
-            let processedWork = await this.poolWorkManagement.processWork( minerInstance, answer, prevBlock );
-
-            minerInstance.socket.node.sendRequest("mining-pool/new-work/answer/confirm", {  result: processedWork.result,  reward: processedWork.reward, confirmed: processedWork.confirmed, miner: minerInstance.publicKey,
-                h: this.poolManagement.poolStatistics.poolHashes, m: this.poolManagement.poolStatistics.poolMinersOnline.length, b: this.poolManagement.poolStatistics.poolBlocksConfirmed, bp: this.poolManagement.poolStatistics.poolBlocksConfirmedAndPaid, ub: this.poolManagement.poolStatistics.poolBlocksUnconfirmed, bc: this.poolManagement.poolStatistics.poolBlocksBeingConfirmed, t: this.poolManagement.poolStatistics.poolTimeRemaining, n: __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].blockchain.blocks.networkHashRate,
-            } ,"answer" );
+            await minerInstance.socket.node.sendRequestWaitOnce("mining-pool/new-work", {  work: newWork,  } );
 
         } catch (exception){
 
@@ -106100,7 +106111,6 @@ class PoolNewWorkManagement{
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (PoolNewWorkManagement);
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1).Buffer))
 
 /***/ }),
 /* 853 */
@@ -106479,10 +106489,10 @@ class PoolConnectedMinersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_min
                     useSig: this.poolManagement.poolSettings.poolUseSignatures,
                     servers: this.poolManagement.poolSettings.poolServers,
 
-                    reward: minerInstance.miner.rewardTotal,
-                    confirmed: minerInstance.miner.rewardConfirmedTotal,
-                    refReward: minerInstance.miner.referrals.rewardReferralsTotal,
-                    refConfirmed: minerInstance.miner.referrals.rewardReferralsConfirmed,
+                    reward: minerInstance.miner.rewardTotal||0,
+                    confirmed: minerInstance.miner.rewardConfirmedTotal||0,
+                    refReward: minerInstance.miner.referrals.rewardReferralsTotal||0,
+                    refConfirmed: minerInstance.miner.referrals.rewardReferralsConfirmed||0,
 
                     h:this.poolManagement.poolStatistics.poolHashes,
                     m: this.poolManagement.poolStatistics.poolMinersOnline.length,
@@ -106540,7 +106550,23 @@ class PoolConnectedMinersProtocol extends __WEBPACK_IMPORTED_MODULE_5_common_min
 
         });
 
+        //Already sent the new work, receiving the work for the past one
+        socket.node.on("mining-pool/new-work/answer", async (answer)=>{
 
+
+            if ( !Buffer.isBuffer(answer.hash ) ) throw {message: "hash is not specified"};
+            if ( typeof answer.nonce !== "number" ) throw {message: "nonce is not specified"};
+
+            let minerInstance = socket.node.protocol.minerPool.minerInstance;
+            if (minerInstance === null || minerInstance === undefined) throw {message: "publicKey was not found"};
+
+            let processedWork = await this.poolManagement.poolWorkManagement.processWork( minerInstance, answer, this.poolManagement.poolWorkManagement.poolNewWorkManagement.prevBlock );
+
+            minerInstance.socket.node.sendRequest("mining-pool/new-work/answer/confirm", {  result: processedWork.result,  reward: processedWork.reward, confirmed: processedWork.confirmed, miner: minerInstance.publicKey,
+                h: this.poolManagement.poolStatistics.poolHashes, m: this.poolManagement.poolStatistics.poolMinersOnline.length, b: this.poolManagement.poolStatistics.poolBlocksConfirmed, bp: this.poolManagement.poolStatistics.poolBlocksConfirmedAndPaid, ub: this.poolManagement.poolStatistics.poolBlocksUnconfirmed, bc: this.poolManagement.poolStatistics.poolBlocksBeingConfirmed, t: this.poolManagement.poolStatistics.poolTimeRemaining, n: __WEBPACK_IMPORTED_MODULE_10_main_blockchain_Blockchain__["a" /* default */].blockchain.blocks.networkHashRate,
+            } ,"answer" );
+
+        });
 
         socket.node.on("mining-pool/get-work", async (data) => {
 
@@ -108673,8 +108699,8 @@ class MinerProtocol extends __WEBPACK_IMPORTED_MODULE_7_common_mining_pools_comm
 
                 if (! __WEBPACK_IMPORTED_MODULE_4_common_crypto_ed25519__["a" /* default */].verify(answer.signature, newMessage, this.minerPoolManagement.minerPoolSettings.poolPublicKey)) throw {message: "pool: signature doesn't validate message"};
 
-                if ( typeof answer.reward !== "number") throw {message: "pool: Reward is empty"};
-                if ( typeof answer.confirmed !== "number") throw {message: "pool: confirmedReward is empty"};
+                //if ( typeof answer.reward !== "number") throw {message: "pool: Reward is empty"};
+                //if ( typeof answer.confirmed !== "number") throw {message: "pool: confirmedReward is empty"};
 
                 socket.node.sendRequest("mining-pool/hello-pool/answer/confirmation", {result: true});
 
@@ -108831,7 +108857,7 @@ class MinerProtocol extends __WEBPACK_IMPORTED_MODULE_7_common_mining_pools_comm
             if (poolSocket === undefined)
                 poolSocket = this.connectedPools[0];
 
-            if (poolSocket === null || poolSocket === undefined) throw {message: "poolSocket is null"};
+            if (poolSocket === null || poolSocket === undefined) throw {message: "You are disconnected"};
 
             let answer = await poolSocket.node.sendRequestWaitOnce("mining-pool/work-done", {
                 work: miningAnswer,
@@ -108869,7 +108895,7 @@ class MinerProtocol extends __WEBPACK_IMPORTED_MODULE_7_common_mining_pools_comm
             if (newAddress === undefined)
                 newAddress = __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].Wallet.addresses[0].address;
 
-            if (poolSocket === null || poolSocket === undefined) throw {message: "poolSocket is null"};
+            if (poolSocket === null || poolSocket === undefined) throw {message: "You are disconnected"};
 
             oldAddress = __WEBPACK_IMPORTED_MODULE_2_main_blockchain_Blockchain__["a" /* default */].Wallet.getAddress(oldAddress||this.minerPoolManagement.minerPoolMining.minerAddress);
 
@@ -108937,7 +108963,7 @@ class MinerProtocol extends __WEBPACK_IMPORTED_MODULE_7_common_mining_pools_comm
             if (poolSocket === undefined)
                 poolSocket = this.connectedPools[0];
 
-            if (poolSocket === null || poolSocket === undefined) throw {message: "poolSocket is null"};
+            if (poolSocket === null || poolSocket === undefined) throw {message: "You are disconnected"};
 
             let answer = await poolSocket.node.sendRequestWaitOnce("mining-pool/request-wallet-mining", {}, "answer", 6000);
 
