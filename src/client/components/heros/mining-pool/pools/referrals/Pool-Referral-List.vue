@@ -32,17 +32,17 @@
 
                 <div class="mobileTableShow">
                     <span class="mobileTableShowTitle">Referral Address:</span>
-                    <span class="size yellowText">{{this.getWalletImage(element.refereeAddress)}}</span>
+                    <img class="walletListImage" :src="getWalletImage(element.refereeAddress)" :title="element.refereeAddress"/>
                 </div>
 
                 <div class="mobileTableShow">
                     <span class="mobileTableShowTitle">Miner Address:</span>
-                    <span class="size yellowText">{{this.getWalletImage(element.refereeMiner)}}</span>
+                    <img class="walletListImage" :src="getWalletImage(element.refereeMiner)" :title="element.refereeMiner"/>
                 </div>
 
                 <div class="mobileTableShow">
                     <span class="mobileTableShowTitle">Next Reward:</span>
-                    <span class="time">{{this.getNextReward(element) -  + ' WEBD'}}</span>
+                    <span class="time">{{getNextReward(element) }} WEBD</span>
                 </div>
 
                 <div class="mobileTableShow">
@@ -64,6 +64,7 @@
 
         props: {
             displayType: {default: 'list'},
+            minersList: {default: 'list'},
         },
 
         methods:{
@@ -72,24 +73,11 @@
 
                 this.$emit('selectMiner', index);
 
-            }
+            },
 
-        },
-
-        data(){
-
-            return{
-                referrals:[],
-            }
-
-        },
-
-        beforeDestroy(){
-
-
-        },
-
-        methods:{
+            getWalletImage(address){
+                return WebDollar.Blockchain.Wallet.getAddressPic(address);
+            },
 
             loadPoolReferralStatistics(){
 
@@ -97,9 +85,14 @@
 
             getNextReward(element){
 
-                return element._rewardReferralTotal - element.this._rewardReferralSent;
+                return element._rewardReferralSent - element._rewardReferralTotal ;
 
             }
+
+        },
+
+        computed:{
+
 
         },
 

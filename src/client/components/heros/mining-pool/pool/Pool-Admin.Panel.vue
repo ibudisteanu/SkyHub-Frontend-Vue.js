@@ -4,7 +4,7 @@
 
         <div id="miningPoolController">
 
-            <div class="generalController" :class="this.menuClass()">
+            <div class="generalController" :class="this.menuClass">
 
                 <div class="listType" v-if="!this.showAdvancedSettingsStatus" >
                     <span class="minerData buttonSmall" @click="changeDisplayType('list')" :class="this.displayType === 'list' ? 'selected' : ''">LIST</span>
@@ -13,11 +13,11 @@
 
                 <div v-if="!this.showReferralListStatus" class="buttonContainer poolSingleButton">
                     <span v-on:click="this.showReferralListEnable" class="minerData buttonSmall settingsButton" >
-                       {{ this.poolDetails.iAmOwner ? 'Pool Referrals' : 'Your Referrals' }}
+                       {{ this.pool.iAmOwner ? 'Pool Referrals' : 'Your Referrals' }}
                     </span>
                 </div>
 
-                <div v-if="!this.showMinersListStatus && this.poolDetails.iAmOwner" class="buttonContainer poolSingleButton">
+                <div v-if="!this.showMinersListStatus && this.pool.iAmOwner" class="buttonContainer poolSingleButton">
                     <span v-on:click="this.showMinersListEnable" class="minerData buttonSmall settingsButton" >
                         Miners List
                     </span>
@@ -25,7 +25,7 @@
 
                 <div v-if="!this.showAdvancedSettingsStatus" class="buttonContainer poolSingleButton">
                     <span v-on:click="this.showAdvancedSettingsEnable" class="minerData buttonSmall settingsButton" >
-                        {{ this.poolDetails.iAmOwner ? 'Advanced Settings' : 'Create your own pool' }}
+                        {{ this.pool.iAmOwner ? 'Advanced Settings' : 'Create your own pool' }}
                     </span>
                 </div>
 
@@ -33,11 +33,11 @@
 
             <div class="infoSection">
 
-                <pool-miner-details v-if="this.showMinersListStatus" :miner="this.minersList[this.selectedMinerIndex]"></pool-miner-details>
+                <!--<pool-miner-details v-if="this.showMinersListStatus" :miner="this.minersList[this.selectedMinerIndex]"></pool-miner-details>-->
 
                 <pool-referral-details v-if="this.showReferralListStatus" :miner="this.minersList[this.selectedMinerIndex]"></pool-referral-details>
 
-                <pool-details v-if="this.showAdvancedSettingsStatus" :pool="this.poolDetails"></pool-details>
+                <!--<pool-details v-if="this.showAdvancedSettingsStatus" :pool="this.pool"></pool-details>-->
 
             </div>
 
@@ -45,11 +45,11 @@
 
         <div id="yourPoolSection">
 
-            <pool-miners-list v-if="this.showMinersListStatus && this.poolDetails.iAmOwner" :displayType="this.displayType" :minersList="this.minersList" @selectMiner="this.selectNewMiner"></pool-miners-list>
+            <!--<pool-miners-list v-if="this.showMinersListStatus && this.pool.iAmOwner" :displayType="this.displayType" :minersList="this.minersList" @selectMiner="this.selectNewMiner"></pool-miners-list>-->
 
             <pool-referral-list v-if="this.showReferralListStatus" :displayType="this.displayType" :minersList="this.minersList" @selectMiner="this.selectNewMiner"></pool-referral-list>
 
-            <SettingsPage v-if="this.showAdvancedSettingsStatus"></SettingsPage>
+            <!--<SettingsPage v-if="this.showAdvancedSettingsStatus"></SettingsPage>-->
 
         </div>
 
@@ -78,7 +78,7 @@
                 showMinersListStatus: true,
                 showReferralListStatus: false,
                 displayType: 'list',
-                poolDetails: {
+                pool: {
                     address: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
                     Fee: 0,
                     poolName: '',
@@ -87,101 +87,35 @@
                     iAmOwner: false
                 },
                 selectedMinerIndex: 0,
-                minersList: [
+                minersList:[
                     {
-                        active: true,
-                        address: 'WEBD$gCPE#0MUG@RedsadasQk3wD7EB5vmMGDdo#YhHSr$',
-                        nextReward: '2020',
-                        avaiableReward: '200200',
-                        averageHash: '',
+                        active:false,
+                        refereeAddress:'WEBD$gACWpxpuUF5PWY#EFJ+oL1yiVHvaV+nL6P$',
+                        refereeMiner:'WEBD$gA7npK@#CUjgJDXeN+mV1JBKE@x6HfX96z$',
+                        _rewardReferralSent:50000,
+                        _rewardReferralTotal:6000
                     },
                     {
-                        active: true,
-                        address: 'WEBD$gCPE#0MUG@ReQksdas3wD7EB5vmMGDdo#YhHSr$',
-                        nextReward: '2100',
-                        avaiableReward: '200100',
-                        averageHash: '',
+                        active:true,
+                        refereeAddress:'WEBD$gACWpxpuUF5PWY#EFJ+oL1yiVHvaV+nL6P$',
+                        refereeMiner:'WEBD$gA7npK@#CUjgJDXeN+mV1JBKE@x6HfX96z$',
+                        _rewardReferralSent:40000,
+                        _rewardReferralTotal:4000
                     },
                     {
-                        active: true,
-                        address: 'WEBD$gCPE#0MUG@RgasdaseQk3wD7EB5vmMGDdo#YhHSr$',
-                        nextReward: '200',
-                        avaiableReward: '20000',
-                        averageHash: '',
+                        active:true,
+                        refereeAddress:'WEBD$gACWpxpuUF5PWY#EFJ+oL1yiVHvaV+nL6P$',
+                        refereeMiner:'WEBD$gA7npK@#CUjgJDXeN+mV1JBKE@x6HfX96z$',
+                        _rewardReferralSent:30000,
+                        _rewardReferralTotal:3000
                     },
                     {
-                        active: true,
-                        address: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
-                        nextReward: '2300',
-                        avaiableReward: '20030',
-                        averageHash: '',
+                        active:true,
+                        refereeAddress:'WEBD$gACWpxpuUF5PWY#EFJ+oL1yiVHvaV+nL6P$',
+                        refereeMiner:'WEBD$gA7npK@#CUjgJDXeN+mV1JBKE@x6HfX96z$',
+                        _rewardReferralSent:20000,
+                        _rewardReferralTotal:2000
                     },
-                    {
-                        active: true,
-                        address: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
-                        nextReward: '200',
-                        avaiableReward: '20000',
-                        averageHash: '',
-                    },
-                    {
-                        active: true,
-                        address: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
-                        nextReward: '200',
-                        avaiableReward: '20000',
-                        averageHash: '',
-                    },
-                    {
-                        active: true,
-                        address: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
-                        nextReward: '200',
-                        avaiableReward: '20000',
-                        averageHash: '',
-                    },
-                    {
-                        active: false
-                    },
-                    {
-                        active: false
-                    },
-                    {
-                        active: true
-                    },
-                    {
-                        active: false
-                    },
-                    {
-                        active: true
-                    },
-                    {
-                        active: false
-                    },
-                    {
-                        active: true
-                    },
-                    {
-                        active: false
-                    },
-                    {
-                        active: false
-                    },
-                    {
-                        active: true
-                    },
-                    {
-                        active: false
-                    },
-                    {
-                        active: true
-                    },
-                    {
-                        active: false
-                    },
-                    {
-                        active: true
-                    },
-                    {
-                        active: false
-                    }
                 ]
             }
         },
@@ -194,7 +128,7 @@
 
             menuClass(){
 
-                if( !this.poolDetails.iAmOwner ){
+                if( !this.pool.iAmOwner ){
 
                     if (this.showAdvancedSettingsStatus) return 'ajustedHeightMiner';
                         else return 'normalMiner';
@@ -205,8 +139,6 @@
                     if (this.showAdvancedSettingsStatus) return 'ajustedHeight';
 
                 }
-
-
 
             },
 
@@ -248,15 +180,11 @@
 
             selectNewMiner(index){
                 this.selectedMinerIndex = index;
-            }
-
-        },
-
-        computed:{
+            },
 
             selectUserStatus(){
 
-                if(this.poolDetails.iAmOwner === false){
+                if(this.pool.iAmOwner === false){
 
                     this.showMinersListStatus=false;
 
