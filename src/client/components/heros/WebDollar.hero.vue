@@ -57,7 +57,7 @@
 
             this.loadPoolInfo();
 
-            WebDollarUserInterface.initializeParams.createElements();
+//            WebDollarUserInterface.initializeParams.createElements();
 
             if (WebDollar.Blockchain.synchronized){
                 this.loaded= true;
