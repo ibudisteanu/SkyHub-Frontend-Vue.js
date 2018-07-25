@@ -6,23 +6,24 @@
 
         <div class="selectedMinerInfo">
 
-            <span class="minerData address addressTextBox">{{this.refereeMiner}}</span>
+            <div class="minerData address addressTextBox">
+                 <img class="inlineBlock walletDescriptionImage" :src="getWalletImage(this.miner.refereeAddress)" :title="this.miner.refereeAddress"/>
+                 <span class="yellowColor">{{this.miner.refereeMiner}}</span>
+            </div>
 
             <div class="statisticsContent">
 
                 <div class="dataStatisticsItem">
                     <span class="titlePool">Status:</span>
-                    <span class="minerData">{{element.active===true ? 'Mining' : 'Offline'}}</span>
+                    <span class="minerData">{{this.miner.active===true ? 'Mining' : 'Offline'}}</span>
                 </div>
 
                 <div class="dataStatisticsItem">
                     <span class="titlePool">Referral Address::</span>
                     <span class="minerData">
-                        <div class="inlineBlock">
-                            {{this.getWalletImage(element.refereeAddress)}}
-                        </div>
+                        <img class="inlineBlock" :src="getWalletImage(this.miner.refereeAddress)" :title="this.miner.refereeAddress"/>
                         <span class="inlineBlock">
-                            {{element.refereeAddress}}
+                            {{this.miner.refereeAddress}}
                         </span>
                     </span>
                 </div>
@@ -34,12 +35,12 @@
 
                 <div class="mobileTableShow">
                     <span class="mobileTableShowTitle">Next Reward:</span>
-                    <span class="time">{{this.getNextReward(element) -  + ' WEBD'}}</span>
+                    <span class="minedBy">{{this.miner._rewardReferralTotal}}</span>
                 </div>
 
                 <div class="mobileTableShow">
                     <span class="mobileTableShowTitle">Total Reward:</span>
-                    <span class="minedBy">{{element._rewardReferralSent}}</span>
+                    <span class="minedBy">{{this.miner._rewardReferralSent}}</span>
                 </div>
 
             </div>
@@ -55,7 +56,7 @@
     export default{
 
         props: {
-            miner: {default: 'list'},
+            miner: {default: 'object'},
         },
 
         data:()=>{
@@ -73,6 +74,9 @@
 
         methods: {
 
+            getWalletImage(address){
+                return WebDollar.Blockchain.Wallet.getAddressPic(address);
+            },
 
         },
 
@@ -83,8 +87,10 @@
 <style>
 
     .addressTextBox{
-        background-color: #505050;
+        background-color: #2d2d2d;
         width: 100%;
+        border-top: solid 1px #444;
+        border-bottom: solid 1px #444;
         text-align: center;
     }
 
