@@ -34,9 +34,9 @@
             <div class="infoSection">
 
 
-                <!--<pool-miner-details v-if="this.showMinersListStatus" :miner="this.minersList[this.selectedMinerIndex]"></pool-miner-details>-->
+                <!--<pool-miner-details v-if="this.showMinersListStatus" :selectedIndex="this.selectedIndex"></pool-miner-details>-->
 
-                <pool-referral-details v-if="this.showReferralListStatus" :miner="this.minersList[this.selectedMinerIndex]"></pool-referral-details>
+                <referral-details ref="referralDetails" v-if="this.showReferralListStatus" ></referral-details>
 
                 <!--<pool-details v-if="this.showAdvancedSettingsStatus" :pool="this.pool"></pool-details>-->
 
@@ -48,30 +48,27 @@
 
             <!--<pool-miners-list v-if="this.showMinersListStatus && this.poolIAmOwner " :displayType="this.displayType" :minersList="this.minersList" @selectMiner="this.selectNewMiner"></pool-miners-list>-->
 
-            <pool-referral-list v-if="this.showReferralListStatus" :displayType="this.displayType" :minersList="this.minersList" @selectMiner="this.selectNewMiner"></pool-referral-list>
+            <referral-list ref="referralList" v-if="this.showReferralListStatus" :displayType="this.displayType" @selectReferee="this.selectIndex"></referral-list>
 
             <!--<SettingsPage v-if="this.showAdvancedSettingsStatus"></SettingsPage>-->
 
         </div>
 
     </div>
-    
+
 </template>
 
 <script>
 
     import Vue from 'vue/dist/vue';
-    import slider from 'client/components/UI/elements/Slider.vue';
-    import PoolMinersList from "./components/Pool-Miners-List.vue";
-    import PoolReferralList from "../common/referrals/Referral-List.vue";
-    import SettingsPage from "./components/Pool-Advanced-Settings.vue";
-    import PoolMinerDetails from "./components/Pool-Miner-Details.vue";
-    import PoolDetails from "./components/Pool-Details.vue";
-    import PoolReferralDetails from "../common/referrals/Referral-Details.vue";
+    import ReferralList from "./common/referrals/Referral-List.vue";
+    import ReferralDetails from "./common/referrals/Referral-Details.vue";
+    import PoolMinersList from "./pool/components/Pool-Miners-List.vue"
+    import PoolMinerDetails from "./pool/components/Pool-Miner-Details.vue"
 
     export default{
 
-        components: { PoolMinersList, slider, SettingsPage, PoolMinerDetails, PoolDetails, PoolReferralList, PoolReferralDetails },
+        components: { ReferralList, ReferralDetails, PoolMinersList, PoolMinerDetails },
 
         data: () => {
 
@@ -82,11 +79,12 @@
 
                 displayType: 'list',
 
-                //not initialized
-                //pool
-                //miner-pool
-                status: 'none',
+                type: 'none',
                 advancedStatus: 'not initialized',
+
+                referralData: {},
+                
+                selectedIndex: -1,
 
 
                 poolAddress: 'WEBD$gCPE#0MUG@ReQk3wD7EB5vmMGDdo#YhHSr$',
@@ -95,10 +93,6 @@
                 poolWebsite: '',
                 poolURL: '',
                 poolIAmOwner: false,
-
-                data: {},
-                selectedMinerIndex: 0,
-
 
             }
         },
@@ -120,7 +114,7 @@
 
                 if (WebDollar.Blockchain.PoolManagement === undefined){
 
-                    this.status = "none";
+                    this.type = "none";
                     this.advancedStatus = "not initialized";
 
                 } else {
@@ -129,12 +123,10 @@
                     if (WebDollar.Blockchain.PoolManagement.poolOpened) this.advancedStatus = "Configured";
                     if (WebDollar.Blockchain.PoolManagement.poolStarted) {
                         this.advancedStatus = "Started";
-                        this.status = "pool";
+                        this.type = "pool";
                     }
 
                     this.poolURL = WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
-
-                    this.getMinerPoolServers();
 
                     this.poolAddress = WebDollar.Blockchain.PoolManagement.poolSettings.poolAddress||'';
                     this.poolFee = Math.floor( WebDollar.Blockchain.PoolManagement.poolSettings.poolFee*100 , 2 );
@@ -142,6 +134,10 @@
                     this.poolURL = WebDollar.Blockchain.PoolManagement.poolSettings.poolURL;
                     this.poolName = WebDollar.Blockchain.PoolManagement.poolSettings.poolName;
                     this.poolWebsite = WebDollar.Blockchain.PoolManagement.poolSettings.poolWebsite;
+
+                    this.getMinerPoolServers();
+
+                    this.showMinersListEnable();
 
                 }
 
@@ -157,7 +153,7 @@
                     if (WebDollar.Blockchain.MinerPoolManagement.minerPoolOpened) this.advancedStatus = "configured";
                     if (WebDollar.Blockchain.MinerPoolManagement.minerPoolStarted){
                         this.advancedStatus = "started";
-                        this.status = "miner";
+                        this.type = "miner";
                     }
 
                     this.poolAddress = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolAddress||'';
@@ -170,6 +166,8 @@
                     this.poolURLReferral = WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.poolURLReferral;
 
                     this.getPoolServers();
+
+                    this.showReferralListEnable();
 
                 }
 
@@ -191,31 +189,17 @@
                 if( !this.poolIAmOwner  ){
 
                     if (this.showAdvancedSettingsStatus) return 'adjustedHeightMiner';
-                        else return 'normalMiner';
+                    else return 'normalMiner';
 
                 }
                 else
-                    if (this.showAdvancedSettingsStatus) return 'adjustedHeight';
+                if (this.showAdvancedSettingsStatus) return 'adjustedHeight';
 
 
             },
 
             changeDisplayType(type){
                 this.displayType=type;
-            },
-
-            handleChangePoolFee(value){
-                this.poolFee = value;
-            },
-
-            handleSaveSettings(){
-
-                WebDollar.Blockchain.PoolManagement._poolFee =  this.poolFee;
-                WebDollar.Blockchain.PoolManagement._poolName = this.poolName;
-                WebDollar.Blockchain.PoolManagement._poolWebsite = this.poolWebsite;
-
-                WebDollar.Blockchain.PoolManagement.savePoolDetails();
-
             },
 
             showAdvancedSettingsEnable(){
@@ -236,28 +220,40 @@
                 this.showAdvancedSettingsStatus = false;
             },
 
-            selectNewMiner(index){
-                this.selectedMinerIndex = index;
+            loadMinerPoolReferralData(){
+
+                if (WebDollar.Blockchain.MinerPoolManagement === undefined) return;
+
+                this.referralData = WebDollar.Blockchain.MinerPoolManagement.minerPoolReferrals.referralData;
+
+                this.$refs['referralList'].setReferralList(this.referralData);
+
+                this.$refs['referralDetails'].setReferralLinkAddress(this.referralData.referralLinkAddress, this.referralData.referralLinkAddressOnline);
+
+                if (this.selectedIndex = -1)
+                    this.selectIndex(0, true);
+
             },
 
             selectUserStatus(){
 
-                if(this.poolIAmOwner  === false){
+                if (this.poolIAmOwner  === false){
 
                     this.showMinersListStatus=false;
 
-                    if(!this.showAdvancedSettingsStatus) this.showReferralListStatus = true;
+                    if (!this.showAdvancedSettingsStatus) this.showReferralListStatus = true;
 
                 }
 
             },
 
-            loadPoolReferralData(){
+            selectIndex(index){
 
-                if (WebDollar.Blockchain.blockchain.MinerPoolManagement === undefined) return;
+                if ( index >= this.referralData.referees.length )
+                    return;
 
-                this.referralData = WebDollar.Blockchain.blockchain.MinerPoolManagement.minerPoolReferrals.data;
-
+                this.selectedIndex = index;
+                this.$refs['referralDetails'].setReferee(this.referralData.referees[index]);
             },
 
         },
@@ -266,19 +262,22 @@
 
             if (typeof window === 'undefined') return;
 
-            WebDollar.StatusEvents.on("miner-pool/status", (data)=> this.loadMinerPoolData() );
+            WebDollar.StatusEvents.on("miner-pool/status", (data)=> this.loadAdminData() );
 
-            WebDollar.StatusEvents.on("pools/status", (data) => this.loadPoolData() );
+            WebDollar.StatusEvents.on("pools/status", (data) => this.loadAdminData() );
 
             this.loadAdminData();
 
             this.selectUserStatus();
 
-            await WebDollar.Blockchain.onLoaded;
-            WebDollar.Blockchain.MinerPoolManagement.minerPoolReferrals.requireReferrals = true;
 
-            WebDollar.StatusEvents.on("mining-pool/pool-referral-data-changed", (data) => this.loadPoolReferralData() );
-            this.loadPoolReferralData();
+            await WebDollar.Blockchain.onLoaded;
+
+            WebDollar.Blockchain.MinerPoolManagement.minerPoolReferrals.requireReferrals = true;
+            WebDollar.Blockchain.MinerPoolManagement.minerPoolReferrals.requestReferrals();
+
+            WebDollar.StatusEvents.on("mining-pool/pool-referral-data-changed", (data) => this.loadMinerPoolReferralData() );
+            this.loadMinerPoolReferralData();
 
 
         },

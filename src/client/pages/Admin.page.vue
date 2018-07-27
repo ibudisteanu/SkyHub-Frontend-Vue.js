@@ -6,7 +6,7 @@
 
             <div slot="content">
 
-                <pool-admin-panel/>
+                <admin-panel/>
 
             </div>
 
@@ -21,16 +21,16 @@
 <script>
 
     import Layout from "client/components/layout/Layout.vue"
-    import PoolAdminPanel from "client/components/heros/mining-pool/pool/Pool-Admin.Panel.vue"
+    import AdminPanel from "client/components/heros/mining-pool/Admin.Panel.vue"
     import MultipleTabs from "../components/heros/Multiple-Tabs.hero.vue";
 
     export default {
 
-        name: "pool-page",
+        name: "admin-page",
 
         components:{
             Layout,
-            PoolAdminPanel,
+            AdminPanel,
             MultipleTabs,
         },
 

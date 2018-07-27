@@ -1303,14 +1303,14 @@ background-color:#ff2200}
   display: none;
 }
 
-#yourPoolSection .poolContainer .activeMinner img{
+#yourPoolSection .poolContainer .activeMiner img{
   display: block;
   width: 15px;
   margin: 21px;
   animation: spinMining 2s linear infinite;
 }
 
-#yourPoolSection .poolContainer .activeMinner{
+#yourPoolSection .poolContainer .activeMiner{
   background-image: url('./../images/activeBrowserMining.png')!important;
   width: 58px!important;
   height: 60px!important;
@@ -1331,7 +1331,7 @@ background-color:#ff2200}
   font-size: 10px;
   margin-top: 16px;
 }
-#yourPoolSection .poolContainer .activeMinner .status{
+#yourPoolSection .poolContainer .activeMiner .status{
   display: none;
 }
 

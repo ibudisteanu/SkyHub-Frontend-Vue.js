@@ -51,7 +51,7 @@
 
                 <div v-if="this.displayType==='normal'" class="poolContainer">
 
-                    <div v-for="(element, index) in this.minersList" :key="'InstagramRankingListElement '+index"  class="miner" :class="element.active===true ? 'activeMinner' : ''">
+                    <div v-for="(element, index) in this.minersList" :key="'InstagramRankingListElement '+index"  class="miner" :class="element.active===true ? 'activeMiner' : ''">
                         <img alt="picker" src="public/assets/images/picker.png"/>
                         <span class="status">{{element.active===true ? 'Mining' : 'Offline'}}</span>
                     </div>

@@ -4,8 +4,8 @@
 
         <div v-if="this.displayType==='normal'" class="poolContainer">
 
-            <div v-for="(element, index) in this.minersList" :key="'miningPoolListElement '+index"  class="miner" :class="element.active===true ? 'activeMinner' : ''"  @click="selectMiner(index)">
-                <img alt="picker" src="public/assets/images/picker.png"/>
+            <div v-for="(element, index) in this.referralData.referees" :key="'miningPoolListElement '+index"  class="miner" :class="element.active===true ? 'activeMiner' : ''"  @click="selectReferralMiner(index)">
+                <img alt="picker" src="/public/assets/images/picker.png"/>
                 <span class="status">{{element.active===true ? 'Mining' : 'Offline'}}</span>
             </div>
 
@@ -23,21 +23,21 @@
 
             </div>
 
-            <div v-for="(element, index) in this.minersList" :key="'miningPoolListElement '+index" @click="selectMiner(index)" class="transactionInfo referralInfo">
+            <div v-for="(element, index) in this.referralData.referees" :key="'miningPoolListElement '+index" @click="selectReferralMiner(index)" class="transactionInfo referralInfo">
 
                 <div class="mobileTableShow">
                     <span class="mobileTableShowTitle">Status:</span>
-                    <span class="status" :class="element.active===true ? 'yellowText' : ''">{{element.active===true ? 'Mining' : 'Offline'}}</span>
+                    <span class="status" :class="element.online ? 'yellowText' : ''">{{element.active ? 'Mining' : 'Offline'}}</span>
                 </div>
 
                 <div class="mobileTableShow">
                     <span class="mobileTableShowTitle">Referral Address:</span>
-                    <img class="walletListImage" :src="getWalletImage(element.refereeAddress)" :title="element.refereeAddress"/>
+                    <img class="walletListImage" :src="getWalletImage(element.address)" :title="element.address"/>
                 </div>
 
                 <div class="mobileTableShow">
                     <span class="mobileTableShowTitle">Miner Address:</span>
-                    <img class="walletListImage" :src="getWalletImage(element.refereeMiner)" :title="element.refereeMiner"/>
+                    <img class="walletListImage" :src="getWalletImage(element.referralAddress)" :title="element.referralAddress"/>
                 </div>
 
                 <div class="mobileTableShow">
@@ -46,8 +46,8 @@
                 </div>
 
                 <div class="mobileTableShow">
-                    <span class="mobileTableShowTitle">Total Reward:</span>
-                    <span class="minedBy">{{element._rewardReferralSent}}</span>
+                    <span class="mobileTableShowTitle">Sent Reward:</span>
+                    <span class="minedBy">{{getSentReward(element)}} WEBD</span>
                 </div>
 
             </div>
@@ -64,14 +64,24 @@
 
         props: {
             displayType: {default: 'list'},
-            minersList: {default: 'list'},
+        },
+
+        data:()=>{
+            return {
+                referralData: {},
+            }
         },
 
         methods:{
 
-            selectMiner(index){
+            setReferralList(data){
+                console.log("this.referralData",this.referralData);
+                this.referralData = data;
+            },
 
-                this.$emit('selectMiner', index);
+            selectReferralMiner(index){
+
+                this.$emit('selectReferee', index);
 
             },
 
@@ -79,13 +89,17 @@
                 return WebDollar.Blockchain.Wallet.getAddressPic(address);
             },
 
-            loadPoolReferralStatistics(){
 
-            },
 
             getNextReward(element){
 
-                return element._rewardReferralSent - element._rewardReferralTotal ;
+                return (element.total - element.sent) / WebDollar.Applications.CoinsHelper.WEBD ;
+
+            },
+
+            getSentReward(element){
+
+              return element.sent /   WebDollar.Applications.CoinsHelper.WEBD;
 
             }
 
@@ -100,7 +114,7 @@
 
             if (typeof window !== "undefined") return;
 
-            WebDollar.StatusEvents.on("miner-pool/status", data => this.loadPoolReferralStatistics() );
+
 
         }
 
