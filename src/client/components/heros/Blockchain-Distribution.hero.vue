@@ -145,11 +145,6 @@
 
             });
 
-            setInterval(()=>{
-                console.log(WebDollar.Blockchain.blockchain.agent.status);
-                this.connected = WebDollar.Blockchain.blockchain.agent.status === 3;
-            }, 1000)
-
 
         },
 
