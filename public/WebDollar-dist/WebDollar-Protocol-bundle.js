@@ -2290,8 +2290,8 @@ consts.TERMINAL_WORKERS = {
     // file gets created on build
     CPU_WORKER_NONCES_WORK: 700,  //per seconds
 
-    CPU_CPP_WORKER_NONCES_WORK: 30000,  //per second
-    CPU_CPP_WORKER_NONCES_WORK_BATCH: 200,  //per second
+    CPU_CPP_WORKER_NONCES_WORK: 20000,  //per second
+    CPU_CPP_WORKER_NONCES_WORK_BATCH: 500,  //per second
 
     //NONCES_WORK should be way bigger than WORK_BATCHES
 
@@ -2305,7 +2305,7 @@ consts.TERMINAL_WORKERS = {
      * cpu-cpp
      * gpu
      */
-    TYPE: "cpu-cpp", //cpu-cpp
+    TYPE: "cpu", //cpu-cpp
 
     // file gets created on build
     PATH: './dist_bundle/terminal_worker.js',
@@ -2325,7 +2325,7 @@ consts.TERMINAL_WORKERS = {
     //  Threading isn't used:
     //  - if it detects only 1 cpu.
     //  - if you use 0 and u got only 2 cpus.
-    CPU_MAX: 8, //for CPU-CPP use, 2x or even 3x threads
+    CPU_MAX: 0, //for CPU-CPP use, 2x or even 3x threads
 };
 
 if (Object({"MINING_POOL_STATUS":undefined}).MAXIMUM_CONNECTIONS_FROM_BROWSER !== undefined)
@@ -28998,10 +28998,9 @@ class InterfaceBlockchainProtocolForkSolver{
 
         console.log(" < fork.forkChainLength", fork.forkChainLength, "fork.forkBlocks.length", fork.forkBlocks.length);
 
-        let trials = 1;
-        if (fork.forkChainLength - fork.forkStartingHeight > 5 )  trials = 2; else
-        if (fork.forkChainLength - fork.forkStartingHeight > 10 )  trials = 3; else
-        if (fork.forkChainLength - fork.forkStartingHeight > 30 )  trials = 5;
+        let trials = 2;
+        if (fork.forkChainLength - fork.forkStartingHeight > 5 )  trials = 3; else
+        if (fork.forkChainLength - fork.forkStartingHeight > 10 )  trials = 4;
 
         while ( (fork.forkStartingHeight + fork.forkBlocks.length < fork.forkChainLength) && !__WEBPACK_IMPORTED_MODULE_2_consts_global__["a" /* default */].TERMINATED ) {
 
