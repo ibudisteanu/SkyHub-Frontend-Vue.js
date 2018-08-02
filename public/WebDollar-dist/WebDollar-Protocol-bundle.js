@@ -2154,7 +2154,7 @@ consts.SETTINGS = {
 
     NODE: {
 
-        VERSION: "1.167.0",
+        VERSION: "1.171.0",
         VERSION_COMPATIBILITY: "1.167.0",
 
         VERSION_COMPATIBILITY_UPDATE: "",
@@ -19230,7 +19230,8 @@ class InterfaceBlockchainBlock {
 
         if (this._workDone !== undefined) return this._workDone;
 
-        this._workDone = __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_MAX_TARGET_BIG_INTEGER.divide( new BigInteger( this.hash.toString("hex"), 16 ) );
+        this._workDone = __WEBPACK_IMPORTED_MODULE_3_consts_const_global__["a" /* default */].BLOCKCHAIN.BLOCKS_MAX_TARGET_BIG_INTEGER.divide( new BigInteger( this.difficultyTargetPrev.toString("hex"), 16 ) );
+
         return this._workDone;
 
     }
@@ -19597,6 +19598,8 @@ class InterfaceBlockchainFork {
     async _validateFork(validateHashesAgain, firstValidation){
 
         //forkStartingHeight is offseted by 1
+
+        if (this.forkBlocks.length === 0) throw {message: "Fork doesn't have any block"};
 
         if (this.blockchain.blocks.length > this.forkStartingHeight + this.forkBlocks.length )
             throw {message: "my blockchain is larger than yours", position: this.forkStartingHeight + this.forkBlocks.length, blockchain: this.blockchain.blocks.length};
@@ -28883,6 +28886,9 @@ class InterfaceBlockchainProtocolForkSolver{
                 fork.forkChainStartingPoint = forkChainStartingPoint;
                 fork.forkChainLength = forkChainLength;
                 fork.forkChainWork = forkChainWork;
+
+                if ( fork.forkStartingHeight > fork.forkChainLength-1 )
+                    throw {message: "FORK is empty"};
 
                 await fork.initializeFork(); //download the requirements and make it ready
 
@@ -101369,11 +101375,14 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
             let chainWork = this.forkPrevChainWork;
 
             let forkWork = new BigInteger(0);
+
             for (let i=0; i< this.forkBlocks.length; i++ )
                 forkWork = forkWork.plus( this.forkBlocks[i].workDone );
 
-            if (!chainWork.plus(forkWork).equals(this.forkChainWork))
-                throw {message: "chainWork doesn't match forkChain", forkWork: forkWork.toString(), chainWork: chainWork.toString() };
+            //TODO just enable it
+            // TEMPORARY DISABLED for avoiding issues with the consensus by having a new way how to calculate the chainWork
+            // if (!chainWork.plus(forkWork).equals(this.forkChainWork))
+            //     throw {message: "chainWork doesn't match forkChain", forkWork: forkWork.toString(), chainWork: chainWork.toString() };
 
         }
 
