@@ -2205,7 +2205,8 @@ background-color:#ff2200}
 
 .walletDescriptionImage{
   border-radius: 50%;
-  margin: 0 auto;
-  padding-top: 20px;
+  border: solid 2px #5a5a5a;
   width: 60px;
+  margin: 0 auto;
+  margin-top: 10px;
 }

@@ -1,14 +1,14 @@
 <template>
 
-    <div>
+    <div v-if="this.referee.address!==''">
 
         <h2>Referral Details</h2>
 
         <div class="selectedMinerInfo">
 
             <div class="minerData address addressTextBox">
-                 <img v-show="this.referralLinkAddress !== ''" class="inlineBlock walletDescriptionImage" :src="getWalletImage(this.referralLinkAddress)" :title="this.referralLinkAddress"/>
-                 <span class="yellowColor">{{this.referralLinkAddress||'You were not referenced by anybody'}}</span>
+                 <img class="inlineBlock walletDescriptionImage" :src="getWalletImage(this.referee.address)" :title="this.referee.address"/>
+                 <span class="yellowColor"> {{this.referee.address}} </span>
             </div>
 
             <div class="statisticsContent">
@@ -19,33 +19,23 @@
                 </div>
 
                 <div class="dataStatisticsItem">
-                    <span class="titlePool">Referee Address::</span>
-                    <span class="minerData">
-                        <img v-show="this.referee.address !== ''" class="inlineBlock" :src="getWalletImage(this.referee.address)" :title="this.referee.address"/>
-                        <span class="inlineBlock" style="font-size: 10px">
-                            {{this.referee.address}}
-                        </span>
-                    </span>
-                </div>
-
-                <div class="dataStatisticsItem">
-                    <span class="titlePool">Estimated* Hash/s:</span>
+                    <span class="titlePool">Hash/s:</span>
                     <span class="minerData">not specified at the moment</span>
                 </div>
 
-                <div class="mobileTableShow">
-                    <span class="mobileTableShowTitle">Potential Reward:</span>
-                    <span class="minedBy">{{this.getCoins(this.referee.total)}}  WEBD</span>
+                <div class="dataStatisticsItem">
+                    <span class="titlePool">Potential Reward:</span>
+                    <span class="minerData">{{this.getCoins(this.referee.total)}}  WEBD</span>
                 </div>
 
-                <div class="mobileTableShow">
-                    <span class="mobileTableShowTitle">Confirmed Reward:</span>
-                    <span class="minedBy">{{this.getCoins(this.referee.confirmed)}} WEBD</span>
+                <div class="dataStatisticsItem">
+                    <span class="titlePool">Confirmed Reward:</span>
+                    <span class="minerData">{{this.getCoins(this.referee.confirmed)}} WEBD</span>
                 </div>
 
-                <div class="mobileTableShow">
-                    <span class="mobileTableShowTitle">Total Reward Sent:</span>
-                    <span class="minedBy">{{this.getCoins(this.referee.sent)}}  WEBD</span>
+                <div class="dataStatisticsItem">
+                    <span class="titlePool">Total Reward Sent:</span>
+                    <span class="minerData">{{this.getCoins(this.referee.sent)}}  WEBD</span>
                 </div>
 
             </div>
@@ -81,7 +71,6 @@
 
             if (typeof window === "undefined") return;
 
-
         },
 
         methods: {
@@ -105,7 +94,7 @@
 
             getCoins(value){
                 return (value||0) / WebDollar.Applications.CoinsHelper.WEBD;
-            }
+            },
 
         },
 
@@ -142,8 +131,22 @@
 
     .statisticsContent{
         display: block;
-        padding: 20px 10px 0 10px;
+        padding: 0 0 0 10px;
         overflow-y: scroll;
     }
+
+    .minerData span{
+        width: 100%;
+    }
+
+    .walletDescriptionImage{
+        border: solid 2px #9a8552;
+    }
+
+    .statisticsContent .dataStatisticsItem{
+        display: grid;
+        grid-template-columns: 40% 1fr;
+    }
+
 
 </style>
