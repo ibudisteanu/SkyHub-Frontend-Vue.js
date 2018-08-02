@@ -218,7 +218,7 @@
 
                     <div class="our-team ">
                         <div class="team-pic">
-                            <img src="/public/assets/images/team/CristianAntal.jpg" alt="Constantin Busuioceanu" title="Constantin Busuioceanu">
+                            <img src="/public/assets/images/team/CristianAntal.jpg" alt="Cristian Antal" title="Cristian Antal">
                             <div class="over-layer">
                                 <ul class="social-link">
                                     <!--<li><a href="https://www.facebook.com/Ionut.Alex.Panait" target="_blank"  class="fa fa-facebook"></a></li>-->
