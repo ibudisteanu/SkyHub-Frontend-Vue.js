@@ -18,7 +18,7 @@
 @media only screen and (max-width: 1200px){
 
     .poolSingleButton{
-        margin: 50px 0!important;
+        margin: 20px 0!important;
     }
 
     #miningPoolController .generalController{
@@ -26,11 +26,19 @@
     }
 
     #miningPoolController .generalController{
-        border-right: solid 1px #505050;
+        border-right: solid 1px #fff;
     }
 
     .dataStatisticsItem:last-child{
         border-bottom: none!important;
+    }
+
+    .listType {
+        margin-top: 40px !important;
+    }
+
+    .infoSection{
+        border: none!important;
     }
 
     #miningPoolController{
@@ -69,18 +77,34 @@
 
     .infoSection h2{
         display: none!important;
+        border-color: none;
     }
 
     #miningPoolController{
         max-height: 230px;
-        border-bottom: solid 1px#505050;
+        border-bottom: solid 1px #fff;
         overflow: hidden;
         position: fixed;
         z-index: 1;
     }
 
-}
+    .addressTextBox{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
 
+    .addressTextBox span{
+        line-height: 50px;
+    }
+
+    .addressTextBox img{
+        width: 30px;
+        border: none;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+}
 
 @media only screen and (max-width: 1100px){
 
@@ -320,6 +344,10 @@
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
 
+    .listType{
+        margin-top: 10px!important;
+    }
+
     .mottoWebSite{
         margin-top: 30px;
         line-height: 30px;
@@ -378,13 +406,13 @@
     }
 
     .infoSection{
-        margin-top: 20px;
+        margin-top: 0px;
     }
 
     #menu .openedMenuLink{
         width: 100%;
         display: block;
-        padding: 15px 16px;
+        padding: 15px 0;
         border-top: solid 1px #3c3c3c;
     }
 
@@ -606,6 +634,47 @@
 }
 
 @media only screen and (max-width: 610px) {
+
+    .listType{
+        margin-bottom: 10px;
+    }
+
+    .addressOnMobile{
+        font-size: 10px;
+    }
+
+    .addressOnMobile .mobileTableShowTitle{
+        display: none!important;
+    }
+
+    .showOnlyOnMobile{
+        display: block;
+    }
+
+    .showOnlyOnMobile .walletListImage{
+        display: block;
+    }
+
+    .walletListImage{
+        display: none;
+    }
+
+    .smallFontAddress{
+        display: block;
+    }
+
+    .selectedMinerInfo{
+        display: none;
+    }
+
+    .infoSection{
+        display: none;
+        margin-left: 8px;
+    }
+
+    .poolSectionContainer .mobileTableShowTitle{
+        display: block;
+    }
 
     .transactionInfo{
         display: block;

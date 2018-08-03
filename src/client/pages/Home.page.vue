@@ -14,13 +14,15 @@
 
                 <newsletter-hero/>
 
+                <new-crypto-generation-hero/>
+
+                <blockchain-distribution-hero/>
+
                 <miner-pool-hero v-show="!poolActivated"/>
 
                 <pool-hero v-show="poolActivated"/>
 
-                <new-crypto-generation-hero/>
-
-                <blockchain-distribution-hero/>
+                <paper/>
 
                 <timeline-hero/>
 
@@ -55,6 +57,7 @@
     import NewCryptoGenerationHero from "client/components/heros/Features.hero.vue";
     import BlockchainDistributionHero from "client/components/heros/Blockchain-Distribution.hero.vue";
     import MultipleTabs from "../components/heros/Multiple-Tabs.hero.vue";
+    import Paper from "../components/heros/Paper.hero.vue";
 
     export default {
 
@@ -75,6 +78,7 @@
             MinerPoolHero,
             MultipleTabs,
             NewsletterHero,
+            Paper
         },
 
         data: () => {

@@ -215,6 +215,7 @@ a:hover{
   top:0;
   background-color: #1f1f1f;
   z-index: 10;
+  border-bottom: solid 1px;
 }
 
 #menu{
@@ -1303,13 +1304,6 @@ background-color:#ff2200}
   display: none;
 }
 
-#yourPoolSection .poolContainer .activeMiner img{
-  display: block;
-  width: 15px;
-  margin: 21px;
-  animation: spinMining 2s linear infinite;
-}
-
 #yourPoolSection .poolContainer .activeMiner{
   background-image: url('./../images/activeBrowserMining.png')!important;
   width: 58px!important;
@@ -1332,7 +1326,7 @@ background-color:#ff2200}
   margin-top: 16px;
 }
 #yourPoolSection .poolContainer .activeMiner .status{
-  display: none;
+  color: #fff
 }
 
 @keyframes spinMining {
@@ -1429,7 +1423,7 @@ background-color:#ff2200}
   padding-top: 65px;
   background-color: #2d2d2d;
   border-bottom: solid 1px #444;
-  padding-bottom: 50px;
+  padding-bottom: 0px;
   height: 150px;
   margin-top: 15px;
 }
@@ -1829,11 +1823,11 @@ background-color:#ff2200}
   max-width: 300px;
   margin: 0 auto;
   display: block;
-  border: none;
+  border: solid 1px #464646;
+  border-radius: 5px;
   background-color: #262626;
   padding: 10px;
   color: #fff;
-  border-radius: 2px;
 }
 
 .newsletterText{
@@ -2070,6 +2064,8 @@ background-color:#ff2200}
 
 .selectedMinerInfo .address{
   font-size: 10px;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .titlePool{
@@ -2205,8 +2201,19 @@ background-color:#ff2200}
 
 .walletDescriptionImage{
   border-radius: 50%;
-  border: solid 2px #5a5a5a;
   width: 60px;
   margin: 0 auto;
   margin-top: 10px;
+}
+
+.showOnlyOnMobile{
+  display: none;
+}
+
+.smallFontAddress{
+  display: none;
+}
+
+#miningPoolController{
+  border-bottom: solid 1px#ffffff;
 }
