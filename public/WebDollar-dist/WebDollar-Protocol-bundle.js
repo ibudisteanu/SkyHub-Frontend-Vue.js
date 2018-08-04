@@ -30472,6 +30472,8 @@ class NodeSignalingClientProtocol {
 
     initializeSignalingClientService(socket) {
 
+        //This will deactivate WebRTC on client
+
         this._initializeSimpleProtocol(socket);
 
         this._initializeSignalingClientService1(socket);
@@ -30840,7 +30842,6 @@ class MiniBlockchainAdvancedProtocol extends __WEBPACK_IMPORTED_MODULE_0__Mini_B
                     difficultyTarget: difficultyTarget,
                     timeStamp: timestamp,
                     hashPrev: hashPrev,
-                    chainWork: this.blockchain.blocks.chainWorkSerialized
                 });
 
 
@@ -101755,11 +101756,6 @@ class MiniBlockchainLightProtocolForkSolver extends inheritForkSolver{
             fork.forkPrevTimeStamp = answer.timeStamp;
             fork.forkPrevHashPrev = answer.hashPrev;
 
-            if (answer.chainWork !== undefined)
-                fork.forkPrevChainWork = __WEBPACK_IMPORTED_MODULE_4_common_utils_Serialization__["a" /* default */].deserializeBigInteger(answer.chainWork);
-            else
-                fork.forkPrevChainWork = new BigInteger(0);
-
             //let's download the requested blocks for proving the difficulty
             for (let i = 0; i < fork.forkDifficultyCalculation.difficultyAdditionalBlocks.length; i++ ){
 
@@ -102032,6 +102028,13 @@ class MiniBlockchainLightFork extends __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
                 throw {message: "Accountant Tree sum is smaller than previous accountant Tree!!! Impossible", forkSum: forkSum, rewardShould: __WEBPACK_IMPORTED_MODULE_3_common_blockchain_global_Blockchain_Mining_Reward__["a" /* default */].getSumReward(diffIndex-1)};
 
             this.blockchain.blocks.blocksStartingPoint = diffIndex;
+
+            //forkPrevChainWork is actually the current ChainWork
+
+            this.forkPrevChainWork = this.forkChainWork;
+            for (let i=0; i<this.forkBlocks.length; i++)
+                this.forkPrevChainWork = this.forkPrevChainWork.minus( this.forkBlocks[i].workDone );
+
             this.blockchain.blocks.chainWork = this.forkPrevChainWork;
 
             this.blockchain.lightPrevDifficultyTargets[diffIndex] = this.forkPrevDifficultyTarget;
