@@ -19951,10 +19951,6 @@ class InterfaceBlockchainFork {
 
         if (this.forkBlocks.length === 0) throw {message: "Fork doesn't have any block"};
 
-        if (this.blockchain.blocks.length === this.forkStartingHeight + this.forkBlocks.length ) //I need to check
-            if ( this.forkBlocks[0].hash.compare(this.blockchain.getHashPrev(this.forkStartingHeight + 1)) >= 0 )
-                throw { message: "blockchain has same length, but your block is not better than mine" };
-
         if (validateHashesAgain)
             for (let i = 0; i < this.forkBlocks.length; i++){
 
@@ -29235,8 +29231,8 @@ class InterfaceBlockchainProtocolForkSolver{
             let bIncludeBan = true;
 
             if (this.blockchain.agent.light)
-                if (["fork is something new", "blockchain has same length, but your block is not better than mine",
-                        "discoverAndProcessFork - fork already found by socket", "my blockchain is larger than yours",
+                if ([ "FORK is empty", "fork is something new",
+                        "discoverAndProcessFork - fork already found by socket",
                         "same proof, but your blockchain is smaller than mine", "Your proof is worst than mine because you have the same block", "fork proof was already downloaded" ].indexOf( exception.message ) >= 0)
                     bIncludeBan = false;
 
@@ -56554,8 +56550,7 @@ class InterfaceBlockchainProtocolForksManager {
                     let bIncludeBan = true;
 
                     if (this.blockchain.agent.light)
-                        if (["fork is something new", "blockchain has same length, but your block is not better than mine",
-                             "discoverAndProcessFork - fork already found by socket", "my blockchain is larger than yours",
+                        if (["fork is something new", "discoverAndProcessFork - fork already found by socket",
                              "same proof, but your blockchain is smaller than mine", "Your proof is worst than mine because you have the same block", "fork proof was already downloaded" ].indexOf( exception.message ) >= 0)
                             bIncludeBan = false;
 
