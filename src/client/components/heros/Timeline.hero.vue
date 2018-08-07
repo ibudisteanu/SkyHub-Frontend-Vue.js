@@ -94,7 +94,17 @@
                     <div class="timeline-content">
                         <h5 class="title">EVANGELISM & MARKETING</h5>
                         <p class="description">
-                            Growing the community, running bounties programs & attend to cryptocurrency confereces.
+                            Growing the community, running bounties programs & attend to cryptocurrency conferences.
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline timelineUnfinishedMilestones">
+                    <div class="timeline-icon unfinishedMilestones"><i class="fa fa-gift"></i></div>
+                    <span class="year">Q4 2018</span>
+                    <div class="timeline-content">
+                        <h5 class="title">Offline Transactions</h5>
+                        <p class="description">
+                            Allowing users add a new optional security layer by signing offline transactions using their wallets on desktop or mobile app.
                         </p>
                     </div>
                 </div>

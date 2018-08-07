@@ -149,6 +149,10 @@
 
 @media only screen and (max-width : 992px) {
 
+    #papers .twoColums {
+        grid-column-gap: 50px;
+    }
+
     .btnPosition{
         margin-top: 60px!important;
     }
@@ -337,6 +341,60 @@
 
     .our-team:hover{
         transform: none;
+    }
+
+    #papers .twoColums{
+        display: block;
+    }
+
+    #papers .paperItem{
+        height: auto;
+        padding: 20px 0 30px 0;
+    }
+
+    #papers .blackPaper .paperItem2{
+        padding-bottom: 0;
+    }
+
+    #papers .whitePaper .paperItem2{
+        padding-top: 0;
+    }
+
+    .blackPaper{
+        border-bottom-right-radius: 0!important;
+        border-top-right-radius: 0!important;
+    }
+
+    .whitePaper{
+        border-bottom-left-radius: 0!important;
+        border-top-left-radius: 0!important;
+    }
+
+    #papers .specialMarginTop{
+        margin-top: 0!important;
+        padding: 0;
+    }
+
+    .paperItemColor1{
+        background-color: transparent!important;
+    }
+
+    .paperItemColor2{
+        background-color: transparent!important;
+    }
+
+    .paperItemColor3{
+        background-color: transparent!important;
+    }
+
+    .paperImg:hover{
+        width: 160px!important;
+        margin: 40px 0 10px 0!important;
+        transition: all 0.3s ease;
+    }
+
+    #paper{
+        padding-top: 100px;
     }
 
 }
@@ -775,6 +833,10 @@
 }
 
 @media only screen and (max-width : 370px) {
+
+    .linkIconSocial img{
+        width: 30px!important;
+    }
 
     .minedBy{
         font-size: 10px;

@@ -13,7 +13,7 @@
 
                         <span>Connection:</span>
                         <select v-model="poolsListSelected" class="poolSelect" @change="handleConnectionSelect">
-                            <option class="poolSelectOption" >Pool Mining Disabled</option>
+                            <option class="poolSelectOption" >Consensus (No Pool)</option>
                             <option v-for="(poolListElement, index) in this.poolsList" class="poolSelectOption"  >
                                 {{poolListElement.poolName}}
                             </option>

@@ -590,6 +590,9 @@ background-color:#ff2200}
   position: relative;
   z-index: 1;
 }
+.main-timeline .timeline-content .title{
+  text-transform: uppercase;
+}
 .main-timeline .timeline-content:before,
 .main-timeline .timeline-content:after{
   content: "";
@@ -1802,19 +1805,19 @@ background-color:#ff2200}
   color: #262626;
   text-align: center;
   font-size: 14px;
-  background-color: #fec02c;
+  background-color: #fff;
   width: 200px;
   margin: 0 auto;
   font-weight: bolder;
   line-height: 40px;
   cursor:pointer;
-  border-radius: 10px;
+  border-radius: 25px;
   margin-top: 40px;
   transition: all 0.30s ease 0s;
 }
 
 .websiteButton:hover{
-  background-color: #fed600;
+  background-color: #fec02c;
   transition: all 0.30s ease 0s;
 }
 

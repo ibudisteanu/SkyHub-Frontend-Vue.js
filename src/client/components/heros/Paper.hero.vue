@@ -1,32 +1,46 @@
 <template>
 
-    <div id="papers" class="fullSection">
+    <div id="papers" class="">
 
-        <div class="verticalAlignMiddle">
+        <span class="pageTitle alignCenter bigMarginBottom">Papers</span>
 
-            <span class="pageTitle alignCenter bigMarginBottom">Papers</span>
+        <div class="twoColums specialMarginTop">
 
-            <div class="twoColums maxWidthSection specialMarginTop">
+            <div class="paperItem paperItemColor1 blackPaper">
 
-                <div>
+                <div class="paperItem2 paperItemColor2">
 
-                    <img class="paperImg" src="public/assets/images/black_paper.svg">
-                    <h2>Black Paper</h2>
+                    <div class="paperItem2 paperItemColor3">
 
-                    Short presentation of the cocept
+                        <img class="paperImg" src="public/assets/images/black_paper.png">
+
+                        <h2>Black Paper</h2>
+
+                    </div>
 
                 </div>
 
-                <a href="/public/doc/WebDollar-White-Paper.pdf" target="_blank">
-
-                    <img class="paperImg" src="public/assets/images/black_paper1.svg">
-                    <h2>White Paper</h2>
-
-                    Scientific presentation of the concept
-
-                </a>
+                <span>Short presentation of the project</span>
 
             </div>
+
+            <a href="/public/doc/WebDollar-White-Paper.pdf" target="_blank" class="paperItem paperItemColor1 whitePaper">
+
+                <div class="paperItem2 paperItemColor2">
+
+                    <div class="paperItem2 paperItemColor3">
+
+                        <img class="paperImg" src="public/assets/images/white_paper.png">
+
+                        <h2>White Paper</h2>
+
+                    </div>
+
+                </div>
+
+                <span>Scientific presentation of the project</span>
+
+            </a>
 
         </div>
 
@@ -51,8 +65,67 @@
     }
 
     .paperImg{
-        width: 140px;
-        margin: 40px 0;
+        width: 160px;
+        margin: 40px 0 10px 0;
+        transition: all 0.3s ease;
+    }
+
+    .paperImg:hover{
+        margin-top: 10px;
+        margin-bottom: 0;
+        transition: all 0.3s ease;
+    }
+
+    #papers h2{
+        color: #fff;
+        font-weight: bolder!important;
+    }
+
+    #papers .twoColums{
+        grid-column-gap: 150px;
+    }
+
+    .paperItem{
+        background-color: #ffffff2e;
+        padding: 10px 0 30px 0;
+        height: 300px;
+        overflow: hidden;
+    }
+
+    .paperItem span{
+        margin-top: 12px;
+    }
+
+    .paperItem2{
+        padding-top: 10px;
+        display: block;
+        padding-bottom: 10px
+    }
+
+    .paperItemColor1{
+        background-color: #262626;
+    }
+
+    .paperItemColor2{
+        background-color: #414141;
+    }
+
+    .paperItemColor3{
+        background-color: #262626;
+    }
+
+    #papers .specialMarginTop{
+        margin-top: 100px;
+    }
+
+    .blackPaper{
+        border-bottom-right-radius: 30px;
+        border-top-right-radius: 30px;
+    }
+
+    .whitePaper{
+        border-bottom-left-radius: 30px;
+        border-top-left-radius: 30px;
     }
 
 </style>
