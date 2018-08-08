@@ -2,13 +2,11 @@
 
     <div v-if="this.referee.address!==''">
 
-        <h2>Referral Details</h2>
-
         <div class="selectedMinerInfo">
 
             <div class="minerData address addressTextBox">
                  <img class="inlineBlock walletDescriptionImage" :src="getWalletImage(this.referee.address)" :title="this.referee.address"/>
-                 <span class="yellowColor"> {{this.referee.address}} </span>
+                 <span class="specialYellowColor"> {{this.referee.address}} </span>
             </div>
 
             <div class="statisticsContent">
@@ -47,6 +45,8 @@
 </template>
 
 <script>
+
+    import Utils from 'src/utils/util-functions'
 
     export default{
 
@@ -93,7 +93,7 @@
             },
 
             getCoins(value){
-                return (value||0) / WebDollar.Applications.CoinsHelper.WEBD;
+                return Utils.formatMoneyNumber(value,2);
             },
 
         },
@@ -108,7 +108,6 @@
         background-color: #2d2d2d;
         width: 100%;
         border-top: solid 1px #444;
-        border-bottom: solid 1px #444;
         text-align: center;
     }
 
@@ -139,14 +138,13 @@
         width: 100%;
     }
 
-    .walletDescriptionImage{
-        border: solid 2px #9a8552;
-    }
-
     .statisticsContent .dataStatisticsItem{
         display: grid;
         grid-template-columns: 40% 1fr;
     }
 
+    .specialYellowColor{
+        color: #ffeec4;
+    }
 
 </style>

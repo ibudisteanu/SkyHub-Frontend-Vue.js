@@ -9,9 +9,9 @@
                 <img v-on:click="this.collapseMenuBack" src="/public/assets/images/WebDollar-logo-white.png" alt="webDollar logo" id="logo" title="webDollar logo"/>
             </router-link>
 
-            <a @click="this.collapseMenuBack" href="/public/doc/WebDollar-White-Paper.pdf" target="_blank" :class="this.mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
-                <div v-on:click="this.collapseMenuBack">Paper</div>
-            </a>
+            <router-link to="/#papers" :class="mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
+                 <div v-on:click="this.collapseMenuBack">Paper</div>
+            </router-link>
 
             <a href="http://webdscan.io" :class="this.mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' " target="_blank" >
                 <!--<router-link to="/explorer" :class="this.mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">-->

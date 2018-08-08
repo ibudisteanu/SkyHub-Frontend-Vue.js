@@ -20,11 +20,11 @@
 
                     <div class="verticalAlignMiddle">
 
-                        <div class="twoColums poolQuickActions" v-if="this.poolReferralFee!=0">
+                        <div class="poolQuickActions" v-if="this.poolReferralFee!=0">
 
-                            <router-link class="copyPoolLink" to="/pool">
-                                Referrals Dashboard
-                            </router-link>
+                            <!--<router-link class="copyPoolLink" to="/pool">-->
+                                <!--Referrals Dashboard-->
+                            <!--</router-link>-->
 
                             <div>
 
@@ -32,7 +32,9 @@
                                     Copy Referral Link
                                 </p>
 
-                                <span :class="this.isNotNullColor"> Pool Referral Fee  {{this.poolReferralFee}} % </span>
+                                <span style=""></span>
+
+                                <span :class="this.isNotNullColor"> Earn {{this.poolReferralFee}} % WEBD from each invited friend</span>
 
                             </div>
 

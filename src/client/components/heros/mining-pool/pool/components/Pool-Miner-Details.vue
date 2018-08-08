@@ -83,6 +83,8 @@
 
 <script>
 
+    import Utils from 'src/utils/util-functions'
+
     export default{
 
         props: {
@@ -121,7 +123,7 @@
 
     .dataStatisticsItem{
         display: grid;
-        border-top:solid 1px #3e3e3e;
+        border-top:solid 1px #545454;
         grid-template-columns: 150px 1fr;
     }
 

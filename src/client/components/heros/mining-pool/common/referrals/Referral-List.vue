@@ -2,14 +2,13 @@
 
     <div class="poolSectionContainer">
 
-        <div v-if="this.referralData.referees.length>0">
+        <div v-if="this.referralData.referees">
 
             <div v-if="this.displayType==='normal'" class="poolContainer">
 
-                <div v-for="(element, index) in this.referralData.referees" :key="'miningPoolListElement '+index"  class="miner" :class="element.active===true ? 'activeMiner' : ''"  @click="selectReferralMiner(index)">
-                    <img alt="picker" src="/public/assets/images/picker.png"/>
+                <div v-for="(element, index) in this.referralData.referees" :key="'miningPoolListElement '+index"  class="miner" :class="element.online===true ? 'activeMiner' : ''"  @click="selectReferralMiner(index)">
                     <img class="walletListImage normalListImage" :src="getWalletImage(element.address)" :title="element.address"/>
-                    <span class="status">{{element.active===true ? 'Mining' : 'Offline'}}</span>
+                    <span class="status">{{element.online===true ? 'Mining' : 'Offline'}}</span>
                 </div>
 
             </div>
@@ -29,12 +28,18 @@
 
                     <div class="mobileTableShow">
                         <span class="mobileTableShowTitle">Status:</span>
-                        <span class="status" :class="element.online ? 'yellowText' : ''">{{element.active ? 'Mining' : 'Offline'}}</span>
+                        <span class="status" :class="element.online ? 'yellowText' : ''">{{element.online ? 'Mining' : 'Offline'}}</span>
                     </div>
 
-                    <div class="mobileTableShow">
+                    <div class="mobileTableShow showOnlyOnMobile">
+                        <span class="mobileTableShowTitle">Address Icon:</span>
+                        <img class="walletListImage" :src="getWalletImage(element.address)" :title="element.address"/>
+                    </div>
+
+                    <div class="mobileTableShow addressOnMobile">
                         <span class="mobileTableShowTitle">Miner Address:</span>
                         <img class="walletListImage" :src="getWalletImage(element.address)" :title="element.address"/>
+                        <span class="smallFontAddress">{{element.address}}</span>
                     </div>
 
                     <div class="mobileTableShow">
@@ -55,9 +60,10 @@
 
         <div v-if="this.referralData.referees === undefined">
 
-            <span>You don't have referrals yet</span>
+            <span class="warningTitle">You don't have referrals yet</span>
+            <span> You can earn WEBD only by inviting your friends to mine in the current selected pool. </span>
 
-            <p class="copyPoolLink" @click="copyToClipboard">
+            <p class="copyPoolLink buttonReff" @click="copyToClipboard">
                 Copy Referral Link
             </p>
 
@@ -69,7 +75,9 @@
 
 <script>
 
+    import Vue from 'vue/dist/vue';
     import Clipboard from 'v-clipboard';
+    import Utils from 'src/utils/util-functions'
 
     Vue.use(Clipboard);
 
@@ -77,18 +85,18 @@
 
         props: {
             displayType: {default: 'list'},
+            poolURLReferral: {default: ''},
         },
 
         data:()=>{
             return {
                 referralData: {},
-                poolURLReferral: '',
             }
         },
 
         methods:{
 
-            setReferralList(data){
+            async setReferralList(data){
                 console.log("this.referralData",this.referralData);
                 this.referralData = data;
             },
@@ -103,17 +111,15 @@
                 return WebDollar.Blockchain.Wallet.getAddressPic(address);
             },
 
-
-
             getNextReward(element){
 
-                return (element.total - element.sent) / WebDollar.Applications.CoinsHelper.WEBD ;
+                return Utils.formatMoneyNumber(element.total,2);
 
             },
 
             getSentReward(element){
 
-              return element.sent /   WebDollar.Applications.CoinsHelper.WEBD;
+              return Utils.formatMoneyNumber(element.sent);
 
             },
 
@@ -158,6 +164,18 @@
         margin-top: 0;
         line-height: 2;
         margin-top: 0!important;
+    }
+
+    .warningTitle{
+        margin: 50px 0 10px 0;
+        font-size: 24px;
+        text-align: center;
+        text-transform: uppercase;
+        width: 100%;
+    }
+
+    .buttonReff{
+        margin-top: 50px;
     }
 
 </style>

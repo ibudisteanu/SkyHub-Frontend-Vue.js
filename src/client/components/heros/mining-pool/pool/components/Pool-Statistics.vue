@@ -7,34 +7,31 @@
             <span class="oneLineText">
                 Your Role: <span class="normalSpan yellowColor"> {{statsType}} </span>
             </span>
-            <span class="oneLineText">
 
-                Pool Name:
-                <select v-model="poolsListSelected" class="poolSelect" @change="handlePoolSelect">
-                    <option class="poolSelectOption" >Pool Mining Disabled</option>
-                    <option v-for="(poolListElement, index) in this.poolsList" class="poolSelectOption"  >
-                        {{poolListElement.poolName}}
-                    </option>
-                </select>
-            </span>
             <span class="oneLineText">
                 Pool Status: <span class="normalSpan Uppercase" :class="this.selectStatusColor">{{ this.poolStatus }}</span>
             </span>
+
             <span class="oneLineText">
                 Pool Fee: <span class="normalSpan yellowColor"> <a :href="this.poolWebsite"> {{this.poolFee}} %</a></span>
             </span>
+
             <span class="oneLineText">
                 Online Hosts: <span class="normalSpan" :class="this.selectOnlineHostColor"> {{ this.onlineHosts }} </span>
             </span>
+
             <span class="oneLineText">
                 Pool Hash: <span class="normalSpan yellowColor"> {{this.getHashrate }} {{this.getHashrateSign}}</span>
             </span>
+
             <span class="oneLineText">
                 Pool Power: <span class="normalSpan yellowColor"> {{this.getPoolPower }}% </span>
             </span>
+
             <span class="oneLineText">
                 Miners in pool: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolMinersOnline}} </span>
             </span>
+
             <span class="oneLineText">
                 To be Paid: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksConfirmed}} </span> Paid already: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksConfirmedAndPaid}} </span> <br/>
                 Being confirmed: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksBeingConfirmed}} </span> Unconfirmed <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksUnconfirmed}} </span>
@@ -44,11 +41,9 @@
                 Time to next block: <span class="normalSpan" :class="this.isNotNullColor"> {{this.showPoolRemainingTime}} </span>
             </span>
 
-
             <span v-if="this.statsType === 'miner' " class="oneLineText">
                 Referral Potential Reward: <span class="normalSpan" :class="this.isNotNullColor"> {{this.referralPotential}} WEBD</span>
             </span>
-
 
         </div>
 
@@ -75,7 +70,6 @@
         props: {
 
             statsType: {default: 'pool'},
-
 
             poolName: '',
             poolWebsite: '',
