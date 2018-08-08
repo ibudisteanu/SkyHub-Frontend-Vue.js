@@ -108429,7 +108429,7 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
 
             if (this.blockchain.proofPi !== undefined && this.blockchain.proofPi.hash.equals(proofPiData.hash)) {
 
-                if (this.forkChainWork.isGreaterThan(this.blockchain.blocks.chainWork)){
+                if (this.forkChainWork.greater(this.blockchain.blocks.chainWork)){
                     this.forkProofPi = this.blockchain.proofPi;
                     return true;
                 } //you have actually more forks but with the same proof
