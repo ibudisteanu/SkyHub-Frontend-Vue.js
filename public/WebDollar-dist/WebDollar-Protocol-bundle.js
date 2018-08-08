@@ -2156,7 +2156,7 @@ consts.SETTINGS = {
 
     NODE: {
 
-        VERSION: "1.178",
+        VERSION: "1.179",
         VERSION_COMPATIBILITY: "1.162.0",
 
         VERSION_COMPATIBILITY_UPDATE: "",
@@ -22755,6 +22755,11 @@ module.exports = __webpack_require__(718);
 
 class PPowBlockchainProofPi extends __WEBPACK_IMPORTED_MODULE_0__PPoW_Blockchain_Proof_Basic__["a" /* default */]{
 
+    constructor(blockchain, blocks){
+        super(blockchain, blocks)
+        this.proofGzip = undefined;
+    }
+
     /**
      * Returns ths upchain of current chain(C ↑ µ).
      */
@@ -29339,7 +29344,7 @@ class InterfaceBlockchainProtocolForkSolver{
 
         while ( (fork.forkStartingHeight + fork.forkBlocks.length < fork.forkChainLength) && !__WEBPACK_IMPORTED_MODULE_2_consts_global__["a" /* default */].TERMINATED ) {
 
-``
+
             // TODO you can paralyze the downloading code from multiple sockets
 
             console.log("downloading block", nextBlockHeight);
@@ -31065,7 +31070,7 @@ class PPoWBlockchainProtocol extends __WEBPACK_IMPORTED_MODULE_0_common_blockcha
                 let proofPi;
 
                 if (this.blockchain.agent.light) proofPi = this.blockchain.proofPi;
-                else proofPi = this.blockchain.prover.proofPi.proofGzip; // full node
+                else proofPi = this.blockchain.prover.proofPi; // full node
 
 
                 if (proofPi.proofGzip !== undefined) serialization = proofPi.proofGzip;
@@ -32539,6 +32544,8 @@ module.exports = bytesToUuid;
         {"addr": ["https://node6.petreus.ro:443"]}, // Thanks to Dani Petreus
         {"addr": ["https://node7.petreus.ro:443"]}, // Thanks to Dani Petreus
         {"addr": ["https://node8.petreus.ro:443"]}, // Thanks to Dani Petreus
+        {"addr": ["https://node9.petreus.ro:443"]}, // Thanks to Dani Petreus
+        {"addr": ["https://node10.petreus.ro:443"]}, // Thanks to Dani Petreus
 
         {"addr": ["https://webdollarpool.win:80/"]}, // Thanks to @vladimirpetre
 
@@ -32562,7 +32569,7 @@ module.exports = bytesToUuid;
         {"addr": ["https://wd.hoste.ro:40007"]}, // Thanks to @morion4000
         {"addr": ["https://wd.hoste.ro:40008"]}, // Thanks to @morion4000
         {"addr": ["https://wd.hoste.ro:40009"]}, // Thanks to @morion4000
-        
+
         {"addr": ["https://pool.webdollarminingpool.com:41000"]}, // Thanks to @morion4000
 
         //{"addr": ["https://webdollar.network:5000"]}, // Thanks to @ader1990
@@ -32579,7 +32586,7 @@ module.exports = bytesToUuid;
         {"addr": ["https://int-webd.com:5010"]}, // Thanks to @int_webd
         {"addr": ["https://int-webd.com:5011"]}, // Thanks to @int_webd
         {"addr": ["https://int-webd.com:5012"]}, // Thanks to @int_webd
-        
+
         // {"addr": ["https://bacm.ro:80"]}, //Thanks to @jigodia
         // {"addr": ["https://bacm.ro:443"]}, //Thanks to @jigodia
         // {"addr": ["https://bacm.ro:8080"]}, //Thanks to @jigodia
@@ -32620,15 +32627,15 @@ module.exports = bytesToUuid;
         {"addr": ["https://chucknorris.webdollarvpn.io:8088"]}, // Thanks to @cbusuioceanu
         {"addr": ["https://chucknorris.webdollarvpn.io:8089"]}, // Thanks to @cbusuioceanu
         {"addr": ["https://chucknorris.webdollarvpn.io:8090"]}, // Thanks to @cbusuioceanu
-        
+
         /*{"addr": ["https://angrybirds.webdollarvpn.io:1666"]}, // Thanks to @cbusuioceanu
         {"addr": ["https://angrybirds.webdollarvpn.io:2666"]}, // Thanks to @cbusuioceanu
         {"addr": ["https://angrybirds.webdollarvpn.io:3666"]}, // Thanks to @cbusuioceanu
         {"addr": ["https://angrybirds.webdollarvpn.io:4666"]}, // Thanks to @cbusuioceanu
         {"addr": ["https://angrybirds.webdollarvpn.io:5666"]}, // Thanks to @cbusuioceanu
         {"addr": ["https://angrybirds.webdollarvpn.io:7666"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://angrybirds.webdollarvpn.io:8666"]}, // Thanks to @cbusuioceanu   
-        {"addr": ["https://angrybirds.webdollarvpn.io:9666"]}, // Thanks to @cbusuioceanu*/             
+        {"addr": ["https://angrybirds.webdollarvpn.io:8666"]}, // Thanks to @cbusuioceanu
+        {"addr": ["https://angrybirds.webdollarvpn.io:9666"]}, // Thanks to @cbusuioceanu*/
 
         {"addr": ["https://webdollar.csland.ro:8440"]}, // Thanks to @mariotheodor
         {"addr": ["https://webdollar.csland.ro:8441"]}, // Thanks to @mariotheodor
@@ -52449,6 +52456,7 @@ class MiniBlockchainAdvanced extends  __WEBPACK_IMPORTED_MODULE_1__Mini_Blockcha
         }
 
         this._miniBlockchainSaveBlocks = this.blocks.length;
+        await this.lightGZipManager.processAllAccountantTrees();
 
         return false;
 
@@ -52675,10 +52683,7 @@ class MiniBlockchain extends  inheritBlockchain{
         if (await this.simulateNewBlock(block, false, revertActions,
 
                 async ()=>{
-                    let x = new Date().getTime();
-                    let answer =await inheritBlockchain.prototype.includeBlockchainBlock.call( this, block, resetMining, socketsAvoidBroadcast, saveBlock, revertActions );
-                    console.warn("diff2", new Date().getTime()-x);
-                    return answer;
+                    return await inheritBlockchain.prototype.includeBlockchainBlock.call( this, block, resetMining, socketsAvoidBroadcast, saveBlock, revertActions );
                 }
 
             , showUpdate )===false) throw {message: "Error includeBlockchainBlock MiniBlockchain "};
@@ -56004,7 +56009,6 @@ class PPoWBlockchainProofBasic{
 
         this.hash = undefined;
 
-        this.proofGzip = undefined;
         this.proofSerialized = undefined;
 
     }
@@ -91198,9 +91202,10 @@ class PPoWBlockchainProver{
 
             await underlyingChain.calculateProofHash();
             await underlyingChain.calculateProofSerialized();
+            await underlyingChain.calculateProofGzip();
 
-            underlyingChain.proofGzip = undefined;
-            underlyingChain.date = new Date().getTime();
+            //underlyingChain.proofGzip = undefined;
+            //underlyingChain.date = new Date().getTime();
 
         }
 
@@ -98870,6 +98875,20 @@ class MiniBlockchainAdvancedGZipManager{
 
     }
 
+    async processAllAccountantTrees(){
+
+        let index = this.blockchain.blocks.length - __WEBPACK_IMPORTED_MODULE_1_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.SAFETY_LAST_ACCOUNTANT_TREES_TO_DELETE - 2;
+
+        for (let i = this.blockchain.blocks.length - 1; i >= index; i--) {
+
+            if (this.blockchain.lightAccountantTreeSerializationsGzipped[i] === undefined && this.blockchain.lightAccountantTreeSerializations[i] !== undefined)
+                this.blockchain.lightAccountantTreeSerializationsGzipped[i] = await __WEBPACK_IMPORTED_MODULE_0_common_utils_GZip__["a" /* default */].zip(this.blockchain.lightAccountantTreeSerializations[i]);
+
+            await this.blockchain.sleep(5);
+        }
+
+    }
+
     async processGZIP(){
 
         try {
@@ -98877,14 +98896,27 @@ class MiniBlockchainAdvancedGZipManager{
 
                 let index = this.blockchain.blocks.length - __WEBPACK_IMPORTED_MODULE_1_consts_const_global__["a" /* default */].BLOCKCHAIN.LIGHT.SAFETY_LAST_ACCOUNTANT_TREES_TO_DELETE - 2;
                 let position;
-                for (let i = this.blockchain.blocks.length - 1; i >= index; i--)
+                let positionInitial;
+
+                for (let i = this.blockchain.blocks.length - 1; i >= index; i--) {
+                    if (this.blockchain.lightAccountantTreeSerializationsGzipped[i] === undefined && this.blockchain.lightAccountantTreeSerializations[i] !== undefined)
+                        positionInitial = i;
+
                     if (this.blockchain.lightAccountantTreeSerializationsGzipped[i] !== undefined && this.blockchain.lightAccountantTreeSerializations[i] !== undefined) {
                         position = i;
                         break;
                     }
+                }
+
+                if (position === undefined && positionInitial !== undefined){
+                    position = positionInitial;
+                }
 
                 if (position !== undefined) {
-                    position++;
+
+                    if (this.blockchain.lightAccountantTreeSerializationsGzipped[position] !== undefined)
+                        position++;
+
                     if (this.blockchain.lightAccountantTreeSerializationsGzipped[position] === undefined && this.blockchain.lightAccountantTreeSerializations[position] !== undefined)
                         this.blockchain.lightAccountantTreeSerializationsGzipped[position] = await __WEBPACK_IMPORTED_MODULE_0_common_utils_GZip__["a" /* default */].zip(this.blockchain.lightAccountantTreeSerializations[position]);
                 }
@@ -98975,10 +99007,7 @@ class MiniBlockchainLight extends  __WEBPACK_IMPORTED_MODULE_2__Mini_Blockchain_
 
                     async () => {
 
-                        let x = new Date().getTime();
-                        let answer =await this.inheritBlockchain.prototype.includeBlockchainBlock.call( this, block, resetMining, "all", saveBlock, revertActions, showUpdate);
-                        console.log("diff2", new Date().getTime()-x);
-                        return answer;
+                        return await this.inheritBlockchain.prototype.includeBlockchainBlock.call( this, block, resetMining, "all", saveBlock, revertActions, showUpdate);
 
                     },
 
@@ -108400,7 +108429,7 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
 
             if (this.blockchain.proofPi !== undefined && this.blockchain.proofPi.hash.equals(proofPiData.hash)) {
 
-                if (this.forkChainLength > this.blockchain.blocks.length ){
+                if (this.forkChainWork.isGreaterThan(this.blockchain.blocks.chainWork)){
                     this.forkProofPi = this.blockchain.proofPi;
                     return true;
                 } //you have actually more forks but with the same proof
@@ -108626,9 +108655,9 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
 
         if (comparison === 0 && this.forkProofPi.lastProofBlock.height <= this.blockchain.proofPi.lastProofBlock.height ) {
 
-            if (comparison === 0 && this.forkChainLength < this.blockchain.blocks.length) throw {message: "Your proof is worst than mine"};
+            if ( comparison === 0 && this.forkChainWork.lesser(this.blockchain.chainWork) ) throw {message: "Your proof is worst than mine"};
 
-            if (comparison === 0 && this.forkChainLength === this.blockchain.blocks.length && this.forkHeaders[0].compare(this.blockchain.getHashPrev(this.forkStartingHeight + 1)) >= 0)
+            if ( comparison === 0 && this.forkChainWork.equals( this.blockchain.chainWork ) )
                 throw {message: "Your proof is worst than mine because you have the same block"};
 
         }
