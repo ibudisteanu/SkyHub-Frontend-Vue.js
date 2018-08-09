@@ -30564,7 +30564,7 @@ class NodePropagationProtocol {
 
             socket.node.sendRequest("propagation/request-all-wait-list/light-nodes", { index:0, count: this.count(socket) });
 
-        },  3000 + Math.floor( Math.random()*5000));
+        },  500 + Math.floor( Math.random()*3000));
 
     }
 
@@ -30737,7 +30737,7 @@ class NodePropagationProtocol {
 
 
     count(socket){
-        return [__WEBPACK_IMPORTED_MODULE_0_node_lists_types_Node_Consensus_Type__["a" /* default */].NODE_CONSENSUS_MINER_POOL].indexOf( socket.node.protocol.nodeConsensusType ) ? 5 : DOWNLOAD_WAITLIST_COUNT;
+        return [__WEBPACK_IMPORTED_MODULE_0_node_lists_types_Node_Consensus_Type__["a" /* default */].NODE_CONSENSUS_MINER_POOL].indexOf( socket.node.protocol.nodeConsensusType ) ? 15 : DOWNLOAD_WAITLIST_COUNT;
     }
 
 }
