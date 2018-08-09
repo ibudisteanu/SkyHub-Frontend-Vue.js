@@ -125,11 +125,14 @@
 
         },
 
-        mounted(){
+        async mounted(){
 
             if (typeof window === "undefined") return;
 
             WebDollar.StatusEvents.on("miner-pool/settings",data =>  this.loadData() );
+            WebDollar.StatusEvents.on("miner-pool/newPoolURL",data =>  this.loadData() );
+
+            await WebDollar.Blockchain.onPoolsInitialized;
 
             this.loadData();
 
