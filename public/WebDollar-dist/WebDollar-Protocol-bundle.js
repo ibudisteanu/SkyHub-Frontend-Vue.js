@@ -2521,7 +2521,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_geolocation_lists_geolocation_lists__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_node_lists_geolocation_lists_GeoLocation_Lists__ = __webpack_require__(199);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_sockets_protocol_extend_socket_Socket_Address__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Mode_List_Object_js__ = __webpack_require__(739);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_types_Connection_Type__ = __webpack_require__(37);
@@ -2632,7 +2632,7 @@ class NodesList {
             }
 
 
-            __WEBPACK_IMPORTED_MODULE_0_node_lists_geolocation_lists_geolocation_lists__["a" /* default */].includeSocket(socket);
+            __WEBPACK_IMPORTED_MODULE_0_node_lists_geolocation_lists_GeoLocation_Lists__["a" /* default */].includeSocket(socket);
 
             await this.emitter.emit("nodes-list/connected", object);
 
@@ -8507,7 +8507,7 @@ module.exports = types
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__types_Node_Consensus_Type__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_node_lists_geolocation_lists_geolocation_lists__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_node_lists_geolocation_lists_GeoLocation_Lists__ = __webpack_require__(199);
 
 
 
@@ -8650,7 +8650,7 @@ class NodesWaitlist {
         if (sckAddresses.length > 0){
 
             let waitListObject = new __WEBPACK_IMPORTED_MODULE_1__Nodes_Waitlist_Object__["a" /* default */]( sckAddresses, nodeType, nodeConsensusType, level, backedBy , connected, socket );
-            __WEBPACK_IMPORTED_MODULE_9_node_lists_geolocation_lists_geolocation_lists__["a" /* default */]._includeAddress(sckAddresses[0]);
+            __WEBPACK_IMPORTED_MODULE_9_node_lists_geolocation_lists_GeoLocation_Lists__["a" /* default */]._includeAddress(sckAddresses[0]);
 
             let list;
 
@@ -27436,7 +27436,7 @@ module.exports = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__geolocation_address_object_js__ = __webpack_require__(737);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__GeoLocation_Address_Object_js__ = __webpack_require__(737);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_sockets_protocol_extend_socket_Socket_Address__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geo_helpers_geo_helper__ = __webpack_require__(201);
 const axios = __webpack_require__(139);
@@ -27464,7 +27464,7 @@ class GeoLocationLists {
 
         this._pendingLocationLists = [];
 
-        setTimeout(this._processGeoLocationPendingList.bind(this),  true ? 500 : 5000 );
+        setTimeout( this._processGeoLocationPendingList.bind(this),  true ? 500 : 5000 );
     }
 
     async _processGeoLocationPendingList(){
@@ -27474,11 +27474,13 @@ class GeoLocationLists {
             let data = this._pendingLocationLists[0];
             this._pendingLocationLists.splice(0,1);
 
-            let location = await __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geo_helpers_geo_helper__["a" /* default */].getLocationFromAddress(data.address);
+            let location = await __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geo_helpers_geo_helper__["a" /* default */].getLocationFromAddress( data.address );
 
-            if (location === null || location === undefined){
+            if (location === null || location === undefined) {
+
                 //console.warn("LOCATION was not been able to get");
                 return null;
+
             }
 
             location.continent = location.continent || '--';
@@ -27486,13 +27488,16 @@ class GeoLocationLists {
             this._addGeoLocationContinentByAddress( data.address, location );
 
             try {
+
                 data.resolver(location);
+
             } catch (exception){
+
+
+
             }
 
         }
-
-
 
 
         setTimeout(this._processGeoLocationPendingList.bind(this),  true ? 500 : 5000);
@@ -27537,12 +27542,11 @@ class GeoLocationLists {
 
         sckAddress = __WEBPACK_IMPORTED_MODULE_1_common_sockets_protocol_extend_socket_Socket_Address__["a" /* default */].createSocketAddress(sckAddress);
 
-
         if (this._searchGeoLocationContinentByAddress(sckAddress) === null) {
 
-            if ( this.geoLocationContinentsLists[location.continent] === undefined) this.geoLocationContinentsLists[location.continent] = [];
+            if ( this.geoLocationContinentsLists[ location.continent ] === undefined) this.geoLocationContinentsLists[ location.continent ] = [];
 
-            let geoLocationAddressObject = new __WEBPACK_IMPORTED_MODULE_0__geolocation_address_object_js__["a" /* default */](sckAddress, undefined, location);
+            let geoLocationAddressObject = new __WEBPACK_IMPORTED_MODULE_0__GeoLocation_Address_Object_js__["a" /* default */](sckAddress, undefined, location);
             geoLocationAddressObject.refreshLastTimeChecked();
 
             if (this.geoLocationContinentsLists.hasOwnProperty(location.continent))
@@ -27735,7 +27739,7 @@ class GeoHelper {
             list.push("https://geoip.tools/v1/json/?q="+address);
             // list.push ( ["https://geoip-db.com/json/"+address,  ]); //don't support domains
 
-            let data = await __WEBPACK_IMPORTED_MODULE_2_common_utils_helpers_Download_Helper__["a" /* default */].downloadMultipleFiles(list, 30000);
+            let data = await __WEBPACK_IMPORTED_MODULE_2_common_utils_helpers_Download_Helper__["a" /* default */].downloadMultipleFiles(list, 20000);
 
             if (data !== null && data !== undefined){
 
@@ -27779,11 +27783,29 @@ class GeoHelper {
 
 
                 return geoLocation;
-            }
+
+            } else throw {message: "error downloading data"};
+
         }
         catch(Exception){
             console.error("GeoHelper getLocationFromAddress raised an error ",Exception);
-            return null;
+
+            return {
+                country: '',
+                countryCode: '',
+                city: '',
+                state: '',
+                region: '',
+                regionCode: '',
+
+                lat: (22.2120780),
+                lng: (-40.1109744),
+                isp: '',
+                timezone: '',
+
+                continent: '',
+                address: address,
+            };
         }
 
     }
@@ -53759,7 +53781,7 @@ class DownloadHelper{
         }
     }
 
-    async downloadMultipleFiles(addresses, timeout){
+    async downloadMultipleFiles(addresses, timeout = 5000){
 
         if (!Array.isArray(addresses))
             addresses = [addresses];
@@ -117808,7 +117830,7 @@ class NodeWebPeersDiscoveryService {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_consts_const_global__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_node_lists_Nodes_List__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geolocation_lists__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_GeoLocation_Lists__ = __webpack_require__(199);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_lists_waitlist_Nodes_Waitlist__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_node_lists_types_Connection_Type__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__ = __webpack_require__(6);
@@ -117850,7 +117872,7 @@ class NodesStats {
 
         console.info(" blocks: ", __WEBPACK_IMPORTED_MODULE_5_main_blockchain_Blockchain__["a" /* default */].blockchain.blocks.length);
         console.info(" v: ", __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.NODE.VERSION);
-        console.log(" connected to: ", this.statsClients," , from: ", this.statsServer , " web peers WEBRTC", this.statsWebPeers," Network FullNodes:",this.statsWaitlistFullNodes, " Network LightNodes:",this.statsWaitlistLightNodes, "    GeoLocationContinents: ", __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_geolocation_lists__["a" /* default */].countGeoLocationContinentsLists );
+        console.log(" connected to: ", this.statsClients," , from: ", this.statsServer , " web peers WEBRTC", this.statsWebPeers," Network FullNodes:",this.statsWaitlistFullNodes, " Network LightNodes:",this.statsWaitlistLightNodes, "    GeoLocationContinents: ", __WEBPACK_IMPORTED_MODULE_2_node_lists_geolocation_lists_GeoLocation_Lists__["a" /* default */].countGeoLocationContinentsLists );
         console.log(" browsers: ", this.statsBrowsers, " terminal: ", this.statsTerminal);
 
 
