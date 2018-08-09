@@ -8568,7 +8568,7 @@ class NodesWaitlist {
 
 
         //avoid connecting to other nodes
-        if ( __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].MinerPoolManagement !== undefined && __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].MinerPoolManagement.minerPoolStarted && nodeConsensusType !== __WEBPACK_IMPORTED_MODULE_8__types_Node_Consensus_Type__["a" /* default */].NODE_CONSENSUS_SERVER )
+        if ( __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].MinerPoolManagement !== undefined && __WEBPACK_IMPORTED_MODULE_7_main_blockchain_Blockchain__["a" /* default */].MinerPoolManagement.minerPoolStarted && nodeConsensusType !== __WEBPACK_IMPORTED_MODULE_8__types_Node_Consensus_Type__["a" /* default */].NODE_CONSENSUS_SERVER && nodeType !== __WEBPACK_IMPORTED_MODULE_3_node_lists_types_Node_Type__["a" /* default */].NODE_WEB_PEER)
             return {result:false, waitlist: null};
 
 
