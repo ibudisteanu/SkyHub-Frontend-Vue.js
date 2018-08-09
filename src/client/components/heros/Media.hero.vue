@@ -19,7 +19,7 @@
             <div class="mediaContentBox">
                 <a href="http://web.ep.streamovations.be/index.php/event/stream/20180602-1200-eye22" target="_blank">
 
-                    <img alt="itbitcoin" src="/public/assets/images/media/WebDollar-Eu-Parliament.jpeg">
+                    <img alt="WebDollar EU Parliament Budisteanu" src="/public/assets/images/media/WebDollar-Eu-Parliament.jpeg">
                     <h3>Technology summit in Strasbourg</h3>
                     <span>UE Parliament</span>
 

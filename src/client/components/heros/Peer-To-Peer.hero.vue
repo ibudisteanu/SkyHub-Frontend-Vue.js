@@ -60,7 +60,7 @@
                 let poolName = this.poolsListSelected;
                 let value;
 
-                if (poolName === "Pool Mining Disabled")
+                if (poolName === "Consensus (No Pool)")
                     value = false;
                 else {
 
@@ -117,7 +117,7 @@
                     }
 
                     if (!minerPoolFound)
-                        this.poolsListSelected = 'Pool Mining Disabled';
+                        this.poolsListSelected = 'Consensus (No Pool)';
 
                 }
 
