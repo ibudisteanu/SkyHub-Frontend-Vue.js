@@ -2613,9 +2613,7 @@ class NodesList {
 
             let object = new __WEBPACK_IMPORTED_MODULE_2__Mode_List_Object_js__["a" /* default */](socket, connectionType, nodeType, nodeConsensusType,  __WEBPACK_IMPORTED_MODULE_4_node_lists_waitlist_Nodes_Waitlist__["a" /* default */].isAddressFallback(socket.node.sckAddress));
 
-            await this.emitter.emit("nodes-list/connected", object);
 
-            this.nodes.push(object);
 
             if (socket.node.protocol.nodeDomain !== undefined && socket.node.protocol.nodeDomain !== '' && ( socket.node.protocol.nodeType === __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Node_Type__["a" /* default */].NODE_TERMINAL || socket.node.protocol.nodeType === __WEBPACK_IMPORTED_MODULE_5_node_lists_types_Node_Type__["a" /* default */].NODE_WEB_PEER )) {
 
@@ -2635,6 +2633,10 @@ class NodesList {
 
 
             __WEBPACK_IMPORTED_MODULE_0_node_lists_geolocation_lists_geolocation_lists__["a" /* default */].includeSocket(socket);
+
+            await this.emitter.emit("nodes-list/connected", object);
+
+            this.nodes.push(object);
 
             return true;
         }
@@ -27503,7 +27505,7 @@ class GeoLocationLists {
 
         for (let i=0; i<this._pendingLocationLists.length; i++)
             if (this._pendingLocationLists[i].address.matchAddress(sckAddress))
-                return this._pendingLocationLists[i].promise;
+                return this._pendingLocationLists[i];
 
         let data = {
             address: sckAddress,
@@ -27516,16 +27518,19 @@ class GeoLocationLists {
         return data;
     }
 
-    async includeSocket(socket){
+    includeSocket(socket){
 
         if ( socket === undefined || socket === null) return null;
 
+        if ( socket.node !== undefined &&  (socket.node.location === undefined || socket.node.location === null)) {
+            let data = this._includeAddress(socket.node.sckAddress);
+            socket.node.sckAddress._geoLocation = data.promise;
+            socket.node.sckAddress._geoLocationResolver = data.resolver;
+        }
+
         socket.node.location = socket.node.sckAddress.geoLocation;
 
-        if ( socket.node !== undefined &&  (socket.node.location === undefined || socket.node.location === null))
-            await this._includeAddress(socket.node.sckAddress);
-
-        return await socket.node.location;
+        return socket.node.location;
     }
 
     _addGeoLocationContinentByAddress(sckAddress, location){
