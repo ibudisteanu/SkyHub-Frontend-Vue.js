@@ -95,7 +95,7 @@
         computed:{
 
             getPoolPower(){
-                return Utils.showHashes(this.poolHashes/this.networkHashRate*100)
+                return Utils.showHashes(parseInt(this.poolHashes/this.networkHashRate*100))
             },
 
             showPoolRemainingTime(){
@@ -273,13 +273,6 @@
         mounted(){
 
             if (typeof window === "undefined") return;
-
-            // Should be recieved from pool leader
-            if (WebDollar.Blockchain.synchronized){
-
-                //this.networkHashRate = WebDollar.Blockchain.Chain.blocks.networkHashRate;
-
-            }
 
             WebDollar.StatusEvents.on("miner-pool/settings",data =>  this.loadPoolData() );
 
