@@ -2156,8 +2156,8 @@ consts.SETTINGS = {
 
     NODE: {
 
-        VERSION: "1.181",
-        VERSION_COMPATIBILITY: "1.162.0",
+        VERSION: "1.186",
+        VERSION_COMPATIBILITY: "1.186.0",
 
         VERSION_COMPATIBILITY_UPDATE: "",
         VERSION_COMPATIBILITY_UPDATE_BLOCK_HEIGHT: 0,
@@ -2165,7 +2165,7 @@ consts.SETTINGS = {
         PROTOCOL: "WebDollar",
         SSL: true,
 
-        PORT: 80, //port
+        PORT: 8085, //port
         MINER_POOL_PORT: 8086, //port
 
     },
@@ -19969,6 +19969,9 @@ class InterfaceBlockchainFork {
         this._blocksCopy = [];
     }
 
+
+
+
     async _validateFork(validateHashesAgain, firstValidation){
 
         //forkStartingHeight is offseted by 1
@@ -19986,6 +19989,41 @@ class InterfaceBlockchainFork {
         this._validateChainWork();
 
         return true;
+    }
+
+    validateForkImmutability(){
+
+        //detecting there is a fork in my blockchain
+        if ( this.blockchain.blocks.blocksStartingPoint < this.blockchain.blocks.length - 30 )
+            if (this.forkStartingHeight <= this.blockchain.blocks.length - 30){
+                //verify if there were only a few people mining in my last 30 blocks
+
+                let addresses = [];
+
+                for (let i=this.blockchain.blocks.length-30; i<this.blockchain.blocks.length; i++){
+
+                    let found = false;
+                    for (let j=0; j<addresses.length; j++)
+                        if (addresses[j].equals(this.blockchain.blocks[i].data.minerAddress)){
+                            found = true;
+                            break;
+                        }
+
+                    if (!found){
+                        addresses.push(this.blockchain.blocks[i].data.minerAddress)
+                    }
+
+                }
+
+                if (addresses.length > 1)  //in my fork, there were a lot of miners, and not just me
+                    throw {message: "Validate for Immutability failed"};
+                else
+                    return true; //there were just 3 miners, probably it is my own fork...
+
+            }
+
+        return true;
+
     }
 
     _validateChainWork(){
@@ -20142,7 +20180,11 @@ class InterfaceBlockchainFork {
             this.forkStartingHeightDownloading = this.forkBlocks[pos].height;
 
             for (let j=0; j<=pos; j++)
-                this.forkBlocks[j].destroyBlock();
+                if (this.blockchain.blocks[ this.forkBlocks[j].height ] !== this.forkBlocks[j])
+                    this.forkBlocks[j].destroyBlock();
+                else
+                    this.forkBlocks[j] = undefined;
+
 
             this.forkBlocks.splice(0, pos);
         }
@@ -20214,7 +20256,7 @@ class InterfaceBlockchainFork {
 
                 } catch (exception){
 
-                    __WEBPACK_IMPORTED_MODULE_9_common_utils_logging_Log__["a" /* default */].error("preFork raised an error", __WEBPACK_IMPORTED_MODULE_9_common_utils_logging_Log__["a" /* default */].LOG_TYPE.BLOCKCHAIN_FORKS);
+                    __WEBPACK_IMPORTED_MODULE_9_common_utils_logging_Log__["a" /* default */].error("preFork raised an error", __WEBPACK_IMPORTED_MODULE_9_common_utils_logging_Log__["a" /* default */].LOG_TYPE.BLOCKCHAIN_FORKS, exception);
 
                     revertActions.revertOperations('', "all");
                     this._blocksCopy = []; //We didn't use them so far
@@ -20272,9 +20314,9 @@ class InterfaceBlockchainFork {
 
                         if (false)
                             this.forkBlocks[index].blockValidation.blockValidationType['skip-sleep'] = true;
-                        else {
+                        else
                             await this.blockchain.sleep(2);
-                        }
+
 
 
 
@@ -20293,11 +20335,15 @@ class InterfaceBlockchainFork {
 
                 } catch (exception){
 
-                    __WEBPACK_IMPORTED_MODULE_9_common_utils_logging_Log__["a" /* default */].error('-----------------------------------------', __WEBPACK_IMPORTED_MODULE_9_common_utils_logging_Log__["a" /* default */].LOG_TYPE.BLOCKCHAIN_FORKS, );
-                    __WEBPACK_IMPORTED_MODULE_9_common_utils_logging_Log__["a" /* default */].error("saveFork includeBlockchainBlock1 raised exception", __WEBPACK_IMPORTED_MODULE_9_common_utils_logging_Log__["a" /* default */].LOG_TYPE.BLOCKCHAIN_FORKS, );
-                    this.printException( exception );
-                    __WEBPACK_IMPORTED_MODULE_9_common_utils_logging_Log__["a" /* default */].error("index: "+ index + "forkStartingHeight"+this.forkStartingHeight + "fork", __WEBPACK_IMPORTED_MODULE_9_common_utils_logging_Log__["a" /* default */].LOG_TYPE.BLOCKCHAIN_FORKS, );
-                    __WEBPACK_IMPORTED_MODULE_9_common_utils_logging_Log__["a" /* default */].error('-----------------------------------------', __WEBPACK_IMPORTED_MODULE_9_common_utils_logging_Log__["a" /* default */].LOG_TYPE.BLOCKCHAIN_FORKS, );
+                    try {
+                        __WEBPACK_IMPORTED_MODULE_9_common_utils_logging_Log__["a" /* default */].error('-----------------------------------------', __WEBPACK_IMPORTED_MODULE_9_common_utils_logging_Log__["a" /* default */].LOG_TYPE.BLOCKCHAIN_FORKS,);
+                        __WEBPACK_IMPORTED_MODULE_9_common_utils_logging_Log__["a" /* default */].error("saveFork includeBlockchainBlock1 raised exception", __WEBPACK_IMPORTED_MODULE_9_common_utils_logging_Log__["a" /* default */].LOG_TYPE.BLOCKCHAIN_FORKS,);
+                        this.printException(exception);
+                        __WEBPACK_IMPORTED_MODULE_9_common_utils_logging_Log__["a" /* default */].error("index: " + index + "forkStartingHeight" + this.forkStartingHeight + "fork", __WEBPACK_IMPORTED_MODULE_9_common_utils_logging_Log__["a" /* default */].LOG_TYPE.BLOCKCHAIN_FORKS,);
+                        __WEBPACK_IMPORTED_MODULE_9_common_utils_logging_Log__["a" /* default */].error('-----------------------------------------', __WEBPACK_IMPORTED_MODULE_9_common_utils_logging_Log__["a" /* default */].LOG_TYPE.BLOCKCHAIN_FORKS,);
+                    } catch (exception){
+
+                    }
 
                     forkedSuccessfully = false;
 
@@ -20383,7 +20429,6 @@ class InterfaceBlockchainFork {
 
         return success;
     }
-
 
     preForkClone(cloneBlocks=true){
 
@@ -28007,6 +28052,10 @@ class InterfaceBlockchainTransaction{
         if (this.timeLock >= __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TRANSACTIONS_BUG_2_BYTES && this.timeLock < __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TRANSACTIONS_OPTIMIZATION && this.version !== 0x01) throw {message: "version is invalid", version: this.version};
         if (this.timeLock >= __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TRANSACTIONS_OPTIMIZATION && this.version !== 0x02) throw {message: "version is invalid", version: this.version};
 
+        if (blockHeight < __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TRANSACTIONS_BUG_2_BYTES && this.version !== 0x00) throw {message: "version is invalid", version: this.version};
+        if (blockHeight >= __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TRANSACTIONS_BUG_2_BYTES && this.timeLock < __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TRANSACTIONS_OPTIMIZATION && this.version !== 0x01) throw {message: "version is invalid", version: this.version};
+        if (blockHeight >= __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].BLOCKCHAIN.HARD_FORKS.TRANSACTIONS_OPTIMIZATION && this.version !== 0x02) throw {message: "version is invalid", version: this.version};
+
         if (this.nonce > 0xFFFF) throw {message: "nonce is invalid", nonce : this.nonce};
         if (this.timeLock > 0xFFFFFF || this.timeLock < 0) throw {message: "version is invalid", version: this.version};
 
@@ -28192,7 +28241,7 @@ class InterfaceBlockchainTransaction{
      * It will update the Accountant Tree
      */
 
-    _preProcessTransaction(multiplicationFactor = 1 , minerAddress, revertActions){
+    _preProcessTransaction(multiplicationFactor = 1 , revertActions, showUpdate){
         return true;
     }
 
@@ -28201,7 +28250,7 @@ class InterfaceBlockchainTransaction{
         if ( multiplicationFactor === 1 ) { // adding transaction
 
             //nonce
-            if (!this._preProcessTransaction(multiplicationFactor, minerAddress, revertActions, showUpdate)) return false;
+            if (!this._preProcessTransaction(multiplicationFactor, revertActions, showUpdate)) return false;
 
             if (!this.from.processTransactionFrom(multiplicationFactor, revertActions, showUpdate)) return false;
             if (!this.to.processTransactionTo(multiplicationFactor, revertActions, showUpdate)) return false;
@@ -28216,7 +28265,7 @@ class InterfaceBlockchainTransaction{
             if (!this.to.processTransactionTo(multiplicationFactor, revertActions, showUpdate)) return false;
             if (!this.from.processTransactionFrom(multiplicationFactor, revertActions, showUpdate)) return false;
 
-            if (!this._preProcessTransaction(multiplicationFactor, minerAddress, revertActions, showUpdate)) return false;
+            if (!this._preProcessTransaction(multiplicationFactor, revertActions, showUpdate)) return false;
 
 
         }else
@@ -29307,6 +29356,8 @@ class InterfaceBlockchainAgent extends __WEBPACK_IMPORTED_MODULE_8__Interface_Bl
 
         __WEBPACK_IMPORTED_MODULE_0_node_lists_Nodes_List__["a" /* default */].emitter.on("nodes-list/connected", async (result) => {
 
+            //AGENT_STATUS.AGENT_STATUS_SYNCHRONIZED_SLAVES will desync from fallback nodes
+
             // if ( this._determineSynchronizedSlaves() ){
             //
             //     this.status = AGENT_STATUS.AGENT_STATUS_SYNCHRONIZED_SLAVES;
@@ -29715,6 +29766,8 @@ class InterfaceBlockchainProtocolForkSolver{
 
                 if ( fork.forkStartingHeight > fork.forkChainLength-1 )
                     throw {message: "FORK is empty"};
+
+                !fork.validateForkImmutability();
 
                 await fork.initializeFork(); //download the requirements and make it ready
 
@@ -32963,157 +33016,145 @@ module.exports = bytesToUuid;
     "name": "fallback nodes",
 
     "nodes": [
-
-        //---------------------------------------------------------
-        //--------------Community FallBack Nodes-------------------
-        //---------------------------------------------------------
-
-        // {"addr": ["https://webdollar.bitcoinplusplus.com:443"]},
-        // {"addr": ["https://amsterdam.wdpool.io:443"]},
-        // {"addr": ["https://strasbourg.wdpool.io:443"]},
-        // {"addr": ["https://paris.wdpool.io:443"]},
-
-        // {"addr": ["https://wb.ciuc.ro:443"]}, // Thanks to Adi Clar
-        // {"addr": ["https://nodecstl.ddns.net:80"]},
-        {"addr": ["https://webd.5q.ro:3333"]}, // Thanks to Sorin M
-        // {"addr": ["https://shpool.ml:443"]}, // Thanks to @Amahte
-
-        // {"addr": ["https://titan.serg.at:80/"]}, // Thanks to @SergiuWX
-        // {"addr": ["https://titan.serg.at:8080/"]}, // Thanks to @SergiuWX
-        // {"addr": ["https://titan.serg.at:8081/"]}, // Thanks to @SergiuWX
-        // {"addr": ["https://titan.serg.at:8082/"]}, // Thanks to @SergiuWX
-
-        //{"addr": ["https://pool1.cuckoo-pool.com:8443"]},
-
-        {"addr": ["https://node1.petreus.ro:443"]}, // Thanks to Dani Petreus
-        {"addr": ["https://node2.petreus.ro:443"]}, // Thanks to Dani Petreus
-        {"addr": ["https://node3.petreus.ro:443"]}, // Thanks to Dani Petreus
-        {"addr": ["https://node4.petreus.ro:443"]}, // Thanks to Dani Petreus
-        {"addr": ["https://node5.petreus.ro:443"]}, // Thanks to Dani Petreus
-        {"addr": ["https://node6.petreus.ro:443"]}, // Thanks to Dani Petreus
-        {"addr": ["https://node7.petreus.ro:443"]}, // Thanks to Dani Petreus
-        {"addr": ["https://node8.petreus.ro:443"]}, // Thanks to Dani Petreus
-        {"addr": ["https://node9.petreus.ro:443"]}, // Thanks to Dani Petreus
-        {"addr": ["https://node10.petreus.ro:443"]}, // Thanks to Dani Petreus
-
-        {"addr": ["https://webdollarpool.win:80/"]}, // Thanks to @vladimirpetre
-
-        {"addr": ["https://romeonet.ddns.net:65101/"]}, // Thanks to @romeonet
-        {"addr": ["https://romeonet.ddns.net:65001/"]}, // Thanks to @romeonet
-
-        // {"addr": ["https://nodecstl.ddns.net:81/"]}, // Thanks to @taralungaCostel
+        //
+        // //---------------------------------------------------------
+        // //--------------Community FallBack Nodes-------------------
+        // //---------------------------------------------------------
+        //
+        // // {"addr": ["https://webdollar.bitcoinplusplus.com:443"]},
+        // // {"addr": ["https://amsterdam.wdpool.io:443"]},
+        // // {"addr": ["https://strasbourg.wdpool.io:443"]},
+        // // {"addr": ["https://paris.wdpool.io:443"]},
+        //
+        // // {"addr": ["https://wb.ciuc.ro:443"]}, // Thanks to Adi Clar
+        // // {"addr": ["https://nodecstl.ddns.net:80"]},
+        // {"addr": ["https://webd.5q.ro:3333"]}, // Thanks to Sorin M
+        // // {"addr": ["https://shpool.ml:443"]}, // Thanks to @Amahte
+        //
+        // // {"addr": ["https://titan.serg.at:80/"]}, // Thanks to @SergiuWX
+        // // {"addr": ["https://titan.serg.at:8080/"]}, // Thanks to @SergiuWX
+        // // {"addr": ["https://titan.serg.at:8081/"]}, // Thanks to @SergiuWX
+        // // {"addr": ["https://titan.serg.at:8082/"]}, // Thanks to @SergiuWX
+        //
+        // //{"addr": ["https://pool1.cuckoo-pool.com:8443"]},
+        //
+        // {"addr": ["https://node1.petreus.ro:443"]}, // Thanks to Dani Petreus
+        // {"addr": ["https://node2.petreus.ro:443"]}, // Thanks to Dani Petreus
+        // {"addr": ["https://node3.petreus.ro:443"]}, // Thanks to Dani Petreus
+        // {"addr": ["https://node4.petreus.ro:443"]}, // Thanks to Dani Petreus
+        // {"addr": ["https://node5.petreus.ro:443"]}, // Thanks to Dani Petreus
+        // {"addr": ["https://node6.petreus.ro:443"]}, // Thanks to Dani Petreus
+        // {"addr": ["https://node7.petreus.ro:443"]}, // Thanks to Dani Petreus
+        // {"addr": ["https://node8.petreus.ro:443"]}, // Thanks to Dani Petreus
+        // {"addr": ["https://node9.petreus.ro:443"]}, // Thanks to Dani Petreus
+        // {"addr": ["https://node10.petreus.ro:443"]}, // Thanks to Dani Petreus
+        //
+        // {"addr": ["https://webdollarpool.win:80/"]}, // Thanks to @vladimirpetre
+        //
+        // {"addr": ["https://romeonet.ddns.net:65101/"]}, // Thanks to @romeonet
+        // {"addr": ["https://romeonet.ddns.net:65001/"]}, // Thanks to @romeonet
+        //
+        // // {"addr": ["https://nodecstl.ddns.net:81/"]}, // Thanks to @taralungaCostel
 
         {"addr": ["https://robitza.ddns.net:443"]}, // Thanks to @robertclaudiu
         {"addr": ["https://robitza.ddns.net:8080"]}, // Thanks to @robertclaudiu
         {"addr": ["https://robitza.ddns.net:8081"]}, // Thanks to @robertclaudiu
         {"addr": ["https://robitza.ddns.net:8082"]}, // Thanks to @robertclaudiu
+        // //
+        // {"addr": ["https://wd.hoste.ro:40000"]}, // Thanks to @morion4000
+        // {"addr": ["https://wd.hoste.ro:40001"]}, // Thanks to @morion4000
+        // {"addr": ["https://wd.hoste.ro:40002"]}, // Thanks to @morion4000
+        // {"addr": ["https://wd.hoste.ro:40003"]}, // Thanks to @morion4000
+        // {"addr": ["https://wd.hoste.ro:40004"]}, // Thanks to @morion4000
+        // {"addr": ["https://wd.hoste.ro:40005"]}, // Thanks to @morion4000
+        // {"addr": ["https://wd.hoste.ro:40006"]}, // Thanks to @morion4000
+        // {"addr": ["https://wd.hoste.ro:40007"]}, // Thanks to @morion4000
+        // {"addr": ["https://wd.hoste.ro:40008"]}, // Thanks to @morion4000
+        // {"addr": ["https://wd.hoste.ro:40009"]}, // Thanks to @morion4000
         //
-        {"addr": ["https://wd.hoste.ro:40000"]}, // Thanks to @morion4000
-        {"addr": ["https://wd.hoste.ro:40001"]}, // Thanks to @morion4000
-        {"addr": ["https://wd.hoste.ro:40002"]}, // Thanks to @morion4000
-        {"addr": ["https://wd.hoste.ro:40003"]}, // Thanks to @morion4000
-        {"addr": ["https://wd.hoste.ro:40004"]}, // Thanks to @morion4000
-        {"addr": ["https://wd.hoste.ro:40005"]}, // Thanks to @morion4000
-        {"addr": ["https://wd.hoste.ro:40006"]}, // Thanks to @morion4000
-        {"addr": ["https://wd.hoste.ro:40007"]}, // Thanks to @morion4000
-        {"addr": ["https://wd.hoste.ro:40008"]}, // Thanks to @morion4000
-        {"addr": ["https://wd.hoste.ro:40009"]}, // Thanks to @morion4000
-
-        {"addr": ["https://pool.webdollarminingpool.com:41000"]}, // Thanks to @morion4000
-
-        //{"addr": ["https://webdollar.network:5000"]}, // Thanks to @ader1990
-
-        {"addr": ["https://int-webd.com:5001"]}, // Thanks to @int_webd
-        {"addr": ["https://int-webd.com:5002"]}, // Thanks to @int_webd
-        {"addr": ["https://int-webd.com:5003"]}, // Thanks to @int_webd
-        {"addr": ["https://int-webd.com:5004"]}, // Thanks to @int_webd
-        {"addr": ["https://int-webd.com:5005"]}, // Thanks to @int_webd
-        {"addr": ["https://int-webd.com:5006"]}, // Thanks to @int_webd
-        {"addr": ["https://int-webd.com:5007"]}, // Thanks to @int_webd
-        {"addr": ["https://int-webd.com:5008"]}, // Thanks to @int_webd
-        {"addr": ["https://int-webd.com:5009"]}, // Thanks to @int_webd
-        {"addr": ["https://int-webd.com:5010"]}, // Thanks to @int_webd
-        {"addr": ["https://int-webd.com:5011"]}, // Thanks to @int_webd
-        {"addr": ["https://int-webd.com:5012"]}, // Thanks to @int_webd
-        {"addr": ["https://node3.int-webd.com:5001"]}, // Thanks to @int_webd
-        {"addr": ["https://node3.int-webd.com:5002"]}, // Thanks to @int_webd
-        {"addr": ["https://node3.int-webd.com:5003"]}, // Thanks to @int_webd
-        {"addr": ["https://node3.int-webd.com:5004"]}, // Thanks to @int_webd
-        {"addr": ["https://node3.int-webd.com:5005"]}, // Thanks to @int_webd
-        {"addr": ["https://node4.int-webd.com:5001"]}, // Thanks to @int_webd
-        {"addr": ["https://node4.int-webd.com:5002"]}, // Thanks to @int_webd
-        {"addr": ["https://node4.int-webd.com:5003"]}, // Thanks to @int_webd
-        {"addr": ["https://node4.int-webd.com:5004"]}, // Thanks to @int_webd
-        {"addr": ["https://node4.int-webd.com:5005"]}, // Thanks to @int_webd
-        {"addr": ["https://node5.int-webd.com:5001"]}, // Thanks to @int_webd
-        {"addr": ["https://node5.int-webd.com:5002"]}, // Thanks to @int_webd
-        {"addr": ["https://node5.int-webd.com:5003"]}, // Thanks to @int_webd
-        {"addr": ["https://node5.int-webd.com:5004"]}, // Thanks to @int_webd
-        {"addr": ["https://node5.int-webd.com:5005"]}, // Thanks to @int_webd
-        {"addr": ["https://node6.int-webd.com:5001"]}, // Thanks to @int_webd
-        {"addr": ["https://node6.int-webd.com:5002"]}, // Thanks to @int_webd
-        {"addr": ["https://node6.int-webd.com:5003"]}, // Thanks to @int_webd
-        {"addr": ["https://node6.int-webd.com:5004"]}, // Thanks to @int_webd
-        {"addr": ["https://node6.int-webd.com:5005"]}, // Thanks to @int_webd
-        {"addr": ["https://node7.int-webd.com:5001"]}, // Thanks to @int_webd
-        {"addr": ["https://node7.int-webd.com:5002"]}, // Thanks to @int_webd
-        {"addr": ["https://node7.int-webd.com:5003"]}, // Thanks to @int_webd
-        {"addr": ["https://node7.int-webd.com:5004"]}, // Thanks to @int_webd
-        {"addr": ["https://node7.int-webd.com:5005"]}, // Thanks to @int_webd
-
-        // {"addr": ["https://bacm.ro:80"]}, //Thanks to @jigodia
-        // {"addr": ["https://bacm.ro:443"]}, //Thanks to @jigodia
-        // {"addr": ["https://bacm.ro:8080"]}, //Thanks to @jigodia
-        // {"addr": ["https://bacm.ro:8081"]}, //Thanks to @jigodia
-        // {"addr": ["https://bacm.ro:8082"]}, //Thanks to @jigodia*/
-
-
-        //---------------------------------------------------------
-        //--------------WebDollar FallBack Nodes-------------------
-        //---------------------------------------------------------
-
+        // {"addr": ["https://pool.webdollarminingpool.com:41000"]}, // Thanks to @morion4000
         //
-        // {"addr": ["https://skyhub.me:80"]},
-        // {"addr": ["https://presa7.ro:80"]},
+        // //{"addr": ["https://webdollar.network:5000"]}, // Thanks to @ader1990
+        //
+        // {"addr": ["https://node3.int-webd.com:5001"]}, // Thanks to @int_webd
+        // {"addr": ["https://node3.int-webd.com:5002"]}, // Thanks to @int_webd
+        // {"addr": ["https://node3.int-webd.com:5003"]}, // Thanks to @int_webd
+        // {"addr": ["https://node3.int-webd.com:5004"]}, // Thanks to @int_webd
+        // {"addr": ["https://node3.int-webd.com:5005"]}, // Thanks to @int_webd
+        // {"addr": ["https://node4.int-webd.com:5001"]}, // Thanks to @int_webd
+        // {"addr": ["https://node4.int-webd.com:5002"]}, // Thanks to @int_webd
+        // {"addr": ["https://node4.int-webd.com:5003"]}, // Thanks to @int_webd
+        // {"addr": ["https://node4.int-webd.com:5004"]}, // Thanks to @int_webd
+        // {"addr": ["https://node4.int-webd.com:5005"]}, // Thanks to @int_webd
+        // {"addr": ["https://node5.int-webd.com:5001"]}, // Thanks to @int_webd
+        // {"addr": ["https://node5.int-webd.com:5002"]}, // Thanks to @int_webd
+        // {"addr": ["https://node5.int-webd.com:5003"]}, // Thanks to @int_webd
+        // {"addr": ["https://node5.int-webd.com:5004"]}, // Thanks to @int_webd
+        // {"addr": ["https://node5.int-webd.com:5005"]}, // Thanks to @int_webd
+        // {"addr": ["https://node6.int-webd.com:5001"]}, // Thanks to @int_webd
+        // {"addr": ["https://node6.int-webd.com:5002"]}, // Thanks to @int_webd
+        // {"addr": ["https://node6.int-webd.com:5003"]}, // Thanks to @int_webd
+        // {"addr": ["https://node6.int-webd.com:5004"]}, // Thanks to @int_webd
+        // {"addr": ["https://node6.int-webd.com:5005"]}, // Thanks to @int_webd
+        // {"addr": ["https://node7.int-webd.com:5001"]}, // Thanks to @int_webd
+        // {"addr": ["https://node7.int-webd.com:5002"]}, // Thanks to @int_webd
+        // {"addr": ["https://node7.int-webd.com:5003"]}, // Thanks to @int_webd
+        // {"addr": ["https://node7.int-webd.com:5004"]}, // Thanks to @int_webd
+        // {"addr": ["https://node7.int-webd.com:5005"]}, // Thanks to @int_webd
+        //
+        // // {"addr": ["https://bacm.ro:80"]}, //Thanks to @jigodia
+        // // {"addr": ["https://bacm.ro:443"]}, //Thanks to @jigodia
+        // // {"addr": ["https://bacm.ro:8080"]}, //Thanks to @jigodia
+        // // {"addr": ["https://bacm.ro:8081"]}, //Thanks to @jigodia
+        // // {"addr": ["https://bacm.ro:8082"]}, //Thanks to @jigodia*/
         //
         //
-        // {"addr": ["https://webdollar-vps1.ddns.net:80"]},
-        // {"addr": ["https://webdollar-vps2.ddns.net:80"]},
-        // {"addr": ["https://webdollar-vps3.ddns.net:80"]},
-
-        //{"addr": ["https://webdollar.ddns.net:80"]},
-
-        {"addr": ["https://webdollarinfinitypool.space:8085"]}, //Thanks to @Tibi Popescu
-        {"addr": ["https://webdollarinfinitypool.space:8086"]}, //Thanks to @Tibi Popescu
-        {"addr": ["https://webdollarinfinitypool.space:8087"]}, //Thanks to @Tibi Popescu
-        {"addr": ["https://webdollarinfinitypool.space:8088"]}, //Thanks to @Tibi Popescu
-        {"addr": ["https://webdollarinfinitypool.space:8089"]}, //Thanks to @Tibi Popescu
-
-
-        {"addr": ["https://chucknorris.webdollarvpn.io:8080"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://chucknorris.webdollarvpn.io:8081"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://chucknorris.webdollarvpn.io:8082"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://chucknorris.webdollarvpn.io:8083"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://chucknorris.webdollarvpn.io:8084"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://chucknorris.webdollarvpn.io:8085"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://chucknorris.webdollarvpn.io:8086"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://chucknorris.webdollarvpn.io:8087"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://chucknorris.webdollarvpn.io:8088"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://chucknorris.webdollarvpn.io:8089"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://chucknorris.webdollarvpn.io:8090"]}, // Thanks to @cbusuioceanu
-
-        /*{"addr": ["https://angrybirds.webdollarvpn.io:1666"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://angrybirds.webdollarvpn.io:2666"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://angrybirds.webdollarvpn.io:3666"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://angrybirds.webdollarvpn.io:4666"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://angrybirds.webdollarvpn.io:5666"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://angrybirds.webdollarvpn.io:7666"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://angrybirds.webdollarvpn.io:8666"]}, // Thanks to @cbusuioceanu
-        {"addr": ["https://angrybirds.webdollarvpn.io:9666"]}, // Thanks to @cbusuioceanu*/
-
-        {"addr": ["https://webdollar.csland.ro:8440"]}, // Thanks to @mariotheodor
-        {"addr": ["https://webdollar.csland.ro:8441"]}, // Thanks to @mariotheodor
-        {"addr": ["https://webdollar.csland.ro:8442"]}, // Thanks to @mariotheodor
+        // //---------------------------------------------------------
+        // //--------------WebDollar FallBack Nodes-------------------
+        // //---------------------------------------------------------
+        //
+        // //
+        // // {"addr": ["https://skyhub.me:80"]},
+        // // {"addr": ["https://presa7.ro:80"]},
+        // //
+        // //
+        // // {"addr": ["https://webdollar-vps1.ddns.net:80"]},
+        // // {"addr": ["https://webdollar-vps2.ddns.net:80"]},
+        // // {"addr": ["https://webdollar-vps3.ddns.net:80"]},
+        //
+        // //{"addr": ["https://webdollar.ddns.net:80"]},
+        //
+        // {"addr": ["https://webdollarinfinitypool.space:8085"]}, //Thanks to @Tibi Popescu
+        // {"addr": ["https://webdollarinfinitypool.space:8086"]}, //Thanks to @Tibi Popescu
+        // {"addr": ["https://webdollarinfinitypool.space:8087"]}, //Thanks to @Tibi Popescu
+        // {"addr": ["https://webdollarinfinitypool.space:8088"]}, //Thanks to @Tibi Popescu
+        // {"addr": ["https://webdollarinfinitypool.space:8089"]}, //Thanks to @Tibi Popescu
+        //
+        //
+        // {"addr": ["https://chucknorris.webdollarvpn.io:8080"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://chucknorris.webdollarvpn.io:8081"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://chucknorris.webdollarvpn.io:8082"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://chucknorris.webdollarvpn.io:8083"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://chucknorris.webdollarvpn.io:8084"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://chucknorris.webdollarvpn.io:8085"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://chucknorris.webdollarvpn.io:8086"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://chucknorris.webdollarvpn.io:8087"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://chucknorris.webdollarvpn.io:8088"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://chucknorris.webdollarvpn.io:8089"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://chucknorris.webdollarvpn.io:8090"]}, // Thanks to @cbusuioceanu
+        //
+        // /*{"addr": ["https://angrybirds.webdollarvpn.io:1666"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://angrybirds.webdollarvpn.io:2666"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://angrybirds.webdollarvpn.io:3666"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://angrybirds.webdollarvpn.io:4666"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://angrybirds.webdollarvpn.io:5666"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://angrybirds.webdollarvpn.io:7666"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://angrybirds.webdollarvpn.io:8666"]}, // Thanks to @cbusuioceanu
+        // {"addr": ["https://angrybirds.webdollarvpn.io:9666"]}, // Thanks to @cbusuioceanu*/
+        //
+        // {"addr": ["https://webdollar.csland.ro:8440"]}, // Thanks to @mariotheodor
+        // {"addr": ["https://webdollar.csland.ro:8441"]}, // Thanks to @mariotheodor
+        // {"addr": ["https://webdollar.csland.ro:8442"]}, // Thanks to @mariotheodor
         {"addr": ["https://webdollar.csland.ro:8443"]}, // Thanks to @mariotheodor
 
     ]
@@ -54554,7 +54595,7 @@ class MiniBlockchainTransaction extends  __WEBPACK_IMPORTED_MODULE_0_common_bloc
         return new __WEBPACK_IMPORTED_MODULE_2__Mini_Blockchain_Transaction_To__["a" /* default */](this, to);
     }
 
-    _preProcessTransaction(multiplicationFactor = 1 , minerAddress, revertActions, showUpdate){
+    _preProcessTransaction(multiplicationFactor = 1 ,  revertActions, showUpdate){
 
         this.blockchain.accountantTree.updateAccountNonce(this.from.addresses[0].unencodedAddress, multiplicationFactor, revertActions, showUpdate);
 
@@ -59675,7 +59716,9 @@ if (false) {
     NodeExpress = require('node/sockets/node-server/express/Node-Express').default;
 }
 
-
+/**
+ * This is the Agent used to control the status when you are mining in a Pool
+ */
 
 class InterfaceBlockchainAgentMinerPool  extends __WEBPACK_IMPORTED_MODULE_0__Interface_Blockchain_Agent__["a" /* default */] {
 
@@ -87387,6 +87430,8 @@ class InterfaceBlockchainBasic{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_common_utils_BufferExtended__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__protocol_Transactions_Protocol__ = __webpack_require__(744);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Transactions_Pending_Queue_Saving_Manager__ = __webpack_require__(747);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__main_blockchain_Blockchain__ = __webpack_require__(5);
+
 
 
 
@@ -87440,6 +87485,7 @@ class TransactionsPendingQueue {
         let inserted = false;
 
         for (let i=0; i<this.list.length && inserted === false; i++ ) {
+
             let compare = transaction.from.addresses[0].unencodedAddress.compare(this.list[i].from.addresses[0].unencodedAddress);
 
             if (compare < 0) // next
@@ -87529,7 +87575,7 @@ class TransactionsPendingQueue {
 
             try{
 
-                if ( (this.blockchain.blocks.length > this.list[i].pendingDateBlockHeight + __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.MEM_POOL.TIME_LOCK.TRANSACTIONS_MAX_LIFE_TIME_IN_POOL_AFTER_EXPIRATION ||  !this.list[i].validateTransactionEveryTime(undefined, blockValidationType )) &&
+                if ( (this.blockchain.blocks.length > this.list[i].pendingDateBlockHeight + __WEBPACK_IMPORTED_MODULE_0_consts_const_global__["a" /* default */].SETTINGS.MEM_POOL.TIME_LOCK.TRANSACTIONS_MAX_LIFE_TIME_IN_POOL_AFTER_EXPIRATION ||  ( __WEBPACK_IMPORTED_MODULE_4__main_blockchain_Blockchain__["a" /* default */].blockchain.agent.consensus && !this.list[i].validateTransactionEveryTime(undefined, blockValidationType ))  ) &&
                      (this.list[i].timeLock === 0 || this.list[i].timeLock < this.blockchain.blocks.length )) {
                     this._removePendingTransaction(i);
                 }
@@ -101869,12 +101915,13 @@ class NanoWalletProtocol{
 
     }
 
-    virtualizeAddress(address){
+    _subscribeAddress(socket, address){
 
-        for (let i=0; i<this._sockets.length; i++) {
+        return new Promise((resolve)=>{
 
-            this._sockets[i].node.sendRequest("api/subscribe/address/balances", { address: address  });
-            this._sockets[i].node.on("api/subscribe/address/balances/answer/"+address, (data)=>{
+            socket.node.sendRequest("api/subscribe/address/balances", { address: address  });
+
+            socket.node.on("api/subscribe/address/balances/answer/"+address, (data)=>{
 
                 if (__WEBPACK_IMPORTED_MODULE_0_main_blockchain_Blockchain__["a" /* default */].Agent.consensus) return; //make sure the virtualization was not canceled
 
@@ -101902,35 +101949,54 @@ class NanoWalletProtocol{
 
                 }
 
+                resolve( true );
+
             });
 
-            this._sockets[i].node.sendRequest("api/subscribe/address/transactions", { address: address  });
-            this._sockets[i].node.on("api/subscribe/address/transactions/answer/"+address, (data)=>{
 
-                if (__WEBPACK_IMPORTED_MODULE_0_main_blockchain_Blockchain__["a" /* default */].Agent.consensus) return; //make sure the virtualization was not canceled
 
-                if (data === null || !data.result) return false;
+        });
 
-                for (let k in data.transactions){
+    }
 
-                    let transaction = data.transactions[k];
+    _subscribeTransactions(socket, address){
 
-                    let tx = null;
-                    if (transaction !== undefined) tx = __WEBPACK_IMPORTED_MODULE_0_main_blockchain_Blockchain__["a" /* default */].Transactions._createTransaction(transaction.from, transaction.to, transaction.nonce, transaction.timeLock, transaction.version, undefined, false, false);
+        socket.node.sendRequest("api/subscribe/address/transactions", { address: address  });
+        socket.node.on("api/subscribe/address/transactions/answer/"+address, (data)=>{
 
-                    let foundTx = __WEBPACK_IMPORTED_MODULE_0_main_blockchain_Blockchain__["a" /* default */].Transactions.pendingQueue.searchPendingTransactionByTxId(transaction.txId);
+            if (__WEBPACK_IMPORTED_MODULE_0_main_blockchain_Blockchain__["a" /* default */].Agent.consensus) return; //make sure the virtualization was not canceled
 
-                    if ( foundTx === null) {
-                        __WEBPACK_IMPORTED_MODULE_0_main_blockchain_Blockchain__["a" /* default */].Transactions.pendingQueue.includePendingTransaction(tx, "all", true);
-                        foundTx = transaction;
-                    }
+            if (data === null || !data.result) return false;
 
-                    foundTx .confirmed = transaction.confirmed;
+            for (let k in data.transactions){
 
+                let transaction = data.transactions[k];
+
+                let tx = null;
+                if (transaction !== undefined) tx = __WEBPACK_IMPORTED_MODULE_0_main_blockchain_Blockchain__["a" /* default */].Transactions._createTransaction( transaction.from, transaction.to, transaction.nonce, transaction.timeLock, transaction.version, undefined, false, false );
+
+                let foundTx = __WEBPACK_IMPORTED_MODULE_0_main_blockchain_Blockchain__["a" /* default */].Transactions.pendingQueue.searchPendingTransactionByTxId( transaction.txId );
+
+                if ( foundTx === null) {
+                    __WEBPACK_IMPORTED_MODULE_0_main_blockchain_Blockchain__["a" /* default */].Transactions.pendingQueue.includePendingTransaction(tx, "all", true);
+                    foundTx = transaction;
                 }
 
+                foundTx .confirmed = transaction.confirmed;
 
-            });
+            }
+
+
+        });
+
+    }
+
+    virtualizeAddress(address){
+
+        for (let i=0; i<this._sockets.length; i++) {
+
+            this._subscribeAddress(this._sockets[i], address);
+            this._subscribeTransactions(this._sockets[i], address);
 
         }
     }
@@ -112646,7 +112712,7 @@ class PoolDataMiner{
     }
 
     set rewardTotal(newValue){
-        this._rewardTotal = newValue;
+        this._rewardTotal = Math.max(0, newValue);
     }
     set rewardConfirmed(newValue){
         this._rewardConfirmed = newValue;
@@ -112951,7 +113017,7 @@ class PoolDataMinerReferrals {
 
 
     set rewardReferralsTotal(newValue){
-        this._rewardReferralsTotal = newValue;
+        this._rewardReferralsTotal = Math.max(0, newValue);
     }
 
     get rewardReferralsTotal(){
@@ -112959,7 +113025,7 @@ class PoolDataMinerReferrals {
     }
 
     set rewardReferralsConfirmed(newValue){
-        this._rewardReferralsConfirmed = newValue;
+        this._rewardReferralsConfirmed = Math.max(0, newValue);
     }
 
     get rewardReferralsConfirmed(){
@@ -113637,6 +113703,7 @@ class PoolDataBlockInformationMinerInstance {
 
                             address = this.poolManagement.poolData.miners[i].address;
                             break;
+
                         }
 
         } else {
@@ -113869,17 +113936,17 @@ class PoolWorkManagement{
 
         };
 
+        this.poolWork.lastBlockNonce += hashes;
+
         minerInstance.lastBlockInformation =  blockInformationMinerInstance;
         minerInstance.workBlock =  this.poolWork.lastBlock;
         minerInstance.dateActivity = new Date().getTime()/1000;
-
-        this.poolWork.lastBlockNonce += hashes;
 
         blockInformationMinerInstance.workBlock = this.poolWork.lastBlock;
 
         if (this.poolManagement.poolSettings.poolUseSignatures) {
 
-            let message = Buffer.concat([this.poolWork.lastBlockSerialization, __WEBPACK_IMPORTED_MODULE_1_common_utils_Serialization__["a" /* default */].serializeNumber4Bytes(answer.start), __WEBPACK_IMPORTED_MODULE_1_common_utils_Serialization__["a" /* default */].serializeNumber4Bytes(answer.end)]);
+            let message = Buffer.concat( [ this.poolWork.lastBlockSerialization, __WEBPACK_IMPORTED_MODULE_1_common_utils_Serialization__["a" /* default */].serializeNumber4Bytes(answer.start), __WEBPACK_IMPORTED_MODULE_1_common_utils_Serialization__["a" /* default */].serializeNumber4Bytes(answer.end) ]);
             answer.sig = this.poolManagement.poolSettings.poolDigitalSign(message);
 
         }
