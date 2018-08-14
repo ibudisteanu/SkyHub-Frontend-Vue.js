@@ -1963,6 +1963,12 @@ consts.BLOCKCHAIN = {
 
     },
 
+    FORKS:{
+
+        //forks larger than this will not be accepted
+        IMMUTABILITY_LENGTH: 15,
+
+    },
 
     HARD_FORKS : {
 
@@ -2156,8 +2162,10 @@ consts.SETTINGS = {
 
     NODE: {
 
-        VERSION: "1.188",
+        VERSION: "1.190",
+
         VERSION_COMPATIBILITY: "1.186",
+        VERSION_COMPATIBILITY_POOL_MINERS: "1.186",
 
         VERSION_COMPATIBILITY_UPDATE: "",
         VERSION_COMPATIBILITY_UPDATE_BLOCK_HEIGHT: 0,
@@ -2209,10 +2217,10 @@ consts.SETTINGS = {
                 CLIENT: {
 
                     MAX_SOCKET_CLIENTS_WAITLIST: 3,
-                    MAX_SOCKET_CLIENTS_WAITLIST_FALLBACK: 1,
+                    MAX_SOCKET_CLIENTS_WAITLIST_FALLBACK: 3,
 
                     MIN_SOCKET_CLIENTS_WAITLIST: 0,
-                    MIN_SOCKET_CLIENTS_WAITLIST_FALLBACK: 1,
+                    MIN_SOCKET_CLIENTS_WAITLIST_FALLBACK: 2,
 
                     SERVER_OPEN:{
                         MAX_SOCKET_CLIENTS_WAITLIST: 5,
@@ -19994,8 +20002,8 @@ class InterfaceBlockchainFork {
     validateForkImmutability(){
 
         //detecting there is a fork in my blockchain
-        if ( this.blockchain.blocks.blocksStartingPoint < this.blockchain.blocks.length - 30 )
-            if (this.forkStartingHeight <= this.blockchain.blocks.length - 30){
+        if ( this.blockchain.blocks.blocksStartingPoint < this.blockchain.blocks.length - __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].BLOCKCHAIN.FORKS.IMMUTABILITY_LENGTH )
+            if (this.forkStartingHeight <= this.blockchain.blocks.length - __WEBPACK_IMPORTED_MODULE_6_consts_const_global__["a" /* default */].BLOCKCHAIN.FORKS.IMMUTABILITY_LENGTH){
                 //verify if there were only a few people mining in my last 30 blocks
 
                 let addresses = [];
@@ -33062,16 +33070,16 @@ module.exports = bytesToUuid;
         {"addr": ["https://robitza.ddns.net:8081"]}, // Thanks to @robertclaudiu
         {"addr": ["https://robitza.ddns.net:8082"]}, // Thanks to @robertclaudiu
         //
-        // {"addr": ["https://wd.hoste.ro:40000"]}, // Thanks to @morion4000
-        // {"addr": ["https://wd.hoste.ro:40001"]}, // Thanks to @morion4000
-        // {"addr": ["https://wd.hoste.ro:40002"]}, // Thanks to @morion4000
-        // {"addr": ["https://wd.hoste.ro:40003"]}, // Thanks to @morion4000
-        // {"addr": ["https://wd.hoste.ro:40004"]}, // Thanks to @morion4000
-        // {"addr": ["https://wd.hoste.ro:40005"]}, // Thanks to @morion4000
-        // {"addr": ["https://wd.hoste.ro:40006"]}, // Thanks to @morion4000
-        // {"addr": ["https://wd.hoste.ro:40007"]}, // Thanks to @morion4000
-        // {"addr": ["https://wd.hoste.ro:40008"]}, // Thanks to @morion4000
-        // {"addr": ["https://wd.hoste.ro:40009"]}, // Thanks to @morion4000
+        {"addr": ["https://wd.hoste.ro:40000"]}, // Thanks to @morion4000
+        {"addr": ["https://wd.hoste.ro:40001"]}, // Thanks to @morion4000
+        {"addr": ["https://wd.hoste.ro:40002"]}, // Thanks to @morion4000
+        {"addr": ["https://wd.hoste.ro:40003"]}, // Thanks to @morion4000
+        {"addr": ["https://wd.hoste.ro:40004"]}, // Thanks to @morion4000
+        {"addr": ["https://wd.hoste.ro:40005"]}, // Thanks to @morion4000
+        {"addr": ["https://wd.hoste.ro:40006"]}, // Thanks to @morion4000
+        {"addr": ["https://wd.hoste.ro:40007"]}, // Thanks to @morion4000
+        {"addr": ["https://wd.hoste.ro:40008"]}, // Thanks to @morion4000
+        {"addr": ["https://wd.hoste.ro:40009"]}, // Thanks to @morion4000
 
         {"addr": ["https://pool.webdollarminingpool.com:41000"]}, // Thanks to @morion4000
 
@@ -33124,12 +33132,12 @@ module.exports = bytesToUuid;
         // {"addr": ["https://webdollar-vps3.ddns.net:80"]},
 
         //{"addr": ["https://webdollar.ddns.net:80"]},
-        //
-        // {"addr": ["https://webdollarinfinitypool.space:8085"]}, //Thanks to @Tibi Popescu
-        // {"addr": ["https://webdollarinfinitypool.space:8086"]}, //Thanks to @Tibi Popescu
-        // {"addr": ["https://webdollarinfinitypool.space:8087"]}, //Thanks to @Tibi Popescu
-        // {"addr": ["https://webdollarinfinitypool.space:8088"]}, //Thanks to @Tibi Popescu
-        // {"addr": ["https://webdollarinfinitypool.space:8089"]}, //Thanks to @Tibi Popescu
+
+        {"addr": ["https://webdollarinfinitypool.space:8085"]}, //Thanks to @Tibi Popescu
+        {"addr": ["https://webdollarinfinitypool.space:8086"]}, //Thanks to @Tibi Popescu
+        {"addr": ["https://webdollarinfinitypool.space:8087"]}, //Thanks to @Tibi Popescu
+        {"addr": ["https://webdollarinfinitypool.space:8088"]}, //Thanks to @Tibi Popescu
+        {"addr": ["https://webdollarinfinitypool.space:8089"]}, //Thanks to @Tibi Popescu
 
 
         {"addr": ["https://chucknorris.webdollarvpn.io:8080"]}, // Thanks to @cbusuioceanu
@@ -109009,9 +109017,9 @@ class PPoWBlockchainFork extends __WEBPACK_IMPORTED_MODULE_0_common_blockchain_i
 
         if (comparison === 0 && this.forkProofPi.lastProofBlock.height <= this.blockchain.proofPi.lastProofBlock.height ) {
 
-            if ( comparison === 0 && this.forkChainWork.lesser(this.blockchain.chainWork) ) throw {message: "Your proof is worst than mine"};
+            if ( comparison === 0 && this.forkChainWork.lesser(this.blockchain.blocks.chainWork) ) throw {message: "Your proof is worst than mine"};
 
-            if ( comparison === 0 && this.forkChainWork.equals( this.blockchain.chainWork ) )
+            if ( comparison === 0 && this.forkChainWork.equals( this.blockchain.blocks.chainWork ) )
                 throw {message: "Your proof is worst than mine because you have the same block"};
 
         }
