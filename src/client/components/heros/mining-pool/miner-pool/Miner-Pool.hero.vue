@@ -60,7 +60,7 @@
                                  :poolStatus="minerPoolStatus" :poolHashes="poolHashes" :poolMinersOnline="poolMinersOnline"
                                  :poolBlocksConfirmed="poolBlocksConfirmed" :poolBlocksUnconfirmed="poolBlocksUnconfirmed" :poolBlocksConfirmedAndPaid="poolBlocksConfirmedAndPaid"
                                  :poolTimeRemaining="poolTimeRemaining" :rewardReferralTotal="rewardReferralTotal" :rewardReferralConfirmed="rewardReferralConfirmed"
-                                 :poolBlocksBeingConfirmed="poolBlocksBeingConfirmed">
+                                 :poolBlocksBeingConfirmed="poolBlocksBeingConfirmed" :networkHashRate="networkHashRate">
                 </pool-statistics>
 
             </div>
@@ -109,7 +109,8 @@
                 rewardReferralConfirmed: 0,
 
                 subscribedMinerPoolStatistics:false,
-
+                networkHashRate: 0,
+                
             }
         },
 
@@ -238,9 +239,12 @@
                 this.getPoolServers();
             });
 
+            WebDollar.StatusEvents.on("blockchain/new-network-hash-rate", (networkHashRate)=>{
 
+                this.networkHashRate = networkHashRate;
 
-
+            });
+            
         }
 
     }
