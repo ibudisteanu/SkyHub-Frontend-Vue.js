@@ -18,10 +18,22 @@
 
             <div class="listElement webSiteElement" v-for="(element, index) in list" :key="'FacebookRankingListElement '+index">
 
-                <div>{{index+1}}</div>
-                <div class="title">{{element.link}}</div>
-                <div>{{element.alexaScore.toFixed(2)}}</div>
-                <div class="score">{{element.reward !== undefined ? element.reward.toFixed(2) : 'na'}}</div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Status:</span>
+                    <div>{{index+1}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Status:</span>
+                    <div class="title">{{element.link}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Status:</span>
+                    <div>{{element.alexaScore.toFixed(2)}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Status:</span>
+                    <div class="score">{{element.reward !== undefined ? element.reward.toFixed(2) : 'na'}}</div>
+                </div>
 
             </div>
 

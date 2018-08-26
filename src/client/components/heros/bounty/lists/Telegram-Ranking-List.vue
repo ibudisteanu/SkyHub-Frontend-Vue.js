@@ -17,12 +17,31 @@
 
             <div class="listElement telegramElement" v-for="(element, index) in this.list" :key="'TelegramRankingListElement '+index">
 
-                <div>{{index+1}}</div>
-                <div class="title">{{element.username.substring(0, 50)}}</div>
-                <div>{{element.invitesCount}}</div>
-                <div>{{element.messages}}</div>
-                <div>{{element.score !== undefined ? element.score.toFixed(2) : 'na'}}</div>
-                <div class="score">{{element.reward !== undefined ? element.reward.toFixed(2) : 'na'}}</div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Position:</span>
+                    <div>{{index+1}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">User Name:</span>
+                    <div class="title">{{element.username.substring(0, 50)}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Invited members:</span>
+                    <div>{{element.invitesCount}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Messages:</span>
+                    <div>{{element.messages}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Score:</span>
+                    <div>{{element.score !== undefined ? element.score.toFixed(2) : 'na'}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Reward WEBD:</span>
+                    <div class="score">{{element.reward !== undefined ? element.reward.toFixed(2) : 'na'}}</div>
+                </div>
+
             </div>
 
         </div>

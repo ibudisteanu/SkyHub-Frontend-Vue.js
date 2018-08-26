@@ -16,17 +16,37 @@
                 <div>Reward WEBD</div>
             </div>
 
-            <a v-for="(element, index) in list" :key="'FacebookRankingListElement '+index" :href="element.url" target="_blank">
-                <div class="listElement redditElement" >
+            <a v-for="(element, index) in list" :key="'FacebookRankingListElement '+index" :href="element.url" target="_blank" class="listElement redditElement">
 
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Position:</span>
                     <div>{{index+1}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Description:</span>
                     <div class="title">{{element.title.substring(0,50) || element.description.substring(0, 50)}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">User:</span>
                     <div>{{element.username.substring(0,20)}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Value Score:</span>
                     <div>{{element.scoreValue}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Comments:</span>
                     <div>{{element.comments}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Score:</span>
                     <div>{{element.score !== undefined ? element.score.toFixed(2) : 'na'}}</div>
+                </div>
+                <div class="mobileTableShow">
+                    <span class="mobileTableShowTitle">Reward WEBD:</span>
                     <div class="score">{{element.reward !== undefined ? element.reward.toFixed(2) : 'na'}}</div>
                 </div>
+
             </a>
 
         </div>

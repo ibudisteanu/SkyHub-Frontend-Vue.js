@@ -4,7 +4,7 @@
 
         <div class="verticalAlignMiddle">
 
-            <span class="pageTitle alignCenter bigMarginBottom">COIN SUPPLY</span>
+            <span class="pageTitle alignCenter bigMarginBottom">Coin Supply</span>
 
             <div class="distributionContainer maxWidthSection">
 
@@ -62,6 +62,7 @@
 <script>
 
     import LoadingSpinner from "client/components/UI/elements/Loading-Spinner.vue"
+    import Utils from 'src/utils/util-functions'
 
     export default{
 
@@ -102,20 +103,13 @@
             },
 
             getNetworkHashrate(){
-
-                if (this.networkHashRate >= 1000000) return (this.networkHashRate / 1000000).toFixed(2);
-                if (this.networkHashRate >= 1000) return (this.networkHashRate / 1000).toFixed(0);
-                return (this.networkHashRate)
-
+                return Utils.showHashes(this.networkHashRate);
             },
 
             getNetworkHashrateSign(){
-
-                if (this.networkHashRate >= 1000000) return 'Mh/s';
-                if (this.networkHashRate >= 1000) return 'Kh/s';
-                return 'h/s';
-
+                return Utils.showHashesSign(this.networkHashRate);
             }
+
         },
 
         mounted(){

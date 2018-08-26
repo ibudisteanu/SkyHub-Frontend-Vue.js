@@ -9,9 +9,15 @@
                 <img v-on:click="this.collapseMenuBack" src="/public/assets/images/WebDollar-logo-white.png" alt="webDollar logo" id="logo" title="webDollar logo"/>
             </router-link>
 
-            <router-link to="/explorer" :class="this.mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
-                <div v-on:click="this.collapseMenuBack">Explorer</div>
+            <router-link to="/#papers" :class="mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
+                 <div v-on:click="this.collapseMenuBack">Paper</div>
             </router-link>
+
+            <a href="http://webdscan.io" :class="this.mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' " target="_blank" >
+                <!--<router-link to="/explorer" :class="this.mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">-->
+                <div v-on:click="this.collapseMenuBack">Explorer</div>
+                <!--</router-link>-->
+            </a>
 
             <a href="https://webdollarforum.com" :class="this.mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' " target="_blank" >
                 <div v-on:click="this.collapseMenuBack">Forum</div>
@@ -25,20 +31,16 @@
                 <div v-on:click="this.collapseMenuBack">Team</div>
             </router-link>
 
-            <a @click="this.collapseMenuBack" href="/public/doc/WebDollar-White-Paper.pdf" target="_blank" :class="this.mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
-                <div v-on:click="this.collapseMenuBack">White Paper</div>
-            </a>
-
-            <router-link to="/#p2p-network" :class="mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
-                <div v-on:click="this.collapseMenuBack">Network</div>
-            </router-link>
-
             <router-link to="/bounties" :class="mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
                 <div v-on:click="this.collapseMenuBack">Bounties</div>
             </router-link>
 
             <router-link to="/#what-is-WebDollar" :class="mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
                 <div v-on:click="this.collapseMenuBack">About</div>
+            </router-link>
+
+            <router-link to="/pool" :class="mobileMenuOpened && this.isMobile ? 'openedMenuLink' : '' ">
+                <div v-on:click="this.collapseMenuBack">Pool</div>
             </router-link>
 
             <a href="javascript:void(0);" style="font-size:15px;" :style="{display: (mobileMenuOpened || isMobile==false) ? 'none':'block'}" class="icon showMenu" @click="this.showMobileMenu" :class="mobileMenuOpened ? 'openedMenuLink' : '' ">&#9776;</a>

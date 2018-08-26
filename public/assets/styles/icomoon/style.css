@@ -88,7 +88,10 @@
   content: "\ea36";
 }
 .fa-facebook:before {
-  content: "\ea90";
+content: "\ea90";
+}
+.fa-medium:before {
+  content: "\e911";
 }
 .fa-facebook2:before {
   content: "\ea91";

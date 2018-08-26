@@ -6,19 +6,23 @@
 
             <div slot="content">
 
-                <webdollar-hero/>
+                <web-dollar-hero/>
 
                 <what-is-hero/>
 
                 <peer-to-peer-hero/>
 
-                <newsletter/>
-
-                <mining-pool/>
+                <newsletter-hero/>
 
                 <new-crypto-generation-hero/>
 
                 <blockchain-distribution-hero/>
+
+                <miner-pool-hero v-show="!poolActivated"/>
+
+                <pool-hero v-show="poolActivated"/>
+
+                <paper/>
 
                 <timeline-hero/>
 
@@ -40,8 +44,9 @@
 
     import Layout from "client/components/layout/Layout.vue";
 
-    import MiningPool from "client/components/heros/miningPool.hero.vue";
-    import Newsletter from "client/components/heros/Newsletter.hero.vue";
+    import PoolHero from "client/components/heros/mining-pool/pool/Pool.hero.vue";
+    import MinerPoolHero from "client/components/heros/mining-pool/miner-pool/Miner-Pool.hero.vue";
+    import NewsletterHero from "client/components/heros/Newsletter.hero.vue";
     import TeamHero from "client/components/heros/Team.hero.vue";
     import WebDollarHero from "client/components/heros/WebDollar.hero.vue";
     import WhatIsHero from "client/components/heros/About.hero.vue";
@@ -50,33 +55,36 @@
     import KnowUsHero from "client/components/heros/Media.hero.vue";
     import FaqHero from "client/components/heros/Faq.hero.vue";
     import NewCryptoGenerationHero from "client/components/heros/Features.hero.vue";
-    import BlockChainDistributionHero from "client/components/heros/Blockchain-Distribution.hero.vue";
-    import WebdollarHero from "../components/heros/WebDollar.hero.vue";
+    import BlockchainDistributionHero from "client/components/heros/Blockchain-Distribution.hero.vue";
     import MultipleTabs from "../components/heros/Multiple-Tabs.hero.vue";
+    import Paper from "../components/heros/Paper.hero.vue";
 
     export default {
 
         name: "ViewHome",
 
         components:{
-            "layout": Layout,
-            "team-hero": TeamHero,
-            "webdollar-hero": WebDollarHero,
-            "what-is-hero": WhatIsHero,
-            "peer-to-peer-hero": PeerToPeerHero,
-            "timeline-hero": TimelineHero,
-            "know-us-hero": KnowUsHero,
-            "faq-hero": FaqHero,
-            "new-crypto-generation-hero":NewCryptoGenerationHero,
-            "blockchain-distribution-hero":BlockChainDistributionHero,
-            "MultipleTabs":MultipleTabs,
-            Newsletter,
-            MiningPool
+            Layout,
+            TeamHero,
+            WebDollarHero,
+            WhatIsHero,
+            PeerToPeerHero,
+            TimelineHero,
+            KnowUsHero,
+            FaqHero,
+            NewCryptoGenerationHero,
+            BlockchainDistributionHero,
+            PoolHero,
+            MinerPoolHero,
+            MultipleTabs,
+            NewsletterHero,
+            Paper
         },
 
         data: () => {
             return {
-                protocolUsedOnMultipleTabs: false
+                protocolUsedOnMultipleTabs: false,
+                poolActivated: true,
             }
         },
 
@@ -98,6 +106,8 @@
                 }
 
             });
+
+            this.initializePool();
 
             WebDollar.StatusEvents.on("blockchain/logs", (data)=> {
 
@@ -122,7 +132,62 @@
 
             });
 
-        }
+
+            this.loadPoolSettings();
+
+        },
+
+        methods:{
+
+            async initializePool(){
+                
+                if (this.$store.state.route.params.a !== "pool" || this.$store.state.route.params['0'].length < 10 )
+                    return false;
+
+                WebDollar.StatusEvents.on("main-pools/status", async (data)=> {
+
+                    if (data.message === "Pool Initialized") {
+
+                        await WebDollar.Blockchain.MinerPoolManagement.minerPoolSettings.setPoolURL(this.$store.state.route.params['0']);
+                        await WebDollar.Blockchain.MinerPoolManagement.setMinerPoolStarted(true, true);
+
+                        console.log(this.$store.state.route.params['0']);
+                    }
+
+                });
+
+            },
+
+            loadPoolSettings(){
+
+                if (WebDollar.Blockchain.PoolManagement !== undefined && WebDollar.Blockchain.PoolManagement.poolStarted) this.poolActivated = true;
+                else if (WebDollar.Blockchain.MinerPoolManagement !== undefined && WebDollar.Blockchain.MinerPoolManagement.minerPoolStarted) this.poolActivated = false;
+                else this.poolActivated = false;
+
+                WebDollar.StatusEvents.on("miner-pool/status", (data) => {
+
+                    if (data.message === "Miner Pool Started changed")
+                        this.poolActivated = !data.result;
+
+                });
+
+                WebDollar.StatusEvents.on("pools/status", (data) => {
+
+                    if (data.message === "Pool Started changed")
+                        this.poolActivated = data.result;
+
+                });
+
+            }
+
+        },
+
+        async asyncData ({ store,  route: { params: { a,b, c, d, e, f }} }) {
+
+            return true;
+
+        },
+
 
     }
 

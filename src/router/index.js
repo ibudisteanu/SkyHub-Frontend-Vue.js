@@ -7,9 +7,8 @@ Vue.use(Router)
 
 const HomePage = () => import('client/pages/Home.page.vue');
 const Bounty = () => import('client/pages/Bounty.page.vue');
-const ExplorerBlocks = () => import('client/pages/ExplorerBlocks.page.vue');
-const TransactionsPage = () => import('client/pages/Transactions.page.vue');
-const NetworkPage = () => import('client/pages/Pool.page.vue');
+const ExplorerBlocks = () => import('client/pages/Explorer.page.vue');
+const AdminPage = () => import('client/pages/Admin.page.vue');
 const FaqPage = () => import('client/pages/Faq.page.vue');
 const ClearIndexedDBPage = () => import('client/pages/ClearIndexedDB.page.vue');
 
@@ -37,12 +36,10 @@ export function createRouter (){
             { path: '/explorer', component: ExplorerBlocks },
             { path: '/bounties', component: Bounty },
             { path: '/faq', component: FaqPage },
-            { path: '/mypool', component: NetworkPage },
+            { path: '/pool', component: AdminPage },
+            { path: '/pool/:a?', component: AdminPage },
             { path: '/clearIndexedDB', component: ClearIndexedDBPage },
-            { path: '/transactions', component: TransactionsPage },
-            { path: '/:a?/:b?/:c?/:d?', component: HomePage },
-            { path: '/:a?/:b?/:c?', component: HomePage },
-            { path: '/:a?/:b?', component: HomePage },
+            { path: '/:a?/*', component: HomePage },
             { path: '/:a?', component: HomePage },
             { path: '/', component: HomePage },
 

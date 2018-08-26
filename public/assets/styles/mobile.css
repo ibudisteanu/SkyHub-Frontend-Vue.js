@@ -11,21 +11,115 @@
         grid-template-columns: 1fr;
     }
     #mediaContainer{
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
     }
 }
 
-@media only screen and (max-width: 1100px){
+@media only screen and (max-width: 1200px){
+
+    .poolSingleButton{
+        margin: 20px 0!important;
+    }
+
+    #miningPoolController .generalController{
+        height: 150px!important;
+    }
+
+    #miningPoolController .generalController{
+        border-right: solid 1px #fff;
+    }
+
+    .dataStatisticsItem:last-child{
+        border-bottom: none!important;
+    }
+
+    .listType {
+        margin-top: 40px !important;
+    }
+
+    .infoSection{
+        border: none!important;
+    }
+
+    #miningPoolController{
+        width: 100%;
+        display: block;
+        max-width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    #yourPoolSection{
+        width: 100%;
+        display: inline-block;
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto;
+        position: relative;
+        padding-top: 20px;
+        margin-top: 210px;
+        padding-bottom: 80px;
+    }
+
     #yourPoolSection .poolContainer{
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+
+    #miningPoolController{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .infoSection{
+        margin-top: 64px;
+        overflow-x: scroll;
+    }
+
+    .infoSection h2{
+        display: none!important;
+        border-color: none;
+    }
+
+    #miningPoolController{
+        max-height: 230px;
+        border-bottom: solid 1px #fff;
+        overflow: hidden;
+        position: fixed;
+        z-index: 1;
+    }
+
+    .addressTextBox{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .addressTextBox span{
+        line-height: 50px;
+    }
+
+    .addressTextBox img{
+        width: 30px;
+        border: none;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+}
+
+@media only screen and (max-width: 1100px){
+
+    #yourPoolSection .poolContainer{
+        grid-template-columns:  1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     }
     #mediaContainer{
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
     }
     .bountySide{
         display: block;
         width: 100%;
         height: auto;
+        margin-top: -1px;
+        z-index: 100;
     }
     .bountyPage{
         display: block;
@@ -34,19 +128,65 @@
         display: inline-block;
         width: 60px;
         border-left: solid 1px#3a3a3a;
+        transition: none;
     }
     .bountyCampaigns span:last-child{
         border-right: solid 1px#3a3a3a;
     }
     .bountyMain{
-        min-width: 1100px;
-        padding: 70px 10px 100px 20px;
+        /*min-width: 1100px;*/
+        padding: 70px 0 100px 0;
     }
+
+    .bountySpinner{
+        margin-top: 50px;
+        width: 50px;
+        height: 50px;
+        margin-bottom: 70px;
+    }
+
 }
 
 @media only screen and (max-width : 992px) {
+
+    #papers .twoColums {
+        grid-column-gap: 50px;
+    }
+
+    .btnPosition{
+        margin-top: 60px!important;
+    }
+
+    .listElement div{
+        line-height: normal;
+    }
+
+    .mobileTableShowTitle {
+        display: block;
+    }
+
+    .poolSectionContainer .mobileTableShowTitle {
+        display: none;
+    }
+
+    .infoBounty{
+        display: block;
+    }
+
+    .countDown{
+        height: 140px;
+    }
+
+    .transactionInfo{
+        font-size: 12px;
+    }
+
+    #yourPoolSection .poolContainer{
+        grid-template-columns:  1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+
     #mediaContainer{
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
     }
     .teamWrapper{
         grid-template-columns: 1fr 1fr 1fr;
@@ -112,8 +252,75 @@
         padding: 70px 0 60px 30px;
     }
 
-    #yourPoolSection .poolContainer{
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    .listType{
+        display: none;
+    }
+
+    .list{
+        text-align: left;
+    }
+
+    .mobileTableShow .title{
+        line-height: normal;
+        height: 28px;
+        overflow: hidden;
+    }
+
+    .mobileTableShow{
+        white-space: nowrap;
+    }
+
+    .listElement{
+        display: block;
+        text-align: left;
+    }
+
+    .listHead{
+        display: none;
+    }
+
+    .bountyMain .mobileTableShow{
+        grid-template-columns: 160px 1fr;
+        padding: 6px 0 2px 0;
+        display: grid;
+    }
+
+    .bountyMain .mobileTableShow:nth-child(2n+0){
+        background-color: #2b2b2b;
+    }
+
+    .bountyMain .mobileTableShowTitle, .bountyMain .mobileTableShowTitle div{
+        font-size: 12px;
+        padding: 0!important;
+        line-height: 20px;
+        margin: 0 0 0 5px;
+    }
+
+    .bountyMain .listElement{
+        margin-bottom: 20px;
+        border-color: #131313;
+    }
+
+    .bountyMain .list{
+        margin-top: 20px;
+    }
+
+    .bountyMain .list .title{
+        height: auto;
+        padding-left: 0;
+    }
+
+    .bountyMain .listElement:nth-child(2n+0){
+        background-color: #464646
+    }
+
+    .listElement{
+        color: #a9a9a9;
+    }
+
+    .mobileTableShowTitle{
+        color: #fff;
+        text-transform: uppercase;
     }
 
 }
@@ -132,19 +339,123 @@
         padding-bottom: 125px;
     }
 
-    #yourPoolSection .poolContainer{
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
     .our-team:hover{
         transform: none;
     }
+
+    #papers .twoColums{
+        display: block;
+    }
+
+    #papers .paperItem{
+        height: auto;
+        padding: 20px 0 30px 0;
+    }
+
+    #papers .blackPaper .paperItem2{
+        padding-bottom: 0;
+    }
+
+    #papers .whitePaper .paperItem2{
+        padding-top: 0;
+    }
+
+    .blackPaper{
+        border-bottom-right-radius: 0!important;
+        border-top-right-radius: 0!important;
+    }
+
+    .whitePaper{
+        border-bottom-left-radius: 0!important;
+        border-top-left-radius: 0!important;
+    }
+
+    #papers .specialMarginTop{
+        margin-top: 0!important;
+        padding: 0;
+    }
+
+    .paperItemColor1{
+        background-color: transparent!important;
+    }
+
+    .paperItemColor2{
+        background-color: transparent!important;
+    }
+
+    .paperItemColor3{
+        background-color: transparent!important;
+    }
+
+    .paperImg:hover{
+        width: 160px!important;
+        margin: 40px 0 10px 0!important;
+        transition: all 0.3s ease;
+    }
+
+    #paper{
+        padding-top: 100px;
+    }
+
 }
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
 
+    .listType{
+        margin-top: 10px!important;
+    }
+
+    .mottoWebSite{
+        margin-top: 30px;
+        line-height: 30px;
+    }
+
+    .statusMining {
+        margin-top: 30px!important;
+    }
+
+    .threeTeamColums, .twoTeamColums{
+        grid-template-columns: 1fr!important;
+    }
+
+    .specialRaw{
+        grid-template-columns: 1fr!important;
+    }
+
+    .specialTitle{
+        text-align: left!important;
+    }
+
+    .transactionInfo span{
+        width: 100%;
+    }
+
+    .transactionInfo{
+        grid-template-columns: 80px 100px 1fr 80px;
+    }
+
+    #yourPoolSection .poolContainer{
+        grid-template-columns:  1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+
+    #miningPoolController .generalController{
+        border-right: none;
+        height: auto!important;
+        padding-bottom: 10px;
+    }
+
+    #miningPoolController{
+        max-height: none;
+    }
+
     #mediaContainer{
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
+    }
+
+    #yourPoolSection{
+        margin-top: 0;
+        padding-top: 0;
     }
 
     .fullSection .verticalAlignMiddle{
@@ -152,10 +463,14 @@
         transform: none;
     }
 
+    .infoSection{
+        margin-top: 0px;
+    }
+
     #menu .openedMenuLink{
         width: 100%;
         display: block;
-        padding: 15px 16px;
+        padding: 15px 0;
         border-top: solid 1px #3c3c3c;
     }
 
@@ -167,10 +482,6 @@
         margin-top: 40px!important;
     }
 
-    #yourPoolSection .poolContainer{
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    }
-
     #miningPoolController{
         width: 100%;
         display: block;
@@ -180,7 +491,7 @@
     }
 
     #yourPoolSection{
-        padding-top: 50px;
+        padding-top: 0;
         margin-left: 0
     }
 
@@ -250,9 +561,14 @@
         margin-bottom: 30px;
     }
 
+    .statusMining{
+        margin-bottom: 0;
+    }
+
     #createPoolSection .distributionContainer {
         grid-template-columns: 1fr;
         grid-row-gap: 50px;
+        padding-top: 0;
     }
 
     #createPoolSection{
@@ -302,7 +618,7 @@
     }
     .mainLogo {
         width: 40%;
-        margin-bottom: 0;
+        /*margin-bottom: 0;*/
     }
     .teamWrapper{
         grid-template-columns: 1fr 1fr;
@@ -361,10 +677,6 @@
         margin-bottom: 40px!important;
     }
 
-    #yourPoolSection .poolContainer{
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    }
-
     .backgroundVideoWrap{
         top:40px;
     }
@@ -379,6 +691,76 @@
 
 }
 
+@media only screen and (max-width: 610px) {
+
+    .listType{
+        margin-bottom: 10px;
+    }
+
+    .addressOnMobile{
+        font-size: 10px;
+    }
+
+    .addressOnMobile .mobileTableShowTitle{
+        display: none!important;
+    }
+
+    .showOnlyOnMobile{
+        display: block;
+    }
+
+    .showOnlyOnMobile .walletListImage{
+        display: block;
+    }
+
+    .walletListImage{
+        display: none;
+    }
+
+    .smallFontAddress{
+        display: block;
+    }
+
+    .selectedMinerInfo{
+        display: none;
+    }
+
+    .infoSection{
+        display: none;
+        margin-left: 8px;
+    }
+
+    .poolSectionContainer .mobileTableShowTitle{
+        display: block;
+    }
+
+    .transactionInfo{
+        display: block;
+        text-align: left;
+        padding-left: 10px;
+    }
+
+    .mobileTableShowTitle{
+        display: block;
+        text-transform: uppercase;
+        color: #fff;
+    }
+
+    .mobileTableShow{
+        display: grid;
+        grid-template-columns: 120px 1fr;
+    }
+
+    .tableHeader{
+        display: none;
+    }
+
+    .transactionInfo:nth-child(2n+0){
+        background-color: #333;
+    }
+
+}
+
 @media only screen and (max-width: 550px){
 
     .distributionContainer .stats{
@@ -389,6 +771,14 @@
         padding: 0 10px;
     }
 
+    #miningPoolController .generalController{
+        padding-bottom: 0px;
+        margin-top: 5px;
+    }
+
+    #yourPoolSection .poolContainer{
+        grid-template-columns:  1fr 1fr 1fr 1fr 1fr ;
+    }
 
 }
 
@@ -401,7 +791,7 @@
     }
 
     #yourPoolSection .poolContainer{
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
     }
 
     .textContainer{
@@ -439,9 +829,21 @@
     .secondCopyRight{
         font-size: 7px;
     }
+
 }
 
-/* Custom, iPhone Retina */
-@media only screen and (max-width : 320px) {
+@media only screen and (max-width : 370px) {
+
+    .linkIconSocial img{
+        width: 30px!important;
+    }
+
+    .minedBy{
+        font-size: 10px;
+    }
+
+    .btnPosition{
+        margin-top: 30px!important;
+    }
 
 }
