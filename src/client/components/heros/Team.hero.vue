@@ -194,24 +194,6 @@
 
                 <div class="our-team ">
                     <div class="team-pic">
-                        <img src="/public/assets/images/team/IonutMoraru.jpeg" alt="Ionut Moraru" title="Ionut Moraru">
-                        <div class="over-layer">
-                            <ul class="social-link">
-                                <!--<li><a href="https://www.facebook.com/Ionut.Alex.Panait" target="_blank"  class="fa fa-facebook"></a></li>-->
-                                <!--<li><a href="https://www.linkedin.com/in/panait-alexandru-ionut-64181ba7/" target="_blank" class="fa fa-linkedin2"></a></li>-->
-                                <!--<li><a href="https://twitter.com/AlexandruPanai" target="_blank" class="fa fa-twitter"/></li>-->
-                            </ul>
-                        </div>
-                    </div>
-                    <span class="teamName">Ionut Moraru</span>
-                    <span class="teamRole">Data Analyst</span>
-                    <p class="description">
-                        Ionut is a software developer with 10 years of experience working with web and mobile technologies. He has over a year of experience working with Solidity and Blockchain related technologies.
-                    </p>
-                </div>
-
-                <div class="our-team ">
-                    <div class="team-pic">
                         <img src="/public/assets/images/team/ConstantinBusuioceanu.jpeg" alt="Constantin Busuioceanu" title="Constantin Busuioceanu">
                         <div class="over-layer">
                             <ul class="social-link">
@@ -225,6 +207,24 @@
                     <span class="teamRole">Sys Admin</span>
                     <p class="description">
                         Constantin has 20 years experience in Information Technology and Communications. He brought 8192bit data encryption over the Internet in Romania and it's the president of an NGO that stands for the Freedom of the Internet.
+                    </p>
+                </div>
+
+                <div class="our-team ">
+                    <div class="team-pic">
+                        <img src="/public/assets/images/team/IonutMoraru.jpeg" alt="Ionut Moraru" title="Ionut Moraru">
+                        <div class="over-layer">
+                            <ul class="social-link">
+                                <!--<li><a href="https://www.facebook.com/Ionut.Alex.Panait" target="_blank"  class="fa fa-facebook"></a></li>-->
+                                <!--<li><a href="https://www.linkedin.com/in/panait-alexandru-ionut-64181ba7/" target="_blank" class="fa fa-linkedin2"></a></li>-->
+                                <!--<li><a href="https://twitter.com/AlexandruPanai" target="_blank" class="fa fa-twitter"/></li>-->
+                            </ul>
+                        </div>
+                    </div>
+                    <span class="teamName">Ionut Moraru</span>
+                    <span class="teamRole">Data Analyst</span>
+                    <p class="description">
+                        Ionut is a software developer with 10 years of experience working with web and mobile technologies. He has over a year of experience working with Solidity and Blockchain related technologies.
                     </p>
                 </div>
 

@@ -8,17 +8,21 @@
 
             <div class="paperItem paperItemColor1 blackPaper">
 
-                <div class="paperItem2 paperItemColor2">
+                <a href="/public/doc/WebDollar-Black-Paper.pdf" target="_blank" class="paperItem paperItemColor1 whitePaper">
 
-                    <div class="paperItem2 paperItemColor3">
+                    <div class="paperItem2 paperItemColor2">
 
-                        <img class="paperImg" src="public/assets/images/black_paper.png">
+                        <div class="paperItem2 paperItemColor3">
 
-                        <h2>Black Paper</h2>
+                            <img class="paperImg" src="public/assets/images/black_paper.png">
+
+                            <h2>Black Paper</h2>
+
+                        </div>
 
                     </div>
 
-                </div>
+                </a>
 
                 <span>Short presentation of the project</span>
 
