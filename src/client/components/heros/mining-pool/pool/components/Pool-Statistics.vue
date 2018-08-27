@@ -33,8 +33,8 @@
             </span>
 
             <span class="oneLineText">
-                To be Paid: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksConfirmed}} </span> Paid already: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksConfirmedAndPaid}} </span> <br/>
-                Being confirmed: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksBeingConfirmed}} </span> Unconfirmed <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksUnconfirmed}} </span>
+                Blocks to be Paid: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksConfirmed}} </span>; Blocks already paid: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksConfirmedAndPaid}} </span> <br/>
+                <!--Being confirmed: <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksBeingConfirmed}} </span> Unconfirmed <span class="normalSpan" :class="this.isNotNullColor"> {{this.poolBlocksUnconfirmed}} </span>-->
             </span>
 
             <span class="oneLineText">
@@ -42,7 +42,7 @@
             </span>
 
             <span v-if="this.statsType === 'miner' " class="oneLineText">
-                Referral Potential Reward: <span class="normalSpan" :class="this.isNotNullColor"> {{this.referralPotential}} WEBD</span>
+                Your Referral Potential Reward: <span class="normalSpan" :class="this.isNotNullColor"> {{this.referralPotential}} WEBD</span>
             </span>
 
         </div>
@@ -95,14 +95,14 @@
         computed:{
 
             getPoolPower(){
-                return Utils.showHashes(parseInt(this.poolHashes/this.networkHashRate*100))
+                return Utils.showHashes(parseInt((this.poolHashes/10)/this.networkHashRate*100))
             },
 
             showPoolRemainingTime(){
 
                 if (this.poolTimeRemaining === undefined || this.poolTimeRemaining === -1) return `na`;
 
-                let time = this.poolTimeRemaining;
+                let time = this.poolTimeRemaining*10;
 
                 let y = Math.floor(time / (12*30*7*24*60*60));
                 time %= (12*30*7*24*60*60);
@@ -176,11 +176,11 @@
 
 
             getHashrate(){
-                return Utils.showHashes(this.poolHashes);
+                return Utils.showHashes(this.poolHashes/10);
             },
 
             getHashrateSign(){
-                return Utils.showHashesSign(this.poolHashes);
+                return Utils.showHashesSign(this.poolHashes/10);
             },
 
             referralPotential(){

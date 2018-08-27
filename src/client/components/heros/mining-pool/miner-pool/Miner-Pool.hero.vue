@@ -20,35 +20,45 @@
 
                     <div class="verticalAlignMiddle">
 
-                        <div class="poolQuickActions" v-if="this.poolReferralFee!=0">
+                        <div class="poolQuickActions" >
 
                             <!--<router-link class="copyPoolLink" to="/pool">-->
                                 <!--Referrals Dashboard-->
                             <!--</router-link>-->
 
-                            <div>
+                            <div class="twoColums">
 
-                                <p class="copyPoolLink" @click="copyToClipboard">
-                                    Copy Referral Link
-                                </p>
+                                <div>
 
-                                <span style=""></span>
+                                    <p class="copyPoolLink" @click="copyToClipboard">
+                                        Copy Referral Link
+                                    </p>
 
-                                <span :class="this.isNotNullColor"> Earn {{this.poolReferralFee}} % WEBD from each invited friend</span>
+                                </div>
+
+                                <div>
+
+                                    <router-link class="copyPoolLink" to="/pool">
+                                        See your Referrals
+                                    </router-link>
+
+                                </div>
 
                             </div>
 
-                        </div>
-
-                        <div v-if="this.poolReferralFee===0" class="poolQuickActions">
-
-                            <span class="noMarginTop">Your current pools doesn't has referral system.</span>
-
-                            <router-link class="copyPoolLink" to="/pool">
-                                Create Your Own Pool
-                            </router-link>
+                            <span :class="this.isNotNullColor"> Earn {{this.poolReferralFee}} % WEBD from each invited friend</span>
 
                         </div>
+
+                        <!--<div v-if="this.poolReferralFee===0" class="poolQuickActions">-->
+
+                            <!--<span class="noMarginTop">Your current pools doesn't has referral system.</span>-->
+
+                            <!--<router-link class="copyPoolLink" to="/pool">-->
+                                <!--Create Your Own Pool-->
+                            <!--</router-link>-->
+
+                        <!--</div>-->
 
                     </div>
 
